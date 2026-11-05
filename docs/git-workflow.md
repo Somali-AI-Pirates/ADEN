@@ -1,0 +1,279 @@
+# Git 저장소·협업 설계
+
+작성 기준: 2026-11-05. 대상은 우선 Basic을 구현하는 해운 RAG 팀 프로젝트다. 아래 소스 구조·GitHub 설정은 구현 시 적용할 설계안이며, 현재 실제로 정리한 파일은 루트 README와 `docs/` 문서다.
+
+관련 문서: [문서 목차](README.md) · [시스템 설계](architecture.md)
+
+## 1. 기본 방침
+
+하나의 GitHub 저장소에서 서비스, 데이터 처리, 검색, 평가를 함께 관리한다. 현재 연결된 저장소는 [Somali-AI-Pirates/ADEN](https://github.com/Somali-AI-Pirates/ADEN)이다.
+
+- 기능별 폴더를 나누고 공통 입력·출력 계약으로 연결한다.
+- 설계 Markdown은 `docs/`에 모은다.
+- 작업 브랜치는 `main`에서 만들고 PR로 `main`에 병합한다.
+- 각 작업은 리뷰할 수 있는 크기로 나누고 초기부터 연결한다.
+- 원본 데이터·색인·캐시는 로컬에서 관리하고, 코드·설정·선별 정리한 제출 결과는 Git에 남긴다.
+
+Basic·Intermediate·Advanced는 같은 코드의 설정과 데이터 경로로 구분한다. 난이도별 장기 브랜치나 별도 저장소를 만들지 않는다.
+
+## 2. 저장소 목표 구조
+
+```text
+ADEN/
+├── README.md                    # 소개·설치·실행·문서·결과 링크
+├── .gitignore                   # 원본 데이터·생성물·비밀값 제외
+├── .env.example                 # 환경변수 이름, 실제 키 없음
+├── pyproject.toml               # 의존성·개발 도구 설정
+├── uv.lock                      # uv 채택 시 잠금 파일도 커밋
+├── main.py                      # create_app() 호출
+├── .github/                     # 구현 시작 시 필요한 항목부터 추가
+│   ├── pull_request_template.md
+│   └── workflows/
+│       └── ci.yml               # 실제 실행 가능한 검사만 등록
+├── docs/                        # 설계 Markdown 모음
+│   ├── README.md                # 문서 목차
+│   ├── architecture.md          # 시스템 설계
+│   └── git-workflow.md          # 저장소·협업 설계
+├── configs/
+│   └── basic.yaml               # 공통 실험·서비스 설정
+├── app/
+│   ├── core/                    # 공통 계약·설정·예외·리소스
+│   ├── ingestion/               # PDF 추출·청킹
+│   ├── indexing/                # 임베딩·Dense/BM25 색인
+│   ├── retrieval/               # 세 검색 방식
+│   ├── generation/              # 문맥·모델 호출·출처 검증
+│   ├── service/                 # 질문 한 건의 실행 순서
+│   ├── api/                     # FastAPI
+│   └── observability/           # Langfuse·시간·토큰·오류
+├── prompts/                     # 서비스·방어·Judge 프롬프트
+├── evaluation/                  # 평가 코드
+├── scripts/                     # 색인 생성·평가 실행 명령
+├── tests/                       # 필요한 단위·통합 검사
+├── data/
+│   ├── README.md                # 데이터 출처·배치·검증 안내
+│   └── basic/
+│       ├── documents/           # 원본 PDF, Git 제외
+│       └── evaluation/          # 제공 질문·정답, Git 제외
+├── artifacts/                   # 추출·청크·전체 실행 기록, Git 제외
+├── reports/                     # 제출용 결과, Git 추적
+│   ├── README.md                # 실험 목록·최종 구성 링크
+│   └── basic-<experiment_id>/
+│       ├── README.md            # 실행 조건·해석·최종 선택·한계
+│       ├── manifest.json        # 비밀값을 제외한 재현 설정
+│       ├── comparison.csv       # 선택한 질문 전체 × 세 방식
+│       ├── answers.jsonl        # 실제 답변·상태·인용·요청 ID
+│       ├── scores.jsonl         # 평가 점수·사유·N/A·실패
+│       └── security_comparison.csv
+└── presentations/               # 발표자료, 작성 단계에 추가
+```
+
+`uv.lock`은 uv를 채택할 때 사용한다. 강의 환경의 다른 패키지 관리자를 유지한다면 그 방식에 맞는 의존성 잠금 파일 하나를 사용한다. 도구별 잠금 파일을 중복 관리하지 않는다.
+
+Git은 빈 폴더를 기록하지 않는다. 필요한 데이터 배치 위치는 `.gitkeep`으로 남길 수 있다. `artifacts/`와 저장소 내부 캐시 경로는 실행 코드가 생성하도록 한다. 미래에 쓸 빈 폴더와 빈 설정 파일을 미리 모두 만들 필요는 없다.
+
+## 3. Git에 포함할 파일
+
+| 구분 | Git 추적 | 이유 |
+| --- | --- | --- |
+| 소스·테스트·설계·프롬프트 | 포함 | 협업·리뷰·재현 대상 |
+| `configs/basic.yaml`, 의존성 잠금 파일 | 포함 | 공통 실행 조건 재현 |
+| `.env.example` | 포함 | 필요한 변수 이름 공유 |
+| `data/README.md`, `.gitkeep` | 포함 | 자료를 받는 위치와 배치 안내 |
+| 제공 ZIP·PDF·질문·정답 JSON | 제외 | 제공 자료를 별도 설치하고 원본 보존 |
+| 추출 텍스트·청크·벡터 색인·모델 캐시 | 제외 | 코드와 설정으로 재생성 |
+| `.env`, API 키, 로그의 인증정보 | 제외 | 비밀값은 로컬 환경변수로 관리 |
+| `artifacts/` 전체 실행 파일 | 제외 | 로컬 분석용 생성물 |
+| `reports/` 제출 결과 | 포함 | 발제문이 요구하는 비교 결과·근거 보존 |
+| 최종 발표자료 | 포함 또는 README에 열람 링크 | 팀 Notion에서도 연결 |
+
+`data/README.md`에는 발제문·Basic 데이터셋 링크, 해운 ZIP 2개를 푸는 위치, PDF 15개·총 360쪽 확인 방법, 색인 생성 명령을 기록한다. 실제 파일을 확보한 뒤 파일 목록과 해시를 기록한다. 확인 전 해시나 목록을 만들지 않는다.
+
+제공 평가 JSON을 Git에서 제외하는 것만으로 평가 누수가 방지되는 것은 아니다. 색인 입력은 `documents/*.pdf`로 제한하고, 정답 파일은 답변 생성 후 평가 모듈에서만 읽는다.
+
+### `.gitignore` 초기안
+
+다음은 향후 생성할 설정 예시다. 현재 `.gitignore` 파일을 적용한 상태는 아니다.
+
+```gitignore
+# Python / 도구 캐시
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# 로컬 비밀값
+.env
+.env.*
+!.env.example
+
+# 제공 자료: 안내와 자리표시 파일만 추적
+/data/**
+!/data/**/
+!/data/**/.gitkeep
+!/data/README.md
+
+# 로컬 생성물과 모델/DB 저장소
+/artifacts/
+/models/
+/storage/
+/logs/
+.cache/
+*.log
+
+# 운영체제 파일
+.DS_Store
+Thumbs.db
+```
+
+Qdrant 데이터는 예를 들어 `storage/qdrant/`에 둔다. 경로를 바꾸면 제외 규칙도 맞춘다. `*.json`, `*.csv`, `*.pdf`를 저장소 전체에서 막는 규칙은 사용하지 않는다. 설정·비교 결과·발표자료까지 누락되기 때문이다. 이미 추적 중인 파일에는 `.gitignore`가 소급 적용되지 않으므로 PR의 파일 목록을 확인한다.
+
+## 4. 브랜치 구조
+
+```text
+main
+ ├── docs/project-structure       → PR → main
+ ├── feat/12-pdf-ingestion        → PR → main
+ ├── feat/18-hybrid-search        → PR → main
+ ├── feat/23-api-tracing          → PR → main
+ └── fix/31-citation-page         → PR → main
+```
+
+작업 브랜치는 오래 유지하지 않고, 하나의 검토 가능한 기능이나 수정이 끝나면 병합한다. 첫 설계 단계의 `main`은 문서 기준선이며, 구현이 시작되면 현재까지 구현한 기능의 검사와 실행이 통과하는 상태를 유지한다.
+
+| 접두어 | 용도 | 예시 |
+| --- | --- | --- |
+| `feat/` | 새 기능 | `feat/18-hybrid-search` |
+| `fix/` | 오류 수정 | `fix/31-citation-page` |
+| `docs/` | 문서 변경 | `docs/git-workflow` |
+| `refactor/` | 동작을 유지한 구조 정리 | `refactor/retrieval-interface` |
+| `test/` | 검증 추가·수정 | `test/retrieval-metrics` |
+| `chore/` | 의존성·도구·CI | `chore/python-ci` |
+
+이슈가 있으면 번호를 붙인다. 이름은 영문 소문자와 하이픈을 사용한다. 사람 이름을 붙인 상시 브랜치 대신 작업 단위로 만든다. 현재 규모에는 `develop`과 릴리스 전용 브랜치를 두지 않는다.
+
+### 작업 시작 예시
+
+원격 저장소와 초기 `main`이 준비된 뒤, 변경 사항을 커밋해 작업 디렉터리가 깨끗한 상태에서 실행한다.
+
+```bash
+git fetch origin
+git switch main
+git pull --ff-only origin main
+git switch -c feat/18-hybrid-search
+```
+
+작업 파일을 확인한 뒤 관련 파일을 명시해서 커밋한다.
+
+```bash
+git status --short
+git add app/retrieval/hybrid.py
+git diff --cached
+git commit -m "feat(retrieval): BM25와 Dense 결과를 RRF로 결합"
+git push -u origin feat/18-hybrid-search
+```
+
+그다음 `main`을 대상으로 PR을 만든다. 위 명령은 사용 예시이며 이번 설계 작업에서 실행한 명령이 아니다.
+
+## 5. 커밋과 PR 규칙
+
+커밋 메시지는 `종류(영역): 변경 내용`으로 작성한다. 한 커밋에는 설명 가능한 변경을 담고, 문서와 코드가 같은 변경을 설명하면 함께 포함한다.
+
+```text
+feat(ingestion): PDF 페이지와 문서 ID를 보존해 추출
+feat(retrieval): 하이브리드 검색 추가
+fix(generation): 문맥에 없는 출처 ID 거부
+docs(architecture): 공통 응답 타입 변경 반영
+chore(deps): 실행 의존성 버전 고정
+```
+
+PR은 다음 내용을 짧게 담는다. 구현 시작 시 이 형식으로 `.github/pull_request_template.md`를 만든다.
+
+```markdown
+## 변경 내용
+어떤 문제를 해결하고 어떤 동작이 바뀌는지 설명합니다.
+
+## 확인 방법
+실행한 검사와 결과를 적습니다. 실행하지 못한 항목도 적습니다.
+
+## 공통 계약·설정 영향
+입출력 타입, 설정 키, 환경변수, 데이터나 색인 재생성 필요 여부를 적습니다.
+
+## 관련 작업
+연결할 이슈와 후속 작업을 적습니다.
+```
+
+- 작성자 외 팀원 1명이 리뷰한 뒤 병합하는 것을 기본으로 한다.
+- CI를 도입한 뒤에는 해당 변경의 필수 검사를 통과해야 한다.
+- 병합 방식은 squash merge로 통일하고, 완료한 원격 작업 브랜치는 삭제한다.
+- PR에 좋은 결과만 남기지 않고 실패·미완료 사항을 함께 적는다.
+- 원본 데이터, 비밀값, 로컬 생성물이 들어오지 않았는지 파일 목록을 확인한다.
+- GitHub에서 지원하는 범위 안에서 `main`에 PR·리뷰·검사를 요구하고 force push와 삭제를 제한한다. 필수 검사는 실제 workflow가 생긴 뒤 등록한다.
+
+이 문서는 위 운영 규칙을 제안한다. 실제 브랜치 보호나 리뷰어 지정은 아직 적용하지 않았다.
+
+## 6. 모듈 협업과 충돌 처리
+
+기능 담당 폴더는 책임 범위이며 다른 폴더의 수정을 금지하는 경계가 아니다. 공통 계약이 달라지면 호출부까지 함께 고친다.
+
+| 변경 지점 | 함께 확인할 대상 |
+| --- | --- |
+| `app/core/contracts.py` | API·검색·생성·평가의 입력과 출력 |
+| `configs/basic.yaml` | 실제 로드 코드·설계 문서·실험 설정 |
+| 프롬프트·청킹·임베딩 모델 | 색인 재생성 여부·기존 비교 결과의 유효성 |
+| `main.py`, API 초기화 | 리소스 로드·종료·요청 추적 |
+| 의존성 파일 | 잠금 파일·설치 안내·CI |
+
+공통 타입·최소 앱 연결 PR을 먼저 병합하고 그다음 각 기능을 병렬 개발한다. 다른 미병합 PR에 의존한다면 PR 설명에 명시하고 통합 전에 의존 순서를 맞춘다.
+
+작업 중 `main` 변경을 받아야 할 때는 커밋을 정리한 뒤 `git fetch origin`, `git merge origin/main`으로 동기화할 수 있다. 충돌은 해당 부분 담당자와 변경 의도를 확인해 해결하고 관련 검사를 다시 실행한다. 다른 사람의 변경을 일괄 덮어쓰거나 공유 브랜치 이력을 강제로 바꾸지 않는다.
+
+## 7. CI 범위
+
+첫 구현에서는 다음 정도를 권장한다.
+
+- Ruff 등 선택한 도구로 소스 형식·정적 오류 검사.
+- 모의 클라이언트를 이용한 API 입력·출력·오류 계약 검사.
+- 작은 가상 문서로 출처 매핑과 문서 단위 Hit/Recall 계산 확인.
+- 실제 임베딩·LLM을 로드하지 않아도 import와 테스트가 가능한 구조 유지.
+
+일반 PR CI에는 실제 모델 API 호출이나 PDF 전체 임베딩을 넣지 않는다. 유료 일반 평가와 보안 비교는 고정 설정으로 별도 실행하고 결과를 PR에서 검토한다. 문서만 바뀌면 문서 링크·내용 확인으로 범위를 맞춘다. 현재는 코드가 없으므로 실행할 수 없는 CI 파일을 만들지 않는다.
+
+## 8. 실행 결과와 제출 버전
+
+`artifacts/`는 실행 중 생성된 전체 자료, `reports/`는 팀이 공유하고 제출할 결과다. 결과를 정리할 때 선택한 일반 질문 전체의 세 방식 결과와 실패를 포함한다. 일부 성공 질문만 고르는 것은 결과 정리 기준이 아니다.
+
+`reports/<experiment_id>/manifest.json`에는 다음을 기록한다.
+
+- 실행 시각, Basic 데이터 식별자와 확인된 데이터 해시.
+- 실행 코드의 커밋 SHA, 설정·프롬프트 버전, 의존성 버전.
+- 선택한 질문 ID와 선택 이유.
+- 임베딩·리랭커·생성·평가 모델과 실제 설정.
+- 공통 k·문맥 예산, 검색 방식별 후보 수·결합 설정.
+- 비교 결과 파일 위치와 Langfuse 기록 확인 방법.
+
+실험은 커밋된 코드 기준으로 실행하는 것을 권장한다. 실행 후 결과를 추가한 커밋과 실제 실행 코드 SHA는 다를 수 있으므로 둘을 혼동하지 않는다. 로컬 미커밋 변경으로 실행했다면 그 사실을 표시하고 제출 전 재현 가능한 기준으로 다시 실행한다.
+
+`comparison.csv`에는 검색 지표, Faithfulness, Judge의 항목별 점수, 시간·오류·입력/출력 토큰과 해당 없음·평가 불가 건수를 남긴다. 실제 답변·인용·점수 사유가 길면 같은 폴더의 `answers.jsonl`, `scores.jsonl`로 연결한다. 보안 답변 4개와 노출·결과 분석도 함께 보존한다.
+
+원본 전체 문맥과 실제 모델 입출력은 Langfuse와 로컬 실행 기록에서 추적하고, 저장소에는 제출에 필요한 결과를 남긴다. API 키와 인증정보는 포함하지 않는다. 프롬프트·설정이 바뀐 실험은 새로운 ID로 저장하여 기존 결과를 덮어쓰지 않는다.
+
+Basic 완료 시 실행 검증을 마친 `main` 커밋에 `v0.1.0-basic` 같은 태그를 붙여 발표·제출 기준을 고정한다. 이후 확장도 작업 브랜치에서 진행하고, 발표에 사용한 태그와 결과 경로를 README와 팀 Notion에서 연결한다.
+
+## 9. 저장소를 시작할 때 적용할 순서
+
+1. 이번에 정리한 루트 README와 `docs/`를 초기 문서 기준선으로 사용한다.
+2. 기존 `ADEN` 저장소의 `main`을 기준으로 작업 브랜치를 만들어 변경을 관리한다.
+3. 최소 소스 구조, 공통 타입, 의존성, `.gitignore`, `.env.example`을 추가한다.
+4. PR 템플릿과 실행 가능한 CI를 추가한 뒤 `main` 보호 규칙을 설정한다.
+5. 작은 이슈 단위로 모듈 작업을 나누고 질문 하나의 전체 흐름부터 연결한다.
+6. 평가 결과를 `reports/`에 정리하고 Basic 제출 기준 커밋에 태그를 붙인다.
+
+설계 문서는 `docs/project-structure` 작업 브랜치에서 관리한다. CI·브랜치 보호·제출 태그는 해당 구현 단계에서 적용한다.
