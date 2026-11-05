@@ -100,3 +100,12 @@ LLM 없이 상위 5개 청크의 문서로 Hit@5·Recall@5를 잰다. 검색 시
 ```bash
 python -m scripts.eval_retrieval --mode naive
 ```
+
+2026-11-05 측정 (클러스터 리전 us-west, Naive, k=5):
+
+| 질문 | 채점 / N/A | Hit@5 | Recall@5 | 검색 시간 중앙값 |
+| --- | --- | --- | --- | --- |
+| development 30 | 28 / 2 | 0.929 | 0.564 | 142ms |
+| additional 30 | 28 / 2 | 0.929 | 0.641 | 140ms |
+
+같은 색인을 로컬 모드로 쟀을 때와 점수는 같고, 검색 시간만 약 10ms에서 140ms로 늘었다.
