@@ -1,8 +1,8 @@
 # Git 저장소·협업 설계
 
-작성 기준: 2026-11-05. 대상은 우선 Basic을 구현하는 해운 RAG 팀 프로젝트다. 아래 소스 구조·GitHub 설정은 구현 시 적용할 설계안이며, 현재 실제로 정리한 파일은 루트 README와 `docs/` 문서다.
+작성일: 2026-11-05 · 수정일: 2026-11-05. 대상은 우선 Basic을 구현하는 해운 RAG 팀 프로젝트다. 아래 소스 구조·GitHub 설정은 구현 시 적용할 설계안이며, 현재 실제로 정리한 파일은 루트 README와 `docs/` 문서다.
 
-관련 문서: [문서 목차](README.md) · [시스템 설계](architecture.md)
+관련 문서: [문서 목차](../README.md) · [시스템 설계](../design/architecture.md)
 
 ## 1. 기본 방침
 
@@ -32,8 +32,12 @@ ADEN/
 │       └── ci.yml               # 실제 실행 가능한 검사만 등록
 ├── docs/                        # 설계 Markdown 모음
 │   ├── README.md                # 문서 목차
-│   ├── architecture.md          # 시스템 설계
-│   └── git-workflow.md          # 저장소·협업 설계
+│   ├── design/
+│   │   └── architecture.md      # 시스템 설계
+│   ├── plans/
+│   │   └── basic-day-plan-2026-11-05.md # 날짜별 업무 분담
+│   └── guides/
+│       └── git-workflow.md      # 저장소·협업 설계
 ├── configs/
 │   └── basic.yaml               # 공통 실험·서비스 설정
 ├── app/
@@ -276,4 +280,4 @@ Basic 완료 시 실행 검증을 마친 `main` 커밋에 `v0.1.0-basic` 같은 
 5. 작은 이슈 단위로 모듈 작업을 나누고 질문 하나의 전체 흐름부터 연결한다.
 6. 평가 결과를 `reports/`에 정리하고 Basic 제출 기준 커밋에 태그를 붙인다.
 
-설계 문서는 `docs/project-structure` 작업 브랜치에서 관리한다. CI·브랜치 보호·제출 태그는 해당 구현 단계에서 적용한다.
+설계 문서는 병합된 `main`의 `docs/`에서 관리한다. CI·브랜치 보호·제출 태그는 해당 구현 단계에서 적용한다.

@@ -7,9 +7,9 @@
 ## 설계 문서
 
 - [문서 목차](docs/README.md)
-- [시스템 설계](docs/architecture.md): 범위, 모듈, 함수 계약, API, 평가와 구현 순서
-- [Git 저장소·협업 설계](docs/git-workflow.md): 폴더, 데이터 추적, 브랜치, 커밋, PR와 결과 관리
-- [Basic 당일 작업 계획 — 3명](docs/basic-day-plan.md): A/B/C 담당, 통합 시점, 평가와 마감 기준
+- [시스템 설계](docs/design/architecture.md): 범위, 모듈, 함수 계약, API, 평가와 구현 순서
+- [Git 저장소·협업 설계](docs/guides/git-workflow.md): 폴더, 데이터 추적, 브랜치, 커밋, PR와 결과 관리
+- [Basic 당일 작업 계획 — 3명](docs/plans/basic-day-plan-2026-11-05.md): A/B/C 담당, 통합 시점, 평가와 마감 기준
 
 ## 개발 방향
 
