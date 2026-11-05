@@ -1,0 +1,68 @@
+from dataclasses import asdict
+from hashlib import sha256
+import unittest
+
+from app.core.contracts import Chunk, RetrievedChunk
+from app.generation.citations import resolve_citations
+from app.generation.context import build_context
+
+
+def candidate(number, text):
+    return RetrievedChunk(
+        chunk=Chunk(
+            chunk_id=f"DEMO-p{number}-c1",
+            book_id="DEMO",
+            file_name="DEMO.pdf",
+            page=number,
+            text=text,
+            heading="예약 안내",
+        ),
+        rank=number,
+        score=1.0 / number,
+        retriever="dense",
+    )
+
+
+class ContextTests(unittest.TestCase):
+    def test_selects_whole_chunks_with_source_overhead(self):
+        short = candidate(1, "예약 접수와 확정은 별도입니다.")
+        reference = build_context([short], 1, 10000, len)
+        oversized = candidate(2, "가" * (len(reference.text) + 1))
+        context = build_context([oversized, short, short], 3, len(reference.text), len)
+
+        self.assertEqual(context.final_chunks, [short])
+        self.assertEqual(context.text, reference.text)
+        self.assertEqual(context.token_count, len(context.text))
+        self.assertEqual(context.source_map["S1"].page, 1)
+        self.assertIn("제목: 예약 안내", context.text)
+        self.assertEqual(context.context_hash, sha256(context.text.encode()).hexdigest())
+
+    def test_k_and_source_ids_follow_selected_order(self):
+        first, second = candidate(1, "첫 자료"), candidate(2, "다음 자료")
+        context = build_context([first, first, second], 2, 10000, len)
+        self.assertEqual(context.final_chunks, [first, second])
+        self.assertEqual(list(context.source_map), ["S1", "S2"])
+        self.assertEqual(asdict(context.final_chunks[0].chunk)["heading"], "예약 안내")
+        self.assertEqual(context.model_dump()["final_chunks"][1]["chunk"]["page"], 2)
+
+    def test_empty_context_and_unknown_citations(self):
+        context = build_context([], 5, 4000, len)
+        self.assertEqual(context.text, "")
+        self.assertEqual(resolve_citations([], context.source_map), [])
+        with self.assertRaisesRegex(ValueError, "S1"):
+            resolve_citations(["S1"], context.source_map)
+        with self.assertRaises(ValueError):
+            build_context([], 0, 4000, len)
+
+    def test_citations_use_only_final_context_and_remove_duplicates(self):
+        context = build_context([candidate(1, "문서 근거")], 1, 10000, len)
+        result = resolve_citations(["S1", "S1"], context.source_map)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0].file_name, "DEMO.pdf")
+        self.assertEqual(result[0].page, 1)
+        with self.assertRaisesRegex(ValueError, "S2"):
+            resolve_citations(["S1", "S2"], context.source_map)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,0 +1,14 @@
+dataset: basic
+documents_dir: data/basic/documents
+generation_model: gpt-6-luna
+qdrant_collection: basic_multilingual-e5-small_p800
+embedding_model: intfloat/multilingual-e5-small
+embedding_device: cpu
+model_timeout_seconds: 60
+max_output_tokens: 2048
+
+retrieval:
+  default_mode: naive
+  k: 5
+  context_token_budget: 4000
+  candidate_count: 20

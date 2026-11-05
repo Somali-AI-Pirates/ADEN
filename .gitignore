@@ -151,6 +151,8 @@ activemq-data/
 
 # Environments
 .env
+.env.*
+!.env.example
 .envrc
 .venv
 env/
@@ -218,3 +220,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ADEN datasets and local run outputs
+/data/**
+!/data/**/
+!/data/**/.gitkeep
+!/data/README.md
+/artifacts/
+/storage/
+/models/
+/logs/
