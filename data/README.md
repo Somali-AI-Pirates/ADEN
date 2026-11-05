@@ -57,19 +57,33 @@ aa971e1bf8dd590ab3a23eafe80571ae3286afc778b34ff7cc8ebf1e26373acc  SB14.pdf
 5eda541cf900103b814418349d6593ab9a31a14e7cb890d7367e53887381bdde  SB15.pdf
 ```
 
-## 4. 색인 생성
+## 4. Qdrant Cloud 접속 정보
+벡터 색인은 팀 공용 Qdrant Cloud 클러스터(무료 티어)에 둔다. 저장소 루트에 `.env`를 만들고 두 값을 넣는다.
+`.env`는 Git에서 제외되어 있다. 키를 코드·문서·로그·채팅에 붙여 넣지 않는다.
+```text
+QDRANT_URL=https://<cluster-id>.<region>.cloud.qdrant.io:6333
+QDRANT_API_KEY=<클러스터 API 키>
+```
+무료 클러스터는 1주일 동안 쓰지 않으면 일시정지되고, 4주가 지나면 삭제된다. 정지되면 Qdrant Cloud 콘솔에서 다시 켠다.
+
+## 5. 색인 생성
 저장소 루트에서 실행한다. 처음 실행하면 E5 모델(약 470MB)을 내려받는다.
 ```bash
-pip install pypdf sentence-transformers qdrant-client
+pip install pypdf sentence-transformers qdrant-client python-dotenv
 python -m scripts.build_index
 ```
-확인한 버전: pypdf 6.21.4, sentence-transformers 6.2.0, qdrant-client 1.20.0, torch 2.15.0(CPU).
+확인한 버전: pypdf 6.21.4, sentence-transformers 6.2.0, qdrant-client 1.20.0, python-dotenv 1.2.4, torch 2.15.0(CPU).
 
-정상이면 다음과 같이 나온다 (CPU 노트북 기준 약 35초).
+컬렉션 이름은 `<데이터 폴더>_<모델>_p<청크 글자 수>`이다 (Basic 기본값: `basic_multilingual-e5-small_p800`).
+같은 이름이 이미 있으면 멈춘다. 팀원이 쓰는 중일 수 있으므로, 확인한 뒤에만 `--recreate`로 다시 만든다.
+색인은 담당자(A) 한 명이 만들고, 다른 팀원은 같은 `artifacts/basic/index_manifest.json`으로 컬렉션 이름을 맞춘다.
+
+정상이면 다음과 같이 나온다.
 ```text
 추출·청킹 | PDF 15개, 페이지 360개, 청크 620개
   빈 페이지 0개, 실패 0개 []
 임베딩 입력 토큰 최대 482 / 한도 512 | 초과 0개
+Dense 색인 → Qdrant Cloud 'basic_multilingual-e5-small_p800'
 자체 점검 OK: 청크 본문으로 검색하면 자기 청크가 1위
 ```
 
@@ -78,12 +92,11 @@ python -m scripts.build_index
 | `artifacts/basic/pages.jsonl` | 페이지별 원문 (`book_id`, `file_name`, `page`, `text`) |
 | `artifacts/basic/chunks.jsonl` | 청크 (`chunk_id` = `SB01-p1-c1`, 페이지를 넘지 않음) |
 | `artifacts/basic/ingestion_report.json` | 파일별 쪽수·청크 수, 빈 페이지, 실패 |
-| `artifacts/basic/index_manifest.json` | 임베딩 모델·차원·접두어, 청크 파일 해시, 색인 위치 |
-| `storage/qdrant/` | Dense 색인 (Qdrant 로컬 모드) |
+| `artifacts/basic/index_manifest.json` | 임베딩 모델·차원·접두어, 청크 파일 해시, 컬렉션 이름 |
+| Qdrant Cloud 컬렉션 | 청크 벡터와 청크 정보(payload) |
 
-## 5. 검색만 확인
-LLM 없이 상위 5개 청크의 문서로 Hit@5·Recall@5를 잰다.
+## 6. 검색만 확인
+LLM 없이 상위 5개 청크의 문서로 Hit@5·Recall@5를 잰다. 검색 시간에는 클라우드 왕복 시간이 포함된다.
 ```bash
 python -m scripts.eval_retrieval --mode naive
 ```
-Qdrant 로컬 모드는 한 폴더를 한 프로세스만 열 수 있다. API 서버가 켜져 있으면 끄고 실행한다.

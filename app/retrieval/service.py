@@ -1,8 +1,9 @@
 """retrieve() 단일 진입점.
 
 resources에 필요한 속성 (B의 core.load_resources()가 채운다):
-    embedder  app.indexing.embeddings.Embedder
-    qdrant    app.indexing.vector_store.open_vector_index()가 돌려준 클라이언트
+    embedder    app.indexing.embeddings.Embedder
+    qdrant      app.indexing.vector_store.open_vector_index()가 돌려준 클라이언트
+    collection  컬렉션 이름 (artifacts/basic/index_manifest.json의 vector_store.collection)
 
 동기 함수다. 비동기 API에서는 asyncio.to_thread(retrieve, ...)로 호출해 이벤트 루프를 막지 않는다.
 """

@@ -1,10 +1,11 @@
-"""사전 데이터 처리: PDF → 페이지 → 청크 → Dense 색인.
+"""사전 데이터 처리: PDF → 페이지 → 청크 → Qdrant Cloud Dense 색인.
 
-    python -m scripts.build_index                # 저장소 루트에서 실행
+    python -m scripts.build_index               # 저장소 루트에서 실행
+    python -m scripts.build_index --recreate    # 같은 이름의 컬렉션을 지우고 다시 만들 때
 
-입력: data/basic/documents/*.pdf 만 읽는다 (평가 JSON은 읽지 않음)
+입력: data/basic/documents/*.pdf 만 읽는다 (평가 JSON은 읽지 않음), .env의 QDRANT_URL·QDRANT_API_KEY
 출력: artifacts/basic/pages.jsonl, chunks.jsonl, ingestion_report.json, index_manifest.json
-      storage/qdrant/ (Dense 색인)
+      Qdrant Cloud 컬렉션 (기본 이름: basic_multilingual-e5-small_p800)
 """
 import argparse
 import hashlib
@@ -16,8 +17,10 @@ from importlib.metadata import version
 from pathlib import Path
 from types import SimpleNamespace
 
+from dotenv import load_dotenv
+
 from app.indexing.embeddings import DEFAULT_MODEL, Embedder
-from app.indexing.vector_store import COLLECTION, build_vector_index
+from app.indexing.vector_store import build_vector_index, connect
 from app.ingestion.chunker import chunk_pages, index_text
 from app.ingestion.loader import extract_pages
 from app.retrieval.service import retrieve
@@ -35,10 +38,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default="data/basic")
     ap.add_argument("--artifacts", default="artifacts/basic")
-    ap.add_argument("--storage", default="storage/qdrant")
     ap.add_argument("--max-chars", type=int, default=800)
     ap.add_argument("--model", default=DEFAULT_MODEL)
+    ap.add_argument("--collection", help="기본: <데이터 폴더>_<모델>_p<청크 글자 수>")
+    ap.add_argument("--recreate", action="store_true", help="같은 이름의 컬렉션이 있으면 지우고 다시 만든다")
     args = ap.parse_args()
+    load_dotenv()
+    collection = args.collection or f"{Path(args.data).name}_{args.model.split('/')[-1]}_p{args.max_chars}"
+    client = connect()  # 접속 정보가 없으면 PDF 처리 전에 바로 멈춘다
 
     out = Path(args.artifacts)
     out.mkdir(parents=True, exist_ok=True)
@@ -68,12 +75,12 @@ def main():
     over = sum(n > embedder.max_tokens for n in tokens)
     print(f"임베딩 입력 토큰 최대 {max(tokens)} / 한도 {embedder.max_tokens} | 초과 {over}개 (초과분은 잘려서 임베딩됨)")
 
-    client = build_vector_index(chunks, embedder, args.storage)
-    assert client.count(COLLECTION).count == len(chunks), "색인 개수와 청크 개수가 다름"
-    print(f"Dense 색인 {time.time() - t:.1f}s → {args.storage}")
+    build_vector_index(client, collection, chunks, embedder, recreate=args.recreate)
+    assert client.count(collection, exact=True).count == len(chunks), "색인 개수와 청크 개수가 다름"
+    print(f"Dense 색인 {time.time() - t:.1f}s → Qdrant Cloud '{collection}'")
 
     # 자체 점검: 청크 본문으로 검색하면 그 청크가 1등이어야 한다 (정답 파일 없이 확인)
-    res = SimpleNamespace(embedder=embedder, qdrant=client)
+    res = SimpleNamespace(embedder=embedder, qdrant=client, collection=collection)
     for c in chunks[:: max(1, len(chunks) // 20)]:
         top = retrieve(c.text, "naive", res, top_n=1)[0].chunk
         assert top.chunk_id == c.chunk_id, (c.chunk_id, top.chunk_id)
@@ -89,8 +96,8 @@ def main():
         "embedding": {"model": args.model, "dim": embedder.dim, "max_tokens": embedder.max_tokens,
                       "prefix": {"query": "query: ", "passage": "passage: "}, "normalized": True,
                       "sentence_transformers": version("sentence-transformers")},
-        "vector_store": {"engine": "qdrant-local", "path": args.storage, "collection": COLLECTION,
-                         "distance": "cosine", "qdrant_client": version("qdrant-client")},
+        "vector_store": {"engine": "qdrant-cloud", "collection": collection, "distance": "cosine",
+                         "qdrant_client": version("qdrant-client")},
     }
     (out / "index_manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"완료 → {out}/")

@@ -22,6 +22,8 @@ import time
 from pathlib import Path
 from types import SimpleNamespace
 
+from dotenv import load_dotenv
+
 from app.indexing.embeddings import Embedder
 from app.indexing.vector_store import open_vector_index
 from app.retrieval.service import retrieve
@@ -55,12 +57,13 @@ def main():
     ap.add_argument("--top-n", type=int, default=20)
     ap.add_argument("--data", default="data/basic")
     ap.add_argument("--artifacts", default="artifacts/basic")
-    ap.add_argument("--storage", default="storage/qdrant")
     args = ap.parse_args()
+    load_dotenv()
     ev = Path(args.data, "evaluation")
     manifest = json.loads(Path(args.artifacts, "index_manifest.json").read_text(encoding="utf-8"))
+    collection = manifest["vector_store"]["collection"]
     res = SimpleNamespace(embedder=Embedder(manifest["embedding"]["model"]),
-                          qdrant=open_vector_index(args.storage))
+                          qdrant=open_vector_index(collection), collection=collection)
 
     # 1) 질문 파일에서 id, question만 읽어 검색
     questions = json.loads((ev / f"{args.split}_questions.json").read_text(encoding="utf-8"))
