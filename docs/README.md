@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | [architecture.md](architecture.md) | Basic 범위, 기능별 모듈, 함수 계약, API, 평가, 구현 순서 | 개발 시작 전 |
 | [git-workflow.md](git-workflow.md) | 저장소 구조, Git 추적 범위, 브랜치·커밋·PR, 결과 제출 | 협업 시작 전 |
+| [basic-day-plan.md](basic-day-plan.md) | 오늘 Basic을 진행할 3명의 담당·연결 계약·시간표·완료 기준 | 오늘 작업 시작 전 |
 
 ## 문서 관리 규칙
 
