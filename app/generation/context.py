@@ -18,6 +18,8 @@ def build_context(
     selected: list[RetrievedChunk] = []
     source_map: dict[str, Citation] = {}
     seen: set[str] = set()
+    separator_tokens = count_tokens("\n\n")
+    total_tokens = 0
     for candidate in candidates:
         chunk = candidate.chunk
         if chunk.chunk_id in seen:
@@ -32,9 +34,10 @@ def build_context(
             f"PDF 페이지: {chunk.page}\n"
             f"{heading}내용: {chunk.text}"
         )
-        proposed = "\n\n".join([*blocks, block])
-        if count_tokens(proposed) > token_budget:
+        added_tokens = count_tokens(block) + (separator_tokens if blocks else 0)
+        if total_tokens + added_tokens > token_budget:
             continue
+        total_tokens += added_tokens
         source_map[source_id] = Citation(
             source_id=source_id,
             book_id=chunk.book_id,

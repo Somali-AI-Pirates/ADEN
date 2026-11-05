@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 from langchain_core.prompts import ChatPromptTemplate
@@ -8,6 +9,19 @@ from app.generation.citations import resolve_citations
 from app.observability.tracing import RequestTrace
 
 DEFAULT_PROMPT = Path(__file__).resolve().parents[2] / "prompts" / "shipping_qa.txt"
+CITATION_MARK = re.compile(r"\[(S\d+)\]")
+
+
+def _check_marked_sources(answer: ModelAnswer, context: ContextBundle) -> ModelAnswer:
+    """답변 본문의 [S#] 표시가 최종 문맥에 있는지 확인하고, source_ids에서 빠진 ID를 보충한다."""
+    marked = list(dict.fromkeys(CITATION_MARK.findall(answer.answer)))
+    unknown = [source_id for source_id in marked if source_id not in context.source_map]
+    if unknown:
+        raise ValueError(f"답변 본문에 최종 검색 문맥에 없는 출처가 있습니다. {unknown}")
+    missing = [source_id for source_id in marked if source_id not in answer.source_ids]
+    if missing:
+        answer = answer.model_copy(update={"source_ids": [*answer.source_ids, *missing]})
+    return answer
 
 
 def generate_answer(
@@ -59,7 +73,7 @@ def generate_answer(
         )
     if result["parsing_error"] is not None or result["parsed"] is None:
         raise ValueError("모델 응답을 지정된 답변 형식으로 읽을 수 없습니다.")
-    answer = result["parsed"]
+    answer = _check_marked_sources(result["parsed"], context)
     resolve_citations(answer.source_ids, context.source_map)
     if answer.status == "answered" and not answer.source_ids:
         raise ValueError("답변 완료 응답에 근거 출처가 없습니다.")

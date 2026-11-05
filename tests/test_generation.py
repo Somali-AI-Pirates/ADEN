@@ -12,8 +12,9 @@ class FakeModel:
     model_name = "test-model"
     max_tokens = 2048
 
-    def __init__(self, source_ids):
+    def __init__(self, source_ids, answer="예약 접수와 확정은 별도입니다. [S1]"):
         self.source_ids = source_ids
+        self.answer = answer
         self.messages = []
 
     def with_structured_output(self, schema, **options):
@@ -25,7 +26,7 @@ class FakeModel:
         self.messages = messages
         return {
             "parsed": ModelAnswer(
-                status="answered", answer="예약 접수와 확정은 별도입니다. [S1]",
+                status="answered", answer=self.answer,
                 reason="제공된 자료에 근거합니다.", source_ids=self.source_ids,
             ),
             "parsing_error": None,
@@ -51,9 +52,18 @@ class GenerationTests(unittest.TestCase):
         self.assertEqual(result.attempts[0]["output_message"]["content"], "모델 출력")
 
     def test_rejects_unknown_or_missing_answer_sources(self):
-        for source_ids in [["S9"], []]:
-            with self.subTest(source_ids=source_ids), self.assertRaises(ValueError):
-                generate_answer("예약이 확정됐나요?", self.context, FakeModel(source_ids))
+        cases = [
+            (["S9"], "예약 접수와 확정은 별도입니다. [S1]"),
+            ([], "예약 접수와 확정은 별도입니다."),
+            (["S1"], "예약 접수와 확정은 별도입니다. [S1][S9]"),
+        ]
+        for source_ids, answer in cases:
+            with self.subTest(source_ids=source_ids, answer=answer), self.assertRaises(ValueError):
+                generate_answer("예약이 확정됐나요?", self.context, FakeModel(source_ids, answer))
+
+    def test_adds_valid_body_marks_missing_from_source_ids(self):
+        result = generate_answer("예약이 확정됐나요?", self.context, FakeModel([]))
+        self.assertEqual(result.model_answer.source_ids, ["S1"])
 
     def test_records_actual_messages_output_and_usage(self):
         trace = Mock()

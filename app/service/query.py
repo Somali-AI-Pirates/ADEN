@@ -8,11 +8,21 @@ from app.core.contracts import QueryRequest, QueryResponse
 from app.core.exceptions import ServiceError
 from app.core.resources import Resources
 from app.core.settings import Settings
-from app.generation.chain import generate_answer
+from app.generation.chain import DEFAULT_PROMPT, generate_answer
 from app.generation.citations import resolve_citations
 from app.generation.context import build_context
 from app.retrieval.service import retrieve
 from app.observability.tracing import RequestTrace, Tracer
+
+
+def prompt_hash() -> str:
+    """답변 프롬프트 파일 내용의 해시. 프롬프트가 바뀌면 실험 구분 값도 바뀐다."""
+    return sha256(DEFAULT_PROMPT.read_bytes()).hexdigest()
+
+
+def experiment_config_hash(settings: Settings) -> str:
+    """공통 설정과 답변 프롬프트를 함께 반영한 실험 구분 해시."""
+    return sha256((settings.model_dump_json() + prompt_hash()).encode()).hexdigest()
 
 
 def answer_query(
@@ -28,7 +38,8 @@ def answer_query(
         question=request.question,
         retrieval_mode=request.retrieval_mode or settings.retrieval.default_mode,
         dataset_id=settings.dataset,
-        config_hash=sha256(settings.model_dump_json().encode()).hexdigest(),
+        config_hash=experiment_config_hash(settings),
+        metadata={"prompt_hash": prompt_hash()},
     )
     try:
         response = _answer_query(request, resources, request_id, settings, trace)

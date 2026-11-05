@@ -45,6 +45,21 @@ class ContextTests(unittest.TestCase):
         self.assertEqual(asdict(context.final_chunks[0].chunk)["heading"], "예약 안내")
         self.assertEqual(context.model_dump()["final_chunks"][1]["chunk"]["page"], 2)
 
+    def test_budget_counts_each_block_once_including_separator(self):
+        first, second = candidate(1, "첫 자료"), candidate(2, "다음 자료")
+        both = build_context([first, second], 2, 10000, len)
+        exact = build_context([first, second], 2, len(both.text), len)
+        short = build_context([first, second], 2, len(both.text) - 1, len)
+        self.assertEqual(exact.final_chunks, [first, second])
+        self.assertEqual(short.final_chunks, [first])
+
+        counted = []
+        def counter(text):
+            counted.append(text)
+            return len(text)
+        build_context([first, second], 2, 10000, counter)
+        self.assertNotIn(both.text, counted[:-1])
+
     def test_empty_context_and_unknown_citations(self):
         context = build_context([], 5, 4000, len)
         self.assertEqual(context.text, "")

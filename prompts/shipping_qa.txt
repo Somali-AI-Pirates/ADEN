@@ -39,6 +39,6 @@
 status, answer, reason, source_ids를 가진 JSON을 반환하세요.
 status에는 answered, needs_clarification, abstained 중 하나를 사용하세요.
 answer에는 답변 또는 추가 확인할 질문을, reason에는 판단 이유를 작성하세요.
-문서에 근거한 주장에는 [S1]처럼 자료 ID를 표시하세요.
+문서에 근거한 주장에는 [S1]처럼 자료 ID를 표시하세요. 여러 자료는 [S1][S2]처럼 하나씩 표시하세요.
 source_ids에는 실제로 사용한 자료 ID를 담으세요.
 검색 자료에 없는 ID, 문서명이나 페이지를 만들지 마세요.

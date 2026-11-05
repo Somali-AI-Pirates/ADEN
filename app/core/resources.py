@@ -4,6 +4,7 @@ from contextlib import ExitStack
 from dataclasses import dataclass
 from functools import lru_cache
 
+import tiktoken
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from openai import OpenAI
@@ -65,13 +66,13 @@ def load_resources(settings: Settings) -> Resources:
             max_tokens=settings.max_output_tokens,
         )
 
-        @lru_cache(maxsize=128)
+        # 문맥 예산 확인용 로컬 토큰 계산. 요청마다 원격 API를 반복 호출하지 않는다.
+        # 생성 모델의 실제 토큰 수와 약간 다를 수 있으며, 실제 사용량은 모델 응답의 usage로 기록한다.
+        encoding = tiktoken.get_encoding("o200k_base")
+
+        @lru_cache(maxsize=1024)
         def count_tokens(text: str) -> int:
-            if not text:
-                return 0
-            return counter.responses.input_tokens.count(
-                model=settings.generation_model, input=text,
-            ).input_tokens
+            return len(encoding.encode(text)) if text else 0
 
         return Resources(
             embedder=embedder,
