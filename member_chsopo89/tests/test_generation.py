@@ -4,8 +4,8 @@ from unittest.mock import Mock
 from langchain_core.messages import AIMessage
 
 from shared.contracts import Chunk, ModelAnswer, RetrievedChunk
-from member_b.generation.chain import generate_answer
-from member_b.generation.context import build_context
+from member_chsopo89.generation.chain import generate_answer
+from member_chsopo89.generation.context import build_context
 
 
 class FakeModel:

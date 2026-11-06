@@ -6,7 +6,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
 from shared.contracts import ContextBundle, GenerationResult, ModelAnswer
-from member_b.generation.citations import resolve_citations
+from member_chsopo89.generation.citations import resolve_citations
 
 DEFAULT_PROMPT = Path(__file__).resolve().parents[1] / "prompts" / "shipping_qa.txt"
 CITATION_MARK = re.compile(r"\[(S\d+)\]")

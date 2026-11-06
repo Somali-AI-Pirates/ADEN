@@ -6,8 +6,8 @@ import sys
 import tomllib
 import unittest
 
-import member_b.generation.context as context
-from member_b.generation.chain import DEFAULT_PROMPT
+import member_chsopo89.generation.context as context
+from member_chsopo89.generation.chain import DEFAULT_PROMPT
 from shared import contracts
 from shared.settings import DEFAULT_CONFIG, PROJECT_ROOT, load_settings
 
@@ -26,8 +26,8 @@ class PackageLayoutTests(unittest.TestCase):
     def test_B_and_main_import_when_A_C_packages_are_unavailable(self):
         code = (
             "import sys; sys.modules.update({name:None for name in "
-            "('member_a','member_c')}); "
-            "import main, member_b.service.query, member_b.generation.chain; "
+            "('member_ysl727727','member_Damsebi')}); "
+            "import main, member_chsopo89.service.query, member_chsopo89.generation.chain; "
             "assert main.app.state.query_handler is None"
         )
         result = subprocess.run([sys.executable, '-c', code], cwd=PROJECT_ROOT, capture_output=True, text=True)
@@ -37,9 +37,9 @@ class PackageLayoutTests(unittest.TestCase):
         with (PROJECT_ROOT / 'pyproject.toml').open('rb') as stream:
             config = tomllib.load(stream)
         include = config['tool']['setuptools']['packages']['find']['include']
-        for name in ('shared', 'shared.contracts', 'member_b', 'member_b.api'):
+        for name in ('shared', 'shared.contracts', 'member_chsopo89', 'member_chsopo89.api'):
             self.assertTrue(any(fnmatchcase(name, pattern) for pattern in include))
-        self.assertEqual(config['tool']['setuptools']['package-data']['member_b'], ['prompts/*.txt'])
+        self.assertEqual(config['tool']['setuptools']['package-data']['member_chsopo89'], ['prompts/*.txt'])
 
 
 if __name__ == '__main__':

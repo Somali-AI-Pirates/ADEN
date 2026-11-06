@@ -35,10 +35,10 @@ class Resources:
 def load_resources(settings: Settings) -> Resources:
     load_dotenv(DEFAULT_CONFIG.parent.parent / ".env", override=False)
     try:
-        embeddings = import_module("member_a.indexing.embeddings")
-        retrieval = import_module("member_a.retrieval.service")
+        embeddings = import_module("member_ysl727727.indexing.embeddings")
+        retrieval = import_module("member_ysl727727.retrieval.service")
     except ModuleNotFoundError as error:
-        if error.name and error.name.split(".", 1)[0] == "member_a":
+        if error.name and error.name.split(".", 1)[0] == "member_ysl727727":
             raise ServiceError("A의 검색 모듈을 연결해야 실제 질문을 처리할 수 있습니다. B 개발용 API 문서는 이용할 수 있습니다.", 503) from error
         raise
     for name in ["OPENAI_API_KEY", "QDRANT_URL", "QDRANT_API_KEY"]:
@@ -49,10 +49,10 @@ def load_resources(settings: Settings) -> Resources:
         tracer = None
         context_hasher = None
         try:
-            tracing = import_module("member_c.observability.tracing")
-            records = import_module("member_c.observability.records")
+            tracing = import_module("member_Damsebi.observability.tracing")
+            records = import_module("member_Damsebi.observability.records")
         except ModuleNotFoundError as error:
-            if not error.name or error.name.split(".", 1)[0] != "member_c":
+            if not error.name or error.name.split(".", 1)[0] != "member_Damsebi":
                 raise
         else:
             tracer = tracing.Tracer.from_env()

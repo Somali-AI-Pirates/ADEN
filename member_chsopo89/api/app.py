@@ -10,13 +10,13 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
-from member_b.api.routes import QueryHandler, router
+from member_chsopo89.api.routes import QueryHandler, router
 from shared.contracts import QueryResponse
 from shared.exceptions import ServiceError
-from member_b.service.resources import load_resources
+from member_chsopo89.service.resources import load_resources
 from shared.settings import DEFAULT_CONFIG, load_settings
-from member_b.service.query import answer_query
-from member_b.service.records import REQUEST_RECORD
+from member_chsopo89.service.query import answer_query
+from member_chsopo89.service.records import REQUEST_RECORD
 
 logger = logging.getLogger(__name__)
 

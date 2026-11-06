@@ -3,8 +3,8 @@ from hashlib import sha256
 import unittest
 
 from shared.contracts import Chunk, RetrievedChunk
-from member_b.generation.citations import resolve_citations
-from member_b.generation.context import build_context
+from member_chsopo89.generation.citations import resolve_citations
+from member_chsopo89.generation.context import build_context
 
 
 def candidate(number, text):

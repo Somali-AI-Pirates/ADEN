@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 
 from shared.contracts import QueryRequest, QueryResponse
 from shared.settings import Settings
-from member_b.service.records import REQUEST_RECORD
+from member_chsopo89.service.records import REQUEST_RECORD
 
 QueryHandler = Callable[[QueryRequest, str], Awaitable[QueryResponse]]
 router = APIRouter()

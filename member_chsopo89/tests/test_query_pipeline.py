@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 from fastapi.testclient import TestClient
 from langchain_core.messages import AIMessage
 
-from member_b.api.app import create_app
+from member_chsopo89.api.app import create_app
 from shared.contracts import Chunk, ModelAnswer, RetrievedChunk
 
 
@@ -26,7 +26,7 @@ class QueryPipelineTests(unittest.TestCase):
             retriever=Mock(return_value=[RetrievedChunk(chunk, 1, 1.0, 'fake')]),
         )
         with (
-            patch('member_b.api.app.load_resources', return_value=resources),
+            patch('member_chsopo89.api.app.load_resources', return_value=resources),
             TestClient(create_app()) as client,
         ):
             self.assertTrue(client.get('/health').json()['query_ready'])

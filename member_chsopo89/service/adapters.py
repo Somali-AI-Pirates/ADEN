@@ -6,11 +6,11 @@ from uuid import uuid4
 
 from shared.contracts import QueryRequest
 from shared.exceptions import ServiceError
-from member_b.generation.chain import generate_answer
-from member_b.generation.citations import resolve_citations
-from member_b.generation.context import build_context
-from member_b.service.query import answer_query, experiment_config_hash, start_request_trace
-from member_b.service.records import attach_last_model_messages, context_record, create_run_record
+from member_chsopo89.generation.chain import generate_answer
+from member_chsopo89.generation.citations import resolve_citations
+from member_chsopo89.generation.context import build_context
+from member_chsopo89.service.query import answer_query, experiment_config_hash, start_request_trace
+from member_chsopo89.service.records import attach_last_model_messages, context_record, create_run_record
 
 
 def make_query_adapter(resources, settings):

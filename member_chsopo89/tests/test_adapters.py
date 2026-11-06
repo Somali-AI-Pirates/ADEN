@@ -7,8 +7,8 @@ from unittest.mock import Mock
 from shared.contracts import Chunk, RetrievedChunk
 from shared.exceptions import ServiceError
 from shared.settings import load_settings
-from member_b.service.adapters import make_query_adapter, make_security_adapters
-from member_b.tests.test_generation import FakeModel
+from member_chsopo89.service.adapters import make_query_adapter, make_security_adapters
+from member_chsopo89.tests.test_generation import FakeModel
 
 
 class AdapterTests(unittest.TestCase):

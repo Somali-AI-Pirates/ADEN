@@ -26,11 +26,11 @@ dependencies = [
 where = ["."]
 include = [
     "shared", "shared.*",
-    "member_a", "member_a.*",
-    "member_b", "member_b.*",
-    "member_c", "member_c.*",
+    "member_ysl727727", "member_ysl727727.*",
+    "member_chsopo89", "member_chsopo89.*",
+    "member_Damsebi", "member_Damsebi.*",
 ]
 exclude = ["*.tests", "*.tests.*"]
 
 [tool.setuptools.package-data]
-member_b = ["prompts/*.txt"]
+member_chsopo89 = ["prompts/*.txt"]

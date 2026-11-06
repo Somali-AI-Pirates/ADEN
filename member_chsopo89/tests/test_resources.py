@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 
 from shared.exceptions import ServiceError
 from shared.settings import load_settings
-from member_b.service.resources import load_resources
+from member_chsopo89.service.resources import load_resources
 
 
 class ResourceTests(unittest.TestCase):
@@ -17,16 +17,16 @@ class ResourceTests(unittest.TestCase):
             'OPENAI_API_KEY': 'test-key', 'QDRANT_URL': ' https://example.test ',
             'QDRANT_API_KEY': ' test-qdrant-key ',
         }, clear=True))
-        stack.enter_context(patch('member_b.service.resources.load_dotenv'))
+        stack.enter_context(patch('member_chsopo89.service.resources.load_dotenv'))
         self.embedder = SimpleNamespace(dim=2)
         self.retriever = Mock()
         self.tracer_factory = Mock()
         self.hasher = Mock(return_value='sha256:test-context')
         self.modules = {
-            'member_a.indexing.embeddings': SimpleNamespace(Embedder=Mock(return_value=self.embedder)),
-            'member_a.retrieval.service': SimpleNamespace(retrieve=self.retriever),
-            'member_c.observability.tracing': SimpleNamespace(Tracer=self.tracer_factory),
-            'member_c.observability.records': SimpleNamespace(compute_context_hash=self.hasher),
+            'member_ysl727727.indexing.embeddings': SimpleNamespace(Embedder=Mock(return_value=self.embedder)),
+            'member_ysl727727.retrieval.service': SimpleNamespace(retrieve=self.retriever),
+            'member_Damsebi.observability.tracing': SimpleNamespace(Tracer=self.tracer_factory),
+            'member_Damsebi.observability.records': SimpleNamespace(compute_context_hash=self.hasher),
         }
 
         def load_module(name):
@@ -34,14 +34,14 @@ class ResourceTests(unittest.TestCase):
                 raise ModuleNotFoundError(name=name)
             return self.modules[name]
 
-        self.imports = stack.enter_context(patch('member_b.service.resources.import_module', side_effect=load_module))
-        self.factory = stack.enter_context(patch('member_b.service.resources.QdrantClient'))
+        self.imports = stack.enter_context(patch('member_chsopo89.service.resources.import_module', side_effect=load_module))
+        self.factory = stack.enter_context(patch('member_chsopo89.service.resources.QdrantClient'))
         self.client = self.factory.return_value
         self.client.collection_exists.return_value = True
         self.client.get_collection.return_value.config.params.vectors.size = 2
-        self.openai = stack.enter_context(patch('member_b.service.resources.OpenAI'))
-        stack.enter_context(patch('member_b.service.resources.ChatOpenAI'))
-        stack.enter_context(patch('member_b.service.resources.tiktoken.get_encoding', return_value=SimpleNamespace(encode=lambda text: text)))
+        self.openai = stack.enter_context(patch('member_chsopo89.service.resources.OpenAI'))
+        stack.enter_context(patch('member_chsopo89.service.resources.ChatOpenAI'))
+        stack.enter_context(patch('member_chsopo89.service.resources.tiktoken.get_encoding', return_value=SimpleNamespace(encode=lambda text: text)))
         self.settings = load_settings()
 
     def test_loads_external_callbacks_and_closes_resources(self):
@@ -60,8 +60,8 @@ class ResourceTests(unittest.TestCase):
         self.tracer_factory.from_env.return_value.shutdown.assert_called_once()
 
     def test_C_is_optional_without_copying_a_tracer(self):
-        self.modules.pop('member_c.observability.tracing')
-        self.modules.pop('member_c.observability.records')
+        self.modules.pop('member_Damsebi.observability.tracing')
+        self.modules.pop('member_Damsebi.observability.records')
         resources = load_resources(self.settings)
         self.assertIsNone(resources.tracer)
         self.assertIsNone(resources.context_hasher)
@@ -69,7 +69,7 @@ class ResourceTests(unittest.TestCase):
         resources.close()
 
     def test_missing_A_has_clear_503_before_clients_are_created(self):
-        self.modules.pop('member_a.indexing.embeddings')
+        self.modules.pop('member_ysl727727.indexing.embeddings')
         with self.assertRaises(ServiceError) as caught:
             load_resources(self.settings)
         self.assertEqual(caught.exception.status_code, 503)

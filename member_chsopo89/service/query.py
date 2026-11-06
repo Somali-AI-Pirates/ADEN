@@ -8,11 +8,11 @@ from openai import APIError, APITimeoutError
 from shared.contracts import QueryRequest, QueryResponse
 from shared.exceptions import ServiceError
 from shared.settings import Settings
-from member_b.service.resources import Resources
-from member_b.service.records import attach_last_model_messages, context_record, create_run_record
-from member_b.generation.chain import DEFAULT_PROMPT, generate_answer
-from member_b.generation.citations import resolve_citations
-from member_b.generation.context import build_context
+from member_chsopo89.service.resources import Resources
+from member_chsopo89.service.records import attach_last_model_messages, context_record, create_run_record
+from member_chsopo89.generation.chain import DEFAULT_PROMPT, generate_answer
+from member_chsopo89.generation.citations import resolve_citations
+from member_chsopo89.generation.context import build_context
 
 
 def prompt_hash() -> str:

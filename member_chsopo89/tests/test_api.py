@@ -7,10 +7,10 @@ from hashlib import sha256
 from fastapi.testclient import TestClient
 from openai import APITimeoutError
 
-from member_b.api.app import create_app
+from member_chsopo89.api.app import create_app
 from shared.contracts import Chunk, GenerationResult, ModelAnswer, RetrievedChunk
 from shared.exceptions import ServiceError
-from member_b.tests.test_generation import FakeModel
+from member_chsopo89.tests.test_generation import FakeModel
 
 
 class ApiTests(unittest.TestCase):
@@ -20,7 +20,7 @@ class ApiTests(unittest.TestCase):
         self.resources.retriever.return_value = self.candidates
         self.resources.context_hasher = Mock(return_value="sha256:fake-C-hash")
         with (
-            patch("member_b.api.app.load_resources", return_value=self.resources),
+            patch("member_chsopo89.api.app.load_resources", return_value=self.resources),
             TestClient(create_app(run_record_sink=records.append)) as client,
         ):
             response = client.post("/query", json={"question": "예약 문의"})
@@ -35,8 +35,8 @@ class ApiTests(unittest.TestCase):
         self.resources.model = FakeModel(["S1"])
         self.resources.retriever.return_value = self.candidates
         with (
-            patch("member_b.api.app.load_resources", return_value=self.resources),
-            self.assertLogs("member_b.api.app", level="WARNING"),
+            patch("member_chsopo89.api.app.load_resources", return_value=self.resources),
+            self.assertLogs("member_chsopo89.api.app", level="WARNING"),
             TestClient(create_app(run_record_sink=Mock(side_effect=RuntimeError("private sink error")))) as client,
         ):
             response = client.post("/query", json={"question": "예약 문의"})
@@ -60,9 +60,9 @@ class ApiTests(unittest.TestCase):
 
     def test_default_app_loads_resources_and_answers_query(self):
         with (
-            patch("member_b.api.app.load_resources", return_value=self.resources),
+            patch("member_chsopo89.api.app.load_resources", return_value=self.resources),
             patch.object(self.resources, "retriever", return_value=self.candidates) as retrieve,
-            patch("member_b.service.query.generate_answer", return_value=self.generated),
+            patch("member_chsopo89.service.query.generate_answer", return_value=self.generated),
         ):
             with TestClient(create_app()) as client:
                 self.assertTrue(client.get("/health").json()["query_ready"])
@@ -79,9 +79,9 @@ class ApiTests(unittest.TestCase):
 
     def test_empty_search_abstains_without_model_call(self):
         with (
-            patch("member_b.api.app.load_resources", return_value=self.resources),
+            patch("member_chsopo89.api.app.load_resources", return_value=self.resources),
             patch.object(self.resources, "retriever", return_value=[]),
-            patch("member_b.service.query.generate_answer") as generate,
+            patch("member_chsopo89.service.query.generate_answer") as generate,
             TestClient(create_app()) as client,
         ):
             response = client.post("/query", json={"question": "자료에 없는 질문"})
@@ -95,9 +95,9 @@ class ApiTests(unittest.TestCase):
         self.resources.tracer.start_request.return_value = trace
         self.resources.context_hasher = Mock(return_value="sha256:test-context")
         with (
-            patch("member_b.api.app.load_resources", return_value=self.resources),
+            patch("member_chsopo89.api.app.load_resources", return_value=self.resources),
             patch.object(self.resources, "retriever", return_value=self.candidates),
-            patch("member_b.service.query.generate_answer", return_value=self.generated),
+            patch("member_chsopo89.service.query.generate_answer", return_value=self.generated),
             TestClient(create_app()) as client,
         ):
             response = client.post("/query", json={"question": "예약 문의"})
@@ -113,10 +113,10 @@ class ApiTests(unittest.TestCase):
 
     def test_B_only_starts_docs_and_explains_missing_A(self):
         with (
-            patch("member_b.service.resources.load_dotenv"),
-            patch("member_b.service.resources.import_module", side_effect=ModuleNotFoundError(name="member_a")),
-            patch("member_b.service.resources.QdrantClient") as qdrant,
-            patch("member_b.service.resources.OpenAI") as model,
+            patch("member_chsopo89.service.resources.load_dotenv"),
+            patch("member_chsopo89.service.resources.import_module", side_effect=ModuleNotFoundError(name="member_ysl727727")),
+            patch("member_chsopo89.service.resources.QdrantClient") as qdrant,
+            patch("member_chsopo89.service.resources.OpenAI") as model,
             TestClient(create_app()) as client,
         ):
             self.assertEqual(client.get("/docs").status_code, 200)
@@ -130,7 +130,7 @@ class ApiTests(unittest.TestCase):
 
     def test_preparation_failure_is_not_reported_as_ready(self):
         with (
-            patch("member_b.api.app.load_resources", side_effect=ServiceError("서버 설정 확인이 필요합니다.", 503)),
+            patch("member_chsopo89.api.app.load_resources", side_effect=ServiceError("서버 설정 확인이 필요합니다.", 503)),
             TestClient(create_app()) as client,
         ):
             self.assertFalse(client.get("/health").json()["query_ready"])
@@ -152,13 +152,13 @@ class ApiTests(unittest.TestCase):
         for retrieval_error, model_result, code in cases:
             with self.subTest(code=code):
                 with (
-                    patch("member_b.api.app.load_resources", return_value=self.resources),
+                    patch("member_chsopo89.api.app.load_resources", return_value=self.resources),
                     patch.object(
                         self.resources, "retriever",
                         side_effect=retrieval_error, return_value=self.candidates,
                     ),
                     patch(
-                        "member_b.service.query.generate_answer",
+                        "member_chsopo89.service.query.generate_answer",
                         side_effect=model_result if isinstance(model_result, Exception) else None,
                         return_value=model_result or self.generated,
                     ),
