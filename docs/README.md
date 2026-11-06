@@ -11,8 +11,7 @@ docs/
 ├── plans/
 │   └── basic-day-plan-2026-11-05.md
 └── guides/
-    ├── git-workflow.md
-    └── c-module-guide.md
+    └── git-workflow.md
 ```
 
 | 문서 | 담는 내용 | 읽는 시점 |
@@ -20,7 +19,6 @@ docs/
 | [design/architecture.md](design/architecture.md) | Basic 범위, 사람별 패키지·기능별 모듈, 함수 계약, API, 평가, 구현 순서 | 개발 시작 전 |
 | [design/contracts.md](design/contracts.md) | 공통 타입·로그 형식, 필수 필드·JSON 예시, 동기 호출·자원·실행 계약, 기존 코드 연결 조정 | 각자 구현·통합 전 |
 | [guides/git-workflow.md](guides/git-workflow.md) | 사람별 패키지 구조, Git 추적 범위, 브랜치·PR·main 동기화, 결과 제출 | 협업 시작 전 |
-| [guides/c-module-guide.md](guides/c-module-guide.md) | C 패키지(Langfuse 기록·평가·결과 비교) 설치·실행, 계약 검증 방식, B 연결 방법, 실제 연결 후 검증 항목 | C 모듈 사용·연결 전 |
 | [plans/basic-day-plan-2026-11-05.md](plans/basic-day-plan-2026-11-05.md) | 2026-11-05 Basic을 진행할 3명의 담당·연결 계약·시간표·완료 기준 | 해당 작업 시작 전 |
 
 ## 문서 관리 규칙
