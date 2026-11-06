@@ -1,0 +1,19 @@
+{
+  "body_blocks": 1600,
+  "cases": 0,
+  "contract_rows": 0,
+  "covered_blocks": 1600,
+  "dataset": "basic",
+  "documents": 15,
+  "narrative_blocks": 1600,
+  "pages": 360,
+  "quality_gate": {
+    "full_semantic_review": "pending",
+    "references": "passed",
+    "runtime_rag": "not_run",
+    "source_coverage": "passed"
+  },
+  "records": 1600,
+  "review": "행·원문 구조와 참조를 검증함. 업무 효력 판정과 전체 의미 검토는 별도 필요",
+  "rules": 17
+}

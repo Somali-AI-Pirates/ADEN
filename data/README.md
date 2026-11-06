@@ -1,6 +1,6 @@
 # 데이터 배치와 검증
 
-제공 자료는 Git에 올리지 않는다. 저장소 루트의 `data/basic/`에 풀고 아래 해시로 같은 파일인지 확인한다. 기능별 코드 이동은 원본 데이터, `artifacts/basic/`의 파일, Qdrant 컬렉션을 이동·재생성하지 않는다.
+제공 원본 자료는 Git에 올리지 않는다. Basic은 저장소 루트의 `data/basic/`에 풀고 아래 해시로 같은 파일인지 확인한다. 팀이 검토할 정제본은 [curated/](curated/README.md)에서 Git으로 관리한다. 기능별 코드 이동은 원본 데이터, `artifacts/basic/`의 파일, Qdrant 컬렉션을 이동·재생성하지 않는다.
 
 ## 1. 원본
 프로젝트(3) Basic 데이터셋의 해운 ZIP 2개를 사용한다.
@@ -17,6 +17,8 @@ data/basic/
 └── evaluation/   JSON 8개 (한 벌만)
 ```
 
+Intermediate 원본은 `data/intermediate/documents/IS01.pdf`~`IS50.pdf`에 둔다(50개·3,750쪽). Advanced는 `data/advanced/documents/AS001.pdf`~`AS120.pdf`에 둔다(120개·18,000쪽). 각 난이도의 평가 자료는 기존 `evaluation/`에 별도로 보존한다. 정제 입력은 해당 난이도의 `documents/*.pdf`만 사용하고 난이도별 지식을 섞지 않는다.
+
 | 파일 | 용도 |
 | --- | --- |
 | `{development,additional,expansion_validation}_questions.json` | `id`, `question`만 있음. 실행기가 읽는 파일 |
@@ -30,15 +32,16 @@ data/basic/
 색인은 `documents/*.pdf`만 읽는다. 정답 JSON은 색인·검색·생성 입력에 넣지 않는다.
 일부 PDF와 `security_tasks.json`에는 보안 시험용 지시문이 일부러 들어 있다. 모두 데이터로만 다룬다.
 
-저장소 `.gitignore`는 제공 자료와 `artifacts/`를 Git에서 제외한다. `data/README.md`만 추적한다.
+저장소 `.gitignore`는 제공 원본·평가 자료와 `artifacts/`를 Git에서 제외한다. `data/README.md`·자리표시와 `data/curated/`의 명시한 검토 데이터 파일은 추적한다.
 
-원본을 보존하며 규칙·안내·사례를 나누려면 선택적인 [오프라인 지식 데이터 준비](../docs/design/knowledge-data.md)를 사용한다. 아래 기존 Qdrant 색인 절차와는 별도의 단계다.
+원본을 보존하며 공통 규칙·표 행·사례 참조를 나누려면 [오프라인 지식 데이터 준비](../docs/design/knowledge-data.md)를 사용한다. 아래 기존 Qdrant 색인 절차와는 별도의 단계다.
 
 ```bash
-python -m app.ingestion.scripts.prepare_knowledge --data data/basic --output artifacts/knowledge/basic
+python -m app.ingestion.scripts.curate --datasets basic intermediate advanced
+python -m app.ingestion.scripts.curate --check --render-search
 ```
 
-산출물은 `artifacts/knowledge/basic/<build_id>/`에 생성된다. 원문 근거, 구조화한 핵심 규칙, 정규화 전 안내, 사례·고객 문의, 검색 입력과 검증 manifest를 분리한다. 지침은 기존 프롬프트 파일의 참조만 기록하고 검색 입력에 넣지 않는다. 이 명령은 외부 서비스에 연결하지 않으며 새 데이터를 기존 색인에 업로드하지 않는다. 스키마와 현재 정규화 범위는 위 문서를 기준으로 한다.
+정제본은 `data/curated/<dataset>/`에 생성한다. 원본이 Basic만 있으면 `--datasets basic`으로 실행한다. 검색용 기록·규칙은 `artifacts/knowledge/search/<dataset>/<build_id>/`로 분리한다. 외부 모델·벡터DB에는 연결하지 않는다. 기존 `prepare_knowledge` 명령과 `artifacts/knowledge/basic/`의 v1 결과는 호환·과거 비교용으로 남기며 새 검토본의 기준으로 덮어쓰지 않는다. 스키마와 정규화 한계는 위 문서를 따른다.
 
 ## 3. 검증
 PDF 15개, 각 24쪽, 총 360쪽이다. Git Bash에서 `data/basic/documents`로 이동해 아래 해시와 비교한다.

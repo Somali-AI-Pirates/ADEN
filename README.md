@@ -5,9 +5,9 @@
 ## 현재 상태
 
 - PDF 추출·청킹, E5 임베딩과 Qdrant 색인, Naive 검색, 답변 생성·API, 실행 기록·평가 모듈이 있다.
-- 선택적인 [오프라인 지식 데이터 준비](docs/design/knowledge-data.md)를 제공한다. Basic 원문·업무 규칙·사례·지침 참조를 분리하며 기존 서비스와 색인에는 자동 적용하지 않는다.
+- [오프라인 지식 데이터 준비](docs/design/knowledge-data.md)는 Basic·Intermediate·Advanced의 공통 규칙·표 행·사례 참조를 분리한다. 팀 검토본은 [data/curated/](data/curated/README.md)에서 Git으로 관리하고 검색 입력은 `artifacts/`에 생성한다. 기존 서비스와 색인에는 자동 적용하지 않는다.
 - `hybrid`와 `hybrid_rerank`는 선언되어 있으나 구현되지 않았다. 실제 세 방식 비교와 보안 비교 결과도 아직 없다.
-- 오프라인 데이터 준비와 가상·모의 인프라를 사용하는 테스트 109개 및 하위 테스트 9개는 통과했다. 실제 Qdrant 색인과 생성 모델을 사용한 전체 서비스 통합 검증은 아직 실행하지 않았다.
+- 오프라인 데이터 준비와 가상·모의 인프라를 사용하는 테스트 133개 및 하위 테스트 9개는 통과했다. 실제 Qdrant 색인과 생성 모델을 사용한 전체 서비스 통합 검증은 아직 실행하지 않았다.
 - 실제 일반·보안 평가 CLI에 연결할 초기화된 서비스 진입점과 평가 입력 검증은 후속 작업이다. 가상 샘플 성공을 실제 평가 준비 완료로 보지 않는다. [평가 실행 조건](docs/guides/c-module-guide.md)을 먼저 확인한다.
 - Python 테스트 명령은 저장소 루트에서 `python -m pytest -q tests`다.
 
@@ -50,7 +50,7 @@ experimental/<GitHubID>/  # 개인 실험 공간, 제품 코드에서 참조하�
 - [평가 모듈 가이드](docs/guides/c-module-guide.md): 평가·보안 실행기와 연결 방식
 - [2026-11-05 Basic 작업 계획](docs/plans/basic-day-plan-2026-11-05.md): 당시 계획 기록. 현재 담당·일정은 문서 목차가 안내하는 팀 Notion에서 확인
 - [데이터 안내](data/README.md): 원본 배치, 해시, 색인 및 검색 전용 측정
-- [지식 데이터 구성](docs/design/knowledge-data.md): 규칙·안내·사례·원본 근거 분리, 오프라인 생성과 후속 색인 경계
+- [지식 데이터 구성](docs/design/knowledge-data.md): 세 난이도 정제본·Git 추적·행별 기록·공통 규칙 참조와 후속 색인 경계
 
 ## 실행
 
@@ -76,6 +76,8 @@ CI와 동일하게 import·CLI 진입점을 확인하려면 다음을 실행한�
 
 ```bash
 python -m ruff check --select E9,F63,F7,F82 .
+python -m app.ingestion.scripts.curate --help
+python -m app.ingestion.scripts.curate --check
 python -m app.indexing.scripts.build_index --help
 python -m app.evaluation.scripts.eval_retrieval --help
 python -m app.evaluation.scripts.run_benchmark --help

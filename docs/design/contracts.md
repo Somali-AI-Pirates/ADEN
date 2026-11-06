@@ -8,6 +8,8 @@
 
 선택적인 오프라인 지식 산출물은 `app/ingestion/knowledge_schema.py`에서 정의하며 [지식 데이터 구성](knowledge-data.md)을 기준으로 한다. `prepare_knowledge(data_dir, output_root, *, catalog_path, max_chars=800)`는 검증한 빌드 경로와 manifest를 반환한다. 기존 `PageDocument`·`Chunk`·API·로그 계약은 바꾸지 않는다. `index_entries.jsonl`의 메타데이터를 기존 `Chunk` 생성자나 Qdrant payload에 그대로 전달하지 않는다.
 
+세 난이도의 정제본 v2는 `app/ingestion/curated_schema.py`를 기준으로 한다. `curate_dataset(dataset, data_root, output_root, cache_root)`는 원본에서 Git 검토본을 생성하고 경로·검증 보고서를 반환한다. `validate_curated(path)`는 원본 없이 스키마·출처·규칙·사례 참조를 검사한다. `render_search(curated_dir, output_root)`는 검토본에서 기록·규칙 검색 입력을 분리한다. 기존 Basic v1 생성기와 런타임 계약은 보존하며 승인 효력·최종 상태·금액은 자동 판정하지 않는다.
+
 현재 기능 모듈과 공통 계약은 가짜 외부 자원으로 연결 검증했다. 실제 색인·생성 모델·Langfuse 서버를 사용한 전체 실행은 이번 구조 전환에서 확인하지 않았다. 구조와 검증 상태의 요약은 [시스템 설계](architecture.md)를 따른다.
 
 ## 1. 패키지명과 의존 방향

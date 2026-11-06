@@ -9,7 +9,7 @@
 | 현재 구현 | 기능별 모듈에 Naive Dense 검색과 답변·API·기록·평가 코드가 있다. `hybrid`·`hybrid_rerank`는 미구현이다. 선택적인 [오프라인 지식 데이터 준비](knowledge-data.md)가 있다. |
 | 채택한 구조 | 제품 코드는 `app/` 기능 모듈, 공통 타입·설정은 `shared/`에서 관리한다. 상세 타입·함수·기록 계약은 [공통 계약](contracts.md)을 기준으로 한다. |
 | Basic 목표 | 세 검색 방식, 실제 자료 기반 답변·평가, 보안 비교와 운영 지표를 완성한다. 목표 목록은 현재 구현의 증거가 아니다. |
-| 검증 상태 | 오프라인 데이터 준비와 가상 인프라 기반 테스트 109개 및 하위 테스트 9개가 통과했다. 실제 색인·생성 모델·Langfuse를 사용한 전체 서비스 통합은 확인하지 않았다. 2026-11-05 검색 전용 측정은 [데이터 안내](../../data/README.md)에 과거 결과로 기록했다. |
+| 검증 상태 | 오프라인 데이터 준비와 가상 인프라 기반 테스트 133개 및 하위 테스트 9개가 통과했다. 실제 색인·생성 모델·Langfuse를 사용한 전체 서비스 통합은 확인하지 않았다. 2026-11-05 검색 전용 측정은 [데이터 안내](../../data/README.md)에 과거 결과로 기록했다. |
 
 관련 문서: [문서 목차](../README.md) · [공통 입출력·호출 계약](contracts.md) · [Git 저장소·협업 설계](../guides/git-workflow.md)
 
@@ -110,7 +110,7 @@ ADEN/
 
 원본 데이터와 `artifacts/`는 Git에서 제외하고, 공식 비교표·답변·점수·재현 설정은 검토 후 `reports/<experiment_id>/`에 보존한다. `configs/`, `data/`, `artifacts/`, `reports/`의 현재 위치와 API·로그 형식은 구조 이전으로 바꾸지 않는다. 개인 실험 파일은 선택적으로 `experimental/<GitHubID>/`에 둘 수 있으며 내부 파일·하위 폴더·기록 양식은 요구하지 않는다. 제품 코드는 이 경로에 의존하지 않는다. 채택한 구현은 `app/` 또는 `shared/`에 반영하고 공식 결과는 `reports/`에 정리한다.
 
-별도 데이터 준비 경로인 `app.ingestion.scripts.prepare_knowledge`는 Basic 원문 근거·구조화 규칙·정규화 전 안내·상담 사례를 `artifacts/knowledge/basic/<build_id>/`로 분리한다. 모델 행동 지침은 기존 프롬프트가 기준이다. 이 단계에는 모델·벡터DB 연결이 없으며 런타임 색인을 전환하지 않는다. 스키마·실행·정규화 한계는 [지식 데이터 구성](knowledge-data.md)을 따른다.
+별도 데이터 준비 경로인 `app.ingestion.scripts.curate`는 세 난이도의 규칙·행별 기록·사례 참조·원본 출처를 `data/curated/<dataset>/`에 생성해 Git으로 관리한다. 검색 기록·규칙은 `artifacts/knowledge/search/`에 분리한다. 기존 Basic v1 추출 CLI는 호환·과거 비교용으로 보존한다. 모델 행동 지침은 기존 프롬프트가 기준이며, 데이터 준비만으로 런타임 색인이나 서비스 난이도를 전환하지 않는다. 스키마·실행·정규화 한계는 [지식 데이터 구성](knowledge-data.md)을 따른다.
 
 `app/service/query.py`가 검색 함수, 답변 생성, 추적을 연결한다. 제품 모듈은 `shared/contracts.py`를 공통 참조하고 `shared/`는 `app/`을 역으로 import하지 않는다. 평가 실행기는 서비스 어댑터나 API 클라이언트를 주입받아 순환 참조 없이 동작한다. 색인·모델 초기화 연결은 `app/service/resources.py`가 맡는다. 제품 모듈 import 시 모델 로딩이나 네트워크 호출을 실행하지 않는다.
 

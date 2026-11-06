@@ -61,6 +61,7 @@ Basic·Intermediate·Advanced는 데이터와 설정으로 구분한다. 난이�
 | 개인 실험 코드·메모·작업일지 | `experimental/<사용자>/`에 필요에 따라 포함 |
 | 공통 실행 설정·설치 의존성 | `configs/`, `pyproject.toml`에 포함 |
 | 제공 원본 PDF·평가 JSON | `data/`의 안내·자리표시만 추적, 실제 자료 제외 |
+| 팀 검토용 정제 규칙·개별 기록·출처 | `data/curated/<dataset>/`의 명시한 JSONL·manifest·검증 결과 포함. 상세 기준은 [정제 데이터 안내](../../data/curated/README.md) |
 | 추출 텍스트·청크·색인·모델·캐시 | 로컬 산출물로 관리, Git 제외 |
 | 전체 실행 기록·가상 샘플 결과 | `artifacts/`에 생성, Git 제외 |
 | 정리한 팀 비교·제출 결과 | `reports/`에 선별 포함 |
