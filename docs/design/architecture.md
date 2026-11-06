@@ -2,7 +2,7 @@
 
 작성일: 2026-11-05 · 수정일: 2026-11-06. 현재 산출물은 설계이며 서비스 구현·데이터 처리·성능 평가는 아직 수행하지 않았다.
 
-관련 문서: [문서 목차](../README.md) · [Git 저장소·협업 설계](../guides/git-workflow.md)
+관련 문서: [문서 목차](../README.md) · [공통 입출력·호출 계약](contracts.md) · [Git 저장소·협업 설계](../guides/git-workflow.md)
 
 ## 1. 목표와 확정 범위
 
@@ -35,7 +35,7 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 - `member_b/service/query.py`: 검색 → 문맥 구성 → 생성 → 출처 검증 순서 연결.
 - 각 기능 모듈: 자기 기능과 공통 입출력 계약만 책임진다.
 
-폴더 이름 `member_a`, `member_b`, `member_c`는 실명이 제공되지 않아 사용한 담당자별 식별자다. 실제 영문 이름·닉네임으로 정하면 폴더와 import 경로를 팀 전체가 한 번에 맞춘다. Python에서 import 가능한 이름을 사용한다. 사람별 패키지는 최종 코드 위치이며, 통합 시 하나의 `app/`으로 다시 옮기지 않는다. 각 패키지 안의 기능·scripts·prompts·tests는 해당 담당자가 관리한다.
+Basic의 import 경로는 `member_a`, `member_b`, `member_c`, `shared`로 고정한다. 실제 이름은 담당표로 연결한다. 패키지명 변경이 필요하면 폴더·import·설정·실행 명령을 팀 전체가 같은 변경에서 맞춘다. 사람별 패키지는 최종 코드 위치이며, 통합 시 하나의 `app/`으로 다시 옮기지 않는다. 각 패키지 안의 기능·scripts·prompts·tests는 해당 담당자가 관리한다.
 
 예약·서류·비용은 사용자 업무 범주다. Basic에서는 세 범주를 별도 RAG 서비스나 검색 인덱스로 나누지 않는다. 하나의 질문이 예약 안내, 서류 조건과 정정 공지를 함께 필요로 할 수 있기 때문이다. 업무 범주는 프롬프트와 평가 사례에서 관리한다.
 
@@ -118,6 +118,7 @@ ADEN/
 ├── docs/
 │   ├── README.md
 │   ├── design/architecture.md
+│   ├── design/contracts.md          # 공통 데이터·함수·실행 계약
 │   ├── guides/git-workflow.md
 │   └── plans/basic-day-plan-2026-11-05.md
 ├── data/
@@ -146,21 +147,21 @@ B의 `member_b/service/query.py`가 A의 검색 함수, B의 생성 함수, C의
 
 ## 4. 모듈별 함수 계약
 
-먼저 아래 계약과 샘플 데이터를 합의하면 담당자가 다른 모듈의 완성을 기다리지 않고 개발할 수 있다. 함수명과 타입은 설계 제안이다. 아래 `ingestion/indexing/retrieval`은 `member_a`, `generation/service`는 `member_b`, `evaluation`은 `member_c` 아래의 모듈을 뜻한다.
+정확한 필드·JSON 예시·함수 인자·동기 호출·오류·Resources 정의는 [공통 계약](contracts.md)을 따른다. 아래는 책임과 입출력의 요약이다. `ingestion/indexing/retrieval`은 `member_a`, `generation/service`는 `member_b`, `evaluation`은 `member_c` 아래의 모듈을 뜻한다. 공통 타입과 가상 입출력을 먼저 맞춰 각자 독립 개발한다.
 
 | 모듈·함수 | 입력 | 출력 | 책임 |
 | --- | --- | --- | --- |
 | `ingestion.extract_pages()` | PDF 경로 목록 | `PageDocument[]`, 처리 내역 | PDF 첫 장부터 1쪽으로 기록 |
 | `ingestion.chunk_pages()` | 페이지 목록, 청킹 설정 | `Chunk[]` | 문단·목록·출처 유지 |
 | `indexing.build_indexes()` | 청크 목록, 설정 | `IndexManifest` | 동일 청크로 벡터·키워드 색인 |
-| `member_b.service.resources.load_resources()` | 설정, manifest | `Resources` | 준비된 색인·모델 한 번 로드 |
+| `member_b.service.resources.load_resources()` | 설정 | `Resources` | 준비된 색인·모델 한 번 로드 |
 | `retrieval.retrieve()` | 질문, mode, resources | 순서가 있는 `RetrievedChunk[]` | 방식별 후보 목록 반환 |
-| `generation.build_context()` | 후보 목록, k, 토큰 예산 | `ContextBundle` | 실제 전달할 문맥과 출처 대응표 확정 |
-| `generation.generate_answer()` | 질문, 문맥, 프롬프트 변형, resources, 요청 추적 | `GenerationResult` | 구조화 답변·실제 사용량 반환 |
+| `generation.build_context()` | 후보 목록, k, 토큰 예산, 토큰 계산 함수 | `ContextBundle` | 실제 전달할 문맥과 출처 대응표 확정 |
+| `generation.generate_answer()` | 질문, 문맥, 모델; 선택 프롬프트 경로·방어 문장·요청 추적 | `GenerationResult` | 구조화 답변·실제 시도별 사용량 반환 |
 | `generation.resolve_citations()` | 모델 출처 ID, 문맥 대응표 | `Citation[]` | 없는 출처 ID 거부 |
-| `service.answer_query()` | `QueryRequest`, resources, request_id | `QueryResponse`, 내부 실행 기록 | 요청 처리 단계 연결 |
-| `evaluation.run_comparison()` | 질문 ID·질문, 공통 설정 | 실행 기록 파일 | 같은 질문을 세 방식으로 실행 |
-| `evaluation.grade_answer()` | 저장된 실행, 정답·채점 기준 | 평가 기록 | 기존 답변을 채점, 재생성하지 않음 |
+| `service.answer_query()` | `QueryRequest`, resources, request_id, settings | `QueryResponse` | 실행 기록은 C 추적·저장 연결로 별도 보존 |
+| `evaluation.run_comparison()` | 질문 ID·질문, 서비스 어댑터, 공통 실행 메타데이터 | 실행 기록 목록 | 같은 질문을 세 방식으로 실행한 뒤 파일 저장 |
+| `evaluation.grade_all()` | 저장된 기록, 정답·채점 기준, k, 평가 함수 | 평가 기록 목록 | 기존 답변을 채점, 재생성하지 않음 |
 
 공통 타입의 최소 필드는 다음과 같다.
 
@@ -169,11 +170,14 @@ B의 `member_b/service/query.py`가 A의 검색 함수, B의 생성 함수, C의
 | `PageDocument` | `book_id`, `file_name`, `page`, `text` |
 | `Chunk` | `chunk_id`, `book_id`, `file_name`, `page`, `text` |
 | `RetrievedChunk` | `chunk`, `rank`, `score`, `retriever` |
-| `ContextBundle` | `text`, `final_chunks`, `source_map`, `context_hash`, `token_count` |
+| `ContextBundle` | `text`, `final_chunks: list[RetrievedChunk]`, `source_map`, `context_hash`, `token_count` |
 | `ModelAnswer` | `status`, `answer`, `reason`, `source_ids` |
 | `GenerationResult` | `model_answer`, `attempts`, `usage` |
 | `Citation` | `source_id`, `book_id`, `file_name`, `page` |
 | `QueryResponse` | `request_id`, `status`, `answer`, `reason`, `citations` |
+| `RunRecord` | C가 받는 평탄 청크·실제 문맥·요청/평가 ID·상태·인용·시도별 입출력·시간·사용량; 전체 정의는 [공통 계약](contracts.md) 참조 |
+
+`RetrievedChunk.chunk`와 `ContextBundle.final_chunks`는 중첩 객체다. C의 `RunRecord.retrieved_candidates`·`final_context_chunks`는 평탄 로그이며 B의 연결부에서 명시적으로 변환한다. 문맥 문자열 해시와 로그 청크 해시는 계산식이 다르므로 공통 계약에 따라 각각 저장한다.
 
 `book_id`는 원본 PDF 파일명에서 `.pdf`만 제거한 값이다. 원문에 없는 적용일·승인 상태·항로 등의 메타데이터를 추측해 넣지 않는다. 첫 구현은 청크가 페이지를 넘지 않도록 해 출처를 단순하게 유지한다. 상위 난이도에서 여러 페이지를 합치면 구절별 페이지 출처를 추가한다.
 
@@ -195,24 +199,34 @@ from member_a.retrieval.service import retrieve
 from member_b.generation.context import build_context
 from member_b.generation.chain import generate_answer
 from member_b.generation.citations import resolve_citations
+from shared.contracts import QueryResponse
 
-async def answer_query(request, resources, request_id):
-    candidates = await retrieve(
-        request.question, request.retrieval_mode, resources
+def answer_query(request, resources, request_id, settings):
+    mode = request.retrieval_mode or settings.retrieval.default_mode
+    candidates = retrieve(
+        request.question, mode, resources,
+        top_n=settings.retrieval.candidate_count,
     )
-    context = build_context(candidates, resources.context_settings)
-    generated = await generate_answer(
-        request.question, context, resources, request_id=request_id
+    context = build_context(
+        candidates, settings.retrieval.k,
+        settings.retrieval.context_token_budget, resources.count_tokens,
     )
+    generated = generate_answer(
+        request.question, context, resources.model,
+    )
+    answer = generated.model_answer
     citations = resolve_citations(
-        generated.model_answer.source_ids, context.source_map
+        answer.source_ids, context.source_map,
     )
-    return make_response_and_record(
-        request_id, request, candidates, context, generated, citations
+    return QueryResponse(
+        request_id=request_id, status=answer.status,
+        answer=answer.answer, reason=answer.reason, citations=citations,
     )
 ```
 
-실제 구현에서는 이 흐름에 단계별 Langfuse 기록, 제한된 재시도, 출력 검증을 붙인다. 로컬 임베딩·BM25·리랭커의 동기 연산은 제한된 작업 스레드에서 처리하여 비동기 API 이벤트 루프를 막지 않게 한다. 하나의 공통 재시도 정책을 두고 SDK와 LangChain의 재시도가 중복되지 않게 설정한다.
+위 코드는 성공 경로의 연결 설명이며 생략한 추적·오류·빈 문맥 처리를 포함해야 실제 서비스가 된다. 실제 구현에서는 C의 단계별 기록 함수에 평탄 로그와 실제 시도별 입출력을 넘긴다. API 응답과 내부 RunRecord는 요청 ID로 연결한다. 기능 함수는 동기 호출로 통일하고 비동기 API 래퍼가 요청 파이프라인을 제한된 작업 스레드에서 처리한다. 하나의 공통 재시도 정책을 두고 SDK와 LangChain의 재시도가 중복되지 않게 설정한다.
+
+저장소 루트 실행, 여러 최상위 패키지의 설치 설정, B·C 기존 코드의 연결 조정은 [공통 계약](contracts.md)의 실행·마이그레이션 기준을 따른다. 루트의 `main.py`는 `python -m uvicorn main:app`으로, C의 CLI는 `python -m member_c.scripts.run_benchmark` 등으로 실행한다. 코드·의존성이 준비된 뒤 실제 동작을 확인한다.
 
 빈 검색 결과는 근거를 확인하지 못했다는 정상 보류로 처리할 수 있다. 반면 색인 연결 실패, 모델 timeout, 잘못된 출력은 시스템 오류로 전달한다. 서비스 내부에서 오류를 보류로 바꾸지 않는다.
 
@@ -297,7 +311,7 @@ async def answer_query(request, resources, request_id):
 - API 수신부터 응답 직전까지의 시간과 단계별 시간.
 - 입력·출력 토큰, 확인되지 않은 사용량 여부.
 
-`RunRecord`는 `experiment_id`, `question_id`, `request_id`, `config_hash`, `retrieval_mode`, `question`, `retrieved_candidates`, `final_context_chunks`, `final_context_hash`, `status`, `answer`, `reason`, `citations`, `attempts`, `latency_ms`, `usage`, `error_type`, `langfuse_trace_id`를 가진다. 최종 청크에는 실제로 전달한 텍스트도 저장한다.
+`RunRecord`는 `experiment_id`, `question_id`, `request_id`, `dataset_id`, `config_hash`, `retrieval_mode`, `question`, `retrieved_candidates`, `final_context_chunks`, `final_context_hash`, `status`, `answer`, `reason`, `citations`, `attempts`, `latency_ms`, `usage`, `error_type`, `langfuse_trace_id`를 가진다. 생성 단계에 도달한 기록에는 `model_context_text`·`model_context_hash`와 실제 시도별 모델 입출력을 추가한다. 최종 청크에는 실제로 전달한 텍스트를 저장한다. 필수·선택·null 조건과 두 문맥 해시의 정의는 [공통 계약](contracts.md)을 따른다.
 
 로컬 JSONL은 평가 입력과 장애 분석용 보조 기록이다. Langfuse 기록을 대체하지 않는다. 전송 실패는 별도 표시하고 기록을 재전송한 후 확인한다. Langfuse의 실제 요청 한 건에서 질문→검색→모델 입력→출력을 추적할 수 있어야 연동 완료로 본다.
 

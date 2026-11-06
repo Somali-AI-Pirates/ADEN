@@ -6,7 +6,8 @@
 docs/
 ├── README.md
 ├── design/
-│   └── architecture.md
+│   ├── architecture.md
+│   └── contracts.md
 ├── plans/
 │   └── basic-day-plan-2026-11-05.md
 └── guides/
@@ -16,6 +17,7 @@ docs/
 | 문서 | 담는 내용 | 읽는 시점 |
 | --- | --- | --- |
 | [design/architecture.md](design/architecture.md) | Basic 범위, 사람별 패키지·기능별 모듈, 함수 계약, API, 평가, 구현 순서 | 개발 시작 전 |
+| [design/contracts.md](design/contracts.md) | 공통 타입·로그 형식, 필수 필드·JSON 예시, 동기 호출·자원·실행 계약, 기존 코드 연결 조정 | 각자 구현·통합 전 |
 | [guides/git-workflow.md](guides/git-workflow.md) | 사람별 패키지 구조, Git 추적 범위, 브랜치·PR·main 동기화, 결과 제출 | 협업 시작 전 |
 | [plans/basic-day-plan-2026-11-05.md](plans/basic-day-plan-2026-11-05.md) | 2026-11-05 Basic을 진행할 3명의 담당·연결 계약·시간표·완료 기준 | 해당 작업 시작 전 |
 
@@ -28,5 +30,6 @@ docs/
 4. 현재 설계와 실제 구현 상태를 구분한다. 미구현 기능과 검증 전 설정을 완료된 것처럼 표시하지 않는다.
 5. API·평가 설명이 커지면 `design/api-contract.md`, `design/evaluation-plan.md`로 분리하고 기존 문서는 링크로 연결한다. 지금은 시스템 설계에 함께 관리한다.
 6. 이슈 진행 상황과 작업 담당은 GitHub Issues·PR에, 실험 결과와 최종 선택 근거는 `reports/`에 기록한다.
+7. 상세 데이터·함수 계약은 `design/contracts.md`를 기준으로 하고 다른 문서는 해당 정의를 참조한다. 구현 시 `shared/contracts.py`와 계약 문서·샘플을 같은 변경에서 맞춘다.
 
 [프로젝트 안내로 돌아가기](../README.md)
