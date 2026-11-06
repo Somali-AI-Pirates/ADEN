@@ -2,9 +2,9 @@ from dataclasses import asdict
 from hashlib import sha256
 import unittest
 
-from app.core.contracts import Chunk, RetrievedChunk
-from app.generation.citations import resolve_citations
-from app.generation.context import build_context
+from shared.contracts import Chunk, RetrievedChunk
+from member_b.generation.citations import resolve_citations
+from member_b.generation.context import build_context
 
 
 def candidate(number, text):

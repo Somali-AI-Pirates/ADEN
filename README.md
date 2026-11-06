@@ -1,63 +1,108 @@
 # ADEN — Basic 해운 RAG Q&A
 
-제공된 Basic 해운 PDF를 근거로 예약·서류·비용 관련 질문에 답하는 팀 프로젝트다. 기능별 모듈과 하나의 FastAPI 서비스를 구성하고 세 가지 RAG 검색 방식을 비교한다.
+Basic 해운 PDF에서 근거를 찾아 한국어 답변·판단 이유·PDF 페이지를 반환한다.
+현재 Naive 검색, FastAPI, 답변 생성과 Langfuse 추적을 연결했다.
+Hybrid·리랭킹·정식 평가·Advanced 확장은 후속 작업이다.
 
-현재는 **Qdrant의 Naive 검색, 한국어 답변 생성·출처 검증과 Langfuse 기록을 FastAPI에 연결**한 단계다. 저장소는 `Somali-AI-Pirates/ADEN`이며 설계 문서를 `docs/`에서 관리한다. 하이브리드·리랭킹은 후속 작업이다.
+## 패키지와 담당
 
-## 설계 문서
+| 위치 | 역할 |
+| --- | --- |
+| `shared/` | B가 취합하는 공통 타입·설정·오류. A/B의 타입을 단일 정의로 유지 |
+| `member_a/` | PDF 추출·청킹·색인·검색·데이터 준비 실행기 |
+| `member_b/` | API·문맥·생성·출처·자원 관리·프롬프트·연결 테스트 |
+| `member_c/observability/` | C의 추적·기록 검증·문맥 해시. 이번 로컬 구성에 가져온 C 범위 |
+| `main.py` | `member_b.api.app.create_app()` 호출 |
 
-- [문서 목차](docs/README.md)
-- [시스템 설계](docs/design/architecture.md): 범위, 모듈, 함수 계약, API, 평가와 구현 순서
-- [Git 저장소·협업 설계](docs/guides/git-workflow.md): 폴더, 데이터 추적, 브랜치, 커밋, PR와 결과 관리
-- [Basic 당일 작업 계획 — 3명](docs/plans/basic-day-plan-2026-11-05.md): A/B/C 담당, 통합 시점, 평가와 마감 기준
+C의 평가·보안 실행기 전체는 이번 로컬 변경에 포함하지 않았다.
 
-## 개발 방향
-
-- 우선 Basic 해운 데이터셋을 사용한다.
-- `app/` 아래 기능별 폴더에서 개발하고 `main.py`는 앱 생성 함수를 호출한다.
-- 공통 입력·출력 타입을 먼저 정하고 모듈을 연결한다.
-- 설계는 `docs/`, 제출할 실행 결과는 `reports/`에 모은다.
-- 작업별 브랜치에서 개발하고 PR로 `main`에 통합한다.
+- [공통 입출력·호출 계약](docs/design/contracts.md)
+- [시스템 설계](docs/design/architecture.md)
+- [Git 협업 규칙](docs/guides/git-workflow.md)
+- [데이터 배치·A의 측정 기록](data/README.md)
 
 ## 로컬 실행
 
-저장소 루트에서 가상환경을 준비한다. 이미 설치한 환경에서는 서버 실행 명령부터 사용한다.
+Python 3.11 이상을 사용하며 저장소 루트에서 실행한다.
 
-```bash
+```powershell
 python -m venv .venv
 .venv/Scripts/python -m pip install -e .
 .venv/Scripts/python -m uvicorn main:app --reload
 ```
 
-- 서버는 시작할 때 E5 모델과 Qdrant 컬렉션을 한 번 준비한다. 모델을 처음 사용하는 환경에서는 모델 파일 다운로드가 필요하다.
-- 저장소 루트의 `.env` 또는 실행 환경에 `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`를 설정한다. 컬렉션과 모델, 최종 k와 토큰 한도는 `configs/basic.yaml`에서 확인한다.
-- `GET /health`에서 앱의 실행 상태와 `query_ready`를 확인한다. 준비에 실패하면 `query_ready`는 false이며 `/query`의 사유로 설정을 확인할 수 있다.
-- `http://127.0.0.1:8000/docs`에서 `POST /query`의 요청과 응답 형식을 확인한다.
-- `/query`에서 `naive`를 선택해 실제 검색과 답변 생성을 실행한다. `hybrid`와 `hybrid_rerank`는 준비 중이므로 501을 반환한다.
-- 빈 질문이나 알 수 없는 검색 방식은 422, 검색 의존성 오류는 503, 모델·출처 오류는 502, 모델 처리 시간 초과는 504로 구분한다. 응답과 `X-Request-ID` 헤더에 같은 요청 ID를 남긴다.
+루트 `.env`에 `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`를 설정한다.
+Langfuse 기록에는 `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`,
+`LANGFUSE_BASE_URL`도 설정한다. 빈 양식은 `.env.example`에 있다.
+이미 실행 환경에 있는 값은 `.env`보다 우선한다.
 
-## Langfuse 기록 확인
+- `/health`: 앱 상태·데이터셋·`query_ready` 확인.
+- `http://127.0.0.1:8000/docs`: 한국어 `POST /query` 실행.
+- `naive`는 실행되며 `hybrid`, `hybrid_rerank`는 현재 501을 반환한다.
+- 정상 상태는 `answered`, `needs_clarification`, `abstained`이며 오류는 `error`다.
+- 입력 422, 검색 의존성 503, 모델·출처 502, 모델 시간 초과 504로 구분한다.
+- 본문 `request_id`와 `X-Request-ID` 헤더로 실행 기록을 연결한다.
 
-Python 3.11 이상과 Langfuse SDK 5.x를 사용한다. `.env` 또는 실행 환경에 `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`을 설정하고 서버를 시작한다.
+서버 시작 시 모델·색인을 준비하고 종료 때 정리한다. 시작 로그뿐 아니라
+`query_ready`와 실제 응답도 확인한다.
 
-`/query` 응답의 `request_id`로 Langfuse의 `rag-query` 기록을 찾는다. 루트 기록의 metadata에 같은 ID가 남는다.
+## A 색인과 B Resources
 
-- `retrieval`에서 검색 후보와 검색 시간을 확인한다.
-- `final-context`에서 실제 전달한 문서 조각, 출처 ID와 문맥 해시를 확인한다.
-- `generation-attempt-1`에서 실제 모델 입력·출력, 모델명과 입력·출력 토큰을 확인한다.
-- `rag-query`에서 최종 상태·답변·출처, 파이프라인 처리 시간과 오류 종류를 확인한다.
+B의 `member_b/service/resources.py`는 A의 `open_vector_index()`로 색인을 연다.
+`Resources`에는 `embedder`, `qdrant`, `collection`, `model`, `count_tokens`,
+`tracer`, `cleanup`, `close()`가 있다.
 
-수집은 비동기로 진행된다. 짧은 검증 프로그램은 `flush()` 후 `verify_trace()`로 저장 여부를 확인할 수 있다. API 종료 시에도 전송 대기 중인 기록을 정리한다.
+`retrieve()`는 동기 함수다. B API는 `asyncio.to_thread()`로 전체 요청
+파이프라인을 실행한다. 서버를 켤 때 PDF 처리나 색인 생성을 자동 실행하지 않는다.
 
-## B 담당 기능 확인
+A가 생성한 `artifacts/basic/index_manifest.json`의 `vector_store.collection`을
+`configs/basic.yaml`의 `qdrant_collection`에 맞춘다. `embedding.model`도
+`embedding_model`과 맞춰야 한다. 차원만 같다고 다른 모델을 섞으면 안 된다.
+현재 API는 YAML 값을 사용하며 manifest를 자동으로 덮어 읽지 않는다.
 
-- `generation.build_context()`는 검색 순서를 유지하며 최대 k개의 청크를 선택한다. 본문·제목·문서명·페이지를 포함한 전체 문맥의 토큰 수를 확인하며, 한도를 넘는 청크는 통째로 제외한다. 호출할 때 실제 생성 모델에 맞는 토큰 계산 함수를 전달한다.
-- `generation.resolve_citations()`는 최종 문맥에 있는 자료 ID를 실제 파일명과 페이지로 연결한다. 문맥에 없는 출처 ID는 오류로 처리한다.
-- `generation.generate_answer()`는 저장된 문맥과 한국어 프롬프트로 LangChain 모델을 호출한다. 답변 형식과 출처 ID를 검증하고 실제 모델 입력·출력과 토큰 사용량을 반환한다.
-- `prompts/shipping_qa.txt`에 한국어 답변과 추가 확인·보류, 적용 조건을 확인하는 지시를 정리했다.
+문맥 예산은 `tiktoken`의 `o200k_base` 로컬 추정값으로 계산한다.
+실제 생성 토큰은 모델 응답의 usage로 따로 기록한다.
 
-가상 검색 결과로 문맥 예산과 인용을 확인한다. 테스트에서는 토큰 계산 함수를 글자 수로 대체해 경계를 검증한다.
+## 데이터 준비·평가 실행기
 
-```bash
-.venv/Scripts/python -m unittest discover -s tests -v
+Basic PDF 15개는 `data/basic/documents/`, 평가 JSON 8개는
+`data/basic/evaluation/`에 둔다. 원본·`.env`·`artifacts/`는 Git에서 제외한다.
+
+```powershell
+.venv/Scripts/python -m member_a.scripts.build_index --help
+.venv/Scripts/python -m member_a.scripts.eval_retrieval --help
 ```
+
+새 색인을 만들 때는 새 컬렉션 이름을 지정한다.
+
+```powershell
+.venv/Scripts/python -m member_a.scripts.build_index --collection basic_multilingual-e5-small_p800_localcheck
+```
+
+`--recreate`는 기존 컬렉션을 삭제하므로 팀 공용 컬렉션에 사용하지 않는다.
+검색 보조 평가는 A의 manifest가 필요하다. 후보 기준 결과와 B 최종 문맥 기준
+정식 평가는 구분한다.
+
+## Langfuse와 C 연결
+
+요청 ID 아래 `rag-query`, `retrieval`, `final-context`,
+`generation-attempt-1`을 기록한다. 후보·최종 청크는 평탄 로그로 전달한다.
+
+- `model_context_hash`: 실제 문맥 문자열의 SHA-256 hex.
+- `final_context_hash`: C의 `compute_context_hash()`로 계산한 평탄 청크 해시.
+- `GenerationResult.attempts`: `model_input`, `model_output`, 모델·시도·실제 토큰 정보.
+
+두 해시의 계산식은 다르다. flush나 trace ID만으로 저장을 확정하지 않고 관측을
+조회한다. 단계별 관측 시간 개선과 전체 평가 어댑터는 후속 작업이다.
+
+## 테스트
+
+```powershell
+.venv/Scripts/python -m unittest discover -s member_b/tests -v
+```
+
+가상 모델·메모리 Qdrant로 계약·오류·출처·A/B 흐름을 확인한다.
+실제 모델 품질·클라우드 부하 시험을 대신하지 않는다.
+
+이 변경은 로컬 파일 구조와 호출 경로를 맞추는 작업이다.
+Git 머지·커밋·푸시와 공유 Qdrant 색인 재생성은 수행하지 않는다.

@@ -4,11 +4,11 @@ from pathlib import Path
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
-from app.core.contracts import ContextBundle, GenerationResult, ModelAnswer
-from app.generation.citations import resolve_citations
-from app.observability.tracing import RequestTrace
+from shared.contracts import ContextBundle, GenerationResult, ModelAnswer
+from member_b.generation.citations import resolve_citations
+from member_c.observability.tracing import RequestTrace
 
-DEFAULT_PROMPT = Path(__file__).resolve().parents[2] / "prompts" / "shipping_qa.txt"
+DEFAULT_PROMPT = Path(__file__).resolve().parents[1] / "prompts" / "shipping_qa.txt"
 CITATION_MARK = re.compile(r"\[(S\d+)\]")
 
 
@@ -61,16 +61,17 @@ def generate_answer(
 
     raw = result["raw"]
     usage = raw.usage_metadata or {}
+    attempt = {
+        "attempt": 1, "model": model.model_name, "model_input": input_messages,
+        "model_output": raw.model_dump(mode="json"),
+        "input_tokens": usage.get("input_tokens"),
+        "output_tokens": usage.get("output_tokens"),
+        "prompt_variant": "defense" if defense else "base",
+        "model_parameters": {"max_output_tokens": model.max_tokens},
+        "error": type(result["parsing_error"]).__name__ if result["parsing_error"] else None,
+    }
     if trace is not None:
-        trace.record_attempt(
-            attempt=1, model=model.model_name, model_input=input_messages,
-            model_output=raw.model_dump(mode="json"),
-            input_tokens=usage.get("input_tokens"),
-            output_tokens=usage.get("output_tokens"),
-            prompt_variant="defense" if defense else "base",
-            model_parameters={"max_output_tokens": model.max_tokens},
-            error=type(result["parsing_error"]).__name__ if result["parsing_error"] else None,
-        )
+        trace.record_attempt(**attempt)
     if result["parsing_error"] is not None or result["parsed"] is None:
         raise ValueError("모델 응답을 지정된 답변 형식으로 읽을 수 없습니다.")
     answer = _check_marked_sources(result["parsed"], context)
@@ -79,9 +80,6 @@ def generate_answer(
         raise ValueError("답변 완료 응답에 근거 출처가 없습니다.")
     return GenerationResult(
         model_answer=answer,
-        attempts=[{
-            "input_messages": input_messages,
-            "output_message": raw.model_dump(mode="json"),
-        }],
+        attempts=[attempt],
         usage=raw.usage_metadata,
     )

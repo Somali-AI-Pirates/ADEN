@@ -1,6 +1,6 @@
 from collections.abc import Mapping, Sequence
 
-from app.core.contracts import Citation
+from shared.contracts import Citation
 
 
 def resolve_citations(

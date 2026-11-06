@@ -16,9 +16,15 @@ dependencies = [
     "qdrant-client>=1.19,<2",
     "sentence-transformers>=6.2,<7",
     "python-dotenv>=1.2,<2",
+    "pypdf>=6,<7",
     "langfuse>=5,<6",
     "tiktoken>=0.8,<1",
 ]
 
 [tool.setuptools.packages.find]
-include = ["app*"]
+where = ["."]
+include = ["shared", "shared.*", "member_a", "member_a.*", "member_b", "member_b.*", "member_c", "member_c.*"]
+exclude = ["*.tests", "*.tests.*"]
+
+[tool.setuptools.package-data]
+member_b = ["prompts/*.txt"]

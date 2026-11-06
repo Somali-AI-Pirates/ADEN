@@ -8,12 +8,12 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
-from app.api.routes import QueryHandler, router
-from app.core.contracts import QueryResponse
-from app.core.exceptions import ServiceError
-from app.core.resources import load_resources
-from app.core.settings import DEFAULT_CONFIG, load_settings
-from app.service.query import answer_query
+from member_b.api.routes import QueryHandler, router
+from shared.contracts import QueryResponse
+from shared.exceptions import ServiceError
+from member_b.service.resources import load_resources
+from shared.settings import DEFAULT_CONFIG, load_settings
+from member_b.service.query import answer_query
 
 logger = logging.getLogger(__name__)
 

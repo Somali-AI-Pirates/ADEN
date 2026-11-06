@@ -10,10 +10,11 @@ from langchain_openai import ChatOpenAI
 from openai import OpenAI
 from qdrant_client import QdrantClient
 
-from app.core.exceptions import ServiceError
-from app.core.settings import DEFAULT_CONFIG, Settings
-from app.indexing.embeddings import Embedder
-from app.observability.tracing import Tracer
+from shared.exceptions import ServiceError
+from shared.settings import DEFAULT_CONFIG, Settings
+from member_a.indexing.embeddings import Embedder
+from member_a.indexing.vector_store import open_vector_index
+from member_c.observability.tracing import Tracer
 
 
 @dataclass
@@ -40,12 +41,12 @@ def load_resources(settings: Settings) -> Resources:
         tracer = Tracer.from_env()
         cleanup.callback(tracer.shutdown)
         embedder = Embedder(settings.embedding_model, device=settings.embedding_device)
-        qdrant = QdrantClient(
-            url=os.environ["QDRANT_URL"].strip(),
-            api_key=os.environ["QDRANT_API_KEY"].strip(),
-            timeout=20,
-            check_compatibility=False,
-        )
+        try:
+            qdrant = open_vector_index(
+                settings.qdrant_collection, timeout=20, check_compatibility=False,
+            )
+        except LookupError as error:
+            raise ServiceError("설정한 검색 색인이 없습니다. A의 색인 준비와 컬렉션 이름을 확인해 주세요.", 503) from error
         cleanup.callback(qdrant.close)
         info = qdrant.get_collection(settings.qdrant_collection)
         if getattr(info.config.params.vectors, "size", None) != embedder.dim:

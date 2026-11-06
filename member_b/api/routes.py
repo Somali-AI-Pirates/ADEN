@@ -4,8 +4,8 @@ from typing import Literal
 from fastapi import APIRouter, Request, Response
 from pydantic import BaseModel, Field
 
-from app.core.contracts import QueryRequest, QueryResponse
-from app.core.settings import Settings
+from shared.contracts import QueryRequest, QueryResponse
+from shared.settings import Settings
 
 QueryHandler = Callable[[QueryRequest, str], Awaitable[QueryResponse]]
 router = APIRouter()

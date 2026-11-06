@@ -3,12 +3,14 @@ import unittest
 from unittest.mock import Mock, patch
 
 import httpx
+from hashlib import sha256
 from fastapi.testclient import TestClient
 from openai import APITimeoutError
 
-from app.api.app import create_app
-from app.core.contracts import Chunk, GenerationResult, ModelAnswer, RetrievedChunk
-from app.core.exceptions import ServiceError
+from member_b.api.app import create_app
+from shared.contracts import Chunk, GenerationResult, ModelAnswer, RetrievedChunk
+from shared.exceptions import ServiceError
+from member_c.observability.records import compute_context_hash
 
 
 class ApiTests(unittest.TestCase):
@@ -28,9 +30,9 @@ class ApiTests(unittest.TestCase):
 
     def test_default_app_loads_resources_and_answers_query(self):
         with (
-            patch("app.api.app.load_resources", return_value=self.resources),
-            patch("app.service.query.retrieve", return_value=self.candidates) as retrieve,
-            patch("app.service.query.generate_answer", return_value=self.generated),
+            patch("member_b.api.app.load_resources", return_value=self.resources),
+            patch("member_b.service.query.retrieve", return_value=self.candidates) as retrieve,
+            patch("member_b.service.query.generate_answer", return_value=self.generated),
         ):
             with TestClient(create_app()) as client:
                 self.assertTrue(client.get("/health").json()["query_ready"])
@@ -47,9 +49,9 @@ class ApiTests(unittest.TestCase):
 
     def test_empty_search_abstains_without_model_call(self):
         with (
-            patch("app.api.app.load_resources", return_value=self.resources),
-            patch("app.service.query.retrieve", return_value=[]),
-            patch("app.service.query.generate_answer") as generate,
+            patch("member_b.api.app.load_resources", return_value=self.resources),
+            patch("member_b.service.query.retrieve", return_value=[]),
+            patch("member_b.service.query.generate_answer") as generate,
             TestClient(create_app()) as client,
         ):
             response = client.post("/query", json={"question": "자료에 없는 질문"})
@@ -62,9 +64,9 @@ class ApiTests(unittest.TestCase):
         self.resources.tracer = Mock()
         self.resources.tracer.start_request.return_value = trace
         with (
-            patch("app.api.app.load_resources", return_value=self.resources),
-            patch("app.service.query.retrieve", return_value=self.candidates),
-            patch("app.service.query.generate_answer", return_value=self.generated),
+            patch("member_b.api.app.load_resources", return_value=self.resources),
+            patch("member_b.service.query.retrieve", return_value=self.candidates),
+            patch("member_b.service.query.generate_answer", return_value=self.generated),
             TestClient(create_app()) as client,
         ):
             response = client.post("/query", json={"question": "예약 문의"})
@@ -73,11 +75,13 @@ class ApiTests(unittest.TestCase):
         retrieval = trace.record_retrieval.call_args.kwargs
         self.assertEqual(retrieval["retrieved_candidates"][0]["book_id"], "DEMO")
         self.assertEqual(retrieval["final_context_chunks"][0]["source_id"], "S1")
+        self.assertEqual(retrieval["final_context_hash"], compute_context_hash(retrieval["final_context_chunks"]))
+        self.assertEqual(retrieval["model_context_hash"], sha256(retrieval["model_context_text"].encode()).hexdigest())
         self.assertEqual(trace.finish.call_args.kwargs["status"], "answered")
 
     def test_preparation_failure_is_not_reported_as_ready(self):
         with (
-            patch("app.api.app.load_resources", side_effect=ServiceError("서버 설정 확인이 필요합니다.", 503)),
+            patch("member_b.api.app.load_resources", side_effect=ServiceError("서버 설정 확인이 필요합니다.", 503)),
             TestClient(create_app()) as client,
         ):
             self.assertFalse(client.get("/health").json()["query_ready"])
@@ -99,13 +103,13 @@ class ApiTests(unittest.TestCase):
         for retrieval_error, model_result, code in cases:
             with self.subTest(code=code):
                 with (
-                    patch("app.api.app.load_resources", return_value=self.resources),
+                    patch("member_b.api.app.load_resources", return_value=self.resources),
                     patch(
-                        "app.service.query.retrieve",
+                        "member_b.service.query.retrieve",
                         side_effect=retrieval_error, return_value=self.candidates,
                     ),
                     patch(
-                        "app.service.query.generate_answer",
+                        "member_b.service.query.generate_answer",
                         side_effect=model_result if isinstance(model_result, Exception) else None,
                         return_value=model_result or self.generated,
                     ),

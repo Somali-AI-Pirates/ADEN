@@ -3,9 +3,9 @@ from unittest.mock import Mock
 
 from langchain_core.messages import AIMessage
 
-from app.core.contracts import Chunk, ModelAnswer, RetrievedChunk
-from app.generation.chain import generate_answer
-from app.generation.context import build_context
+from shared.contracts import Chunk, ModelAnswer, RetrievedChunk
+from member_b.generation.chain import generate_answer
+from member_b.generation.context import build_context
 
 
 class FakeModel:
@@ -49,7 +49,10 @@ class GenerationTests(unittest.TestCase):
         self.assertIn(self.context.text, model.messages[1].content)
         self.assertIn("방어 지시", model.messages[0].content)
         self.assertEqual(result.usage["input_tokens"], 100)
-        self.assertEqual(result.attempts[0]["output_message"]["content"], "모델 출력")
+        self.assertEqual(result.attempts[0]["model_output"]["content"], "모델 출력")
+        self.assertEqual(result.attempts[0]["model"], "test-model")
+        self.assertEqual(result.attempts[0]["input_tokens"], 100)
+        self.assertIn(self.context.text, result.attempts[0]["model_input"][1]["content"])
 
     def test_rejects_unknown_or_missing_answer_sources(self):
         cases = [

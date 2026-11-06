@@ -4,15 +4,16 @@ from time import perf_counter
 
 from openai import APIError, APITimeoutError
 
-from app.core.contracts import QueryRequest, QueryResponse
-from app.core.exceptions import ServiceError
-from app.core.resources import Resources
-from app.core.settings import Settings
-from app.generation.chain import DEFAULT_PROMPT, generate_answer
-from app.generation.citations import resolve_citations
-from app.generation.context import build_context
-from app.retrieval.service import retrieve
-from app.observability.tracing import RequestTrace, Tracer
+from shared.contracts import QueryRequest, QueryResponse
+from shared.exceptions import ServiceError
+from member_b.service.resources import Resources
+from shared.settings import Settings
+from member_b.generation.chain import DEFAULT_PROMPT, generate_answer
+from member_b.generation.citations import resolve_citations
+from member_b.generation.context import build_context
+from member_a.retrieval.service import retrieve
+from member_c.observability.tracing import RequestTrace, Tracer
+from member_c.observability.records import compute_context_hash
 
 
 def prompt_hash() -> str:
@@ -89,17 +90,21 @@ def _answer_query(
             settings.retrieval.context_token_budget,
             resources.count_tokens,
         )
+        retrieved_candidates = [
+            {**asdict(item.chunk), "rank": item.rank, "score": item.score,
+             "retriever": item.retriever}
+            for item in candidates
+        ]
+        final_context_chunks = [
+            {**asdict(item.chunk), "source_id": f"S{index}"}
+            for index, item in enumerate(context.final_chunks, 1)
+        ]
         trace.record_retrieval(
-            retrieved_candidates=[
-                {**asdict(item.chunk), "rank": item.rank, "score": item.score,
-                 "retriever": item.retriever}
-                for item in candidates
-            ],
-            final_context_chunks=[
-                {**asdict(item.chunk), "source_id": f"S{index}"}
-                for index, item in enumerate(context.final_chunks, 1)
-            ],
-            final_context_hash=context.context_hash,
+            retrieved_candidates=retrieved_candidates,
+            final_context_chunks=final_context_chunks,
+            final_context_hash=compute_context_hash(final_context_chunks),
+            model_context_text=context.text,
+            model_context_hash=context.context_hash,
             k=settings.retrieval.k,
             latency_ms=retrieval_ms,
         )

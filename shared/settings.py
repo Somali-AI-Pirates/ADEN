@@ -3,9 +3,10 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, Field
 
-from app.core.contracts import RetrievalMode
+from shared.contracts import RetrievalMode
 
-DEFAULT_CONFIG = Path(__file__).resolve().parents[2] / "configs" / "basic.yaml"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_CONFIG = PROJECT_ROOT / "configs" / "basic.yaml"
 
 
 class RetrievalSettings(BaseModel):
@@ -29,4 +30,7 @@ class Settings(BaseModel):
 
 def load_settings(path: Path = DEFAULT_CONFIG) -> Settings:
     with path.open(encoding="utf-8") as config:
-        return Settings.model_validate(yaml.safe_load(config))
+        settings = Settings.model_validate(yaml.safe_load(config))
+    if not settings.documents_dir.is_absolute():
+        settings.documents_dir = PROJECT_ROOT / settings.documents_dir
+    return settings

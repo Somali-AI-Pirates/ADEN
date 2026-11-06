@@ -1,7 +1,7 @@
 from collections.abc import Callable, Sequence
 from hashlib import sha256
 
-from app.core.contracts import Citation, ContextBundle, RetrievedChunk
+from shared.contracts import Citation, ContextBundle, RetrievedChunk
 
 
 def build_context(
