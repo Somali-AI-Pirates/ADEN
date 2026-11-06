@@ -221,10 +221,9 @@ Hybrid 결합과 리랭커 설정은 A가 제안하고 B가 위 설정과 함께
 | `count_tokens(text) -> int` | 문맥 전체 토큰 계산 함수 |
 | `tracer` | C의 `Tracer`와 동일한 요청 추적 인터페이스 |
 | `cleanup`, `close()` | 생성한 SDK 클라이언트·추적 도구의 정리 콜백을 보유하고 앱 종료 시 실행 |
-| `keyword_index` (선택) | `app.indexing.keyword_store.KeywordIndex`. 없으면 A의 검색이 첫 `hybrid`·`hybrid_rerank` 호출 때 같은 Qdrant 컬렉션의 청크로 만들어 프로세스 안에 보관한다 |
-| `reranker` (선택) | `app.retrieval.reranker.Reranker`. 없으면 첫 `hybrid_rerank` 호출 때 기본 모델을 읽는다. 첫 요청 지연을 피하려면 시작 시 넣거나 한 번 호출해 둔다 |
+| `retrieval` | 실행 자원이 소유하는 `RetrievalResources`. BM25·리랭커를 첫 사용 때 한 번 준비하며 자원별 잠금으로 중복 초기화를 막고 종료 때 참조를 해제 |
 
-Hybrid·리랭킹용 추가 자원은 A·B가 공통 변경으로 정한다. A·C는 B의 Resources 구체 클래스를 역으로 import하지 않고 필요한 속성·호출 기능에 의존한다. Resources와 SDK 객체는 RunRecord로 직렬화하지 않는다.
+검색은 자원이 소유하는 retrieval 상태·임베딩·클라이언트·컬렉션을 사용한다. 검색 모듈은 서비스의 Resources 구체 클래스를 역으로 import하지 않는다. 자원 대상을 바꾸려면 새로 준비한다. Resources와 SDK 객체는 RunRecord로 직렬화하지 않는다.
 
 `load_resources(settings)`는 전체 자원 조립이 성공하면 종료 책임을 반환한 `Resources`로 넘긴다. 그 전에 실패하면 이미 등록한 클라이언트·추적 도구의 정리 콜백을 역순으로 실행하고 오류를 호출자에게 전달한다. 필수 환경변수·색인·차원 검증, 선택적 관측 모듈과 로컬 토큰 계산기의 기존 동작은 유지한다. 생성 모델은 SDK 클라이언트를 공유하며 SDK 자동 재시도는 끄고 서비스 계층의 시도 한도를 따른다.
 
@@ -275,7 +274,7 @@ Langfuse의 flush 호출이나 trace ID 생성만으로 저장 확인을 완료 
 
 ## 7. 실행 위치와 패키지 설정
 
-공통 실행 위치는 저장소 루트다. `main:app`이 API 진입점이다. 설치·검사는 [개발 가이드](../guides/development.md), 서버 시작은 [README](../../README.md#빠른-시작), 색인·평가 실행은 해당 [데이터](../../data/README.md)·[평가 가이드](../guides/c-module-guide.md)를 따른다. 도움말·모의 샘플 성공과 실제 질의 성공을 구분한다.
+공통 실행 위치는 저장소 루트다. `uv run server`와 `uv run dev`가 API 실행 명령이며 각각 자동 재시작을 끄고 켠다. 두 명령은 `app.api.app:create_app`을 Uvicorn 앱 팩토리로 호출한다. 실행 연결·로그 설정의 기준은 [시스템 설계](architecture.md#5-서버-시작과-요청-실행-흐름)다. 설치·검사는 [개발 가이드](../guides/development.md), 서버 시작은 [README](../../README.md#빠른-시작), 색인·평가 실행은 해당 [데이터](../../data/README.md)·[평가 가이드](../guides/c-module-guide.md)를 따른다. 도움말·모의 샘플 성공과 실제 질의 성공을 구분한다.
 
 패키지·하위 Python 패키지에는 `__init__.py`를 둔다. 직접 파일 실행이나 개인별
 `sys.path` 수정보다 모듈 실행을 사용한다. `shared.settings.PROJECT_ROOT`와
@@ -288,71 +287,28 @@ Langfuse의 flush 호출이나 trace ID 생성만으로 저장 확인을 완료 
 저장소 체크아웃과 editable 설치 기준이며, 독립적인 wheel 서비스 배포는
 이번 범위에서 검증하지 않았다. wheel 검사는 필수 코드·리소스의 포함을 확인한다.
 
-A 기능 모듈이 없어도 API·답변 모듈 import는 가능하다. 검색 모듈 누락은 준비
-실패로 안내하고, 선택적 추적 모듈 부재는 추적 비활성으로 처리한다. 타사 의존성
-누락은 해당 기능 자체의 부재로 숨기지 않는다.
+전체 제품 패키지 설치를 지원한다. 필수 기능·의존성이 빠진 부분 설치는 지원하지 않고 import 오류를 대체 경로로 숨기지 않는다. 추적 패키지는 제품에 포함하며 Langfuse 키·설정에 따라 추적을 비활성화한다.
 
 구조 이전의 보존 경계와 당시 연결 검증 체크리스트는 [2026-11-06 기록](../plans/functional-layout-2026-11-06.md)에 보존한다. 그 기록은 현재 인터페이스 명세나 최신 검증 결과를 대신하지 않는다.
 
 ## 8. 서비스와 평가 어댑터 연결 계약
 
-서비스 연결은 `app/service/`에서 관리하고 검색·추적 구현은 해당 공통 기능 모듈을 사용한다.
-검색·추적 모듈은 자원 준비 시 연결한다. API 계약은 다음과 같다.
+- `create_app(config_path=DEFAULT_CONFIG) -> FastAPI`는 프로젝트 루트의 `.env`를 기존 환경변수 우선으로 읽고 설정·앱·수명주기·HTTP 미들웨어·오류 처리·라우터를 연결한다. `query_handler`·`run_record_sink` 인자는 제공하지 않는다.
+- `lifespan(app)`이 설정으로 자원을 작업 스레드에서 준비해 `app.state.resources`에 보관한다. 준비 실패 시 자원은 None이며 `/docs`·`/openapi.json`·`/health`를 제공하고 `/query`는 기존 503 응답을 반환한다.
+- 앱 생성·모듈 import만으로 외부 클라이언트나 모델을 준비하지 않는다. 종료 시 앱 상태를 비우고 `Resources.close()`로 검색 캐시 참조와 SDK·추적 자원을 정리한다.
+- `/query`는 입력·준비 상태를 확인한 뒤 `answer_query(request, resources, request_id, settings)`를 `asyncio.to_thread`로 호출한다. 검색 기본값은 서비스 진입점에서 확정하며 호출자의 요청 객체는 수정하지 않는다.
+- HTTP 응답 필드·상태 코드·출처·`X-Request-ID`를 유지한다. 준비 실패 503, 미지원 검색 오류 501, 모델 오류 502/504, 입력 오류 422를 구분한다.
 
-- `create_app(config_path=DEFAULT_CONFIG, *, run_record_sink=None) -> FastAPI`. 설정을 읽어
-  `app.state.settings`에 두고 앱 생성 중 `app.state.resources = None`으로 시작한다.
-  제거된 `query_handler` 인자와 호환 옵션은 제공하지 않는다.
-- 최상위 `lifespan(app)`은 `app.state.settings`를 사용해 `load_resources()`를
-  `asyncio.to_thread`로 호출한다. 성공한 `Resources`를 `app.state.resources`에 둔다.
-  준비 실패 때 값은 `None`으로 유지하고 기존에 정리된 오류 이유를 제공한다.
-- 종료 때 `app.state.resources`를 먼저 비우고, 준비된 객체가 있으면 `close()`를 한 번
-  호출한다. 앱 생성·모듈 import만으로 자원을 준비하지 않는다.
-- `GET /health`의 기존 `query_ready` 응답 필드는 자원 준비 여부를 나타내고,
-  필드 설명은 `기본 질의 자원의 준비 여부`다.
-  자원이 없을 때 `/docs`, `/openapi.json`, `/health`는 계속 제공되고 `/query`는 기존
-  503 JSON 오류 응답을 반환한다. 추적 모듈이 없으면 추적은 비활성 상태다.
+### 기록의 소비자와 시간 범위
 
-`POST /query`는 입력을 검증하고 생략된 검색 방식을 설정의 기본값으로 채운다. 요청
-미들웨어가 만든 `request.state.request_id`와 `request.state.run_record`를 사용해
-`answer_query(request, resources, request_id, settings, *, run_record=...)`를
-`asyncio.to_thread`로 직접 실행하며 `run_record`를 명시적으로 전달한다.
-실제 업무 응답을 가짜 검색으로 대체하지 않는다.
+HTTP 미들웨어는 `request.state.request_id`를 만들며 상세 기록용 요청 상태를 만들지 않는다. 표준 HTTP 로그에는 요청 ID·메서드·라우트 경로·상태 코드·`latency_ms`·`latency_scope="http"`를 남긴다. 미일치 경로는 `<unmatched>`다. 질문·쿼리 문자열·헤더·모델 원문은 포함하지 않는다. 시간은 응답 생성까지이며 본문 전송·백그라운드 작업·클라이언트 왕복까지가 아니다.
 
-이 연결 변경은 기존 응답 JSON 필드·HTTP 상태 코드·`X-Request-ID` 헤더·검색 기본값과
-오류 사유 정리 규칙을 보존한다. 자원 미준비 503, 미구현 검색 방식 501, 모델 오류 502/504,
-입력 오류 422의 응답 형식은 변경하지 않는다.
+상세 기록은 서비스의 선택 출력 인자 `run_record`와 생성 함수의 `attempt_log`로 수집한다. 평가 어댑터가 매 호출마다 별도 객체를 만들어 전달하고 반환한다. 실패한 시도도 입력·오류 종류·확인되지 않은 사용량 null을 남긴다. 기록 조립은 정규화·usage 집계를 대체하지 않는다. 문맥 해시는 `app.observability.records.compute_context_hash`를 직접 재사용하며 자원에 해시 콜백을 주입하지 않는다.
 
-Resources는 `retriever` 호출 함수와 선택적 `context_hasher`를 포함한다.
-색인·검색 연결은 `app.indexing.embeddings`·`app.retrieval.service`이며,
-실행 기록 연결은 `app.observability`다.
+- `make_query_adapter(resources, settings)` → `adapter(question, retrieval_mode, request_id)`: 평탄 기록을 반환하고 서비스 오류도 기록하여 다음 문항을 처리한다.
+- `make_security_adapters(resources, settings, *, defense)` → `retrieve_fn`, `generate_fn`: 검색·문맥을 한 번 준비해 두 변형에 재사용하며 질문·문맥 변조를 거부한다.
+- 고정된 검색 함수는 `app.retrieval.service.retrieve`를 명시적으로 호출한다. 검색·생성·정답 채점 파이프라인을 복제하지 않는다.
 
-`run_record`와 `attempt_log`는 기존 서비스·생성 함수의 선택 출력 수집 인자다.
-API 요청에서는 미들웨어가 생성한 `request.state.run_record`를 라우트가 `answer_query()`에
-명시적으로 전달한다. 요청마다 별도 객체를 사용한다. 실패한 모델 시도도 입력·오류 종류·확인되지 않은
-사용량 null을 남긴다. B는 RunRecord를 조립하며 C의 검증·usage 집계를 대체하지 않는다.
+서비스 직접 호출·일반 평가·고정 문맥 생성의 시간 범위는 각각 `service`·`in_process_adapter`·`fixed_context_generation`이다. HTTP 요약 로그는 평가 RunRecord·보고서에 자동 합쳐지지 않는다. Langfuse 추적은 별도 경로이며 실제 저장과 HTTP·서비스 시간 연결은 검증 증거가 필요하다. 다른 범위를 섞어 비교하지 않는다. 보고의 한계는 [시스템 설계의 평가 절](architecture.md#9-평가와-비교)을 따른다.
 
-`app.service.adapters`에서 다음 연결 함수를 제공한다.
-
-- `make_query_adapter(resources, settings)` → `adapter(question, retrieval_mode, request_id)`.
-  반환값은 평탄 실행 기록이다. 오류도 기록으로 반환하여 C가 다음 문항을 처리할 수 있다.
-- `make_security_adapters(resources, settings, *, defense)` → `retrieve_fn`, `generate_fn`.
-  검색·문맥을 한 번 준비해 base/defense에 재사용한다. 질문이나 문맥을 바꾸면 거부한다.
-
-정식 평가 어댑터에는 C가 제공한 `compute_context_hash` 콜백이 필요하다.
-C가 연결되지 않았으면 평가 어댑터는 준비 오류를 알린다. 검색·생성·정답 채점 코드를
-B에서 새로 복제하지 않는다.
-
-`create_app(..., run_record_sink=callback)`은 응답 JSON을 바꾸지 않고 요청별 실행 기록을
-동기 callback에 전달한다. [API 미들웨어](../../app/api/middleware.py)가 수신부터 응답 생성 직전까지 잰 값을
-`latency_ms`, `latency_scope="http"`로 확정한다. 기록 저장 실패는 업무 답변을
-바꾸지 않고 경고로 남긴다. 서비스 직접 호출과 고정 문맥 생성은 각각
-`service`/`in_process_adapter`, `fixed_context_generation` 범위로 표시한다.
-현재 일반 평가 adapter는 `answer_query()`를 직접 호출해 `in_process_adapter`를
-기록한다. HTTP 요청 전체 시간은 실제 API 경로의 `http` 범위에서 측정한다.
-각 `latency_ms`는 그 기록의 scope와 함께 해석하며, 클라이언트 왕복 시간이나
-다른 범위의 시간을 HTTP 처리 시간과 섞어 비교하지 않는다. 범위별 보고의 현행 한계는
-[시스템 설계의 평가 절](architecture.md#9-평가와-비교)에 정리한다.
-Langfuse 루트의 서비스 시간과 자식 관측 타임라인 보완은 C 연결 때 별도로 검증한다.
-
-문맥 토큰은 `context_tokenizer` 설정의 로컬 추정값이며 실제 모델 usage와 구분한다.
-최종 문자열도 예산을 재확인하고 초과하면 마지막 청크 전체를 제외한다.
+문맥 토큰은 로컬 추정값이며 실제 모델 usage와 구분한다. 최종 문자열도 예산을 재확인하고 초과하면 마지막 청크 전체를 제외한다.

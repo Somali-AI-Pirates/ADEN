@@ -1,58 +1,47 @@
 import os
 from collections.abc import Callable
 from contextlib import ExitStack
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import lru_cache
-from importlib import import_module
-from types import ModuleType
-from typing import Any
 
 import tiktoken
-from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from openai import OpenAI
 from qdrant_client import QdrantClient
 
+from app.indexing.embeddings import Embedder
+from app.observability.tracing import Tracer
+from app.retrieval.resources import RetrievalResources
 from shared.exceptions import ServiceError
-from shared.settings import DEFAULT_CONFIG, Settings
-
-_A_MODULES = ("app.indexing", "app.retrieval")
-_C_MODULES = ("app.observability",)
-
-
-def _is_missing_module(error: ModuleNotFoundError, roots: tuple[str, ...]) -> bool:
-    """기능 모듈 누락과 타사 의존성 누락을 구분한다."""
-    name = error.name
-    return name is not None and any(
-        name == root or name.startswith(f"{root}.") for root in roots
-    )
+from shared.settings import Settings
 
 
 @dataclass
 class Resources:
-    embedder: Any
+    embedder: Embedder
     qdrant: QdrantClient
     collection: str
     model: ChatOpenAI
     count_tokens: Callable[[str], int]
     cleanup: ExitStack
-    retriever: Callable
-    tracer: Any | None = None
-    context_hasher: Callable[[list[dict]], str] | None = None
+    tracer: Tracer | None = None
+    retrieval: RetrievalResources = field(default_factory=RetrievalResources)
 
-    def close(self):
-        self.cleanup.close()
+    def close(self) -> None:
+        try:
+            self.retrieval.clear()
+        finally:
+            self.cleanup.close()
 
 
 def load_resources(settings: Settings) -> Resources:
     """설정 확인 → 관측 → 검색 → 생성 순서로 자원을 준비한다."""
-    load_dotenv(DEFAULT_CONFIG.parent.parent / ".env", override=False)
-    embeddings, retrieval = _load_search_modules()
     _require_environment()
 
     with ExitStack() as cleanup:
-        tracer, context_hasher = _create_observability(cleanup)
-        embedder = embeddings.Embedder(
+        tracer = Tracer.from_env()
+        cleanup.callback(tracer.shutdown)
+        embedder = Embedder(
             settings.embedding_model,
             device=settings.embedding_device,
         )
@@ -67,50 +56,17 @@ def load_resources(settings: Settings) -> Resources:
             model=model,
             count_tokens=count_tokens,
             cleanup=cleanup,
-            retriever=retrieval.retrieve,
             tracer=tracer,
-            context_hasher=context_hasher,
         )
         # 반환 객체의 조립까지 성공했을 때만 종료 책임을 넘긴다.
         resources.cleanup = cleanup.pop_all()
         return resources
 
 
-def _load_search_modules() -> tuple[ModuleType, ModuleType]:
-    """부분 설치를 지원하되, 기능 내부의 의존성 오류는 그대로 알린다."""
-    try:
-        embeddings = import_module("app.indexing.embeddings")
-        retrieval = import_module("app.retrieval.service")
-    except ModuleNotFoundError as error:
-        if _is_missing_module(error, _A_MODULES):
-            raise ServiceError(
-                "A의 검색 모듈을 연결해야 실제 질문을 처리할 수 있습니다. B 개발용 API 문서는 이용할 수 있습니다.",
-                503,
-            ) from error
-        raise
-    return embeddings, retrieval
-
-
 def _require_environment() -> None:
     for name in ["OPENAI_API_KEY", "QDRANT_URL", "QDRANT_API_KEY"]:
         if not os.environ.get(name, "").strip():
             raise ServiceError(f"서버의 {name} 설정을 확인해 주세요.", 503)
-
-
-def _create_observability(
-    cleanup: ExitStack,
-) -> tuple[Any | None, Callable[[list[dict]], str] | None]:
-    try:
-        tracing = import_module("app.observability.tracing")
-        records = import_module("app.observability.records")
-    except ModuleNotFoundError as error:
-        if not _is_missing_module(error, _C_MODULES):
-            raise
-        return None, None
-
-    tracer = tracing.Tracer.from_env()
-    cleanup.callback(tracer.shutdown)
-    return tracer, records.compute_context_hash
 
 
 def _connect_qdrant(
@@ -128,7 +84,7 @@ def _connect_qdrant(
     cleanup.callback(qdrant.close)
     if not qdrant.collection_exists(settings.qdrant_collection):
         raise ServiceError(
-            "설정한 검색 색인이 없습니다. A의 색인 준비와 컬렉션 이름을 확인해 주세요.",
+            "설정한 검색 색인이 없습니다. 색인 준비와 컬렉션 이름을 확인해 주세요.",
             503,
         )
     info = qdrant.get_collection(settings.qdrant_collection)
@@ -144,7 +100,9 @@ def _create_generation_model(settings: Settings, cleanup: ExitStack) -> ChatOpen
         timeout=settings.model_timeout_seconds,
         max_retries=0,
     )
+
     cleanup.callback(openai_client.close)
+
     return ChatOpenAI(
         model=settings.generation_model,
         api_key=os.environ["OPENAI_API_KEY"],

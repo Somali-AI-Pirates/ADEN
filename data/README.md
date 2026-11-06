@@ -125,7 +125,7 @@ python -m app.evaluation.scripts.eval_retrieval --mode hybrid_rerank
 | `hybrid` | Dense 20 + BM25 20 → RRF(k=60) → 상위 20. BM25 토큰은 한글 2글자 조각과 영문·숫자 덩어리 |
 | `hybrid_rerank` | hybrid 후보 20 → `BAAI/bge-reranker-v2-m3` 재정렬 |
 
-BM25 색인은 파일로 저장하지 않고 Qdrant 컬렉션의 청크로 처음 검색할 때 메모리에 만든다(1초 안팎). 리랭커 모델(약 2.2GB)은 처음 한 번 내려받고, 첫 호출에서 읽는다.
+BM25 색인은 연결한 Qdrant 컬렉션의 청크로 첫 검색 때 메모리에 만들고, 리랭커는 첫 호출에서 읽는다. 각 실행의 `RetrievalResources`가 소유하며 앱·클라이언트 사이에 공유하지 않고 종료 시 참조를 해제한다. 검색 성능 측정값은 아래 날짜별 기록을 따른다.
 
 2026-11-06 기록 (검색 전용, development·additional 각 채점 28문항의 평균, CPU):
 

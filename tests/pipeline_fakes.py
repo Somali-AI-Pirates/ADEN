@@ -1,13 +1,13 @@
 """Shared fake model and external resources for pipeline tests."""
 
 from dataclasses import asdict
+from contextlib import ExitStack
 from types import SimpleNamespace
 from unittest.mock import Mock
 
 from langchain_core.messages import AIMessage
 
-from app.observability.records import compute_context_hash
-from app.retrieval.service import retrieve
+from app.service.resources import Resources
 from shared.contracts import Chunk, ModelAnswer
 
 
@@ -29,13 +29,19 @@ class FakeModel:
         self.messages = messages
         return {
             "parsed": ModelAnswer(
-                status="answered", answer=self.answer,
-                reason="제공된 자료에 근거합니다.", source_ids=self.source_ids,
+                status="answered",
+                answer=self.answer,
+                reason="제공된 자료에 근거합니다.",
+                source_ids=self.source_ids,
             ),
             "parsing_error": None,
             "raw": AIMessage(
                 content="모델 출력",
-                usage_metadata={"input_tokens": 100, "output_tokens": 20, "total_tokens": 120},
+                usage_metadata={
+                    "input_tokens": 100,
+                    "output_tokens": 20,
+                    "total_tokens": 120,
+                },
             ),
         }
 
@@ -45,17 +51,22 @@ def make_query_resources():
     chunk = Chunk("DEMO-p1-c1", "DEMO", "DEMO.pdf", 1, "예약 접수와 확정은 별도입니다.")
     vector = SimpleNamespace(tolist=lambda: [0.1, 0.2])
     embedder = SimpleNamespace(embed_query=Mock(return_value=vector))
-    qdrant = SimpleNamespace(query_points=Mock(return_value=SimpleNamespace(
-        points=[SimpleNamespace(payload=asdict(chunk), score=0.9)],
-    )), close=Mock())
-    return SimpleNamespace(
+    qdrant = SimpleNamespace(
+        query_points=Mock(
+            return_value=SimpleNamespace(
+                points=[SimpleNamespace(payload=asdict(chunk), score=0.9)],
+            )
+        ),
+        close=Mock(),
+    )
+    cleanup = ExitStack()
+    cleanup.callback(qdrant.close)
+    return Resources(
         embedder=embedder,
         qdrant=qdrant,
         collection="existing-test-index",
-        retriever=retrieve,
         model=FakeModel(["S1"]),
         count_tokens=len,
         tracer=None,
-        context_hasher=compute_context_hash,
-        close=Mock(),
+        cleanup=cleanup,
     )
