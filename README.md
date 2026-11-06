@@ -16,14 +16,13 @@ PDF를 미리 추출·청킹·색인한 뒤, 질문마다 **검색 → 문맥 �
 채택한 설계는 **기능별 모듈 + 얇은 API + 서비스 계층**이다. API는 HTTP 입출력을 처리하고 서비스 함수가 기능 모듈을 연결한다. 새 코드의 배치·의존 방향·자원과 설정 규칙은 [설계 패턴](docs/design/architecture.md#채택한-설계-패턴)을 따른다.
 
 ```text
-main.py                  # FastAPI 앱 진입점
 app/
 ├── ingestion/           # PDF 추출·청킹·정제 데이터 준비
 ├── indexing/            # 임베딩·Qdrant 색인
 ├── retrieval/           # 검색
 ├── generation/          # 문맥·답변·출처 검증·프롬프트
 ├── service/             # 자원 초기화와 요청 흐름 연결
-├── api/                 # FastAPI 앱과 라우트
+├── api/                 # server/dev 실행 명령·앱 팩토리·라우트
 ├── observability/       # 실행 기록·Langfuse 추적
 └── evaluation/          # 품질·보안 평가
 shared/                  # 공통 타입·설정·예외
@@ -35,19 +34,19 @@ experimental/<GitHubID>/ # 자유로운 개인 실험
 
 ## 빠른 시작
 
-공통 개발·CI 기준은 **Python 3.13**이다. 저장소 루트에서 환경을 만들고 활성화한다. 아래 활성화 명령은 Linux·macOS 기준이며, Windows와 uv 사용법은 [개발 환경 가이드](docs/guides/development.md)를 따른다.
+공통 개발·CI 기준은 **Python 3.13**이다. 저장소 루트에서 uv로 잠근 의존성을 설치한다. pip 설치와 Windows 환경 설정은 [개발 환경 가이드](docs/guides/development.md)를 따른다.
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -e '.[test]'
+uv sync --extra test --locked
 ```
 
 `.env.example`을 참고해 로컬 `.env`에 OpenAI·Qdrant 접속 정보를 설정하고, [데이터 안내](data/README.md)에 따라 원본과 사전 색인을 준비한다. 실제 키는 Git에 올리지 않는다. 준비 후 서버를 실행한다.
 
 ```bash
-python -m uvicorn main:app --reload
+uv run dev
 ```
+
+`dev`는 코드 변경 시 자동 재시작한다. 자동 재시작 없이 실행하려면 `uv run server`를 사용한다. 두 명령은 패키지 안의 같은 `create_app()`을 Uvicorn 앱 팩토리로 실행한다.
 
 `http://127.0.0.1:8000/docs`에서 질문한다. `GET /health`의 `query_ready`로 질의 준비 여부를 확인한다. 모델·컬렉션·검색 수·문맥 예산 등은 `configs/basic.yaml`에서 설정한다. 외부 모델 호출에는 사용량이 발생할 수 있으며 팀 공식 실행은 [공통 운영 규칙](CONTRIBUTING.md#7-공식-실행과-외부-자원)을 따른다.
 

@@ -43,7 +43,7 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 
 | 경계 | 책임과 새 코드 작성 기준 |
 | --- | --- |
-| 앱 조립 | `main.py`는 `create_app()`을 호출한다. `app/api/app.py`는 설정을 읽고 `app/api/lifespan.py`의 수명주기 함수, 요청 기록, 오류 처리와 라우터를 FastAPI에 연결한다. 앱 설정·자원은 `app.state`에 둔다. |
+| 앱 조립 | `app/api/cli.py`의 `server`·`dev` 명령이 Uvicorn을 실행하고, Uvicorn은 `app/api/app.py`의 `create_app()`을 앱 팩토리로 호출한다. 팩토리는 설정을 읽고 수명주기·요청 기록·오류 처리·라우터를 연결한다. 앱 설정·자원은 `app.state`에 둔다. |
 | API | `app/api/routes.py`는 HTTP 입력 검증·준비 상태·응답을 처리하고 서비스를 호출한다. 검색 기본값은 서비스 진입점에서 확정한다. 검색·생성 파이프라인을 넣지 않는다. |
 | 서비스 계층 | `app/service/query.py`가 검색 → 문맥 구성 → 생성 → 출처 확인을 연결한다. 필요한 자원·설정·요청 ID·기록을 인자로 받아 HTTP 없이도 호출할 수 있게 한다. |
 | 기능 모듈 | `ingestion/`, `indexing/`, `retrieval/`, `generation/`, `observability/`는 해당 기능을 구현한다. 새 구현은 관련 기능의 기존 진입점과 공통 계약을 재사용한다. |
@@ -114,7 +114,6 @@ flowchart LR
 
 ```text
 ADEN/
-├── main.py                         # app.api.app.create_app() 호출
 ├── app/
 │   ├── ingestion/                  # PDF 페이지 추출·청킹
 │   ├── indexing/                   # 임베딩·Dense 색인·색인 CLI
@@ -123,7 +122,10 @@ ADEN/
 │   ├── generation/                 # 문맥·답변·출처
 │   │   └── prompts/                # shipping_qa.txt, defense.txt
 │   ├── service/                    # query.py, resources.py, adapters.py
-│   ├── api/                        # FastAPI create_app()과 라우트
+│   ├── api/                        # 실행 명령·앱 팩토리·라우트
+│   │   ├── cli.py                  # server/dev, Uvicorn 로그 설정
+│   │   ├── app.py                  # create_app()
+│   │   └── lifespan.py             # 자원 준비·해제
 │   ├── observability/              # 실행 기록과 Langfuse 추적
 │   └── evaluation/                 # 평가·보안 비교·샘플·실행 CLI
 │       ├── prompts/                # judge.txt, security_judge.txt
@@ -170,31 +172,37 @@ ADEN/
 
 공통 타입은 `shared/contracts.py`에 한 번만 정의한다. 구조화 검색 결과와 평탄화 실행 기록의 변환, 출처 및 두 문맥 해시의 의미도 [공통 계약](contracts.md)을 따른다.
 
-## 5. 메인 파일과 요청 실행 흐름
+## 5. 서버 시작과 요청 실행 흐름
 
-현재 `main.py`는 다음 앱 생성 함수를 호출한다.
+`uv run server`는 자동 재시작 없이, `uv run dev`는 코드 변경 시 재시작하며 서버를 실행한다. `[project.scripts]`에 등록된 두 명령은 패키지 안의 `app/api/cli.py`를 호출한다. Uvicorn이 같은 앱 팩토리를 불러오므로 루트 `main.py`나 실행용 `sys.path` 수정에 의존하지 않는다. 기본 실행의 핵심 연결은 다음과 같다.
 
 ```python
-from app.api.app import create_app
-
-app = create_app()
+uvicorn.run(
+    "app.api.app:create_app",
+    factory=True,
+    reload=False,
+    log_config=SERVER_LOG_CONFIG,
+)
 ```
+
+`server`·`dev`는 Uvicorn 실행 옵션만 정한다. `create_app()`이 앱을 조립하고, Uvicorn의 시작 절차가 등록된 lifespan에 진입한다. 자원 준비가 끝나 `yield`에 도달한 뒤 HTTP 요청을 처리한다. 이 연결은 Uvicorn의 [Application Factory](https://uvicorn.dev/#application-factories)와 Python의 [패키지 CLI 진입점](https://packaging.python.org/en/latest/guides/creating-command-line-tools/)을 사용한다.
 
 `create_app(config_path=DEFAULT_CONFIG)`은 설정 로드 → FastAPI 생성 → `app.state.settings`와 초기 `app.state.resources = None` 설정 → 요청 기록·오류 처리·라우터 등록 → 앱 반환 순서로 조립한다. lifespan은 이 함수 바깥의 최상위 `lifespan(app)`을 연결한다. 함수 안에 시작·종료 절차나 요청·오류 처리 함수를 중첩 정의하지 않는다.
 
 | 읽을 코드 | 확인할 내용 |
 | --- | --- |
+| [cli.py](../../app/api/cli.py) | 설치 명령·앱 팩토리 연결, 개발 재시작 옵션과 프로세스별 로그 설정 |
 | [app.py](../../app/api/app.py) | `create_app()`의 앱 조립과 최상위 `lifespan(app)` 등록 |
 | [lifespan.py](../../app/api/lifespan.py) | 앱 상태의 설정을 사용하는 자원 준비·해제 수명주기 |
 | [middleware.py](../../app/api/middleware.py) | `track_request()`가 요청 ID와 HTTP 요약 로그를 처리 |
 | [errors.py](../../app/api/errors.py) | `register_error_handlers()`가 세 오류 처리 함수를 등록 |
 | [routes.py](../../app/api/routes.py) | `/health`, `/query` 요청의 입력·준비 상태 확인과 `answer_query()` 직접 호출 |
 
-`main:app` 진입점을 유지하며 `create_app(config_path=DEFAULT_CONFIG)`을 사용한다. 설정은 앱 생성 때 읽고, 자원은 서버 시작 때 `asyncio.to_thread(load_resources, app.state.settings)`로 준비한다. 준비 실패 때 `app.state.resources`는 `None`으로 남아 `/health`의 기존 `query_ready` 필드가 자원 준비 여부를 나타내고 `/query`는 기존 503 오류 응답을 반환한다. 종료할 때 상태에서 자원을 지운 뒤 한 번 해제한다. 요청 처리용 선택 핸들러 인자는 두지 않는다.
+실행 대상은 `app.api.app:create_app`이며 `factory=True`로 `create_app(config_path=DEFAULT_CONFIG)`을 호출한다. 설정은 앱 생성 때 읽고, 자원은 서버 시작 때 `asyncio.to_thread(load_resources, app.state.settings)`로 준비한다. 준비 실패 때 `app.state.resources`는 `None`으로 남아 `/health`의 기존 `query_ready` 필드가 자원 준비 여부를 나타내고 `/query`는 기존 503 오류 응답을 반환한다. 종료할 때 상태에서 자원을 지운 뒤 한 번 해제한다. 요청 처리용 선택 핸들러 인자는 두지 않는다.
 
 요청 미들웨어 `track_request()`는 `request.state.request_id`를 만들고 `X-Request-ID`로 응답에 연결한다. 모든 HTTP 요청에 요청 ID·메서드·라우트 경로·상태 코드·`latency_ms`·`latency_scope="http"`를 운영 로그로 남긴다. 입력 검증 실패·자원 미준비·예상하지 못한 오류도 포함한다. 라우트가 없는 요청의 경로는 `<unmatched>`다. 질문·쿼리 문자열·헤더는 기록하지 않는다.
 
-`main.py`는 표준 logging의 콘솔 출력과 `app` 로거의 INFO 수준을 설정한다. HTTP 시간은 응답 생성까지이며 클라이언트 왕복·본문 전송 완료·백그라운드 작업을 포함하지 않는다. Langfuse 서비스 시간 및 평가 기록과 혼합하지 않는다.
+CLI는 Uvicorn의 기본 로그 설정을 복사한 `SERVER_LOG_CONFIG`를 `log_config`로 전달한다. 기존 Uvicorn 출력을 유지하면서 루트 로거는 WARNING, `app` 로거는 INFO와 시간·수준·로거 이름이 있는 콘솔 출력을 사용한다. 설정은 재시작된 서버 프로세스에도 적용된다. import만으로 전역 logging 설정을 실행하지 않는다. HTTP 시간은 응답 생성까지이며 클라이언트 왕복·본문 전송 완료·백그라운드 작업을 포함하지 않는다. Langfuse 서비스 시간 및 평가 기록과 혼합하지 않는다.
 
 `/query`는 자원이 준비되지 않았으면 기존 503 응답을 반환하고, 준비됐으면 다음처럼 서비스를 작업 스레드에서 직접 실행한다. 검색 기본값은 서비스가 한 번 확정하므로 HTTP 없이 호출하는 평가기도 같은 규칙을 따른다.
 

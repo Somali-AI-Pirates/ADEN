@@ -58,7 +58,11 @@ select = ["E4", "E7", "E9", "F"]
 line-ending = "lf"
 
 [tool.pyright]
-include = ["main.py", "app", "shared"]
+include = ["app", "shared"]
 exclude = ["experimental"]
 pythonVersion = "3.11"
 typeCheckingMode = "basic"
+
+[project.scripts]
+server = "app.api.cli:server"
+dev = "app.api.cli:dev"
