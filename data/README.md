@@ -1,6 +1,6 @@
 # 데이터 배치와 검증
 
-제공 원본 자료는 Git에 올리지 않는다. Basic은 저장소 루트의 `data/basic/`에 풀고 아래 해시로 같은 파일인지 확인한다. 팀이 검토할 정제본은 [curated/](curated/README.md)에서 Git으로 관리한다. 기능별 코드 이동은 원본 데이터, `artifacts/basic/`의 파일, Qdrant 컬렉션을 이동·재생성하지 않는다.
+제공 원본 자료는 Git에 올리지 않는다. Basic은 저장소 루트의 `data/basic/`에 풀고 아래 해시로 같은 파일인지 확인한다. 팀이 검토할 정제본은 [curated/](curated/README.md)에서 Git으로 관리한다.
 
 ## 1. 원본
 프로젝트(3) Basic 데이터셋의 해운 ZIP 2개를 사용한다.
@@ -76,7 +76,7 @@ QDRANT_API_KEY=<클러스터 API 키>
 2026-11-06 확인 기준으로 무료 클러스터는 1주일 동안 사용하지 않으면 일시정지되고, 4주가 지나면 삭제된다. 정지되면 Qdrant Cloud 콘솔에서 다시 켠다. [Qdrant Cloud 공식 문서](https://qdrant.tech/cloud/)
 
 ## 5. 색인 생성
-저장소 루트에서 실행한다. 루트 README의 공통 설치 명령으로 패키지를 설치한다. 처음 새 색인을 만들 때는 E5 모델(약 470MB)을 내려받는다.
+저장소 루트에서 실행한다. [개발 가이드](../docs/guides/development.md)의 공통 설치 절차를 따른다. 처음 새 색인을 만들 때는 E5 모델(약 470MB)을 내려받는다.
 ```bash
 python -m pip install -e '.[test]'
 python -m app.indexing.scripts.build_index

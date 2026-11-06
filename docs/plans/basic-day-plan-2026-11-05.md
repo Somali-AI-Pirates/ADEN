@@ -1,32 +1,9 @@
 # Basic 당일 작업 계획 — 2026-11-05 기록
 
-> 이 문서는 2026-11-05에 작성하고 11월 6일 오전까지 보완한 3명 기준 원안의 기록이다.
-> 아래 원안의 사람별 `member_*` 경로와 담당 고정 규칙은 현재 실행 규칙이 아니다.
-> 기능별 공통 구조의 기준은 [시스템 설계](../design/architecture.md),
-> 현재 협업 절차는 [Git 협업 가이드](../guides/git-workflow.md)를 따른다.
-> 11월 5~13일 네 명 팀의 현재 기록 위치는 [문서·기록 안내](../README.md), 작업·결정·인계·리뷰·실행 절차는 현재 [Git 협업 가이드](../guides/git-workflow.md)를 따른다. 아래 11월 5일 원안은 보존된 과거 기록이며 현재 일정이나 완료 증거로 사용하지 않는다.
-
-## 2026-11-06 구조 전환 이후의 실행 안내
-
-기존 역할은 초기 작업의 설명과 연락·검토 기준으로 유지한다. 공통 제품
-코드는 `app/` 기능 모듈에서 함께 관리하며 새 참여자에게 특정 폴더를
-독점 배정하지 않는다. 개인 실험·작업 기록은 `experimental/<GitHubID>/`에
-각자 원하는 구조와 형식으로 남길 수 있다.
-
-| 작업 | 현재 위치·명령 |
-| --- | --- |
-| PDF 처리·색인·검색 | `app/ingestion/`, `app/indexing/`, `app/retrieval/` |
-| 답변·API·통합 | `app/generation/`, `app/api/`, `app/service/` |
-| 기록·평가 | `app/observability/`, `app/evaluation/` |
-| 색인 생성 | `python -m app.indexing.scripts.build_index` |
-| 검색만 평가 | `python -m app.evaluation.scripts.eval_retrieval --mode naive` |
-| 가상 일반 평가 | `python -m app.evaluation.scripts.run_benchmark --sample` |
-| 가상 보안 비교 | `python -m app.evaluation.scripts.run_security --sample` |
-| 공통 테스트 | `python -m pytest -q tests` |
-
-설정·프롬프트 내용과 데이터·색인·산출물 위치는 유지한다. 아래 체크리스트는
-당시의 계획이며 완료 증빙이 아니다. 현재 코드에는 Naive와 답변·API·기록·평가
-구현이 있고, Hybrid·리랭킹 및 실제 세 방식 비교 결과는 아직 없다.
+> 이 문서는 2026-11-05에 작성하고 11월 6일 오전까지 보완한 3명 기준 원안이다.
+> 사람별 `member_*` 경로·담당 고정·시간 배정은 당시 계획이며 현재 실행 규칙이나 완료 증거가 아니다.
+> 현재 구조는 [시스템 설계](../design/architecture.md), 협업은 [CONTRIBUTING](../../CONTRIBUTING.md),
+> 실행·검사는 [개발 가이드](../guides/development.md), 일정·담당·작업 상태는 [팀 기록 위치](../README.md#팀-기록의-위치)에서 확인한다.
 
 ## 보존한 당일 원안
 
@@ -34,7 +11,7 @@
 
 폴더 구조 갱신: 2026-11-06. 원래 작업일은 파일명과 같이 2026-11-05로 보존한다. 아래 담당 경로는 사람별 최종 패키지 기준이다.
 
-기준 설계: [시스템 설계](../design/architecture.md) · [공통 입출력·호출 계약](../design/contracts.md) · [Git 협업 규칙](../guides/git-workflow.md)
+기준 설계: [시스템 설계](../design/architecture.md) · [공통 입출력·호출 계약](../design/contracts.md) · [공통 협업 규칙](../../CONTRIBUTING.md)
 
 ## 1. 오늘의 범위
 
@@ -142,7 +119,7 @@ Basic의 패키지명은 `member_ysl727727`(A), `member_chsopo89`(B), `member_Da
 
 위 브랜치는 첫 작업의 예시다. 각 PR을 squash 병합하고 브랜치를 삭제한 뒤, 다음 작업은 최신 main에서 새 작업 브랜치를 만든다. 같은 담당자가 계속 작업하더라도 이미 squash된 브랜치를 재사용하지 않는다.
 
-각자 작업을 커밋하거나 stash한 뒤 자신의 작업 브랜치에서 `git fetch origin`, `git merge origin/main`으로 최신 설계를 받는다. 기존 코드는 유지되며 겹치는 변경은 충돌을 해결한다. 상세 절차는 [Git 협업 규칙](../guides/git-workflow.md)의 main 동기화 안내를 따른다. 병합된 `main`의 설계 문서를 기준으로 개발을 계속한다. B의 공통 계약 PR이 들어오면 A와 C가 같은 기준으로 작업 브랜치를 맞춘다. B도 그 시점부터 공통 계약을 예고 없이 변경하지 않는다.
+각자 작업을 커밋하거나 stash한 뒤 자신의 작업 브랜치에서 `git fetch origin`, `git merge origin/main`으로 최신 설계를 받는다. 기존 코드는 유지되며 겹치는 변경은 충돌을 해결한다. 상세 절차는 [공통 협업 규칙](../../CONTRIBUTING.md)의 main 동기화 안내를 따른다. 병합된 `main`의 설계 문서를 기준으로 개발을 계속한다. B의 공통 계약 PR이 들어오면 A와 C가 같은 기준으로 작업 브랜치를 맞춘다. B도 그 시점부터 공통 계약을 예고 없이 변경하지 않는다.
 
 기능 전체가 완성될 때까지 기다리지 않고 **계약 → Naive 전체 연결 → 세 검색 방식 → 평가 결과** 순서로 작은 PR을 통합한다. 기본 리뷰 연결은 A의 PR을 B, B의 PR을 C, C의 PR을 A가 확인한다. 특정 모듈의 전문 검토가 필요하면 해당 담당자도 함께 확인한다.
 

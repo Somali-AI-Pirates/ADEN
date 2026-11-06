@@ -2,7 +2,7 @@
 
 작성일: 2026-11-06 · 수정일: 2026-11-06.
 
-관련 문서: [문서 목차](../README.md) · [시스템 설계](architecture.md) · [Git 협업 규칙](../guides/git-workflow.md)
+관련 문서: [문서 목차](../README.md) · [시스템 설계](architecture.md) · [공통 협업 규칙](../../CONTRIBUTING.md)
 
 이 문서는 Basic의 필드·함수·로그 계약의 기준이다. Python 공통 데이터 타입은 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. 시스템 구조 문서는 책임과 흐름을 요약하며, 세부 계약은 여기서 관리한다. SDK 클라이언트를 포함하는 실행 자원은 `app/service/resources.py`에서 관리한다. 실행 기록 검증·직렬화 코드는 `app/observability/records.py`가 맡는다.
 
@@ -26,7 +26,7 @@
 - 제품 코드와 기본 검사·설치는 `experimental/<GitHubID>/`에 의존하지 않는다.
 
 개인 실험 내부의 파일·폴더·작업일지 양식은 자율이다. 채택할 기능과 결과를
-공통 코드에 반영하는 절차는 [Git 협업 가이드](../guides/git-workflow.md)를 따른다.
+공통 코드에 반영하는 절차는 [공통 협업 규칙](../../CONTRIBUTING.md)를 따른다.
 
 ## 2. A·B가 전달하는 데이터 객체
 
@@ -258,7 +258,6 @@ Langfuse의 flush 호출이나 trace ID 생성만으로 저장 확인을 완료 
 | --- | --- |
 | 빈 질문·잘못된 mode | 입력 검증 오류, API 422 |
 | 자료 부족·실제 검색 결과 없음 | 정상 `abstained`; 시스템 오류율에 넣지 않음 |
-| 선택한 검색 방식 미구현 | 개발 중에는 명시적인 미지원 오류. 세 방식 구현 완료로 표시하지 않음 |
 | 색인·검색 의존성 실패 | 시스템 오류, 보통 API 503 |
 | 모델 timeout | 시스템 오류, API 504 |
 | 모델 호출·JSON·출처 검증 실패 | 시스템 오류, API 502 |
@@ -269,22 +268,7 @@ Langfuse의 flush 호출이나 trace ID 생성만으로 저장 확인을 완료 
 
 ## 7. 실행 위치와 패키지 설정
 
-공통 실행 위치는 저장소 루트다. 가상환경에서 `python -m pip install -e '.[test]'`로
-앱과 검사 의존성을 설치한다. `main:app` 진입점과 설정·데이터 기준 위치는 유지한다.
-API 실행과 CLI 도움말 명령은 다음과 같다. `--help`는 실제 모델·색인에 연결하지 않는다.
-
-```bash
-python -m uvicorn main:app --reload
-python -m app.indexing.scripts.build_index --help
-python -m app.evaluation.scripts.eval_retrieval --help
-python -m app.evaluation.scripts.run_benchmark --help
-python -m app.evaluation.scripts.run_security --help
-```
-
-앱 실행은 실제 자원 준비를 시도하며 준비 상태를 `/health`로 확인한다.
-도움말·가상 샘플 검증과 실제 질의 성공을 구분한다. 자세한 설치·실행·검사는
-[README](../../README.md), [Git 협업 가이드](../guides/git-workflow.md),
-[평가 가이드](../guides/c-module-guide.md)를 따른다.
+공통 실행 위치는 저장소 루트다. `main:app`이 API 진입점이다. 설치·검사는 [개발 가이드](../guides/development.md), 서버 시작은 [README](../../README.md#빠른-시작), 색인·평가 실행은 해당 [데이터](../../data/README.md)·[평가 가이드](../guides/c-module-guide.md)를 따른다. 도움말·모의 샘플 성공과 실제 질의 성공을 구분한다.
 
 패키지·하위 Python 패키지에는 `__init__.py`를 둔다. 직접 파일 실행이나 개인별
 `sys.path` 수정보다 모듈 실행을 사용한다. `shared.settings.PROJECT_ROOT`와
@@ -301,55 +285,24 @@ A 기능 모듈이 없어도 API·답변 모듈 import는 가능하다. 검색 �
 실패로 안내하고, 선택적 추적 모듈 부재는 추적 비활성으로 처리한다. 타사 의존성
 누락은 해당 기능 자체의 부재로 숨기지 않는다.
 
-## 8. 기능별 구조로 전환할 때 보존한 경계
+구조 이전의 보존 경계와 당시 연결 검증 체크리스트는 [2026-11-06 기록](../plans/functional-layout-2026-11-06.md)에 보존한다. 그 기록은 현재 인터페이스 명세나 최신 검증 결과를 대신하지 않는다.
 
-2026-11-06의 사람별 패키지를 기능별 공통 구조로 재배치했다. 과거 브랜치별
-조정 내역은 Git 이력에서 확인하고, 현재 경로 대응표와 작업 동기화 방법은
-[Git 협업 가이드](../guides/git-workflow.md)의 전환 절차를 따른다.
-
-1. `shared` 타입과 동기 함수 시그니처, HTTP 입출력·오류를 유지한다.
-2. 중첩 검색 객체를 평탄 실행 기록으로 변환하는 연결과 두 해시의 정의를 유지한다.
-3. 최종 문맥·출처 대응표와 생성 시도별 실제 입력·출력·사용량을 보존한다.
-4. 요청별 기록은 서비스 응답과 별도로 수집하며 공개 응답에 전체 내부 로그를 추가하지 않는다.
-5. 일반·보안 평가기는 기존 어댑터 계약을 유지한다. 보안 비교는 같은 문맥을 재사용한다.
-6. 설정과 프롬프트 내용, 기존 데이터·색인·산출물 위치를 바꾸지 않는다.
-7. import·동적 로딩·프롬프트 경로·테스트 mock·패키지 설정·CLI·문서를 함께 갱신한다.
-
-## 9. 연결 검증 상태 — 2026-11-06
-
-가짜 외부 자원과 가상 샘플로 다음 항목을 확인했다. 실제 Basic 성능의 증빙은 아니다.
-
-- [x] 기능 모듈이 같은 shared 타입·설정을 사용한다.
-- [x] 검색 → 문맥 → 생성 → 평탄 RunRecord → 기록 정규화가 연결된다.
-- [x] 오류의 null과 실제 빈 배열, 시도별 사용량을 구분한다.
-- [x] 보안 비교의 두 문맥 해시·실제 입력 문맥·생성 조건이 유지된다.
-- [x] 새 모듈 도움말·샘플 CLI와 설치·패키지 리소스를 확인했다.
-- [ ] 실제 질문의 API 응답·최종 문맥·모델 입출력·Langfuse 저장을 같은 ID로 확인한다.
-- [ ] 실제 Basic 질문·참고 JSON 및 보안 JSON의 구조를 `_items()`, `evidence_groups`, `attack_text` 기준으로 확인한다. 현재 참조 파일의 필수 평가 필드 검증은 완료되지 않았다.
-- [ ] 준비된 평가 callable과 실제 Basic 질문·정답 데이터의 어댑터 연결을 확인한다.
-- [ ] RAGAS 설치 조합·평가 모델 호환성과 실제 한 문항 채점을 확인한다. 현재 호환성은 미검증이다.
-- [ ] 실제 Basic 답변의 출처 문서·페이지가 PDF 원문 주장을 뒷받침하는지 확인한다.
-- [ ] 실제 HTTP 전체 응답 시간과 시간 범위별 보고를 확인한다.
-- [ ] 실제 선택 질문의 세 검색 방식·자동 평가·보안 비교를 완료한다.
-
-이 체크리스트는 가상 자원 연결 검증과 실제 자료·서비스 검증을 구분한다. 실제 모델이나 외부 서비스를 호출한 결과가 추가되면 수행 날짜와 결과 경로를 함께 갱신한다.
-
-## 10. B 구현 연결 현황 — 2026-11-06
+## 8. 서비스와 평가 어댑터 연결 계약
 
 서비스 연결은 `app/service/`에서 관리하고 검색·추적 구현은 해당 공통 기능 모듈을 사용한다.
 검색·추적 모듈은 자원 준비 시 연결한다. 검색 모듈이 없으면 `/docs`·`/openapi.json`·`/health`는
 사용할 수 있고 `query_ready=false`, `/query`는 명시적인 503이다. 추적 모듈이 없으면
 추적은 비활성 상태다. 실제 업무 응답을 가짜 검색으로 대체하지 않는다.
 
-Resources의 기존 필드는 유지하며 B 연결용 `retriever` 호출 함수와
-선택적 `context_hasher`를 추가한다. A 연결은 `app.indexing.embeddings`,
-`app.retrieval.service`이며 C 연결은 `app.observability`다.
+Resources는 `retriever` 호출 함수와 선택적 `context_hasher`를 포함한다.
+색인·검색 연결은 `app.indexing.embeddings`·`app.retrieval.service`이며,
+실행 기록 연결은 `app.observability`다.
 
 `run_record`와 `attempt_log`는 기존 호출을 유지하는 선택 출력 수집 인자다.
 요청마다 별도 객체를 사용한다. 실패한 모델 시도도 입력·오류 종류·확인되지 않은
 사용량 null을 남긴다. B는 RunRecord를 조립하며 C의 검증·usage 집계를 대체하지 않는다.
 
-B의 `app.service.adapters`에서 다음 연결 함수를 제공한다.
+`app.service.adapters`에서 다음 연결 함수를 제공한다.
 
 - `make_query_adapter(resources, settings)` → `adapter(question, retrieval_mode, request_id)`.
   반환값은 평탄 실행 기록이다. 오류도 기록으로 반환하여 C가 다음 문항을 처리할 수 있다.

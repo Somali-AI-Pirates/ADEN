@@ -1,102 +1,59 @@
 # ADEN — Basic 해운 RAG Q&A
 
-제공된 Basic 해운 PDF를 근거로 답변하고, 출처와 처리 상태를 제공하는 팀 프로젝트다. 구조 변경은 패키지 위치와 import 경로를 기능별로 정리하며 기존 API 계약, 설정, 데이터, 색인, 산출물의 위치와 의미를 유지한다.
+물류 담당자가 제공된 해운 PDF를 근거로 예약·서류·처리 상태·비용 조건을 확인하는 팀 프로젝트다. 답변에는 문서명과 페이지를 표시하고, 질문에 조건이 부족하면 추가 확인을 요청하며 근거가 부족하면 이유를 설명하고 답변을 보류한다.
 
-## 현재 상태
+## 기능과 범위
 
-- PDF 추출·청킹, E5 임베딩과 Qdrant 색인, Naive 검색, 답변 생성·API, 실행 기록·평가 모듈이 있다.
-- [오프라인 지식 데이터 준비](docs/design/knowledge-data.md)는 Basic·Intermediate·Advanced의 공통 규칙·표 행·사례 참조를 분리한다. 팀 검토본은 [data/curated/](data/curated/README.md)에서 Git으로 관리하고 검색 입력은 `artifacts/`에 생성한다. 기존 서비스와 색인에는 자동 적용하지 않는다.
-- 검색은 `naive`(Dense), `hybrid`(Dense + BM25, RRF), `hybrid_rerank`(hybrid 후보를 `bge-reranker-v2-m3`로 재정렬)가 동작한다. 실제 색인으로 검색 전용 평가만 실행했으며([데이터 안내](data/README.md) 6장), 세 방식의 답변 평가와 보안 비교 결과는 아직 없다.
-- 오프라인 데이터 준비와 가상·모의 인프라를 사용하는 테스트 142개 및 하위 테스트 9개는 통과했다. 실제 Qdrant 색인과 생성 모델을 사용한 전체 서비스 통합 검증은 아직 실행하지 않았다.
-- 실제 일반·보안 평가 CLI에 연결할 초기화된 서비스 진입점과 평가 입력 검증은 후속 작업이다. 가상 샘플 성공을 실제 평가 준비 완료로 보지 않는다. [평가 실행 조건](docs/guides/c-module-guide.md)을 먼저 확인한다.
-- Python 테스트 명령은 저장소 루트에서 `python -m pytest -q tests`다.
+- PDF 추출·청킹, E5 임베딩과 Qdrant 색인, 답변 생성과 FastAPI, 실행 기록·평가 모듈이 있다.
+- Basic 서비스에서 `naive`(Dense), `hybrid`(Dense + BM25, RRF), `hybrid_rerank`(Hybrid 후보 재정렬) 검색을 제공한다. 실제 색인으로 수행한 검색 전용 평가 결과는 [데이터 안내](data/README.md#6-검색만-확인)에 있다.
+- Basic·Intermediate·Advanced의 [오프라인 정제 데이터](data/curated/README.md)를 관리한다. 정제본은 기존 색인과 서비스에 자동 적용되지 않는다.
+- 실제 Qdrant·생성 모델·Langfuse를 연결한 서비스 전체 검증, 세 방식의 답변 평가와 보안 비교 결과는 아직 없다. 평가 연결 조건은 [평가 가이드](docs/guides/c-module-guide.md)를 확인한다. 모의 테스트·검색 전용 측정과 전체 서비스 품질 검증을 구분한다.
 
-## 기능 구조
+## 처리 흐름과 구성
+
+PDF를 미리 추출·청킹·색인한 뒤, 질문마다 **검색 → 문맥 구성 → 답변 생성 → 출처 검증 → 답변·상태·인용 반환** 순서로 처리한다. 서버는 요청마다 PDF를 다시 읽거나 색인을 생성하지 않는다.
 
 ```text
+main.py                  # FastAPI 앱 진입점
 app/
-├── ingestion/       # PDF 페이지 추출·청킹
-├── indexing/        # 임베딩·Qdrant 색인·색인 생성 CLI
-├── retrieval/       # 검색 방식과 retrieve() 진입점
-├── generation/      # 문맥 구성·답변 생성·프롬프트
-├── service/         # Resources와 요청 흐름 연결
-├── api/             # FastAPI 앱과 라우트
-├── observability/   # 요청 기록·Langfuse 추적
-└── evaluation/      # 평가·보안 비교·실행 CLI
-shared/              # 공통 계약·설정·예외
-tests/               # 기능별·통합·패키지 구조 테스트
-experimental/<GitHubID>/  # 개인 실험 공간, 제품 코드에서 참조하지 않음
+├── ingestion/           # PDF 추출·청킹·정제 데이터 준비
+├── indexing/            # 임베딩·Qdrant 색인
+├── retrieval/           # 검색
+├── generation/          # 문맥·답변·출처 검증·프롬프트
+├── service/             # 자원 초기화와 요청 흐름 연결
+├── api/                 # FastAPI 앱과 라우트
+├── observability/       # 실행 기록·Langfuse 추적
+└── evaluation/          # 품질·보안 평가
+shared/                  # 공통 타입·설정·예외
+tests/                   # 공통 기능·통합 테스트
+experimental/<GitHubID>/ # 자유로운 개인 실험
 ```
 
-현재 기능 영역별 연락 담당자와 초기 주담당은 다음과 같다. 이는 폴더별 독점 수정 권한을 뜻하지 않는다. 계약이나 여러 영역에 걸친 변경은 관련 담당자와 함께 조정한다.
+책임과 의존 방향은 [시스템 설계](docs/design/architecture.md), 필드와 호출 형식은 [공통 계약](docs/design/contracts.md)에서 확인한다.
 
-| 영역 | 연락 담당자·초기 주담당 | 주요 경로 |
-| --- | --- | --- |
-| 데이터 처리·색인·검색 | A · `ysl727727` | `app/ingestion/`, `app/indexing/`, `app/retrieval/` |
-| 답변 생성·서비스·API | B · `chsopo89` | `app/generation/`, `app/service/`, `app/api/` |
-| 실행 기록·평가 | C · `Damsebi` | `app/observability/`, `app/evaluation/` |
+## 빠른 시작
 
-`shared/`는 공통 계약의 기준 위치다. `experimental/<GitHubID>/`에는 개인이 원하는 노트북·스크립트·로그 등을 둘 수 있으며 필수 파일, 하위 구조, 일지 형식은 없다. 제품 코드는 실험 디렉터리를 import하거나 참조하지 않는다. 채택할 코드는 `app/` 또는 `shared/`로 통합하고, 공식 실험 결과는 `reports/`에 둔다.
-
-## 문서
-
-- 처음 참여하거나 복귀하면 **이 README → [문서 목차·기록 위치](docs/README.md) → [협업 절차](docs/guides/git-workflow.md) → 맡을 기능의 설계·계약** 순서로 읽는다.
-- [문서 목차](docs/README.md): 기술 기준, Notion 작업판·회의·필수 일지, TIL, Slack의 역할 구분
-- [ADEN 팀 Notion](https://app.notion.com/p/6e9b8d4a06f782039952010095ade408): 기존 WBS·회의록·개인 작업일지와 팀 기록
-- [에이전트 작업 지침](AGENTS.md): 작업별로 읽을 문서와 구현·검증·보고 기준
-- [시스템 설계](docs/design/architecture.md): 현재 구조·기능 흐름·검증 상태
-- [공통 입출력·호출 계약](docs/design/contracts.md): 데이터 타입, API·로그·호출 계약의 기준
-- [Git 저장소·협업 설계](docs/guides/git-workflow.md): 기능 구조, 개인 실험, 협업·PR·결과 보존
-- [평가 모듈 가이드](docs/guides/c-module-guide.md): 평가·보안 실행기와 연결 방식
-- [2026-11-05 Basic 작업 계획](docs/plans/basic-day-plan-2026-11-05.md): 당시 계획 기록. 현재 담당·일정은 문서 목차가 안내하는 팀 Notion에서 확인
-- [데이터 안내](data/README.md): 원본 배치, 해시, 색인 및 검색 전용 측정
-- [지식 데이터 구성](docs/design/knowledge-data.md): 세 난이도 정제본·Git 추적·행별 기록·공통 규칙 참조와 후속 색인 경계
-
-## 실행
-
-선언한 Python 범위는 3.11 이상이며, 공통 개발·검증 기준은 **Python 3.13**이다. `.python-version`과 CI도 3.13을 기준으로 하며, 다른 선언 버전의 호환성은 별도 검증하지 않았다. Python 3.13을 선택하고 가상환경을 활성화한 뒤 저장소 루트에서 실행한다.
-
-VS Code에서는 권장 확장(Python, Pylance, Ruff, EditorConfig)을 설치하고 `.venv` 인터프리터를 선택한다. 워크스페이스의 테스트 검색 대상은 `tests/`이며, Ruff는 린트와 명시적으로 요청한 파일 포맷에 사용한다. 저장 시 자동 포맷과 CI 포맷 검사는 기본 적용하지 않는다. 세부 설정은 `.vscode/`를 기준으로 한다.
-
-Pylance는 `pyproject.toml`의 Pyright `basic` 설정으로 `main.py`, `app/`, `shared/`를 편집기에서 진단하고 `experimental/`은 제외한다. 2026-11-06 통합 후 점검에서 55개 파일에 오류 23건이 보고됐다. 이는 편집기 진단 기준선이며, 타입 검사가 통과했다는 뜻이 아니고 CLI·CI gate도 아니다.
-
-Python 3.13 인터프리터를 선택한 상태에서 개발 환경을 처음 만들 때 저장소 루트에서 실행한다.
+공통 개발·CI 기준은 **Python 3.13**이다. 저장소 루트에서 환경을 만들고 활성화한다. 아래 활성화 명령은 Linux·macOS 기준이며, Windows와 uv 사용법은 [개발 환경 가이드](docs/guides/development.md)를 따른다.
 
 ```bash
 python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[test]'
 ```
 
-생성한 가상환경을 활성화하고 필요한 의존성을 설치한다.
+`.env.example`을 참고해 로컬 `.env`에 OpenAI·Qdrant 접속 정보를 설정하고, [데이터 안내](data/README.md)에 따라 원본과 사전 색인을 준비한다. 실제 키는 Git에 올리지 않는다. 준비 후 서버를 실행한다.
 
 ```bash
-python -m pip install -e '.[test]'
 python -m uvicorn main:app --reload
 ```
 
-- `http://127.0.0.1:8000/docs`에서 질문을 입력한다. `GET /health`의 `query_ready`로 질의 준비 여부를 확인할 수 있다.
-- 루트 `.env`에 `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`가 필요하다. Langfuse를 연결할 때는 해당 키를 추가한다. `.env.example`을 참고하고 실제 키는 Git에 올리지 않는다.
-- 사전 색인은 [데이터 안내](data/README.md)의 절차로 생성한다. 서버는 시작할 때 PDF를 읽거나 색인을 다시 만들지 않는다.
-- 생성 모델·컬렉션·최종 k·문맥 예산·시간 제한·재생성 한도는 `configs/basic.yaml`에서 정한다.
+`http://127.0.0.1:8000/docs`에서 질문한다. `GET /health`의 `query_ready`로 질의 준비 여부를 확인한다. 모델·컬렉션·검색 수·문맥 예산 등은 `configs/basic.yaml`에서 설정한다. 외부 모델 호출에는 사용량이 발생할 수 있으며 팀 공식 실행은 [공통 운영 규칙](CONTRIBUTING.md#7-공식-실행과-외부-자원)을 따른다.
 
-설치에 포함된 테스트 도구로 저장소 루트에서 검사를 실행한다.
+## 더 알아보기
 
-```bash
-python -m pytest -q tests
-```
-
-CI와 동일하게 import·CLI 진입점을 확인하려면 다음을 실행한다. `--help`와 가상 샘플은 실제 키, 색인, 모델 호출을 사용하지 않는다.
-
-```bash
-python -m ruff check .
-python -m app.ingestion.scripts.curate --help
-python -m app.ingestion.scripts.curate --check
-python -m app.indexing.scripts.build_index --help
-python -m app.evaluation.scripts.eval_retrieval --help
-python -m app.evaluation.scripts.run_benchmark --help
-python -m app.evaluation.scripts.run_security --help
-python -m app.evaluation.scripts.run_benchmark --sample --experiment-id sample-readme-benchmark
-python -m app.evaluation.scripts.run_security --sample --experiment-id sample-readme-security
-python -m build
-```
-
-샘플 실행 ID는 예시다. 다시 실행할 때는 새 ID를 사용한다. 기존 결과를 덮어쓰는 옵션은 보존할 실행인지 먼저 확인한 뒤 사용한다. 문서만 바꾸는 작업은 링크·의미·작업 시나리오를 확인하고, 코드·설정 변경의 검사 범위와 완료 기준은 [협업 가이드](docs/guides/git-workflow.md)를 따른다.
+- 처음 참여·복귀: [문서 목차](docs/README.md)에서 현재 작업에 맞는 안내를 선택한다.
+- 개발 참여·팀 연락·PR: [공통 기여·협업 규칙](CONTRIBUTING.md)
+- Python·uv·VS Code·Pylance·검사: [개발 환경 가이드](docs/guides/development.md)
+- 데이터 준비·정제·평가: [데이터 안내](data/README.md), [지식 데이터 설계](docs/design/knowledge-data.md), [평가 가이드](docs/guides/c-module-guide.md)
+- 일정·진행 작업·회의·개인 일지: [ADEN 팀 Notion](https://app.notion.com/p/6e9b8d4a06f782039952010095ade408)
+- AI로 저장소 작업: [에이전트 지침](AGENTS.md)
