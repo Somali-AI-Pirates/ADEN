@@ -6,15 +6,12 @@ import hashlib
 import importlib
 import platform
 import subprocess
-import sys
 from datetime import datetime, timezone
 from importlib import metadata
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parent.parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+ROOT = Path(__file__).resolve().parents[2]  # 저장소 루트
 
 
 def git_info() -> dict[str, Any]:

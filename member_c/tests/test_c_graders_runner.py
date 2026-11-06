@@ -2,11 +2,11 @@ import json
 
 import pytest
 
-from app.observability.records import compute_context_hash, normalize_run_record
-from evaluation.dataset import load_questions, load_references
-from evaluation.graders import grade_record, parse_judge_output
-from evaluation.runner import grade_all, run_comparison
-from evaluation.samples import SAMPLE_EVAL, SampleServiceAdapter
+from member_c.observability.records import compute_context_hash, normalize_run_record
+from member_c.evaluation.dataset import load_questions, load_references
+from member_c.evaluation.graders import grade_record, parse_judge_output
+from member_c.evaluation.runner import grade_all, run_comparison
+from member_c.evaluation.samples import SAMPLE_EVAL, SampleServiceAdapter
 
 REF = {"id": "q", "reference_answer": "정답 비밀문장", "expected_action": "answer",
        "evidence_groups": [[{"book_id": "A"}]]}
@@ -19,7 +19,7 @@ def record(**kw):
            "retrieval_mode": "naive", "config_hash": "c", "question": "질문",
            "retrieved_candidates": FINAL, "final_context_chunks": FINAL,
            "final_context_hash": compute_context_hash(FINAL), "status": "answered",
-           "answer": "답 [S1]", "reason": None, "citations": [{"source_id": "S1"}],
+           "answer": "답 [S1]", "reason": "사유", "citations": [{"source_id": "S1"}],
            "latency_ms": 10, "attempts": [], "langfuse_trace_id": None}
     rec.update(kw)
     return normalize_run_record(rec)
@@ -62,7 +62,7 @@ def test_clarification_without_claims_is_not_applicable_with_claims_is_scored():
 
 
 def test_service_error_decision_zero_rest_unavailable():
-    err = record(status="error", answer=None, error_type="model_timeout")
+    err = record(status="error", answer=None, reason=None, error_type="model_timeout")
     s = grade(err, lambda p: pytest.fail("Judge 호출 안 함"), lambda *a: pytest.fail())
     assert s["judge"]["decision"]["value"] == 0.0
     assert all(s["judge"][k]["status"] == "unavailable" for k in ("fact", "condition", "evidence"))

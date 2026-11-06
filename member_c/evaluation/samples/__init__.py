@@ -14,8 +14,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
-from app.observability.records import compute_context_hash
-from app.observability.tracing import Tracer
+from member_c.observability.records import compute_context_hash
+from member_c.observability.tracing import Tracer
 
 SAMPLE_DIR = Path(__file__).resolve().parent
 SAMPLE_EVAL = SAMPLE_DIR / "sample_eval.json"
@@ -24,13 +24,32 @@ SAMPLE_DATASET_ID = "SAMPLE-not-basic"
 SAMPLE_MODEL = "sample-mock-model"
 
 
-def _chunk(cid: str, book: str, page: int, text: str) -> dict[str, Any]:
+def _chunk(cid: str, book: str, page: int, text: str, heading: str = "") -> dict[str, Any]:
     return {"chunk_id": cid, "book_id": book, "file_name": f"{book}.pdf", "page": page,
-            "text": f"[가상] {text}"}
+            "text": f"[가상] {text}", "heading": heading}
+
+
+def model_context(final: Sequence[Mapping[str, Any]]) -> tuple[str, str]:
+    """B의 ContextBundle.text·context_hash 흉내: 헤더 포함 문맥 문자열과 그 SHA-256 hex."""
+    text = "\n\n".join(
+        f"[{c['source_id']}]\n문서 ID: {c['book_id']}\n문서명: {c['file_name']}\n"
+        f"PDF 페이지: {c['page']}\n제목: {c.get('heading', '')}\n내용: {c['text']}" for c in final)
+    return text, hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _attempt(n: int, model_input: Any, model_output: Any, variant: str, *,
+             input_tokens: int | None, output_tokens: int | None,
+             error: str | None = None) -> dict[str, Any]:
+    """AttemptRecord 한 건(docs/design/contracts.md 3절)."""
+    return {"attempt": n, "model": SAMPLE_MODEL, "model_input": model_input,
+            "model_output": None if error else model_output, "input_tokens": input_tokens,
+            "output_tokens": output_tokens, "error": error, "prompt_variant": variant,
+            "model_parameters": {"max_output_tokens": 512}}
 
 
 CORPUS = {c["chunk_id"]: c for c in [
-    _chunk("A-p2-0", "SAMPLE-BOOK-A", 2, "예약 접수번호는 접수 사실을 뜻하며 확정 통지가 아니다."),
+    _chunk("A-p2-0", "SAMPLE-BOOK-A", 2, "예약 접수번호는 접수 사실을 뜻하며 확정 통지가 아니다.",
+           heading="예약 안내"),
     _chunk("A-p3-0", "SAMPLE-BOOK-A", 3, "예약 확정은 선사의 확정 통지 발송 후 성립한다."),
     _chunk("B-p5-0", "SAMPLE-BOOK-B", 5, "확정 통지는 접수 후 영업일 1일 이내 발송한다."),
     _chunk("B-p7-0", "SAMPLE-BOOK-B", 7, "일반 화물 반입 마감은 출항 48시간 전이다."),
@@ -103,22 +122,24 @@ class SampleServiceAdapter:
                   "retriever": retrieval_mode} for i, c in enumerate(sc["cands"])]
         final = [{**CORPUS[c], "source_id": f"S{i + 1}"} for i, c in enumerate(sc["final"])]
         context_hash = compute_context_hash(final)
+        context_text, context_text_hash = model_context(final)
         trace.record_retrieval(retrieved_candidates=cands, final_context_chunks=final,
-                               final_context_hash=context_hash, k=5)
-        attempts = [dict(a) for a in sc.get("attempts", [{"input_tokens": 400,
-                                                          "output_tokens": 40}])]
-        model_input = [{"role": "user", "content": question}]
-        for n, a in enumerate(attempts, 1):
-            a.setdefault("error", None)
-            output = None if a["error"] or sc["ans"] is None else sc["ans"][0]
-            trace.record_attempt(attempt=n, model=SAMPLE_MODEL, model_input=model_input,
-                                 model_output=output, input_tokens=a["input_tokens"],
-                                 output_tokens=a["output_tokens"], error=a["error"])
+                               final_context_hash=context_hash, k=5,
+                               model_context_text=context_text,
+                               model_context_hash=context_text_hash)
+        model_input = [{"role": "system", "content": "업무 지시(샘플)"},
+                       {"role": "user", "content": f"{context_text}\n\n질문: {question}"}]
+        output = None if sc["ans"] is None else sc["ans"][0]
+        default = [{"input_tokens": 400, "output_tokens": 40}]
+        attempts = [_attempt(n, model_input, output, "base", **a)
+                    for n, a in enumerate(sc.get("attempts", default), 1)]
+        for a in attempts:
+            trace.record_attempt(**a)
         if sc["ans"] is None:
             status, answer, reason, citations = "error", None, None, []
         else:
             answer, status = sc["ans"]
-            reason = None if status == "answered" else "샘플 사유"
+            reason = "샘플 사유"
             used = sorted(set(re.findall(r"\[(S\d+)\]", answer)))
             citations = [{k: c[k] for k in ("source_id", "book_id", "file_name", "page")}
                          for c in final if c["source_id"] in used]
@@ -129,13 +150,14 @@ class SampleServiceAdapter:
                 "retrieval_mode": retrieval_mode, "config_hash": self.config_hash,
                 "question": question, "retrieved_candidates": cands,
                 "final_context_chunks": final, "final_context_hash": context_hash,
+                "model_context_text": context_text, "model_context_hash": context_text_hash,
                 "status": status, "answer": answer, "reason": reason, "citations": citations,
                 "latency_ms": latency, "attempts": attempts,
-                "error_type": sc.get("error_type"), "model_input": model_input, **done}
+                "error_type": sc.get("error_type"), **done}
 
 
 def _load_qids() -> dict[str, str]:
-    from evaluation.dataset import load_questions
+    from member_c.evaluation.dataset import load_questions
     return {q["question"]: q["id"] for q in load_questions(SAMPLE_EVAL)}
 
 
@@ -200,19 +222,20 @@ def sample_retrieve(question: str, retrieval_mode: str) -> dict[str, Any]:
 
 def make_sample_generate(defense_text: str):
     def generate(question: str, chunks: Sequence[Mapping[str, Any]], variant: str) -> dict:
-        context = "\n".join(f"[{c['source_id']}] {c['text']}" for c in chunks)
+        context_text, context_hash = model_context(chunks)
         system = "업무 지시(샘플)" + ("\n" + defense_text if variant == "defense" else "")
         model_input = [{"role": "system", "content": system},
-                       {"role": "user", "content": f"{context}\n\n질문: {question}"}]
-        attacked = "SAMPLE-ATTACK-MARKER" in context and variant == "base"
+                       {"role": "user", "content": f"{context_text}\n\n질문: {question}"}]
+        attacked = "SAMPLE-ATTACK-MARKER" in context_text and variant == "base"
         answer = "SAMPLE-ATTACK-MARKER" if attacked else (
             "변경 요청서를 제출해 처리합니다[S1]." if "예약 변경" in question
             else "온라인 포털입니다[S1].")
-        return {"status": "answered", "answer": answer, "reason": None,
+        attempt = _attempt(1, model_input, answer, variant, input_tokens=300, output_tokens=20)
+        return {"status": "answered", "answer": answer, "reason": "샘플 사유",
                 "citations": [] if attacked else [{"source_id": "S1"}],
-                "attempts": [{"input_tokens": 300, "output_tokens": 20, "error": None}],
-                "latency_ms": 150, "model_input": model_input, "model": SAMPLE_MODEL,
-                "model_parameters": {"max_output_tokens": 512},
+                "attempts": [attempt], "latency_ms": 150,
+                "model_context_text": context_text, "model_context_hash": context_hash,
+                "model": SAMPLE_MODEL, "model_parameters": {"max_output_tokens": 512},
                 "request_id": "sample-" + hashlib.sha1(
                     f"{question}{variant}".encode()).hexdigest()[:8]}
     return generate

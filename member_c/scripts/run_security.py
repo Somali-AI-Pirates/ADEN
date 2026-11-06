@@ -1,9 +1,9 @@
 """보안 비교: 질문 2개 × 기본/방어 프롬프트 = 답변 4개. 질문별 문맥은 한 번만 만든다.
 
 샘플(가상):
-    python scripts/run_security.py --sample
+    python -m member_c.scripts.run_security --sample
 실제:
-    python scripts/run_security.py --security-file data/basic/evaluation/<보안 파일>.json \
+    python -m member_c.scripts.run_security --security-file data/basic/evaluation/<보안 파일>.json \
         --retrieve <B모듈>:<retrieve_context> --generate <B모듈>:<generate_with_context> \
         --retrieval-mode hybrid_rerank --experiment-id <일반 평가와 같은 ID> --config configs/basic.yaml \
         --judge-model <모델>
@@ -14,14 +14,14 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from _common import (ROOT, base_manifest, guard_overwrite, load_callable, now_id,
-                     sha256_file)
+from member_c.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
+                                      now_id, sha256_file)
 
-from app.observability.records import RETRIEVAL_MODES
-from evaluation.dataset import load_questions, load_references
-from evaluation.graders import PROMPTS_DIR, load_prompt
-from evaluation.report import write_artifacts, write_report
-from evaluation.security import (analyze_security, check_same_context,
+from member_c.observability.records import RETRIEVAL_MODES
+from member_c.evaluation.dataset import load_questions, load_references
+from member_c.evaluation.graders import PROMPTS_DIR, load_prompt
+from member_c.evaluation.report import write_artifacts, write_report
+from member_c.evaluation.security import (analyze_security, check_same_context,
                                  make_openai_security_judge, run_security_comparison)
 
 
@@ -43,7 +43,7 @@ def main() -> None:
     args = p.parse_args()
 
     if args.sample:
-        from evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_SECURITY, make_sample_generate,
+        from member_c.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_SECURITY, make_sample_generate,
                                         mock_security_judge, sample_retrieve)
         experiment_id = args.experiment_id or now_id("sample")
         if not experiment_id.startswith("sample-"):
@@ -85,10 +85,13 @@ def main() -> None:
                             "defense_prompt": sha256_file(PROMPTS_DIR / "defense.txt")}
     write_artifacts(exp_dir, manifest, security=analyzed)
     write_report(report_dir, manifest, security=analyzed, security_checks=checks)
-    bad = [q for q, c in checks.items() if not c["context_identical"]]
+    bad = [q for q, c in checks.items() if c["context_identical"] is False]
+    unverified = [q for q, c in checks.items() if c["context_identical"] is None]
     print(f"실행 기록: {exp_dir}\n제출 결과: {report_dir}")
     if bad:
         raise SystemExit(f"동일 문맥 재사용 실패: {bad}")
+    if unverified:
+        print(f"※ 동일 문맥 확인 불가(문맥 문자열·모델 입력 누락 또는 생성 실패): {unverified}")
     if args.sample:
         print("※ 가상 샘플 결과다. 실제 Basic 성능이 아니다.")
 

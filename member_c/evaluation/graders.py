@@ -17,7 +17,7 @@ from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any
 
-from evaluation.metrics import retrieval_metrics, score
+from member_c.evaluation.metrics import retrieval_metrics, score
 
 CRITERIA = ("fact", "condition", "evidence", "decision")  # 사실·조건·근거·판단
 PROMPTS_DIR = Path(__file__).resolve().parent.parent / "prompts"

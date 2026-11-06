@@ -1,30 +1,31 @@
 """일반 평가: 선택 질문 × naive/hybrid/hybrid_rerank 실행 → 저장 → 채점 → 결과 파일.
 
 샘플(가상, API 키 불필요):
-    python scripts/run_benchmark.py --sample
+    python -m member_c.scripts.run_benchmark --sample
 실제:
-    python scripts/run_benchmark.py --questions data/basic/evaluation/<파일>.json \
+    python -m member_c.scripts.run_benchmark --questions data/basic/evaluation/<파일>.json \
         --adapter <B모듈>:<어댑터> --ids Q1,Q2 --config configs/basic.yaml \
         --judge-model <모델> --ragas-model <모델> --selection-reason "..."
 Langfuse 저장 확인:
-    python scripts/run_benchmark.py --verify-langfuse <trace_id> [<trace_id> ...]
+    python -m member_c.scripts.run_benchmark --verify-langfuse <trace_id> [<trace_id> ...]
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import time
+from collections import Counter
 from pathlib import Path
 
-from _common import (ROOT, base_manifest, guard_overwrite, load_callable, now_id,
-                     sha256_file)
-
-from app.observability.records import RETRIEVAL_MODES
-from app.observability.tracing import Tracer
-from evaluation.dataset import load_questions, load_references
-from evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
-from evaluation.report import write_artifacts, write_report
-from evaluation.runner import grade_all, run_comparison
+from member_c.observability.records import RETRIEVAL_MODES
+from member_c.observability.tracing import Tracer
+from member_c.evaluation.dataset import load_questions, load_references
+from member_c.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
+from member_c.evaluation.report import write_artifacts, write_report
+from member_c.evaluation.runner import grade_all, run_comparison
+from member_c.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
+                                      now_id, sha256_file)
 
 
 def parse_args() -> argparse.Namespace:
@@ -47,6 +48,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--reports-dir", help="기본: reports/ (샘플은 artifacts/sample-reports/)")
     p.add_argument("--overwrite", action="store_true")
     p.add_argument("--verify-langfuse", nargs="+", metavar="TRACE_ID")
+    p.add_argument("--langfuse-verify-timeout", type=float, default=90.0,
+                   help="실행 후 Langfuse 저장 확인에 쓸 전체 대기 시간(초)")
     return p.parse_args()
 
 
@@ -60,7 +63,7 @@ def main() -> None:
 
     modes = [m for m in args.modes.split(",") if m]
     if args.sample:
-        from evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_EVAL, FakeLangfuseClient,
+        from member_c.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_EVAL, FakeLangfuseClient,
                                         MockJudge, SampleServiceAdapter, mock_faithfulness)
         experiment_id = args.experiment_id or now_id("sample")
         if not experiment_id.startswith("sample-"):
@@ -101,8 +104,16 @@ def main() -> None:
     runs = run_comparison(questions, adapter, experiment_id=experiment_id,
                           dataset_id=dataset_id, config_hash=config_hash, modes=modes)
     flush = tracer.flush() if isinstance(tracer, Tracer) else {"status": "adapter_managed"}
+    # flush·trace ID만으로 저장 완료로 보지 않고 실제 관측을 조회한다(수집 지연은 전체 한도로 기다림)
+    deadline = time.monotonic() + args.langfuse_verify_timeout
     for r in runs:
         r.setdefault("langfuse_status", None)
+        r["langfuse_verification"] = (
+            tracer.verify_trace(r.get("langfuse_trace_id"),
+                                timeout_s=max(0.0, deadline - time.monotonic()))["status"]
+            if isinstance(tracer, Tracer) and tracer.enabled else None)
+    verified = Counter(("mock:" if args.sample else "") + str(r["langfuse_verification"])
+                       for r in runs)
     manifest = base_manifest(experiment_id=experiment_id, dataset_id=dataset_id,
                              config_hash=config_hash, sample=args.sample)
     manifest["benchmark"] = {
@@ -111,6 +122,7 @@ def main() -> None:
         "questions_file": Path(questions_path).name, "judge": judge_desc,
         "faithfulness": faith_desc, "judge_prompt": sha256_file(PROMPTS_DIR / "judge.txt"),
         "langfuse_flush": ("mock:" if args.sample else "") + flush["status"],
+        "langfuse_verification": dict(verified),
     }
     write_artifacts(exp_dir, manifest, runs=runs)
 

@@ -62,22 +62,26 @@ class RequestTrace:
     def record_retrieval(self, *, retrieved_candidates: Sequence[Mapping[str, Any]],
                          final_context_chunks: Sequence[Mapping[str, Any]],
                          final_context_hash: str, k: int | None = None,
-                         latency_ms: int | None = None) -> None:
-        """검색 후보와 실제 모델에 전달할 최종 문맥을 각각 기록한다."""
+                         latency_ms: int | None = None,
+                         model_context_text: str | None = None,
+                         model_context_hash: str | None = None) -> None:
+        """평탄화한 검색 후보와 최종 문맥, 실제 모델에 넣을 문맥 문자열을 기록한다."""
         self._child("retrieval", name="retrieval", as_type="retriever",
                     output={"candidates": list(retrieved_candidates)},
                     metadata={"candidate_count": len(retrieved_candidates), "latency_ms": latency_ms})
         self._child("context", name="final-context", as_type="span",
                     output={"final_context_chunks": list(final_context_chunks),
-                            "final_context_hash": final_context_hash},
+                            "final_context_hash": final_context_hash,
+                            "model_context_text": model_context_text,
+                            "model_context_hash": model_context_hash},
                     metadata={"k": k, "delivered_chunks": len(final_context_chunks)})
 
     def record_attempt(self, *, attempt: int, model: str, model_input: Any,
                        model_output: Any = None, input_tokens: int | None = None,
                        output_tokens: int | None = None, error: str | None = None,
-                       prompt_variant: str = "base",
+                       prompt_variant: str | None = None,
                        model_parameters: Mapping[str, Any] | None = None) -> None:
-        """실제 모델 입력·출력과 시도별 사용량. 미확인 사용량은 보내지 않는다(0으로 채우지 않음)."""
+        """AttemptRecord 한 건(`trace.record_attempt(**attempt)`). 미확인 사용량은 보내지 않는다."""
         usage = {k: v for k, v in (("input", input_tokens), ("output", output_tokens)) if v is not None}
         kwargs: dict[str, Any] = dict(
             name=f"generation-attempt-{attempt}", as_type="generation", model=model,

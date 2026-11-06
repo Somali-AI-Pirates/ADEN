@@ -3,8 +3,10 @@
 주입 함수
 - retrieve_fn(question, retrieval_mode) -> {"retrieved_candidates": [...], "final_context_chunks": [...]}
 - generate_fn(question, final_context_chunks, prompt_variant) ->
-      {"status", "answer", "reason", "citations", "attempts", "latency_ms",
-       "model_input", "model", "model_parameters", "error_type"(선택)}
+      {"status", "answer", "reason", "citations", "attempts"(AttemptRecord), "latency_ms",
+       "model_context_text", "model_context_hash", "request_id", "error_type"(선택)}
+  B의 어댑터는 retrieve_fn에서 만든 ContextBundle을 유지해 재사용하고 재검색하지 않는다.
+  루트 model_input/model_output·model·model_parameters가 없으면 마지막 시도의 값을 쓴다.
 - security_judge_fn(record, security_item) -> {"followed_attack"|"answer_correct"|"over_refusal":
       {"value": bool|None, "reason": str}}
 
@@ -14,12 +16,13 @@ attack_text는 실행이 끝난 뒤 노출 분석에만 쓰고 검색이나 문�
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import re
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
-from app.observability.records import compute_context_hash, summarize_usage
+from member_c.observability.records import compute_context_hash, summarize_usage
 
 VARIANTS = ("base", "defense")
 JUDGED = ("followed_attack", "answer_correct", "over_refusal")
@@ -46,6 +49,8 @@ def run_security_comparison(questions: Sequence[Mapping[str, str]], retrieve_fn:
                 gen = {"status": "error", "answer": None, "reason": None, "citations": [],
                        "attempts": [], "latency_ms": None, "model_input": None,
                        "error_type": f"generation_exception:{type(exc).__name__}"}
+            attempts = list(gen.get("attempts") or [])
+            last = attempts[-1] if attempts else {}
             records.append({
                 "experiment_id": experiment_id, "question_id": q["id"],
                 "question": q["question"], "retrieval_mode": retrieval_mode,
@@ -54,17 +59,42 @@ def run_security_comparison(questions: Sequence[Mapping[str, str]], retrieve_fn:
                 "final_context_chunks": chunks, "final_context_hash": context_hash,
                 "context_hash_after_generation": compute_context_hash(passed),
                 **{k: gen.get(k) for k in ("status", "answer", "reason", "citations",
-                                           "latency_ms", "model_input", "model",
-                                           "model_parameters", "error_type", "request_id",
+                                           "latency_ms", "model_context_text",
+                                           "model_context_hash", "error_type", "request_id",
                                            "langfuse_trace_id")},
-                "attempts": list(gen.get("attempts") or []),
-                "usage": summarize_usage(list(gen.get("attempts") or [])),
+                **{k: gen.get(k, last.get(k)) for k in ("model_input", "model_output", "model",
+                                                        "model_parameters")},
+                "attempts": attempts,
+                "usage": summarize_usage(attempts),
             })
     return records
 
 
+def _model_context_identical(rows: Sequence[Mapping[str, Any]]) -> bool | None:
+    """B의 문맥 문자열이 두 변형에서 같고 각 해시가 그 문자열의 SHA-256인지. 값이 없으면 None."""
+    pairs = [(r.get("model_context_text"), r.get("model_context_hash")) for r in rows]
+    if any(t is None or h is None for t, h in pairs):
+        return None
+    valid = all(hashlib.sha256(t.encode("utf-8")).hexdigest() == h for t, h in pairs)
+    return valid and len(set(pairs)) == 1
+
+
+def _context_in_model_input(rows: Sequence[Mapping[str, Any]]) -> bool | None:
+    """실제 모델 입력에 준비한 문맥 문자열이 그대로 들어갔는지. 값이 없으면 None."""
+    if any(r.get("model_context_text") is None or r.get("model_input") is None for r in rows):
+        return None
+    return all(_norm(r["model_context_text"]) in _norm(_input_text(r["model_input"]))
+               for r in rows)
+
+
+def _all(values: Sequence[bool | None]) -> bool | None:
+    return False if False in values else (None if None in values else True)
+
+
 def check_same_context(records: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, Any]]:
-    """질문별로 두 변형의 문맥 해시·순서·생성 설정이 같은지 확인한다."""
+    """질문별로 두 변형의 문맥 두 해시·순서·모델 입력·생성 설정이 같은지 확인한다.
+
+    값: True 확인, False 불일치, None 확인 불가(필드 없음·생성 실패). 계약은 contracts.md 3절."""
     by_q: dict[str, list[Mapping[str, Any]]] = {}
     for r in records:
         by_q.setdefault(r["question_id"], []).append(r)
@@ -75,14 +105,31 @@ def check_same_context(records: Sequence[Mapping[str, Any]]) -> dict[str, dict[s
         orders = {tuple(c["chunk_id"] for c in r["final_context_chunks"]) for r in rows}
         settings = {json.dumps([r.get("model"), r.get("model_parameters")], sort_keys=True,
                                ensure_ascii=False) for r in rows}
-        result[qid] = {"variants": sorted(r["prompt_variant"] for r in rows),
-                       "context_identical": len(hashes) == 1 and len(orders) == 1,
+        checks = {"final_context_identical": len(hashes) == 1 and len(orders) == 1,
+                  "model_context_identical": _model_context_identical(rows),
+                  "context_in_model_input": _context_in_model_input(rows)}
+        result[qid] = {"variants": sorted(r["prompt_variant"] for r in rows), **checks,
+                       "context_identical": _all(list(checks.values())),
                        "generation_settings_identical": len(settings) == 1}
     return result
 
 
 def _norm(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
+
+
+def _input_text(value: Any) -> str:
+    """모델 입력(문자열·메시지 목록·content parts)의 문자열 값만 이어 붙인다.
+    json.dumps를 쓰면 줄바꿈이 '\\n' 글자로 바뀌어 줄이 나뉜 공격 문장을 놓친다."""
+    if isinstance(value, str):
+        return value
+    if isinstance(value, Mapping):
+        # role·type 같은 메타 값이 문장 사이에 끼지 않게 본문 키만 쓴다
+        keys = [k for k in ("content", "text") if k in value] or list(value)
+        return " ".join(_input_text(value[k]) for k in keys)
+    if isinstance(value, Sequence):
+        return " ".join(_input_text(v) for v in value)
+    return ""
 
 
 def analyze_security(records: Sequence[Mapping[str, Any]],
@@ -99,9 +146,7 @@ def analyze_security(records: Sequence[Mapping[str, Any]],
         if not attack or model_input is None:
             exposed = None
         else:
-            raw = model_input if isinstance(model_input, str) else json.dumps(
-                model_input, ensure_ascii=False)
-            exposed = attack in _norm(raw)
+            exposed = attack in _norm(_input_text(model_input))
 
         judged = {k: {"value": None, "reason": "미평가"} for k in JUDGED}
         if r["status"] != "error" and security_judge_fn is not None:

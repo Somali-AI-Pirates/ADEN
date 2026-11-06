@@ -9,9 +9,9 @@ from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-from app.observability.records import RETRIEVAL_MODES
-from evaluation.graders import CRITERIA
-from evaluation.metrics import aggregate, operational_summary
+from member_c.observability.records import RETRIEVAL_MODES
+from member_c.evaluation.graders import CRITERIA
+from member_c.evaluation.metrics import aggregate, operational_summary
 
 SAMPLE_BANNER = ("> **가상 샘플 결과** — 모의 서비스·모의 평가기로 만든 검증용 파일이다. "
                  "실제 Basic 데이터셋 성능이 아니며 발표·비교에 사용하지 않는다.")
@@ -96,7 +96,8 @@ def comparison_rows(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[
 def answer_rows(runs: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     keys = ("question_id", "retrieval_mode", "request_id", "question", "status", "answer",
             "reason", "citations", "error_type", "latency_ms", "usage", "final_context_hash",
-            "langfuse_trace_id", "langfuse_status")
+            "model_context_hash", "langfuse_trace_id", "langfuse_status",
+            "langfuse_verification")
     return [{**{k: r.get(k) for k in keys},
              "final_context_chunk_ids": [c["chunk_id"] for c in r["final_context_chunks"] or []]}
             for r in runs]
@@ -106,6 +107,7 @@ def security_rows(rows: Sequence[Mapping[str, Any]], data_kind: str) -> list[dic
     return [{"data_kind": data_kind, "question_id": r["question_id"],
              "prompt_variant": r["prompt_variant"], "retrieval_mode": r["retrieval_mode"],
              "request_id": r.get("request_id"), "final_context_hash": r["final_context_hash"],
+             "model_context_hash": r.get("model_context_hash"),
              "final_context_chunk_ids": ";".join(c["chunk_id"] for c in r["final_context_chunks"]),
              "status": r["status"], "error_type": r.get("error_type"),
              "attack_in_context": r["attack_in_context"],
@@ -151,7 +153,9 @@ def render_readme(report_dir: Path) -> str:
                   f"- 선택 이유: {bench.get('selection_reason') or '(미기재)'}",
                   f"- 평가기: Judge={bench.get('judge')}, Faithfulness={bench.get('faithfulness')}",
                   f"- Langfuse 전송: `{bench.get('langfuse_flush')}` "
-                  "(`flushed_unverified`는 전송 요청만 끝난 상태이며 저장 확인이 아니다)"]
+                  "(`flushed_unverified`는 전송 요청만 끝난 상태이며 저장 확인이 아니다)",
+                  f"- Langfuse 저장 확인(요청 수): `{bench.get('langfuse_verification')}` "
+                  "(`verified`만 API에서 관측을 조회한 것, `None`은 추적 비활성·어댑터 관리)"]
 
     if summary:
         lines += ["", "## 방식별 품질 요약", "",
@@ -182,23 +186,25 @@ def render_readme(report_dir: Path) -> str:
         lines += ["", "## 보안 비교", "",
                   f"검색 방식 `{sec.get('retrieval_mode')}`에서 질문별 검색·문맥 구성을 한 번만 수행하고 "
                   "같은 문맥을 기본/방어 프롬프트에 재사용했다.", "",
-                  "| 질문 | 변형 | 문맥 해시 | 모델 입력 노출 | 공격 추종 | 업무 정확 | 불필요 거절 | 결과 |",
-                  "| --- | --- | --- | --- | --- | --- | --- | --- |"]
+                  "| 질문 | 변형 | 로그 문맥 해시 | 모델 문맥 해시 | 모델 입력 노출 | 공격 추종 | 업무 정확 | 불필요 거절 | 결과 |",
+                  "| --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
         for r in security:
             lines.append(
                 f"| {r['question_id']} | {r['prompt_variant']} | `{r['final_context_hash'][:19]}` | "
+                f"`{(r['model_context_hash'] or '-')[:12]}` | "
                 f"{r['attack_in_model_input'] or '-'} | {r['followed_attack'] or '-'} | "
                 f"{r['answer_correct'] or '-'} | {r['over_refusal'] or '-'} | {r['outcome']} |")
         if checks:
-            lines += ["", "동일 문맥·설정 확인: " + ", ".join(
-                f"{q}: 문맥 {c['context_identical']}, 생성 설정 {c['generation_settings_identical']}"
-                for q, c in checks.items())]
+            lines += ["", "동일 문맥 확인(True 확인 / False 불일치 / None 확인 불가):", ""] + [
+                f"- {q}: 로그 청크 {c['final_context_identical']}, 모델 문맥 문자열 "
+                f"{c['model_context_identical']}, 모델 입력에 문맥 포함 {c['context_in_model_input']}, "
+                f"생성 설정 {c['generation_settings_identical']}" for q, c in checks.items()]
         lines += ["", "공격 미노출(`not_exposed`)·생성 실패(`generation_failed`)·미평가는 방어 성공으로 세지 않는다."]
 
     lines += ["", "## Langfuse 기록 확인", "",
               "각 요청의 trace ID는 `answers.jsonl`·`comparison.csv`의 `langfuse_trace_id`다. "
               "trace ID는 `Langfuse.create_trace_id(seed=request_id)`로 만들므로 request_id로도 다시 계산할 수 있다.",
-              "", "```bash", "python scripts/run_benchmark.py --verify-langfuse <trace_id>", "```", "",
+              "", "```bash", "python -m member_c.scripts.run_benchmark --verify-langfuse <trace_id>", "```", "",
               "Langfuse UI에서는 trace ID로 검색해 `rag-query` → `retrieval` → `final-context` → "
               "`generation-attempt-N` 순서를 확인한다.", "",
               "## 파일", "",
