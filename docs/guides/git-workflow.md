@@ -170,6 +170,8 @@ VS Code를 사용할 때는 저장소 권장 확장(Python `ms-python.python`, P
 
 Pylance는 `pyproject.toml`의 Pyright `basic` 설정에 따라 `main.py`, `app/`, `shared/`를 편집기에서 진단하고 `experimental/`은 제외한다. `pythonVersion = "3.11"`은 정적 분석의 Python 버전 기준이며, 로컬 개발·CI 인터프리터 기준은 앞서 적은 3.13이다. 2026-11-06 초기 점검은 45개 파일에서 오류 15건을 보고했다. 이는 통과 결과가 아니며 편집기 진단용이다. 프로젝트의 공통 검증 절차에 Pyright CLI 검사나 CI 타입 검사 gate는 없다.
 
+uv를 사용하는 환경에서는 루트 `uv.lock`도 `pyproject.toml`과 함께 버전 관리한다. 잠금 파일은 생성 파일이므로 직접 편집하지 않고 의존성 변경 시 `uv lock`으로 갱신하고 `uv lock --check`로 정합성을 확인한다. 잠근 버전으로 개발 환경을 설치할 때는 `uv sync --extra test --locked`를 사용한다. 기존 환경의 추가 도구를 유지하려면 `--inexact`를 덧붙인다. 현재 CI의 설치 경로는 아래 pip 절차이며, CI가 잠금 파일로 설치했다고 해석하지 않는다.
+
 `.github/workflows/ci.yml`의 `checks`는 main 대상 PR·main 푸시에서 실행한다.
 Python 3.13과 CPU용 PyTorch를 준비하고 `.[test]`를 설치한 뒤 위 검사,
 공통 테스트, CLI 도움말, 가상 일반·보안 평가, 빌드와 wheel 리소스 검사를
