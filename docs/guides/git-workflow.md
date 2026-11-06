@@ -314,7 +314,9 @@ git push origin feat/basic-evaluation-tracing
 - 작은 가상 문서로 출처 매핑과 문서 단위 Hit/Recall 계산 확인.
 - 각 담당자의 `member_*/tests/`에서 실제 임베딩·LLM을 로드하지 않아도 import와 테스트가 가능한 구조 유지.
 
-일반 PR CI에는 실제 모델 API 호출이나 PDF 전체 임베딩을 넣지 않는다. 유료 일반 평가와 보안 비교는 고정 설정으로 별도 실행하고 결과를 PR에서 검토한다. 문서만 바뀌면 문서 링크·내용 확인으로 범위를 맞춘다. 현재는 코드가 없으므로 실행할 수 없는 CI 파일을 만들지 않는다.
+일반 PR CI에는 실제 모델 API 호출이나 PDF 전체 임베딩을 넣지 않는다. 유료 일반 평가와 보안 비교는 고정 설정으로 별도 실행하고 결과를 PR에서 검토한다. 문서만 바뀌면 문서 링크·내용 확인으로 범위를 맞춘다.
+
+현재 CI는 `.github/workflows/ci.yml`의 `checks` 작업 하나다. main 대상 PR과 main 푸시에서 `pytest`·`ruff`만 설치해 Ruff 기본 오류 검사(`E9,F63,F7,F82`)와 `member_Damsebi/tests`를 실행한다. A·B의 테스트와 의존성이 생기면 설치 단계와 테스트 대상을 같은 파일에서 넓힌다.
 
 ## 8. 실행 결과와 제출 버전
 
