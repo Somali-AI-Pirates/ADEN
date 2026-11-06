@@ -7,6 +7,7 @@
 - PDF 추출·청킹, E5 임베딩과 Qdrant 색인, Naive 검색, 답변 생성·API, 실행 기록·평가 모듈이 있다.
 - `hybrid`와 `hybrid_rerank`는 선언되어 있으나 구현되지 않았다. 실제 세 방식 비교와 보안 비교 결과도 아직 없다.
 - 가상·모의 인프라를 사용하는 테스트 92개와 하위 테스트 9개는 통과했다. 실제 Qdrant 색인과 생성 모델을 사용한 전체 서비스 통합 검증은 아직 실행하지 않았다.
+- 실제 일반·보안 평가 CLI에 연결할 초기화된 서비스 진입점과 평가 입력 검증은 후속 작업이다. 가상 샘플 성공을 실제 평가 준비 완료로 보지 않는다. [평가 실행 조건](docs/guides/c-module-guide.md)을 먼저 확인한다.
 - Python 테스트 명령은 저장소 루트에서 `python -m pytest -q tests`다.
 
 ## 기능 구조
@@ -38,17 +39,19 @@ experimental/<GitHubID>/  # 개인 실험 공간, 제품 코드에서 참조하�
 
 ## 문서
 
-- [문서 목차](docs/README.md)
+- 처음 참여하거나 복귀하면 **이 README → [문서 목차·기록 위치](docs/README.md) → [협업 절차](docs/guides/git-workflow.md) → 맡을 기능의 설계·계약** 순서로 읽는다.
+- [문서 목차](docs/README.md): 기술 기준, Notion 작업판·회의·필수 일지, TIL, Slack의 역할 구분
+- [에이전트 작업 지침](AGENTS.md): 작업별로 읽을 문서와 구현·검증·보고 기준
 - [시스템 설계](docs/design/architecture.md): 현재 구조·기능 흐름·검증 상태
 - [공통 입출력·호출 계약](docs/design/contracts.md): 데이터 타입, API·로그·호출 계약의 기준
 - [Git 저장소·협업 설계](docs/guides/git-workflow.md): 기능 구조, 개인 실험, 협업·PR·결과 보존
 - [평가 모듈 가이드](docs/guides/c-module-guide.md): 평가·보안 실행기와 연결 방식
-- [2026-11-05 Basic 작업 계획](docs/plans/basic-day-plan-2026-11-05.md): 당시 원안과 현행 실행안의 구분
+- [2026-11-05 Basic 작업 계획](docs/plans/basic-day-plan-2026-11-05.md): 당시 계획 기록. 현재 담당·일정은 문서 목차가 안내하는 팀 Notion에서 확인
 - [데이터 안내](data/README.md): 원본 배치, 해시, 색인 및 검색 전용 측정
 
 ## 실행
 
-Python 3.11 이상, 가상환경을 활성화한 뒤 저장소 루트에서 실행한다.
+선언한 Python 범위는 3.11 이상이며, 공통 개발·검증 기준은 **Python 3.13**이다. 현재 CI와 위 테스트 결과도 3.13 기준이다. 다른 버전의 호환성은 별도 검증하지 않았다. 가상환경을 활성화한 뒤 저장소 루트에서 실행한다.
 
 ```bash
 python -m pip install -e '.[test]'
@@ -78,3 +81,5 @@ python -m app.evaluation.scripts.run_benchmark --sample --experiment-id sample-r
 python -m app.evaluation.scripts.run_security --sample --experiment-id sample-readme-security
 python -m build
 ```
+
+샘플 실행 ID는 예시다. 다시 실행할 때는 새 ID를 사용한다. 기존 결과를 덮어쓰는 옵션은 보존할 실행인지 먼저 확인한 뒤 사용한다. 문서만 바꾸는 작업은 링크·의미·작업 시나리오를 확인하고, 코드·설정 변경의 검사 범위와 완료 기준은 [협업 가이드](docs/guides/git-workflow.md)를 따른다.

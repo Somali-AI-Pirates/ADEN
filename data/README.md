@@ -23,6 +23,10 @@ data/basic/
 | `{development,additional,expansion_validation}.json` | 정답·근거(`evidence_groups`). **검색·생성이 끝난 뒤 평가에서만** 읽는다 |
 | `security_questions.json`, `security_tasks.json` | 보안 비교용 |
 
+일반 평가에서는 같은 split의 질문 파일과 참고 파일을 `id`로 대응한다. 예를 들어 `development_questions.json`을 실행할 때 `development.json`을 `--references`로 지정한다. 질문 입력에는 채점 라벨을 넣지 않는다. `run_benchmark`의 `--references` 기본값은 질문 파일과 같은 경로이므로, 두 파일을 별도로 제공한 이 데이터셋에서는 참고 파일 경로를 명시해야 한다. 세 split의 이름만으로 개발·최종 검증 용도가 정해지지는 않으므로, 공식 비교 전에 사용할 split과 역할을 정해 결과에 남긴다. 실행 규칙은 [C 평가 가이드](../docs/guides/c-module-guide.md)를 따른다.
+
+서비스 실행과 분리한 오프라인 준비 점검에서는 질문·참고 파일의 구조와 ID 대응을 먼저 확인한다. 이는 정답을 생성 입력으로 넘기는 단계가 아니다. 실행 파이프라인은 위 표처럼 질문만 서비스에 전달하고, 정답·근거는 실행 기록 저장 뒤 채점에서 읽는다. 현재 CLI에는 참고 파일의 필수 평가 필드 선행 검증이 없으므로 준비 점검을 대신해 주지 않는다.
+
 색인은 `documents/*.pdf`만 읽는다. 정답 JSON은 색인·검색·생성 입력에 넣지 않는다.
 일부 PDF와 `security_tasks.json`에는 보안 시험용 지시문이 일부러 들어 있다. 모두 데이터로만 다룬다.
 
@@ -58,7 +62,7 @@ aa971e1bf8dd590ab3a23eafe80571ae3286afc778b34ff7cc8ebf1e26373acc  SB14.pdf
 QDRANT_URL=https://<cluster-id>.<region>.cloud.qdrant.io:6333
 QDRANT_API_KEY=<클러스터 API 키>
 ```
-무료 클러스터는 1주일 동안 쓰지 않으면 일시정지되고, 4주가 지나면 삭제된다. 정지되면 Qdrant Cloud 콘솔에서 다시 켠다.
+2026-11-06 확인 기준으로 무료 클러스터는 1주일 동안 사용하지 않으면 일시정지되고, 4주가 지나면 삭제된다. 정지되면 Qdrant Cloud 콘솔에서 다시 켠다. [Qdrant Cloud 공식 문서](https://qdrant.tech/cloud/)
 
 ## 5. 색인 생성
 저장소 루트에서 실행한다. 루트 README의 공통 설치 명령으로 패키지를 설치한다. 처음 새 색인을 만들 때는 E5 모델(약 470MB)을 내려받는다.
@@ -86,6 +90,14 @@ Dense 색인 → Qdrant Cloud 'basic_multilingual-e5-small_p800'
 | `artifacts/basic/ingestion_report.json` | 파일별 쪽수·청크 수, 빈 페이지, 실패 |
 | `artifacts/basic/index_manifest.json` | 임베딩 모델·차원·접두어, 청크 파일 해시, 컬렉션 이름 |
 | Qdrant Cloud 컬렉션 | 청크 벡터와 청크 정보(payload) |
+
+팀 공식 비교에서 같은 색인을 썼다는 증거로 실행 시점의 `index_manifest.json`과 컬렉션 이름을 보존한다. 현재 benchmark manifest는 색인 manifest hash를 자동으로 포함하지 않으므로, 공식 결과와 함께 다음 파일들의 SHA-256을 수동으로 기록한다. 질문·정답 파일은 Git에서 제외되어 있으므로 두 파일 hash를 각각 남긴다.
+
+```bash
+sha256sum data/basic/evaluation/development_questions.json data/basic/evaluation/development.json artifacts/basic/index_manifest.json
+```
+
+팀 공식 비교·제출 결과에는 해당 질문·정답 파일과 색인 manifest의 hash를 함께 기록한다. 개인 실험에는 이 기록 형식이나 폴더 구조를 요구하지 않는다. 다른 split을 쓰면 명령의 `development` 경로를 그 split 이름으로 바꾼다.
 
 ## 6. 검색만 확인
 LLM 생성 없이 상위 5개 청크의 문서로 Hit@5·Recall@5를 잰다. 검색 시간에는 클라우드 왕복 시간이 포함된다. 이 실행은 검색 전용 측정이며 생성 모델을 포함한 전체 서비스 통합 검증을 뜻하지 않는다.

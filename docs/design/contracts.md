@@ -4,7 +4,7 @@
 
 관련 문서: [문서 목차](../README.md) · [시스템 설계](architecture.md) · [Git 협업 규칙](../guides/git-workflow.md)
 
-이 문서는 Basic의 모듈 연결 기준이다. Python 공통 데이터 타입은 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. SDK 클라이언트를 포함하는 실행 자원은 `app/service/resources.py`에서 관리한다. 실행 기록 검증·직렬화 코드는 `app/observability/records.py`가 맡는다.
+이 문서는 Basic의 필드·함수·로그 계약의 기준이다. Python 공통 데이터 타입은 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. 시스템 구조 문서는 책임과 흐름을 요약하며, 세부 계약은 여기서 관리한다. SDK 클라이언트를 포함하는 실행 자원은 `app/service/resources.py`에서 관리한다. 실행 기록 검증·직렬화 코드는 `app/observability/records.py`가 맡는다.
 
 현재 기능 모듈과 공통 계약은 가짜 외부 자원으로 연결 검증했다. 실제 색인·생성 모델·Langfuse 서버를 사용한 전체 실행은 이번 구조 전환에서 확인하지 않았다. 구조와 검증 상태의 요약은 [시스템 설계](architecture.md)를 따른다.
 
@@ -39,6 +39,8 @@
 | `GenerationResult` | `model_answer: ModelAnswer`, `attempts: list[AttemptRecord]`, `usage` | 성공한 호출도 실제 시도·사용량 기록 보존 |
 | `QueryRequest` | `question: str`, 선택 `retrieval_mode` | 질문 공백 제거 후 빈 문자열 거부; mode 생략 시 서버 기본값 |
 | `QueryResponse` | `request_id`, `status`, `answer`, `reason`, `citations: list[Citation]` | 시스템 실패에는 코드가 `error` 상태를 사용 |
+
+`book_id`는 원본 PDF 파일명에서 `.pdf`만 제거한 값이다. Basic의 현재 청커는 청크가 PDF 페이지 경계를 넘지 않게 하며, `page`는 1부터 센다. 날짜·승인 상태·항로처럼 원문에서 확인할 수 없는 속성을 추측해 추가하지 않는다.
 
 `retrieval_mode`는 `naive`, `hybrid`, `hybrid_rerank` 중 하나다. `retriever`는 점수를 낸 단계의 이름으로 `dense`, `hybrid`, `reranker` 등을 기록할 수 있다. 검색 방식이 다른 점수의 크기를 직접 비교하지 않는다.
 
@@ -155,11 +157,11 @@
 | `retrieved_candidates`, `final_context_chunks` | 정상 처리에서는 배열. 오류로 해당 단계의 결과를 확인하지 못했으면 `null`; 실제 검색 결과가 없으면 `[]` |
 | `final_context_hash` | 최종 청크를 알면 아래 로그 해시 알고리즘 값. 단계 미확인 오류이면 `null` |
 | `status`, `answer`, `reason`, `citations` | status는 API 네 상태. 정상 answer/reason은 문자열; 시스템 오류 기록은 answer/reason의 null을 허용. citations는 항상 배열 |
-| `latency_ms` | 0 이상의 정수 또는 미측정 `null`. API가 요청을 받은 시점부터 응답 직전까지 재시도 포함; B의 API 연결부가 최종 확정 |
+| `latency_ms` | 0 이상의 정수 또는 미측정 `null`. `latency_scope`가 나타내는 경로의 경과 시간이다. 범위가 없으면 HTTP 전체 시간으로 간주하지 않는다 |
 | `attempts` | `AttemptRecord` 배열. 미기록 시 `[]`로 두되 모델을 호출하지 않았다는 증명으로 해석하지 않음 |
 | `langfuse_trace_id` | 실제 ID 또는 `null`; ID가 있다는 사실만으로 서버 저장 완료를 보장하지 않음 |
 
-위 표의 키는 모두 존재해야 한다. `usage`는 `attempts`에서 C가 계산하므로 B가 조립한 기록에는 없을 수 있다. B는 위 키 외에 문맥 구성 진단용으로 `model_context_token_count`, `final_context_chunk_count`, `budget_excluded_chunk_ids`와 처리 시간 범위를 뜻하는 `latency_scope`를 덧붙인다. C는 이 선택 키의 유무로 기록 검증을 실패 처리하지 않는다. 오류에는 `error_type`과 확인 가능한 진단 이유를 보존한다. `model_context_text`·`model_context_hash`와 실제 모델 입출력은 생성 단계에 도달한 실행에서 필수이며, 그 전에 실패하면 null 또는 해당 단계 미도달 사유를 남긴다. 실제 입출력은 시도별 `attempts[].model_input/model_output`에 보존하고, 보안 분석용 루트 `model_input/model_output`에는 마지막 실제 호출의 값을 연결한다. 평가 결과가 없는 단계의 데이터를 만들어 채우지 않는다.
+위 표의 키는 모두 존재해야 한다. `usage`는 `attempts`에서 C가 계산하므로 B가 조립한 기록에는 없을 수 있다. B는 위 키 외에 문맥 구성 진단용으로 `model_context_token_count`, `final_context_chunk_count`, `budget_excluded_chunk_ids`와 처리 시간 범위를 뜻하는 선택 필드 `latency_scope`를 덧붙인다. 현재 기록하는 범위 이름은 `http`, `service`, `in_process_adapter`, `fixed_context_generation`이다. 이는 필수 계약 필드가 아니며, 측정 범위가 다른 시간은 구분해서 해석한다. C는 이 선택 키의 유무로 기록 검증을 실패 처리하지 않는다. 오류에는 `error_type`과 확인 가능한 진단 이유를 보존한다. `model_context_text`·`model_context_hash`와 실제 모델 입출력은 생성 단계에 도달한 실행에서 필수이며, 그 전에 실패하면 null 또는 해당 단계 미도달 사유를 남긴다. 실제 입출력은 시도별 `attempts[].model_input/model_output`에 보존하고, 보안 분석용 루트 `model_input/model_output`에는 마지막 실제 호출의 값을 연결한다. 평가 결과가 없는 단계의 데이터를 만들어 채우지 않는다.
 
 ### 문맥 해시 두 종류
 
@@ -230,7 +232,9 @@ Hybrid·리랭킹용 추가 자원은 A·B가 공통 변경으로 정한다. A·
 | C `grade_all` | `grade_all(records, references, *, k, judge_fn, faithfulness_fn) -> list[dict]` |
 | C `run_security_comparison` | `run_security_comparison(questions, retrieve_fn, generate_fn, *, experiment_id, retrieval_mode) -> list[dict]` |
 
-일반 평가 어댑터는 `adapter(question, retrieval_mode, request_id) -> Mapping`이다. B가 API 응답과 같은 request_id의 내부 실행 기록을 연결해 RunRecord를 반환한다. C가 `experiment_id`·`question_id`를 붙인 뒤 정규화한다. API 응답 JSON만으로는 최종 문맥과 시도별 기록을 확보할 수 없으므로 어댑터가 이를 합쳐야 한다. 정답·기대 행동·근거 목록은 어댑터에 전달하지 않는다.
+일반 평가 어댑터의 계약은 `adapter(question, retrieval_mode, request_id) -> Mapping`이다. 서비스 응답과 같은 `request_id`의 내부 기록을 연결해 RunRecord를 반환하고, C가 `experiment_id`·`question_id`를 붙인 뒤 정규화한다. 응답 JSON만으로는 최종 문맥과 시도별 기록을 확보할 수 없으므로 어댑터가 이를 합쳐야 한다. 정답·기대 행동·근거 목록은 어댑터에 전달하지 않는다. 현재 B 어댑터의 직접 서비스 호출과 HTTP 미사용은 [시스템 설계의 평가 절](architecture.md#9-평가와-비교)에 정리한다.
+
+현재 평가 CLI는 `--adapter`, `--retrieve`, `--generate`로 지정한 `모듈:이름`을 import한 뒤 그 callable을 직접 호출한다. CLI가 팩터리를 실행하거나 `Resources`·`Settings`를 초기화하지 않는다. `make_query_adapter(resources, settings)`와 `make_security_adapters(resources, settings, *, defense)`는 준비된 자원이 필요한 팩터리이므로 CLI 인자로 팩터리 자체를 넘길 수 없다. 초기화부가 자원을 준비하고 팩터리 반환 callable을 노출해야 한다. 이는 현재 CLI 연결 조건이며, 별도의 factory 지원 CLI 계약을 뜻하지 않는다.
 
 보안 비교 어댑터는 다음과 같다.
 
@@ -305,7 +309,7 @@ A 기능 모듈이 없어도 API·답변 모듈 import는 가능하다. 검색 �
 6. 설정과 프롬프트 내용, 기존 데이터·색인·산출물 위치를 바꾸지 않는다.
 7. import·동적 로딩·프롬프트 경로·테스트 mock·패키지 설정·CLI·문서를 함께 갱신한다.
 
-## 9. 연결 검증 상태
+## 9. 연결 검증 상태 — 2026-11-06
 
 가짜 외부 자원과 가상 샘플로 다음 항목을 확인했다. 실제 Basic 성능의 증빙은 아니다.
 
@@ -315,14 +319,16 @@ A 기능 모듈이 없어도 API·답변 모듈 import는 가능하다. 검색 �
 - [x] 보안 비교의 두 문맥 해시·실제 입력 문맥·생성 조건이 유지된다.
 - [x] 새 모듈 도움말·샘플 CLI와 설치·패키지 리소스를 확인했다.
 - [ ] 실제 질문의 API 응답·최종 문맥·모델 입출력·Langfuse 저장을 같은 ID로 확인한다.
+- [ ] 실제 Basic 질문·참고 JSON 및 보안 JSON의 구조를 `_items()`, `evidence_groups`, `attack_text` 기준으로 확인한다. 현재 참조 파일의 필수 평가 필드 검증은 완료되지 않았다.
+- [ ] 준비된 평가 callable과 실제 Basic 질문·정답 데이터의 어댑터 연결을 확인한다.
+- [ ] RAGAS 설치 조합·평가 모델 호환성과 실제 한 문항 채점을 확인한다. 현재 호환성은 미검증이다.
+- [ ] 실제 Basic 답변의 출처 문서·페이지가 PDF 원문 주장을 뒷받침하는지 확인한다.
+- [ ] 실제 HTTP 전체 응답 시간과 시간 범위별 보고를 확인한다.
 - [ ] 실제 선택 질문의 세 검색 방식·자동 평가·보안 비교를 완료한다.
 
-실제 평가 파일과 초기화된 서비스 어댑터 연결은 별도 검증해야 한다. `--adapter`,
-`--retrieve`, `--generate`는 모듈에 정의된 준비된 callable을 받는다. 팩터리를
-호출해 자원을 준비하는 연결은 해당 callable을 제공하는 쪽에서 수행한다.
-팩터리 함수 이름만 인자에 넣는 것으로 초기화를 대신할 수 없다.
+이 체크리스트는 가상 자원 연결 검증과 실제 자료·서비스 검증을 구분한다. 실제 모델이나 외부 서비스를 호출한 결과가 추가되면 수행 날짜와 결과 경로를 함께 갱신한다.
 
-## 10. B 구현 연결 안내 — 2026-11-06
+## 10. B 구현 연결 현황 — 2026-11-06
 
 서비스 연결은 `app/service/`에서 관리하고 검색·추적 구현은 해당 공통 기능 모듈을 사용한다.
 검색·추적 모듈은 자원 준비 시 연결한다. 검색 모듈이 없으면 `/docs`·`/openapi.json`·`/health`는
@@ -353,7 +359,11 @@ B에서 새로 복제하지 않는다.
 `latency_ms`, `latency_scope="http"`로 확정한다. 기록 저장 실패는 업무 답변을
 바꾸지 않고 경고로 남긴다. 서비스 직접 호출과 고정 문맥 생성은 각각
 `service`/`in_process_adapter`, `fixed_context_generation` 범위로 표시한다.
-클라이언트 왕복 시간이나 이 범위들을 HTTP 처리 시간과 섞어 비교하지 않는다.
+현재 일반 평가 adapter는 `answer_query()`를 직접 호출해 `in_process_adapter`를
+기록한다. HTTP 요청 전체 시간은 실제 API 경로의 `http` 범위에서 측정한다.
+각 `latency_ms`는 그 기록의 scope와 함께 해석하며, 클라이언트 왕복 시간이나
+다른 범위의 시간을 HTTP 처리 시간과 섞어 비교하지 않는다. 범위별 보고의 현행 한계는
+[시스템 설계의 평가 절](architecture.md#9-평가와-비교)에 정리한다.
 Langfuse 루트의 서비스 시간과 자식 관측 타임라인 보완은 C 연결 때 별도로 검증한다.
 
 문맥 토큰은 `context_tokenizer` 설정의 로컬 추정값이며 실제 모델 usage와 구분한다.

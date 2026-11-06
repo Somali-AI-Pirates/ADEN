@@ -1,6 +1,15 @@
 # Basic 해운 RAG Q&A 서비스 설계안
 
-작성일: 2026-11-05 · 수정일: 2026-11-06. 2026-11-06 기능별 구조로 정리했다. 현재 Naive 검색 코드와 답변 생성·API·실행 기록·평가 모듈은 있으나, `hybrid`·`hybrid_rerank`는 구현되지 않았다. 가상 인프라 기반 테스트 92개와 하위 테스트 9개는 통과했지만, 실제 색인·생성 모델을 사용한 서비스 통합 검증은 실행하지 않았다.
+작성일: 2026-11-05 · 수정일: 2026-11-06.
+
+이 문서는 현재 구현, 채택한 구조, Basic 목표, 과거 검증 기록을 구분한다.
+
+| 구분 | 상태 |
+| --- | --- |
+| 현재 구현 | 기능별 모듈에 Naive Dense 검색과 답변·API·기록·평가 코드가 있다. `hybrid`·`hybrid_rerank`는 미구현이다. |
+| 채택한 구조 | 제품 코드는 `app/` 기능 모듈, 공통 타입·설정은 `shared/`에서 관리한다. 상세 타입·함수·기록 계약은 [공통 계약](contracts.md)을 기준으로 한다. |
+| Basic 목표 | 세 검색 방식, 실제 자료 기반 답변·평가, 보안 비교와 운영 지표를 완성한다. 목표 목록은 현재 구현의 증거가 아니다. |
+| 검증 상태 | 가상 인프라 기반 테스트 92개와 하위 테스트 9개가 통과했다. 실제 색인·생성 모델·Langfuse를 사용한 전체 서비스 통합은 확인하지 않았다. 2026-11-05 검색 전용 측정은 [데이터 안내](../../data/README.md)에 과거 결과로 기록했다. |
 
 관련 문서: [문서 목차](../README.md) · [공통 입출력·호출 계약](contracts.md) · [Git 저장소·협업 설계](../guides/git-workflow.md)
 
@@ -16,8 +25,8 @@
 | 업무 범위 | 부산→LA 일반 건화물의 예약, 서류 제출, 적용 조건과 처리 상태 |
 | 비용 질의 | PDF에서 확인 가능한 설명을 답한다. 요율·계약 조건 등이 없으면 금액 계산을 보류한다 |
 | 주요 판단 | 접수와 확정, 요청과 실제 완료, 예정과 실제 완료를 구분한다 |
-| 필수 기술 | FastAPI, Pydantic, LangChain, Langfuse, 생성 모델 `gpt-6-luna` |
-| 필수 비교 | Naive RAG / Hybrid RAG / Hybrid + Reranking |
+| 목표 기술 | FastAPI, Pydantic, LangChain, Langfuse, 생성 모델 `gpt-6-luna` |
+| 목표 비교 | Naive RAG / Hybrid RAG / Hybrid + Reranking |
 | 시연 | FastAPI `/docs`에서 질문·검색 방식 선택과 응답 확인 |
 
 Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온 `S-DEV-30`도 요율과 계약 조건이 없어 계산할 수 없다고 답하는 문항이다. 따라서 Basic에는 범용 비용 계산기를 넣지 않는다. 비용 질문을 일괄 거절하지 않고, 확인 가능한 내용과 계산할 수 없는 부분을 구분한다.
@@ -103,43 +112,22 @@ ADEN/
 
 `app/service/query.py`가 검색 함수, 답변 생성, 추적을 연결한다. 제품 모듈은 `shared/contracts.py`를 공통 참조하고 `shared/`는 `app/`을 역으로 import하지 않는다. 평가 실행기는 서비스 어댑터나 API 클라이언트를 주입받아 순환 참조 없이 동작한다. 색인·모델 초기화 연결은 `app/service/resources.py`가 맡는다. 제품 모듈 import 시 모델 로딩이나 네트워크 호출을 실행하지 않는다.
 
-## 4. 모듈별 함수 계약
+## 4. 모듈별 책임
 
-정확한 필드·JSON 예시·함수 인자·동기 호출·오류·Resources 정의는 [공통 계약](contracts.md)을 따른다. 아래는 현재 기능 모듈의 책임과 입출력이다. 공통 타입은 `shared/contracts.py`에 한 번만 정의하고, 교차 모듈 변경은 호출자와 제공자가 함께 맞춘다.
+아래 표는 기능 경계와 현재 상태만 요약한다. 타입 필드, JSON 예시, 함수 시그니처, 오류와 `Resources`의 기준은 [공통 계약](contracts.md)이며, 같은 세부 정의를 여기서 반복하지 않는다.
 
-| 모듈·함수 | 입력 | 출력 | 책임 |
-| --- | --- | --- | --- |
-| `app.ingestion.loader.extract_pages()` | PDF 경로 목록 | `PageDocument[]`, 처리 내역 | PDF 첫 장부터 1쪽으로 기록 |
-| `app.ingestion.chunker.chunk_pages()` | 페이지 목록, 청킹 설정 | `Chunk[]` | 현재 페이지 안에서 문단 기준으로 청킹 |
-| `app.indexing.embeddings.Embedder` | 모델 ID, 장치 | 임베딩·차원·토큰 정보 | E5 query/passage 규칙을 한 곳에서 적용 |
-| `app.indexing.vector_store.build_vector_index()` | 클라이언트, 컬렉션, 청크, 임베더 | Qdrant 색인 | 현재 Dense 색인 생성; 기존 컬렉션 보호 |
-| `app.indexing.scripts.build_index` | CLI 옵션, PDF 입력 경로 | JSONL·manifest, Qdrant 컬렉션 | PDF 처리부터 Dense 색인까지 실행 |
-| `app.service.resources.load_resources()` | 설정 | `Resources` | 준비된 색인·모델 한 번 로드 |
-| `app.retrieval.service.retrieve()` | 질문, mode, resources, top_n | 순서가 있는 `RetrievedChunk[]` | 현재 `naive` Dense 검색; 다른 mode는 미구현 |
-| `app.generation.context.build_context()` | 후보 목록, k, 토큰 예산, 토큰 계산 함수 | `ContextBundle` | 실제 전달할 문맥과 출처 대응표 확정 |
-| `app.generation.chain.generate_answer()` | 질문, 문맥, 모델; 선택 프롬프트·추적 인자 | `GenerationResult` | 구조화 답변·실제 시도별 사용량 반환 |
-| `app.generation.citations.resolve_citations()` | 모델 출처 ID, 문맥 대응표 | `Citation[]` | 없는 출처 ID 거부 |
-| `app.service.query.answer_query()` | `QueryRequest`, resources, request_id, settings | `QueryResponse` | 검색·생성·출처 검증과 요청 기록 연결 |
-| `app.evaluation.runner.run_comparison()` | 질문 ID·질문, 서비스 어댑터, 공통 실행 메타데이터 | 실행 기록 목록 | 설정한 mode로 동일 질문 실행 |
-| `app.evaluation.runner.grade_all()` | 저장된 기록, 정답·채점 기준, k, 평가 함수 | 평가 기록 목록 | 기존 답변을 채점, 재생성하지 않음 |
-
-공통 타입의 최소 필드는 다음과 같다.
-
-| 타입 | 주요 필드 |
+| 모듈 | 책임과 현재 상태 |
 | --- | --- |
-| `PageDocument` | `book_id`, `file_name`, `page`, `text` |
-| `Chunk` | `chunk_id`, `book_id`, `file_name`, `page`, `text` |
-| `RetrievedChunk` | `chunk`, `rank`, `score`, `retriever` |
-| `ContextBundle` | `text`, `final_chunks: list[RetrievedChunk]`, `source_map`, `context_hash`, `token_count` |
-| `ModelAnswer` | `status`, `answer`, `reason`, `source_ids` |
-| `GenerationResult` | `model_answer`, `attempts`, `usage` |
-| `Citation` | `source_id`, `book_id`, `file_name`, `page` |
-| `QueryResponse` | `request_id`, `status`, `answer`, `reason`, `citations` |
-| `RunRecord` | C가 받는 평탄 청크·실제 문맥·요청/평가 ID·상태·인용·시도별 입출력·시간·사용량; 전체 정의는 [공통 계약](contracts.md) 참조 |
+| `app/ingestion/` | PDF 페이지 추출과 페이지 안 청킹 |
+| `app/indexing/` | 임베딩, Dense 색인 생성과 CLI |
+| `app/retrieval/` | `retrieve()` 진입점. 현재 `naive` Dense 검색만 구현 |
+| `app/generation/` | 문맥 구성, 답변 생성, 출처 ID 해석 |
+| `app/service/` | 자원 준비, 요청 흐름과 평가 어댑터 연결 |
+| `app/api/` | FastAPI 앱 수명주기, 라우트와 오류 변환 |
+| `app/observability/` | 실행 기록 검증·정규화와 Langfuse 추적 |
+| `app/evaluation/` | 검색 측정, 답변 채점, 보안 비교와 실행 CLI |
 
-`RetrievedChunk.chunk`와 `ContextBundle.final_chunks`는 중첩 객체다. C의 `RunRecord.retrieved_candidates`·`final_context_chunks`는 평탄 로그이며 B의 연결부에서 명시적으로 변환한다. 문맥 문자열 해시와 로그 청크 해시는 계산식이 다르므로 공통 계약에 따라 각각 저장한다.
-
-`book_id`는 원본 PDF 파일명에서 `.pdf`만 제거한 값이다. 원문에 없는 적용일·승인 상태·항로 등의 메타데이터를 추측해 넣지 않는다. 첫 구현은 청크가 페이지를 넘지 않도록 해 출처를 단순하게 유지한다. 상위 난이도에서 여러 페이지를 합치면 구절별 페이지 출처를 추가한다.
+공통 타입은 `shared/contracts.py`에 한 번만 정의한다. 구조화 검색 결과와 평탄화 실행 기록의 변환, 출처 및 두 문맥 해시의 의미도 [공통 계약](contracts.md)을 따른다.
 
 ## 5. 메인 파일과 요청 실행 흐름
 
@@ -256,7 +244,7 @@ def answer_query(request, resources, request_id, settings):
 
 성공 응답에는 `request_id`, `status`, `answer`, `reason`, `citations`를 항상 반환한다. `citations`는 실제 파일에서 얻은 `book_id`, `file_name`, 1부터 시작하는 `page`를 포함한다. 출처가 없는 확인 질문이나 검색 결과가 없는 보류는 빈 목록이 가능하다.
 
-모델이 문서명과 페이지를 새로 작성하게 하지 않는다. 모델의 출처 ID를 코드의 `source_map`으로 변환한다. 존재하지 않는 ID, 최종 문맥에 없는 ID, 형식 불일치는 제한된 출력 재시도 후에도 해결되지 않으면 오류다. 형식 검증만으로 인용 내용의 정확성까지 보장되지는 않으며, 내용은 평가와 원문 대조에서 확인한다.
+모델이 문서명과 페이지를 새로 작성하게 하지 않는다. 모델의 출처 ID를 코드의 `source_map`으로 변환한다. 존재하지 않는 ID, 최종 문맥에 없는 ID, 형식 불일치는 제한된 출력 재시도 후에도 해결되지 않으면 오류다. 이는 출처 ID와 문서·페이지 대응을 확인하는 코드 검증이다. 답변의 주장이 실제 PDF 페이지에 근거하는지는 보장하지 않으며, 실제 Basic 자료와 답변의 대조는 아직 완료되지 않은 검증 항목이다.
 
 `GET /health`는 앱과 필수 색인의 준비 상태를 확인한다. 요청 ID는 입력 검증 이전 미들웨어에서 생성해 오류 요청에도 남긴다.
 
@@ -268,10 +256,10 @@ def answer_query(request, resources, request_id, settings):
 - 검색 후보와 순위, 리랭킹 결과, 실제 최종 문맥과 순서.
 - 실제 모델 입력과 출력, 모델명, 시도별 상태·사용량.
 - 답변 상태·사유·인용, 시스템 오류 종류.
-- API 수신부터 응답 직전까지의 시간과 단계별 시간.
+- 처리 시간과 그 측정 범위(`latency_scope`), 단계별 시간.
 - 입력·출력 토큰, 확인되지 않은 사용량 여부.
 
-`RunRecord`는 `experiment_id`, `question_id`, `request_id`, `dataset_id`, `config_hash`, `retrieval_mode`, `question`, `retrieved_candidates`, `final_context_chunks`, `final_context_hash`, `status`, `answer`, `reason`, `citations`, `attempts`, `latency_ms`, `usage`, `error_type`, `langfuse_trace_id`를 가진다. 생성 단계에 도달한 기록에는 `model_context_text`·`model_context_hash`와 실제 시도별 모델 입출력을 추가한다. 최종 청크에는 실제로 전달한 텍스트를 저장한다. 필수·선택·null 조건과 두 문맥 해시의 정의는 [공통 계약](contracts.md)을 따른다.
+`RunRecord`의 필수·선택 필드, null 조건, 실제 문맥과 로그 청크 해시의 정의는 [공통 계약](contracts.md)을 기준으로 한다. 이 문서에서는 요청 추적에 필요한 질문·검색·최종 문맥·모델 시도·응답·처리 시간의 범위만 요약한다.
 
 로컬 JSONL은 평가 입력과 장애 분석용 보조 기록이다. Langfuse 기록을 대체하지 않는다. 전송 실패는 별도 표시하고 기록을 재전송한 후 확인한다. Langfuse의 실제 요청 한 건에서 질문→검색→모델 입력→출력을 추적할 수 있어야 연동 완료로 본다.
 
@@ -281,7 +269,7 @@ def answer_query(request, resources, request_id, settings):
 
 Basic은 일반 질문 72개(개발 30, 추가 30, 확장 검증 12)와 보안 질문 2개를 제공한다. 일반 72개 전체 실행은 필수가 아니다. 초기 제안은 12~18문항을 골라 예약·서류·정정·조건 확인·근거 부족 사례를 포함하는 것이다. 실제 문항을 검토한 뒤 선택 ID와 이유를 고정한다. 발제문의 필수 문항 수로 해석하지 않는다.
 
-선택한 일반 질문 N개를 세 방식에서 각각 실행해 **3N개 모든 결과**를 평가한다. PDF, 추출, 청크, 임베딩, 저장소, 생성 모델, 프롬프트, 생성 설정, k, 문맥 토큰 한도를 고정한다. 질문 파일에서는 `id`, `question`만 읽어 API에 보내고, 답변과 문맥 저장이 끝난 뒤 정답 파일을 평가 모듈에서 연결한다.
+선택한 일반 질문 N개를 세 방식에서 각각 실행해 **3N개 모든 결과**를 평가한다. PDF, 추출, 청크, 임베딩, 저장소, 생성 모델, 프롬프트, 생성 설정, k, 문맥 토큰 한도를 고정한다. 질문 파일에서는 `id`, `question`만 읽어 서비스 adapter에 전달하고, 답변과 문맥을 저장한 뒤 정답 파일을 평가 모듈에서 연결한다. 현재 공식 bootstrap이 없어 CLI에 준비된 callable을 제공하는 연결은 후속 작업이다. CLI 연결 조건은 [공통 계약](contracts.md)을 따른다.
 
 | 평가 | 구현 기준 |
 | --- | --- |
@@ -291,28 +279,17 @@ Basic은 일반 질문 72개(개발 30, 추가 30, 확장 검증 12)와 보안 �
 | LLM-as-a-Judge | 사실·조건·근거·판단 각각 0/1, 이유와 근거 저장 |
 | 운영 지표 | 응답 시간, 오류율, 입력·출력 토큰; 단가 확인 시 비용 |
 
-검색 지표의 정답 집합은 `evidence_groups` 전체의 `book_id`를 합쳐 중복 제거한 것이다. 검색 결과도 최종 청크의 `book_id`를 중복 제거한다. 근거 그룹 하나만 찾았다고 Recall을 1로 처리하지 않는다. 페이지와 적용 조건의 정확성은 답변 근거 평가에서 별도로 확인한다.
+검색 지표의 정답 집합, Faithfulness·Judge의 적용 조건, 실패·평가 불가 처리와 평균 계산은 [평가 모듈 가이드](../guides/c-module-guide.md)의 기준을 따른다. 평가 질문과 설정은 실행 전에 고정하고, 세 검색 방식의 결과를 같은 조건에서 비교한다. 평가 호출의 시간·토큰은 서비스 측 지표와 분리한다.
 
-참고 문서가 비면 검색 지표는 해당 없음이다. 참고 문서가 있는데 검색 결과가 비면 0이다. 설정 k와 실제 전달 청크 수를 함께 기록한다.
+**응답 시간 목표와 현재 한계:** 비교 결과에는 실제 HTTP 요청 전체의 처리 시간을 기록해야 한다. 현재 평가 실행기의 `make_query_adapter()`는 HTTP 요청을 보내지 않고 `answer_query()`를 프로세스 안에서 직접 호출하며 `latency_scope="in_process_adapter"`로 표시한다. 반면 `app/api/app.py`의 미들웨어는 실제 API 요청에서 `latency_scope="http"` 시간을 기록한다. 현재 `operational_summary()`는 `latency_scope`별로 나누지 않고 전달된 `latency_ms`를 집계하므로, 평가 보고서의 현재 시간 집계는 HTTP 전체 응답 시간으로 해석할 수 없다. 실제 HTTP 경로의 시간은 후속 통합 검증에서 같은 `request_id`로 내부 기록을 연결하고, 보고서도 측정 범위별로 분리한 뒤 확정해야 한다.
 
-점수는 `value`, `status`, `reason`으로 저장하고 `status`를 `scored`, `not_applicable`, `unavailable`로 구분한다.
-
-- 사실 주장 없이 조건만 되묻는 답변의 Faithfulness는 해당 없음이다.
-- 추가 질문·보류도 문서 내용이나 수치를 주장했다면 해당 주장에 Faithfulness를 적용한다.
-- 서비스 실패는 Judge의 판단 0, 출력이 없어 평가할 수 없는 항목은 평가 불가다.
-- 채점 호출 실패는 평가 불가다. 이를 0이나 1로 바꾸지 않는다.
-- 해당 없음·평가 불가는 평균에서 제외하고 개수를 표시한다. 0점은 평균에 포함한다.
-- 자동 채점의 대표 성공·실패 사례를 PDF 원문과 대조하고, 수정하면 원래 점수와 수정 이유도 남긴다.
-
-운영 집계는 재시도를 포함한 API 전체 시간을 사용한다. 정상 요청 평균에는 적절한 추가 확인·보류도 포함하고, 실패 요청 시간도 별도로 남긴다. 오류율은 최종 시스템 실패 요청 수 / 전체 일반 평가 요청 수다. 재시도는 별도 요청으로 세지 않는다.
-
-토큰은 재시도를 포함해 확인된 입력·출력을 각각 합산하고 사용량 확인 요청 수와 부분 확인 여부를 표시한다. 미확인 값을 0으로 바꾸지 않는다. RAGAS·Judge 채점 호출의 시간·토큰·비용은 서비스 지표와 분리한다. 보안 비교와 모의 오류 시험도 일반 평가 통계에 섞지 않는다.
-
-평가 실행기는 실제 API를 호출하고 `request_id`로 내부 실행 기록을 읽어 최종 문맥과 서버 측 시간을 확보한다. 따라서 클라이언트에서 잰 왕복 시간만으로 발제문의 응답 시간을 대체하지 않는다. 운영 API 응답에 평가 정답이나 내부 전체 문맥을 노출할 필요는 없다.
+현재 일반 평가 실행기는 어댑터 기록과 응답 문맥을 기준으로 동작한다. 이를 실제 HTTP 평가 경로로 연결하거나 HTTP 시간 측정이 검증된 것으로 간주하지 않는다. 실제 API 응답에 정답·내부 전체 문맥을 노출할 필요는 없다.
 
 보안 비교는 한 RAG 구성에서 제공된 질문 2개를 실행한다. 질문별 검색·문맥 구성을 한 번만 수행하고 같은 최종 문맥으로 기본 프롬프트와 방어 문장 추가 프롬프트를 각각 실행한다. 총 4개 답변이며 `final_context_hash`와 문서 순서가 동일해야 한다. 모델·출력 형식·호출/토큰 한도·출력 검사 등은 같게 유지한다.
 
 공격 라벨·문서 ID로 검색을 유도하거나 `attack_text`를 문맥에 따로 넣지 않는다. 실행 후 실제 모델 입력을 확인해 공격 노출, 공격 추종, 업무 답변 정확성, 불필요한 거절을 나눠 기록한다. 공격 미노출이나 생성 실패를 방어 성공으로 세지 않는다.
+
+보안 비교는 일반 평가와 별도 결과로 보존하며 일반 요청의 운영 지표에 합산하지 않는다. 결과 파일과 세부 평가 규칙은 [평가 모듈 가이드](../guides/c-module-guide.md)를 따른다.
 
 ## 10. 협업 단위와 구현 순서
 
