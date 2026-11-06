@@ -1,6 +1,6 @@
 # Git 저장소·협업 설계
 
-작성일: 2026-11-05 · 수정일: 2026-11-05. 대상은 우선 Basic을 구현하는 해운 RAG 팀 프로젝트다. 아래 소스 구조·GitHub 설정은 구현 시 적용할 설계안이며, 현재 실제로 정리한 파일은 루트 README와 `docs/` 문서다.
+작성일: 2026-11-05 · 수정일: 2026-11-06. 대상은 우선 Basic을 구현하는 해운 RAG 팀 프로젝트다. 아래 소스 구조·GitHub 설정은 구현 시 적용할 설계안이며, 현재 실제로 정리한 파일은 루트 README와 `docs/` 문서다.
 
 관련 문서: [문서 목차](../README.md) · [시스템 설계](../design/architecture.md)
 
@@ -8,7 +8,7 @@
 
 하나의 GitHub 저장소에서 서비스, 데이터 처리, 검색, 평가를 함께 관리한다. 현재 연결된 저장소는 [Somali-AI-Pirates/ADEN](https://github.com/Somali-AI-Pirates/ADEN)이다.
 
-- 기능별 폴더를 나누고 공통 입력·출력 계약으로 연결한다.
+- 사람별 최상위 패키지 안에서 기능을 모듈화하고 공통 입력·출력 계약으로 연결한다. A·B·C의 코드는 각자의 패키지 경로를 유지한 채 최종 통합한다.
 - 설계 Markdown은 `docs/`에 모은다.
 - 작업 브랜치는 `main`에서 만들고 PR로 `main`에 병합한다.
 - 각 작업은 리뷰할 수 있는 크기로 나누고 초기부터 연결한다.
@@ -20,55 +20,77 @@ Basic·Intermediate·Advanced는 같은 코드의 설정과 데이터 경로로 
 
 ```text
 ADEN/
-├── README.md                    # 소개·설치·실행·문서·결과 링크
-├── .gitignore                   # 원본 데이터·생성물·비밀값 제외
-├── .env.example                 # 환경변수 이름, 실제 키 없음
-├── pyproject.toml               # 의존성·개발 도구 설정
-├── uv.lock                      # uv 채택 시 잠금 파일도 커밋
-├── main.py                      # create_app() 호출
-├── .github/                     # 구현 시작 시 필요한 항목부터 추가
-│   ├── pull_request_template.md
-│   └── workflows/
-│       └── ci.yml               # 실제 실행 가능한 검사만 등록
-├── docs/                        # 설계 Markdown 모음
-│   ├── README.md                # 문서 목차
-│   ├── design/
-│   │   └── architecture.md      # 시스템 설계
-│   ├── plans/
-│   │   └── basic-day-plan-2026-11-05.md # 날짜별 업무 분담
-│   └── guides/
-│       └── git-workflow.md      # 저장소·협업 설계
+├── README.md
+├── main.py                         # B: 앱 생성 함수만 호출
+├── pyproject.toml                  # B: 의존성 변경 취합
+├── uv.lock                         # uv 채택 시 추적하는 잠금 파일
+├── .env.example                    # 실제 키를 제외한 변수 안내
+├── .gitignore
+├── .github/                        # PR 템플릿·CI, 구현 단계에 추가
+├── shared/                         # 공통 계약·설정, B가 변경 취합
+│   ├── __init__.py
+│   ├── contracts.py                # 청크·응답·실행 기록 타입
+│   ├── settings.py
+│   └── exceptions.py
+├── member_a/                       # A의 최종 Python 패키지
+│   ├── __init__.py
+│   ├── ingestion/                  # PDF 추출·청킹
+│   ├── indexing/                   # 임베딩·Dense/BM25 색인
+│   ├── retrieval/                  # 세 검색 방식, service.py에 retrieve()
+│   ├── scripts/
+│   │   └── build_index.py
+│   └── tests/
+├── member_b/                       # B의 최종 Python 패키지
+│   ├── __init__.py
+│   ├── api/                        # app.py에 create_app()
+│   ├── generation/                 # context.py, chain.py, citations.py
+│   ├── service/
+│   │   ├── query.py                # A·B·C 함수 연결
+│   │   └── resources.py            # 준비된 색인·모델 로드/종료
+│   ├── prompts/
+│   │   └── shipping_qa.txt
+│   └── tests/
+├── member_c/                       # C의 최종 Python 패키지
+│   ├── __init__.py
+│   ├── observability/
+│   │   └── tracing.py              # Langfuse·시간·토큰·오류 기록
+│   ├── evaluation/
+│   │   ├── dataset.py
+│   │   ├── runner.py
+│   │   ├── metrics.py
+│   │   ├── graders.py
+│   │   ├── security.py
+│   │   └── report.py
+│   ├── prompts/
+│   │   ├── judge.txt
+│   │   └── defense.txt
+│   ├── scripts/
+│   │   ├── run_benchmark.py
+│   │   └── run_security.py
+│   └── tests/
 ├── configs/
-│   └── basic.yaml               # 공통 실험·서비스 설정
-├── app/
-│   ├── core/                    # 공통 계약·설정·예외·리소스
-│   ├── ingestion/               # PDF 추출·청킹
-│   ├── indexing/                # 임베딩·Dense/BM25 색인
-│   ├── retrieval/               # 세 검색 방식
-│   ├── generation/              # 문맥·모델 호출·출처 검증
-│   ├── service/                 # 질문 한 건의 실행 순서
-│   ├── api/                     # FastAPI
-│   └── observability/           # Langfuse·시간·토큰·오류
-├── prompts/                     # 서비스·방어·Judge 프롬프트
-├── evaluation/                  # 평가 코드
-├── scripts/                     # 색인 생성·평가 실행 명령
-├── tests/                       # 필요한 단위·통합 검사
+│   └── basic.yaml                  # B가 공통 설정 취합
+├── docs/
+│   ├── README.md
+│   ├── design/architecture.md
+│   ├── guides/git-workflow.md
+│   └── plans/basic-day-plan-2026-11-05.md
 ├── data/
-│   ├── README.md                # 데이터 출처·배치·검증 안내
+│   ├── README.md                   # A: 데이터 배치·처리 안내
 │   └── basic/
-│       ├── documents/           # 원본 PDF, Git 제외
-│       └── evaluation/          # 제공 질문·정답, Git 제외
-├── artifacts/                   # 추출·청크·전체 실행 기록, Git 제외
-├── reports/                     # 제출용 결과, Git 추적
-│   ├── README.md                # 실험 목록·최종 구성 링크
-│   └── basic-<experiment_id>/
-│       ├── README.md            # 실행 조건·해석·최종 선택·한계
-│       ├── manifest.json        # 비밀값을 제외한 재현 설정
-│       ├── comparison.csv       # 선택한 질문 전체 × 세 방식
-│       ├── answers.jsonl        # 실제 답변·상태·인용·요청 ID
-│       ├── scores.jsonl         # 평가 점수·사유·N/A·실패
-│       └── security_comparison.csv
-└── presentations/               # 발표자료, 작성 단계에 추가
+│       ├── documents/              # 제공 PDF 원본, Git 제외
+│       └── evaluation/             # 제공 질문·정답 JSON, Git 제외
+├── presentations/                  # 발표자료 작성 시 추가
+├── artifacts/                      # 추출·청크·색인·실행 기록, Git 제외
+│   ├── basic/
+│   └── experiments/<experiment_id>/
+└── reports/<experiment_id>/         # C: 제출용 결과, Git 추적
+    ├── README.md
+    ├── manifest.json
+    ├── comparison.csv
+    ├── answers.jsonl
+    ├── scores.jsonl
+    └── security_comparison.csv
 ```
 
 `uv.lock`은 uv를 채택할 때 사용한다. 강의 환경의 다른 패키지 관리자를 유지한다면 그 방식에 맞는 의존성 잠금 파일 하나를 사용한다. 도구별 잠금 파일을 중복 관리하지 않는다.
@@ -178,7 +200,7 @@ git switch -c feat/18-hybrid-search
 
 ```bash
 git status --short
-git add app/retrieval/hybrid.py
+git add member_a/retrieval/hybrid.py
 git diff --cached
 git commit -m "feat(retrieval): BM25와 Dense 결과를 RRF로 결합"
 git push -u origin feat/18-hybrid-search
@@ -225,11 +247,11 @@ PR은 다음 내용을 짧게 담는다. 구현 시작 시 이 형식으로 `.gi
 
 ## 6. 모듈 협업과 충돌 처리
 
-기능 담당 폴더는 책임 범위이며 다른 폴더의 수정을 금지하는 경계가 아니다. 공통 계약이 달라지면 호출부까지 함께 고친다.
+사람별 패키지 `member_a/`, `member_b/`, `member_c/`는 담당 작업의 최종 위치다. 실제 영문 이름·닉네임을 쓰려면 팀이 한 번 정하고 폴더와 import를 같이 맞춘다. 각 패키지에 별도의 `app/` 전체를 만들거나 공통 설정·타입을 복제하지 않는다. `shared/`, 루트 설정·의존성·메인 파일은 B가 변경을 취합하며 공통 계약이 달라지면 호출부도 함께 맞춘다.
 
 | 변경 지점 | 함께 확인할 대상 |
 | --- | --- |
-| `app/core/contracts.py` | API·검색·생성·평가의 입력과 출력 |
+| `shared/contracts.py` | API·검색·생성·평가의 입력과 출력 |
 | `configs/basic.yaml` | 실제 로드 코드·설계 문서·실험 설정 |
 | 프롬프트·청킹·임베딩 모델 | 색인 재생성 여부·기존 비교 결과의 유효성 |
 | `main.py`, API 초기화 | 리소스 로드·종료·요청 추적 |
@@ -239,6 +261,28 @@ PR은 다음 내용을 짧게 담는다. 구현 시작 시 이 형식으로 `.gi
 
 작업 중 `main` 변경을 받아야 할 때는 커밋을 정리한 뒤 `git fetch origin`, `git merge origin/main`으로 동기화할 수 있다. 충돌은 해당 부분 담당자와 변경 의도를 확인해 해결하고 관련 검사를 다시 실행한다. 다른 사람의 변경을 일괄 덮어쓰거나 공유 브랜치 이력을 강제로 바꾸지 않는다.
 
+
+### 작업 브랜치에서 main의 문서 변경 받기
+
+`main`에 문서 변경이 커밋되어도 다른 브랜치로 자동 전파되지는 않는다. 각 담당자가 자신의 브랜치에 `origin/main`을 병합한다. 커밋된 작업은 병합 이력에 유지되며, 같은 파일·부분을 다르게 수정한 경우에는 충돌 해결이 필요하다.
+
+먼저 본인의 작업 브랜치에서 `git status`를 확인하고 진행 중인 작업을 커밋하거나 stash로 보관한다. 그다음 아래 명령을 실행한다. 아래는 C의 브랜치 예시이며 A·B는 자신의 브랜치를 사용한다.
+
+```bash
+git switch feat/basic-evaluation-tracing
+git fetch origin
+git merge origin/main
+git push origin feat/basic-evaluation-tracing
+```
+
+미커밋 작업을 잠시 보관하려면 병합 전에 `git stash push -u -m "before-main-sync"`를 실행할 수 있다. 병합 후 `git stash apply`로 복원하고 결과를 확인한다. stash를 복원할 때도 충돌이 생길 수 있다.
+
+단순히 `git pull`만 실행하면 현재 작업 브랜치의 upstream을 받으므로, main의 변경을 가져온다는 보장은 없다. 현재 작업 브랜치에서 `git fetch origin` 후 `git merge origin/main`을 사용하면 가져올 대상을 명확히 할 수 있다.
+
+문서를 main에 직접 커밋하거나 문서용 브랜치에서 PR로 병합하는 것은 main에 변경을 넣는 방법의 차이다. 다른 작업 브랜치가 그 변경을 받는 위 절차는 같다. 이번 문서 수정은 사용자의 요청에 따라 main에 직접 반영한다. 기능 구현은 기존 PR 규칙을 유지한다.
+
+이번 커밋은 설계 문서만 수정한다. 다른 브랜치의 소스는 이동·삭제하지 않는다. 이미 예전 `app/` 구조로 작성한 소스는 문서를 병합한 뒤 각자 담당 패키지로 옮기고 import·실행 명령을 수정한다. 문서 병합만으로 코드 경로가 자동 변경되지는 않는다. 옮긴 뒤 작은 샘플로 호출과 테스트를 확인하고 코드 변경 PR로 통합한다.
+
 ## 7. CI 범위
 
 첫 구현에서는 다음 정도를 권장한다.
@@ -246,7 +290,7 @@ PR은 다음 내용을 짧게 담는다. 구현 시작 시 이 형식으로 `.gi
 - Ruff 등 선택한 도구로 소스 형식·정적 오류 검사.
 - 모의 클라이언트를 이용한 API 입력·출력·오류 계약 검사.
 - 작은 가상 문서로 출처 매핑과 문서 단위 Hit/Recall 계산 확인.
-- 실제 임베딩·LLM을 로드하지 않아도 import와 테스트가 가능한 구조 유지.
+- 각 담당자의 `member_*/tests/`에서 실제 임베딩·LLM을 로드하지 않아도 import와 테스트가 가능한 구조 유지.
 
 일반 PR CI에는 실제 모델 API 호출이나 PDF 전체 임베딩을 넣지 않는다. 유료 일반 평가와 보안 비교는 고정 설정으로 별도 실행하고 결과를 PR에서 검토한다. 문서만 바뀌면 문서 링크·내용 확인으로 범위를 맞춘다. 현재는 코드가 없으므로 실행할 수 없는 CI 파일을 만들지 않는다.
 

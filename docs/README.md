@@ -15,8 +15,8 @@ docs/
 
 | 문서 | 담는 내용 | 읽는 시점 |
 | --- | --- | --- |
-| [design/architecture.md](design/architecture.md) | Basic 범위, 기능별 모듈, 함수 계약, API, 평가, 구현 순서 | 개발 시작 전 |
-| [guides/git-workflow.md](guides/git-workflow.md) | 저장소 구조, Git 추적 범위, 브랜치·커밋·PR, 결과 제출 | 협업 시작 전 |
+| [design/architecture.md](design/architecture.md) | Basic 범위, 사람별 패키지·기능별 모듈, 함수 계약, API, 평가, 구현 순서 | 개발 시작 전 |
+| [guides/git-workflow.md](guides/git-workflow.md) | 사람별 패키지 구조, Git 추적 범위, 브랜치·PR·main 동기화, 결과 제출 | 협업 시작 전 |
 | [plans/basic-day-plan-2026-11-05.md](plans/basic-day-plan-2026-11-05.md) | 2026-11-05 Basic을 진행할 3명의 담당·연결 계약·시간표·완료 기준 | 해당 작업 시작 전 |
 
 ## 문서 관리 규칙
