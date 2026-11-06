@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 
 from shared.contracts import QueryRequest, QueryResponse
 from shared.settings import Settings
+from member_b.service.records import REQUEST_RECORD
 
 QueryHandler = Callable[[QueryRequest, str], Awaitable[QueryResponse]]
 router = APIRouter()
@@ -67,4 +68,8 @@ async def query(
     settings: Settings = request.app.state.settings
     if payload.retrieval_mode is None:
         payload = payload.model_copy(update={"retrieval_mode": settings.retrieval.default_mode})
-    return await handler(payload, request_id)
+    token = REQUEST_RECORD.set(request.state.run_record)
+    try:
+        return await handler(payload, request_id)
+    finally:
+        REQUEST_RECORD.reset(token)

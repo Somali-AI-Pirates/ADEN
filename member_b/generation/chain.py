@@ -1,12 +1,12 @@
 import re
 from pathlib import Path
+from typing import Any
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
 from shared.contracts import ContextBundle, GenerationResult, ModelAnswer
 from member_b.generation.citations import resolve_citations
-from member_c.observability.tracing import RequestTrace
 
 DEFAULT_PROMPT = Path(__file__).resolve().parents[1] / "prompts" / "shipping_qa.txt"
 CITATION_MARK = re.compile(r"\[(S\d+)\]")
@@ -31,7 +31,8 @@ def generate_answer(
     *,
     prompt_path: Path = DEFAULT_PROMPT,
     defense: str = "",
-    trace: RequestTrace | None = None,
+    trace: Any | None = None,
+    attempt_log: list[dict] | None = None,
 ) -> GenerationResult:
     """이미 선택한 문맥으로 답변을 생성하고 실제 모델 입력·출력·사용량을 반환한다."""
     system_prompt = prompt_path.read_text(encoding="utf-8")
@@ -52,11 +53,16 @@ def generate_answer(
             ModelAnswer, method="json_schema", include_raw=True,
         ).invoke(messages)
     except Exception as error:
+        failed_attempt = {
+            "attempt": 1, "model": model.model_name, "model_input": input_messages,
+            "model_output": None, "input_tokens": None, "output_tokens": None,
+            "error": type(error).__name__, "prompt_variant": "defense" if defense else "base",
+            "model_parameters": {"max_output_tokens": model.max_tokens},
+        }
+        if attempt_log is not None:
+            attempt_log.append(failed_attempt)
         if trace is not None:
-            trace.record_attempt(
-                attempt=1, model=model.model_name, model_input=input_messages,
-                error=type(error).__name__,
-            )
+            trace.record_attempt(**failed_attempt)
         raise
 
     raw = result["raw"]
@@ -72,9 +78,13 @@ def generate_answer(
     }
     if trace is not None:
         trace.record_attempt(**attempt)
+    if attempt_log is not None:
+        attempt_log.append(attempt)
     if result["parsing_error"] is not None or result["parsed"] is None:
         raise ValueError("모델 응답을 지정된 답변 형식으로 읽을 수 없습니다.")
     answer = _check_marked_sources(result["parsed"], context)
+    if not answer.answer.strip() or not answer.reason.strip():
+        raise ValueError("모델의 답변과 판단 이유는 비어 있을 수 없습니다.")
     resolve_citations(answer.source_ids, context.source_map)
     if answer.status == "answered" and not answer.source_ids:
         raise ValueError("답변 완료 응답에 근거 출처가 없습니다.")

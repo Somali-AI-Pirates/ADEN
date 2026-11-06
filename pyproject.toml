@@ -23,7 +23,7 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["shared", "shared.*", "member_a", "member_a.*", "member_b", "member_b.*", "member_c", "member_c.*"]
+include = ["shared", "shared.*", "member_*"]
 exclude = ["*.tests", "*.tests.*"]
 
 [tool.setuptools.package-data]

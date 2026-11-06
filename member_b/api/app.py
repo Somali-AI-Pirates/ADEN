@@ -3,6 +3,8 @@ import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 from uuid import uuid4
+from time import perf_counter
+from collections.abc import Callable
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -14,6 +16,7 @@ from shared.exceptions import ServiceError
 from member_b.service.resources import load_resources
 from shared.settings import DEFAULT_CONFIG, load_settings
 from member_b.service.query import answer_query
+from member_b.service.records import REQUEST_RECORD
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +25,7 @@ def create_app(
     config_path: Path = DEFAULT_CONFIG,
     *,
     query_handler: QueryHandler | None = None,
+    run_record_sink: Callable[[dict], None] | None = None,
 ) -> FastAPI:
     settings = load_settings(config_path)
 
@@ -40,6 +44,7 @@ def create_app(
                 async def handle_query(payload, request_id):
                     return await asyncio.to_thread(
                         answer_query, payload, resources, request_id, settings,
+                        run_record=REQUEST_RECORD.get(),
                     )
 
                 app.state.query_handler = handle_query
@@ -65,10 +70,22 @@ def create_app(
 
     @app.middleware("http")
     async def assign_request_id(request: Request, call_next):
+        started = perf_counter()
         request.state.request_id = uuid4().hex
-        response = await call_next(request)
-        response.headers["X-Request-ID"] = request.state.request_id
-        return response
+        request.state.run_record = {}
+        try:
+            response = await call_next(request)
+            response.headers["X-Request-ID"] = request.state.request_id
+            return response
+        finally:
+            record = request.state.run_record
+            if record:
+                record.update(latency_ms=round((perf_counter() - started) * 1000), latency_scope="http")
+                if run_record_sink is not None:
+                    try:
+                        await asyncio.to_thread(run_record_sink, dict(record))
+                    except Exception as error:
+                        logger.warning("실행 기록 전달 실패 (%s)", type(error).__name__)
 
     @app.exception_handler(RequestValidationError)
     async def invalid_request(request: Request, _exc: RequestValidationError) -> JSONResponse:

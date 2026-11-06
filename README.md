@@ -1,29 +1,32 @@
-# ADEN — Basic 해운 RAG Q&A
+# ADEN — B 담당 구현
 
-Basic 해운 PDF에서 근거를 찾아 한국어 답변·판단 이유·PDF 페이지를 반환한다.
-현재 Naive 검색, FastAPI, 답변 생성과 Langfuse 추적을 연결했다.
-Hybrid·리랭킹·정식 평가·Advanced 확장은 후속 작업이다.
+이 작업 폴더는 **B의 답변 생성·API·통합 코드**와 공통 계약을 관리한다.
+A/C 소스는 각 담당 PR에서 관리하며 이 폴더에 복사하지 않는다.
+기준은 [공통 입출력·호출 계약](docs/design/contracts.md)이다.
 
-## 패키지와 담당
+## 현재 구조
 
-| 위치 | 역할 |
-| --- | --- |
-| `shared/` | B가 취합하는 공통 타입·설정·오류. A/B의 타입을 단일 정의로 유지 |
-| `member_a/` | PDF 추출·청킹·색인·검색·데이터 준비 실행기 |
-| `member_b/` | API·문맥·생성·출처·자원 관리·프롬프트·연결 테스트 |
-| `member_c/observability/` | C의 추적·기록 검증·문맥 해시. 이번 로컬 구성에 가져온 C 범위 |
-| `main.py` | `member_b.api.app.create_app()` 호출 |
+```text
+main.py                       FastAPI 앱 생성
+shared/                       공통 타입·설정·오류
+member_b/
+├── api/                      한국어 API·입력 검증·요청 ID
+├── generation/               문맥 선택·모델 호출·상태·출처 검증
+├── service/
+│   ├── resources.py          외부 A/C 모듈·Qdrant·모델 연결·정리
+│   ├── query.py              질문 한 건의 실행 순서
+│   ├── records.py            C에 넘길 평탄 기록 조립
+│   └── adapters.py           C 일반·보안 평가기의 B 호출 연결
+├── prompts/shipping_qa.txt   한국어 말투·근거·보류·인용 규칙
+└── tests/                    가짜 검색·모델·추적으로 B만 검증
+```
 
-C의 평가·보안 실행기 전체는 이번 로컬 변경에 포함하지 않았다.
+[문서 목차](docs/README.md) · [공통 계약](docs/design/contracts.md) ·
+[초기 설계](docs/design/architecture.md) · [Git 규칙](docs/guides/git-workflow.md)
 
-- [공통 입출력·호출 계약](docs/design/contracts.md)
-- [시스템 설계](docs/design/architecture.md)
-- [Git 협업 규칙](docs/guides/git-workflow.md)
-- [데이터 배치·A의 측정 기록](data/README.md)
+## 실행
 
-## 로컬 실행
-
-Python 3.11 이상을 사용하며 저장소 루트에서 실행한다.
+Python 3.11 이상, 저장소 루트에서 실행한다.
 
 ```powershell
 python -m venv .venv
@@ -31,78 +34,69 @@ python -m venv .venv
 .venv/Scripts/python -m uvicorn main:app --reload
 ```
 
-루트 `.env`에 `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`를 설정한다.
-Langfuse 기록에는 `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`,
-`LANGFUSE_BASE_URL`도 설정한다. 빈 양식은 `.env.example`에 있다.
-이미 실행 환경에 있는 값은 `.env`보다 우선한다.
+- API 설명: `http://127.0.0.1:8000/docs`
+- 상태: `GET /health`
+- 질문: `POST /query`
 
-- `/health`: 앱 상태·데이터셋·`query_ready` 확인.
-- `http://127.0.0.1:8000/docs`: 한국어 `POST /query` 실행.
-- `naive`는 실행되며 `hybrid`, `hybrid_rerank`는 현재 501을 반환한다.
-- 정상 상태는 `answered`, `needs_clarification`, `abstained`이며 오류는 `error`다.
-- 입력 422, 검색 의존성 503, 모델·출처 502, 모델 시간 초과 504로 구분한다.
-- 본문 `request_id`와 `X-Request-ID` 헤더로 실행 기록을 연결한다.
-
-서버 시작 시 모델·색인을 준비하고 종료 때 정리한다. 시작 로그뿐 아니라
-`query_ready`와 실제 응답도 확인한다.
-
-## A 색인과 B Resources
-
-B의 `member_b/service/resources.py`는 A의 `open_vector_index()`로 색인을 연다.
-`Resources`에는 `embedder`, `qdrant`, `collection`, `model`, `count_tokens`,
-`tracer`, `cleanup`, `close()`가 있다.
-
-`retrieve()`는 동기 함수다. B API는 `asyncio.to_thread()`로 전체 요청
-파이프라인을 실행한다. 서버를 켤 때 PDF 처리나 색인 생성을 자동 실행하지 않는다.
-
-A가 생성한 `artifacts/basic/index_manifest.json`의 `vector_store.collection`을
-`configs/basic.yaml`의 `qdrant_collection`에 맞춘다. `embedding.model`도
-`embedding_model`과 맞춰야 한다. 차원만 같다고 다른 모델을 섞으면 안 된다.
-현재 API는 YAML 값을 사용하며 manifest를 자동으로 덮어 읽지 않는다.
-
-문맥 예산은 `tiktoken`의 `o200k_base` 로컬 추정값으로 계산한다.
-실제 생성 토큰은 모델 응답의 usage로 따로 기록한다.
-
-## 데이터 준비·평가 실행기
-
-Basic PDF 15개는 `data/basic/documents/`, 평가 JSON 8개는
-`data/basic/evaluation/`에 둔다. 원본·`.env`·`artifacts/`는 Git에서 제외한다.
-
-```powershell
-.venv/Scripts/python -m member_a.scripts.build_index --help
-.venv/Scripts/python -m member_a.scripts.eval_retrieval --help
+```json
+{"question": "예약 접수번호를 받으면 확정된 건가요?", "retrieval_mode": "naive"}
 ```
 
-새 색인을 만들 때는 새 컬렉션 이름을 지정한다.
+**A 미연결 상태:** API 문서와 상태 확인은 열리며 `query_ready=false`다.
+`/query`는 A 연결이 필요하다는 503을 반환한다. 실제 답변을 만든 상태로 표시하지 않는다.
+C가 없으면 Langfuse 추적을 활성화하지 않는다.
 
-```powershell
-.venv/Scripts/python -m member_a.scripts.build_index --collection basic_multilingual-e5-small_p800_localcheck
+현재 패키지 경로는 로컬 공통 계약의 `member_a`, `member_b`, `member_c`, `shared`다.
+팀이 다른 패키지명을 채택하면 경로·import·설정을 함께 조정해야 한다.
+
+## A/C와 연결할 내용
+
+A의 `Embedder`와 동기 `retrieve(question, mode, resources, top_n=20)`를 자원 준비
+시 연결한다. B Resources는 `embedder`, `qdrant`, `collection`과 생성·토큰 계산·정리
+자원을 제공한다. FastAPI는 `asyncio.to_thread()`로 동기 파이프라인을 실행한다.
+
+C의 `Tracer`와 `compute_context_hash`를 연결하면 후보·최종 문맥·모델 입출력·시도별
+토큰을 전달한다. 객체 청크는 평탄 로그로 바꾸고, 실제 문맥 문자열 해시와 C의
+청크 배열 해시를 구분한다. SDK 사용량이 없으면 0으로 꾸미지 않고 null을 유지한다.
+
+일반·보안 평가 연결:
+
+```python
+from member_b.service.adapters import make_query_adapter, make_security_adapters
+
+adapter = make_query_adapter(resources, settings)
+retrieve_fn, generate_fn = make_security_adapters(resources, settings, defense=defense_text)
 ```
 
-`--recreate`는 기존 컬렉션을 삭제하므로 팀 공용 컬렉션에 사용하지 않는다.
-검색 보조 평가는 A의 manifest가 필요하다. 후보 기준 결과와 B 최종 문맥 기준
-정식 평가는 구분한다.
+`adapter`는 질문·검색 방식·요청 ID를 받아 실행 기록을 반환한다. 보안 연결은
+한 번 준비한 문맥으로 base/defense를 생성하며 재검색하지 않는다. 두 팩터리는
+C 문맥 해시 콜백이 없으면 준비 오류를 반환한다. 정답·기대 행동을 서비스 입력에 넣지 않는다.
 
-## Langfuse와 C 연결
+HTTP 실행 기록을 저장하려면 `create_app(run_record_sink=save_record)`에 C의 저장
+콜백을 전달한다. 공개 응답에 전체 문맥이나 내부 로그를 추가하지 않는다.
+`latency_scope`로 HTTP 전체 처리, 서비스 직접 실행, 고정 문맥 생성을 구분한다.
 
-요청 ID 아래 `rag-query`, `retrieval`, `final-context`,
-`generation-attempt-1`을 기록한다. 후보·최종 청크는 평탄 로그로 전달한다.
+## 설정·키
 
-- `model_context_hash`: 실제 문맥 문자열의 SHA-256 hex.
-- `final_context_hash`: C의 `compute_context_hash()`로 계산한 평탄 청크 해시.
-- `GenerationResult.attempts`: `model_input`, `model_output`, 모델·시도·실제 토큰 정보.
+- 루트 `.env`: `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`.
+- C 추적용: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`.
+- 빈 양식은 `.env.example`에 있으며 실제 키·원본 데이터·`artifacts/`는 Git 제외 대상이다.
+- 실행 환경의 값이 `.env`보다 우선한다.
+- 모델·컬렉션·최종 k·문맥 예산·시간 제한은 `configs/basic.yaml`에서 지정한다.
+- A manifest의 `vector_store.collection`, `embedding.model`을 YAML과 맞춘다.
+  서버 시작 때 PDF를 읽거나 색인을 재생성하지 않는다.
+- `context_tokenizer`는 문맥 예산용 로컬 추정이며 실제 사용량은 모델 usage로 확인한다.
 
-두 해시의 계산식은 다르다. flush나 trace ID만으로 저장을 확정하지 않고 관측을
-조회한다. 단계별 관측 시간 개선과 전체 평가 어댑터는 후속 작업이다.
-
-## 테스트
+## B 검증
 
 ```powershell
 .venv/Scripts/python -m unittest discover -s member_b/tests -v
 ```
 
-가상 모델·메모리 Qdrant로 계약·오류·출처·A/B 흐름을 확인한다.
-실제 모델 품질·클라우드 부하 시험을 대신하지 않는다.
+A/C 파일 없이 API import·문서·503 안내, 가짜 검색 결과 → 문맥 → 답변·출처,
+입력·시간 초과·출처 오류, 실패 시도 기록, 고정 문맥 비교를 검증한다.
+가짜 응답은 테스트에서만 사용한다. 실행 서버에 가짜 업무 답변 경로를 넣지 않는다.
 
-이 변경은 로컬 파일 구조와 호출 경로를 맞추는 작업이다.
-Git 머지·커밋·푸시와 공유 Qdrant 색인 재생성은 수행하지 않는다.
+현재 실제 검색은 A 모듈 연결이 필요하다. Hybrid·리랭킹·평가 채점·보안 효과 측정·
+Advanced 전체 색인과 클라우드 부하 검증을 완료한 것으로 표시하지 않는다.
+이번 로컬 수정은 커밋·푸시·병합과 별개다.

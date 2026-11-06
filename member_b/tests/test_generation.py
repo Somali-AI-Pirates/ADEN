@@ -64,6 +64,16 @@ class GenerationTests(unittest.TestCase):
             with self.subTest(source_ids=source_ids, answer=answer), self.assertRaises(ValueError):
                 generate_answer("예약이 확정됐나요?", self.context, FakeModel(source_ids, answer))
 
+    def test_rejects_blank_answer_or_reason(self):
+        for field in ("answer", "reason"):
+            with self.subTest(field=field):
+                result = FakeModel(["S1"]).invoke([])
+                setattr(result["parsed"], field, "   ")
+                model = FakeModel(["S1"])
+                model.invoke = Mock(return_value=result)
+                with self.assertRaises(ValueError):
+                    generate_answer("예약 문의", self.context, model)
+
     def test_adds_valid_body_marks_missing_from_source_ids(self):
         result = generate_answer("예약이 확정됐나요?", self.context, FakeModel([]))
         self.assertEqual(result.model_answer.source_ids, ["S1"])

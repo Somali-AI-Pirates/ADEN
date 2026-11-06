@@ -208,9 +208,9 @@ Hybrid·리랭킹용 추가 자원은 A·B가 공통 변경으로 정한다. A·
 | A `retrieve` | `retrieve(question, mode, resources, top_n=20) -> list[RetrievedChunk]` |
 | B `load_resources` | `load_resources(settings) -> Resources` |
 | B `build_context` | `build_context(candidates, k, token_budget, count_tokens) -> ContextBundle` |
-| B `generate_answer` | `generate_answer(question, context, model, *, prompt_path=..., defense="", trace=None) -> GenerationResult` |
+| B `generate_answer` | `generate_answer(question, context, model, *, prompt_path=..., defense="", trace=None, attempt_log=None) -> GenerationResult` |
 | B `resolve_citations` | `resolve_citations(source_ids, source_map) -> list[Citation]` |
-| B `answer_query` | `answer_query(request, resources, request_id, settings) -> QueryResponse` |
+| B `answer_query` | `answer_query(request, resources, request_id, settings, *, run_record=None) -> QueryResponse` |
 | C `normalize_run_record` | `normalize_run_record(raw: Mapping) -> dict`. 실행 기록 검증·usage 계산 |
 | C `run_comparison` | `run_comparison(questions, adapter, *, experiment_id, dataset_id, config_hash, modes=...) -> list[dict]` |
 | C `grade_all` | `grade_all(records, references, *, k, judge_fn, faithfulness_fn) -> list[dict]` |
@@ -290,3 +290,41 @@ exclude = ["*.tests", "*.tests.*"]
 - [ ] 설치·모듈 import와 위 실행 명령을 공통 환경에서 확인한다.
 
 샘플 인터페이스 확인은 실제 Basic 성능 평가와 구분한다. 선택한 일반 질문 전체의 세 방식 비교, 두 자동 평가와 보안 4개 실행은 기존 시스템 설계의 완료 기준을 따른다.
+
+
+## 10. B 구현 연결 안내 — 2026-11-06
+
+B는 `member_b/`와 `shared/` 구조를 유지하고 A/C 소스를 복사하지 않는다.
+외부 모듈은 자원 준비 시 연결한다. A가 없으면 `/docs`·`/openapi.json`·`/health`는
+사용할 수 있고 `query_ready=false`, `/query`는 명시적인 503이다. C가 없으면
+추적은 비활성 상태다. 실제 업무 응답을 가짜 검색으로 대체하지 않는다.
+
+Resources의 기존 필드는 유지하며 B 연결용 `retriever` 호출 함수와
+선택적 `context_hasher`를 추가한다. A 연결은 `member_a.indexing.embeddings`,
+`member_a.retrieval.service`이며 C 연결은 `member_c.observability`다.
+
+`run_record`와 `attempt_log`는 기존 호출을 유지하는 선택 출력 수집 인자다.
+요청마다 별도 객체를 사용한다. 실패한 모델 시도도 입력·오류 종류·확인되지 않은
+사용량 null을 남긴다. B는 RunRecord를 조립하며 C의 검증·usage 집계를 대체하지 않는다.
+
+B의 `member_b.service.adapters`에서 다음 연결 함수를 제공한다.
+
+- `make_query_adapter(resources, settings)` → `adapter(question, retrieval_mode, request_id)`.
+  반환값은 평탄 실행 기록이다. 오류도 기록으로 반환하여 C가 다음 문항을 처리할 수 있다.
+- `make_security_adapters(resources, settings, *, defense)` → `retrieve_fn`, `generate_fn`.
+  검색·문맥을 한 번 준비해 base/defense에 재사용한다. 질문이나 문맥을 바꾸면 거부한다.
+
+정식 평가 어댑터에는 C가 제공한 `compute_context_hash` 콜백이 필요하다.
+C가 연결되지 않았으면 평가 어댑터는 준비 오류를 알린다. 검색·생성·정답 채점 코드를
+B에서 새로 복제하지 않는다.
+
+`create_app(run_record_sink=callback)`은 응답 JSON을 바꾸지 않고 요청별 실행 기록을
+동기 callback에 전달한다. API 미들웨어가 수신부터 응답 생성 직전까지 잰 값을
+`latency_ms`, `latency_scope="http"`로 확정한다. 기록 저장 실패는 업무 답변을
+바꾸지 않고 경고로 남긴다. 서비스 직접 호출과 고정 문맥 생성은 각각
+`service`/`in_process_adapter`, `fixed_context_generation` 범위로 표시한다.
+클라이언트 왕복 시간이나 이 범위들을 HTTP 처리 시간과 섞어 비교하지 않는다.
+Langfuse 루트의 서비스 시간과 자식 관측 타임라인 보완은 C 연결 때 별도로 검증한다.
+
+문맥 토큰은 `context_tokenizer` 설정의 로컬 추정값이며 실제 모델 usage와 구분한다.
+최종 문자열도 예산을 재확인하고 초과하면 마지막 청크 전체를 제외한다.

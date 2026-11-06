@@ -50,10 +50,17 @@ def build_context(
             break
 
     text = "\n\n".join(blocks)
+    final_tokens = count_tokens(text)
+    while selected and final_tokens > token_budget:
+        source_map.pop(f"S{len(selected)}")
+        selected.pop()
+        blocks.pop()
+        text = "\n\n".join(blocks)
+        final_tokens = count_tokens(text)
     return ContextBundle(
         text=text,
         final_chunks=selected,
         source_map=source_map,
         context_hash=sha256(text.encode("utf-8")).hexdigest(),
-        token_count=count_tokens(text),
+        token_count=final_tokens,
     )

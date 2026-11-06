@@ -6,7 +6,8 @@
 docs/
 ├── README.md
 ├── design/
-│   └── architecture.md
+│   ├── architecture.md
+│   └── contracts.md
 ├── plans/
 │   └── basic-day-plan-2026-11-05.md
 └── guides/
@@ -15,6 +16,7 @@ docs/
 
 | 문서 | 담는 내용 | 읽는 시점 |
 | --- | --- | --- |
+| [design/contracts.md](design/contracts.md) | 현재 공통 타입·동기 호출·Resources·B/C 기록 연결 기준. 초기 구조 예시보다 우선 | 모듈 연결·B 코드 수정 전 |
 | [design/architecture.md](design/architecture.md) | Basic 범위, 기능별 모듈, 함수 계약, API, 평가, 구현 순서 | 개발 시작 전 |
 | [guides/git-workflow.md](guides/git-workflow.md) | 저장소 구조, Git 추적 범위, 브랜치·커밋·PR, 결과 제출 | 협업 시작 전 |
 | [plans/basic-day-plan-2026-11-05.md](plans/basic-day-plan-2026-11-05.md) | 2026-11-05 Basic을 진행할 3명의 담당·연결 계약·시간표·완료 기준 | 해당 작업 시작 전 |

@@ -24,6 +24,17 @@ def candidate(number, text):
 
 
 class ContextTests(unittest.TestCase):
+    def test_final_combined_text_stays_within_budget_for_non_additive_counter(self):
+        first, second = candidate(1, "첫 자료"), candidate(2, "다음 자료")
+
+        def counter(text):
+            return 1000 if "[S2]" in text and "[S1]" in text else len(text)
+
+        context = build_context([first, second], 2, 500, counter)
+        self.assertEqual(context.final_chunks, [first])
+        self.assertLessEqual(context.token_count, 500)
+        self.assertEqual(list(context.source_map), ["S1"])
+
     def test_selects_whole_chunks_with_source_overhead(self):
         short = candidate(1, "예약 접수와 확정은 별도입니다.")
         reference = build_context([short], 1, 10000, len)
