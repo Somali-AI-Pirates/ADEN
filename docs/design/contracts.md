@@ -220,11 +220,13 @@ Hybrid 결합과 리랭커 설정은 A가 제안하고 B가 위 설정과 함께
 | `model` | B의 생성 함수가 호출할 LangChain 모델 또는 같은 기능의 가짜 클라이언트 |
 | `count_tokens(text) -> int` | 문맥 전체 토큰 계산 함수 |
 | `tracer` | C의 `Tracer`와 동일한 요청 추적 인터페이스 |
-| `cleanup`, `close()` | B가 앱 종료 시 색인·모델·추적 자원을 정리 |
+| `cleanup`, `close()` | 생성한 SDK 클라이언트·추적 도구의 정리 콜백을 보유하고 앱 종료 시 실행 |
 | `keyword_index` (선택) | `app.indexing.keyword_store.KeywordIndex`. 없으면 A의 검색이 첫 `hybrid`·`hybrid_rerank` 호출 때 같은 Qdrant 컬렉션의 청크로 만들어 프로세스 안에 보관한다 |
 | `reranker` (선택) | `app.retrieval.reranker.Reranker`. 없으면 첫 `hybrid_rerank` 호출 때 기본 모델을 읽는다. 첫 요청 지연을 피하려면 시작 시 넣거나 한 번 호출해 둔다 |
 
 Hybrid·리랭킹용 추가 자원은 A·B가 공통 변경으로 정한다. A·C는 B의 Resources 구체 클래스를 역으로 import하지 않고 필요한 속성·호출 기능에 의존한다. Resources와 SDK 객체는 RunRecord로 직렬화하지 않는다.
+
+`load_resources(settings)`는 전체 자원 조립이 성공하면 종료 책임을 반환한 `Resources`로 넘긴다. 그 전에 실패하면 이미 등록한 클라이언트·추적 도구의 정리 콜백을 역순으로 실행하고 오류를 호출자에게 전달한다. 필수 환경변수·색인·차원 검증, 선택적 관측 모듈과 로컬 토큰 계산기의 기존 동작은 유지한다. 생성 모델은 SDK 클라이언트를 공유하며 SDK 자동 재시도는 끄고 서비스 계층의 시도 한도를 따른다.
 
 ## 5. 함수 호출 계약
 
