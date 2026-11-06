@@ -2,7 +2,9 @@
 
 작업일: **2026-11-05, 한국시간**. 오늘은 Basic 해운 서비스의 필수 구현·비교·기록을 목표로 한다. 팀원 이름은 아직 제공되지 않아 A/B/C로 표시한다. 아래는 업무 배정안이며 실제 구현 완료나 담당자의 작업 착수를 뜻하지 않는다.
 
-기준 설계: [시스템 설계](../design/architecture.md) · [Git 협업 규칙](../guides/git-workflow.md)
+폴더 구조 갱신: 2026-11-06. 원래 작업일은 파일명과 같이 2026-11-05로 보존한다. 아래 담당 경로는 사람별 최종 패키지 기준이다.
+
+기준 설계: [시스템 설계](../design/architecture.md) · [공통 입출력·호출 계약](../design/contracts.md) · [Git 협업 규칙](../guides/git-workflow.md)
 
 ## 1. 오늘의 범위
 
@@ -22,11 +24,11 @@
 
 | 담당 | 역할 | 주 담당 파일·폴더 | 오늘 넘겨줄 결과 |
 | --- | --- | --- | --- |
-| **A** | **데이터·검색** | `app/ingestion/`, `app/indexing/`, `app/retrieval/`, `scripts/build_index.py`, `data/README.md` | 전체 PDF 처리 내역, 두 색인, 세 검색 방식의 `retrieve()` |
-| **B** | **답변 생성·API·통합** | `app/core/`, `app/generation/`, `app/service/`, `app/api/`, `main.py`, `prompts/shipping_qa.txt` | `/query`에서 답변·상태·출처 반환, 정상/오류 처리, 모듈 연결 |
-| **C** | **실행 기록·평가** | `app/observability/`, `evaluation/`, `scripts/run_benchmark.py`, `scripts/run_security.py`, `prompts/judge.txt`, `prompts/defense.txt`, `reports/` | Langfuse 기록, 일반·보안 평가, 비교표·결과 해석 |
+| **A** | **데이터·검색** | `member_a/ingestion/`, `member_a/indexing/`, `member_a/retrieval/`, `member_a/scripts/build_index.py`, `data/README.md` | 전체 PDF 처리 내역, 두 색인, 세 검색 방식의 `retrieve()` |
+| **B** | **답변 생성·API·통합** | `shared/`, `member_b/generation/`, `member_b/service/`, `member_b/api/`, `main.py`, `member_b/prompts/shipping_qa.txt` | `/query`에서 답변·상태·출처 반환, 정상/오류 처리, 모듈 연결 |
+| **C** | **실행 기록·평가** | `member_c/observability/`, `member_c/evaluation/`, `member_c/scripts/run_benchmark.py`, `member_c/scripts/run_security.py`, `member_c/prompts/judge.txt`, `member_c/prompts/defense.txt`, `reports/` | Langfuse 기록, 일반·보안 평가, 비교표·결과 해석 |
 
-**B가 통합 담당**을 맡는다. 공통 타입과 설정 파일의 변경을 모아 반영하고 모듈을 연결한다. A와 C는 자신의 함수와 필요한 설정을 전달한다. C는 로그 코드를 만들고 B가 API·생성 호출에 연결하므로, 두 사람이 `service/query.py`를 동시에 편집하지 않아도 된다.
+**B가 통합 담당**을 맡는다. 공통 타입과 설정 파일의 변경을 모아 반영하고 모듈을 연결한다. A와 C는 자신의 함수와 필요한 설정을 전달한다. C는 로그 코드를 만들고 B가 API·생성 호출에 연결하므로, 두 사람이 `member_b/service/query.py`를 동시에 편집하지 않아도 된다.
 
 공통 설정 `configs/basic.yaml`, 의존성 파일, `.env.example`, `.gitignore`는 B가 취합한다. A는 검색·모델 의존성, C는 평가·Langfuse 의존성을 초반에 전달한다. 루트 README의 실행 안내도 B가 정리하되 A와 C가 실제 실행 명령을 제공한다.
 
@@ -51,7 +53,7 @@
 6. C가 제공한 추적 함수를 호출해 검색 후보·최종 문맥·실제 모델 입출력·시도별 토큰을 전달한다.
 7. 모델 timeout·잘못된 출력·빈 입력을 확인하고, `/docs`에서 전체 흐름을 시연한다.
 
-완료 기준: 같은 API에서 세 검색 방식을 바꿀 수 있고, 답변/추가 확인/보류와 시스템 오류가 구분된다. 인용은 실제 전달한 문맥에 연결된다. `main.py`는 앱 생성 함수를 호출하고 실행 순서는 `service/query.py`에 둔다.
+완료 기준: 같은 API에서 세 검색 방식을 바꿀 수 있고, 답변/추가 확인/보류와 시스템 오류가 구분된다. 인용은 실제 전달한 문맥에 연결된다. `main.py`는 앱 생성 함수를 호출하고 실행 순서는 `member_b/service/query.py`에 둔다.
 
 ### C — 첫 요청의 기록부터 최종 비교까지
 
@@ -69,13 +71,17 @@
 
 | 연결 | 제공자 → 사용자 | 넘겨줄 정보 |
 | --- | --- | --- |
-| `RetrievedChunk` | A → B | `chunk_id`, `book_id`, `file_name`, `page`, `text`, 순위·점수 |
-| `ContextBundle` | B → C | 최종 청크·순서·실제 텍스트, 출처 대응표, 문맥 해시 |
+| `RetrievedChunk` | A → B | `chunk: Chunk`, `rank`, `score`, `retriever`의 중첩 구조. 문서·본문은 `item.chunk.book_id/text`로 접근 |
+| `ContextBundle` → 로그 | B → C | 최종 중첩 청크와 실제 문맥 문자열·출처 대응표를 받아, 연결부에서 C의 평탄 로그로 변환. 문자열 해시와 로그 청크 해시를 구분 |
 | `QueryResponse` | B → C | 요청 ID, 답변, 상태, 사유, 인용 |
 | `RunRecord` | A·B가 제공, C가 저장·평가 | 후보/최종 문맥 구분, 실제 모델 입출력, 오류·시도별 사용량, 서버 측 처리 시간 |
 | 추적 함수 | C → B | 요청 추적 시작, 검색·생성 기록, 결과 저장에 사용할 함수·콜백 |
 
-타입 정의는 `app/core/contracts.py` 한 곳을 기준으로 한다. A·B·C가 자신의 폴더에 같은 타입을 다시 만들지 않는다. 구현 초반에는 정답 파일에서 가져오지 않은 작은 가상 청크와 가상 응답으로 각 모듈을 개발할 수 있다.
+Basic의 패키지명은 `member_a`, `member_b`, `member_c`, `shared`로 고정한다. 실제 이름은 담당표로 연결하며 패키지명을 변경하면 경로·import·설정·실행 명령을 같은 변경에서 맞춘다. 이 폴더들을 최종 위치로 유지한다.
+
+타입 정의는 `shared/contracts.py` 한 곳을 기준으로 한다. A·B·C가 자신의 폴더에 같은 타입을 다시 만들지 않는다. 구현 초반에는 정답 파일에서 가져오지 않은 작은 가상 청크와 가상 응답으로 각 모듈을 개발할 수 있다.
+
+세부 필드·JSON 예시·Resources 속성·함수의 인자/반환값은 [공통 계약](../design/contracts.md)을 따른다. 기능 함수는 동기 호출로 통일하고 비동기 API 래퍼에서 작업 스레드로 실행한다. 먼저 가상 한 건으로 `RetrievedChunk → ContextBundle → RunRecord` 변환과 오류 기록을 확인한다. A·B·C가 이미 작성한 코드의 경로·해시·시도별 사용량을 맞출 항목도 계약 문서에서 확인한다.
 
 `generate_answer()`는 이미 만든 문맥과 프롬프트 변형을 받을 수 있게 B가 제공한다. C의 보안 실행기는 이 함수를 호출하여 같은 문맥을 재사용한다. `/query`를 두 번 호출해 다시 검색하는 방식으로 보안 비교를 구현하지 않는다.
 
@@ -104,11 +110,13 @@
 | A | `feat/basic-data-search` | PDF 추출·페이지 출처·Naive 검색 |
 | C | `feat/basic-evaluation-tracing` | 실행 기록 타입 연동·Langfuse 추적·평가 실행기 골격 |
 
-병합된 `main`의 설계 문서를 기준으로 개발을 시작한다. B의 공통 계약 PR이 들어오면 A와 C가 같은 기준으로 작업 브랜치를 맞춘다. B도 그 시점부터 공통 계약을 예고 없이 변경하지 않는다.
+위 브랜치는 첫 작업의 예시다. 각 PR을 squash 병합하고 브랜치를 삭제한 뒤, 다음 작업은 최신 main에서 새 작업 브랜치를 만든다. 같은 담당자가 계속 작업하더라도 이미 squash된 브랜치를 재사용하지 않는다.
+
+각자 작업을 커밋하거나 stash한 뒤 자신의 작업 브랜치에서 `git fetch origin`, `git merge origin/main`으로 최신 설계를 받는다. 기존 코드는 유지되며 겹치는 변경은 충돌을 해결한다. 상세 절차는 [Git 협업 규칙](../guides/git-workflow.md)의 main 동기화 안내를 따른다. 병합된 `main`의 설계 문서를 기준으로 개발을 계속한다. B의 공통 계약 PR이 들어오면 A와 C가 같은 기준으로 작업 브랜치를 맞춘다. B도 그 시점부터 공통 계약을 예고 없이 변경하지 않는다.
 
 기능 전체가 완성될 때까지 기다리지 않고 **계약 → Naive 전체 연결 → 세 검색 방식 → 평가 결과** 순서로 작은 PR을 통합한다. 기본 리뷰 연결은 A의 PR을 B, B의 PR을 C, C의 PR을 A가 확인한다. 특정 모듈의 전문 검토가 필요하면 해당 담당자도 함께 확인한다.
 
-이 계획은 팀원의 작업 배정 기준이다. 실제 GitHub 이슈 생성·실명 담당자 지정·개발 브랜치 생성·PR 병합은 아직 수행하지 않았다.
+이 계획은 팀원의 작업 배정 기준이다. 이 문서만으로 GitHub 이슈 생성이나 실명 담당자 지정을 완료한 것은 아니다. 코드 변경은 각자의 작업 브랜치에서 진행하고 통합한다.
 
 ## 6. 시간이 부족할 때의 우선순위
 
