@@ -91,6 +91,8 @@ Basic·Intermediate·Advanced는 데이터와 설정으로 구분한다. 난이�
 | `docs/` | 문서만 변경 | `docs/evaluation-guide` |
 | `chore/` | 설치·도구·CI | `chore/test-checks` |
 
+새 브랜치를 처음 원격에 올릴 때는 현재 브랜치에 upstream을 연결한다. `git push -u origin <현재브랜치>`는 형식 예시이며, 꺾쇠 괄호를 실제 브랜치 이름으로 바꿔 실행한다. upstream을 연결한 뒤 자기 브랜치의 새 커밋을 받을 때는 `git pull --ff-only`를 사용한다. `main`의 변경을 작업 브랜치에 반영하는 절차는 다음 절의 `git fetch origin` 후 `git merge origin/main`을 따른다.
+
 커밋은 `종류(영역): 변경 내용`으로 작성한다. PR에는 변경 전 문제와
 변경 후 동작, 확인 방법·결과, 공통 계약·설정 영향, 관련 작업을 설명한다.
 코드·설정·API·공통 계약·검사 규칙을 바꾸는 PR은 작성자 외 관련 팀원
@@ -143,11 +145,17 @@ Basic·Intermediate·Advanced는 데이터와 설정으로 구분한다. 난이�
 
 ## 6. 공통 검사와 실행 확인
 
-저장소 루트의 가상환경에서 실행한다.
+프로젝트는 Python 3.11 이상을 선언하지만 공통 개발·CI 기준은 Python 3.13이다. `.python-version`과 CI 설정도 3.13 기준이며, 3.11 이상 전체의 호환성을 검증했다는 뜻은 아니다. Python 3.13 인터프리터를 선택한 뒤 저장소 루트에서 환경을 처음 만들고 개발 의존성을 설치한다.
+
+```bash
+python -m venv .venv
+```
+
+가상환경을 활성화한 뒤 다음을 실행한다.
 
 ```bash
 python -m pip install -e '.[test]'
-python -m ruff check --select E9,F63,F7,F82 .
+python -m ruff check .
 python -m pytest -q tests
 python -m app.indexing.scripts.build_index --help
 python -m app.evaluation.scripts.eval_retrieval --help
@@ -157,6 +165,10 @@ python -m app.evaluation.scripts.run_benchmark --sample
 python -m app.evaluation.scripts.run_security --sample
 python -m build
 ```
+
+VS Code를 사용할 때는 저장소 권장 확장(Python `ms-python.python`, Pylance `ms-python.vscode-pylance`, Ruff `charliermarsh.ruff`, EditorConfig `editorconfig.editorconfig`)을 설치하고 Python 인터프리터로 저장소의 `.venv`를 선택한다. 테스트 탐색은 `tests/`를 대상으로 한다. Ruff가 공통 린터와 포매터로 설정되어 있으며, 저장 시 자동 포맷과 포맷 전용 CI gate는 없다. 명시적으로 포맷할 때도 현재 작업 범위에 해당하는 파일만 선택한다. 워크스페이스 상세값은 `.vscode/`와 `pyproject.toml`을 기준으로 한다.
+
+Pylance는 `pyproject.toml`의 Pyright `basic` 설정에 따라 `main.py`, `app/`, `shared/`를 편집기에서 진단하고 `experimental/`은 제외한다. `pythonVersion = "3.11"`은 정적 분석의 Python 버전 기준이며, 로컬 개발·CI 인터프리터 기준은 앞서 적은 3.13이다. 2026-11-06 초기 점검은 45개 파일에서 오류 15건을 보고했다. 이는 통과 결과가 아니며 편집기 진단용이다. 프로젝트의 공통 검증 절차에 Pyright CLI 검사나 CI 타입 검사 gate는 없다.
 
 `.github/workflows/ci.yml`의 `checks`는 main 대상 PR·main 푸시에서 실행한다.
 Python 3.13과 CPU용 PyTorch를 준비하고 `.[test]`를 설치한 뒤 위 검사,

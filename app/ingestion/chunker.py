@@ -21,7 +21,7 @@ SENTENCE_END = re.compile(r"(다|요|음|함)\.$|[.!?]\"?$")
 
 
 def _parse_page(text):
-    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
     if lines and FOOTER.match(lines[-1]):
         lines = lines[:-1]
     header, title, section = (lines + ["", "", ""])[:3]
