@@ -13,7 +13,7 @@ from shared.contracts import Chunk
 from shared.exceptions import ServiceError
 from shared.settings import load_settings
 from app.service.resources import load_resources
-from tests.generation.test_generation import FakeModel
+from tests.pipeline_fakes import FakeModel
 
 
 class ResourceTests(unittest.TestCase):

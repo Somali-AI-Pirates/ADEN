@@ -8,7 +8,7 @@ from shared.contracts import Chunk, RetrievedChunk
 from shared.exceptions import ServiceError
 from shared.settings import load_settings
 from app.service.adapters import make_query_adapter, make_security_adapters
-from tests.generation.test_generation import FakeModel
+from tests.pipeline_fakes import FakeModel
 
 
 class AdapterTests(unittest.TestCase):

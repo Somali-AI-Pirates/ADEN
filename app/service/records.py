@@ -1,8 +1,5 @@
 """B 실행 결과를 C가 받는 평탄 로그로 조립한다. 검증·채점은 C가 맡는다."""
 from dataclasses import asdict
-from contextvars import ContextVar
-
-REQUEST_RECORD: ContextVar[dict | None] = ContextVar("aden_request_record", default=None)
 
 
 def create_run_record(question, mode, request_id, settings, config_hash):

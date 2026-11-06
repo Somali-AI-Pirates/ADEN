@@ -1,40 +1,10 @@
 import unittest
 from unittest.mock import Mock
 
-from langchain_core.messages import AIMessage
-
-from shared.contracts import Chunk, ModelAnswer, RetrievedChunk
 from app.generation.chain import generate_answer
 from app.generation.context import build_context
-
-
-class FakeModel:
-    model_name = "test-model"
-    max_tokens = 2048
-
-    def __init__(self, source_ids, answer="예약 접수와 확정은 별도입니다. [S1]"):
-        self.source_ids = source_ids
-        self.answer = answer
-        self.messages = []
-
-    def with_structured_output(self, schema, **options):
-        assert schema is ModelAnswer
-        assert options == {"method": "json_schema", "include_raw": True}
-        return self
-
-    def invoke(self, messages):
-        self.messages = messages
-        return {
-            "parsed": ModelAnswer(
-                status="answered", answer=self.answer,
-                reason="제공된 자료에 근거합니다.", source_ids=self.source_ids,
-            ),
-            "parsing_error": None,
-            "raw": AIMessage(
-                content="모델 출력",
-                usage_metadata={"input_tokens": 100, "output_tokens": 20, "total_tokens": 120},
-            ),
-        }
+from shared.contracts import Chunk, RetrievedChunk
+from tests.pipeline_fakes import FakeModel
 
 
 class GenerationTests(unittest.TestCase):

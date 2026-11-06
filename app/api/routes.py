@@ -1,21 +1,21 @@
-from collections.abc import Awaitable, Callable
+import asyncio
 from typing import Literal
 
 from fastapi import APIRouter, Request, Response
 from pydantic import BaseModel, Field
 
+from app.service.query import answer_query
+from app.service.resources import Resources
 from shared.contracts import QueryRequest, QueryResponse
 from shared.settings import Settings
-from app.service.records import REQUEST_RECORD
 
-QueryHandler = Callable[[QueryRequest, str], Awaitable[QueryResponse]]
 router = APIRouter()
 
 
 class HealthResponse(BaseModel):
     status: Literal["ok"] = Field(default="ok", title="앱 상태", description="ok는 앱이 실행 중임을 뜻합니다.")
     dataset: str = Field(title="데이터셋", description="현재 서버에서 사용하는 난이도")
-    query_ready: bool = Field(title="질의 준비 여부", description="검색·답변 처리 함수의 연결 여부")
+    query_ready: bool = Field(title="질의 준비 여부", description="기본 질의 자원의 준비 여부")
 
 
 @router.get(
@@ -29,7 +29,7 @@ async def health(request: Request) -> HealthResponse:
     settings: Settings = request.app.state.settings
     return HealthResponse(
         dataset=settings.dataset,
-        query_ready=request.app.state.query_handler is not None,
+        query_ready=request.app.state.resources is not None,
     )
 
 
@@ -54,8 +54,8 @@ async def query(
     response: Response,
 ) -> QueryResponse:
     request_id: str = request.state.request_id
-    handler: QueryHandler | None = request.app.state.query_handler
-    if handler is None:
+    resources: Resources | None = request.app.state.resources
+    if resources is None:
         response.status_code = 503
         return QueryResponse(
             request_id=request_id,
@@ -68,8 +68,11 @@ async def query(
     settings: Settings = request.app.state.settings
     if payload.retrieval_mode is None:
         payload = payload.model_copy(update={"retrieval_mode": settings.retrieval.default_mode})
-    token = REQUEST_RECORD.set(request.state.run_record)
-    try:
-        return await handler(payload, request_id)
-    finally:
-        REQUEST_RECORD.reset(token)
+    return await asyncio.to_thread(
+        answer_query,
+        payload,
+        resources,
+        request_id,
+        settings,
+        run_record=request.state.run_record,
+    )

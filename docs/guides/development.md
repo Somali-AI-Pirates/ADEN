@@ -56,6 +56,8 @@ uv sync --extra test --locked
 
 공통 코드의 기본 검사다.
 
+대표 HTTP 검사는 실제 내부 파이프라인을 통과하면서 외부 자원은 가짜로 대체하고, 평가 어댑터 검사는 어댑터 계약을 직접 확인한다. 두 경로가 쓰는 공통 모델·리소스 가짜는 `tests/pipeline_fakes.py`에 둔다. 생성·검색 단위 테스트와 앱 리소스 수명주기 테스트도 각 동작을 계속 확인한다.
+
 ```bash
 python -m ruff check .
 python -m pytest -q tests
