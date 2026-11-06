@@ -1,18 +1,20 @@
 from pathlib import Path
 
+from dotenv import load_dotenv
 from fastapi import FastAPI
 
 from app.api.errors import register_error_handlers
 from app.api.lifespan import lifespan
 from app.api.middleware import track_request
 from app.api.routes import router
-from shared.settings import DEFAULT_CONFIG, load_settings
+from shared.settings import DEFAULT_CONFIG, PROJECT_ROOT, load_settings
 
 
 def create_app(
     config_path: Path = DEFAULT_CONFIG,
 ) -> FastAPI:
     """설정을 읽고 시작·종료, 요청 기록, 오류 처리와 라우터를 연결한다."""
+    load_dotenv(PROJECT_ROOT / ".env")
     settings = load_settings(config_path)
     app = FastAPI(
         title="ADEN 해운 문서 질의응답",

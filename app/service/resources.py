@@ -5,7 +5,6 @@ from dataclasses import dataclass, field
 from functools import lru_cache
 
 import tiktoken
-from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from openai import OpenAI
 from qdrant_client import QdrantClient
@@ -14,7 +13,7 @@ from app.indexing.embeddings import Embedder
 from app.observability.tracing import Tracer
 from app.retrieval.resources import RetrievalResources
 from shared.exceptions import ServiceError
-from shared.settings import DEFAULT_CONFIG, Settings
+from shared.settings import Settings
 
 
 @dataclass
@@ -37,7 +36,6 @@ class Resources:
 
 def load_resources(settings: Settings) -> Resources:
     """설정 확인 → 관측 → 검색 → 생성 순서로 자원을 준비한다."""
-    load_dotenv(DEFAULT_CONFIG.parent.parent / ".env", override=False)
     _require_environment()
 
     with ExitStack() as cleanup:
@@ -102,7 +100,9 @@ def _create_generation_model(settings: Settings, cleanup: ExitStack) -> ChatOpen
         timeout=settings.model_timeout_seconds,
         max_retries=0,
     )
+
     cleanup.callback(openai_client.close)
+
     return ChatOpenAI(
         model=settings.generation_model,
         api_key=os.environ["OPENAI_API_KEY"],

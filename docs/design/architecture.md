@@ -71,7 +71,7 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 
 자원의 초기화 시점·소유자·해제 방식을 명시하고 import만으로 모델을 읽거나 네트워크에 연결하지 않는다. API는 lifespan에서 `load_resources()`를 작업 스레드로 실행해 `app.state.resources`에 보관한다. BM25·리랭커는 각 Resources.retrieval의 RetrievalResources에서 최초 사용 때 준비한다. 앱·실행 자원 사이에 전역 캐시를 공유하지 않고 Resources.close()에서 참조를 해제한다. 이 지연 초기화 경로를 모든 자원이 서버 시작 때 준비된 것으로 설명하지 않는다.
 
-`app/service/resources.py`의 `load_resources()`는 환경 확인 → 관측 도구 → 임베딩·Qdrant → 생성 모델·토큰 계산기 순서로 자원을 조립한다. 관측 도구는 명시적 import로 연결하고, Qdrant 연결·색인 검사, 생성 모델 생성, 토큰 계산기는 같은 파일의 목적별 내부 함수에 둔다. 상위 함수에서 실행 순서가 보이도록 하고 보조 함수나 SDK 설정마다 별도 클래스·파일을 만들지 않는다. SDK 생성과 정리 책임을 진입점 가까이 모으는 [Composition Root](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)를 함수 중심으로 적용한다.
+`app/service/resources.py`의 `load_resources()`는 필수 환경변수 확인 → 관측 도구 → 임베딩·Qdrant → 생성 모델·토큰 계산기 순서로 자원을 조립한다. 관측 도구는 명시적 import로 연결하고, Qdrant 연결·색인 검사, 생성 모델 생성, 토큰 계산기는 같은 파일의 목적별 내부 함수에 둔다. 상위 함수에서 실행 순서가 보이도록 하고 보조 함수나 SDK 설정마다 별도 클래스·파일을 만들지 않는다. SDK 생성과 정리 책임을 진입점 가까이 모으는 [Composition Root](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)를 함수 중심으로 적용한다.
 
 초기화 중에는 `ExitStack`이 생성된 클라이언트·추적 도구의 정리 책임을 가진다. `Resources` 객체 조립까지 성공한 뒤에만 `pop_all()`로 종료 책임을 넘기므로 중간 단계나 최종 조립이 실패해도 이미 만든 자원은 정리된다. 각 생성 함수는 자원을 만든 직후 정리 콜백을 등록한다. 수명주기 검사는 외부 클라이언트만 대체하고 실제 자원 조립·질문 처리·종료를 함께 검증한다.
 
@@ -81,7 +81,7 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 
 - [FastAPI의 여러 파일 구성](https://fastapi.tiangolo.com/tutorial/bigger-applications/): 라우터 분리와 앱 조립.
 - [FastAPI Lifespan](https://fastapi.tiangolo.com/advanced/events/): 공유 자원의 준비·해제.
-- [FastAPI 설정 가이드](https://fastapi.tiangolo.com/advanced/settings/): 타입이 있는 설정과 환경변수 검증. 공식 예제의 `BaseSettings`와 달리 현재 YAML은 `BaseModel`로 검증하며, 환경변수 처리는 기존 자원 준비 경로에서 수행한다.
+- [FastAPI 설정 가이드](https://fastapi.tiangolo.com/advanced/settings/): 타입이 있는 설정과 환경변수 검증. 공식 예제의 `BaseSettings`와 달리 현재 YAML은 `BaseModel`로 검증한다.
 - [Martin Fowler의 Service Layer](https://martinfowler.com/eaaCatalog/serviceLayer.html): 요청별 기능 호출의 조정. 프로젝트에는 함수 중심으로 적용한다.
 
 기능별 연락 담당자와 공동 변경 절차는 [CONTRIBUTING](../../CONTRIBUTING.md#1-작업담당기록)에서 관리한다.
@@ -187,7 +187,7 @@ uvicorn.run(
 
 `server`·`dev`는 Uvicorn 실행 옵션만 정한다. `create_app()`이 앱을 조립하고, Uvicorn의 시작 절차가 등록된 lifespan에 진입한다. 자원 준비가 끝나 `yield`에 도달한 뒤 HTTP 요청을 처리한다. 이 연결은 Uvicorn의 [Application Factory](https://uvicorn.dev/#application-factories)와 Python의 [패키지 CLI 진입점](https://packaging.python.org/en/latest/guides/creating-command-line-tools/)을 사용한다.
 
-`create_app(config_path=DEFAULT_CONFIG)`은 설정 로드 → FastAPI 생성 → `app.state.settings`와 초기 `app.state.resources = None` 설정 → 요청 기록·오류 처리·라우터 등록 → 앱 반환 순서로 조립한다. lifespan은 이 함수 바깥의 최상위 `lifespan(app)`을 연결한다. 함수 안에 시작·종료 절차나 요청·오류 처리 함수를 중첩 정의하지 않는다.
+`create_app(config_path=DEFAULT_CONFIG)`은 `PROJECT_ROOT / ".env"` 로딩 → YAML 설정 로드 → FastAPI 생성 → `app.state.settings`와 초기 `app.state.resources = None` 설정 → 요청 기록·오류 처리·라우터 등록 → 앱 반환 순서로 조립한다. 환경파일보다 기존 프로세스 환경변수가 우선한다. `load_resources()`는 환경파일을 읽지 않으므로 직접 호출하는 진입점은 환경변수를 먼저 준비한다. lifespan은 이 함수 바깥의 최상위 `lifespan(app)`을 연결한다. 함수 안에 시작·종료 절차나 요청·오류 처리 함수를 중첩 정의하지 않는다.
 
 | 읽을 코드 | 확인할 내용 |
 | --- | --- |

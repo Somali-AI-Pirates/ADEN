@@ -293,7 +293,7 @@ Langfuse의 flush 호출이나 trace ID 생성만으로 저장 확인을 완료 
 
 ## 8. 서비스와 평가 어댑터 연결 계약
 
-- `create_app(config_path=DEFAULT_CONFIG) -> FastAPI`는 설정·앱·수명주기·HTTP 미들웨어·오류 처리·라우터를 연결한다. `query_handler`·`run_record_sink` 인자는 제공하지 않는다.
+- `create_app(config_path=DEFAULT_CONFIG) -> FastAPI`는 프로젝트 루트의 `.env`를 기존 환경변수 우선으로 읽고 설정·앱·수명주기·HTTP 미들웨어·오류 처리·라우터를 연결한다. `query_handler`·`run_record_sink` 인자는 제공하지 않는다.
 - `lifespan(app)`이 설정으로 자원을 작업 스레드에서 준비해 `app.state.resources`에 보관한다. 준비 실패 시 자원은 None이며 `/docs`·`/openapi.json`·`/health`를 제공하고 `/query`는 기존 503 응답을 반환한다.
 - 앱 생성·모듈 import만으로 외부 클라이언트나 모델을 준비하지 않는다. 종료 시 앱 상태를 비우고 `Resources.close()`로 검색 캐시 참조와 SDK·추적 자원을 정리한다.
 - `/query`는 입력·준비 상태를 확인한 뒤 `answer_query(request, resources, request_id, settings)`를 `asyncio.to_thread`로 호출한다. 검색 기본값은 서비스 진입점에서 확정하며 호출자의 요청 객체는 수정하지 않는다.

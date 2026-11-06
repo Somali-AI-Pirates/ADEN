@@ -31,7 +31,7 @@ class ResourceTests(unittest.TestCase):
                 clear=True,
             )
         )
-        stack.enter_context(patch("app.service.resources.load_dotenv"))
+        stack.enter_context(patch("app.api.app.load_dotenv"))
         self.embedder = SimpleNamespace(
             dim=2,
             embed_query=Mock(return_value=SimpleNamespace(tolist=lambda: [0.1, 0.2])),

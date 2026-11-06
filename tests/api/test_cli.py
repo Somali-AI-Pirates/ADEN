@@ -10,6 +10,7 @@ CONSOLE_PROBE = """
 import json
 import logging
 from importlib.metadata import distribution
+from pathlib import Path
 import sys
 from unittest.mock import patch
 
@@ -41,7 +42,10 @@ entry_point = next(
     if point.group == 'console_scripts' and point.name == command
 )
 sys.argv = [command]
-with patch('uvicorn.run', side_effect=inspect_server):
+with (
+    patch('uvicorn.run', side_effect=inspect_server),
+    patch('app.api.app.PROJECT_ROOT', Path.cwd()),
+):
     entry_point.load()()
 """
 

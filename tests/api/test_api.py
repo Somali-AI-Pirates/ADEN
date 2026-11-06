@@ -1,6 +1,7 @@
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
+import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from threading import Barrier
@@ -24,6 +25,25 @@ from tests.pipeline_fakes import FakeModel, make_query_resources
 class ApiTests(unittest.TestCase):
     def setUp(self):
         self.resources = make_query_resources()
+        self.environment_root = Path(self.enterContext(TemporaryDirectory()))
+        self.enterContext(
+            patch("app.api.app.PROJECT_ROOT", self.environment_root)
+        )
+
+    def test_app_creation_loads_root_environment_and_preserves_existing_values(self):
+        (self.environment_root / ".env").write_text(
+            "ADEN_TEST_LOADED=from-file\nADEN_TEST_EXISTING=from-file\n",
+            encoding="utf-8",
+        )
+        with (
+            patch.dict(os.environ, {"ADEN_TEST_EXISTING": "from-process"}, clear=True),
+            patch("app.api.lifespan.load_resources") as load,
+        ):
+            app = create_app()
+            self.assertEqual(os.environ.get("ADEN_TEST_LOADED"), "from-file")
+            self.assertEqual(os.environ["ADEN_TEST_EXISTING"], "from-process")
+            self.assertIsNone(app.state.resources)
+            load.assert_not_called()
 
     @contextmanager
     def client(self, **options):
