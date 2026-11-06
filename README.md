@@ -8,13 +8,14 @@
 
 - [문서 목차](docs/README.md)
 - [시스템 설계](docs/design/architecture.md): 범위, 모듈, 함수 계약, API, 평가와 구현 순서
+- [공통 입출력·호출 계약](docs/design/contracts.md): 데이터·JSON 예시, 함수·Resources·실행 방식과 기존 브랜치 연결 기준
 - [Git 저장소·협업 설계](docs/guides/git-workflow.md): 폴더, 데이터 추적, 브랜치, 커밋, PR와 결과 관리
 - [Basic 당일 작업 계획 — 3명](docs/plans/basic-day-plan-2026-11-05.md): A/B/C 담당, 통합 시점, 평가와 마감 기준
 
 ## 개발 방향
 
 - 우선 Basic 해운 데이터셋을 사용한다.
-- `member_a/`, `member_b/`, `member_c/`에 담당자의 모듈을 모으고 그 경로를 최종 패키지로 유지한다. 실제 영문 이름·닉네임을 쓸 경우 팀이 한 번 합의하여 경로와 import를 함께 맞춘다.
+- Basic의 import 경로는 `member_a/`, `member_b/`, `member_c/`, `shared/`로 고정하고 담당자의 모듈을 최종 위치에 모은다. 이름 변경이 필요하면 경로·import·설정·문서를 공통 변경으로 맞춘다.
 - `shared/`에는 공통 타입·설정만 두고, `main.py`는 B의 앱 생성 함수를 호출한다.
 - 공통 입력·출력 타입을 먼저 정하고 모듈을 연결한다.
 - 설계는 `docs/`, 제출할 실행 결과는 `reports/`에 모은다.

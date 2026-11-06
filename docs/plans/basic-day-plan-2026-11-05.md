@@ -4,7 +4,7 @@
 
 폴더 구조 갱신: 2026-11-06. 원래 작업일은 파일명과 같이 2026-11-05로 보존한다. 아래 담당 경로는 사람별 최종 패키지 기준이다.
 
-기준 설계: [시스템 설계](../design/architecture.md) · [Git 협업 규칙](../guides/git-workflow.md)
+기준 설계: [시스템 설계](../design/architecture.md) · [공통 입출력·호출 계약](../design/contracts.md) · [Git 협업 규칙](../guides/git-workflow.md)
 
 ## 1. 오늘의 범위
 
@@ -71,15 +71,17 @@
 
 | 연결 | 제공자 → 사용자 | 넘겨줄 정보 |
 | --- | --- | --- |
-| `RetrievedChunk` | A → B | `chunk_id`, `book_id`, `file_name`, `page`, `text`, 순위·점수 |
-| `ContextBundle` | B → C | 최종 청크·순서·실제 텍스트, 출처 대응표, 문맥 해시 |
+| `RetrievedChunk` | A → B | `chunk: Chunk`, `rank`, `score`, `retriever`의 중첩 구조. 문서·본문은 `item.chunk.book_id/text`로 접근 |
+| `ContextBundle` → 로그 | B → C | 최종 중첩 청크와 실제 문맥 문자열·출처 대응표를 받아, 연결부에서 C의 평탄 로그로 변환. 문자열 해시와 로그 청크 해시를 구분 |
 | `QueryResponse` | B → C | 요청 ID, 답변, 상태, 사유, 인용 |
 | `RunRecord` | A·B가 제공, C가 저장·평가 | 후보/최종 문맥 구분, 실제 모델 입출력, 오류·시도별 사용량, 서버 측 처리 시간 |
 | 추적 함수 | C → B | 요청 추적 시작, 검색·생성 기록, 결과 저장에 사용할 함수·콜백 |
 
-사람별 폴더명은 `member_a`, `member_b`, `member_c`를 기준 예시로 사용한다. 실명을 쓸 경우 팀에서 영문 이름·닉네임을 합의하고 경로와 import를 맞춘다. 이 폴더들을 최종 위치로 유지한다.
+Basic의 패키지명은 `member_a`, `member_b`, `member_c`, `shared`로 고정한다. 실제 이름은 담당표로 연결하며 패키지명을 변경하면 경로·import·설정·실행 명령을 같은 변경에서 맞춘다. 이 폴더들을 최종 위치로 유지한다.
 
 타입 정의는 `shared/contracts.py` 한 곳을 기준으로 한다. A·B·C가 자신의 폴더에 같은 타입을 다시 만들지 않는다. 구현 초반에는 정답 파일에서 가져오지 않은 작은 가상 청크와 가상 응답으로 각 모듈을 개발할 수 있다.
+
+세부 필드·JSON 예시·Resources 속성·함수의 인자/반환값은 [공통 계약](../design/contracts.md)을 따른다. 기능 함수는 동기 호출로 통일하고 비동기 API 래퍼에서 작업 스레드로 실행한다. 먼저 가상 한 건으로 `RetrievedChunk → ContextBundle → RunRecord` 변환과 오류 기록을 확인한다. A·B·C가 이미 작성한 코드의 경로·해시·시도별 사용량을 맞출 항목도 계약 문서에서 확인한다.
 
 `generate_answer()`는 이미 만든 문맥과 프롬프트 변형을 받을 수 있게 B가 제공한다. C의 보안 실행기는 이 함수를 호출하여 같은 문맥을 재사용한다. `/query`를 두 번 호출해 다시 검색하는 방식으로 보안 비교를 구현하지 않는다.
 
@@ -107,6 +109,8 @@
 | B | `feat/basic-api-generation` | 공통 타입·설정·최소 API 골격 |
 | A | `feat/basic-data-search` | PDF 추출·페이지 출처·Naive 검색 |
 | C | `feat/basic-evaluation-tracing` | 실행 기록 타입 연동·Langfuse 추적·평가 실행기 골격 |
+
+위 브랜치는 첫 작업의 예시다. 각 PR을 squash 병합하고 브랜치를 삭제한 뒤, 다음 작업은 최신 main에서 새 작업 브랜치를 만든다. 같은 담당자가 계속 작업하더라도 이미 squash된 브랜치를 재사용하지 않는다.
 
 각자 작업을 커밋하거나 stash한 뒤 자신의 작업 브랜치에서 `git fetch origin`, `git merge origin/main`으로 최신 설계를 받는다. 기존 코드는 유지되며 겹치는 변경은 충돌을 해결한다. 상세 절차는 [Git 협업 규칙](../guides/git-workflow.md)의 main 동기화 안내를 따른다. 병합된 `main`의 설계 문서를 기준으로 개발을 계속한다. B의 공통 계약 PR이 들어오면 A와 C가 같은 기준으로 작업 브랜치를 맞춘다. B도 그 시점부터 공통 계약을 예고 없이 변경하지 않는다.
 
