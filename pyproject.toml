@@ -22,15 +22,43 @@ dependencies = [
     "tiktoken>=0.8,<1",
 ]
 
+[project.optional-dependencies]
+test = [
+    "pytest>=8,<10",
+    "ruff==0.17.4",
+    "httpx>=0.27,<1",
+    "build>=1,<2",
+]
+
 [tool.setuptools.packages.find]
 where = ["."]
 include = [
     "shared", "shared.*",
-    "member_ysl727727", "member_ysl727727.*",
-    "member_chsopo89", "member_chsopo89.*",
-    "member_Damsebi", "member_Damsebi.*",
+    "app", "app.*",
 ]
-exclude = ["*.tests", "*.tests.*"]
+exclude = ["tests", "tests.*", "experimental", "experimental.*"]
 
 [tool.setuptools.package-data]
-member_chsopo89 = ["prompts/*.txt"]
+"app.ingestion" = ["catalogs/*.json"]
+"app.generation" = ["prompts/*.txt"]
+"app.evaluation" = ["prompts/*.txt"]
+"app.evaluation.samples" = ["*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+extend-exclude = ["experimental"]
+force-exclude = true
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+
+[tool.ruff.format]
+line-ending = "lf"
+
+[tool.pyright]
+include = ["main.py", "app", "shared"]
+exclude = ["experimental"]
+pythonVersion = "3.11"
+typeCheckingMode = "basic"

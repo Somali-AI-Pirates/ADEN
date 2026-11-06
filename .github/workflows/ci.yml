@@ -14,7 +14,7 @@ jobs:
   checks:
     name: checks
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: 코드 가져오기
@@ -24,12 +24,54 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+          cache: pip
+          cache-dependency-path: pyproject.toml
 
-      - name: 검사 도구 설치
-        run: python -m pip install pytest ruff
+      - name: CPU용 PyTorch 설치
+        run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+      - name: 공통 앱과 검사 의존성 설치
+        run: python -m pip install -e '.[test]'
 
       - name: 기본 코드 오류 검사
-        run: python -m ruff check --select E9,F63,F7,F82 .
+        run: python -m ruff check .
 
-      - name: C 모듈 테스트
-        run: python -m pytest -q member_Damsebi/tests
+      - name: 공통 기능·통합 테스트
+        run: python -m pytest -q tests
+
+      - name: 실행 명령 연결 확인
+        run: |
+          python -m app.ingestion.scripts.curate --help
+          python -m app.ingestion.scripts.curate --check
+          python -m app.ingestion.scripts.prepare_knowledge --help
+          python -m app.indexing.scripts.build_index --help
+          python -m app.evaluation.scripts.eval_retrieval --help
+          python -m app.evaluation.scripts.run_benchmark --help
+          python -m app.evaluation.scripts.run_security --help
+
+      - name: 가상 일반·보안 평가
+        run: |
+          python -m app.evaluation.scripts.run_benchmark --sample --experiment-id sample-ci-benchmark
+          python -m app.evaluation.scripts.run_security --sample --experiment-id sample-ci-security
+
+      - name: 배포 파일 빌드와 리소스 확인
+        run: |
+          python -m build
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+
+          with ZipFile(next(Path('dist').glob('*.whl'))) as wheel:
+              names = set(wheel.namelist())
+              required = {
+                  'app/ingestion/catalogs/basic.json',
+                  'app/generation/prompts/shipping_qa.txt',
+                  'app/generation/prompts/defense.txt',
+                  'app/evaluation/prompts/judge.txt',
+                  'app/evaluation/prompts/security_judge.txt',
+                  'app/evaluation/samples/sample_eval.json',
+                  'app/evaluation/samples/sample_security.json',
+              }
+              assert required <= names, required - names
+              assert not any(name.startswith(('experimental/', 'tests/', 'member_')) for name in names)
+          PY
