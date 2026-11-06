@@ -58,7 +58,7 @@ experimental/<GitHubID>/  # 개인 실험 공간, 제품 코드에서 참조하�
 
 VS Code에서는 권장 확장(Python, Pylance, Ruff, EditorConfig)을 설치하고 `.venv` 인터프리터를 선택한다. 워크스페이스의 테스트 검색 대상은 `tests/`이며, Ruff는 린트와 명시적으로 요청한 파일 포맷에 사용한다. 저장 시 자동 포맷과 CI 포맷 검사는 기본 적용하지 않는다. 세부 설정은 `.vscode/`를 기준으로 한다.
 
-Pylance는 `pyproject.toml`의 Pyright `basic` 설정으로 `main.py`, `app/`, `shared/`를 편집기에서 진단하고 `experimental/`은 제외한다. 2026-11-06 초기 점검에서 45개 파일에 오류 15건이 보고됐다. 이는 편집기 진단 기준선이며, 타입 검사가 통과했다는 뜻이 아니고 CLI·CI gate도 아니다.
+Pylance는 `pyproject.toml`의 Pyright `basic` 설정으로 `main.py`, `app/`, `shared/`를 편집기에서 진단하고 `experimental/`은 제외한다. 2026-11-06 통합 후 점검에서 55개 파일에 오류 23건이 보고됐다. 이는 편집기 진단 기준선이며, 타입 검사가 통과했다는 뜻이 아니고 CLI·CI gate도 아니다.
 
 Python 3.13 인터프리터를 선택한 상태에서 개발 환경을 처음 만들 때 저장소 루트에서 실행한다.
 
