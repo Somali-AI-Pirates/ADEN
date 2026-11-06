@@ -18,6 +18,7 @@ def build_context(
     selected: list[RetrievedChunk] = []
     source_map: dict[str, Citation] = {}
     seen: set[str] = set()
+    excluded: list[str] = []
     separator_tokens = count_tokens("\n\n")
     total_tokens = 0
     for candidate in candidates:
@@ -36,6 +37,7 @@ def build_context(
         )
         added_tokens = count_tokens(block) + (separator_tokens if blocks else 0)
         if total_tokens + added_tokens > token_budget:
+            excluded.append(chunk.chunk_id)
             continue
         total_tokens += added_tokens
         source_map[source_id] = Citation(
@@ -53,7 +55,7 @@ def build_context(
     final_tokens = count_tokens(text)
     while selected and final_tokens > token_budget:
         source_map.pop(f"S{len(selected)}")
-        selected.pop()
+        excluded.append(selected.pop().chunk.chunk_id)
         blocks.pop()
         text = "\n\n".join(blocks)
         final_tokens = count_tokens(text)
@@ -63,4 +65,5 @@ def build_context(
         source_map=source_map,
         context_hash=sha256(text.encode("utf-8")).hexdigest(),
         token_count=final_tokens,
+        excluded_chunk_ids=excluded,
     )

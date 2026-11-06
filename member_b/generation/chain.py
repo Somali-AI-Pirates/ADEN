@@ -24,6 +24,19 @@ def _check_marked_sources(answer: ModelAnswer, context: ContextBundle) -> ModelA
     return answer
 
 
+def _validate(result: dict, context: ContextBundle) -> ModelAnswer:
+    """모델 출력의 형식과 출처를 확인한다. 어긋나면 ValueError로 재생성 대상임을 알린다."""
+    if result["parsing_error"] is not None or result["parsed"] is None:
+        raise ValueError("모델 응답을 지정된 답변 형식으로 읽을 수 없습니다.")
+    answer = _check_marked_sources(result["parsed"], context)
+    if not answer.answer.strip() or not answer.reason.strip():
+        raise ValueError("모델의 답변과 판단 이유는 비어 있을 수 없습니다.")
+    resolve_citations(answer.source_ids, context.source_map)
+    if answer.status == "answered" and not answer.source_ids:
+        raise ValueError("답변 완료 응답에 근거 출처가 없습니다.")
+    return answer
+
+
 def generate_answer(
     question: str,
     context: ContextBundle,
@@ -33,8 +46,13 @@ def generate_answer(
     defense: str = "",
     trace: Any | None = None,
     attempt_log: list[dict] | None = None,
+    max_attempts: int = 1,
 ) -> GenerationResult:
-    """이미 선택한 문맥으로 답변을 생성하고 실제 모델 입력·출력·사용량을 반환한다."""
+    """이미 선택한 문맥으로 답변을 생성하고 실제 모델 입력·출력·사용량을 반환한다.
+
+    출력 형식·출처 검증에 실패하면 같은 문맥으로 max_attempts까지 다시 생성하고
+    모든 시도를 별도 기록으로 남긴다. 모델 호출 자체의 오류는 재시도하지 않고 그대로 올린다.
+    """
     system_prompt = prompt_path.read_text(encoding="utf-8")
     if defense:
         system_prompt += "\n\n" + defense
@@ -48,48 +66,50 @@ def generate_answer(
         context=context.text,
     )
     input_messages = [message.model_dump(mode="json") for message in messages]
-    try:
-        result = model.with_structured_output(
-            ModelAnswer, method="json_schema", include_raw=True,
-        ).invoke(messages)
-    except Exception as error:
-        failed_attempt = {
-            "attempt": 1, "model": model.model_name, "model_input": input_messages,
-            "model_output": None, "input_tokens": None, "output_tokens": None,
-            "error": type(error).__name__, "prompt_variant": "defense" if defense else "base",
-            "model_parameters": {"max_output_tokens": model.max_tokens},
-        }
-        if attempt_log is not None:
-            attempt_log.append(failed_attempt)
-        if trace is not None:
-            trace.record_attempt(**failed_attempt)
-        raise
+    variant = "defense" if defense else "base"
+    parameters = {"max_output_tokens": model.max_tokens}
+    structured = model.with_structured_output(ModelAnswer, method="json_schema", include_raw=True)
 
-    raw = result["raw"]
-    usage = raw.usage_metadata or {}
-    attempt = {
-        "attempt": 1, "model": model.model_name, "model_input": input_messages,
-        "model_output": raw.model_dump(mode="json"),
-        "input_tokens": usage.get("input_tokens"),
-        "output_tokens": usage.get("output_tokens"),
-        "prompt_variant": "defense" if defense else "base",
-        "model_parameters": {"max_output_tokens": model.max_tokens},
-        "error": type(result["parsing_error"]).__name__ if result["parsing_error"] else None,
-    }
-    if trace is not None:
-        trace.record_attempt(**attempt)
-    if attempt_log is not None:
-        attempt_log.append(attempt)
-    if result["parsing_error"] is not None or result["parsed"] is None:
-        raise ValueError("모델 응답을 지정된 답변 형식으로 읽을 수 없습니다.")
-    answer = _check_marked_sources(result["parsed"], context)
-    if not answer.answer.strip() or not answer.reason.strip():
-        raise ValueError("모델의 답변과 판단 이유는 비어 있을 수 없습니다.")
-    resolve_citations(answer.source_ids, context.source_map)
-    if answer.status == "answered" and not answer.source_ids:
-        raise ValueError("답변 완료 응답에 근거 출처가 없습니다.")
-    return GenerationResult(
-        model_answer=answer,
-        attempts=[attempt],
-        usage=raw.usage_metadata,
-    )
+    def record(attempt: dict) -> None:
+        if trace is not None:
+            trace.record_attempt(**attempt)
+        if attempt_log is not None:
+            attempt_log.append(attempt)
+
+    attempts: list[dict] = []
+    last_error = ValueError("모델 응답을 확인하지 못했습니다.")
+    for number in range(1, max_attempts + 1):
+        base = {
+            "attempt": number, "model": model.model_name, "model_input": input_messages,
+            "prompt_variant": variant, "model_parameters": parameters,
+        }
+        try:
+            result = structured.invoke(messages)
+        except Exception as error:
+            record({
+                **base, "model_output": None, "input_tokens": None, "output_tokens": None,
+                "error": type(error).__name__,
+            })
+            raise
+
+        raw = result["raw"]
+        usage = raw.usage_metadata or {}
+        attempt = {
+            **base, "model_output": raw.model_dump(mode="json"),
+            "input_tokens": usage.get("input_tokens"),
+            "output_tokens": usage.get("output_tokens"),
+            "error": type(result["parsing_error"]).__name__ if result["parsing_error"] else None,
+        }
+        try:
+            answer = _validate(result, context)
+        except ValueError as error:
+            attempt["error"] = attempt["error"] or type(error).__name__
+            record(attempt)
+            attempts.append(attempt)
+            last_error = error
+            continue
+        record(attempt)
+        attempts.append(attempt)
+        return GenerationResult(model_answer=answer, attempts=attempts, usage=raw.usage_metadata)
+
+    raise last_error

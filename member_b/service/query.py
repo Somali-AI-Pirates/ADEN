@@ -110,6 +110,7 @@ def _answer_query(request, resources, request_id, settings, trace: Any | None, r
         generated = generate_answer(
             request.question, context, resources.model, trace=trace,
             attempt_log=run_record["attempts"] if run_record is not None else None,
+            max_attempts=settings.generation_max_attempts,
         )
         answer = generated.model_answer
         citations = resolve_citations(answer.source_ids, context.source_map)

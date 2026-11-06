@@ -50,6 +50,7 @@ class ContextBundle(BaseModel):
     source_map: dict[str, Citation]
     context_hash: str
     token_count: int = Field(ge=0)
+    excluded_chunk_ids: list[str] = Field(default_factory=list)
 
 
 class ModelAnswer(BaseModel):

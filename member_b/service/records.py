@@ -31,6 +31,8 @@ def context_record(candidates, context, context_hasher):
         "final_context_hash": context_hasher(final_chunks) if context_hasher else None,
         "model_context_text": context.text, "model_context_hash": context.context_hash,
         "model_context_token_count": context.token_count,
+        "final_context_chunk_count": len(final_chunks),
+        "budget_excluded_chunk_ids": context.excluded_chunk_ids,
     }
 
 

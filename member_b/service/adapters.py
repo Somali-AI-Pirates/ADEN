@@ -78,6 +78,7 @@ def make_security_adapters(resources, settings, *, defense):
                 result = generate_answer(
                     question, context, resources.model, defense=defense if prompt_variant == "defense" else "",
                     trace=trace, attempt_log=record["attempts"],
+                    max_attempts=settings.generation_max_attempts,
                 )
                 answer = result.model_answer
                 record.update(status=answer.status, answer=answer.answer, reason=answer.reason,

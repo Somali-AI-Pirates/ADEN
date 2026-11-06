@@ -26,6 +26,7 @@ class Settings(BaseModel):
     embedding_device: str = "cpu"
     model_timeout_seconds: float = Field(default=60, gt=0)
     max_output_tokens: int = Field(default=2048, gt=0)
+    generation_max_attempts: int = Field(default=2, ge=1)
     context_tokenizer: str = "o200k_base"
 
 

@@ -71,6 +71,24 @@ class ContextTests(unittest.TestCase):
         build_context([first, second], 2, 10000, counter)
         self.assertNotIn(both.text, counted[:-1])
 
+    def test_budget_excluded_chunks_are_recorded_without_duplicates(self):
+        first, second = candidate(1, "첫 자료"), candidate(2, "다음 자료")
+        reference = build_context([first], 1, 10000, len)
+        context = build_context([first, first, second], 2, len(reference.text), len)
+        self.assertEqual(context.final_chunks, [first])
+        self.assertEqual(context.excluded_chunk_ids, [second.chunk.chunk_id])
+        self.assertEqual(build_context([first, second], 2, 10000, len).excluded_chunk_ids, [])
+
+    def test_chunks_dropped_by_final_recount_are_recorded(self):
+        first, second = candidate(1, "첫 자료"), candidate(2, "다음 자료")
+
+        def counter(text):
+            return 1000 if "[S2]" in text and "[S1]" in text else len(text)
+
+        context = build_context([first, second], 2, 500, counter)
+        self.assertEqual(context.final_chunks, [first])
+        self.assertEqual(context.excluded_chunk_ids, [second.chunk.chunk_id])
+
     def test_empty_context_and_unknown_citations(self):
         context = build_context([], 5, 4000, len)
         self.assertEqual(context.text, "")

@@ -11,7 +11,7 @@ main.py                       FastAPI 앱 생성
 shared/                       공통 타입·설정·오류
 member_b/
 ├── api/                      한국어 API·입력 검증·요청 ID
-├── generation/               문맥 선택·모델 호출·상태·출처 검증
+├── generation/               문맥 선택·모델 호출·출처 검증·검증 실패 시 재생성
 ├── service/
 │   ├── resources.py          외부 A/C 모듈·Qdrant·모델 연결·정리
 │   ├── query.py              질문 한 건의 실행 순서
@@ -82,7 +82,7 @@ HTTP 실행 기록을 저장하려면 `create_app(run_record_sink=save_record)`�
 - C 추적용: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`.
 - 빈 양식은 `.env.example`에 있으며 실제 키·원본 데이터·`artifacts/`는 Git 제외 대상이다.
 - 실행 환경의 값이 `.env`보다 우선한다.
-- 모델·컬렉션·최종 k·문맥 예산·시간 제한은 `configs/basic.yaml`에서 지정한다.
+- 모델·컬렉션·최종 k·문맥 예산·시간 제한·재생성 한도(`generation_max_attempts`)는 `configs/basic.yaml`에서 지정한다.
 - A manifest의 `vector_store.collection`, `embedding.model`을 YAML과 맞춘다.
   서버 시작 때 PDF를 읽거나 색인을 재생성하지 않는다.
 - `context_tokenizer`는 문맥 예산용 로컬 추정이며 실제 사용량은 모델 usage로 확인한다.

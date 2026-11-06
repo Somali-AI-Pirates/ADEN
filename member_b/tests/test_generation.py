@@ -88,6 +88,24 @@ class GenerationTests(unittest.TestCase):
         self.assertIn(self.context.text, record["model_input"][1]["content"])
         self.assertEqual(record["model_output"]["content"], "모델 출력")
 
+    def test_invalid_output_is_regenerated_and_every_attempt_is_kept(self):
+        model = FakeModel(["S1"])
+        invalid = FakeModel(["S9"]).invoke([])
+        valid = FakeModel(["S1"]).invoke([])
+        model.invoke = Mock(side_effect=[invalid, valid])
+        result = generate_answer("예약이 확정됐나요?", self.context, model, max_attempts=2)
+        self.assertEqual(result.model_answer.source_ids, ["S1"])
+        self.assertEqual([item["attempt"] for item in result.attempts], [1, 2])
+        self.assertEqual(result.attempts[0]["error"], "ValueError")
+        self.assertIsNone(result.attempts[1]["error"])
+
+    def test_retry_limit_keeps_every_attempt_before_raising(self):
+        model = FakeModel(["S9"])
+        attempts = []
+        with self.assertRaises(ValueError):
+            generate_answer("예약이 확정됐나요?", self.context, model, attempt_log=attempts, max_attempts=3)
+        self.assertEqual([item["attempt"] for item in attempts], [1, 2, 3])
+
     def test_failed_model_call_records_input_and_error_type(self):
         trace = Mock()
         model = FakeModel(["S1"])

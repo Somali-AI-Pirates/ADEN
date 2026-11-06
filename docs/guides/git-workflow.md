@@ -1,10 +1,10 @@
 # Git 저장소·협업 설계
 
-> 2026-11-06 B 구현 참고: 이 문서의 `app/` 구조는 초기 설계 예시다. 현재 호출·타입 기준은 `docs/design/contracts.md`이며, B는 `member_b/`와 `shared/`에서 구현한다. A/C 소스는 각 담당 PR에서 관리한다. B의 실제 구현·검증 범위는 루트 README를 참조한다.
+작성일: 2026-11-05 · 수정일: 2026-11-06. 대상은 우선 Basic을 구현하는 해운 RAG 팀 프로젝트다. 2026-11-06에 패키지 구조를 `app/`에서 담당자별 `member_a`·`member_b`·`member_c`와 공통 `shared`로 바꾼 내용을 반영했다.
 
-작성일: 2026-11-05 · 수정일: 2026-11-05. 대상은 우선 Basic을 구현하는 해운 RAG 팀 프로젝트다. 아래 소스 구조·GitHub 설정은 구현 시 적용할 설계안이며, 현재 실제로 정리한 파일은 루트 README와 `docs/` 문서다.
+`main`에는 아직 루트 README와 `docs/` 문서만 있다. 소스는 담당 브랜치에서 관리하며 아래 GitHub 설정(PR 템플릿·CI·브랜치 보호)은 아직 적용하지 않았다.
 
-관련 문서: [문서 목차](../README.md) · [시스템 설계](../design/architecture.md)
+관련 문서: [문서 목차](../README.md) · [시스템 설계](../design/architecture.md) · [공통 입출력·호출 계약](../design/contracts.md)
 
 ## 1. 기본 방침
 
@@ -35,26 +35,33 @@ ADEN/
 ├── docs/                        # 설계 Markdown 모음
 │   ├── README.md                # 문서 목차
 │   ├── design/
-│   │   └── architecture.md      # 시스템 설계
+│   │   ├── architecture.md      # 시스템 설계
+│   │   └── contracts.md         # 공통 타입·호출·로그 계약
 │   ├── plans/
 │   │   └── basic-day-plan-2026-11-05.md # 날짜별 업무 분담
 │   └── guides/
 │       └── git-workflow.md      # 저장소·협업 설계
 ├── configs/
 │   └── basic.yaml               # 공통 실험·서비스 설정
-├── app/
-│   ├── core/                    # 공통 계약·설정·예외·리소스
+├── shared/                      # 공통 계약·설정·예외
+├── member_a/                    # 데이터·색인·검색
 │   ├── ingestion/               # PDF 추출·청킹
 │   ├── indexing/                # 임베딩·Dense/BM25 색인
 │   ├── retrieval/               # 세 검색 방식
+│   ├── scripts/                 # 색인 생성 명령
+│   └── tests/                   # A 계약 검사
+├── member_b/                    # 답변 생성·API·통합
 │   ├── generation/              # 문맥·모델 호출·출처 검증
-│   ├── service/                 # 질문 한 건의 실행 순서
+│   ├── service/                 # 실행 순서·자원·기록 조립·평가 어댑터
 │   ├── api/                     # FastAPI
-│   └── observability/           # Langfuse·시간·토큰·오류
-├── prompts/                     # 서비스·방어·Judge 프롬프트
-├── evaluation/                  # 평가 코드
-├── scripts/                     # 색인 생성·평가 실행 명령
-├── tests/                       # 필요한 단위·통합 검사
+│   ├── prompts/                 # 업무 프롬프트
+│   └── tests/                   # B 계약 검사
+├── member_c/                    # 실행 기록·평가
+│   ├── observability/           # Langfuse·시간·토큰·오류
+│   ├── evaluation/              # 평가 코드
+│   ├── prompts/                 # 방어·Judge 프롬프트
+│   ├── scripts/                 # 평가·보안 실행 명령
+│   └── tests/                   # C 계약 검사
 ├── data/
 │   ├── README.md                # 데이터 출처·배치·검증 안내
 │   └── basic/
@@ -96,9 +103,9 @@ Git은 빈 폴더를 기록하지 않는다. 필요한 데이터 배치 위치�
 
 제공 평가 JSON을 Git에서 제외하는 것만으로 평가 누수가 방지되는 것은 아니다. 색인 입력은 `documents/*.pdf`로 제한하고, 정답 파일은 답변 생성 후 평가 모듈에서만 읽는다.
 
-### `.gitignore` 초기안
+### `.gitignore` 기준
 
-다음은 향후 생성할 설정 예시다. 현재 `.gitignore` 파일을 적용한 상태는 아니다.
+아래가 현재 저장소에 적용된 기준이다. 실제 파일에는 도구별 캐시 항목이 더 들어 있다.
 
 ```gitignore
 # Python / 도구 캐시
@@ -180,7 +187,7 @@ git switch -c feat/18-hybrid-search
 
 ```bash
 git status --short
-git add app/retrieval/hybrid.py
+git add member_a/retrieval/hybrid.py
 git diff --cached
 git commit -m "feat(retrieval): BM25와 Dense 결과를 RRF로 결합"
 git push -u origin feat/18-hybrid-search
@@ -231,7 +238,7 @@ PR은 다음 내용을 짧게 담는다. 구현 시작 시 이 형식으로 `.gi
 
 | 변경 지점 | 함께 확인할 대상 |
 | --- | --- |
-| `app/core/contracts.py` | API·검색·생성·평가의 입력과 출력 |
+| `shared/contracts.py`, `shared/settings.py` | API·검색·생성·평가의 입력과 출력 |
 | `configs/basic.yaml` | 실제 로드 코드·설계 문서·실험 설정 |
 | 프롬프트·청킹·임베딩 모델 | 색인 재생성 여부·기존 비교 결과의 유효성 |
 | `main.py`, API 초기화 | 리소스 로드·종료·요청 추적 |

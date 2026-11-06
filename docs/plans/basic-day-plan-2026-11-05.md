@@ -2,7 +2,9 @@
 
 작업일: **2026-11-05, 한국시간**. 오늘은 Basic 해운 서비스의 필수 구현·비교·기록을 목표로 한다. 팀원 이름은 아직 제공되지 않아 A/B/C로 표시한다. 아래는 업무 배정안이며 실제 구현 완료나 담당자의 작업 착수를 뜻하지 않는다.
 
-기준 설계: [시스템 설계](../design/architecture.md) · [Git 협업 규칙](../guides/git-workflow.md)
+기준 설계: [시스템 설계](../design/architecture.md) · [공통 입출력·호출 계약](../design/contracts.md) · [Git 협업 규칙](../guides/git-workflow.md)
+
+> 이 문서는 2026-11-05 당일 계획의 기록이라 그날의 `app/` 폴더 이름을 그대로 둔다. 2026-11-06에 패키지가 `member_a`·`member_b`·`member_c`·`shared`로 바뀌었으므로, 아래 담당 폴더는 [시스템 설계 §3](../design/architecture.md#3-폴더-구조)의 현재 구조로 바꿔 읽는다. `app/core/contracts.py`는 `shared/contracts.py`다.
 
 ## 1. 오늘의 범위
 
