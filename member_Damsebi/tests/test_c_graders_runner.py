@@ -2,11 +2,11 @@ import json
 
 import pytest
 
-from member_c.observability.records import compute_context_hash, normalize_run_record
-from member_c.evaluation.dataset import load_questions, load_references
-from member_c.evaluation.graders import grade_record, parse_judge_output
-from member_c.evaluation.runner import grade_all, run_comparison
-from member_c.evaluation.samples import SAMPLE_EVAL, SampleServiceAdapter
+from member_Damsebi.observability.records import compute_context_hash, normalize_run_record
+from member_Damsebi.evaluation.dataset import load_questions, load_references
+from member_Damsebi.evaluation.graders import grade_record, parse_judge_output
+from member_Damsebi.evaluation.runner import grade_all, run_comparison
+from member_Damsebi.evaluation.samples import SAMPLE_EVAL, SampleServiceAdapter
 
 REF = {"id": "q", "reference_answer": "정답 비밀문장", "expected_action": "answer",
        "evidence_groups": [[{"book_id": "A"}]]}

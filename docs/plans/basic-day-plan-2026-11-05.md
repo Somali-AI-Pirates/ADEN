@@ -1,6 +1,6 @@
 # Basic 당일 작업 계획 — 3명
 
-작업일: **2026-11-05, 한국시간**. 오늘은 Basic 해운 서비스의 필수 구현·비교·기록을 목표로 한다. 팀원 이름은 아직 제공되지 않아 A/B/C로 표시한다. 아래는 업무 배정안이며 실제 구현 완료나 담당자의 작업 착수를 뜻하지 않는다.
+작업일: **2026-11-05, 한국시간**. 오늘은 Basic 해운 서비스의 필수 구현·비교·기록을 목표로 한다. 역할은 A/B/C로 표시하며 담당자는 A `ysl727727`, B `chsopo89`, C `Damsebi`다(2026-11-06 반영). 아래는 업무 배정안이며 실제 구현 완료나 담당자의 작업 착수를 뜻하지 않는다.
 
 폴더 구조 갱신: 2026-11-06. 원래 작업일은 파일명과 같이 2026-11-05로 보존한다. 아래 담당 경로는 사람별 최종 패키지 기준이다.
 
@@ -24,11 +24,11 @@
 
 | 담당 | 역할 | 주 담당 파일·폴더 | 오늘 넘겨줄 결과 |
 | --- | --- | --- | --- |
-| **A** | **데이터·검색** | `member_a/ingestion/`, `member_a/indexing/`, `member_a/retrieval/`, `member_a/scripts/build_index.py`, `data/README.md` | 전체 PDF 처리 내역, 두 색인, 세 검색 방식의 `retrieve()` |
-| **B** | **답변 생성·API·통합** | `shared/`, `member_b/generation/`, `member_b/service/`, `member_b/api/`, `main.py`, `member_b/prompts/shipping_qa.txt` | `/query`에서 답변·상태·출처 반환, 정상/오류 처리, 모듈 연결 |
-| **C** | **실행 기록·평가** | `member_c/observability/`, `member_c/evaluation/`, `member_c/scripts/run_benchmark.py`, `member_c/scripts/run_security.py`, `member_c/prompts/judge.txt`, `member_c/prompts/defense.txt`, `reports/` | Langfuse 기록, 일반·보안 평가, 비교표·결과 해석 |
+| **A** | **데이터·검색** | `member_ysl727727/ingestion/`, `member_ysl727727/indexing/`, `member_ysl727727/retrieval/`, `member_ysl727727/scripts/build_index.py`, `data/README.md` | 전체 PDF 처리 내역, 두 색인, 세 검색 방식의 `retrieve()` |
+| **B** | **답변 생성·API·통합** | `shared/`, `member_chsopo89/generation/`, `member_chsopo89/service/`, `member_chsopo89/api/`, `main.py`, `member_chsopo89/prompts/shipping_qa.txt` | `/query`에서 답변·상태·출처 반환, 정상/오류 처리, 모듈 연결 |
+| **C** | **실행 기록·평가** | `member_Damsebi/observability/`, `member_Damsebi/evaluation/`, `member_Damsebi/scripts/run_benchmark.py`, `member_Damsebi/scripts/run_security.py`, `member_Damsebi/prompts/judge.txt`, `member_Damsebi/prompts/defense.txt`, `reports/` | Langfuse 기록, 일반·보안 평가, 비교표·결과 해석 |
 
-**B가 통합 담당**을 맡는다. 공통 타입과 설정 파일의 변경을 모아 반영하고 모듈을 연결한다. A와 C는 자신의 함수와 필요한 설정을 전달한다. C는 로그 코드를 만들고 B가 API·생성 호출에 연결하므로, 두 사람이 `member_b/service/query.py`를 동시에 편집하지 않아도 된다.
+**B가 통합 담당**을 맡는다. 공통 타입과 설정 파일의 변경을 모아 반영하고 모듈을 연결한다. A와 C는 자신의 함수와 필요한 설정을 전달한다. C는 로그 코드를 만들고 B가 API·생성 호출에 연결하므로, 두 사람이 `member_chsopo89/service/query.py`를 동시에 편집하지 않아도 된다.
 
 공통 설정 `configs/basic.yaml`, 의존성 파일, `.env.example`, `.gitignore`는 B가 취합한다. A는 검색·모델 의존성, C는 평가·Langfuse 의존성을 초반에 전달한다. 루트 README의 실행 안내도 B가 정리하되 A와 C가 실제 실행 명령을 제공한다.
 
@@ -53,7 +53,7 @@
 6. C가 제공한 추적 함수를 호출해 검색 후보·최종 문맥·실제 모델 입출력·시도별 토큰을 전달한다.
 7. 모델 timeout·잘못된 출력·빈 입력을 확인하고, `/docs`에서 전체 흐름을 시연한다.
 
-완료 기준: 같은 API에서 세 검색 방식을 바꿀 수 있고, 답변/추가 확인/보류와 시스템 오류가 구분된다. 인용은 실제 전달한 문맥에 연결된다. `main.py`는 앱 생성 함수를 호출하고 실행 순서는 `member_b/service/query.py`에 둔다.
+완료 기준: 같은 API에서 세 검색 방식을 바꿀 수 있고, 답변/추가 확인/보류와 시스템 오류가 구분된다. 인용은 실제 전달한 문맥에 연결된다. `main.py`는 앱 생성 함수를 호출하고 실행 순서는 `member_chsopo89/service/query.py`에 둔다.
 
 ### C — 첫 요청의 기록부터 최종 비교까지
 
@@ -77,7 +77,7 @@
 | `RunRecord` | A·B가 제공, C가 저장·평가 | 후보/최종 문맥 구분, 실제 모델 입출력, 오류·시도별 사용량, 서버 측 처리 시간 |
 | 추적 함수 | C → B | 요청 추적 시작, 검색·생성 기록, 결과 저장에 사용할 함수·콜백 |
 
-Basic의 패키지명은 `member_a`, `member_b`, `member_c`, `shared`로 고정한다. 실제 이름은 담당표로 연결하며 패키지명을 변경하면 경로·import·설정·실행 명령을 같은 변경에서 맞춘다. 이 폴더들을 최종 위치로 유지한다.
+Basic의 패키지명은 `member_ysl727727`(A), `member_chsopo89`(B), `member_Damsebi`(C), `shared`로 고정한다. 대소문자까지 그대로 사용하며, 패키지명을 다시 바꾸면 경로·import·설정·실행 명령을 같은 변경에서 맞춘다. 이 폴더들을 최종 위치로 유지한다.
 
 타입 정의는 `shared/contracts.py` 한 곳을 기준으로 한다. A·B·C가 자신의 폴더에 같은 타입을 다시 만들지 않는다. 구현 초반에는 정답 파일에서 가져오지 않은 작은 가상 청크와 가상 응답으로 각 모듈을 개발할 수 있다.
 

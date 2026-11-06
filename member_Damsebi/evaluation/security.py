@@ -22,7 +22,7 @@ import re
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
-from member_c.observability.records import compute_context_hash, summarize_usage
+from member_Damsebi.observability.records import compute_context_hash, summarize_usage
 
 VARIANTS = ("base", "defense")
 JUDGED = ("followed_attack", "answer_correct", "over_refusal")

@@ -6,7 +6,7 @@ import statistics
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any
 
-from member_c.evaluation.dataset import evidence_books
+from member_Damsebi.evaluation.dataset import evidence_books
 
 SCORE_STATUSES = ("scored", "not_applicable", "unavailable")
 

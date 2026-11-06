@@ -1,13 +1,13 @@
 """일반 평가: 선택 질문 × naive/hybrid/hybrid_rerank 실행 → 저장 → 채점 → 결과 파일.
 
 샘플(가상, API 키 불필요):
-    python -m member_c.scripts.run_benchmark --sample
+    python -m member_Damsebi.scripts.run_benchmark --sample
 실제:
-    python -m member_c.scripts.run_benchmark --questions data/basic/evaluation/<파일>.json \
+    python -m member_Damsebi.scripts.run_benchmark --questions data/basic/evaluation/<파일>.json \
         --adapter <B모듈>:<어댑터> --ids Q1,Q2 --config configs/basic.yaml \
         --judge-model <모델> --ragas-model <모델> --selection-reason "..."
 Langfuse 저장 확인:
-    python -m member_c.scripts.run_benchmark --verify-langfuse <trace_id> [<trace_id> ...]
+    python -m member_Damsebi.scripts.run_benchmark --verify-langfuse <trace_id> [<trace_id> ...]
 """
 
 from __future__ import annotations
@@ -18,13 +18,13 @@ import time
 from collections import Counter
 from pathlib import Path
 
-from member_c.observability.records import RETRIEVAL_MODES
-from member_c.observability.tracing import Tracer
-from member_c.evaluation.dataset import load_questions, load_references
-from member_c.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
-from member_c.evaluation.report import write_artifacts, write_report
-from member_c.evaluation.runner import grade_all, run_comparison
-from member_c.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
+from member_Damsebi.observability.records import RETRIEVAL_MODES
+from member_Damsebi.observability.tracing import Tracer
+from member_Damsebi.evaluation.dataset import load_questions, load_references
+from member_Damsebi.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
+from member_Damsebi.evaluation.report import write_artifacts, write_report
+from member_Damsebi.evaluation.runner import grade_all, run_comparison
+from member_Damsebi.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
                                       now_id, sha256_file)
 
 
@@ -63,7 +63,7 @@ def main() -> None:
 
     modes = [m for m in args.modes.split(",") if m]
     if args.sample:
-        from member_c.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_EVAL, FakeLangfuseClient,
+        from member_Damsebi.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_EVAL, FakeLangfuseClient,
                                         MockJudge, SampleServiceAdapter, mock_faithfulness)
         experiment_id = args.experiment_id or now_id("sample")
         if not experiment_id.startswith("sample-"):

@@ -9,9 +9,9 @@ from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-from member_c.observability.records import RETRIEVAL_MODES
-from member_c.evaluation.graders import CRITERIA
-from member_c.evaluation.metrics import aggregate, operational_summary
+from member_Damsebi.observability.records import RETRIEVAL_MODES
+from member_Damsebi.evaluation.graders import CRITERIA
+from member_Damsebi.evaluation.metrics import aggregate, operational_summary
 
 SAMPLE_BANNER = ("> **가상 샘플 결과** — 모의 서비스·모의 평가기로 만든 검증용 파일이다. "
                  "실제 Basic 데이터셋 성능이 아니며 발표·비교에 사용하지 않는다.")
@@ -204,7 +204,7 @@ def render_readme(report_dir: Path) -> str:
     lines += ["", "## Langfuse 기록 확인", "",
               "각 요청의 trace ID는 `answers.jsonl`·`comparison.csv`의 `langfuse_trace_id`다. "
               "trace ID는 `Langfuse.create_trace_id(seed=request_id)`로 만들므로 request_id로도 다시 계산할 수 있다.",
-              "", "```bash", "python -m member_c.scripts.run_benchmark --verify-langfuse <trace_id>", "```", "",
+              "", "```bash", "python -m member_Damsebi.scripts.run_benchmark --verify-langfuse <trace_id>", "```", "",
               "Langfuse UI에서는 trace ID로 검색해 `rag-query` → `retrieval` → `final-context` → "
               "`generation-attempt-N` 순서를 확인한다.", "",
               "## 파일", "",

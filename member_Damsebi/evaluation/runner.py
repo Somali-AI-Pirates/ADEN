@@ -11,8 +11,8 @@ import uuid
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
-from member_c.observability.records import RETRIEVAL_MODES, RunRecordError, normalize_run_record
-from member_c.evaluation.graders import FaithfulnessFn, JudgeFn, grade_record, load_prompt
+from member_Damsebi.observability.records import RETRIEVAL_MODES, RunRecordError, normalize_run_record
+from member_Damsebi.evaluation.graders import FaithfulnessFn, JudgeFn, grade_record, load_prompt
 
 ServiceAdapter = Callable[[str, str, str], Mapping[str, Any]]
 

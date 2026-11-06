@@ -11,14 +11,14 @@
 | 실행 기록 검증·정규화, Langfuse 추적, Hit/Recall, Faithfulness·Judge 처리 규칙, 일반 평가 실행기, 보안 비교, 결과 파일 | 구현, 가상 샘플·모의 클라이언트로 테스트 통과 |
 | 실제 Langfuse 서버 저장 | **미검증.** SDK 호출 경로는 연결 불가 주소로 실행해 확인(전송 실패가 `failed`로 표시됨) |
 | 실제 RAGAS·Judge 점수 | **미검증.** 호출 경로가 네트워크 단계까지 도달하는 것만 확인 |
-| A/B 실제 서비스 연결, 실제 Basic 평가 파일 구조 | **미확인.** 실제 파일을 본 뒤 `member_c/evaluation/dataset.py`의 `_items()`를 맞춘다 |
+| A/B 실제 서비스 연결, 실제 Basic 평가 파일 구조 | **미확인.** 실제 파일을 본 뒤 `member_Damsebi/evaluation/dataset.py`의 `_items()`를 맞춘다 |
 
 `shared/contracts.py`는 아직 main에 없다. C는 공통 타입을 import하지 않고, B 연결부가 평탄화한 JSON/Mapping 로그를 받아 검증한다.
 
 ## 2. 파일
 
 ```text
-member_c/
+member_Damsebi/
 ├── observability/
 │   ├── records.py      # RunRecord 검증·정규화, final_context_hash 계산, 사용량 합계
 │   └── tracing.py      # Tracer / RequestTrace (Langfuse)
@@ -50,15 +50,15 @@ uv pip install --python .venv langfuse==5.1.0 ragas==0.4.3 langchain-community==
 모든 명령은 저장소 루트에서 모듈 방식으로 실행한다. 테스트와 가상 샘플 실행에는 API 키가 필요 없다.
 
 ```bash
-.venv/Scripts/python -m pytest -q member_c/tests
+.venv/Scripts/python -m pytest -q member_Damsebi/tests
 ```
 
 ```bash
-.venv/Scripts/python -m member_c.scripts.run_benchmark --sample
+.venv/Scripts/python -m member_Damsebi.scripts.run_benchmark --sample
 ```
 
 ```bash
-.venv/Scripts/python -m member_c.scripts.run_security --sample
+.venv/Scripts/python -m member_Damsebi.scripts.run_security --sample
 ```
 
 샘플 결과는 `artifacts/experiments/sample-*/`와 `artifacts/sample-reports/sample-*/`에만 생성되며 Git에서 제외된다. 모든 샘플 결과에 "가상 샘플" 표시가 붙고 `data_kind=SAMPLE`이다. 샘플 실험 ID는 `sample-`로 시작해야 하며 실제 결과와 같은 실험 ID에 섞을 수 없다.
@@ -78,7 +78,7 @@ uv pip install --python .venv langfuse==5.1.0 ragas==0.4.3 langchain-community==
 B의 `Resources.tracer`로 하나를 두고 요청마다 동기 호출한다. B의 임시 추적 구현은 통합 시 이 모듈로 교체한다.
 
 ```python
-from member_c.observability import Tracer, compute_context_hash
+from member_Damsebi.observability import Tracer, compute_context_hash
 
 tracer = Tracer.from_env()          # load_resources에서 한 번. import 시 네트워크 연결 없음
 
@@ -133,7 +133,7 @@ def retrieve_context(question: str, retrieval_mode: str) -> dict:
     # 어댑터가 이때 만든 ContextBundle을 보관한다.
 
 def generate_with_context(question: str, final_context_chunks: list[dict], prompt_variant: str) -> dict:
-    # 보관한 ContextBundle로 generate_answer(..., defense="" 또는 member_c/prompts/defense.txt 내용) 호출.
+    # 보관한 ContextBundle로 generate_answer(..., defense="" 또는 member_Damsebi/prompts/defense.txt 내용) 호출.
     # 반환: status, answer, reason, citations, attempts(AttemptRecord), latency_ms,
     #       model_context_text, model_context_hash, request_id, error_type
 ```
@@ -154,15 +154,15 @@ def generate_with_context(question: str, final_context_chunks: list[dict], promp
 ## 6. 실제 실행
 
 ```bash
-.venv/Scripts/python -m member_c.scripts.run_benchmark --questions data/basic/evaluation/<질문 파일>.json --adapter <모듈>:<어댑터> --ids <ID1>,<ID2> --config configs/basic.yaml --judge-model <평가 모델> --ragas-model <평가 모델> --experiment-id basic-<날짜>-<설명> --selection-reason "<선정 이유>"
+.venv/Scripts/python -m member_Damsebi.scripts.run_benchmark --questions data/basic/evaluation/<질문 파일>.json --adapter <모듈>:<어댑터> --ids <ID1>,<ID2> --config configs/basic.yaml --judge-model <평가 모델> --ragas-model <평가 모델> --experiment-id basic-<날짜>-<설명> --selection-reason "<선정 이유>"
 ```
 
 ```bash
-.venv/Scripts/python -m member_c.scripts.run_security --security-file data/basic/evaluation/<보안 파일>.json --retrieve <모듈>:retrieve_context --generate <모듈>:generate_with_context --retrieval-mode <방식> --config configs/basic.yaml --judge-model <평가 모델> --experiment-id basic-<날짜>-<설명>
+.venv/Scripts/python -m member_Damsebi.scripts.run_security --security-file data/basic/evaluation/<보안 파일>.json --retrieve <모듈>:retrieve_context --generate <모듈>:generate_with_context --retrieval-mode <방식> --config configs/basic.yaml --judge-model <평가 모델> --experiment-id basic-<날짜>-<설명>
 ```
 
 ```bash
-.venv/Scripts/python -m member_c.scripts.run_benchmark --verify-langfuse <trace_id>
+.venv/Scripts/python -m member_Damsebi.scripts.run_benchmark --verify-langfuse <trace_id>
 ```
 
 - 실행 단계는 질문 파일에서 `id`, `question`만 읽는다. 정답 파일(`--references`, 기본은 질문 파일)은 실행 기록을 `artifacts/`에 저장한 뒤 채점 단계에서 읽는다.

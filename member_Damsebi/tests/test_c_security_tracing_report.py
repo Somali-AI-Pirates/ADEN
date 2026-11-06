@@ -6,12 +6,12 @@ from pathlib import Path
 
 import pytest
 
-from member_c.observability.tracing import Tracer
-from member_c.evaluation.dataset import load_questions, load_references
-from member_c.evaluation.report import write_report
-from member_c.evaluation.samples import (SAMPLE_SECURITY, FakeLangfuseClient, make_sample_generate,
+from member_Damsebi.observability.tracing import Tracer
+from member_Damsebi.evaluation.dataset import load_questions, load_references
+from member_Damsebi.evaluation.report import write_report
+from member_Damsebi.evaluation.samples import (SAMPLE_SECURITY, FakeLangfuseClient, make_sample_generate,
                                 mock_security_judge, sample_retrieve)
-from member_c.evaluation.security import analyze_security, check_same_context, run_security_comparison
+from member_Damsebi.evaluation.security import analyze_security, check_same_context, run_security_comparison
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -148,8 +148,8 @@ def test_flush_failure_and_disabled(monkeypatch):
 
 
 def test_import_does_not_load_sdks():
-    code = ("import sys, member_c.observability, member_c.evaluation.runner, "
-            "member_c.evaluation.security, member_c.evaluation.report; print(any(m in sys.modules for m in ('langfuse','ragas','openai')))")
+    code = ("import sys, member_Damsebi.observability, member_Damsebi.evaluation.runner, "
+            "member_Damsebi.evaluation.security, member_Damsebi.evaluation.report; print(any(m in sys.modules for m in ('langfuse','ragas','openai')))")
     out = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, check=True,
                          cwd=ROOT)
     assert out.stdout.strip() == "False"
@@ -157,7 +157,7 @@ def test_import_does_not_load_sdks():
 
 def test_sample_scripts_write_labeled_reports(tmp_path):
     for script in ("run_benchmark", "run_security"):
-        subprocess.run([sys.executable, "-m", f"member_c.scripts.{script}", "--sample", "--experiment-id",
+        subprocess.run([sys.executable, "-m", f"member_Damsebi.scripts.{script}", "--sample", "--experiment-id",
                         "sample-t", "--artifacts-dir", str(tmp_path / "a"),
                         "--reports-dir", str(tmp_path / "r")], check=True, capture_output=True, cwd=ROOT)
     rep = tmp_path / "r" / "sample-t"
@@ -173,7 +173,7 @@ def test_sample_scripts_write_labeled_reports(tmp_path):
         encoding="utf-8").splitlines()) == 15
     with pytest.raises(ValueError, match="샘플"):  # 샘플과 실제 결과를 섞지 않음
         write_report(rep, {**manifest, "sample": False})
-    rerun = subprocess.run([sys.executable, "-m", "member_c.scripts.run_benchmark", "--sample",
+    rerun = subprocess.run([sys.executable, "-m", "member_Damsebi.scripts.run_benchmark", "--sample",
                             "--experiment-id", "sample-t", "--artifacts-dir", str(tmp_path / "a"),
                             "--reports-dir", str(tmp_path / "r")], capture_output=True, cwd=ROOT)
     assert rerun.returncode != 0  # 기존 결과 덮어쓰기 방지

@@ -2,10 +2,10 @@ import hashlib
 
 import pytest
 
-from member_c.observability.records import (RunRecordError, compute_context_hash,
+from member_Damsebi.observability.records import (RunRecordError, compute_context_hash,
                                        normalize_run_record, summarize_usage)
-from member_c.evaluation.dataset import evidence_books
-from member_c.evaluation.metrics import aggregate, operational_summary, retrieval_metrics, score
+from member_Damsebi.evaluation.dataset import evidence_books
+from member_Damsebi.evaluation.metrics import aggregate, operational_summary, retrieval_metrics, score
 
 
 def chunk(book, cid=None, page=1, sid="S1"):

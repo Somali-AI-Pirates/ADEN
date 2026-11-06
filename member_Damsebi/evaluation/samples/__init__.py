@@ -14,8 +14,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
-from member_c.observability.records import compute_context_hash
-from member_c.observability.tracing import Tracer
+from member_Damsebi.observability.records import compute_context_hash
+from member_Damsebi.observability.tracing import Tracer
 
 SAMPLE_DIR = Path(__file__).resolve().parent
 SAMPLE_EVAL = SAMPLE_DIR / "sample_eval.json"
@@ -157,7 +157,7 @@ class SampleServiceAdapter:
 
 
 def _load_qids() -> dict[str, str]:
-    from member_c.evaluation.dataset import load_questions
+    from member_Damsebi.evaluation.dataset import load_questions
     return {q["question"]: q["id"] for q in load_questions(SAMPLE_EVAL)}
 
 

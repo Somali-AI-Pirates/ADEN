@@ -32,7 +32,7 @@ ADEN/
 │   ├── contracts.py                # 청크·응답·실행 기록 타입
 │   ├── settings.py
 │   └── exceptions.py
-├── member_a/                       # A의 최종 Python 패키지
+├── member_ysl727727/               # A의 최종 Python 패키지
 │   ├── __init__.py
 │   ├── ingestion/                  # PDF 추출·청킹
 │   ├── indexing/                   # 임베딩·Dense/BM25 색인
@@ -40,7 +40,7 @@ ADEN/
 │   ├── scripts/
 │   │   └── build_index.py
 │   └── tests/
-├── member_b/                       # B의 최종 Python 패키지
+├── member_chsopo89/                # B의 최종 Python 패키지
 │   ├── __init__.py
 │   ├── api/                        # app.py에 create_app()
 │   ├── generation/                 # context.py, chain.py, citations.py
@@ -50,7 +50,7 @@ ADEN/
 │   ├── prompts/
 │   │   └── shipping_qa.txt
 │   └── tests/
-├── member_c/                       # C의 최종 Python 패키지
+├── member_Damsebi/                 # C의 최종 Python 패키지
 │   ├── __init__.py
 │   ├── observability/
 │   │   └── tracing.py              # Langfuse·시간·토큰·오류 기록
@@ -201,7 +201,7 @@ git switch -c feat/18-hybrid-search
 
 ```bash
 git status --short
-git add member_a/retrieval/hybrid.py
+git add member_ysl727727/retrieval/hybrid.py
 git diff --cached
 git commit -m "feat(retrieval): BM25와 Dense 결과를 RRF로 결합"
 git push -u origin feat/18-hybrid-search
@@ -249,7 +249,7 @@ PR은 다음 내용을 짧게 담는다. 구현 시작 시 이 형식으로 `.gi
 
 ## 6. 모듈 협업과 충돌 처리
 
-사람별 패키지 `member_a/`, `member_b/`, `member_c/`는 담당 작업의 최종 위치이며 Basic의 import 경로로 고정한다. 실제 이름은 담당표로 연결한다. 패키지명 변경이 필요하면 경로·import·설정·실행 명령을 같은 변경에서 맞춘다. 각 패키지에 별도의 `app/` 전체를 만들거나 공통 설정·타입을 복제하지 않는다. `shared/`, 루트 설정·의존성·메인 파일은 B가 변경을 취합하며 공통 계약이 달라지면 호출부도 함께 맞춘다.
+사람별 패키지 `member_ysl727727/`(A), `member_chsopo89/`(B), `member_Damsebi/`(C)는 담당 작업의 최종 위치이며 Basic의 import 경로로 고정한다. 대소문자까지 그대로 사용한다. 패키지명을 다시 바꾸려면 경로·import·설정·실행 명령을 같은 변경에서 맞춘다. 각 패키지에 별도의 `app/` 전체를 만들거나 공통 설정·타입을 복제하지 않는다. `shared/`, 루트 설정·의존성·메인 파일은 B가 변경을 취합하며 공통 계약이 달라지면 호출부도 함께 맞춘다.
 
 데이터 구조·필수 필드·동기 호출·Resources·모듈 실행 방법은 [공통 입출력·호출 계약](../design/contracts.md)을 따른다. A·B의 중첩 객체와 C의 평탄 로그를 혼용하지 않고 연결부에서 명시적으로 변환한다. 임시 공통 타입과 추적 구현도 통합 시 단일 정의로 맞춘다.
 
