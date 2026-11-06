@@ -6,8 +6,8 @@
 
 - PDF 추출·청킹, E5 임베딩과 Qdrant 색인, Naive 검색, 답변 생성·API, 실행 기록·평가 모듈이 있다.
 - [오프라인 지식 데이터 준비](docs/design/knowledge-data.md)는 Basic·Intermediate·Advanced의 공통 규칙·표 행·사례 참조를 분리한다. 팀 검토본은 [data/curated/](data/curated/README.md)에서 Git으로 관리하고 검색 입력은 `artifacts/`에 생성한다. 기존 서비스와 색인에는 자동 적용하지 않는다.
-- `hybrid`와 `hybrid_rerank`는 선언되어 있으나 구현되지 않았다. 실제 세 방식 비교와 보안 비교 결과도 아직 없다.
-- 오프라인 데이터 준비와 가상·모의 인프라를 사용하는 테스트 133개 및 하위 테스트 9개는 통과했다. 실제 Qdrant 색인과 생성 모델을 사용한 전체 서비스 통합 검증은 아직 실행하지 않았다.
+- 검색은 `naive`(Dense), `hybrid`(Dense + BM25, RRF), `hybrid_rerank`(hybrid 후보를 `bge-reranker-v2-m3`로 재정렬)가 동작한다. 실제 색인으로 검색 전용 평가만 실행했으며([데이터 안내](data/README.md) 6장), 세 방식의 답변 평가와 보안 비교 결과는 아직 없다.
+- 오프라인 데이터 준비와 가상·모의 인프라를 사용하는 테스트 142개 및 하위 테스트 9개는 통과했다. 실제 Qdrant 색인과 생성 모델을 사용한 전체 서비스 통합 검증은 아직 실행하지 않았다.
 - 실제 일반·보안 평가 CLI에 연결할 초기화된 서비스 진입점과 평가 입력 검증은 후속 작업이다. 가상 샘플 성공을 실제 평가 준비 완료로 보지 않는다. [평가 실행 조건](docs/guides/c-module-guide.md)을 먼저 확인한다.
 - Python 테스트 명령은 저장소 루트에서 `python -m pytest -q tests`다.
 
