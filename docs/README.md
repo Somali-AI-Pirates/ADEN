@@ -37,4 +37,6 @@ ADEN은 4명이 2026-11-05~11-13에 진행하는 해운 RAG Q&A 프로젝트다.
 | [정제 지식 데이터 작업 기록](plans/structured-data.md) | Basic v1과 세 난이도 v2의 구현·검증 결과 |
 | [기능별 구조 전환 기록](plans/functional-layout-2026-11-06.md) | PR #11에서 보존한 경계·경로 대응·테스트·편집기 점검 기록 |
 
+[요청 처리·자원 연결 가독성 정리](plans/runtime-readability-2026-11-06.md)는 이번 변경의 범위·검증 기록이다. 새 코드 작성은 [개발 가이드](guides/development.md#4-새-코드-작성과-리팩토링)와 [설계 기준](design/architecture.md#가독성과-연결-작성-규칙)을 따른다.
+
 날짜별 기록은 그 시점의 증거다. 현재 작업 상태는 Notion WBS와 관련 PR에서 확인한다.

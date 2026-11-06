@@ -44,7 +44,7 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 | 경계 | 책임과 새 코드 작성 기준 |
 | --- | --- |
 | 앱 조립 | `main.py`는 `create_app()`을 호출한다. `app/api/app.py`는 설정을 읽고 `app/api/lifespan.py`의 수명주기 함수, 요청 기록, 오류 처리와 라우터를 FastAPI에 연결한다. 앱 설정·자원은 `app.state`에 둔다. |
-| API | `app/api/routes.py`는 HTTP 입력 검증·기본값·준비 상태·응답을 처리하고 연결된 서비스 함수를 호출한다. 검색·생성 파이프라인을 넣지 않는다. |
+| API | `app/api/routes.py`는 HTTP 입력 검증·준비 상태·응답을 처리하고 서비스를 호출한다. 검색 기본값은 서비스 진입점에서 확정한다. 검색·생성 파이프라인을 넣지 않는다. |
 | 서비스 계층 | `app/service/query.py`가 검색 → 문맥 구성 → 생성 → 출처 확인을 연결한다. 필요한 자원·설정·요청 ID·기록을 인자로 받아 HTTP 없이도 호출할 수 있게 한다. |
 | 기능 모듈 | `ingestion/`, `indexing/`, `retrieval/`, `generation/`, `observability/`는 해당 기능을 구현한다. 새 구현은 관련 기능의 기존 진입점과 공통 계약을 재사용한다. |
 | 자원 수명주기 | `app/api/lifespan.py`의 최상위 `lifespan(app)`이 `app.state.settings`를 읽어 자원을 준비·해제한다. 요청 기록과 오류 변환은 각각 `middleware.py`, `errors.py`에서 등록한다. |
@@ -53,15 +53,25 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 
 단순 처리와 실행 순서는 함수를 기본으로 한다. SDK 클라이언트, `Resources`처럼 상태·자원 수명주기가 필요한 경우에는 클래스를 사용한다. 새 파일은 독립된 책임이 있을 때 분리하고, 기본 실행 경로가 위에서 아래로 읽히도록 둔다. 사용 사례가 확인되지 않은 추상 계층·범용 의존성 컨테이너·호환 경로는 추가하지 않는다.
 
+### 가독성과 연결 작성 규칙
+
+- 서비스 진입점에서 검색 → 문맥 → 생성 → 출처 확인 순서로 읽히게 한다. 기본값·입력 정규화는 서비스 진입점에서 한 번 처리하고 API·평가기가 재사용한다.
+- 고정된 제품 함수는 명시적으로 import한다. 실제 외부 클라이언트·설정·수명주기가 있는 상태를 자원 객체로 전달한다. 테스트 관측용 제품 옵션을 늘리기 전에 기존 HTTP 로그·추적·평가 기록을 활용한다.
+- 제품은 전체 패키지 설치를 지원한다. 과거 A/B/C 부분 설치·필수 제품 모듈의 동적 탐색·사람별 대체 경로는 유지하지 않는다. 평가 CLI의 명시적인 `--adapter 모듈:함수` 계약은 별도로 유지한다. Langfuse 패키지는 포함하되 키·설정에 따라 추적을 비활성화한다.
+- HTTP 요약 로그, Langfuse 추적, 평가 RunRecord의 목적·소비자를 구분한다. HTTP에는 요청 ID·메서드·라우트·상태 코드·처리 시간만 남기며 질문·헤더·쿼리 문자열·모델 원문은 추가하지 않는다. 상세 평가 기록은 공통 계약을 따른다.
+- BM25·리랭커의 소유자·초기화 시점·정리를 명시한다. 한 자원은 한 Qdrant 클라이언트·컬렉션에 묶고 대상을 바꿀 때 새 자원을 준비한다. 전역 캐시로 앱·테스트 사이 상태를 공유하지 않는다.
+- 이름은 실제 역할을 설명한다. SDK 클라이언트를 토큰 계산기처럼 부르거나 기능을 A/B/C로 표현하지 않는다. 함수는 처리 순서, 클래스는 상태·수명주기가 필요할 때 사용하며 파일 길이만으로 분할하지 않는다.
+- 테스트는 실제 파이프라인을 실행하고 모델·Qdrant 등 외부 경계를 가짜로 대체한다. 자원 정리·동시성 검사는 유지하고 내부 함수 이름·코드 배치를 동작 증거로 대체하지 않는다.
+
 의존 방향은 다음을 따른다. 이는 기능 간 재사용을 금지하는 규칙이 아니다.
 
 - `shared/`는 `app/`을 import하지 않는다. API와 서비스 계층이 기능을 연결하며, 기능 모듈은 API·서비스 조립부·평가기 쪽을 역으로 import하지 않는다.
 - 기능에 필요한 하위 구현은 재사용할 수 있다. 현재 검색 → 색인, 색인 → 문서 가공, 평가 → 관측 기록 정규화가 그 예다. 재사용할 때 순환 의존을 만들지 않는다.
 - 제품 코드·기본 검사·설치는 `experimental/<GitHubID>/`에 의존하지 않는다. 채택할 구현은 관련 기능 모듈에 통합하고 개인 폴더의 내부 구성은 자율로 둔다.
 
-자원의 초기화 시점·소유자·해제 방식을 명시하고 import만으로 모델을 읽거나 네트워크에 연결하지 않는다. API는 lifespan에서 `load_resources()`를 작업 스레드로 실행해 `app.state.resources`에 보관한다. BM25·리랭커는 주입되지 않았으면 검색 모듈이 최초 사용 때 만들어 프로세스 안에 캐시한다. 이 지연 초기화 경로를 모든 자원이 서버 시작 때 준비된 것으로 설명하지 않는다.
+자원의 초기화 시점·소유자·해제 방식을 명시하고 import만으로 모델을 읽거나 네트워크에 연결하지 않는다. API는 lifespan에서 `load_resources()`를 작업 스레드로 실행해 `app.state.resources`에 보관한다. BM25·리랭커는 각 Resources.retrieval의 RetrievalResources에서 최초 사용 때 준비한다. 앱·실행 자원 사이에 전역 캐시를 공유하지 않고 Resources.close()에서 참조를 해제한다. 이 지연 초기화 경로를 모든 자원이 서버 시작 때 준비된 것으로 설명하지 않는다.
 
-`app/service/resources.py`의 `load_resources()`는 환경·필수 모듈 확인 → 관측 도구 → 임베딩·Qdrant → 생성 모델·토큰 계산기 순서로 자원을 조립한다. 모듈 연결, 관측 도구 생성, Qdrant 연결·색인 검사, 생성 모델 생성, 토큰 계산기는 같은 파일의 목적별 내부 함수에 둔다. 상위 함수에서 실행 순서가 보이도록 하고 보조 함수나 SDK 설정마다 별도 클래스·파일을 만들지 않는다. SDK 생성과 정리 책임을 진입점 가까이 모으는 [Composition Root](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)를 함수 중심으로 적용한다.
+`app/service/resources.py`의 `load_resources()`는 환경 확인 → 관측 도구 → 임베딩·Qdrant → 생성 모델·토큰 계산기 순서로 자원을 조립한다. 관측 도구는 명시적 import로 연결하고, Qdrant 연결·색인 검사, 생성 모델 생성, 토큰 계산기는 같은 파일의 목적별 내부 함수에 둔다. 상위 함수에서 실행 순서가 보이도록 하고 보조 함수나 SDK 설정마다 별도 클래스·파일을 만들지 않는다. SDK 생성과 정리 책임을 진입점 가까이 모으는 [Composition Root](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)를 함수 중심으로 적용한다.
 
 초기화 중에는 `ExitStack`이 생성된 클라이언트·추적 도구의 정리 책임을 가진다. `Resources` 객체 조립까지 성공한 뒤에만 `pop_all()`로 종료 책임을 넘기므로 중간 단계나 최종 조립이 실패해도 이미 만든 자원은 정리된다. 각 생성 함수는 자원을 만든 직후 정리 콜백을 등록한다. 수명주기 검사는 외부 클라이언트만 대체하고 실제 자원 조립·질문 처리·종료를 함께 검증한다.
 
@@ -170,19 +180,23 @@ from app.api.app import create_app
 app = create_app()
 ```
 
-`create_app(config_path=DEFAULT_CONFIG, *, run_record_sink=None)`은 설정 로드 → FastAPI 생성 → `app.state.settings`와 초기 `app.state.resources = None` 설정 → 요청 기록·오류 처리·라우터 등록 → 앱 반환 순서로 조립한다. lifespan은 이 함수 바깥의 최상위 `lifespan(app)`을 연결한다. 함수 안에 시작·종료 절차나 요청·오류 처리 함수를 중첩 정의하지 않는다.
+`create_app(config_path=DEFAULT_CONFIG)`은 설정 로드 → FastAPI 생성 → `app.state.settings`와 초기 `app.state.resources = None` 설정 → 요청 기록·오류 처리·라우터 등록 → 앱 반환 순서로 조립한다. lifespan은 이 함수 바깥의 최상위 `lifespan(app)`을 연결한다. 함수 안에 시작·종료 절차나 요청·오류 처리 함수를 중첩 정의하지 않는다.
 
 | 읽을 코드 | 확인할 내용 |
 | --- | --- |
 | [app.py](../../app/api/app.py) | `create_app()`의 앱 조립과 최상위 `lifespan(app)` 등록 |
 | [lifespan.py](../../app/api/lifespan.py) | 앱 상태의 설정을 사용하는 자원 준비·해제 수명주기 |
-| [middleware.py](../../app/api/middleware.py) | `register_request_tracking()`이 요청 ID·HTTP 시간·명시적 요청 기록 전달을 등록 |
+| [middleware.py](../../app/api/middleware.py) | `track_request()`가 요청 ID와 HTTP 요약 로그를 처리 |
 | [errors.py](../../app/api/errors.py) | `register_error_handlers()`가 세 오류 처리 함수를 등록 |
 | [routes.py](../../app/api/routes.py) | `/health`, `/query` 요청의 입력·준비 상태 확인과 `answer_query()` 직접 호출 |
 
-`main:app` 진입점을 유지하며 `create_app(config_path=DEFAULT_CONFIG, *, run_record_sink=None)`을 사용한다. 설정은 앱 생성 때 읽고, 자원은 서버 시작 때 `asyncio.to_thread(load_resources, app.state.settings)`로 준비한다. 준비 실패 때 `app.state.resources`는 `None`으로 남아 `/health`의 기존 `query_ready` 필드가 자원 준비 여부를 나타내고 `/query`는 기존 503 오류 응답을 반환한다. 종료할 때 상태에서 자원을 지운 뒤 한 번 해제한다. 요청 처리용 선택 핸들러 인자는 두지 않는다.
+`main:app` 진입점을 유지하며 `create_app(config_path=DEFAULT_CONFIG)`을 사용한다. 설정은 앱 생성 때 읽고, 자원은 서버 시작 때 `asyncio.to_thread(load_resources, app.state.settings)`로 준비한다. 준비 실패 때 `app.state.resources`는 `None`으로 남아 `/health`의 기존 `query_ready` 필드가 자원 준비 여부를 나타내고 `/query`는 기존 503 오류 응답을 반환한다. 종료할 때 상태에서 자원을 지운 뒤 한 번 해제한다. 요청 처리용 선택 핸들러 인자는 두지 않는다.
 
-요청 미들웨어는 `request.state.request_id`와 `request.state.run_record`를 만든다. `/query`는 자원이 준비되지 않았으면 서비스 호출 없이 오류 응답을 반환한다. 준비되어 있으면 생략된 검색 방식을 설정 기본값으로 채우고 다음처럼 서비스 함수를 직접 작업 스레드에서 실행한다.
+요청 미들웨어 `track_request()`는 `request.state.request_id`를 만들고 `X-Request-ID`로 응답에 연결한다. 모든 HTTP 요청에 요청 ID·메서드·라우트 경로·상태 코드·`latency_ms`·`latency_scope="http"`를 운영 로그로 남긴다. 입력 검증 실패·자원 미준비·예상하지 못한 오류도 포함한다. 라우트가 없는 요청의 경로는 `<unmatched>`다. 질문·쿼리 문자열·헤더는 기록하지 않는다.
+
+`main.py`는 표준 logging의 콘솔 출력과 `app` 로거의 INFO 수준을 설정한다. HTTP 시간은 응답 생성까지이며 클라이언트 왕복·본문 전송 완료·백그라운드 작업을 포함하지 않는다. Langfuse 서비스 시간 및 평가 기록과 혼합하지 않는다.
+
+`/query`는 자원이 준비되지 않았으면 기존 503 응답을 반환하고, 준비됐으면 다음처럼 서비스를 작업 스레드에서 직접 실행한다. 검색 기본값은 서비스가 한 번 확정하므로 HTTP 없이 호출하는 평가기도 같은 규칙을 따른다.
 
 ```python
 return await asyncio.to_thread(
@@ -191,11 +205,10 @@ return await asyncio.to_thread(
     request.app.state.resources,
     request.state.request_id,
     request.app.state.settings,
-    run_record=request.state.run_record,
 )
 ```
 
-서비스가 같은 요청 기록 객체에 실행 정보를 채우면 미들웨어가 HTTP 처리 시간과 `X-Request-ID`를 확정하고 설정된 sink에 기록을 전달한다. HTTP JSON, 기본 검색 방식, 오류 상태·메시지 정리 규칙과 응답 헤더는 이 수명주기 단순화로 바뀌지 않는다. API→서비스 사이 기록 전달은 요청 상태 인자로 명시한다.
+API는 기록 sink 옵션이나 상세 RunRecord 수집용 요청 상태를 만들지 않는다. 평가 어댑터가 요청마다 별도 객체를 준비해 `answer_query(..., run_record=record)`에 전달하고 반환한다. HTTP 응답·오류·출처·요청 ID와 평가 RunRecord 필드의 의미는 유지한다.
 
 ```python
 # app/service/query.py의 핵심 흐름을 단순화한 예시
@@ -337,7 +350,7 @@ Basic은 일반 질문 72개(개발 30, 추가 30, 확장 검증 12)와 보안 �
 
 검색 지표의 정답 집합, Faithfulness·Judge의 적용 조건, 실패·평가 불가 처리와 평균 계산은 [평가 모듈 가이드](../guides/c-module-guide.md)의 기준을 따른다. 평가 질문과 설정은 실행 전에 고정하고, 세 검색 방식의 결과를 같은 조건에서 비교한다. 평가 호출의 시간·토큰은 서비스 측 지표와 분리한다.
 
-**응답 시간 목표와 현재 한계:** 비교 결과에는 실제 HTTP 요청 전체의 처리 시간을 기록해야 한다. 현재 평가 실행기의 `make_query_adapter()`는 HTTP 요청을 보내지 않고 `answer_query()`를 프로세스 안에서 직접 호출하며 `latency_scope="in_process_adapter"`로 표시한다. 반면 `app/api/middleware.py`의 미들웨어는 실제 API 요청에서 `latency_scope="http"` 시간을 기록한다. 현재 `operational_summary()`는 `latency_scope`별로 나누지 않고 전달된 `latency_ms`를 집계하므로, 평가 보고서의 현재 시간 집계는 HTTP 전체 응답 시간으로 해석할 수 없다. 실제 HTTP 경로의 시간은 후속 통합 검증에서 같은 `request_id`로 내부 기록을 연결하고, 보고서도 측정 범위별로 분리한 뒤 확정해야 한다.
+**응답 시간 목표와 현재 한계:** 일반 평가 어댑터는 HTTP 요청 없이 `answer_query()`를 직접 호출하고 `latency_scope="in_process_adapter"`로 표시한다. API 미들웨어는 HTTP 요청의 응답 생성까지의 시간을 `http` 요약 로그에 남긴다. 이 로그는 RunRecord나 평가 보고서에 자동 연결되지 않는다. 현재 `operational_summary()`는 전달된 기록을 scope별로 집계하지 않으므로 다른 시간 범위를 섞지 않는다. HTTP 지표를 공식 비교에 포함하려면 같은 요청 ID의 HTTP 로그·서비스 기록을 연결하고 범위별 보고를 검증해야 한다.
 
 현재 일반 평가 실행기는 어댑터 기록과 응답 문맥을 기준으로 동작한다. 이를 실제 HTTP 평가 경로로 연결하거나 HTTP 시간 측정이 검증된 것으로 간주하지 않는다. 실제 API 응답에 정답·내부 전체 문맥을 노출할 필요는 없다.
 

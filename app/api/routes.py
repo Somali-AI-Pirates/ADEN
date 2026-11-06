@@ -13,9 +13,13 @@ router = APIRouter()
 
 
 class HealthResponse(BaseModel):
-    status: Literal["ok"] = Field(default="ok", title="앱 상태", description="ok는 앱이 실행 중임을 뜻합니다.")
+    status: Literal["ok"] = Field(
+        default="ok", title="앱 상태", description="ok는 앱이 실행 중임을 뜻합니다."
+    )
     dataset: str = Field(title="데이터셋", description="현재 서버에서 사용하는 난이도")
-    query_ready: bool = Field(title="질의 준비 여부", description="기본 질의 자원의 준비 여부")
+    query_ready: bool = Field(
+        title="질의 준비 여부", description="기본 질의 자원의 준비 여부"
+    )
 
 
 @router.get(
@@ -41,11 +45,26 @@ async def health(request: Request) -> HealthResponse:
     description="질문과 검색 방식을 입력하면 검색 자료를 바탕으로 답변과 출처를 반환합니다.",
     response_description="답변, 처리 상태, 판단 이유와 출처",
     responses={
-        422: {"model": QueryResponse, "description": "질문 또는 검색 방식이 올바르지 않습니다."},
-        503: {"model": QueryResponse, "description": "검색·답변 기능을 연결하는 중입니다."},
-        501: {"model": QueryResponse, "description": "선택한 검색 방식은 준비 중입니다."},
-        502: {"model": QueryResponse, "description": "모델 호출 또는 답변 검증에 실패했습니다."},
-        504: {"model": QueryResponse, "description": "답변 처리 시간이 초과되었습니다."},
+        422: {
+            "model": QueryResponse,
+            "description": "질문 또는 검색 방식이 올바르지 않습니다.",
+        },
+        503: {
+            "model": QueryResponse,
+            "description": "검색·답변 기능을 연결하는 중입니다.",
+        },
+        501: {
+            "model": QueryResponse,
+            "description": "선택한 검색 방식은 준비 중입니다.",
+        },
+        502: {
+            "model": QueryResponse,
+            "description": "모델 호출 또는 답변 검증에 실패했습니다.",
+        },
+        504: {
+            "model": QueryResponse,
+            "description": "답변 처리 시간이 초과되었습니다.",
+        },
     },
 )
 async def query(
@@ -66,13 +85,10 @@ async def query(
         )
 
     settings: Settings = request.app.state.settings
-    if payload.retrieval_mode is None:
-        payload = payload.model_copy(update={"retrieval_mode": settings.retrieval.default_mode})
     return await asyncio.to_thread(
         answer_query,
         payload,
         resources,
         request_id,
         settings,
-        run_record=request.state.run_record,
     )

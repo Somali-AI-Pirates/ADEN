@@ -108,6 +108,8 @@ B의 `answer_query(request, resources, request_id, settings)` 결과와 같은 r
 
 실행기는 `--adapter 모듈:이름`으로 가져온 속성을 초기화 없이 곧바로 `(question, retrieval_mode, request_id)` 인자로 호출한다. B의 `make_query_adapter(resources, settings)`는 준비된 `Resources`와 `Settings`가 필요한 팩터리이며, 반환하는 callable이 CLI 계약에 맞는다. 팩터리 자체를 `--adapter`에 지정해도 실행기가 팩터리를 호출하거나 초기화하지 않는다. 현재 저장소에는 설정·Resources 초기화, 팩터리 호출, 종료 정리를 묶어 평가 CLI에 제공하는 공식 bootstrap이 없다. 그러므로 아래 명령은 인자 형식을 보여 주는 예시이며, 초기화된 callable을 제공하는 연결부가 준비되기 전에는 그대로 실행 가능한 명령으로 보지 않는다. 가짜 자원 테스트는 있으나 실제 Basic 자료와 서비스 리소스를 사용한 연결은 아직 검증되지 않았다.
 
+상세 RunRecord는 평가 어댑터가 매 호출마다 별도 객체로 수집한다. API에는 기록 sink 옵션이 없다. 문맥 해시는 제품의 공통 함수로 계산하고 별도 C 모듈·해시 콜백 연결을 요구하지 않는다. 전체 제품 패키지를 설치하고 기존 `load_resources()`로 자원을 준비한다.
+
 RunRecord의 필수 필드와 정규화·오류 규칙은 [공통 계약 3절](../design/contracts.md#3-c가-받는-직렬화된-실행-기록)을 기준으로 한다. 유효하지 않은 기록은 점수로 바꾸지 않고 실패 사유와 함께 남긴다.
 
 ### 4.3 보안 비교 어댑터
@@ -186,7 +188,7 @@ python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id>
 | 실행자가 보충 | 공식 결과와 함께 실제 실행 명령, 코드 commit SHA(미커밋 변경이면 해당 diff), 질문 파일과 정답 파일 각각의 SHA-256, `artifacts/basic/index_manifest.json`의 사본 또는 SHA-256, 선택한 색인 컬렉션, 적용된 설정 파일과 유효한 비밀 아닌 설정값·생성 prompt·평가 prompt 버전, 사용한 의존성 잠금/설치 환경을 보존한다. 현재 측정 범위(`in_process_adapter` 등)도 제출 결과에 명시한다. API 키와 인증 환경변수 값은 기록하지 않고, 환경 증거는 의존성 잠금/패키지 버전으로 남긴다. 데이터 파일은 Git에 없고 index manifest는 평가 manifest에 자동 연결되지 않는다. |
 | 후속 구현 | 평가 manifest에 질문·참조·색인 manifest hash와 유효 설정/환경 지문을 자동 연결하고, 참조 파일 필드 검증·adapter bootstrap·RAGAS 설치/호환성 절차를 추가해야 재현 가능한 공식 실행 경로가 된다. 현재 완료된 기능으로 표시하지 않는다. |
 
-현재 B adapter는 `answer_query()`를 프로세스 안에서 직접 부르고 `latency_scope="in_process_adapter"`를 기록한다. 이는 HTTP 요청의 전체 처리 시간이 아니라 서비스 내부 측정이다. [공통 계약](../design/contracts.md)은 `http`, `service`/`in_process_adapter`, `fixed_context_generation` 범위를 구분하고 서로 섞지 않도록 한다. 현재 보고서의 비교표에는 `latency_scope`가 자동 표시되지 않으므로 공식 비교 결과에 측정 범위를 수동으로 기록한다. HTTP 전체 처리 시간을 공식 지표로 채택하려면 실제 API adapter와 범위별 보고를 추가 검증해야 한다.
+현재 B adapter는 `answer_query()`를 프로세스 안에서 직접 부르고 `latency_scope="in_process_adapter"`를 기록한다. 이는 HTTP 요청의 전체 처리 시간이 아니라 서비스 내부 측정이다. [공통 계약](../design/contracts.md)은 `http`, `service`/`in_process_adapter`, `fixed_context_generation` 범위를 구분하고 서로 섞지 않도록 한다. 현재 보고서의 비교표에는 `latency_scope`가 자동 표시되지 않으므로 공식 비교 결과에 측정 범위를 수동으로 기록한다. HTTP 미들웨어의 `http` 요약 로그는 표준 로그에 남고 RunRecord에 자동 연결되지 않는다. HTTP 시간을 공식 지표로 채택하려면 같은 요청 ID의 로그·서비스 기록을 연결하고 범위별 보고를 검증해야 한다.
 
 서비스 생성 호출 한도와 Judge·RAGAS 평가 호출 한도는 구분한다. 서비스 생성에는 `configs/basic.yaml`의 시간·출력·재생성 제한이 적용되지만, 평가기 호출에는 프로젝트 차원의 시간·토큰·비용 budget이 아직 없다. 일반 benchmark Judge의 사용량 일부와 grading 시간은 기록되고 RAGAS token은 null이다. 보안 Judge는 현재 호출 시간·토큰·비용을 자동 기록하지 않으므로 제공자 사용량과 실행 기록을 대조해 별도로 집계한다. 누락된 사용량을 0으로 처리하지 않는다. 호출 단가·총액 기준·담당자·중단 기준은 미정이며 [협업 가이드](../../CONTRIBUTING.md)의 운영 절차에서 정해야 한다. 공식 비교 결과에는 재현 증거를 기록한다. 개인 실험의 기록은 자율이다. 실제 비교에 앞서 한 문항의 호출 수·시간·사용량을 확인하고, 이 운영 기준이 정해지기 전에는 전체 비교를 시작하지 않는다.
 
