@@ -27,7 +27,7 @@
 - 서비스가 검색·생성·관측을 연결한다. 기능 모듈은 `retrieval` → `indexing`,
   `indexing` → `ingestion`처럼 하위 기능을 재사용할 수 있지만 `api`·서비스
   조합·`evaluation`을 역으로 import하거나 순환 의존을 만들지 않는다.
-- 평가기는 초기화된 서비스 호출 함수를 주입받는다. 평가 모듈 import만으로 앱·모델을 초기화하지 않으며, 평가 CLI의 기본 초기화 연결은 아직 미완료다.
+- 평가기는 초기화된 서비스 호출 함수를 주입받는다. 평가 모듈 import만으로 앱·모델을 초기화하지 않는다. 평가 CLI에 넘길 초기화 연결은 `app.service.bootstrap`이 제공하며, 이 모듈도 import 때가 아니라 첫 사용 때 자원을 준비한다.
 - 제품 코드와 기본 검사·설치는 `experimental/<GitHubID>/`에 의존하지 않는다.
 
 개인 실험 내부의 파일·폴더·작업일지 양식은 자율이다. 채택할 기능과 결과를
@@ -246,7 +246,7 @@ Hybrid 결합과 리랭커 설정은 A가 제안하고 B가 위 설정과 함께
 
 일반 평가 어댑터의 계약은 `adapter(question, retrieval_mode, request_id) -> Mapping`이다. 서비스 응답과 같은 `request_id`의 내부 기록을 연결해 RunRecord를 반환하고, C가 `experiment_id`·`question_id`를 붙인 뒤 정규화한다. 응답 JSON만으로는 최종 문맥과 시도별 기록을 확보할 수 없으므로 어댑터가 이를 합쳐야 한다. 정답·기대 행동·근거 목록은 어댑터에 전달하지 않는다. 현재 B 어댑터의 직접 서비스 호출과 HTTP 미사용은 [시스템 설계의 평가 절](architecture.md#9-평가와-비교)에 정리한다.
 
-현재 평가 CLI는 `--adapter`, `--retrieve`, `--generate`로 지정한 `모듈:이름`을 import한 뒤 그 callable을 직접 호출한다. CLI가 팩터리를 실행하거나 `Resources`·`Settings`를 초기화하지 않는다. `make_query_adapter(resources, settings)`와 `make_security_adapters(resources, settings, *, defense)`는 준비된 자원이 필요한 팩터리이므로 CLI 인자로 팩터리 자체를 넘길 수 없다. 초기화부가 자원을 준비하고 팩터리 반환 callable을 노출해야 한다. 이는 현재 CLI 연결 조건이며, 별도의 factory 지원 CLI 계약을 뜻하지 않는다.
+현재 평가 CLI는 `--adapter`, `--retrieve`, `--generate`로 지정한 `모듈:이름`을 import한 뒤 그 callable을 직접 호출한다. CLI가 팩터리를 실행하거나 `Resources`·`Settings`를 초기화하지 않는다. `make_query_adapter(resources, settings)`와 `make_security_adapters(resources, settings, *, defense)`는 준비된 자원이 필요한 팩터리이므로 CLI 인자로 팩터리 자체를 넘길 수 없다. 초기화부가 자원을 준비하고 팩터리 반환 callable을 노출해야 한다. 이는 현재 CLI 연결 조건이며, 별도의 factory 지원 CLI 계약을 뜻하지 않는다. 이 초기화부는 `app.service.bootstrap`이며 `query_adapter`(`--adapter`), `retrieve_context`(`--retrieve`), `generate_with_context`(`--generate`)를 노출한다. 설정은 `configs/basic.yaml`을 읽으므로 CLI의 `--config`에도 같은 파일을 지정한다.
 
 보안 비교 어댑터는 다음과 같다.
 
@@ -308,6 +308,12 @@ HTTP 미들웨어는 `request.state.request_id`를 만들며 상세 기록용 �
 - `make_query_adapter(resources, settings)` → `adapter(question, retrieval_mode, request_id)`: 평탄 기록을 반환하고 서비스 오류도 기록하여 다음 문항을 처리한다.
 - `make_security_adapters(resources, settings, *, defense)` → `retrieve_fn`, `generate_fn`: 검색·문맥을 한 번 준비해 두 변형에 재사용하며 질문·문맥 변조를 거부한다.
 - 고정된 검색 함수는 `app.retrieval.service.retrieve`를 명시적으로 호출한다. 검색·생성·정답 채점 파이프라인을 복제하지 않는다.
+
+평가 CLI용 초기화 연결은 `app.service.bootstrap`에서 제공한다.
+
+- import만으로는 설정·Resources를 준비하지 않는다. 첫 호출이나 실행기의 `tracer` 속성 조회 때 `create_app()`과 같이 프로젝트 루트의 `.env`를 기존 환경변수 우선으로 읽고 `load_settings()`·`load_resources()`를 한 번 실행한다. 프로세스 종료 시 `Resources.close()`로 해제한다.
+- `query_adapter`는 `make_query_adapter()`가 반환한 callable을 감싸고, 실행기의 flush·저장 확인을 위해 `tracer` 속성으로 `Resources.tracer`를 노출한다. 자원 준비 실패는 첫 문항 실행 전에 예외로 드러난다.
+- `retrieve_context`·`generate_with_context`는 `make_security_adapters()`의 한 쌍을 공유한다. 방어 문장은 `app/generation/prompts/defense.txt`를 읽는다.
 
 서비스 직접 호출·일반 평가·고정 문맥 생성의 시간 범위는 각각 `service`·`in_process_adapter`·`fixed_context_generation`이다. HTTP 요약 로그는 평가 RunRecord·보고서에 자동 합쳐지지 않는다. Langfuse 추적은 별도 경로이며 실제 저장과 HTTP·서비스 시간 연결은 검증 증거가 필요하다. 다른 범위를 섞어 비교하지 않는다. 보고의 한계는 [시스템 설계의 평가 절](architecture.md#9-평가와-비교)을 따른다.
 

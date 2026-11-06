@@ -106,7 +106,7 @@ def adapter(question: str, retrieval_mode: str, request_id: str) -> dict: ...
 
 B의 `answer_query(request, resources, request_id, settings)` 결과와 같은 request_id의 내부 기록을 합쳐 [공통 계약 3절](../design/contracts.md)의 RunRecord를 반환한다. `experiment_id`, `question_id`는 실행기가 붙인다. 어댑터에 `tracer` 속성(C의 `Tracer`)이 있으면 실행기가 실행 후 `flush()`하고 각 trace의 저장 여부를 조회한다. 정답·근거·expected_action은 어댑터에 전달하지 않는다.
 
-실행기는 `--adapter 모듈:이름`으로 가져온 속성을 초기화 없이 곧바로 `(question, retrieval_mode, request_id)` 인자로 호출한다. B의 `make_query_adapter(resources, settings)`는 준비된 `Resources`와 `Settings`가 필요한 팩터리이며, 반환하는 callable이 CLI 계약에 맞는다. 팩터리 자체를 `--adapter`에 지정해도 실행기가 팩터리를 호출하거나 초기화하지 않는다. 현재 저장소에는 설정·Resources 초기화, 팩터리 호출, 종료 정리를 묶어 평가 CLI에 제공하는 공식 bootstrap이 없다. 그러므로 아래 명령은 인자 형식을 보여 주는 예시이며, 초기화된 callable을 제공하는 연결부가 준비되기 전에는 그대로 실행 가능한 명령으로 보지 않는다. 가짜 자원 테스트는 있으나 실제 Basic 자료와 서비스 리소스를 사용한 연결은 아직 검증되지 않았다.
+실행기는 `--adapter 모듈:이름`으로 가져온 속성을 초기화 없이 곧바로 `(question, retrieval_mode, request_id)` 인자로 호출한다. B의 `make_query_adapter(resources, settings)`는 준비된 `Resources`와 `Settings`가 필요한 팩터리이며, 반환하는 callable이 CLI 계약에 맞는다. 팩터리 자체를 `--adapter`에 지정해도 실행기가 팩터리를 호출하거나 초기화하지 않는다. 설정·Resources 초기화, 팩터리 호출, 종료 정리는 `app.service.bootstrap`이 묶어 제공한다. 일반 평가에는 `--adapter app.service.bootstrap:query_adapter`를 지정한다. 이 adapter는 실행기가 `tracer`를 읽거나 첫 문항을 호출할 때 `configs/basic.yaml`과 실제 자원을 준비하므로 `--config configs/basic.yaml`을 함께 지정한다. 가짜 자원 테스트와 별도로, 공식 비교 전 실제 자료로 한 문항 연결을 확인한다.
 
 상세 RunRecord는 평가 어댑터가 매 호출마다 별도 객체로 수집한다. API에는 기록 sink 옵션이 없다. 문맥 해시는 제품의 공통 함수로 계산하고 별도 C 모듈·해시 콜백 연결을 요구하지 않는다. 전체 제품 패키지를 설치하고 기존 `load_resources()`로 자원을 준비한다.
 
@@ -129,7 +129,7 @@ def generate_fn(question: str, final_context_chunks: list[dict], prompt_variant:
 - 질문별 확인(`security_checks.json`): 로그 청크 해시·순서(`final_context_identical`), 문맥 문자열과 그 해시(`model_context_identical`), 실제 모델 입력에 그 문맥이 그대로 들어갔는지(`context_in_model_input`), `model`·`model_parameters`(`generation_settings_identical`). 값은 True/False/None(확인 불가)이며 False가 있으면 스크립트가 실패로 끝난다.
 - 루트 `model_input`이 없으면 마지막 시도의 값을 쓴다. 모델 입력이 없으면 노출은 `exposure_unknown`이다.
 - `attack_text`와 공격 문서 ID는 검색·문맥 구성에 쓰지 않고 실행 후 노출 분석에만 쓴다. 결과는 `defended` / `attack_followed` / `not_exposed` / `generation_failed` / `exposure_unknown` / `unjudged`이며 `defended`만 방어 성공으로 센다.
-- CLI의 `--retrieve`와 `--generate`도 가져온 callable을 바로 호출한다. B의 `make_security_adapters(resources, settings, *, defense)`는 두 callable을 반환하는 팩터리이므로, 팩터리 이름만 CLI에 지정할 수 없다. 이 연결은 가짜 자원으로 통합 테스트했으며, 실제 Basic 자료·색인·모델을 이용한 실행은 미검증이다. 정확한 반환 기록은 [공통 계약 5절](../design/contracts.md#5-함수-호출-계약)을 따른다.
+- CLI의 `--retrieve`와 `--generate`도 가져온 callable을 바로 호출한다. B의 `make_security_adapters(resources, settings, *, defense)`는 두 callable을 반환하는 팩터리이므로, 팩터리 이름만 CLI에 지정할 수 없다. 대신 `app.service.bootstrap:retrieve_context`와 `app.service.bootstrap:generate_with_context`를 지정한다. 두 callable은 같은 어댑터 쌍과 `app/generation/prompts/defense.txt`의 방어 문장을 사용한다. 정확한 반환 기록은 [공통 계약 5절](../design/contracts.md#5-함수-호출-계약)을 따른다.
 
 ## 5. 평가 규칙 요약
 
@@ -145,13 +145,13 @@ def generate_fn(question: str, final_context_chunks: list[dict], prompt_variant:
 
 유료·외부 서비스 호출 전에 별도의 **오프라인 입력 점검**을 먼저 한다. 질문·참고 파일의 존재와 JSON 구조, 질문의 `id`·`question`, 선택한 ID와 참고 문항의 대응, 제공 정답 스키마의 근거·채점 필드를 확인한다. 특히 `evidence_groups`가 의도적으로 빈 값인지 필드가 잘못 빠진 것인지 구분한다. 이 점검은 라벨을 서비스에 전달하는 단계가 아니다. 현재 CLI는 참고 파일을 서비스 실행·기록 저장 뒤에 읽고 필수 평가 필드를 선행 검증하지 않으므로, 입력을 확인하지 못한 상태에서 실제 호출을 시작하지 않는다.
 
-입력 점검과 서비스 초기화가 끝나면 일반 benchmark는 `--ids <단일 ID>`로 한 문항만 선택해 연결을 확인한다. 다음 블록은 placeholder를 포함한 **한 문항 사전 확인용 CLI 인자 형식 예시**이며 복사해 실행할 수 있는 명령이 아니다. 현재 adapter 인자는 초기화된 callable을 요구하지만 공식 bootstrap이 없고, `--ragas-model`도 현재 공통 설치에 포함되지 않는다. 이 두 연결이 마련되지 않은 상태를 완료된 실제 평가로 표시하지 않는다.
+입력 점검과 서비스 초기화가 끝나면 일반 benchmark는 `--ids <단일 ID>`로 한 문항만 선택해 연결을 확인한다. 다음 블록은 placeholder를 포함한 **한 문항 사전 확인용 CLI 인자 형식 예시**이며 복사해 실행할 수 있는 명령이 아니다. adapter 인자는 `app.service.bootstrap:query_adapter`를 쓴다. `--ragas-model`은 현재 공통 설치에 포함되지 않으므로, RAGAS 연결이 마련되지 않은 상태를 완료된 실제 평가로 표시하지 않는다.
 
 ```bash
 python -m app.evaluation.scripts.run_benchmark \
   --questions data/basic/evaluation/development_questions.json \
   --references data/basic/evaluation/development.json \
-  --adapter <초기화된 callable을 노출하는 모듈>:<callable> \
+  --adapter app.service.bootstrap:query_adapter \
   --ids <단일ID> \
   --modes naive \
   --config configs/basic.yaml \
@@ -166,7 +166,7 @@ python -m app.evaluation.scripts.run_benchmark \
 한 문항 확인 후에는 새 실험 ID를 쓰고 `--ids`를 사전에 고정한 전체 선택 ID 목록, `--modes`를 비교할 방식 목록으로 바꾼다. 사전 확인 예시는 `naive` 한 방식부터 지정한다. 세 검색 방식의 코드는 구현되어 있지만 실제 생성 모델·평가기까지 연결한 공식 비교는 별도 검증이 필요하다. 현재 데이터에는 `development`, `additional`, `expansion_validation` 세 질문 쌍이 있다. 이 예시는 `development`를 사용한다. split의 최종 공식 역할과 validation holdout 운용 여부는 팀이 비교 전에 정해 결과에 기록해야 하며, 이름만으로 독립 검증을 완료했다고 간주하지 않는다. 보안 CLI에는 `--ids`가 없으므로 아래 보안 실행 형식과 별도로 파일·연결을 점검한다.
 
 ```bash
-python -m app.evaluation.scripts.run_security --security-file data/basic/evaluation/<보안 파일>.json --retrieve <초기화된 retrieve callable 모듈>:<이름> --generate <초기화된 generate callable 모듈>:<이름> --retrieval-mode <방식> --config configs/basic.yaml --judge-model <평가 모델> --experiment-id basic-<날짜>-<설명>
+python -m app.evaluation.scripts.run_security --security-file data/basic/evaluation/<보안 파일>.json --retrieve app.service.bootstrap:retrieve_context --generate app.service.bootstrap:generate_with_context --retrieval-mode <방식> --config configs/basic.yaml --judge-model <평가 모델> --experiment-id basic-<날짜>-<설명>
 ```
 
 ```bash
@@ -186,7 +186,7 @@ python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id>
 | --- | --- |
 | 자동 기록 | manifest에 코드 commit/dirty 여부, Python과 일부 패키지 버전, 설정 파일 hash, 실험 ID, 질문 ID·파일명, mode·k, 선정 이유, Judge/RAGAS 모델명, Judge prompt hash를 남긴다. 선정 이유는 현재 선택 입력이라 비어 있을 수 있다. 예시처럼 `--config`를 쓰면 설정 hash는 해당 파일 원문 기준이다. B adapter는 실행 기록에 `latency_scope`도 넣지만 제출 보고서에는 아직 표시하지 않는다. |
 | 실행자가 보충 | 공식 결과와 함께 실제 실행 명령, 코드 commit SHA(미커밋 변경이면 해당 diff), 질문 파일과 정답 파일 각각의 SHA-256, `artifacts/basic/index_manifest.json`의 사본 또는 SHA-256, 선택한 색인 컬렉션, 적용된 설정 파일과 유효한 비밀 아닌 설정값·생성 prompt·평가 prompt 버전, 사용한 의존성 잠금/설치 환경을 보존한다. 현재 측정 범위(`in_process_adapter` 등)도 제출 결과에 명시한다. API 키와 인증 환경변수 값은 기록하지 않고, 환경 증거는 의존성 잠금/패키지 버전으로 남긴다. 데이터 파일은 Git에 없고 index manifest는 평가 manifest에 자동 연결되지 않는다. |
-| 후속 구현 | 평가 manifest에 질문·참조·색인 manifest hash와 유효 설정/환경 지문을 자동 연결하고, 참조 파일 필드 검증·adapter bootstrap·RAGAS 설치/호환성 절차를 추가해야 재현 가능한 공식 실행 경로가 된다. 현재 완료된 기능으로 표시하지 않는다. |
+| 후속 구현 | 평가 manifest에 질문·참조·색인 manifest hash와 유효 설정/환경 지문을 자동 연결하고, 참조 파일 필드 검증·RAGAS 설치/호환성 절차를 추가해야 재현 가능한 공식 실행 경로가 된다. 현재 완료된 기능으로 표시하지 않는다. |
 
 현재 B adapter는 `answer_query()`를 프로세스 안에서 직접 부르고 `latency_scope="in_process_adapter"`를 기록한다. 이는 HTTP 요청의 전체 처리 시간이 아니라 서비스 내부 측정이다. [공통 계약](../design/contracts.md)은 `http`, `service`/`in_process_adapter`, `fixed_context_generation` 범위를 구분하고 서로 섞지 않도록 한다. 현재 보고서의 비교표에는 `latency_scope`가 자동 표시되지 않으므로 공식 비교 결과에 측정 범위를 수동으로 기록한다. HTTP 미들웨어의 `http` 요약 로그는 표준 로그에 남고 RunRecord에 자동 연결되지 않는다. HTTP 시간을 공식 지표로 채택하려면 같은 요청 ID의 로그·서비스 기록을 연결하고 범위별 보고를 검증해야 한다.
 

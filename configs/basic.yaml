@@ -11,6 +11,6 @@ context_tokenizer: o200k_base  # 문맥 예산용 로컬 추정값. 실제 사�
 
 retrieval:
   default_mode: naive
-  k: 5
+  k: 8
   context_token_budget: 4000
   candidate_count: 20
