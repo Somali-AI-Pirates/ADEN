@@ -1,18 +1,17 @@
 # Git 저장소·협업 설계
 
-작성일: 2026-11-05 · 수정일: 2026-11-06. 대상은 우선 Basic을 구현하는 해운 RAG 팀 프로젝트다. 2026-11-06에 패키지 구조를 `app/`에서 담당자별 `member_a`·`member_b`·`member_c`와 공통 `shared`로 바꾼 내용을 반영했다.
+작성일: 2026-11-05 · 수정일: 2026-11-06. 대상은 우선 Basic을 구현하는 해운 RAG 팀 프로젝트다. 아래 소스 구조·GitHub 설정은 구현 시 적용할 설계안이며, 현재 실제로 정리한 파일은 루트 README와 `docs/` 문서다.
 
-`main`에는 아직 루트 README와 `docs/` 문서만 있다. 소스는 담당 브랜치에서 관리하며 아래 GitHub 설정(PR 템플릿·CI·브랜치 보호)은 아직 적용하지 않았다.
-
-관련 문서: [문서 목차](../README.md) · [시스템 설계](../design/architecture.md) · [공통 입출력·호출 계약](../design/contracts.md)
+관련 문서: [문서 목차](../README.md) · [시스템 설계](../design/architecture.md)
 
 ## 1. 기본 방침
 
 하나의 GitHub 저장소에서 서비스, 데이터 처리, 검색, 평가를 함께 관리한다. 현재 연결된 저장소는 [Somali-AI-Pirates/ADEN](https://github.com/Somali-AI-Pirates/ADEN)이다.
 
-- 기능별 폴더를 나누고 공통 입력·출력 계약으로 연결한다.
+- 사람별 최상위 패키지 안에서 기능을 모듈화하고 공통 입력·출력 계약으로 연결한다. A·B·C의 코드는 각자의 패키지 경로를 유지한 채 최종 통합한다.
 - 설계 Markdown은 `docs/`에 모은다.
-- 작업 브랜치는 `main`에서 만들고 PR로 `main`에 병합한다.
+- 코드·설정 변경은 `main`에서 만든 작업 브랜치에서 개발하고 PR로 `main`에 병합한다.
+- 문서(`docs/`, 루트 `README.md`)만 바꾸는 변경도 `docs/` 작업 브랜치에서 PR로 `main`에 병합한다. 절차는 5절을 따른다.
 - 각 작업은 리뷰할 수 있는 크기로 나누고 초기부터 연결한다.
 - 원본 데이터·색인·캐시는 로컬에서 관리하고, 코드·설정·선별 정리한 제출 결과는 Git에 남긴다.
 
@@ -22,62 +21,78 @@ Basic·Intermediate·Advanced는 같은 코드의 설정과 데이터 경로로 
 
 ```text
 ADEN/
-├── README.md                    # 소개·설치·실행·문서·결과 링크
-├── .gitignore                   # 원본 데이터·생성물·비밀값 제외
-├── .env.example                 # 환경변수 이름, 실제 키 없음
-├── pyproject.toml               # 의존성·개발 도구 설정
-├── uv.lock                      # uv 채택 시 잠금 파일도 커밋
-├── main.py                      # create_app() 호출
-├── .github/                     # 구현 시작 시 필요한 항목부터 추가
-│   ├── pull_request_template.md
-│   └── workflows/
-│       └── ci.yml               # 실제 실행 가능한 검사만 등록
-├── docs/                        # 설계 Markdown 모음
-│   ├── README.md                # 문서 목차
-│   ├── design/
-│   │   ├── architecture.md      # 시스템 설계
-│   │   └── contracts.md         # 공통 타입·호출·로그 계약
-│   ├── plans/
-│   │   └── basic-day-plan-2026-11-05.md # 날짜별 업무 분담
-│   └── guides/
-│       └── git-workflow.md      # 저장소·협업 설계
+├── README.md
+├── main.py                         # B: 앱 생성 함수만 호출
+├── pyproject.toml                  # B: 의존성 변경 취합
+├── uv.lock                         # uv 채택 시 추적하는 잠금 파일
+├── .env.example                    # 실제 키를 제외한 변수 안내
+├── .gitignore
+├── .github/                        # PR 템플릿·CI, 구현 단계에 추가
+├── shared/                         # 공통 계약·설정, B가 변경 취합
+│   ├── __init__.py
+│   ├── contracts.py                # 청크·응답·실행 기록 타입
+│   ├── settings.py
+│   └── exceptions.py
+├── member_ysl727727/               # A의 최종 Python 패키지
+│   ├── __init__.py
+│   ├── ingestion/                  # PDF 추출·청킹
+│   ├── indexing/                   # 임베딩·Dense/BM25 색인
+│   ├── retrieval/                  # 세 검색 방식, service.py에 retrieve()
+│   ├── scripts/
+│   │   └── build_index.py
+│   └── tests/
+├── member_chsopo89/                # B의 최종 Python 패키지
+│   ├── __init__.py
+│   ├── api/                        # app.py에 create_app()
+│   ├── generation/                 # context.py, chain.py, citations.py
+│   ├── service/
+│   │   ├── query.py                # A·B·C 함수 연결
+│   │   └── resources.py            # 준비된 색인·모델 로드/종료
+│   ├── prompts/
+│   │   └── shipping_qa.txt
+│   └── tests/
+├── member_Damsebi/                 # C의 최종 Python 패키지
+│   ├── __init__.py
+│   ├── observability/
+│   │   └── tracing.py              # Langfuse·시간·토큰·오류 기록
+│   ├── evaluation/
+│   │   ├── dataset.py
+│   │   ├── runner.py
+│   │   ├── metrics.py
+│   │   ├── graders.py
+│   │   ├── security.py
+│   │   └── report.py
+│   ├── prompts/
+│   │   ├── judge.txt
+│   │   └── defense.txt
+│   ├── scripts/
+│   │   ├── run_benchmark.py
+│   │   └── run_security.py
+│   └── tests/
 ├── configs/
-│   └── basic.yaml               # 공통 실험·서비스 설정
-├── shared/                      # 공통 계약·설정·예외
-├── member_a/                    # 데이터·색인·검색
-│   ├── ingestion/               # PDF 추출·청킹
-│   ├── indexing/                # 임베딩·Dense/BM25 색인
-│   ├── retrieval/               # 세 검색 방식
-│   ├── scripts/                 # 색인 생성 명령
-│   └── tests/                   # A 계약 검사
-├── member_b/                    # 답변 생성·API·통합
-│   ├── generation/              # 문맥·모델 호출·출처 검증
-│   ├── service/                 # 실행 순서·자원·기록 조립·평가 어댑터
-│   ├── api/                     # FastAPI
-│   ├── prompts/                 # 업무 프롬프트
-│   └── tests/                   # B 계약 검사
-├── member_c/                    # 실행 기록·평가
-│   ├── observability/           # Langfuse·시간·토큰·오류
-│   ├── evaluation/              # 평가 코드
-│   ├── prompts/                 # 방어·Judge 프롬프트
-│   ├── scripts/                 # 평가·보안 실행 명령
-│   └── tests/                   # C 계약 검사
+│   └── basic.yaml                  # B가 공통 설정 취합
+├── docs/
+│   ├── README.md
+│   ├── design/architecture.md
+│   ├── design/contracts.md          # 데이터·함수·실행 계약
+│   ├── guides/git-workflow.md
+│   └── plans/basic-day-plan-2026-11-05.md
 ├── data/
-│   ├── README.md                # 데이터 출처·배치·검증 안내
+│   ├── README.md                   # A: 데이터 배치·처리 안내
 │   └── basic/
-│       ├── documents/           # 원본 PDF, Git 제외
-│       └── evaluation/          # 제공 질문·정답, Git 제외
-├── artifacts/                   # 추출·청크·전체 실행 기록, Git 제외
-├── reports/                     # 제출용 결과, Git 추적
-│   ├── README.md                # 실험 목록·최종 구성 링크
-│   └── basic-<experiment_id>/
-│       ├── README.md            # 실행 조건·해석·최종 선택·한계
-│       ├── manifest.json        # 비밀값을 제외한 재현 설정
-│       ├── comparison.csv       # 선택한 질문 전체 × 세 방식
-│       ├── answers.jsonl        # 실제 답변·상태·인용·요청 ID
-│       ├── scores.jsonl         # 평가 점수·사유·N/A·실패
-│       └── security_comparison.csv
-└── presentations/               # 발표자료, 작성 단계에 추가
+│       ├── documents/              # 제공 PDF 원본, Git 제외
+│       └── evaluation/             # 제공 질문·정답 JSON, Git 제외
+├── presentations/                  # 발표자료 작성 시 추가
+├── artifacts/                      # 추출·청크·색인·실행 기록, Git 제외
+│   ├── basic/
+│   └── experiments/<experiment_id>/
+└── reports/<experiment_id>/         # C: 제출용 결과, Git 추적
+    ├── README.md
+    ├── manifest.json
+    ├── comparison.csv
+    ├── answers.jsonl
+    ├── scores.jsonl
+    └── security_comparison.csv
 ```
 
 `uv.lock`은 uv를 채택할 때 사용한다. 강의 환경의 다른 패키지 관리자를 유지한다면 그 방식에 맞는 의존성 잠금 파일 하나를 사용한다. 도구별 잠금 파일을 중복 관리하지 않는다.
@@ -103,9 +118,9 @@ Git은 빈 폴더를 기록하지 않는다. 필요한 데이터 배치 위치�
 
 제공 평가 JSON을 Git에서 제외하는 것만으로 평가 누수가 방지되는 것은 아니다. 색인 입력은 `documents/*.pdf`로 제한하고, 정답 파일은 답변 생성 후 평가 모듈에서만 읽는다.
 
-### `.gitignore` 기준
+### `.gitignore` 초기안
 
-아래가 현재 저장소에 적용된 기준이다. 실제 파일에는 도구별 캐시 항목이 더 들어 있다.
+다음은 향후 생성할 설정 예시다. 현재 `.gitignore` 파일을 적용한 상태는 아니다.
 
 ```gitignore
 # Python / 도구 캐시
@@ -187,7 +202,7 @@ git switch -c feat/18-hybrid-search
 
 ```bash
 git status --short
-git add member_a/retrieval/hybrid.py
+git add member_ysl727727/retrieval/hybrid.py
 git diff --cached
 git commit -m "feat(retrieval): BM25와 Dense 결과를 RRF로 결합"
 git push -u origin feat/18-hybrid-search
@@ -223,22 +238,40 @@ PR은 다음 내용을 짧게 담는다. 구현 시작 시 이 형식으로 `.gi
 연결할 이슈와 후속 작업을 적습니다.
 ```
 
-- 작성자 외 팀원 1명이 리뷰한 뒤 병합하는 것을 기본으로 한다.
+- 코드·설정 PR은 작성자 외 팀원 1명이 리뷰한 뒤 병합하는 것을 기본으로 한다. 문서만 바꾸는 PR은 CI 통과 후 작성자가 바로 병합할 수 있다.
 - CI를 도입한 뒤에는 해당 변경의 필수 검사를 통과해야 한다.
 - 병합 방식은 squash merge로 통일하고, 완료한 원격 작업 브랜치는 삭제한다.
+- 각 PR을 squash merge한 뒤에는 최신 `main`에서 다음 작업 브랜치를 새로 만든다. 이미 squash된 작업 브랜치를 계속 재사용하지 않는다. 예전 커밋이 다시 PR에 나타나거나 불필요한 충돌이 생기는 것을 줄이기 위한 규칙이다.
 - PR에 좋은 결과만 남기지 않고 실패·미완료 사항을 함께 적는다.
 - 원본 데이터, 비밀값, 로컬 생성물이 들어오지 않았는지 파일 목록을 확인한다.
-- GitHub에서 지원하는 범위 안에서 `main`에 PR·리뷰·검사를 요구하고 force push와 삭제를 제한한다. 필수 검사는 실제 workflow가 생긴 뒤 등록한다.
+- GitHub Ruleset으로 `main`에 PR과 CI `checks` 통과를 요구하고 force push와 삭제를 막는다. 필요한 승인 수는 0으로 두어 문서 PR이 CI 통과 후 바로 병합될 수 있게 하고, 코드·설정 PR의 리뷰는 팀 규칙으로 지킨다.
+
+### 문서 변경 올리기
+
+`docs/`와 루트 `README.md`만 바꾸는 변경은 최신 `main`에서 `docs/` 접두어 브랜치를 새로 만들어 PR로 올린다. 코드·설정·프롬프트·`.gitignore`가 함께 바뀌거나, 코드 변경 때문에 설계·계약 문서를 고치는 경우는 해당 코드 PR에 포함한다.
+
+```bash
+git switch main
+git pull --ff-only origin main
+git switch -c docs/<변경-내용>
+git add docs/ README.md
+git commit -m "docs: 변경 내용"
+git push -u origin docs/<변경-내용>
+```
+
+`git add` 전에 `git status`로 문서 외 파일이 섞이지 않았는지 확인한다. 푸시 후 GitHub에서 `main` 대상 PR을 만들고 `checks`가 통과하면 squash merge한다. 문서 브랜치도 병합 후 삭제하고 다시 쓰지 않는다. 병합 후 팀에 알리고, 각 담당자는 6절의 "작업 브랜치에서 main의 문서 변경 받기" 절차로 작업 브랜치에 main을 병합해 받는다.
 
 이 문서는 위 운영 규칙을 제안한다. 실제 브랜치 보호나 리뷰어 지정은 아직 적용하지 않았다.
 
 ## 6. 모듈 협업과 충돌 처리
 
-기능 담당 폴더는 책임 범위이며 다른 폴더의 수정을 금지하는 경계가 아니다. 공통 계약이 달라지면 호출부까지 함께 고친다.
+사람별 패키지 `member_ysl727727/`(A), `member_chsopo89/`(B), `member_Damsebi/`(C)는 담당 작업의 최종 위치이며 Basic의 import 경로로 고정한다. 대소문자까지 그대로 사용한다. 패키지명을 다시 바꾸려면 경로·import·설정·실행 명령을 같은 변경에서 맞춘다. 각 패키지에 별도의 `app/` 전체를 만들거나 공통 설정·타입을 복제하지 않는다. `shared/`, 루트 설정·의존성·메인 파일은 B가 변경을 취합하며 공통 계약이 달라지면 호출부도 함께 맞춘다.
+
+데이터 구조·필수 필드·동기 호출·Resources·모듈 실행 방법은 [공통 입출력·호출 계약](../design/contracts.md)을 따른다. A·B의 중첩 객체와 C의 평탄 로그를 혼용하지 않고 연결부에서 명시적으로 변환한다. 임시 공통 타입과 추적 구현도 통합 시 단일 정의로 맞춘다.
 
 | 변경 지점 | 함께 확인할 대상 |
 | --- | --- |
-| `shared/contracts.py`, `shared/settings.py` | API·검색·생성·평가의 입력과 출력 |
+| `shared/contracts.py` | API·검색·생성·평가의 입력과 출력 |
 | `configs/basic.yaml` | 실제 로드 코드·설계 문서·실험 설정 |
 | 프롬프트·청킹·임베딩 모델 | 색인 재생성 여부·기존 비교 결과의 유효성 |
 | `main.py`, API 초기화 | 리소스 로드·종료·요청 추적 |
@@ -248,6 +281,30 @@ PR은 다음 내용을 짧게 담는다. 구현 시작 시 이 형식으로 `.gi
 
 작업 중 `main` 변경을 받아야 할 때는 커밋을 정리한 뒤 `git fetch origin`, `git merge origin/main`으로 동기화할 수 있다. 충돌은 해당 부분 담당자와 변경 의도를 확인해 해결하고 관련 검사를 다시 실행한다. 다른 사람의 변경을 일괄 덮어쓰거나 공유 브랜치 이력을 강제로 바꾸지 않는다.
 
+
+### 작업 브랜치에서 main의 문서 변경 받기
+
+`main`에 문서 변경이 커밋되어도 다른 브랜치로 자동 전파되지는 않는다. 각 담당자가 자신의 브랜치에 `origin/main`을 병합한다. 커밋된 작업은 병합 이력에 유지되며, 같은 파일·부분을 다르게 수정한 경우에는 충돌 해결이 필요하다.
+
+이 병합은 문서만 골라 받는 명령이 아니다. 그 시점까지 main에 반영된 코드·설정 변경도 함께 가져온다.
+
+먼저 본인의 작업 브랜치에서 `git status`를 확인하고 진행 중인 작업을 커밋하거나 stash로 보관한다. 그다음 아래 명령을 실행한다. 아래는 C의 브랜치 예시이며 A·B는 자신의 브랜치를 사용한다.
+
+```bash
+git switch feat/basic-evaluation-tracing
+git fetch origin
+git merge origin/main
+git push origin feat/basic-evaluation-tracing
+```
+
+미커밋 작업을 잠시 보관하려면 병합 전에 `git stash push -u -m "before-main-sync"`를 실행할 수 있다. 병합 후 `git stash apply`로 복원하고 결과를 확인한다. stash를 복원할 때도 충돌이 생길 수 있다.
+
+단순히 `git pull`만 실행하면 현재 작업 브랜치의 upstream을 받으므로, main의 변경을 가져온다는 보장은 없다. 현재 작업 브랜치에서 `git fetch origin` 후 `git merge origin/main`을 사용하면 가져올 대상을 명확히 할 수 있다.
+
+문서 변경도 `docs/` 브랜치의 PR로 main에 반영한다(5절). 문서 PR이든 코드 PR이든 main에 병합된 뒤 다른 작업 브랜치가 그 변경을 받는 위 절차는 같다.
+
+이번 커밋은 설계 문서만 수정한다. 다른 브랜치의 소스는 이동·삭제하지 않는다. 이미 예전 `app/` 구조로 작성한 소스는 문서를 병합한 뒤 각자 담당 패키지로 옮기고 import·실행 명령을 수정한다. 문서 병합만으로 코드 경로가 자동 변경되지는 않는다. 옮긴 뒤 작은 샘플로 호출과 테스트를 확인하고 코드 변경 PR로 통합한다.
+
 ## 7. CI 범위
 
 첫 구현에서는 다음 정도를 권장한다.
@@ -255,9 +312,11 @@ PR은 다음 내용을 짧게 담는다. 구현 시작 시 이 형식으로 `.gi
 - Ruff 등 선택한 도구로 소스 형식·정적 오류 검사.
 - 모의 클라이언트를 이용한 API 입력·출력·오류 계약 검사.
 - 작은 가상 문서로 출처 매핑과 문서 단위 Hit/Recall 계산 확인.
-- 실제 임베딩·LLM을 로드하지 않아도 import와 테스트가 가능한 구조 유지.
+- 각 담당자의 `member_*/tests/`에서 실제 임베딩·LLM을 로드하지 않아도 import와 테스트가 가능한 구조 유지.
 
-일반 PR CI에는 실제 모델 API 호출이나 PDF 전체 임베딩을 넣지 않는다. 유료 일반 평가와 보안 비교는 고정 설정으로 별도 실행하고 결과를 PR에서 검토한다. 문서만 바뀌면 문서 링크·내용 확인으로 범위를 맞춘다. 현재는 코드가 없으므로 실행할 수 없는 CI 파일을 만들지 않는다.
+일반 PR CI에는 실제 모델 API 호출이나 PDF 전체 임베딩을 넣지 않는다. 유료 일반 평가와 보안 비교는 고정 설정으로 별도 실행하고 결과를 PR에서 검토한다. 문서만 바뀌면 문서 링크·내용 확인으로 범위를 맞춘다.
+
+현재 CI는 `.github/workflows/ci.yml`의 `checks` 작업 하나다. main 대상 PR과 main 푸시에서 `pytest`·`ruff`만 설치해 Ruff 기본 오류 검사(`E9,F63,F7,F82`)와 `member_Damsebi/tests`를 실행한다. A·B의 테스트와 의존성이 생기면 설치 단계와 테스트 대상을 같은 파일에서 넓힌다.
 
 ## 8. 실행 결과와 제출 버전
 

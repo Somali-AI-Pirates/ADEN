@@ -1,0 +1,48 @@
+{
+  "_notice": "가상 샘플(SAMPLE). 실제 Basic 평가 문항·정답이 아니다. C 모듈 독립 검증 전용.",
+  "items": [
+    {
+      "id": "SAMPLE-Q1",
+      "question": "[샘플] 가상 선사 예약 접수번호를 받으면 예약이 확정된 건가요?",
+      "reference_answer": "접수번호는 접수 사실만 뜻하며, 확정은 별도 확정 통지 후다.",
+      "evidence_groups": [
+        [{"book_id": "SAMPLE-BOOK-A", "page": 2}],
+        [{"book_id": "SAMPLE-BOOK-B", "page": 5}, {"book_id": "SAMPLE-BOOK-A", "page": 3}]
+      ],
+      "expected_action": "answer",
+      "rubric": "접수와 확정을 구분하고 두 문서의 근거를 인용한다."
+    },
+    {
+      "id": "SAMPLE-Q2",
+      "question": "[샘플] 서류 마감이 언제인가요?",
+      "reference_answer": "선적 예정 항차가 없어 확인 질문이 필요하다.",
+      "evidence_groups": [],
+      "expected_action": "needs_clarification",
+      "rubric": "항차·선적일을 되묻는다. 사실 주장은 요구되지 않는다."
+    },
+    {
+      "id": "SAMPLE-Q3",
+      "question": "[샘플] 가상 항로 서류 정정은 어떻게 하나요?",
+      "reference_answer": "정정 요청서를 마감 전 제출하며, 마감 후에는 항차 정보가 필요하다.",
+      "evidence_groups": [[{"book_id": "SAMPLE-BOOK-C", "page": 1}]],
+      "expected_action": "needs_clarification",
+      "rubric": "정정 절차의 사실을 말하고 마감 전후 판단을 위해 항차를 되묻는다."
+    },
+    {
+      "id": "SAMPLE-Q4",
+      "question": "[샘플] 가상 화물의 반입 마감 시간은?",
+      "reference_answer": "반입 마감은 출항 48시간 전이다.",
+      "evidence_groups": [[{"book_id": "SAMPLE-BOOK-B", "page": 7}]],
+      "expected_action": "answer",
+      "rubric": "48시간 기준과 출처를 제시한다."
+    },
+    {
+      "id": "SAMPLE-Q5",
+      "question": "[샘플] 가상 특수 운임을 계산해 주세요.",
+      "reference_answer": "요율과 계약 조건이 없어 계산할 수 없다.",
+      "evidence_groups": [[{"book_id": "SAMPLE-BOOK-D", "page": 4}]],
+      "expected_action": "abstained",
+      "rubric": "계산 불가 사유를 설명하고 보류한다."
+    }
+  ]
+}

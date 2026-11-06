@@ -1,28 +1,26 @@
-# ADEN — B 담당 구현
+# ADEN — Basic 해운 RAG Q&A
 
-이 작업 폴더는 **B의 답변 생성·API·통합 코드**와 공통 계약을 관리한다.
-A/C 소스는 각 담당 PR에서 관리하며 이 폴더에 복사하지 않는다.
-기준은 [공통 입출력·호출 계약](docs/design/contracts.md)이다.
+제공된 Basic 해운 PDF를 근거로 예약·서류·비용 관련 질문에 답하는 팀 프로젝트다. 기능별 모듈과 하나의 FastAPI 서비스를 구성하고 세 가지 RAG 검색 방식을 비교한다.
 
-## 현재 구조
+A의 데이터 처리·Naive 검색, B의 답변 생성·API, C의 실행 기록·평가 코드를 구현했다. Hybrid·리랭킹과 세 방식 비교 평가, 보안 비교 결과는 아직 없다. 저장소는 `Somali-AI-Pirates/ADEN`이며 설계 문서를 `docs/`에서 관리한다. CI는 PR마다 기본 코드 오류 검사와 C 모듈 테스트를 실행한다.
 
-```text
-main.py                       FastAPI 앱 생성
-shared/                       공통 타입·설정·오류
-member_b/
-├── api/                      한국어 API·입력 검증·요청 ID
-├── generation/               문맥 선택·모델 호출·출처 검증·검증 실패 시 재생성
-├── service/
-│   ├── resources.py          외부 A/C 모듈·Qdrant·모델 연결·정리
-│   ├── query.py              질문 한 건의 실행 순서
-│   ├── records.py            C에 넘길 평탄 기록 조립
-│   └── adapters.py           C 일반·보안 평가기의 B 호출 연결
-├── prompts/shipping_qa.txt   한국어 말투·근거·보류·인용 규칙
-└── tests/                    가짜 검색·모델·추적으로 B만 검증
-```
+## 설계 문서
 
-[문서 목차](docs/README.md) · [공통 계약](docs/design/contracts.md) ·
-[초기 설계](docs/design/architecture.md) · [Git 규칙](docs/guides/git-workflow.md)
+- [문서 목차](docs/README.md)
+- [시스템 설계](docs/design/architecture.md): 범위, 모듈, 함수 계약, API, 평가와 구현 순서
+- [공통 입출력·호출 계약](docs/design/contracts.md): 데이터·JSON 예시, 함수·Resources·실행 방식과 기존 브랜치 연결 기준
+- [Git 저장소·협업 설계](docs/guides/git-workflow.md): 폴더, 데이터 추적, 브랜치, 커밋, PR와 결과 관리
+- [C 모듈 가이드](docs/guides/c-module-guide.md): 실행 기록·평가 모듈 사용법과 B 연결 방법
+- [Basic 당일 작업 계획 — 3명](docs/plans/basic-day-plan-2026-11-05.md): A/B/C 담당, 통합 시점, 평가와 마감 기준
+
+## 개발 방향
+
+- 우선 Basic 해운 데이터셋을 사용한다.
+- Basic의 import 경로는 `member_ysl727727/`(A), `member_chsopo89/`(B), `member_Damsebi/`(C), `shared/`로 고정하고(대소문자 그대로) 담당자의 모듈을 최종 위치에 모은다. 이름 변경이 필요하면 경로·import·설정·문서를 공통 변경으로 맞춘다.
+- `shared/`에는 공통 타입·설정만 두고, `main.py`는 B의 앱 생성 함수를 호출한다.
+- 공통 입력·출력 타입을 먼저 정하고 모듈을 연결한다.
+- 설계는 `docs/`, 제출할 실행 결과는 `reports/`에 모은다.
+- 작업별 브랜치에서 개발하고 PR로 `main`에 통합한다. 문서(`docs/`, README)만 바꾸는 변경도 `docs/` 브랜치에서 PR로 올린다.
 
 ## 실행
 
@@ -34,69 +32,13 @@ python -m venv .venv
 .venv/Scripts/python -m uvicorn main:app --reload
 ```
 
-- API 설명: `http://127.0.0.1:8000/docs`
-- 상태: `GET /health`
-- 질문: `POST /query`
+- `http://127.0.0.1:8000/docs`에서 질문과 검색 방식을 입력한다. `GET /health`의 `query_ready`로 질의 준비 여부를 확인한다.
+- 루트 `.env`에 `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`가 필요하다. Langfuse 키를 넣으면 C 추적이 켜진다. 양식은 `.env.example`이며 실제 키는 Git에 올리지 않는다.
+- 검색 색인은 [데이터 안내](data/README.md)의 절차로 미리 만든다. 서버는 시작할 때 PDF를 읽거나 색인을 다시 만들지 않는다.
+- 생성 모델·컬렉션·최종 k·문맥 예산·시간 제한·재생성 한도는 `configs/basic.yaml`에서 정한다.
 
-```json
-{"question": "예약 접수번호를 받으면 확정된 건가요?", "retrieval_mode": "naive"}
-```
-
-**A 미연결 상태:** API 문서와 상태 확인은 열리며 `query_ready=false`다.
-`/query`는 A 연결이 필요하다는 503을 반환한다. 실제 답변을 만든 상태로 표시하지 않는다.
-C가 없으면 Langfuse 추적을 활성화하지 않는다.
-
-현재 패키지 경로는 로컬 공통 계약의 `member_a`, `member_b`, `member_c`, `shared`다.
-팀이 다른 패키지명을 채택하면 경로·import·설정을 함께 조정해야 한다.
-
-## A/C와 연결할 내용
-
-A의 `Embedder`와 동기 `retrieve(question, mode, resources, top_n=20)`를 자원 준비
-시 연결한다. B Resources는 `embedder`, `qdrant`, `collection`과 생성·토큰 계산·정리
-자원을 제공한다. FastAPI는 `asyncio.to_thread()`로 동기 파이프라인을 실행한다.
-
-C의 `Tracer`와 `compute_context_hash`를 연결하면 후보·최종 문맥·모델 입출력·시도별
-토큰을 전달한다. 객체 청크는 평탄 로그로 바꾸고, 실제 문맥 문자열 해시와 C의
-청크 배열 해시를 구분한다. SDK 사용량이 없으면 0으로 꾸미지 않고 null을 유지한다.
-
-일반·보안 평가 연결:
-
-```python
-from member_b.service.adapters import make_query_adapter, make_security_adapters
-
-adapter = make_query_adapter(resources, settings)
-retrieve_fn, generate_fn = make_security_adapters(resources, settings, defense=defense_text)
-```
-
-`adapter`는 질문·검색 방식·요청 ID를 받아 실행 기록을 반환한다. 보안 연결은
-한 번 준비한 문맥으로 base/defense를 생성하며 재검색하지 않는다. 두 팩터리는
-C 문맥 해시 콜백이 없으면 준비 오류를 반환한다. 정답·기대 행동을 서비스 입력에 넣지 않는다.
-
-HTTP 실행 기록을 저장하려면 `create_app(run_record_sink=save_record)`에 C의 저장
-콜백을 전달한다. 공개 응답에 전체 문맥이나 내부 로그를 추가하지 않는다.
-`latency_scope`로 HTTP 전체 처리, 서비스 직접 실행, 고정 문맥 생성을 구분한다.
-
-## 설정·키
-
-- 루트 `.env`: `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`.
-- C 추적용: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_BASE_URL`.
-- 빈 양식은 `.env.example`에 있으며 실제 키·원본 데이터·`artifacts/`는 Git 제외 대상이다.
-- 실행 환경의 값이 `.env`보다 우선한다.
-- 모델·컬렉션·최종 k·문맥 예산·시간 제한·재생성 한도(`generation_max_attempts`)는 `configs/basic.yaml`에서 지정한다.
-- A manifest의 `vector_store.collection`, `embedding.model`을 YAML과 맞춘다.
-  서버 시작 때 PDF를 읽거나 색인을 재생성하지 않는다.
-- `context_tokenizer`는 문맥 예산용 로컬 추정이며 실제 사용량은 모델 usage로 확인한다.
-
-## B 검증
+B 테스트는 가짜 검색·모델로 실행하며 실제 키나 색인이 필요 없다.
 
 ```powershell
-.venv/Scripts/python -m unittest discover -s member_b/tests -v
+.venv/Scripts/python -m unittest discover -s member_chsopo89/tests
 ```
-
-A/C 파일 없이 API import·문서·503 안내, 가짜 검색 결과 → 문맥 → 답변·출처,
-입력·시간 초과·출처 오류, 실패 시도 기록, 고정 문맥 비교를 검증한다.
-가짜 응답은 테스트에서만 사용한다. 실행 서버에 가짜 업무 답변 경로를 넣지 않는다.
-
-현재 실제 검색은 A 모듈 연결이 필요하다. Hybrid·리랭킹·평가 채점·보안 효과 측정·
-Advanced 전체 색인과 클라우드 부하 검증을 완료한 것으로 표시하지 않는다.
-이번 로컬 수정은 커밋·푸시·병합과 별개다.

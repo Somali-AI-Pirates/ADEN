@@ -1,10 +1,6 @@
 # Basic 해운 RAG Q&A 서비스 설계안
 
-> 함수 시그니처·공통 타입·로그 형식의 최종 기준은 [공통 입출력·호출 계약](contracts.md)이다. 이 문서와 어긋나면 그쪽을 따른다.
-
-작성일: 2026-11-05 · 수정일: 2026-11-06. 2026-11-06에 패키지 구조를 `app/`에서 담당자별 `member_a`·`member_b`·`member_c`와 공통 `shared`로 바꾼 내용을 반영했다.
-
-진행 상태는 담당별로 다르다. B의 답변 생성·API·통합은 `feat/basic-api-generation`에 구현했고 가짜 검색·모델로 검증했다. A의 데이터·색인·검색과 C의 기록·평가는 각 담당 브랜치에 있으며 `main`에는 아직 문서만 있다. 세 패키지를 합친 실제 질의 처리, 전체 PDF 색인, 성능 평가는 아직 수행하지 않았다.
+작성일: 2026-11-05 · 수정일: 2026-11-06. A의 데이터 처리·Naive 검색, B의 답변 생성·API, C의 실행 기록·평가 코드가 각 패키지에 들어왔다. Hybrid·리랭킹, 세 방식 비교 평가와 보안 비교 결과는 아직 없다.
 
 관련 문서: [문서 목차](../README.md) · [공통 입출력·호출 계약](contracts.md) · [Git 저장소·협업 설계](../guides/git-workflow.md)
 
@@ -32,12 +28,14 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 
 ## 2. 구조의 핵심
 
-**기능별 폴더에서 독립적으로 구현하고, 메인 파일은 초기화·연결 함수를 호출한다.** 질문 한 건의 실행 순서는 별도 서비스 함수에 둔다.
+**사람별 최상위 패키지 안에서 기능을 모듈화하고, 메인 파일은 초기화·연결 함수를 호출한다.** 질문 한 건의 실행 순서는 별도 서비스 함수에 둔다.
 
 - `main.py`: FastAPI 앱 생성 함수 호출.
-- `member_b/api/app.py`: 설정과 수명주기, 라우터, 오류 처리, 요청 추적 연결.
-- `member_b/service/query.py`: 검색 → 문맥 구성 → 생성 → 출처 검증 순서 연결.
+- `member_chsopo89/api/app.py`: 설정과 수명주기, 라우터, 오류 처리, 요청 추적 연결.
+- `member_chsopo89/service/query.py`: 검색 → 문맥 구성 → 생성 → 출처 검증 순서 연결.
 - 각 기능 모듈: 자기 기능과 공통 입출력 계약만 책임진다.
+
+Basic의 import 경로는 담당자 ID를 붙인 `member_ysl727727`(A), `member_chsopo89`(B), `member_Damsebi`(C)와 `shared`로 고정한다(2026-11-06 팀 결정). 대소문자까지 그대로 사용한다. 패키지명을 다시 바꾸려면 폴더·import·설정·실행 명령을 팀 전체가 같은 변경에서 맞춘다. 사람별 패키지는 최종 코드 위치이며, 통합 시 하나의 `app/`으로 다시 옮기지 않는다. 각 패키지 안의 기능·scripts·prompts·tests는 해당 담당자가 관리한다.
 
 예약·서류·비용은 사용자 업무 범주다. Basic에서는 세 범주를 별도 RAG 서비스나 검색 인덱스로 나누지 않는다. 하나의 질문이 예약 안내, 서류 조건과 정정 공지를 함께 필요로 할 수 있기 때문이다. 업무 범주는 프롬프트와 평가 사례에서 관리한다.
 
@@ -63,132 +61,107 @@ flowchart LR
 
 ## 3. 폴더 구조
 
-import 경로는 담당자별 `member_a`·`member_b`·`member_c`와 공통 `shared`로 고정한다. 아래 트리에서 **B 표시가 구현된 부분**이고 나머지는 각 담당 브랜치의 목표 구조다. Python 패키지에는 `__init__.py`를 둔다. Git 추적 범위와 브랜치 규칙은 [Git 저장소·협업 설계](../guides/git-workflow.md)를 따른다.
+아래는 **구현할 목표 구조**다. 현재는 루트 README와 `docs/` 문서만 정리되어 있으며 소스·데이터·평가 결과는 아직 생성하지 않았다. Python 패키지에는 `__init__.py`를 둔다. Git 추적 범위와 브랜치 규칙은 [Git 저장소·협업 설계](../guides/git-workflow.md)를 따른다.
 
 ```text
 ADEN/
-├── main.py                         # B: create_app() 호출
-├── pyproject.toml                  # B: 의존성·패키지 탐색
-├── .env.example                    # 환경변수 이름과 예시
-├── .gitignore
 ├── README.md
-├── docs/                           # 설계 문서 모음
-│   ├── README.md                   # 문서 목차
-│   ├── design/
-│   │   ├── architecture.md         # 이 문서: 시스템 설계
-│   │   └── contracts.md            # 공통 타입·호출·로그 계약 (우선 기준)
-│   ├── plans/
-│   │   └── basic-day-plan-2026-11-05.md # 날짜별 업무 분담
-│   └── guides/
-│       └── git-workflow.md         # 저장소·브랜치·PR 규칙
-├── configs/
-│   └── basic.yaml                  # B: 데이터·검색·생성 설정
-├── shared/                         # B: 사람별 패키지를 import하지 않는 공통 계층
-│   ├── contracts.py                # 모듈 공통 입출력 타입
-│   ├── settings.py                 # 설정 로드·검증
-│   └── exceptions.py               # 공통 예외 타입
-├── member_a/                       # 데이터·색인·검색
-│   ├── ingestion/
-│   │   ├── loader.py               # PDF 페이지별 텍스트 추출
-│   │   ├── chunker.py              # 페이지·문단을 보존하는 청킹
-│   │   └── pipeline.py             # 추출·청킹·처리 내역 저장
-│   ├── indexing/
-│   │   ├── embeddings.py           # 문서/질문 임베딩 공통 설정
-│   │   ├── vector_store.py         # Qdrant 색인 생성·로드
-│   │   ├── keyword_store.py        # 같은 청크로 BM25 색인 생성·로드
-│   │   └── pipeline.py             # 두 색인과 manifest 생성
-│   ├── retrieval/
-│   │   ├── dense.py                # Naive 검색
-│   │   ├── hybrid.py               # Dense + BM25, RRF 결합
-│   │   ├── reranker.py             # Hybrid 후보 재정렬
-│   │   └── service.py              # retrieve() 단일 진입점
-│   ├── scripts/build_index.py      # 사전 데이터 처리 실행
-│   └── tests/                      # 페이지 출처·청킹·검색 계약 확인
-├── member_b/                       # B: 답변 생성·API·통합
-│   ├── generation/
-│   │   ├── context.py              # 토큰 예산·최종 청크·출처 대응표
-│   │   ├── chain.py                # LangChain 호출·구조화 출력·출력 검증 재시도
-│   │   └── citations.py            # 출처 ID 검증·실제 파일/페이지 연결
-│   ├── service/
-│   │   ├── resources.py            # A/C 모듈·모델·색인 클라이언트 초기화/종료
-│   │   ├── query.py                # answer_query(): 요청 처리 순서
-│   │   ├── records.py              # C에 넘길 평탄 실행 기록 조립
-│   │   └── adapters.py             # C 일반·보안 평가기의 B 호출 연결
-│   ├── api/
-│   │   ├── app.py                  # create_app(), lifespan, 오류 응답 변환
-│   │   └── routes.py               # /health, /query
-│   ├── prompts/shipping_qa.txt     # 공통 업무 지시
-│   └── tests/                      # 가짜 검색·모델·추적으로 B 계약 확인
-├── member_c/                       # 실행 기록·평가
-│   ├── observability/
-│   │   ├── tracing.py              # Langfuse·시간·토큰·오류 기록
-│   │   └── records.py              # RunRecord 검증·usage 계산·문맥 해시
-│   ├── evaluation/
-│   │   ├── dataset.py              # 질문 로드·생성 후 정답 ID 결합
-│   │   ├── runner.py               # 질문 × 세 검색 방식 실행
-│   │   ├── metrics.py              # Hit/Recall·운영 지표
-│   │   ├── graders.py              # RAGAS·Judge
-│   │   ├── security.py             # 동일 문맥으로 기본/방어 비교
-│   │   └── report.py               # 비교표 CSV 생성
-│   ├── prompts/
-│   │   ├── defense.txt             # 보안 비교에서 덧붙일 지시
-│   │   └── judge.txt               # 평가 전용 채점 지시
+├── main.py                         # B: 앱 생성 함수만 호출
+├── pyproject.toml                  # B: 의존성 변경 취합
+├── uv.lock                         # uv 채택 시 추적하는 잠금 파일
+├── .env.example                    # 실제 키를 제외한 변수 안내
+├── .gitignore
+├── .github/                        # PR 템플릿·CI, 구현 단계에 추가
+├── shared/                         # 공통 계약·설정, B가 변경 취합
+│   ├── __init__.py
+│   ├── contracts.py                # 청크·응답·실행 기록 타입
+│   ├── settings.py
+│   └── exceptions.py
+├── member_ysl727727/               # A의 최종 Python 패키지
+│   ├── __init__.py
+│   ├── ingestion/                  # PDF 추출·청킹
+│   ├── indexing/                   # 임베딩·Dense/BM25 색인
+│   ├── retrieval/                  # 세 검색 방식, service.py에 retrieve()
 │   ├── scripts/
-│   │   ├── run_benchmark.py        # 일반 평가 실행
-│   │   └── run_security.py         # 보안 비교 실행
-│   └── tests/                      # 기록 검증·지표 계산 계약 확인
+│   │   └── build_index.py
+│   └── tests/
+├── member_chsopo89/                # B의 최종 Python 패키지
+│   ├── __init__.py
+│   ├── api/                        # app.py에 create_app()
+│   ├── generation/                 # context.py, chain.py, citations.py
+│   ├── service/
+│   │   ├── query.py                # A·B·C 함수 연결
+│   │   └── resources.py            # 준비된 색인·모델 로드/종료
+│   ├── prompts/
+│   │   └── shipping_qa.txt
+│   └── tests/
+├── member_Damsebi/                 # C의 최종 Python 패키지
+│   ├── __init__.py
+│   ├── observability/
+│   │   └── tracing.py              # Langfuse·시간·토큰·오류 기록
+│   ├── evaluation/
+│   │   ├── dataset.py
+│   │   ├── runner.py
+│   │   ├── metrics.py
+│   │   ├── graders.py
+│   │   ├── security.py
+│   │   └── report.py
+│   ├── prompts/
+│   │   ├── judge.txt
+│   │   └── defense.txt
+│   ├── scripts/
+│   │   ├── run_benchmark.py
+│   │   └── run_security.py
+│   └── tests/
+├── configs/
+│   └── basic.yaml                  # B가 공통 설정 취합
+├── docs/
+│   ├── README.md
+│   ├── design/architecture.md
+│   ├── design/contracts.md          # 공통 데이터·함수·실행 계약
+│   ├── guides/git-workflow.md
+│   └── plans/basic-day-plan-2026-11-05.md
 ├── data/
-│   ├── README.md                   # 원본 자료 배치·검증 안내
+│   ├── README.md                   # A: 데이터 배치·처리 안내
 │   └── basic/
-│       ├── documents/              # 제공 PDF만, 원본 파일명 유지
-│       └── evaluation/             # 제공 질문·정답 JSON 원본
-├── artifacts/
+│       ├── documents/              # 제공 PDF 원본, Git 제외
+│       └── evaluation/             # 제공 질문·정답 JSON, Git 제외
+├── presentations/                  # 발표자료 작성 시 추가
+├── artifacts/                      # 추출·청크·색인·실행 기록, Git 제외
 │   ├── basic/
-│   │   ├── pages.jsonl
-│   │   ├── chunks.jsonl
-│   │   ├── ingestion_report.json
-│   │   └── index_manifest.json
 │   └── experiments/<experiment_id>/
-│       ├── manifest.json           # 질문·모델·설정·코드 버전
-│       ├── runs.jsonl              # 생성 실행 기록
-│       ├── scores.jsonl            # 자동 채점 기록
-│       ├── security_runs.jsonl
-│       └── comparison.csv
-└── reports/<experiment_id>/        # Git에 남길 최종 비교·평가 결과
-    ├── README.md                   # 실행 조건·결과 해석·한계
-    ├── manifest.json               # 비밀값을 제외한 재현 설정
-    ├── comparison.csv              # 선택한 일반 질문 전체 × 세 방식
-    └── security_comparison.csv     # 보안 답변 4개 비교
+└── reports/<experiment_id>/         # C: 제출용 결과, Git 추적
+    ├── README.md
+    ├── manifest.json
+    ├── comparison.csv
+    ├── answers.jsonl
+    ├── scores.jsonl
+    └── security_comparison.csv
 ```
 
-테스트는 담당 패키지 안에 둔다. B는 `member_b/tests/`에서 A·C 소스 없이 import·문맥·생성·오류 계약을 확인한다.
-
-`member_c/evaluation/`은 코드, `data/basic/evaluation/`은 제공 데이터다. 서비스 런타임은 평가 코드와 정답 파일을 읽지 않는다. 데이터 처리기는 `data/basic/documents/*.pdf`만 허용하고 데이터 루트 전체를 재귀 색인하지 않는다.
+`member_Damsebi/evaluation/`은 코드, `data/basic/evaluation/`은 제공 데이터다. 서비스 런타임은 평가 코드와 정답 파일을 읽지 않는다. 데이터 처리기는 `data/basic/documents/*.pdf`만 허용하고 데이터 루트 전체를 재귀 색인하지 않는다.
 
 원본 데이터와 `artifacts/`는 Git에서 제외하고, 제출할 비교표·답변·채점 결과·재현 설정은 검토 후 `reports/<experiment_id>/`에 보존한다. 선택한 일반 질문의 실패 결과도 함께 남긴다. 설계 설명은 `docs/`, 실행 결과는 `reports/`, 빠른 시작 안내는 루트 README에 둔다.
 
-의존 방향은 `api → service → retrieval/generation → indexing`이다. `shared/contracts.py`는 공통으로 참조하되 `shared/`가 사람별 패키지를 역으로 import하지 않는다. 하위 모듈이 API나 서비스 모듈을 역으로 import하지 않는다. `observability`도 API나 평가 모듈에 의존하지 않는다. 패키지 import 시 모델 로딩이나 네트워크 호출을 실행하지 않는다.
-
-B는 A·C 모듈을 자원 준비 시점에만 연결한다. A가 없으면 `/docs`·`/openapi.json`·`/health`는 열리고 `query_ready=false`, `/query`는 명시적인 503이다. C가 없으면 추적이 비활성이다. 실제 업무 응답을 가짜 검색으로 대체하지 않는다.
+B의 `member_chsopo89/service/query.py`가 A의 검색 함수, B의 생성 함수, C의 추적 함수를 호출한다. 세 패키지는 `shared/contracts.py`를 공통 참조한다. `shared/`는 사람별 패키지를 import하지 않는다. A의 검색과 C의 추적 모듈도 B의 서비스·API를 역으로 import하지 않는다. C의 평가 실행기는 호출 함수나 API 클라이언트를 주입받아 순환 참조 없이 동작한다. 색인·모델 초기화 연결은 B의 `member_chsopo89/service/resources.py`가 맡는다. 패키지 import 시 모델 로딩이나 네트워크 호출을 실행하지 않는다.
 
 ## 4. 모듈별 함수 계약
 
-아래는 모듈별 책임 요약이다. **확정 시그니처와 인자 이름은 [공통 입출력·호출 계약 §5](contracts.md#5-함수-호출-계약)에 있으며 이 표보다 우선한다.** 기능 함수는 모두 동기 함수다.
+정확한 필드·JSON 예시·함수 인자·동기 호출·오류·Resources 정의는 [공통 계약](contracts.md)을 따른다. 아래는 책임과 입출력의 요약이다. `ingestion/indexing/retrieval`은 `member_ysl727727`, `generation/service`는 `member_chsopo89`, `evaluation`은 `member_Damsebi` 아래의 모듈을 뜻한다. 공통 타입과 가상 입출력을 먼저 맞춰 각자 독립 개발한다.
 
 | 모듈·함수 | 입력 | 출력 | 책임 |
 | --- | --- | --- | --- |
-| `member_a.ingestion.extract_pages()` | PDF 경로 목록 | `PageDocument[]`, 처리 내역 | PDF 첫 장부터 1쪽으로 기록 |
-| `member_a.ingestion.chunk_pages()` | 페이지 목록, 청킹 설정 | `Chunk[]` | 문단·목록·출처 유지 |
-| `member_a.indexing.build_indexes()` | 청크 목록, 설정 | `IndexManifest` | 동일 청크로 벡터·키워드 색인 |
-| `member_a.retrieval.retrieve()` | 질문, mode, resources, top_n | 순서가 있는 `RetrievedChunk[]` | 방식별 후보 목록 반환 |
-| `member_b.service.load_resources()` | 설정 | `Resources` | 준비된 색인·모델·A/C 연결을 한 번 로드 |
-| `member_b.generation.build_context()` | 후보 목록, k, 토큰 예산, 토큰 계산 함수 | `ContextBundle` | 실제 전달할 문맥·출처 대응표·제외 청크 확정 |
-| `member_b.generation.generate_answer()` | 질문, 문맥, 모델, 방어 문장, 요청 추적, 시도 기록, 최대 시도 수 | `GenerationResult` | 구조화 답변·실제 사용량·시도별 기록 반환 |
-| `member_b.generation.resolve_citations()` | 모델 출처 ID, 문맥 대응표 | `Citation[]` | 없는 출처 ID 거부 |
-| `member_b.service.answer_query()` | `QueryRequest`, resources, request_id, 설정 | `QueryResponse`, 선택 실행 기록 | 요청 처리 단계 연결 |
-| `member_c.observability.normalize_run_record()` | 조립된 실행 기록 | 검증된 기록 | 필수 키·타입 확인과 usage 계산 |
-| `member_c.evaluation.run_comparison()` | 질문 ID·질문, 어댑터, 공통 설정 | 실행 기록 목록 | 같은 질문을 세 방식으로 실행 |
-| `member_c.evaluation.grade_all()` | 저장된 실행, 정답·채점 기준 | 평가 기록 | 기존 답변을 채점, 재생성하지 않음 |
+| `ingestion.extract_pages()` | PDF 경로 목록 | `PageDocument[]`, 처리 내역 | PDF 첫 장부터 1쪽으로 기록 |
+| `ingestion.chunk_pages()` | 페이지 목록, 청킹 설정 | `Chunk[]` | 문단·목록·출처 유지 |
+| `indexing.build_indexes()` | 청크 목록, 설정 | `IndexManifest` | 동일 청크로 벡터·키워드 색인 |
+| `member_chsopo89.service.resources.load_resources()` | 설정 | `Resources` | 준비된 색인·모델 한 번 로드 |
+| `retrieval.retrieve()` | 질문, mode, resources | 순서가 있는 `RetrievedChunk[]` | 방식별 후보 목록 반환 |
+| `generation.build_context()` | 후보 목록, k, 토큰 예산, 토큰 계산 함수 | `ContextBundle` | 실제 전달할 문맥과 출처 대응표 확정 |
+| `generation.generate_answer()` | 질문, 문맥, 모델; 선택 프롬프트 경로·방어 문장·요청 추적 | `GenerationResult` | 구조화 답변·실제 시도별 사용량 반환 |
+| `generation.resolve_citations()` | 모델 출처 ID, 문맥 대응표 | `Citation[]` | 없는 출처 ID 거부 |
+| `service.answer_query()` | `QueryRequest`, resources, request_id, settings | `QueryResponse` | 실행 기록은 C 추적·저장 연결로 별도 보존 |
+| `evaluation.run_comparison()` | 질문 ID·질문, 서비스 어댑터, 공통 실행 메타데이터 | 실행 기록 목록 | 같은 질문을 세 방식으로 실행한 뒤 파일 저장 |
+| `evaluation.grade_all()` | 저장된 기록, 정답·채점 기준, k, 평가 함수 | 평가 기록 목록 | 기존 답변을 채점, 재생성하지 않음 |
 
 공통 타입의 최소 필드는 다음과 같다.
 
@@ -197,33 +170,42 @@ B는 A·C 모듈을 자원 준비 시점에만 연결한다. A가 없으면 `/do
 | `PageDocument` | `book_id`, `file_name`, `page`, `text` |
 | `Chunk` | `chunk_id`, `book_id`, `file_name`, `page`, `text` |
 | `RetrievedChunk` | `chunk`, `rank`, `score`, `retriever` |
-| `ContextBundle` | `text`, `final_chunks`, `source_map`, `context_hash`, `token_count`, `excluded_chunk_ids` |
+| `ContextBundle` | `text`, `final_chunks: list[RetrievedChunk]`, `source_map`, `context_hash`, `token_count` |
 | `ModelAnswer` | `status`, `answer`, `reason`, `source_ids` |
 | `GenerationResult` | `model_answer`, `attempts`, `usage` |
 | `Citation` | `source_id`, `book_id`, `file_name`, `page` |
 | `QueryResponse` | `request_id`, `status`, `answer`, `reason`, `citations` |
+| `RunRecord` | C가 받는 평탄 청크·실제 문맥·요청/평가 ID·상태·인용·시도별 입출력·시간·사용량; 전체 정의는 [공통 계약](contracts.md) 참조 |
+
+`RetrievedChunk.chunk`와 `ContextBundle.final_chunks`는 중첩 객체다. C의 `RunRecord.retrieved_candidates`·`final_context_chunks`는 평탄 로그이며 B의 연결부에서 명시적으로 변환한다. 문맥 문자열 해시와 로그 청크 해시는 계산식이 다르므로 공통 계약에 따라 각각 저장한다.
 
 `book_id`는 원본 PDF 파일명에서 `.pdf`만 제거한 값이다. 원문에 없는 적용일·승인 상태·항로 등의 메타데이터를 추측해 넣지 않는다. 첫 구현은 청크가 페이지를 넘지 않도록 해 출처를 단순하게 유지한다. 상위 난이도에서 여러 페이지를 합치면 구절별 페이지 출처를 추가한다.
 
 ## 5. 메인 파일과 요청 실행 흐름
 
-`main.py`는 다음과 같다.
+`main.py`의 목표 형태는 다음과 같다. 아래 코드는 연결 방식을 설명하는 예시이며 아직 실행 가능한 구현이 아니다.
 
 ```python
-from member_b.api.app import create_app
+from member_chsopo89.api.app import create_app
 
 app = create_app()
 ```
 
-`create_app()`은 설정 로드, FastAPI 생성, 라우터·오류 핸들러·요청 ID 미들웨어 등록을 맡는다. FastAPI lifespan에서 `load_resources()`를 호출하고 종료 시 자원을 해제한다.
-
-**검색·문맥·생성 함수는 모두 동기 함수다.** 비동기 라우터는 `asyncio.to_thread()`로 요청 파이프라인을 작업 스레드에서 실행해 이벤트 루프를 막지 않는다. 반환값에 임의로 `await`하지 않는다.
+`create_app()`은 설정 로드, FastAPI 생성, 라우터·오류 핸들러·요청 추적 등록을 맡는다. FastAPI lifespan에서 `load_resources()`를 호출하고 종료 시 자원을 해제한다.
 
 ```python
-# member_b/service/query.py — 핵심 흐름 요약
-def answer_query(request, resources, request_id, settings, *, run_record=None):
-    candidates = resources.retriever(
-        request.question, mode, resources, top_n=settings.retrieval.candidate_count
+# member_chsopo89/service/query.py — 핵심 흐름 예시
+from member_ysl727727.retrieval.service import retrieve
+from member_chsopo89.generation.context import build_context
+from member_chsopo89.generation.chain import generate_answer
+from member_chsopo89.generation.citations import resolve_citations
+from shared.contracts import QueryResponse
+
+def answer_query(request, resources, request_id, settings):
+    mode = request.retrieval_mode or settings.retrieval.default_mode
+    candidates = retrieve(
+        request.question, mode, resources,
+        top_n=settings.retrieval.candidate_count,
     )
     context = build_context(
         candidates, settings.retrieval.k,
@@ -231,16 +213,20 @@ def answer_query(request, resources, request_id, settings, *, run_record=None):
     )
     generated = generate_answer(
         request.question, context, resources.model,
-        trace=trace, attempt_log=run_record["attempts"],
-        max_attempts=settings.generation_max_attempts,
     )
+    answer = generated.model_answer
     citations = resolve_citations(
-        generated.model_answer.source_ids, context.source_map
+        answer.source_ids, context.source_map,
     )
-    return QueryResponse(...)
+    return QueryResponse(
+        request_id=request_id, status=answer.status,
+        answer=answer.answer, reason=answer.reason, citations=citations,
+    )
 ```
 
-실제 구현은 이 흐름에 단계별 Langfuse 기록, 출력 검증 재시도, 오류 분류를 붙인다. 재시도 정책은 한 곳에만 둔다. 모델 클라이언트를 `max_retries=0`으로 만들고 SDK·LangChain의 자체 재시도와 겹치지 않게 한 뒤, 출력 형식·출처 검증에 실패했을 때만 `generation_max_attempts`까지 같은 문맥으로 다시 생성한다. 모델 timeout과 API 오류는 재시도하지 않고 그대로 올려 504·502 구분을 유지한다.
+위 코드는 성공 경로의 연결 설명이며 생략한 추적·오류·빈 문맥 처리를 포함해야 실제 서비스가 된다. 실제 구현에서는 C의 단계별 기록 함수에 평탄 로그와 실제 시도별 입출력을 넘긴다. API 응답과 내부 RunRecord는 요청 ID로 연결한다. 기능 함수는 동기 호출로 통일하고 비동기 API 래퍼가 요청 파이프라인을 제한된 작업 스레드에서 처리한다. 하나의 공통 재시도 정책을 두고 SDK와 LangChain의 재시도가 중복되지 않게 설정한다.
+
+저장소 루트 실행, 여러 최상위 패키지의 설치 설정, B·C 기존 코드의 연결 조정은 [공통 계약](contracts.md)의 실행·마이그레이션 기준을 따른다. 루트의 `main.py`는 `python -m uvicorn main:app`으로, C의 CLI는 `python -m member_Damsebi.scripts.run_benchmark` 등으로 실행한다. 코드·의존성이 준비된 뒤 실제 동작을 확인한다.
 
 빈 검색 결과는 근거를 확인하지 못했다는 정상 보류로 처리할 수 있다. 반면 색인 연결 실패, 모델 timeout, 잘못된 출력은 시스템 오류로 전달한다. 서비스 내부에서 오류를 보류로 바꾸지 않는다.
 
@@ -261,7 +247,7 @@ def answer_query(request, resources, request_id, settings, *, run_record=None):
 | 최종 k | 5개 | 세 방식 공통 |
 | 문맥 예산 | 생성 모델 토크나이저 기준 4,000토큰으로 시작 | 시스템·질문·출력 여유 포함 전체 한도 확인 |
 | 생성 | `gpt-6-luna`, 공통 프롬프트·지원되는 동일 생성 설정 | 모델의 실제 지원 파라미터 확인 후 고정 |
-| 호출 제어 | `model_timeout_seconds` 60초, `max_output_tokens` 2048, `generation_max_attempts` 2 | `configs/basic.yaml`에서 제한. 비교 전에 동결 |
+| 호출 제어 | `model_timeout_seconds` 60초, `max_output_tokens` 2048, `generation_max_attempts` 2 | `configs/basic.yaml`에서 제한. 첫 연결에서 환경에 맞게 정하고 비교 전에 동결 |
 
 숫자는 출발점이며 발제문 필수값이나 검증된 최적값이 아니다. 최종 비교 전에 한 번 확정하고 세 방식에 동일하게 적용한다.
 
@@ -271,7 +257,7 @@ def answer_query(request, resources, request_id, settings, *, run_record=None):
 | `hybrid` | Dense + BM25 → RRF → 공통 문맥 구성 |
 | `hybrid_rerank` | 동일 Hybrid 후보 → 리랭커 → 공통 문맥 구성 |
 
-문맥 구성기는 순서대로 최대 k개를 선택하되 토큰 한도를 지킨다. 문장 중간을 무조건 잘라 조건이나 출처를 없애지 않는다. 필요한 청크가 예산에 들어가지 않으면 `ContextBundle.excluded_chunk_ids`에 제외한 청크 ID를 남기고, 실행 기록에 `budget_excluded_chunk_ids`와 `final_context_chunk_count`로 실제 최종 개수까지 함께 보존한다. 세 방식에서 같은 정책을 적용한다.
+문맥 구성기는 순서대로 최대 k개를 선택하되 토큰 한도를 지킨다. 문장 중간을 무조건 잘라 조건이나 출처를 없애지 않는다. 필요한 청크가 예산에 들어가지 않으면 제외 사실과 실제 최종 개수를 기록한다. 세 방식에서 같은 정책을 적용한다.
 
 최종 문맥을 확정한 뒤 `S1`, `S2` 등의 요청 내부 출처 ID를 부여한다. **검색 후보와 실제 모델에 전달한 최종 문맥을 각각 저장한다.** 검색은 성공했지만 문맥 구성에서 근거가 빠진 경우를 구분하기 위해서다.
 
@@ -325,7 +311,7 @@ def answer_query(request, resources, request_id, settings, *, run_record=None):
 - API 수신부터 응답 직전까지의 시간과 단계별 시간.
 - 입력·출력 토큰, 확인되지 않은 사용량 여부.
 
-`RunRecord`는 `experiment_id`, `question_id`, `request_id`, `dataset_id`, `config_hash`, `retrieval_mode`, `question`, `retrieved_candidates`, `final_context_chunks`, `final_context_hash`, `model_context_text`, `model_context_hash`, `status`, `answer`, `reason`, `citations`, `attempts`, `latency_ms`, `usage`, `error_type`, `langfuse_trace_id`를 가진다. 최종 청크에는 실제로 전달한 텍스트도 저장한다. 필드별 null 규칙과 두 문맥 해시의 차이는 [공통 입출력·호출 계약 §3](contracts.md#3-c가-받는-직렬화된-실행-기록)에 있다.
+`RunRecord`는 `experiment_id`, `question_id`, `request_id`, `dataset_id`, `config_hash`, `retrieval_mode`, `question`, `retrieved_candidates`, `final_context_chunks`, `final_context_hash`, `status`, `answer`, `reason`, `citations`, `attempts`, `latency_ms`, `usage`, `error_type`, `langfuse_trace_id`를 가진다. 생성 단계에 도달한 기록에는 `model_context_text`·`model_context_hash`와 실제 시도별 모델 입출력을 추가한다. 최종 청크에는 실제로 전달한 텍스트를 저장한다. 필수·선택·null 조건과 두 문맥 해시의 정의는 [공통 계약](contracts.md)을 따른다.
 
 로컬 JSONL은 평가 입력과 장애 분석용 보조 기록이다. Langfuse 기록을 대체하지 않는다. 전송 실패는 별도 표시하고 기록을 재전송한 후 확인한다. Langfuse의 실제 요청 한 건에서 질문→검색→모델 입력→출력을 추적할 수 있어야 연동 완료로 본다.
 
@@ -370,15 +356,15 @@ Basic은 일반 질문 72개(개발 30, 추가 30, 확장 검증 12)와 보안 �
 
 ## 10. 협업 단위와 구현 순서
 
-팀은 **3명이며 오늘은 Basic에 집중**한다. A는 데이터·색인·검색, B는 답변 생성·API·통합, C는 평가·실행 기록을 맡는다. 아래 표는 기능별 작업 묶음이며, 실제 3명 배정과 통합 시점은 [Basic 당일 작업 계획](../plans/basic-day-plan-2026-11-05.md)을 따른다.
+팀은 **3명이며 우선 Basic에 집중**한다. A는 데이터·색인·검색, B는 답변 생성·API·통합, C는 평가·실행 기록을 맡는다. 아래 표는 기능별 작업 묶음이며, 실제 3명 배정과 통합 시점은 [Basic 당일 작업 계획](../plans/basic-day-plan-2026-11-05.md)을 따른다.
 
 | 작업 묶음 | 담당 폴더 | 완료 기준 |
 | --- | --- | --- |
-| 데이터·색인 | `member_a/ingestion`, `member_a/indexing` | PDF 15개 처리 내역, 페이지 출처, 두 색인 생성 |
-| 검색 | `member_a/retrieval` | 동일 계약으로 세 방식 검색, 순위·후보 수 재현 |
-| 답변 생성 | `member_b/generation`, `member_b/prompts` | 답변·추가 확인·보류, 구조화 출력, 출처 검증 |
-| API·통합 | `member_b/api`, `member_b/service`, `shared` | `/query` 전체 연결, 오류 구분, 평가 어댑터 |
-| 기록·평가·비교 | `member_c/observability`, `member_c/evaluation` | Langfuse 기록, 3N개 평가, 보안 4개, 비교표와 실패 분석 |
+| 데이터·색인 | `member_ysl727727/ingestion/`, `member_ysl727727/indexing/` | PDF 15개 처리 내역, 페이지 출처, 두 색인 생성 |
+| 검색 | `member_ysl727727/retrieval/` | 동일 계약으로 세 방식 검색, 순위·후보 수 재현 |
+| 답변 생성 | `member_chsopo89/generation/`, `member_chsopo89/prompts/` | 답변·추가 확인·보류, 구조화 출력, 출처 검증 |
+| API·통합·기록 | `member_chsopo89/api/`, `member_chsopo89/service/`, `member_Damsebi/observability/` | `/query` 전체 연결, 오류 구분, Langfuse 기록 |
+| 평가·비교 | `member_Damsebi/evaluation/`, `member_Damsebi/scripts/` | 3N개 평가, 보안 4개, 비교표와 실패 분석 |
 
 `shared/contracts.py`와 설정 키는 팀 공통 약속으로 먼저 확정한다. 함수 시그니처 변경은 담당자끼리 공유하고 호출부를 함께 바꾼다. 각 작업은 작은 샘플 입출력으로 연결을 확인한 뒤 실제 자료로 전환한다. 정답 자료에서 가져온 샘플은 런타임 프롬프트에 넣지 않는다.
 
@@ -399,19 +385,19 @@ Basic이 완료된 뒤 `configs/intermediate.yaml`, `data/intermediate/`, 별도
 
 - Intermediate: 실제 PDF 표의 행·열·단위·각주 보존과 운송 날짜·요율에 따른 계산을 추가한다.
 - Advanced: 여러 기록의 계약 조건·변경·승인 범위와 비용별 감면·면제, 청구와 수납 구분을 확장한다.
-- 계산 코드가 필요해지면 `member_b/calculation/` 같은 작은 모듈을 추가하되, PDF에서 확인한 입력값과 출처를 함께 전달한다.
+- 계산 코드가 필요해지면 `member_chsopo89/calculation/` 같은 작은 모듈을 추가하되, PDF에서 확인한 입력값과 출처를 함께 전달한다.
 - API 응답 계약, 검색 세 방식, 평가·Langfuse 구조는 유지한다. 각 난이도 안에서 공통 설정을 맞춰 다시 비교한다.
 
 ## 12. 요구사항과 산출물 대응
 
 | 발제문 요구 | 설계 위치 | 완료 증빙 |
 | --- | --- | --- |
-| 고정 PDF 기반 답변·출처·확인·보류 | `member_a.ingestion` / `member_b.generation` / `member_b.service` | 실제 응답과 원문 대조 |
-| 세 RAG 방식 비교 | `member_a.retrieval` / `member_c.evaluation` | 같은 질문별 비교표·설정 manifest |
-| FastAPI·LangChain·Langfuse | `member_b.api` / `member_b.generation` / `member_c.observability` | API 시연·요청별 trace |
-| 검색·답변 품질 평가 | `member_c.evaluation` | Hit/Recall·Faithfulness·Judge 점수와 이유 |
-| 보안 비교 | `member_c.evaluation.security` + B의 `make_security_adapters` | 같은 문맥의 답변 4개와 노출 분석 |
-| 운영 지표 | `member_c.observability.tracing` / `member_c.evaluation.metrics` / `report` | 시간·오류·토큰·확인 가능 시 비용 |
+| 고정 PDF 기반 답변·출처·확인·보류 | member_ysl727727/ingestion / member_chsopo89/generation / member_chsopo89/service | 실제 응답과 원문 대조 |
+| 세 RAG 방식 비교 | member_ysl727727/retrieval / member_Damsebi/evaluation | 같은 질문별 비교표·설정 manifest |
+| FastAPI·LangChain·Langfuse | member_chsopo89/api / member_chsopo89/generation / member_Damsebi/observability | API 시연·요청별 trace |
+| 검색·답변 품질 평가 | member_Damsebi/evaluation | Hit/Recall·Faithfulness·Judge 점수와 이유 |
+| 보안 비교 | member_Damsebi/evaluation/security.py | 같은 문맥의 답변 4개와 노출 분석 |
+| 운영 지표 | member_Damsebi/observability / member_Damsebi/evaluation | 시간·오류·토큰·확인 가능 시 비용 |
 | 재실행·최종 선택·발표 | README / comparison.csv / 발표자료 | 실행 절차·선택 이유·한계·팀 기여 |
 
 참고 원문:

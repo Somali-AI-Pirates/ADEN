@@ -4,17 +4,17 @@
 
 관련 문서: [문서 목차](../README.md) · [시스템 설계](architecture.md) · [Git 협업 규칙](../guides/git-workflow.md)
 
-이 문서는 Basic의 모듈 연결 기준이다. Python 공통 데이터 타입은 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. SDK 클라이언트를 포함하는 실행 자원은 B가 `member_b/service/resources.py`에서 관리한다. C의 로그 검증·직렬화 코드는 `member_c/observability/records.py`가 맡는다.
+이 문서는 Basic의 모듈 연결 기준이다. Python 공통 데이터 타입은 구현 시 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. SDK 클라이언트를 포함하는 실행 자원은 B가 `member_chsopo89/service/resources.py`에서 관리한다. C의 로그 검증·직렬화 코드는 `member_Damsebi/observability/records.py`가 맡는다.
 
-적용 상태는 담당별로 다르다. B는 `feat/basic-api-generation`에서 아래 계약을 `shared/`·`member_b/`에 반영하고 가짜 검색·모델로 검증했다. A·C 소스는 각 담당 브랜치에 있고 `main`에는 아직 문서만 있다. 따라서 세 패키지를 합친 실제 질의 처리는 아직 확인하지 않았다.
+A의 데이터 처리·Naive 검색과 C의 실행 기록·평가 코드는 main에 병합돼 있고, B는 이 계약을 `shared/`·`member_chsopo89/`에 반영해 가짜 검색·모델로 검증했다. 세 패키지를 합쳐 실제 색인과 실제 모델로 질의한 결과는 아직 확인하지 않았다.
 
 ## 1. 패키지명과 의존 방향
 
-Basic의 import 경로는 `member_a`, `member_b`, `member_c`, `shared`로 고정한다. 실제 담당자 이름은 문서의 담당표로 연결한다. 실제 이름을 패키지명에 사용하기로 변경하면 팀 전체가 경로·import·패키지 설정·실행 명령을 같은 변경에서 맞춘다. 각자가 독립적으로 이름을 바꾸지 않는다.
+Basic의 import 경로는 담당자 ID를 붙인 `member_ysl727727`(A), `member_chsopo89`(B), `member_Damsebi`(C)와 `shared`로 고정한다(2026-11-06 팀 결정). 대소문자까지 그대로 사용한다. 패키지명을 다시 바꾸려면 팀 전체가 경로·import·패키지 설정·실행 명령을 같은 변경에서 맞춘다. 각자가 독립적으로 이름을 바꾸지 않는다.
 
-- A: `member_a/ingestion`, `indexing`, `retrieval`.
-- B: `member_b/api`, `generation`, `service`; 공통 파일 변경 취합.
-- C: `member_c/observability`, `evaluation`; 평가·보안 실행 스크립트.
+- A: `member_ysl727727/ingestion`, `indexing`, `retrieval`.
+- B: `member_chsopo89/api`, `generation`, `service`; 공통 파일 변경 취합.
+- C: `member_Damsebi/observability`, `evaluation`; 평가·보안 실행 스크립트.
 - `shared/`는 사람별 패키지를 import하지 않는다. 공통 타입 정의 시 모델·SDK 초기화를 수행하지 않는다.
 - B가 A의 검색과 C의 추적 함수를 호출한다. C 평가기는 서비스 호출 함수를 주입받으며 B의 앱을 직접 초기화하지 않는다.
 
@@ -192,6 +192,7 @@ SDK가 반환한 실제 사용량만 기록한다. 합계를 모든 시도에 �
 | `retrieval.context_token_budget`, `retrieval.candidate_count` | 문맥 한도와 후보 수 |
 | `generation_model`, `model_timeout_seconds`, `max_output_tokens` | 생성 모델·호출 한도 |
 | `generation_max_attempts` | 출력 검증 실패 시 재생성을 포함한 한 요청의 최대 모델 호출 수 |
+| `context_tokenizer` | 문맥 예산용 로컬 토크나이저. 실제 사용량은 모델 usage로 확인 |
 | `qdrant_collection`, `embedding_model`, `embedding_device` | 색인·임베딩 연결 설정 |
 
 Hybrid 결합과 리랭커 설정은 A가 제안하고 B가 위 설정과 함께 한 번 반영한다. 최종 비교 전에 값을 동결해 manifest에 남긴다. 특정 환경 변수·원격 저장소를 필수로 가정하지 않고 실제 사용하는 연결 방식을 문서화한다.
@@ -256,23 +257,23 @@ Basic의 공통 실행 위치는 저장소 루트다. 코드가 병합되고 의
 
 ```bash
 python -m uvicorn main:app --reload
-python -m member_a.scripts.build_index --help
-python -m member_c.scripts.run_benchmark --help
-python -m member_c.scripts.run_security --help
+python -m member_ysl727727.scripts.build_index --help
+python -m member_Damsebi.scripts.run_benchmark --help
+python -m member_Damsebi.scripts.run_security --help
 ```
 
 각 패키지·하위 Python 패키지에는 `__init__.py`를 둔다. 직접 파일 실행이나 개인별 sys.path 수정보다 위 모듈 실행 방식을 사용한다. 프롬프트 경로는 모듈 위치 또는 명시 설정에서 구하고, 데이터·산출물 경로는 프로젝트 기준 경로로 정규화한다.
 
-B 브랜치는 setuptools를 사용하며 패키지 탐색을 기존 `app*`에서 아래로 바꿨다. main.py는 실행 위치를 고정해 저장소 루트에서 사용한다. 휠 배포가 필요해지면 main 모듈과 프롬프트 package-data 포함도 따로 확인한다.
+루트 `pyproject.toml`은 setuptools를 사용하며 패키지 탐색을 아래와 같이 둔다. main.py는 실행 위치를 고정해 저장소 루트에서 사용한다. 휠 배포가 필요해지면 main 모듈과 프롬프트 package-data 포함도 따로 확인한다.
 
 ```toml
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["shared", "shared.*", "member_a", "member_a.*", "member_b", "member_b.*", "member_c", "member_c.*"]
+include = ["shared", "shared.*", "member_ysl727727", "member_ysl727727.*", "member_chsopo89", "member_chsopo89.*", "member_Damsebi", "member_Damsebi.*"]
 exclude = ["*.tests", "*.tests.*"]
 ```
 
-현재 `pyproject.toml`이 위 목록을 그대로 쓰고 있으며, A·C 소스가 없어도 `member_b`와 `shared`만으로 설치·import가 된다. 프롬프트는 `[tool.setuptools.package-data]`의 `member_b = ["prompts/*.txt"]`로 함께 담는다. 다른 빌드 도구를 택하면 같은 패키지·리소스 포함 조건을 만족하도록 명시한다.
+B 프롬프트는 `[tool.setuptools.package-data]`의 `member_chsopo89 = ["prompts/*.txt"]`로 함께 담는다. A·C 소스가 없어도 `member_chsopo89`와 `shared`만으로 import가 되도록 유지한다. 다른 빌드 도구를 택하면 같은 패키지·리소스 포함 조건을 만족하도록 명시한다.
 
 ## 8. 기존 브랜치 코드에서 맞출 항목
 
@@ -298,23 +299,22 @@ exclude = ["*.tests", "*.tests.*"]
 
 샘플 인터페이스 확인은 실제 Basic 성능 평가와 구분한다. 선택한 일반 질문 전체의 세 방식 비교, 두 자동 평가와 보안 4개 실행은 기존 시스템 설계의 완료 기준을 따른다.
 
-
 ## 10. B 구현 연결 안내 — 2026-11-06
 
-B는 `member_b/`와 `shared/` 구조를 유지하고 A/C 소스를 복사하지 않는다.
+B는 `member_chsopo89/`와 `shared/` 구조를 유지하고 A/C 소스를 복사하지 않는다.
 외부 모듈은 자원 준비 시 연결한다. A가 없으면 `/docs`·`/openapi.json`·`/health`는
 사용할 수 있고 `query_ready=false`, `/query`는 명시적인 503이다. C가 없으면
 추적은 비활성 상태다. 실제 업무 응답을 가짜 검색으로 대체하지 않는다.
 
 Resources의 기존 필드는 유지하며 B 연결용 `retriever` 호출 함수와
-선택적 `context_hasher`를 추가한다. A 연결은 `member_a.indexing.embeddings`,
-`member_a.retrieval.service`이며 C 연결은 `member_c.observability`다.
+선택적 `context_hasher`를 추가한다. A 연결은 `member_ysl727727.indexing.embeddings`,
+`member_ysl727727.retrieval.service`이며 C 연결은 `member_Damsebi.observability`다.
 
 `run_record`와 `attempt_log`는 기존 호출을 유지하는 선택 출력 수집 인자다.
 요청마다 별도 객체를 사용한다. 실패한 모델 시도도 입력·오류 종류·확인되지 않은
 사용량 null을 남긴다. B는 RunRecord를 조립하며 C의 검증·usage 집계를 대체하지 않는다.
 
-B의 `member_b.service.adapters`에서 다음 연결 함수를 제공한다.
+B의 `member_chsopo89.service.adapters`에서 다음 연결 함수를 제공한다.
 
 - `make_query_adapter(resources, settings)` → `adapter(question, retrieval_mode, request_id)`.
   반환값은 평탄 실행 기록이다. 오류도 기록으로 반환하여 C가 다음 문항을 처리할 수 있다.

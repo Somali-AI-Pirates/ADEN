@@ -69,7 +69,7 @@ QDRANT_API_KEY=<클러스터 API 키>
 저장소 루트에서 실행한다. 처음 실행하면 E5 모델(약 470MB)을 내려받는다.
 ```bash
 pip install pypdf sentence-transformers qdrant-client python-dotenv
-python -m member_a.scripts.build_index
+python -m member_ysl727727.scripts.build_index
 ```
 확인한 버전: pypdf 6.21.4, sentence-transformers 6.2.0, qdrant-client 1.20.0, python-dotenv 1.2.4, torch 2.15.0(CPU).
 
@@ -97,7 +97,7 @@ Dense 색인 → Qdrant Cloud 'basic_multilingual-e5-small_p800'
 ## 6. 검색만 확인
 LLM 없이 상위 5개 청크의 문서로 Hit@5·Recall@5를 잰다. 검색 시간에는 클라우드 왕복 시간이 포함된다.
 ```bash
-python -m member_a.scripts.eval_retrieval --mode naive
+python -m member_ysl727727.scripts.eval_retrieval --mode naive
 ```
 
 2026-11-05 측정 (클러스터 리전 us-west, Naive, k=5):
