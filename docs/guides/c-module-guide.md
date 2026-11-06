@@ -1,6 +1,6 @@
-# C 모듈 가이드 — 실행 기록·평가·결과 비교
+# 실행 기록·평가·결과 비교 가이드
 
-작성일: 2026-11-05 · 수정일: 2026-11-06. C `Damsebi`는 실행 기록·평가 영역의 연락 담당자이자 초기 주담당이다. 폴더별 독점 수정 권한을 뜻하지 않는다. 기준 문서: [공통 입출력·호출 계약](../design/contracts.md) · [시스템 설계](../design/architecture.md) · [Basic 당일 작업 계획](../plans/basic-day-plan-2026-11-05.md) · [Git 협업 규칙](git-workflow.md)
+작성일: 2026-11-05 · 수정일: 2026-11-06. 기준 문서: [공통 입출력·호출 계약](../design/contracts.md) · [시스템 설계](../design/architecture.md) · [개발 가이드](development.md) · [공통 협업 규칙](../../CONTRIBUTING.md)
 
 필드·함수 시그니처의 기준은 [공통 계약](../design/contracts.md)이다. 이 문서는 `app/observability/`·`app/evaluation/` 코드의 사용법과 계약 검증 방식을 설명한다.
 
@@ -188,7 +188,7 @@ python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id>
 
 현재 B adapter는 `answer_query()`를 프로세스 안에서 직접 부르고 `latency_scope="in_process_adapter"`를 기록한다. 이는 HTTP 요청의 전체 처리 시간이 아니라 서비스 내부 측정이다. [공통 계약](../design/contracts.md)은 `http`, `service`/`in_process_adapter`, `fixed_context_generation` 범위를 구분하고 서로 섞지 않도록 한다. 현재 보고서의 비교표에는 `latency_scope`가 자동 표시되지 않으므로 공식 비교 결과에 측정 범위를 수동으로 기록한다. HTTP 전체 처리 시간을 공식 지표로 채택하려면 실제 API adapter와 범위별 보고를 추가 검증해야 한다.
 
-서비스 생성 호출 한도와 Judge·RAGAS 평가 호출 한도는 구분한다. 서비스 생성에는 `configs/basic.yaml`의 시간·출력·재생성 제한이 적용되지만, 평가기 호출에는 프로젝트 차원의 시간·토큰·비용 budget이 아직 없다. 일반 benchmark Judge의 사용량 일부와 grading 시간은 기록되고 RAGAS token은 null이다. 보안 Judge는 현재 호출 시간·토큰·비용을 자동 기록하지 않으므로 제공자 사용량과 실행 기록을 대조해 별도로 집계한다. 누락된 사용량을 0으로 처리하지 않는다. 호출 단가·총액 기준·담당자·중단 기준은 미정이며 [협업 가이드](git-workflow.md)의 운영 절차에서 정해야 한다. 공식 비교 결과에는 재현 증거를 기록한다. 개인 실험의 기록은 자율이다. 실제 비교에 앞서 한 문항의 호출 수·시간·사용량을 확인하고, 이 운영 기준이 정해지기 전에는 전체 비교를 시작하지 않는다.
+서비스 생성 호출 한도와 Judge·RAGAS 평가 호출 한도는 구분한다. 서비스 생성에는 `configs/basic.yaml`의 시간·출력·재생성 제한이 적용되지만, 평가기 호출에는 프로젝트 차원의 시간·토큰·비용 budget이 아직 없다. 일반 benchmark Judge의 사용량 일부와 grading 시간은 기록되고 RAGAS token은 null이다. 보안 Judge는 현재 호출 시간·토큰·비용을 자동 기록하지 않으므로 제공자 사용량과 실행 기록을 대조해 별도로 집계한다. 누락된 사용량을 0으로 처리하지 않는다. 호출 단가·총액 기준·담당자·중단 기준은 미정이며 [협업 가이드](../../CONTRIBUTING.md)의 운영 절차에서 정해야 한다. 공식 비교 결과에는 재현 증거를 기록한다. 개인 실험의 기록은 자율이다. 실제 비교에 앞서 한 문항의 호출 수·시간·사용량을 확인하고, 이 운영 기준이 정해지기 전에는 전체 비교를 시작하지 않는다.
 
 출력:
 

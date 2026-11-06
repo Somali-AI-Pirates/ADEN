@@ -1,4 +1,4 @@
-# Basic 해운 RAG Q&A 서비스 설계안
+# Basic 해운 RAG Q&A 서비스 구조와 설계
 
 작성일: 2026-11-05 · 수정일: 2026-11-06.
 
@@ -9,9 +9,9 @@
 | 현재 구현 | 기능별 모듈에 Naive Dense 검색과 답변·API·기록·평가 코드가 있다. `hybrid`·`hybrid_rerank`는 미구현이다. 선택적인 [오프라인 지식 데이터 준비](knowledge-data.md)가 있다. |
 | 채택한 구조 | 제품 코드는 `app/` 기능 모듈, 공통 타입·설정은 `shared/`에서 관리한다. 상세 타입·함수·기록 계약은 [공통 계약](contracts.md)을 기준으로 한다. |
 | Basic 목표 | 세 검색 방식, 실제 자료 기반 답변·평가, 보안 비교와 운영 지표를 완성한다. 목표 목록은 현재 구현의 증거가 아니다. |
-| 검증 상태 | 오프라인 데이터 준비와 가상 인프라 기반 테스트 133개 및 하위 테스트 9개가 통과했다. 실제 색인·생성 모델·Langfuse를 사용한 전체 서비스 통합은 확인하지 않았다. 2026-11-05 검색 전용 측정은 [데이터 안내](../../data/README.md)에 과거 결과로 기록했다. |
+| 검증 상태 | 모의 인프라로 연결을 확인했으나 실제 색인·모델·Langfuse 전체 통합은 미검증이다. 구체적인 당시 수치는 [구조 전환 기록](../plans/functional-layout-2026-11-06.md), 검색 전용 측정은 [데이터 안내](../../data/README.md)에 보존한다. |
 
-관련 문서: [문서 목차](../README.md) · [공통 입출력·호출 계약](contracts.md) · [Git 저장소·협업 설계](../guides/git-workflow.md)
+관련 문서: [문서 목차](../README.md) · [공통 입출력·호출 계약](contracts.md) · [공통 협업 규칙](../../CONTRIBUTING.md)
 
 ## 1. 목표와 확정 범위
 
@@ -33,7 +33,7 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 
 실제 예약 접수, 선사 API 연동, 외부 자료 수집, 프런트엔드, 대화 메모리, 자동 문서 갱신은 현재 구현 범위에 포함하지 않는다. 사용자는 추가 조건을 포함한 완성된 질문을 다시 제출할 수 있다.
 
-2026-11-05 원안 작성 당시에는 발제문과 Basic 데이터셋 안내만 확인했고 ZIP 내부 PDF와 평가 문항 전체는 열어보지 않았다. 이후 A의 작업 기록은 PDF 처리와 검색 전용 측정을 남겼다([데이터 안내](../../data/README.md)). 실제 색인·생성 모델을 사용하는 전체 통합 검증은 아직 실행하지 않았다.
+설계의 원안은 [2026-11-05 계획](../plans/basic-day-plan-2026-11-05.md)에, PDF 처리와 검색 전용 측정은 [데이터 안내](../../data/README.md)에 남아 있다. 과거 확인 범위와 현재 구현의 검증 상태를 구분한다.
 
 ## 2. 구조의 핵심
 
@@ -45,7 +45,7 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 - 각 기능 모듈은 기능과 `shared/` 계약만 사용한다.
 - 제품 모듈은 `experimental/<GitHubID>/`를 import하거나 참조하지 않는다.
 
-기능 영역별 연락 담당자와 초기 주담당은 A `ysl727727`(데이터 처리·색인·검색), B `chsopo89`(답변 생성·서비스·API), C `Damsebi`(관측·평가)다. 이는 연락 지점과 초기 작업 분담이며, 디렉터리의 독점 소유권이나 다른 구성원의 수정 제한을 뜻하지 않는다. 공통 계약과 여러 영역에 걸친 변경은 관련 담당자들이 함께 조정한다.
+기능별 연락 담당자와 공동 변경 절차는 [CONTRIBUTING](../../CONTRIBUTING.md#1-작업담당기록)에서 관리한다.
 
 예약·서류·비용은 사용자 업무 범주다. Basic에서는 세 범주를 별도 RAG 서비스나 검색 인덱스로 나누지 않는다. 하나의 질문이 예약 안내, 서류 조건과 정정 공지를 함께 필요로 할 수 있기 때문이다. 업무 범주는 프롬프트와 평가 사례에서 관리한다.
 
@@ -71,7 +71,7 @@ flowchart LR
 
 ## 3. 폴더 구조
 
-아래는 현재 기능별 제품 구조다. 구조 이전은 기존 API·설정·색인·데이터·결과의 동작과 위치를 바꾸지 않는다. Python 패키지에는 필요한 `__init__.py`가 있다. Git 추적 범위와 협업 규칙은 [Git 저장소·협업 설계](../guides/git-workflow.md)를 따른다.
+아래는 현재 기능별 제품 구조다. Python 패키지에는 필요한 `__init__.py`가 있다. Git 추적 범위와 협업 규칙은 [CONTRIBUTING](../../CONTRIBUTING.md)을 따른다. 이전 경로 대응은 [구조 전환 기록](../plans/functional-layout-2026-11-06.md)에 보존한다.
 
 ```text
 ADEN/
@@ -108,7 +108,7 @@ ADEN/
 
 `app/evaluation/`은 평가 코드, `data/basic/evaluation/`은 제공 질문·정답 데이터다. 서비스 런타임은 정답 데이터를 읽지 않는다. 색인 생성기는 `data/basic/documents/*.pdf`만 읽고 데이터 루트 전체를 재귀 색인하지 않는다.
 
-원본 데이터와 `artifacts/`는 Git에서 제외하고, 공식 비교표·답변·점수·재현 설정은 검토 후 `reports/<experiment_id>/`에 보존한다. `configs/`, `data/`, `artifacts/`, `reports/`의 현재 위치와 API·로그 형식은 구조 이전으로 바꾸지 않는다. 개인 실험 파일은 선택적으로 `experimental/<GitHubID>/`에 둘 수 있으며 내부 파일·하위 폴더·기록 양식은 요구하지 않는다. 제품 코드는 이 경로에 의존하지 않는다. 채택한 구현은 `app/` 또는 `shared/`에 반영하고 공식 결과는 `reports/`에 정리한다.
+원본 데이터와 `artifacts/`는 Git에서 제외하고, 공식 비교표·답변·점수·재현 설정은 검토 후 `reports/<experiment_id>/`에 보존한다. 제품 코드는 `experimental/`에 의존하지 않는다. 개인 실험의 사용·채택 기준은 [개인 실험 안내](../../experimental/README.md)와 CONTRIBUTING을 따른다.
 
 별도 데이터 준비 경로인 `app.ingestion.scripts.curate`는 세 난이도의 규칙·행별 기록·사례 참조·원본 출처를 `data/curated/<dataset>/`에 생성해 Git으로 관리한다. 검색 기록·규칙은 `artifacts/knowledge/search/`에 분리한다. 기존 Basic v1 추출 CLI는 호환·과거 비교용으로 보존한다. 모델 행동 지침은 기존 프롬프트가 기준이며, 데이터 준비만으로 런타임 색인이나 서비스 난이도를 전환하지 않는다. 스키마·실행·정규화 한계는 [지식 데이터 구성](knowledge-data.md)을 따른다.
 
@@ -176,7 +176,7 @@ def answer_query(request, resources, request_id, settings):
 
 위 코드는 성공 경로의 연결 설명이며 생략한 추적·오류·빈 문맥 처리를 포함해야 실제 서비스가 된다. 실제 구현에서는 C의 단계별 기록 함수에 평탄 로그와 실제 시도별 입출력을 넘긴다. API 응답과 내부 RunRecord는 요청 ID로 연결한다. 기능 함수는 동기 호출로 통일하고 비동기 API 래퍼가 요청 파이프라인을 제한된 작업 스레드에서 처리한다. 하나의 공통 재시도 정책을 두고 SDK와 LangChain의 재시도가 중복되지 않게 설정한다.
 
-모든 CLI는 저장소 루트에서 모듈 방식으로 실행한다. API는 `python -m uvicorn main:app --reload`, A의 색인 CLI는 `python -m app.indexing.scripts.build_index`, 검색 전용 평가는 `python -m app.evaluation.scripts.eval_retrieval`, 일반·보안 평가는 `python -m app.evaluation.scripts.run_benchmark`와 `python -m app.evaluation.scripts.run_security`다. 인자와 데이터 경로는 [공통 계약](contracts.md), [데이터 안내](../../data/README.md), [평가 모듈 가이드](../guides/c-module-guide.md)를 따른다.
+CLI는 저장소 루트에서 모듈 방식으로 실행한다. 설치·검사는 [개발 가이드](../guides/development.md), 색인·검색 실행은 [데이터 안내](../../data/README.md), 일반·보안 평가는 [평가 가이드](../guides/c-module-guide.md)를 따른다.
 
 빈 검색 결과는 근거를 확인하지 못했다는 정상 보류로 처리할 수 있다. 반면 색인 연결 실패, 모델 timeout, 잘못된 출력은 시스템 오류로 전달한다. 서비스 내부에서 오류를 보류로 바꾸지 않는다.
 
@@ -295,11 +295,11 @@ Basic은 일반 질문 72개(개발 30, 추가 30, 확장 검증 12)와 보안 �
 
 ## 10. 협업 단위와 구현 순서
 
-Basic 작업은 A/B/C 연락 담당자와 초기 주담당이 있는 세 기능 영역으로 정리한다. 이 구분은 폴더별 독점 소유권이 아니며, 통합·공통 변경은 관련 담당자들이 함께 확인한다. 2026-11-05 원안의 인원·시간 배정은 [날짜별 계획](../plans/basic-day-plan-2026-11-05.md)에 과거 계획으로 보존한다.
+아래는 기능의 연결 상태와 기술적인 통합 순서 제안이다. 실제 작업의 담당·일정·진행 상태는 Notion WBS에서, 협업 절차는 [CONTRIBUTING](../../CONTRIBUTING.md)에서 관리한다.
 
 | 기능 영역 | 경로 | 현재 상태와 남은 확인 |
 | --- | --- | --- |
-| 데이터 처리·색인 | `app/ingestion/`, `app/indexing/` | 페이지별 추출·청킹과 Dense 색인 코드가 있다. 실제 공용 색인 재생성은 이 구조 변경 범위가 아니다. |
+| 데이터 처리·색인 | `app/ingestion/`, `app/indexing/` | 페이지별 추출·청킹과 Dense 색인 코드가 있다. 공용 색인 재생성은 별도 운영 절차를 따른다. |
 | 검색 | `app/retrieval/` | `naive` Dense 검색이 있다. Hybrid·리랭킹은 미구현이다. |
 | 답변 생성 | `app/generation/`, `app/generation/prompts/` | 생성·출처 검증 모듈이 있다. 실제 모델 연결은 실행 검증되지 않았다. |
 | API·서비스·기록 | `app/api/`, `app/service/`, `app/observability/` | 가상 인프라 통합 테스트는 통과했다. 실제 색인·모델 통합은 미실행이다. |
