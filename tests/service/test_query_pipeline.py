@@ -26,7 +26,7 @@ class QueryPipelineTests(unittest.TestCase):
             retriever=Mock(return_value=[RetrievedChunk(chunk, 1, 1.0, 'fake')]),
         )
         with (
-            patch('app.api.app.load_resources', return_value=resources),
+            patch('app.api.lifespan.load_resources', return_value=resources),
             TestClient(create_app()) as client,
         ):
             self.assertTrue(client.get('/health').json()['query_ready'])
