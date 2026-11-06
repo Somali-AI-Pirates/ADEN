@@ -6,7 +6,7 @@
 
 | 구분 | 상태 |
 | --- | --- |
-| 현재 구현 | 기능별 모듈에 Naive Dense 검색과 답변·API·기록·평가 코드가 있다. `hybrid`·`hybrid_rerank`는 미구현이다. 선택적인 [오프라인 지식 데이터 준비](knowledge-data.md)가 있다. |
+| 현재 구현 | 기능별 모듈에 Naive Dense·Hybrid(Dense + BM25, RRF)·Hybrid + 리랭킹 검색과 답변·API·기록·평가 코드가 있다. 세 방식은 검색 전용 평가만 실행했고 답변 평가는 실행하지 않았다. 선택적인 [오프라인 지식 데이터 준비](knowledge-data.md)가 있다. |
 | 채택한 구조 | 제품 코드는 `app/` 기능 모듈, 공통 타입·설정은 `shared/`에서 관리한다. 상세 타입·함수·기록 계약은 [공통 계약](contracts.md)을 기준으로 한다. |
 | Basic 목표 | 세 검색 방식, 실제 자료 기반 답변·평가, 보안 비교와 운영 지표를 완성한다. 목표 목록은 현재 구현의 증거가 아니다. |
 | 검증 상태 | 모의 인프라로 연결을 확인했으나 실제 색인·모델·Langfuse 전체 통합은 미검증이다. 구체적인 당시 수치는 [구조 전환 기록](../plans/functional-layout-2026-11-06.md), 검색 전용 측정은 [데이터 안내](../../data/README.md)에 보존한다. |
@@ -52,7 +52,7 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 ```mermaid
 flowchart LR
     PDF[Basic 해운 PDF 15개] --> ING[페이지 추출·청킹]
-    ING --> IDX[현재: Dense 색인 / 후속: BM25 색인]
+    ING --> IDX[Dense 색인 + BM25 색인]
     Q[사용자 질문] --> API[FastAPI /query]
     API --> SVC[service.answer_query]
     SVC --> RET[검색 방식 선택]
@@ -300,7 +300,7 @@ Basic은 일반 질문 72개(개발 30, 추가 30, 확장 검증 12)와 보안 �
 | 기능 영역 | 경로 | 현재 상태와 남은 확인 |
 | --- | --- | --- |
 | 데이터 처리·색인 | `app/ingestion/`, `app/indexing/` | 페이지별 추출·청킹과 Dense 색인 코드가 있다. 공용 색인 재생성은 별도 운영 절차를 따른다. |
-| 검색 | `app/retrieval/` | `naive` Dense 검색이 있다. Hybrid·리랭킹은 미구현이다. |
+| 검색 | `app/retrieval/` | `naive`·`hybrid`·`hybrid_rerank`가 있다. 실제 색인으로 검색 전용 평가를 실행했다([데이터 안내](../../data/README.md) 6장). 리랭커는 CPU에서 질문당 약 7초가 더 걸리며 답변 평가는 미실행이다. |
 | 답변 생성 | `app/generation/`, `app/generation/prompts/` | 생성·출처 검증 모듈이 있다. 실제 모델 연결은 실행 검증되지 않았다. |
 | API·서비스·기록 | `app/api/`, `app/service/`, `app/observability/` | 가상 인프라 통합 테스트는 통과했다. 실제 색인·모델 통합은 미실행이다. |
 | 평가·비교 | `app/evaluation/`, `app/evaluation/scripts/` | 평가·보안 비교 모듈이 있다. 실제 점수·보안 비교 결과는 없다. |

@@ -4,10 +4,10 @@
 
 ## 기능과 범위
 
-- PDF 추출·청킹, E5 임베딩과 Qdrant 색인, Naive Dense 검색, 답변 생성과 FastAPI, 실행 기록·평가 모듈이 있다.
-- 서비스는 Basic 자료를 대상으로 한다. `hybrid`·`hybrid_rerank`는 선언되어 있으나 구현되지 않았다.
+- PDF 추출·청킹, E5 임베딩과 Qdrant 색인, 답변 생성과 FastAPI, 실행 기록·평가 모듈이 있다.
+- Basic 서비스에서 `naive`(Dense), `hybrid`(Dense + BM25, RRF), `hybrid_rerank`(Hybrid 후보 재정렬) 검색을 제공한다. 실제 색인으로 수행한 검색 전용 평가 결과는 [데이터 안내](data/README.md#6-검색만-확인)에 있다.
 - Basic·Intermediate·Advanced의 [오프라인 정제 데이터](data/curated/README.md)를 관리한다. 정제본은 기존 색인과 서비스에 자동 적용되지 않는다.
-- 실제 Qdrant·생성 모델·Langfuse를 연결한 서비스 전체 검증과 실제 세 검색 방식·보안 비교 결과는 아직 없다. 모의 테스트 통과와 실제 품질 검증을 구분한다.
+- 실제 Qdrant·생성 모델·Langfuse를 연결한 서비스 전체 검증, 세 방식의 답변 평가와 보안 비교 결과는 아직 없다. 평가 연결 조건은 [평가 가이드](docs/guides/c-module-guide.md)를 확인한다. 모의 테스트·검색 전용 측정과 전체 서비스 품질 검증을 구분한다.
 
 ## 처리 흐름과 구성
 

@@ -161,7 +161,7 @@ python -m app.evaluation.scripts.run_benchmark \
 
 질문 파일에는 `id`, `question`만 둔다. 정답·근거와 채점 라벨은 대응하는 `development.json`에서 실행 기록 저장 뒤에 읽는다. 실제 Basic 자료는 질문 파일과 참고 파일이 분리되어 있으므로 두 경로를 모두 지정한다. CLI의 `--references` 기본값은 `--questions`와 같은 파일이라, 생략하면 제공 데이터의 정답 파일에 연결되지 않는다. 현재 코드의 기본 검증은 참고 문항 ID가 있는지 확인하며 참조 파일의 필수 평가 필드까지 검증하지 않는다.
 
-한 문항 확인 후에는 새 실험 ID를 쓰고 `--ids`를 사전에 고정한 전체 선택 ID 목록, `--modes`를 비교할 방식 목록으로 바꾼다. 사전 확인 예시는 현재 구현된 Naive만 지정한다. 세 방식 공식 비교는 Hybrid·리랭킹 구현과 연결 확인까지 끝낸 뒤 수행한다. 현재 데이터에는 `development`, `additional`, `expansion_validation` 세 질문 쌍이 있다. 이 예시는 `development`를 사용한다. split의 최종 공식 역할과 validation holdout 운용 여부는 팀이 비교 전에 정해 결과에 기록해야 하며, 이름만으로 독립 검증을 완료했다고 간주하지 않는다. 보안 CLI에는 `--ids`가 없으므로 아래 보안 실행 형식과 별도로 파일·연결을 점검한다.
+한 문항 확인 후에는 새 실험 ID를 쓰고 `--ids`를 사전에 고정한 전체 선택 ID 목록, `--modes`를 비교할 방식 목록으로 바꾼다. 사전 확인 예시는 `naive` 한 방식부터 지정한다. 세 검색 방식의 코드는 구현되어 있지만 실제 생성 모델·평가기까지 연결한 공식 비교는 별도 검증이 필요하다. 현재 데이터에는 `development`, `additional`, `expansion_validation` 세 질문 쌍이 있다. 이 예시는 `development`를 사용한다. split의 최종 공식 역할과 validation holdout 운용 여부는 팀이 비교 전에 정해 결과에 기록해야 하며, 이름만으로 독립 검증을 완료했다고 간주하지 않는다. 보안 CLI에는 `--ids`가 없으므로 아래 보안 실행 형식과 별도로 파일·연결을 점검한다.
 
 ```bash
 python -m app.evaluation.scripts.run_security --security-file data/basic/evaluation/<보안 파일>.json --retrieve <초기화된 retrieve callable 모듈>:<이름> --generate <초기화된 generate callable 모듈>:<이름> --retrieval-mode <방식> --config configs/basic.yaml --judge-model <평가 모델> --experiment-id basic-<날짜>-<설명>

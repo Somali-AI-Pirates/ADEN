@@ -207,7 +207,7 @@ SDK가 반환한 실제 사용량만 기록한다. 합계를 모든 시도에 �
 | `context_tokenizer` | 문맥 예산용 로컬 토크나이저. 실제 사용량은 모델 usage로 확인 |
 | `qdrant_collection`, `embedding_model`, `embedding_device` | 색인·임베딩 연결 설정 |
 
-Hybrid 결합과 리랭커 설정은 A가 제안하고 B가 위 설정과 함께 한 번 반영한다. 최종 비교 전에 값을 동결해 manifest에 남긴다. 특정 환경 변수·원격 저장소를 필수로 가정하지 않고 실제 사용하는 연결 방식을 문서화한다.
+Hybrid 결합과 리랭커 설정은 A가 제안하고 B가 위 설정과 함께 한 번 반영한다. 현재 값은 `app/retrieval/`의 코드 상수(RRF k=60, Dense·BM25 후보 각 20, 리랭커 `BAAI/bge-reranker-v2-m3`, 재정렬 후보 20)이며 설정 파일로 옮길지는 미정이다. 최종 비교 전에 값을 동결해 manifest에 남긴다. 특정 환경 변수·원격 저장소를 필수로 가정하지 않고 실제 사용하는 연결 방식을 문서화한다.
 
 | Resources 필드·메서드 | 제공 계약 |
 | --- | --- |
@@ -216,6 +216,8 @@ Hybrid 결합과 리랭커 설정은 A가 제안하고 B가 위 설정과 함께
 | `count_tokens(text) -> int` | 문맥 전체 토큰 계산 함수 |
 | `tracer` | C의 `Tracer`와 동일한 요청 추적 인터페이스 |
 | `cleanup`, `close()` | B가 앱 종료 시 색인·모델·추적 자원을 정리 |
+| `keyword_index` (선택) | `app.indexing.keyword_store.KeywordIndex`. 없으면 A의 검색이 첫 `hybrid`·`hybrid_rerank` 호출 때 같은 Qdrant 컬렉션의 청크로 만들어 프로세스 안에 보관한다 |
+| `reranker` (선택) | `app.retrieval.reranker.Reranker`. 없으면 첫 `hybrid_rerank` 호출 때 기본 모델을 읽는다. 첫 요청 지연을 피하려면 시작 시 넣거나 한 번 호출해 둔다 |
 
 Hybrid·리랭킹용 추가 자원은 A·B가 공통 변경으로 정한다. A·C는 B의 Resources 구체 클래스를 역으로 import하지 않고 필요한 속성·호출 기능에 의존한다. Resources와 SDK 객체는 RunRecord로 직렬화하지 않는다.
 
@@ -256,7 +258,6 @@ Langfuse의 flush 호출이나 trace ID 생성만으로 저장 확인을 완료 
 | --- | --- |
 | 빈 질문·잘못된 mode | 입력 검증 오류, API 422 |
 | 자료 부족·실제 검색 결과 없음 | 정상 `abstained`; 시스템 오류율에 넣지 않음 |
-| 선택한 검색 방식 미구현 | 개발 중에는 명시적인 미지원 오류. 세 방식 구현 완료로 표시하지 않음 |
 | 색인·검색 의존성 실패 | 시스템 오류, 보통 API 503 |
 | 모델 timeout | 시스템 오류, API 504 |
 | 모델 호출·JSON·출처 검증 실패 | 시스템 오류, API 502 |

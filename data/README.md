@@ -114,7 +114,31 @@ sha256sum data/basic/evaluation/development_questions.json data/basic/evaluation
 LLM 생성 없이 상위 5개 청크의 문서로 Hit@5·Recall@5를 잰다. 검색 시간에는 클라우드 왕복 시간이 포함된다. 이 실행은 검색 전용 측정이며 생성 모델을 포함한 전체 서비스 통합 검증을 뜻하지 않는다.
 ```bash
 python -m app.evaluation.scripts.eval_retrieval --mode naive
+python -m app.evaluation.scripts.eval_retrieval --mode hybrid
+python -m app.evaluation.scripts.eval_retrieval --mode hybrid_rerank
 ```
+`--split additional`로 추가 질문을, `--k 8`로 상위 8개를 잰다. 근거쪽@k는 근거 그룹의 (문서, 페이지)가 상위 k개에 들어온 비율이며 문서 단위 Recall보다 엄격하다.
+
+| 방식 | 흐름 (`app/retrieval/`) |
+| --- | --- |
+| `naive` | E5 Dense 상위 20 |
+| `hybrid` | Dense 20 + BM25 20 → RRF(k=60) → 상위 20. BM25 토큰은 한글 2글자 조각과 영문·숫자 덩어리 |
+| `hybrid_rerank` | hybrid 후보 20 → `BAAI/bge-reranker-v2-m3` 재정렬 |
+
+BM25 색인은 파일로 저장하지 않고 Qdrant 컬렉션의 청크로 처음 검색할 때 메모리에 만든다(1초 안팎). 리랭커 모델(약 2.2GB)은 처음 한 번 내려받고, 첫 호출에서 읽는다.
+
+2026-11-06 기록 (검색 전용, development·additional 각 채점 28문항의 평균, CPU):
+
+| 방식 | k=5 Recall | k=5 근거쪽 | k=8 Recall | k=8 근거쪽 | 검색 시간 중앙값 |
+| --- | --- | --- | --- | --- | --- |
+| naive | 0.603 | 0.322 | 0.737 | 0.399 | 약 0.14초 |
+| hybrid | 0.681 | 0.417 | | | 약 0.15초 |
+| hybrid_rerank | 0.709 | 0.550 | 0.794 | 0.655 | 약 6.7초 |
+
+- hybrid_rerank의 근거쪽@5는 두 세트 모두 naive보다 높고(+0.24, +0.22) 질문별로 거의 지지 않는다(56문항 중 이김 19, 짐 1). 문서 단위 Recall은 세트에 따라 섞인다.
+- 채점 문항이 적어 평균 차이 0.1 안팎은 우연일 수 있다. 리랭커는 CPU에서 질문당 약 6.7초가 더 걸린다.
+- 임베딩 입력에서 제목 줄을 빼거나 소제목만 남기는 비교에서도 현재 방식(제목 전체 + 본문)이 가장 높았다.
+- 최종 문맥 수(k)는 `configs/basic.yaml`이 정한다. 위 k=8 값은 검색 순위만으로 계산한 것이며 답변 점수 변화는 별도로 확인한다.
 
 2026-11-05 기록 (클러스터 리전 us-west, Naive, k=5; 당시 검색 전용 실행):
 
