@@ -29,12 +29,14 @@ ADEN은 4명이 2026-11-05~11-13에 진행하는 Basic 해운 RAG Q&A 프로젝�
 | --- | --- | --- |
 | [design/architecture.md](design/architecture.md) | 기능 흐름·의존 방향·현재 구현과 목표·통합 순서 | 기능 개발·검토 전 |
 | [design/contracts.md](design/contracts.md) | 공통 타입·API·함수·Resources·로그·실행 계약 | 인터페이스 변경·연결 전 |
+| [design/knowledge-data.md](design/knowledge-data.md) | Basic 지식 스키마·출처·규칙 검토·오프라인 실행·벡터 색인 연결 경계 | 데이터 준비·규칙 검토 전 |
 | [guides/git-workflow.md](guides/git-workflow.md) | 작업 추적·부재 인계·실험 채택·PR·완료·운영 절차 | 협업·PR·공식 실행 전 |
 | [guides/c-module-guide.md](guides/c-module-guide.md) | 평가·보안 CLI·샘플·연결 조건·미완료 항목 | 평가·보안 작업 전 |
 | [데이터 안내](../data/README.md) | 원본·질문/정답 분리·색인·공식 결과 재현 정보 | 데이터·색인·평가 변경 전 |
 | [개인 실험 안내](../experimental/README.md) | 개인 공간 자율성과 제품에 채택하는 경계 | 개인 실험·공통 코드 반영 전 |
 | [AGENTS.md](../AGENTS.md) | 에이전트가 작업별 기준 문서를 읽고 검증·보고하는 방법 | 에이전트 작업 시작 시 |
 | [plans/basic-day-plan-2026-11-05.md](plans/basic-day-plan-2026-11-05.md) | 11월 5일 당시 계획과 현행 안내의 구분 | 과거 결정 맥락 확인 시 |
+| [plans/structured-data.md](plans/structured-data.md) | 데이터 작업 브랜치의 범위·검토·검증 기록 | 이번 변경 검토 시 |
 
 ## 문서 관리 규칙
 

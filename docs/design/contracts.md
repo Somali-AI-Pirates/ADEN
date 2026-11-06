@@ -6,6 +6,8 @@
 
 이 문서는 Basic의 필드·함수·로그 계약의 기준이다. Python 공통 데이터 타입은 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. 시스템 구조 문서는 책임과 흐름을 요약하며, 세부 계약은 여기서 관리한다. SDK 클라이언트를 포함하는 실행 자원은 `app/service/resources.py`에서 관리한다. 실행 기록 검증·직렬화 코드는 `app/observability/records.py`가 맡는다.
 
+선택적인 오프라인 지식 산출물은 `app/ingestion/knowledge_schema.py`에서 정의하며 [지식 데이터 구성](knowledge-data.md)을 기준으로 한다. `prepare_knowledge(data_dir, output_root, *, catalog_path, max_chars=800)`는 검증한 빌드 경로와 manifest를 반환한다. 기존 `PageDocument`·`Chunk`·API·로그 계약은 바꾸지 않는다. `index_entries.jsonl`의 메타데이터를 기존 `Chunk` 생성자나 Qdrant payload에 그대로 전달하지 않는다.
+
 현재 기능 모듈과 공통 계약은 가짜 외부 자원으로 연결 검증했다. 실제 색인·생성 모델·Langfuse 서버를 사용한 전체 실행은 이번 구조 전환에서 확인하지 않았다. 구조와 검증 상태의 요약은 [시스템 설계](architecture.md)를 따른다.
 
 ## 1. 패키지명과 의존 방향

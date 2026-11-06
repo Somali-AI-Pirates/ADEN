@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "dataset": "basic",
+  "documents": [
+    {"book_id": "SB01", "pages": 24, "sha256": "8bb26df3c546f89abddf5d8750bf8823dc291d51926b3670cb6a788e34933d93", "source_origin": "carrier_guidance"},
+    {"book_id": "SB02", "pages": 24, "sha256": "d758b4e07825999f050dc2ad3d742d9b850c06db34fe34681011ecf915779736", "source_origin": "carrier_guidance"},
+    {"book_id": "SB03", "pages": 24, "sha256": "7649b60c206abf687225711aac9bf8dacb5e6fb2bb3503ba2b14112eaece0ccd", "source_origin": "carrier_guidance"},
+    {"book_id": "SB04", "pages": 24, "sha256": "4498d4e1a92861d67aad3f900a603f49d1b61b706b29d8e5756ada004450f8b9", "source_origin": "carrier_guidance"},
+    {"book_id": "SB05", "pages": 24, "sha256": "6b90e9f57ee2aa58f585c621c94e4240578832422020c14d28c925de7d8dafbc", "source_origin": "carrier_guidance"},
+    {"book_id": "SB06", "pages": 24, "sha256": "2ce49febe49ae5dc1ec780873e282395925c802051f532bb44b3f7d8884f33c0", "source_origin": "carrier_guidance"},
+    {"book_id": "SB07", "pages": 24, "sha256": "ac1a46deb897f5d4568a8f6148aa9f3e9f8839d1e52df5eddef3df75ab3476a0", "source_origin": "carrier_guidance"},
+    {"book_id": "SB08", "pages": 24, "sha256": "c57c33d30aa958e27dc0db1d319bada9336a63e2188a10a661e9f724709f5eba", "source_origin": "carrier_guidance"},
+    {"book_id": "SB09", "pages": 24, "sha256": "dbdb2c2297a1eeea2a1753928735e9956c0df1ddfa54945268651fb5b4960f93", "source_origin": "carrier_guidance"},
+    {"book_id": "SB10", "pages": 24, "sha256": "b24fa78ffbae570db25fd8834d6bd11fc3778e2f287a2e42c61ac3b35f9d3cb8", "source_origin": "carrier_guidance"},
+    {"book_id": "SB11", "pages": 24, "sha256": "2bf92073d9d5687bfcd06c56213281557deee1c4b3beb94c91ca1f34ce93aa19", "source_origin": "carrier_guidance"},
+    {"book_id": "SB12", "pages": 24, "sha256": "b8d29debedde03821a4c84424d9860d12ce34d3a08fa6345c7a9fa35a297c081", "source_origin": "carrier_guidance"},
+    {"book_id": "SB13", "pages": 24, "sha256": "47dc421f9c2a77611d16555834f54d85e5c7589c6aa158687ef76220aa16bf89", "source_origin": "carrier_guidance"},
+    {"book_id": "SB14", "pages": 24, "sha256": "aa971e1bf8dd590ab3a23eafe80571ae3286afc778b34ff7cc8ebf1e26373acc", "source_origin": "carrier_guidance"},
+    {"book_id": "SB15", "pages": 24, "sha256": "5eda541cf900103b814418349d6593ab9a31a14e7cb890d7367e53887381bdde", "source_origin": "customer_inquiry_collection"}
+  ],
+  "rules": [
+    {
+      "rule_id": "basic.rule.service-scope",
+      "title": "서비스 범위",
+      "text": "가온루트해운 부산–LA 일반 건화물 안내는 20GP와 40GP 대상이다. LA와 LOS ANGELES는 같은 목적지 표기다.",
+      "scope": {"route": "부산–LA", "cargo": "일반 건화물"},
+      "effect": {"equipment_types": ["20GP", "40GP"], "destination_aliases": ["LA", "LOS ANGELES"]},
+      "exceptions": ["냉동·위험물·규격 외 화물과 다른 항로에는 확대 적용하지 않는다."],
+      "anchors": [
+        {"book_id": "SB01", "page": 1, "quote": "LA 또는 LOS ANGELES로 표시하며 두 표기는 같은 목적지를 뜻한다."},
+        {"book_id": "SB01", "page": 1, "quote": "대상 장비는 20GP와 40GP다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.booking-confirmation",
+      "title": "접수와 예약 확정",
+      "text": "접수번호나 접수 회신만으로 예약이 확정되지 않는다. 상태가 확정인 예약 확인서로 확인한다.",
+      "scope": {"stage": "booking"},
+      "effect": {"confirmation_evidence": "상태가 확정인 예약 확인서", "receipt_implies_confirmation": false},
+      "exceptions": ["예약 확정은 서류 검토·반입 허용·본선 적재 완료를 뜻하지 않는다."],
+      "anchors": [
+        {"book_id": "SB01", "page": 3, "quote": "예약 확정은 상태가 확정인 예약 확인서로 확인하며"},
+        {"book_id": "SB01", "page": 3, "quote": "서류 검토 완료, 반입 허용, 본선 적재 완료를 함께 뜻하지 않는다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.si-deadline-before-2026-11-01",
+      "title": "SI 마감: 11월 변경 적용 전",
+      "text": "부산–LA 일반 건화물 20GP·40GP의 예정 출항일이 2026-11-01 전이면 SI는 이틀 전 15:00 KST까지 제출한다.",
+      "scope": {"route": "부산–LA", "cargo": "일반 건화물", "equipment_types": ["20GP", "40GP"]},
+      "conditions": [{"field": "scheduled_departure_date", "operator": "lt", "value": "2026-11-01"}],
+      "effect": {"date_offset_days": -2, "day_basis": "calendar", "time": "15:00", "timezone": "Asia/Seoul"},
+      "exceptions": ["SI 한정이며 VGM·반입 마감은 별도다. 개별 예외 승인은 이 규칙에 포함되지 않는다."],
+      "anchors": [
+        {"book_id": "SB11", "page": 1, "quote": "날짜에서 이틀을 빼며 평일만 세는 방식이 아니다."},
+        {"book_id": "SB11", "page": 1, "quote": "예정 출항일이 10월 30일인 예약은 기존대로 10월 28일 오후 3시를 적용한다."},
+        {"book_id": "SB11", "page": 1, "quote": "이 정정은 SI 마감에만 적용한다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.si-deadline-from-2026-11-01",
+      "title": "SI 마감: 11월 변경 적용 후",
+      "text": "부산–LA 일반 건화물 20GP·40GP의 예정 출항일이 2026-11-01부터이면 SI는 이틀 전 12:00 KST까지 제출한다. 예약일이 기준이 아니다.",
+      "scope": {"route": "부산–LA", "cargo": "일반 건화물", "equipment_types": ["20GP", "40GP"]},
+      "conditions": [{"field": "scheduled_departure_date", "operator": "gte", "value": "2026-11-01"}],
+      "effect": {"date_offset_days": -2, "day_basis": "calendar", "time": "12:00", "timezone": "Asia/Seoul"},
+      "exceptions": ["변경된 확정 출항일로 재확인한다. SI 한정이며 VGM·반입 마감과 개별 예외 승인은 별도다."],
+      "anchors": [
+        {"book_id": "SB11", "page": 1, "quote": "예정 출항일이 2026년 11월 1일 이후인 예약은 예정 출항일 이틀 전 낮 12시까지 SI를 제출한다."},
+        {"book_id": "SB11", "page": 1, "quote": "변경된 확정 일정으로 SI 마감 적용을 다시 확인한다."},
+        {"book_id": "SB11", "page": 1, "quote": "이 정정은 SI 마감에만 적용한다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.si-submission-address",
+      "title": "SI 제출 창구",
+      "text": "SI 최초 제출과 정정은 docs@gaonroute.example로 보낸다. 예약번호와 최초 제출·정정 여부를 표시한다.",
+      "scope": {"document_type": "SI"},
+      "effect": {"channel": "email", "address": "docs@gaonroute.example"},
+      "exceptions": ["접수와 검토 완료는 별도 상태다."],
+      "anchors": [
+        {"book_id": "SB03", "page": 1, "quote": "선적지시서의 제출처는 docs@gaonroute.example다."},
+        {"book_id": "SB03", "page": 1, "quote": "선적지시서 접수와 검토 완료는 별도 상태다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.vgm-new-40gp-from-2026-11-03",
+      "title": "VGM 신규 40GP 제출 경로",
+      "text": "2026-11-03부터 신규 접수하는 40GP VGM은 가온루트 업무 포털의 VGM 등록함에 제출한다. 기준은 VGM 신규 접수일과 장비 종류다.",
+      "scope": {"document_type": "VGM", "equipment_type": "40GP"},
+      "conditions": [
+        {"field": "vgm_new_receipt_date", "operator": "gte", "value": "2026-11-03"},
+        {"field": "submission_kind", "operator": "eq", "value": "new"}
+      ],
+      "effect": {"channel": "portal", "location_name": "가온루트 업무 포털 VGM 등록함", "url": null},
+      "exceptions": ["예약일·출항일로 판단하지 않는다. 기존 접수분 정정·20GP에는 확대 적용하지 않는다. 실제 접속 주소는 제공되지 않는다."],
+      "anchors": [
+        {"book_id": "SB11", "page": 2, "quote": "2026년 11월 3일부터 신규로 접수하는 40GP VGM은 가온루트 업무 포털의 VGM 등록함에 제출한다."},
+        {"book_id": "SB11", "page": 2, "quote": "20GP VGM은 11월 3일 이후에도 vgm@gaonroute.example로 제출한다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.vgm-20gp-email",
+      "title": "20GP VGM 이메일 유지",
+      "text": "20GP VGM은 2026-11-03 이후에도 vgm@gaonroute.example로 제출한다.",
+      "scope": {"document_type": "VGM", "equipment_type": "20GP"},
+      "effect": {"channel": "email", "address": "vgm@gaonroute.example"},
+      "exceptions": ["40GP 신규 접수의 포털 변경을 20GP에 적용하지 않는다."],
+      "anchors": [
+        {"book_id": "SB11", "page": 2, "quote": "20GP VGM은 11월 3일 이후에도 vgm@gaonroute.example로 제출한다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.vgm-existing-before-2026-11-03",
+      "title": "40GP 기존 접수분 중복 제출 금지",
+      "text": "2026-11-02까지 이미 접수된 40GP VGM은 포털에 중복 제출하지 않는다. 기존 접수 기록으로 확인해야 한다.",
+      "scope": {"document_type": "VGM", "equipment_type": "40GP"},
+      "conditions": [
+        {"field": "vgm_original_receipt_date", "operator": "lt", "value": "2026-11-03"},
+        {"field": "vgm_receipt_record", "operator": "exists", "value": true}
+      ],
+      "effect": {"resubmission_required_by_channel_change": false},
+      "exceptions": ["발송 여부나 예약 확정일만으로 기존 접수를 추정하지 않는다."],
+      "anchors": [
+        {"book_id": "SB11", "page": 2, "quote": "40GP라도 11월 2일까지 이미 접수된 자료는 새 포털에 중복 제출하지 않는다."},
+        {"book_id": "SB11", "page": 2, "quote": "단지 예약 확정일이 오래되었다는 이유로 이전 접수라고 판단하지 않는다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.vgm-correction-original-channel",
+      "title": "기존 VGM 정정 경로",
+      "text": "이미 접수된 VGM 정정은 기존 접수 경로와 기록을 연결해 요청한다. 11월 3일 이후의 정정도 신규 제출과 구별한다.",
+      "scope": {"document_type": "VGM"},
+      "conditions": [
+        {"field": "submission_kind", "operator": "eq", "value": "correction"},
+        {"field": "vgm_receipt_record", "operator": "exists", "value": true}
+      ],
+      "effect": {"channel_reference": "original_receipt_channel"},
+      "exceptions": ["기존 접수 기록이 없으면 먼저 확인한다. 정정 접수는 정정 반영 완료·마감 연장·반입 허가가 아니다."],
+      "anchors": [
+        {"book_id": "SB11", "page": 3, "quote": "이미 접수된 VGM의 정정은 기존 접수 경로로 요청한다."},
+        {"book_id": "SB11", "page": 3, "quote": "VGM 정정 접수와 정정 반영 완료는 구별한다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.vgm-booking-specific-deadline",
+      "title": "VGM 마감은 예약별 확인",
+      "text": "VGM 마감은 예약 확정 안내의 별도 마감을 따른다. 모든 예약에 적용할 공통 시각은 없으며 SI와 같다고 추정하지 않는다.",
+      "scope": {"document_type": "VGM"},
+      "effect": {"deadline_reference": "booking_confirmation", "universal_cutoff_time": null},
+      "exceptions": ["확정 안내가 없으면 해당 예약과 안내를 확인해야 한다."],
+      "anchors": [
+        {"book_id": "SB08", "page": 2, "quote": "VGM 마감은 각 예약 확정 안내에 적힌 별도 마감을 따른다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.vgm-weight-definition",
+      "title": "VGM과 SI 중량의 구별",
+      "text": "VGM은 화물이 적입된 컨테이너 전체의 검증 총중량이며 SI의 화물·포장 총중량과 다르다.",
+      "scope": {"document_type": "VGM"},
+      "effect": {"weight_basis": "verified_gross_mass_of_packed_container", "equal_to_si_cargo_weight": false},
+      "exceptions": ["실제 확인 자료 없이 검증값을 추정하지 않는다. 다른 장비의 값을 재사용하지 않는다."],
+      "anchors": [
+        {"book_id": "SB08", "page": 1, "quote": "VGM은 화물이 적입된 컨테이너 전체의 검증 총중량을 뜻한다."},
+        {"book_id": "SB08", "page": 1, "quote": "한 장비의 값을 다른 장비에 그대로 적용하지 않는다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.gate-permission-separate",
+      "title": "예약 확정과 반입 허용 구별",
+      "text": "예약 확정만으로 반입이 허용되지 않는다. 반입운영팀의 반입 예약 회신과 남은 확인 사항을 확인한다.",
+      "scope": {"stage": "gate_in"},
+      "effect": {"booking_confirmation_implies_gate_permission": false},
+      "exceptions": ["차량 배정 연락도 반입 허용을 뜻하지 않는다."],
+      "anchors": [
+        {"book_id": "SB04", "page": 1, "quote": "예약이 확정되어도 반입이 자동 허용되지는 않는다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.actual-gate-in-evidence",
+      "title": "실제 반입 완료 근거",
+      "text": "실제 반입 완료는 문의 대상 예약번호·장비번호가 일치하는 반입 확인 기록으로 확인한다.",
+      "scope": {"stage": "gate_in"},
+      "effect": {"completion_evidence": "반입 확인 기록"},
+      "exceptions": ["차량 출발·센터 도착·배차 예정 시각은 완료 증거가 아니다. 반입 완료도 본선 적재·출항 완료와 다르다."],
+      "anchors": [
+        {"book_id": "SB04", "page": 2, "quote": "실제 반입 완료는 반입 확인 기록으로 확인하며"},
+        {"book_id": "SB04", "page": 2, "quote": "배차 예정표의 시각을 실제 반입 시각으로 복사하지 않는다."},
+        {"book_id": "SB04", "page": 2, "quote": "반입 완료는 본선 적재 완료나 실제 출항과도 다르다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.gate-exception-approval",
+      "title": "반입 지연 예외 승인",
+      "text": "반입 지연 사유나 예외 요청을 보냈다는 사실만으로 연장·예외 승인이 되지 않는다. 대상 예약·장비의 회신과 허용 범위를 확인한다.",
+      "scope": {"stage": "gate_in_exception"},
+      "effect": {"request_implies_approval": false, "approval_reference": "대상 예약·장비의 예외 검토 회신"},
+      "exceptions": ["다른 예약의 허용 경험이나 서류 보완 접수 회신을 현재 건의 승인으로 사용하지 않는다."],
+      "anchors": [
+        {"book_id": "SB04", "page": 3, "quote": "지연 사유를 보냈다는 사실만으로 마감이 연장되거나 예외가 승인되지는 않는다."},
+        {"book_id": "SB04", "page": 3, "quote": "예외 검토 결과는 해당 예약과 장비에 대한 회신으로 확인한다."},
+        {"book_id": "SB04", "page": 3, "quote": "다른 예약에서 허용된 경험을 현재 건에 그대로 적용하지 않는다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.draft-approval-vs-issuance",
+      "title": "초안 승인과 발행 완료 구별",
+      "text": "초안 승인은 판본의 기재 사항 확인이다. 발행 완료는 대상 예약과 문서 번호·판본을 표시한 서류지원팀 발행 안내로 확인한다.",
+      "scope": {"document_type": "BL"},
+      "effect": {"draft_approval_implies_issuance": false, "issuance_evidence": "서류지원팀의 발행 안내"},
+      "exceptions": ["초안 승인·서류 발행은 본선 적재나 실제 출항의 증거가 아니다."],
+      "anchors": [
+        {"book_id": "SB05", "page": 3, "quote": "승인 회신은 그 초안의 기재 사항을 확인했다는 뜻이며"},
+        {"book_id": "SB05", "page": 3, "quote": "초안에 대한 회신만 있고 발행 안내가 없으면 발행 완료라고 답하지 않는다."},
+        {"book_id": "SB05", "page": 3, "quote": "초안 승인 후에도 실제 운송 상태는 별도 기록을 따른다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.actual-departure-evidence",
+      "title": "예정 출항과 실제 출항 구별",
+      "text": "적재·실제 출항은 운항안내팀이 제공한 대상 예약·장비의 적재 또는 출항 안내로 확인한다.",
+      "scope": {"stage": "sailing"},
+      "effect": {"completion_evidence": "운항안내팀의 대상 예약·장비 적재 또는 출항 안내"},
+      "exceptions": ["예정일 경과·반입 완료·SI 검토·초안 승인만으로 출항을 확정하지 않는다. 일부 장비의 안내를 전체로 확대하지 않는다."],
+      "anchors": [
+        {"book_id": "SB06", "page": 1, "quote": "예정 출항일은 준비 기준이며, 그 날짜가 지났다는 사실만으로 출항 완료가 되지 않는다."},
+        {"book_id": "SB06", "page": 1, "quote": "특정 장비의 적재 또는 실제 출항 여부는 운항안내팀이 제공한 대상 예약·장비의 적재 안내 또는 출항 안내로 확인한다."},
+        {"book_id": "SB06", "page": 1, "quote": "일부 장비만 안내에 적혀 있으면 나머지 장비까지 완료되었다고 확대하지 않는다."},
+        {"book_id": "SB06", "page": 1, "quote": "선적지시서 검토 완료, 초안 승인, 운송사의 출발 연락은 각각 다른 업무 단계의 기록이다."}
+      ]
+    },
+    {
+      "rule_id": "basic.rule.eta-vs-arrival-and-release",
+      "title": "도착 예정과 실제 도착·인도 구별",
+      "text": "LA 도착 예정 안내는 예상 일정이다. 실제 도착, 화물 인도 가능 또는 인도 승인을 증명하지 않는다.",
+      "scope": {"stage": "arrival"},
+      "effect": {"eta_implies_actual_arrival": false, "eta_implies_cargo_release": false},
+      "exceptions": ["선하증권 발행본도 도착·인도 완료의 증거가 아니다. 실제 상태와 목적지 후속 안내를 별도로 확인한다."],
+      "anchors": [
+        {"book_id": "SB06", "page": 2, "quote": "도착 예정 안내를 받았다는 사실만으로 실제 도착, 화물 인도 가능 또는 인도 승인이 확인되는 것은 아니다."},
+        {"book_id": "SB06", "page": 2, "quote": "발행본이 존재한다는 사실도 도착이나 인도 완료의 증거가 되지 않는다."}
+      ]
+    }
+  ]
+}

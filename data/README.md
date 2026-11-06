@@ -32,6 +32,14 @@ data/basic/
 
 저장소 `.gitignore`는 제공 자료와 `artifacts/`를 Git에서 제외한다. `data/README.md`만 추적한다.
 
+원본을 보존하며 규칙·안내·사례를 나누려면 선택적인 [오프라인 지식 데이터 준비](../docs/design/knowledge-data.md)를 사용한다. 아래 기존 Qdrant 색인 절차와는 별도의 단계다.
+
+```bash
+python -m app.ingestion.scripts.prepare_knowledge --data data/basic --output artifacts/knowledge/basic
+```
+
+산출물은 `artifacts/knowledge/basic/<build_id>/`에 생성된다. 원문 근거, 구조화한 핵심 규칙, 정규화 전 안내, 사례·고객 문의, 검색 입력과 검증 manifest를 분리한다. 지침은 기존 프롬프트 파일의 참조만 기록하고 검색 입력에 넣지 않는다. 이 명령은 외부 서비스에 연결하지 않으며 새 데이터를 기존 색인에 업로드하지 않는다. 스키마와 현재 정규화 범위는 위 문서를 기준으로 한다.
+
 ## 3. 검증
 PDF 15개, 각 24쪽, 총 360쪽이다. Git Bash에서 `data/basic/documents`로 이동해 아래 해시와 비교한다.
 ```bash

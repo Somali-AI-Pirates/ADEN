@@ -39,6 +39,7 @@ include = [
 exclude = ["tests", "tests.*", "experimental", "experimental.*"]
 
 [tool.setuptools.package-data]
+"app.ingestion" = ["catalogs/*.json"]
 "app.generation" = ["prompts/*.txt"]
 "app.evaluation" = ["prompts/*.txt"]
 "app.evaluation.samples" = ["*.json"]
