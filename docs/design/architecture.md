@@ -31,11 +31,11 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 **사람별 최상위 패키지 안에서 기능을 모듈화하고, 메인 파일은 초기화·연결 함수를 호출한다.** 질문 한 건의 실행 순서는 별도 서비스 함수에 둔다.
 
 - `main.py`: FastAPI 앱 생성 함수 호출.
-- `member_b/api/app.py`: 설정과 수명주기, 라우터, 오류 처리, 요청 추적 연결.
-- `member_b/service/query.py`: 검색 → 문맥 구성 → 생성 → 출처 검증 순서 연결.
+- `member_chsopo89/api/app.py`: 설정과 수명주기, 라우터, 오류 처리, 요청 추적 연결.
+- `member_chsopo89/service/query.py`: 검색 → 문맥 구성 → 생성 → 출처 검증 순서 연결.
 - 각 기능 모듈: 자기 기능과 공통 입출력 계약만 책임진다.
 
-Basic의 import 경로는 `member_a`, `member_b`, `member_c`, `shared`로 고정한다. 실제 이름은 담당표로 연결한다. 패키지명 변경이 필요하면 폴더·import·설정·실행 명령을 팀 전체가 같은 변경에서 맞춘다. 사람별 패키지는 최종 코드 위치이며, 통합 시 하나의 `app/`으로 다시 옮기지 않는다. 각 패키지 안의 기능·scripts·prompts·tests는 해당 담당자가 관리한다.
+Basic의 import 경로는 담당자 ID를 붙인 `member_ysl727727`(A), `member_chsopo89`(B), `member_Damsebi`(C)와 `shared`로 고정한다(2026-11-06 팀 결정). 대소문자까지 그대로 사용한다. 패키지명을 다시 바꾸려면 폴더·import·설정·실행 명령을 팀 전체가 같은 변경에서 맞춘다. 사람별 패키지는 최종 코드 위치이며, 통합 시 하나의 `app/`으로 다시 옮기지 않는다. 각 패키지 안의 기능·scripts·prompts·tests는 해당 담당자가 관리한다.
 
 예약·서류·비용은 사용자 업무 범주다. Basic에서는 세 범주를 별도 RAG 서비스나 검색 인덱스로 나누지 않는다. 하나의 질문이 예약 안내, 서류 조건과 정정 공지를 함께 필요로 할 수 있기 때문이다. 업무 범주는 프롬프트와 평가 사례에서 관리한다.
 
@@ -77,7 +77,7 @@ ADEN/
 │   ├── contracts.py                # 청크·응답·실행 기록 타입
 │   ├── settings.py
 │   └── exceptions.py
-├── member_a/                       # A의 최종 Python 패키지
+├── member_ysl727727/               # A의 최종 Python 패키지
 │   ├── __init__.py
 │   ├── ingestion/                  # PDF 추출·청킹
 │   ├── indexing/                   # 임베딩·Dense/BM25 색인
@@ -85,7 +85,7 @@ ADEN/
 │   ├── scripts/
 │   │   └── build_index.py
 │   └── tests/
-├── member_b/                       # B의 최종 Python 패키지
+├── member_chsopo89/                # B의 최종 Python 패키지
 │   ├── __init__.py
 │   ├── api/                        # app.py에 create_app()
 │   ├── generation/                 # context.py, chain.py, citations.py
@@ -95,7 +95,7 @@ ADEN/
 │   ├── prompts/
 │   │   └── shipping_qa.txt
 │   └── tests/
-├── member_c/                       # C의 최종 Python 패키지
+├── member_Damsebi/                 # C의 최종 Python 패키지
 │   ├── __init__.py
 │   ├── observability/
 │   │   └── tracing.py              # Langfuse·시간·토큰·오류 기록
@@ -139,22 +139,22 @@ ADEN/
     └── security_comparison.csv
 ```
 
-`member_c/evaluation/`은 코드, `data/basic/evaluation/`은 제공 데이터다. 서비스 런타임은 평가 코드와 정답 파일을 읽지 않는다. 데이터 처리기는 `data/basic/documents/*.pdf`만 허용하고 데이터 루트 전체를 재귀 색인하지 않는다.
+`member_Damsebi/evaluation/`은 코드, `data/basic/evaluation/`은 제공 데이터다. 서비스 런타임은 평가 코드와 정답 파일을 읽지 않는다. 데이터 처리기는 `data/basic/documents/*.pdf`만 허용하고 데이터 루트 전체를 재귀 색인하지 않는다.
 
 원본 데이터와 `artifacts/`는 Git에서 제외하고, 제출할 비교표·답변·채점 결과·재현 설정은 검토 후 `reports/<experiment_id>/`에 보존한다. 선택한 일반 질문의 실패 결과도 함께 남긴다. 설계 설명은 `docs/`, 실행 결과는 `reports/`, 빠른 시작 안내는 루트 README에 둔다.
 
-B의 `member_b/service/query.py`가 A의 검색 함수, B의 생성 함수, C의 추적 함수를 호출한다. 세 패키지는 `shared/contracts.py`를 공통 참조한다. `shared/`는 사람별 패키지를 import하지 않는다. A의 검색과 C의 추적 모듈도 B의 서비스·API를 역으로 import하지 않는다. C의 평가 실행기는 호출 함수나 API 클라이언트를 주입받아 순환 참조 없이 동작한다. 색인·모델 초기화 연결은 B의 `member_b/service/resources.py`가 맡는다. 패키지 import 시 모델 로딩이나 네트워크 호출을 실행하지 않는다.
+B의 `member_chsopo89/service/query.py`가 A의 검색 함수, B의 생성 함수, C의 추적 함수를 호출한다. 세 패키지는 `shared/contracts.py`를 공통 참조한다. `shared/`는 사람별 패키지를 import하지 않는다. A의 검색과 C의 추적 모듈도 B의 서비스·API를 역으로 import하지 않는다. C의 평가 실행기는 호출 함수나 API 클라이언트를 주입받아 순환 참조 없이 동작한다. 색인·모델 초기화 연결은 B의 `member_chsopo89/service/resources.py`가 맡는다. 패키지 import 시 모델 로딩이나 네트워크 호출을 실행하지 않는다.
 
 ## 4. 모듈별 함수 계약
 
-정확한 필드·JSON 예시·함수 인자·동기 호출·오류·Resources 정의는 [공통 계약](contracts.md)을 따른다. 아래는 책임과 입출력의 요약이다. `ingestion/indexing/retrieval`은 `member_a`, `generation/service`는 `member_b`, `evaluation`은 `member_c` 아래의 모듈을 뜻한다. 공통 타입과 가상 입출력을 먼저 맞춰 각자 독립 개발한다.
+정확한 필드·JSON 예시·함수 인자·동기 호출·오류·Resources 정의는 [공통 계약](contracts.md)을 따른다. 아래는 책임과 입출력의 요약이다. `ingestion/indexing/retrieval`은 `member_ysl727727`, `generation/service`는 `member_chsopo89`, `evaluation`은 `member_Damsebi` 아래의 모듈을 뜻한다. 공통 타입과 가상 입출력을 먼저 맞춰 각자 독립 개발한다.
 
 | 모듈·함수 | 입력 | 출력 | 책임 |
 | --- | --- | --- | --- |
 | `ingestion.extract_pages()` | PDF 경로 목록 | `PageDocument[]`, 처리 내역 | PDF 첫 장부터 1쪽으로 기록 |
 | `ingestion.chunk_pages()` | 페이지 목록, 청킹 설정 | `Chunk[]` | 문단·목록·출처 유지 |
 | `indexing.build_indexes()` | 청크 목록, 설정 | `IndexManifest` | 동일 청크로 벡터·키워드 색인 |
-| `member_b.service.resources.load_resources()` | 설정 | `Resources` | 준비된 색인·모델 한 번 로드 |
+| `member_chsopo89.service.resources.load_resources()` | 설정 | `Resources` | 준비된 색인·모델 한 번 로드 |
 | `retrieval.retrieve()` | 질문, mode, resources | 순서가 있는 `RetrievedChunk[]` | 방식별 후보 목록 반환 |
 | `generation.build_context()` | 후보 목록, k, 토큰 예산, 토큰 계산 함수 | `ContextBundle` | 실제 전달할 문맥과 출처 대응표 확정 |
 | `generation.generate_answer()` | 질문, 문맥, 모델; 선택 프롬프트 경로·방어 문장·요청 추적 | `GenerationResult` | 구조화 답변·실제 시도별 사용량 반환 |
@@ -186,7 +186,7 @@ B의 `member_b/service/query.py`가 A의 검색 함수, B의 생성 함수, C의
 `main.py`의 목표 형태는 다음과 같다. 아래 코드는 연결 방식을 설명하는 예시이며 아직 실행 가능한 구현이 아니다.
 
 ```python
-from member_b.api.app import create_app
+from member_chsopo89.api.app import create_app
 
 app = create_app()
 ```
@@ -194,11 +194,11 @@ app = create_app()
 `create_app()`은 설정 로드, FastAPI 생성, 라우터·오류 핸들러·요청 추적 등록을 맡는다. FastAPI lifespan에서 `load_resources()`를 호출하고 종료 시 자원을 해제한다.
 
 ```python
-# member_b/service/query.py — 핵심 흐름 예시
-from member_a.retrieval.service import retrieve
-from member_b.generation.context import build_context
-from member_b.generation.chain import generate_answer
-from member_b.generation.citations import resolve_citations
+# member_chsopo89/service/query.py — 핵심 흐름 예시
+from member_ysl727727.retrieval.service import retrieve
+from member_chsopo89.generation.context import build_context
+from member_chsopo89.generation.chain import generate_answer
+from member_chsopo89.generation.citations import resolve_citations
 from shared.contracts import QueryResponse
 
 def answer_query(request, resources, request_id, settings):
@@ -226,7 +226,7 @@ def answer_query(request, resources, request_id, settings):
 
 위 코드는 성공 경로의 연결 설명이며 생략한 추적·오류·빈 문맥 처리를 포함해야 실제 서비스가 된다. 실제 구현에서는 C의 단계별 기록 함수에 평탄 로그와 실제 시도별 입출력을 넘긴다. API 응답과 내부 RunRecord는 요청 ID로 연결한다. 기능 함수는 동기 호출로 통일하고 비동기 API 래퍼가 요청 파이프라인을 제한된 작업 스레드에서 처리한다. 하나의 공통 재시도 정책을 두고 SDK와 LangChain의 재시도가 중복되지 않게 설정한다.
 
-저장소 루트 실행, 여러 최상위 패키지의 설치 설정, B·C 기존 코드의 연결 조정은 [공통 계약](contracts.md)의 실행·마이그레이션 기준을 따른다. 루트의 `main.py`는 `python -m uvicorn main:app`으로, C의 CLI는 `python -m member_c.scripts.run_benchmark` 등으로 실행한다. 코드·의존성이 준비된 뒤 실제 동작을 확인한다.
+저장소 루트 실행, 여러 최상위 패키지의 설치 설정, B·C 기존 코드의 연결 조정은 [공통 계약](contracts.md)의 실행·마이그레이션 기준을 따른다. 루트의 `main.py`는 `python -m uvicorn main:app`으로, C의 CLI는 `python -m member_Damsebi.scripts.run_benchmark` 등으로 실행한다. 코드·의존성이 준비된 뒤 실제 동작을 확인한다.
 
 빈 검색 결과는 근거를 확인하지 못했다는 정상 보류로 처리할 수 있다. 반면 색인 연결 실패, 모델 timeout, 잘못된 출력은 시스템 오류로 전달한다. 서비스 내부에서 오류를 보류로 바꾸지 않는다.
 
@@ -360,11 +360,11 @@ Basic은 일반 질문 72개(개발 30, 추가 30, 확장 검증 12)와 보안 �
 
 | 작업 묶음 | 담당 폴더 | 완료 기준 |
 | --- | --- | --- |
-| 데이터·색인 | `member_a/ingestion/`, `member_a/indexing/` | PDF 15개 처리 내역, 페이지 출처, 두 색인 생성 |
-| 검색 | `member_a/retrieval/` | 동일 계약으로 세 방식 검색, 순위·후보 수 재현 |
-| 답변 생성 | `member_b/generation/`, `member_b/prompts/` | 답변·추가 확인·보류, 구조화 출력, 출처 검증 |
-| API·통합·기록 | `member_b/api/`, `member_b/service/`, `member_c/observability/` | `/query` 전체 연결, 오류 구분, Langfuse 기록 |
-| 평가·비교 | `member_c/evaluation/`, `member_c/scripts/` | 3N개 평가, 보안 4개, 비교표와 실패 분석 |
+| 데이터·색인 | `member_ysl727727/ingestion/`, `member_ysl727727/indexing/` | PDF 15개 처리 내역, 페이지 출처, 두 색인 생성 |
+| 검색 | `member_ysl727727/retrieval/` | 동일 계약으로 세 방식 검색, 순위·후보 수 재현 |
+| 답변 생성 | `member_chsopo89/generation/`, `member_chsopo89/prompts/` | 답변·추가 확인·보류, 구조화 출력, 출처 검증 |
+| API·통합·기록 | `member_chsopo89/api/`, `member_chsopo89/service/`, `member_Damsebi/observability/` | `/query` 전체 연결, 오류 구분, Langfuse 기록 |
+| 평가·비교 | `member_Damsebi/evaluation/`, `member_Damsebi/scripts/` | 3N개 평가, 보안 4개, 비교표와 실패 분석 |
 
 `shared/contracts.py`와 설정 키는 팀 공통 약속으로 먼저 확정한다. 함수 시그니처 변경은 담당자끼리 공유하고 호출부를 함께 바꾼다. 각 작업은 작은 샘플 입출력으로 연결을 확인한 뒤 실제 자료로 전환한다. 정답 자료에서 가져온 샘플은 런타임 프롬프트에 넣지 않는다.
 
@@ -385,19 +385,19 @@ Basic이 완료된 뒤 `configs/intermediate.yaml`, `data/intermediate/`, 별도
 
 - Intermediate: 실제 PDF 표의 행·열·단위·각주 보존과 운송 날짜·요율에 따른 계산을 추가한다.
 - Advanced: 여러 기록의 계약 조건·변경·승인 범위와 비용별 감면·면제, 청구와 수납 구분을 확장한다.
-- 계산 코드가 필요해지면 `member_b/calculation/` 같은 작은 모듈을 추가하되, PDF에서 확인한 입력값과 출처를 함께 전달한다.
+- 계산 코드가 필요해지면 `member_chsopo89/calculation/` 같은 작은 모듈을 추가하되, PDF에서 확인한 입력값과 출처를 함께 전달한다.
 - API 응답 계약, 검색 세 방식, 평가·Langfuse 구조는 유지한다. 각 난이도 안에서 공통 설정을 맞춰 다시 비교한다.
 
 ## 12. 요구사항과 산출물 대응
 
 | 발제문 요구 | 설계 위치 | 완료 증빙 |
 | --- | --- | --- |
-| 고정 PDF 기반 답변·출처·확인·보류 | member_a/ingestion / member_b/generation / member_b/service | 실제 응답과 원문 대조 |
-| 세 RAG 방식 비교 | member_a/retrieval / member_c/evaluation | 같은 질문별 비교표·설정 manifest |
-| FastAPI·LangChain·Langfuse | member_b/api / member_b/generation / member_c/observability | API 시연·요청별 trace |
-| 검색·답변 품질 평가 | member_c/evaluation | Hit/Recall·Faithfulness·Judge 점수와 이유 |
-| 보안 비교 | member_c/evaluation/security.py | 같은 문맥의 답변 4개와 노출 분석 |
-| 운영 지표 | member_c/observability / member_c/evaluation | 시간·오류·토큰·확인 가능 시 비용 |
+| 고정 PDF 기반 답변·출처·확인·보류 | member_ysl727727/ingestion / member_chsopo89/generation / member_chsopo89/service | 실제 응답과 원문 대조 |
+| 세 RAG 방식 비교 | member_ysl727727/retrieval / member_Damsebi/evaluation | 같은 질문별 비교표·설정 manifest |
+| FastAPI·LangChain·Langfuse | member_chsopo89/api / member_chsopo89/generation / member_Damsebi/observability | API 시연·요청별 trace |
+| 검색·답변 품질 평가 | member_Damsebi/evaluation | Hit/Recall·Faithfulness·Judge 점수와 이유 |
+| 보안 비교 | member_Damsebi/evaluation/security.py | 같은 문맥의 답변 4개와 노출 분석 |
+| 운영 지표 | member_Damsebi/observability / member_Damsebi/evaluation | 시간·오류·토큰·확인 가능 시 비용 |
 | 재실행·최종 선택·발표 | README / comparison.csv / 발표자료 | 실행 절차·선택 이유·한계·팀 기여 |
 
 참고 원문:

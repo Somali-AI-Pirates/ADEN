@@ -4,15 +4,15 @@
 
 관련 문서: [문서 목차](../README.md) · [시스템 설계](architecture.md) · [Git 협업 규칙](../guides/git-workflow.md)
 
-이 문서는 Basic의 모듈 연결 기준이다. Python 공통 데이터 타입은 구현 시 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. SDK 클라이언트를 포함하는 실행 자원은 B가 `member_b/service/resources.py`에서 관리한다. C의 로그 검증·직렬화 코드는 `member_c/observability/records.py`가 맡는다. 현재 main에는 문서만 있으며, 아래 계약을 실제 코드에 적용한 것은 아니다.
+이 문서는 Basic의 모듈 연결 기준이다. Python 공통 데이터 타입은 구현 시 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. SDK 클라이언트를 포함하는 실행 자원은 B가 `member_chsopo89/service/resources.py`에서 관리한다. C의 로그 검증·직렬화 코드는 `member_Damsebi/observability/records.py`가 맡는다. 현재 main에는 문서만 있으며, 아래 계약을 실제 코드에 적용한 것은 아니다.
 
 ## 1. 패키지명과 의존 방향
 
-Basic의 import 경로는 `member_a`, `member_b`, `member_c`, `shared`로 고정한다. 실제 담당자 이름은 문서의 담당표로 연결한다. 실제 이름을 패키지명에 사용하기로 변경하면 팀 전체가 경로·import·패키지 설정·실행 명령을 같은 변경에서 맞춘다. 각자가 독립적으로 이름을 바꾸지 않는다.
+Basic의 import 경로는 담당자 ID를 붙인 `member_ysl727727`(A), `member_chsopo89`(B), `member_Damsebi`(C)와 `shared`로 고정한다(2026-11-06 팀 결정). 대소문자까지 그대로 사용한다. 패키지명을 다시 바꾸려면 팀 전체가 경로·import·패키지 설정·실행 명령을 같은 변경에서 맞춘다. 각자가 독립적으로 이름을 바꾸지 않는다.
 
-- A: `member_a/ingestion`, `indexing`, `retrieval`.
-- B: `member_b/api`, `generation`, `service`; 공통 파일 변경 취합.
-- C: `member_c/observability`, `evaluation`; 평가·보안 실행 스크립트.
+- A: `member_ysl727727/ingestion`, `indexing`, `retrieval`.
+- B: `member_chsopo89/api`, `generation`, `service`; 공통 파일 변경 취합.
+- C: `member_Damsebi/observability`, `evaluation`; 평가·보안 실행 스크립트.
 - `shared/`는 사람별 패키지를 import하지 않는다. 공통 타입 정의 시 모델·SDK 초기화를 수행하지 않는다.
 - B가 A의 검색과 C의 추적 함수를 호출한다. C 평가기는 서비스 호출 함수를 주입받으며 B의 앱을 직접 초기화하지 않는다.
 
@@ -249,9 +249,9 @@ Basic의 공통 실행 위치는 저장소 루트다. 코드가 병합되고 의
 
 ```bash
 python -m uvicorn main:app --reload
-python -m member_a.scripts.build_index --help
-python -m member_c.scripts.run_benchmark --help
-python -m member_c.scripts.run_security --help
+python -m member_ysl727727.scripts.build_index --help
+python -m member_Damsebi.scripts.run_benchmark --help
+python -m member_Damsebi.scripts.run_security --help
 ```
 
 각 패키지·하위 Python 패키지에는 `__init__.py`를 둔다. 직접 파일 실행이나 개인별 sys.path 수정보다 위 모듈 실행 방식을 사용한다. 프롬프트 경로는 모듈 위치 또는 명시 설정에서 구하고, 데이터·산출물 경로는 프로젝트 기준 경로로 정규화한다.
@@ -261,7 +261,7 @@ B 브랜치처럼 setuptools를 사용하면 pyproject의 패키지 탐색을 �
 ```toml
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["shared", "shared.*", "member_a", "member_a.*", "member_b", "member_b.*", "member_c", "member_c.*"]
+include = ["shared", "shared.*", "member_ysl727727", "member_ysl727727.*", "member_chsopo89", "member_chsopo89.*", "member_Damsebi", "member_Damsebi.*"]
 exclude = ["*.tests", "*.tests.*"]
 ```
 
