@@ -1,0 +1,268 @@
+{
+  "data_kind": "basic",
+  "modes": {
+    "naive": {
+      "hit_at_k": {
+        "mean": 0.975,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 0.8208333333333334,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.8297901904382167,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_fact": {
+        "mean": 0.425,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_condition": {
+        "mean": 0.85,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_evidence": {
+        "mean": 0.7,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_decision": {
+        "mean": 0.95,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 40,
+        "errors": 0,
+        "error_rate": 0.0,
+        "error_types": [],
+        "status_counts": {
+          "answered": 38,
+          "needs_clarification": 0,
+          "abstained": 2,
+          "error": 0
+        },
+        "latency_ok": {
+          "mean_ms": 7582.4,
+          "p50_ms": 6855.0,
+          "known": 40,
+          "count": 40
+        },
+        "latency_error": {
+          "mean_ms": null,
+          "p50_ms": null,
+          "known": 0,
+          "count": 0
+        },
+        "latency_all": {
+          "mean_ms": 7582.4,
+          "p50_ms": 6855.0,
+          "known": 40,
+          "count": 40
+        },
+        "input_tokens": 174537,
+        "output_tokens": 28155,
+        "usage_complete": 40,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 1
+      },
+      "grading": {
+        "calls": 80,
+        "failed_calls": 0,
+        "latency_ms": 1457608,
+        "input_tokens": 174943,
+        "output_tokens": 43825
+      }
+    },
+    "hybrid": {
+      "hit_at_k": {
+        "mean": 0.975,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 0.9083333333333334,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.8543307675730077,
+        "scored": 39,
+        "not_applicable": 0,
+        "unavailable": 1
+      },
+      "judge_fact": {
+        "mean": 0.5384615384615384,
+        "scored": 39,
+        "not_applicable": 0,
+        "unavailable": 1
+      },
+      "judge_condition": {
+        "mean": 0.8461538461538461,
+        "scored": 39,
+        "not_applicable": 0,
+        "unavailable": 1
+      },
+      "judge_evidence": {
+        "mean": 0.7948717948717948,
+        "scored": 39,
+        "not_applicable": 0,
+        "unavailable": 1
+      },
+      "judge_decision": {
+        "mean": 0.925,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 40,
+        "errors": 1,
+        "error_rate": 0.025,
+        "error_types": [
+          "ValueError"
+        ],
+        "status_counts": {
+          "answered": 37,
+          "needs_clarification": 0,
+          "abstained": 2,
+          "error": 1
+        },
+        "latency_ok": {
+          "mean_ms": 7558.051282051282,
+          "p50_ms": 6516,
+          "known": 39,
+          "count": 39
+        },
+        "latency_error": {
+          "mean_ms": 4008.0,
+          "p50_ms": 4008,
+          "known": 1,
+          "count": 1
+        },
+        "latency_all": {
+          "mean_ms": 7469.3,
+          "p50_ms": 6377.5,
+          "known": 40,
+          "count": 40
+        },
+        "input_tokens": 182942,
+        "output_tokens": 28010,
+        "usage_complete": 40,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 1
+      },
+      "grading": {
+        "calls": 78,
+        "failed_calls": 0,
+        "latency_ms": 1362533,
+        "input_tokens": 179804,
+        "output_tokens": 36135
+      }
+    },
+    "hybrid_rerank": {
+      "hit_at_k": {
+        "mean": 0.975,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 0.8833333333333334,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.8897360817852412,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_fact": {
+        "mean": 0.55,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_condition": {
+        "mean": 0.875,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_evidence": {
+        "mean": 0.825,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_decision": {
+        "mean": 0.975,
+        "scored": 40,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 40,
+        "errors": 0,
+        "error_rate": 0.0,
+        "error_types": [],
+        "status_counts": {
+          "answered": 36,
+          "needs_clarification": 0,
+          "abstained": 4,
+          "error": 0
+        },
+        "latency_ok": {
+          "mean_ms": 13613.275,
+          "p50_ms": 13026.0,
+          "known": 40,
+          "count": 40
+        },
+        "latency_error": {
+          "mean_ms": null,
+          "p50_ms": null,
+          "known": 0,
+          "count": 0
+        },
+        "latency_all": {
+          "mean_ms": 13613.275,
+          "p50_ms": 13026.0,
+          "known": 40,
+          "count": 40
+        },
+        "input_tokens": 182673,
+        "output_tokens": 27912,
+        "usage_complete": 40,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 0
+      },
+      "grading": {
+        "calls": 80,
+        "failed_calls": 0,
+        "latency_ms": 1383709,
+        "input_tokens": 185997,
+        "output_tokens": 37477
+      }
+    }
+  }
+}
