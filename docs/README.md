@@ -10,14 +10,14 @@ ADEN은 4명이 2026-11-05~11-13에 진행하는 Basic 해운 RAG Q&A 프로젝�
 | --- | --- | --- |
 | 실행·기능 구조·현재 검증 상태 | [프로젝트 README](../README.md), 아래 설계·가이드 | 코드와 같은 PR에서 갱신 |
 | 타입·API·호출·로그 계약 | [공통 계약](design/contracts.md), 실제 `shared/`·구현·테스트 | 불일치는 수정 대상이며 변경 제안은 채택 상태와 구분 |
-| 진행 작업·담당·목표일·완료 증거, WBS | 팀 Notion — [공식 입구](https://app.notion.com/p/teamsparta/LLM-3c82dc3ef514806dbec3de52a4ce486d?source=copy_link) | 해당 ADEN 작업 항목에 GitHub Issue/PR·결과 링크 연결 |
-| 목표·역할·일정 변경, 회의·결정·문제 해결 | 팀 Notion의 회의·결정 기록 | 이유·영향·결정 상태를 남기고 기술 규약 변경은 PR에 반영 |
-| 매일 개인 작업일지·TIL | 공식 안내에 따른 개인 일지와 [TIL 제출](https://kant.spartaclub.kr/) | 작업·문제·해결 시도·다음 작업을 기록하고 팀 Notion에서 찾을 수 있게 연결 |
+| 진행 작업·담당·목표일·완료 증거, WBS | [ADEN 팀 홈](https://app.notion.com/p/6e9b8d4a06f782039952010095ade408)의 [기존 WBS & Tasks](https://app.notion.com/p/4b8b8d4a06f782d1a01d01c2e3aee28b) | 해당 ADEN 작업 항목에 GitHub Issue/PR·결과 링크 연결 |
+| 목표·역할·일정 변경, 회의·결정·문제 해결 | 팀 Notion의 [회의록](https://app.notion.com/p/0aab8d4a06f7833c99d181a4046c952d) | 이유·영향·결정 상태를 남기고 기술 규약 변경은 PR에 반영 |
+| 매일 개인 작업일지·TIL | [개인 작업일지 DB](https://app.notion.com/p/497b8d4a06f78349bf4c01df787dba65)와 [TIL 제출](https://kant.spartaclub.kr/) | 작업·문제·해결 시도·다음 작업·산출물 링크를 기록. 공식 일지는 본인이 작성하고 개인 실험의 자유 형식과 구분 |
 | 막힘·부재·검토 요청 알림 | 팀 Slack | 결정·완료의 근거는 Notion 또는 PR에 남기고 알림에서 연결 |
 | 개인 탐색·노트북·자유로운 작업 로그 | [experimental/](../experimental/README.md) | 개인 내부 구성·필수 파일·양식 없음 |
 | 공식 비교·제출 결과 | `reports/` 및 보존한 `artifacts/` | [데이터 안내](../data/README.md)와 [평가 가이드](guides/c-module-guide.md)의 재현 정보 연결 |
 
-공식 Notion 입구는 확인했으나 ADEN 작업판·역할표의 직접 링크는 아직 확인하지 못했다. 팀에서 실제 사용하는 페이지를 확인해 위 표의 입구를 구체 링크로 교체한다. 확인 전 별도 작업판이나 역할표를 저장소에 새로 만들지 않는다. 리더·통합 담당·백업·실행 예산도 현재 문서에서 확정하지 않는다.
+2026-11-06에 소말리아 AI 해적단의 ADEN 팀 홈과 기존 WBS·회의록·개인 작업일지의 위치를 확인했다. Notion에서 저장소·기술 문서를 찾을 때는 [Github Rules](https://app.notion.com/p/5ddb8d4a06f783d2910b01949a1052ca)를 이용한다. 기존 DB와 기록을 계속 사용하고 저장소에 별도 현행 작업판을 만들지 않는다. 팀 홈의 역할표와 일부 DB 선택지에는 템플릿 예시가 남아 있으므로 이를 실제 담당 배정으로 해석하지 않는다. 리더·통합 담당·백업·실행 예산의 확정 여부는 여전히 팀 확인이 필요하다.
 
 개인 실험의 자율성과 교육 과정의 필수 기록은 별개다. 개인 폴더에 정해진 일지 양식을 만들 필요는 없지만, 공식 안내의 일일 작업일지·TIL 의무는 따른다. 프로젝트 기간에는 데일리 퀘스트가 중단된다. 일정·기록 요건의 근거는 [공식 프로젝트 공지](https://2026kant.slack.com/archives/C0BBUDU7AEQ/p1793837232391099)와 [과제 안내](https://app.notion.com/p/teamsparta/3-RAG-Q-A-40e2dc3ef514802f9c64c57bfb19336c?source=copy_link)다.
 

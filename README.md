@@ -41,6 +41,7 @@ experimental/<GitHubID>/  # 개인 실험 공간, 제품 코드에서 참조하�
 
 - 처음 참여하거나 복귀하면 **이 README → [문서 목차·기록 위치](docs/README.md) → [협업 절차](docs/guides/git-workflow.md) → 맡을 기능의 설계·계약** 순서로 읽는다.
 - [문서 목차](docs/README.md): 기술 기준, Notion 작업판·회의·필수 일지, TIL, Slack의 역할 구분
+- [ADEN 팀 Notion](https://app.notion.com/p/6e9b8d4a06f782039952010095ade408): 기존 WBS·회의록·개인 작업일지와 팀 기록
 - [에이전트 작업 지침](AGENTS.md): 작업별로 읽을 문서와 구현·검증·보고 기준
 - [시스템 설계](docs/design/architecture.md): 현재 구조·기능 흐름·검증 상태
 - [공통 입출력·호출 계약](docs/design/contracts.md): 데이터 타입, API·로그·호출 계약의 기준
