@@ -1,0 +1,4 @@
+* text=auto eol=lf
+
+# 개인 실험 파일의 줄바꿈은 이 규칙으로 변환하지 않는다.
+experimental/** -text

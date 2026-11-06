@@ -52,7 +52,19 @@ experimental/<GitHubID>/  # 개인 실험 공간, 제품 코드에서 참조하�
 
 ## 실행
 
-선언한 Python 범위는 3.11 이상이며, 공통 개발·검증 기준은 **Python 3.13**이다. 현재 CI와 위 테스트 결과도 3.13 기준이다. 다른 버전의 호환성은 별도 검증하지 않았다. 가상환경을 활성화한 뒤 저장소 루트에서 실행한다.
+선언한 Python 범위는 3.11 이상이며, 공통 개발·검증 기준은 **Python 3.13**이다. `.python-version`과 CI도 3.13을 기준으로 하며, 다른 선언 버전의 호환성은 별도 검증하지 않았다. Python 3.13을 선택하고 가상환경을 활성화한 뒤 저장소 루트에서 실행한다.
+
+VS Code에서는 권장 확장(Python, Pylance, Ruff, EditorConfig)을 설치하고 `.venv` 인터프리터를 선택한다. 워크스페이스의 테스트 검색 대상은 `tests/`이며, Ruff는 린트와 명시적으로 요청한 파일 포맷에 사용한다. 저장 시 자동 포맷과 CI 포맷 검사는 기본 적용하지 않는다. 세부 설정은 `.vscode/`를 기준으로 한다.
+
+Pylance는 `pyproject.toml`의 Pyright `basic` 설정으로 `main.py`, `app/`, `shared/`를 편집기에서 진단하고 `experimental/`은 제외한다. 2026-11-06 초기 점검에서 45개 파일에 오류 15건이 보고됐다. 이는 편집기 진단 기준선이며, 타입 검사가 통과했다는 뜻이 아니고 CLI·CI gate도 아니다.
+
+Python 3.13 인터프리터를 선택한 상태에서 개발 환경을 처음 만들 때 저장소 루트에서 실행한다.
+
+```bash
+python -m venv .venv
+```
+
+생성한 가상환경을 활성화하고 필요한 의존성을 설치한다.
 
 ```bash
 python -m pip install -e '.[test]'
@@ -73,7 +85,7 @@ python -m pytest -q tests
 CI와 동일하게 import·CLI 진입점을 확인하려면 다음을 실행한다. `--help`와 가상 샘플은 실제 키, 색인, 모델 호출을 사용하지 않는다.
 
 ```bash
-python -m ruff check --select E9,F63,F7,F82 .
+python -m ruff check .
 python -m app.indexing.scripts.build_index --help
 python -m app.evaluation.scripts.eval_retrieval --help
 python -m app.evaluation.scripts.run_benchmark --help

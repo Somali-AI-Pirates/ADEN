@@ -31,7 +31,9 @@
 
 ## 검증과 보고
 
-검사 명령의 기준은 [협업 가이드](docs/guides/git-workflow.md), `pyproject.toml`, `.github/workflows/ci.yml`이다. 공통 검증 환경은 Python 3.13이며 다른 선언 버전의 검증을 통과했다고 추정하지 않는다.
+검사 명령의 기준은 [협업 가이드](docs/guides/git-workflow.md), `pyproject.toml`, `.github/workflows/ci.yml`이다. 프로젝트는 Python 3.11 이상을 선언하지만 공통 개발·CI 기준은 Python 3.13이며 다른 선언 버전의 검증을 통과했다고 추정하지 않는다. VS Code를 사용할 때는 저장소 권장 확장과 `.vscode/` 설정을 참고하고, `.venv` 인터프리터와 `tests/` pytest 대상을 사용한다. Ruff 린트·포매터의 공통 설정은 프로젝트 기본값이다. 포맷터는 저장 시 자동 실행하지 않으며, 개인 실험은 여전히 제품의 기본 검사 범위 밖이다.
+
+Pylance 진단은 `pyproject.toml`의 Pyright `basic` 설정을 따르는 편집기 진단이며 `main.py`, `app/`, `shared/`에 적용하고 `experimental/`은 제외한다. 2026-11-06 기준선은 45개 파일에서 오류 15건이다. 이를 타입 검사 통과로 보고하거나 CI gate라고 설명하지 않는다. Pyright CLI 검사는 기본 검증 절차가 아니다.
 
 - **문서만 변경:** 링크·경로·실제 코드/CLI와의 의미 일치·새 참여자/복귀자/해당 작업 시나리오를 확인한다. 규약이나 에이전트 지침의 의미 변경은 관련 검토자에게 검토받는다. 철자·서식 교정은 자체 확인한다.
 - **공통 코드·설정·검사 변경:** 영향 범위를 확인하는 테스트와 관련 CLI/샘플을 먼저 검증한 뒤, 안정된 변경에 프로젝트의 최종 검사를 실행한다. 실행하지 못한 검사를 통과로 표시하지 않는다.
@@ -41,7 +43,7 @@
 공통 코드 검사의 기본 명령은 저장소 루트에서 실행한다.
 
 ```bash
-python -m ruff check --select E9,F63,F7,F82 .
+python -m ruff check .
 python -m pytest -q tests
 ```
 

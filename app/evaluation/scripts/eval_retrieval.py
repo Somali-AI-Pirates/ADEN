@@ -89,7 +89,10 @@ def main():
 
     scored = [r for r in runs if r["score"]]
     na = [r["id"] for r in runs if not r["score"]]
-    avg = lambda key, rows=scored: sum(r["score"][key] for r in rows) / len(rows)
+
+    def avg(key, rows=scored):
+        return sum(r["score"][key] for r in rows) / len(rows)
+
     k = args.k
     print(f"[{args.mode} / {args.split}] 질문 {len(runs)}개, 채점 {len(scored)}개, N/A {len(na)}개 {na}")
     print(f"  Hit@{k} {avg('hit'):.3f} | Recall@{k} {avg('recall'):.3f} | 근거쪽@{k} {avg('group_cov'):.3f}"
