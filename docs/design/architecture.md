@@ -7,7 +7,7 @@
 | 구분 | 상태 |
 | --- | --- |
 | 현재 구현 | 기능별 모듈에 Naive Dense·Hybrid(Dense + BM25, RRF)·Hybrid + 리랭킹 검색과 답변·API·기록·평가 코드가 있다. 세 방식은 검색 전용 평가만 실행했고 답변 평가는 실행하지 않았다. 선택적인 [오프라인 지식 데이터 준비](knowledge-data.md)가 있다. |
-| 채택한 구조 | 제품 코드는 `app/` 기능 모듈, 공통 타입·설정은 `shared/`에서 관리한다. 상세 타입·함수·기록 계약은 [공통 계약](contracts.md)을 기준으로 한다. |
+| 채택한 구조 | [기능별 모듈 + 얇은 API + 서비스 계층](#채택한-설계-패턴)을 따른다. 상세 타입·함수·기록 계약은 [공통 계약](contracts.md)을 기준으로 한다. |
 | Basic 목표 | 세 검색 방식, 실제 자료 기반 답변·평가, 보안 비교와 운영 지표를 완성한다. 목표 목록은 현재 구현의 증거가 아니다. |
 | 검증 상태 | 모의 인프라로 연결을 확인했으나 실제 색인·모델·Langfuse 전체 통합은 미검증이다. 구체적인 당시 수치는 [구조 전환 기록](../plans/functional-layout-2026-11-06.md), 검색 전용 측정은 [데이터 안내](../../data/README.md)에 보존한다. |
 
@@ -37,13 +37,38 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 
 ## 2. 구조의 핵심
 
-**제품 코드는 기능별 `app/` 모듈로 구성하고, 공통 타입·설정은 기존 `shared/`에서 유지한다.** `main.py`는 앱 생성 함수를 호출하고 질문 한 건의 실행 순서는 서비스 계층이 연결한다.
+### 채택한 설계 패턴
 
-- `main.py`: FastAPI 앱 생성 함수 호출.
-- `app/api/app.py`: 설정과 수명주기, 라우터, 오류 처리, 요청 추적 연결.
-- `app/service/query.py`: 검색 → 문맥 구성 → 생성 → 출처 검증 순서 연결.
-- 각 기능 모듈은 기능과 `shared/` 계약만 사용한다.
-- 제품 모듈은 `experimental/<GitHubID>/`를 import하거나 참조하지 않는다.
+**기능별 모듈 + 얇은 API + 서비스 계층**(Layered Architecture + Service Layer)을 채택한다. 계층형 구조와 서비스 계층을 4명·짧은 프로젝트 기간에 맞게 적용하며, 상세 작성·의존 규칙의 기준은 이 절이다. 제품 코드는 기능별 `app/`, 공통 타입·설정·예외는 `shared/`에 둔다.
+
+| 경계 | 책임과 새 코드 작성 기준 |
+| --- | --- |
+| 앱 조립 | `main.py`는 `create_app()`을 호출한다. `app/api/app.py`는 설정을 읽고 FastAPI에 시작·종료, 요청 기록, 오류 처리와 라우터를 연결한다. |
+| API | `app/api/routes.py`는 HTTP 입력 검증·기본값·준비 상태·응답을 처리하고 연결된 서비스 함수를 호출한다. 검색·생성 파이프라인을 넣지 않는다. |
+| 서비스 계층 | `app/service/query.py`가 검색 → 문맥 구성 → 생성 → 출처 확인을 연결한다. 필요한 자원·설정·요청 ID·기록을 인자로 받아 HTTP 없이도 호출할 수 있게 한다. |
+| 기능 모듈 | `ingestion/`, `indexing/`, `retrieval/`, `generation/`, `observability/`는 해당 기능을 구현한다. 새 구현은 관련 기능의 기존 진입점과 공통 계약을 재사용한다. |
+| 자원 수명주기 | API의 자원 준비·해제는 `app/api/lifespan.py`에서 `app/service/resources.py`를 통해 연결한다. 요청 기록과 오류 변환은 각각 `middleware.py`, `errors.py`에서 등록한다. |
+| 설정 | 실험 재현에 필요한 모델·검색·문맥 설정은 YAML에서 읽어 `shared/settings.py`의 Pydantic 모델로 검증한다. 인증값은 환경변수로 읽고 로컬 `.env`는 Git에서 제외한다. |
+| 평가·CLI | 평가기는 초기화된 서비스 호출 함수를 전달받고, CLI는 필요한 자원을 조립하는 진입점이다. API를 import해서 서버를 띄우거나 질문 처리 파이프라인을 복제하지 않는다. |
+
+단순 처리와 실행 순서는 함수를 기본으로 한다. SDK 클라이언트, `Resources`처럼 상태·자원 수명주기가 필요한 경우에는 클래스를 사용한다. 새 파일은 독립된 책임이 있을 때 분리하고, 기본 실행 경로가 위에서 아래로 읽히도록 둔다. 사용 사례가 확인되지 않은 추상 계층·범용 의존성 컨테이너·호환 경로는 추가하지 않는다.
+
+의존 방향은 다음을 따른다. 이는 기능 간 재사용을 금지하는 규칙이 아니다.
+
+- `shared/`는 `app/`을 import하지 않는다. API와 서비스 계층이 기능을 연결하며, 기능 모듈은 API·서비스 조립부·평가기 쪽을 역으로 import하지 않는다.
+- 기능에 필요한 하위 구현은 재사용할 수 있다. 현재 검색 → 색인, 색인 → 문서 가공, 평가 → 관측 기록 정규화가 그 예다. 재사용할 때 순환 의존을 만들지 않는다.
+- 제품 코드·기본 검사·설치는 `experimental/<GitHubID>/`에 의존하지 않는다. 채택할 구현은 관련 기능 모듈에 통합하고 개인 폴더의 내부 구성은 자율로 둔다.
+
+자원의 초기화 시점·소유자·해제 방식을 명시하고 import만으로 모델을 읽거나 네트워크에 연결하지 않는다. 현재 API의 기본 자원은 lifespan에서 준비하며, BM25·리랭커는 주입되지 않았으면 검색 모듈이 최초 사용 때 만들어 프로세스 안에 캐시한다. 이 기존 지연 초기화 경로를 모든 자원이 서버 시작 때 준비된 것으로 설명하지 않는다.
+
+현재 평가 CLI에 필요한 서비스 자원 bootstrap은 후속 작업이다. 초기화된 callable을 받는 설계와 실제 실행 준비 완료를 구분하며 [평가 가이드](../guides/c-module-guide.md)를 따른다. 타입·함수·응답·기록의 상세는 [공통 계약](contracts.md)이 기준이다.
+
+설계 참고 자료:
+
+- [FastAPI의 여러 파일 구성](https://fastapi.tiangolo.com/tutorial/bigger-applications/): 라우터 분리와 앱 조립.
+- [FastAPI Lifespan](https://fastapi.tiangolo.com/advanced/events/): 공유 자원의 준비·해제.
+- [FastAPI 설정 가이드](https://fastapi.tiangolo.com/advanced/settings/): 타입이 있는 설정과 환경변수 검증. 공식 예제의 `BaseSettings`와 달리 현재 YAML은 `BaseModel`로 검증하며, 환경변수 처리는 기존 자원 준비 경로에서 수행한다.
+- [Martin Fowler의 Service Layer](https://martinfowler.com/eaaCatalog/serviceLayer.html): 요청별 기능 호출의 조정. 프로젝트에는 함수 중심으로 적용한다.
 
 기능별 연락 담당자와 공동 변경 절차는 [CONTRIBUTING](../../CONTRIBUTING.md#1-작업담당기록)에서 관리한다.
 
@@ -67,7 +92,7 @@ flowchart LR
     REF[평가 정답·채점 기준] --> EVAL
 ```
 
-색인 생성은 사전 작업이고 API 요청 처리와 분리한다. 서버가 시작할 때 준비된 색인과 모델을 한 번 로드하며, 요청마다 PDF를 읽거나 임베딩을 다시 만들지 않는다.
+색인 생성은 사전 작업이고 API 요청 처리와 분리한다. 서버가 시작할 때 기존 Qdrant 컬렉션에 연결하고 임베딩·생성 모델을 준비하며, 요청마다 PDF를 읽거나 문서 임베딩을 다시 만들지 않는다. BM25·리랭커의 지연 초기화는 위 자원 수명주기 설명을 따른다.
 
 ## 3. 폴더 구조
 
@@ -122,7 +147,7 @@ ADEN/
 | --- | --- |
 | `app/ingestion/` | PDF 페이지 추출과 페이지 안 청킹 |
 | `app/indexing/` | 임베딩, Dense 색인 생성과 CLI |
-| `app/retrieval/` | `retrieve()` 진입점. 현재 `naive` Dense 검색만 구현 |
+| `app/retrieval/` | `retrieve()` 진입점. `naive`, `hybrid`, `hybrid_rerank` 검색 |
 | `app/generation/` | 문맥 구성, 답변 생성, 출처 ID 해석 |
 | `app/service/` | 자원 준비, 요청 흐름과 평가 어댑터 연결 |
 | `app/api/` | FastAPI 앱 수명주기, 라우트와 오류 변환 |
@@ -141,7 +166,17 @@ from app.api.app import create_app
 app = create_app()
 ```
 
-`create_app()`은 설정 로드, FastAPI 생성, 라우터·오류 핸들러·요청 추적 등록을 맡는다. FastAPI lifespan에서 `load_resources()`를 호출하고 종료 시 자원을 해제한다.
+`create_app()`은 설정 로드 → FastAPI 생성 → 앱 상태 설정 → 요청 기록·오류 처리·라우터 등록 → 앱 반환 순서로 조립한다. 함수 안에 시작·종료 절차나 요청·오류 처리 함수를 중첩 정의하지 않는다.
+
+| 읽을 코드 | 확인할 내용 |
+| --- | --- |
+| [app.py](../../app/api/app.py) | 앱 조립 순서와 기존 선택 인자 |
+| [lifespan.py](../../app/api/lifespan.py) | `create_lifespan()`이 앱별 설정과 선택 처리 함수를 연결. 서버 시작 때 `load_resources()`를 호출하고 종료 때 해제 |
+| [middleware.py](../../app/api/middleware.py) | `register_request_tracking()`이 요청 ID·HTTP 시간·기록 전달을 등록 |
+| [errors.py](../../app/api/errors.py) | `register_error_handlers()`가 세 오류 처리 함수를 등록 |
+| [routes.py](../../app/api/routes.py) | `/health`, `/query` 요청의 입력과 처리 함수 호출 |
+
+`main:app`과 `create_app(config_path=..., query_handler=..., run_record_sink=...)` 호출은 유지한다. 기본 실행에서는 기존 자원을 준비하고, `query_handler`를 전달한 앱은 기본 자원 로드를 건너뛴다. 자원 로드는 앱 생성·import 시점이 아니라 서버 시작 때 실행한다.
 
 ```python
 # app/service/query.py의 핵심 흐름을 단순화한 예시
@@ -283,7 +318,7 @@ Basic은 일반 질문 72개(개발 30, 추가 30, 확장 검증 12)와 보안 �
 
 검색 지표의 정답 집합, Faithfulness·Judge의 적용 조건, 실패·평가 불가 처리와 평균 계산은 [평가 모듈 가이드](../guides/c-module-guide.md)의 기준을 따른다. 평가 질문과 설정은 실행 전에 고정하고, 세 검색 방식의 결과를 같은 조건에서 비교한다. 평가 호출의 시간·토큰은 서비스 측 지표와 분리한다.
 
-**응답 시간 목표와 현재 한계:** 비교 결과에는 실제 HTTP 요청 전체의 처리 시간을 기록해야 한다. 현재 평가 실행기의 `make_query_adapter()`는 HTTP 요청을 보내지 않고 `answer_query()`를 프로세스 안에서 직접 호출하며 `latency_scope="in_process_adapter"`로 표시한다. 반면 `app/api/app.py`의 미들웨어는 실제 API 요청에서 `latency_scope="http"` 시간을 기록한다. 현재 `operational_summary()`는 `latency_scope`별로 나누지 않고 전달된 `latency_ms`를 집계하므로, 평가 보고서의 현재 시간 집계는 HTTP 전체 응답 시간으로 해석할 수 없다. 실제 HTTP 경로의 시간은 후속 통합 검증에서 같은 `request_id`로 내부 기록을 연결하고, 보고서도 측정 범위별로 분리한 뒤 확정해야 한다.
+**응답 시간 목표와 현재 한계:** 비교 결과에는 실제 HTTP 요청 전체의 처리 시간을 기록해야 한다. 현재 평가 실행기의 `make_query_adapter()`는 HTTP 요청을 보내지 않고 `answer_query()`를 프로세스 안에서 직접 호출하며 `latency_scope="in_process_adapter"`로 표시한다. 반면 `app/api/middleware.py`의 미들웨어는 실제 API 요청에서 `latency_scope="http"` 시간을 기록한다. 현재 `operational_summary()`는 `latency_scope`별로 나누지 않고 전달된 `latency_ms`를 집계하므로, 평가 보고서의 현재 시간 집계는 HTTP 전체 응답 시간으로 해석할 수 없다. 실제 HTTP 경로의 시간은 후속 통합 검증에서 같은 `request_id`로 내부 기록을 연결하고, 보고서도 측정 범위별로 분리한 뒤 확정해야 한다.
 
 현재 일반 평가 실행기는 어댑터 기록과 응답 문맥을 기준으로 동작한다. 이를 실제 HTTP 평가 경로로 연결하거나 HTTP 시간 측정이 검증된 것으로 간주하지 않는다. 실제 API 응답에 정답·내부 전체 문맥을 노출할 필요는 없다.
 

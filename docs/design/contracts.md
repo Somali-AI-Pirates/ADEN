@@ -14,15 +14,20 @@
 
 ## 1. 패키지명과 의존 방향
 
-제품의 import 경로는 기능별 `app.*`와 공통 `shared.*`다. A/B/C 표기는 초기
-구현과 연락 지점의 설명이며 폴더의 독점 소유권을 뜻하지 않는다.
+채택한 설계는 [기능별 모듈 + 얇은 API + 서비스 계층](architecture.md#채택한-설계-패턴)
+(Layered Architecture + Service Layer)이며, 제품의 import 경로는 기능별 `app.*`와
+공통 `shared.*`다. 이 절은 공통 계약에 필요한 실제 import·호출 경계를 요약하고,
+상세 설계 규칙은 시스템 설계를 따른다. A/B/C 표기는 초기 구현과 연락 지점의
+설명이며 폴더의 독점 소유권을 뜻하지 않는다.
 
 - 데이터·검색: `app.ingestion`, `app.indexing`, `app.retrieval`.
 - 답변·서비스: `app.generation`, `app.service`, `app.api`.
 - 기록·평가: `app.observability`, `app.evaluation`.
 - `shared/`는 `app/`을 역으로 import하지 않고 공통 타입·설정·예외를 제공한다.
-- 서비스가 검색·생성·추적을 연결한다. 검색·추적 모듈은 서비스·API를 역으로 import하지 않는다.
-- 평가기는 초기화된 서비스 호출 함수를 주입받는다. 평가 모듈 import만으로 앱·모델을 초기화하지 않는다.
+- 서비스가 검색·생성·관측을 연결한다. 기능 모듈은 `retrieval` → `indexing`,
+  `indexing` → `ingestion`처럼 하위 기능을 재사용할 수 있지만 `api`·서비스
+  조합·`evaluation`을 역으로 import하거나 순환 의존을 만들지 않는다.
+- 평가기는 초기화된 서비스 호출 함수를 주입받는다. 평가 모듈 import만으로 앱·모델을 초기화하지 않으며, 평가 CLI의 기본 초기화 연결은 아직 미완료다.
 - 제품 코드와 기본 검사·설치는 `experimental/<GitHubID>/`에 의존하지 않는다.
 
 개인 실험 내부의 파일·폴더·작업일지 양식은 자율이다. 채택할 기능과 결과를
@@ -314,7 +319,7 @@ C가 연결되지 않았으면 평가 어댑터는 준비 오류를 알린다. �
 B에서 새로 복제하지 않는다.
 
 `create_app(run_record_sink=callback)`은 응답 JSON을 바꾸지 않고 요청별 실행 기록을
-동기 callback에 전달한다. API 미들웨어가 수신부터 응답 생성 직전까지 잰 값을
+동기 callback에 전달한다. [API 미들웨어](../../app/api/middleware.py)가 수신부터 응답 생성 직전까지 잰 값을
 `latency_ms`, `latency_scope="http"`로 확정한다. 기록 저장 실패는 업무 답변을
 바꾸지 않고 경고로 남긴다. 서비스 직접 호출과 고정 문맥 생성은 각각
 `service`/`in_process_adapter`, `fixed_context_generation` 범위로 표시한다.

@@ -9,7 +9,7 @@ ADEN은 4명이 2026-11-05~11-13에 진행하는 해운 RAG Q&A 프로젝트다.
 | 무엇을 만들고 어떻게 시작하나 | [프로젝트 소개·빠른 시작](../README.md) |
 | 팀 연락·협업·개인 실험 채택·PR·완료 기준 | [공통 기여·협업 규칙](../CONTRIBUTING.md) |
 | Python·uv·VS Code·Pylance·검사 방법 | [개발 환경 가이드](guides/development.md) |
-| 서비스 흐름과 기능의 책임·설계 이유 | [시스템 설계](design/architecture.md) |
+| 채택한 설계 패턴·새 코드 배치·서비스 흐름·의존 방향 | [시스템 설계](design/architecture.md#채택한-설계-패턴) |
 | 타입·API·함수·Resources·기록 형식 | [공통 계약](design/contracts.md) |
 | 정제 지식의 구성과 런타임 연결 경계 | [지식 데이터 설계](design/knowledge-data.md) |
 | 원본 배치·해시·색인 생성·검색 확인 | [데이터 안내](../data/README.md) |
