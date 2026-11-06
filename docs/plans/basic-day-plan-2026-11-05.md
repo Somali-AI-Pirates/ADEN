@@ -1,4 +1,33 @@
-# Basic 당일 작업 계획 — 3명
+# Basic 당일 작업 계획 — 2026-11-05 기록
+
+> 이 문서는 2026-11-05에 작성하고 11월 6일 오전까지 보완한 3명 기준 원안의 기록이다.
+> 아래 원안의 사람별 `member_*` 경로와 담당 고정 규칙은 현재 실행 규칙이 아니다.
+> 기능별 공통 구조의 기준은 [시스템 설계](../design/architecture.md),
+> 현재 협업 절차는 [Git 협업 가이드](../guides/git-workflow.md)를 따른다.
+
+## 2026-11-06 구조 전환 이후의 실행 안내
+
+기존 역할은 초기 작업의 설명과 연락·검토 기준으로 유지한다. 공통 제품
+코드는 `app/` 기능 모듈에서 함께 관리하며 새 참여자에게 특정 폴더를
+독점 배정하지 않는다. 개인 실험·작업 기록은 `experimental/<GitHubID>/`에
+각자 원하는 구조와 형식으로 남길 수 있다.
+
+| 작업 | 현재 위치·명령 |
+| --- | --- |
+| PDF 처리·색인·검색 | `app/ingestion/`, `app/indexing/`, `app/retrieval/` |
+| 답변·API·통합 | `app/generation/`, `app/api/`, `app/service/` |
+| 기록·평가 | `app/observability/`, `app/evaluation/` |
+| 색인 생성 | `python -m app.indexing.scripts.build_index` |
+| 검색만 평가 | `python -m app.evaluation.scripts.eval_retrieval --mode naive` |
+| 가상 일반 평가 | `python -m app.evaluation.scripts.run_benchmark --sample` |
+| 가상 보안 비교 | `python -m app.evaluation.scripts.run_security --sample` |
+| 공통 테스트 | `python -m pytest -q tests` |
+
+설정·프롬프트 내용과 데이터·색인·산출물 위치는 유지한다. 아래 체크리스트는
+당시의 계획이며 완료 증빙이 아니다. 현재 코드에는 Naive와 답변·API·기록·평가
+구현이 있고, Hybrid·리랭킹 및 실제 세 방식 비교 결과는 아직 없다.
+
+## 보존한 당일 원안
 
 작업일: **2026-11-05, 한국시간**. 오늘은 Basic 해운 서비스의 필수 구현·비교·기록을 목표로 한다. 역할은 A/B/C로 표시하며 담당자는 A `ysl727727`, B `chsopo89`, C `Damsebi`다(2026-11-06 반영). 아래는 업무 배정안이며 실제 구현 완료나 담당자의 작업 착수를 뜻하지 않는다.
 

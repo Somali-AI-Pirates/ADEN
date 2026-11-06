@@ -4,19 +4,25 @@
 
 관련 문서: [문서 목차](../README.md) · [시스템 설계](architecture.md) · [Git 협업 규칙](../guides/git-workflow.md)
 
-이 문서는 Basic의 모듈 연결 기준이다. Python 공통 데이터 타입은 구현 시 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. SDK 클라이언트를 포함하는 실행 자원은 B가 `member_chsopo89/service/resources.py`에서 관리한다. C의 로그 검증·직렬화 코드는 `member_Damsebi/observability/records.py`가 맡는다.
+이 문서는 Basic의 모듈 연결 기준이다. Python 공통 데이터 타입은 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. SDK 클라이언트를 포함하는 실행 자원은 `app/service/resources.py`에서 관리한다. 실행 기록 검증·직렬화 코드는 `app/observability/records.py`가 맡는다.
 
-A의 데이터 처리·Naive 검색과 C의 실행 기록·평가 코드는 main에 병합돼 있고, B는 이 계약을 `shared/`·`member_chsopo89/`에 반영해 가짜 검색·모델로 검증했다. 세 패키지를 합쳐 실제 색인과 실제 모델로 질의한 결과는 아직 확인하지 않았다.
+현재 기능 모듈과 공통 계약은 가짜 외부 자원으로 연결 검증했다. 실제 색인·생성 모델·Langfuse 서버를 사용한 전체 실행은 이번 구조 전환에서 확인하지 않았다. 구조와 검증 상태의 요약은 [시스템 설계](architecture.md)를 따른다.
 
 ## 1. 패키지명과 의존 방향
 
-Basic의 import 경로는 담당자 ID를 붙인 `member_ysl727727`(A), `member_chsopo89`(B), `member_Damsebi`(C)와 `shared`로 고정한다(2026-11-06 팀 결정). 대소문자까지 그대로 사용한다. 패키지명을 다시 바꾸려면 팀 전체가 경로·import·패키지 설정·실행 명령을 같은 변경에서 맞춘다. 각자가 독립적으로 이름을 바꾸지 않는다.
+제품의 import 경로는 기능별 `app.*`와 공통 `shared.*`다. A/B/C 표기는 초기
+구현과 연락 지점의 설명이며 폴더의 독점 소유권을 뜻하지 않는다.
 
-- A: `member_ysl727727/ingestion`, `indexing`, `retrieval`.
-- B: `member_chsopo89/api`, `generation`, `service`; 공통 파일 변경 취합.
-- C: `member_Damsebi/observability`, `evaluation`; 평가·보안 실행 스크립트.
-- `shared/`는 사람별 패키지를 import하지 않는다. 공통 타입 정의 시 모델·SDK 초기화를 수행하지 않는다.
-- B가 A의 검색과 C의 추적 함수를 호출한다. C 평가기는 서비스 호출 함수를 주입받으며 B의 앱을 직접 초기화하지 않는다.
+- 데이터·검색: `app.ingestion`, `app.indexing`, `app.retrieval`.
+- 답변·서비스: `app.generation`, `app.service`, `app.api`.
+- 기록·평가: `app.observability`, `app.evaluation`.
+- `shared/`는 `app/`을 역으로 import하지 않고 공통 타입·설정·예외를 제공한다.
+- 서비스가 검색·생성·추적을 연결한다. 검색·추적 모듈은 서비스·API를 역으로 import하지 않는다.
+- 평가기는 초기화된 서비스 호출 함수를 주입받는다. 평가 모듈 import만으로 앱·모델을 초기화하지 않는다.
+- 제품 코드와 기본 검사·설치는 `experimental/<GitHubID>/`에 의존하지 않는다.
+
+개인 실험 내부의 파일·폴더·작업일지 양식은 자율이다. 채택할 기능과 결과를
+공통 코드에 반영하는 절차는 [Git 협업 가이드](../guides/git-workflow.md)를 따른다.
 
 ## 2. A·B가 전달하는 데이터 객체
 
@@ -253,68 +259,85 @@ Langfuse의 flush 호출이나 trace ID 생성만으로 저장 확인을 완료 
 
 ## 7. 실행 위치와 패키지 설정
 
-Basic의 공통 실행 위치는 저장소 루트다. 코드가 병합되고 의존성이 설치된 뒤의 목표 명령은 다음과 같다. 현재 main에서 아래 명령이 실행된다는 뜻은 아니다.
+공통 실행 위치는 저장소 루트다. 가상환경에서 `python -m pip install -e '.[test]'`로
+앱과 검사 의존성을 설치한다. `main:app` 진입점과 설정·데이터 기준 위치는 유지한다.
+API 실행과 CLI 도움말 명령은 다음과 같다. `--help`는 실제 모델·색인에 연결하지 않는다.
 
 ```bash
 python -m uvicorn main:app --reload
-python -m member_ysl727727.scripts.build_index --help
-python -m member_Damsebi.scripts.run_benchmark --help
-python -m member_Damsebi.scripts.run_security --help
+python -m app.indexing.scripts.build_index --help
+python -m app.evaluation.scripts.eval_retrieval --help
+python -m app.evaluation.scripts.run_benchmark --help
+python -m app.evaluation.scripts.run_security --help
 ```
 
-각 패키지·하위 Python 패키지에는 `__init__.py`를 둔다. 직접 파일 실행이나 개인별 sys.path 수정보다 위 모듈 실행 방식을 사용한다. 프롬프트 경로는 모듈 위치 또는 명시 설정에서 구하고, 데이터·산출물 경로는 프로젝트 기준 경로로 정규화한다.
+앱 실행은 실제 자원 준비를 시도하며 준비 상태를 `/health`로 확인한다.
+도움말·가상 샘플 검증과 실제 질의 성공을 구분한다. 자세한 설치·실행·검사는
+[README](../../README.md), [Git 협업 가이드](../guides/git-workflow.md),
+[평가 가이드](../guides/c-module-guide.md)를 따른다.
 
-루트 `pyproject.toml`은 setuptools를 사용하며 패키지 탐색을 아래와 같이 둔다. main.py는 실행 위치를 고정해 저장소 루트에서 사용한다. 휠 배포가 필요해지면 main 모듈과 프롬프트 package-data 포함도 따로 확인한다.
+패키지·하위 Python 패키지에는 `__init__.py`를 둔다. 직접 파일 실행이나 개인별
+`sys.path` 수정보다 모듈 실행을 사용한다. `shared.settings.PROJECT_ROOT`와
+모듈 파일 위치를 기준으로 설정·프롬프트·샘플 위치를 구한다. A의 색인 생성·검색
+평가 CLI의 상대 데이터·산출물 인자는 기존처럼 저장소 루트에서 실행한다.
 
-```toml
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["shared", "shared.*", "member_ysl727727", "member_ysl727727.*", "member_chsopo89", "member_chsopo89.*", "member_Damsebi", "member_Damsebi.*"]
-exclude = ["*.tests", "*.tests.*"]
-```
+설치 설정의 기준은 [pyproject.toml](../../pyproject.toml)이다. `app`·`shared`만
+제품 패키지에 포함하고 `tests`·`experimental`은 제외한다. 생성 프롬프트,
+평가 프롬프트와 공용 샘플 JSON도 package-data로 포함한다. 현재 실행 지원은
+저장소 체크아웃과 editable 설치 기준이며, 독립적인 wheel 서비스 배포는
+이번 범위에서 검증하지 않았다. wheel 검사는 필수 코드·리소스의 포함을 확인한다.
 
-B 프롬프트는 `[tool.setuptools.package-data]`의 `member_chsopo89 = ["prompts/*.txt"]`로 함께 담는다. A·C 소스가 없어도 `member_chsopo89`와 `shared`만으로 import가 되도록 유지한다. 다른 빌드 도구를 택하면 같은 패키지·리소스 포함 조건을 만족하도록 명시한다.
+A 기능 모듈이 없어도 API·답변 모듈 import는 가능하다. 검색 모듈 누락은 준비
+실패로 안내하고, 선택적 추적 모듈 부재는 추적 비활성으로 처리한다. 타사 의존성
+누락은 해당 기능 자체의 부재로 숨기지 않는다.
 
-## 8. 기존 브랜치 코드에서 맞출 항목
+## 8. 기능별 구조로 전환할 때 보존한 경계
 
-2026-11-06 검토한 기준은 A `8d666f3`, B `99c9d3f`, C `5a55f7e`다. 아래는 해당 시점 코드의 연동 조정 목록이며 브랜치가 갱신되면 실제 차이를 다시 확인한다. 이번 문서 변경으로 각 브랜치 소스를 직접 변경하지 않았다.
+2026-11-06의 사람별 패키지를 기능별 공통 구조로 재배치했다. 과거 브랜치별
+조정 내역은 Git 이력에서 확인하고, 현재 경로 대응표와 작업 동기화 방법은
+[Git 협업 가이드](../guides/git-workflow.md)의 전환 절차를 따른다.
 
-1. 각자의 `app/`·평가·프롬프트·scripts·tests를 담당 패키지로 옮기고 import·설정 경로를 맞춘다. 공통 Chunk·RetrievedChunk는 A와 B 모두 중첩 구조이므로 shared의 단일 정의로 합친다. 선택 필드 `Chunk.heading`도 보존한다.
-2. B의 동기 retrieve/build_context/generate/answer_query 호출을 유지한다. 예전 설계의 async 예시를 그대로 섞지 않는다. 비동기 API 래퍼에서 작업 스레드를 사용한다.
-3. B의 ContextBundle.final_chunks를 C 로그로 평탄화하는 연결을 유지하고 문서의 변환 규칙을 따른다.
-4. B의 문맥 문자열 해시를 C의 final_context_hash로 그대로 복사하지 않는다. C의 compute_context_hash로 로그 해시를 계산하고 B의 값은 model_context_hash로 함께 보존한다.
-5. B GenerationResult의 기존 input_messages/output_message를 AttemptRecord 키로 연결하고 실제 시도별 토큰·모델 정보를 보존한다. 모델 응답 aggregate usage만으로 다중 시도 사용량을 추정하지 않는다.
-6. B의 answer_query는 QueryResponse를 반환한다. 실행 기록은 C 추적·저장 연결을 통해 별도로 수집하고 일반 평가 어댑터가 합쳐 반환한다. API 공개 응답에 내부 전체 로그를 추가할 필요는 없다.
-7. 기존 C 로그 검증은 평탄 청크를 받으므로 중첩 객체를 직접 넘기지 않는다. 실제 문맥 문자열과 그 해시·입출력도 로그·추적에 보존하고 보안 비교 시 검증한다.
-8. B의 실제 API 수신 시각과 최종 응답 시각으로 latency_ms를 확정한다. 서비스 함수 내부 시간이나 클라이언트 왕복 시간만으로 대체하지 않는다.
+1. `shared` 타입과 동기 함수 시그니처, HTTP 입출력·오류를 유지한다.
+2. 중첩 검색 객체를 평탄 실행 기록으로 변환하는 연결과 두 해시의 정의를 유지한다.
+3. 최종 문맥·출처 대응표와 생성 시도별 실제 입력·출력·사용량을 보존한다.
+4. 요청별 기록은 서비스 응답과 별도로 수집하며 공개 응답에 전체 내부 로그를 추가하지 않는다.
+5. 일반·보안 평가기는 기존 어댑터 계약을 유지한다. 보안 비교는 같은 문맥을 재사용한다.
+6. 설정과 프롬프트 내용, 기존 데이터·색인·산출물 위치를 바꾸지 않는다.
+7. import·동적 로딩·프롬프트 경로·테스트 mock·패키지 설정·CLI·문서를 함께 갱신한다.
 
-## 9. 첫 연결 완료 기준
+## 9. 연결 검증 상태
 
-- [ ] B가 shared 타입·설정과 Resources를 반영하고 A·C가 같은 정의를 사용한다.
-- [ ] 중첩 RetrievedChunk → ContextBundle → 평탄 RunRecord 변환을 가상 한 건으로 확인한다.
-- [ ] 실제 질문 한 건의 API 응답, 최종 문맥, 모델 입출력, Langfuse 기록을 같은 ID로 연결한다.
-- [ ] 오류 기록에서 `null`과 실제 빈 배열을 구분하고 시도별 사용량을 보존한다.
-- [ ] 동일 문맥의 두 해시를 각각 검증하고 기본/방어 프롬프트가 문맥을 바꾸지 않는지 확인한다.
-- [ ] 설치·모듈 import와 위 실행 명령을 공통 환경에서 확인한다.
+가짜 외부 자원과 가상 샘플로 다음 항목을 확인했다. 실제 Basic 성능의 증빙은 아니다.
 
-샘플 인터페이스 확인은 실제 Basic 성능 평가와 구분한다. 선택한 일반 질문 전체의 세 방식 비교, 두 자동 평가와 보안 4개 실행은 기존 시스템 설계의 완료 기준을 따른다.
+- [x] 기능 모듈이 같은 shared 타입·설정을 사용한다.
+- [x] 검색 → 문맥 → 생성 → 평탄 RunRecord → 기록 정규화가 연결된다.
+- [x] 오류의 null과 실제 빈 배열, 시도별 사용량을 구분한다.
+- [x] 보안 비교의 두 문맥 해시·실제 입력 문맥·생성 조건이 유지된다.
+- [x] 새 모듈 도움말·샘플 CLI와 설치·패키지 리소스를 확인했다.
+- [ ] 실제 질문의 API 응답·최종 문맥·모델 입출력·Langfuse 저장을 같은 ID로 확인한다.
+- [ ] 실제 선택 질문의 세 검색 방식·자동 평가·보안 비교를 완료한다.
+
+실제 평가 파일과 초기화된 서비스 어댑터 연결은 별도 검증해야 한다. `--adapter`,
+`--retrieve`, `--generate`는 모듈에 정의된 준비된 callable을 받는다. 팩터리를
+호출해 자원을 준비하는 연결은 해당 callable을 제공하는 쪽에서 수행한다.
+팩터리 함수 이름만 인자에 넣는 것으로 초기화를 대신할 수 없다.
 
 ## 10. B 구현 연결 안내 — 2026-11-06
 
-B는 `member_chsopo89/`와 `shared/` 구조를 유지하고 A/C 소스를 복사하지 않는다.
-외부 모듈은 자원 준비 시 연결한다. A가 없으면 `/docs`·`/openapi.json`·`/health`는
-사용할 수 있고 `query_ready=false`, `/query`는 명시적인 503이다. C가 없으면
+서비스 연결은 `app/service/`에서 관리하고 검색·추적 구현은 해당 공통 기능 모듈을 사용한다.
+검색·추적 모듈은 자원 준비 시 연결한다. 검색 모듈이 없으면 `/docs`·`/openapi.json`·`/health`는
+사용할 수 있고 `query_ready=false`, `/query`는 명시적인 503이다. 추적 모듈이 없으면
 추적은 비활성 상태다. 실제 업무 응답을 가짜 검색으로 대체하지 않는다.
 
 Resources의 기존 필드는 유지하며 B 연결용 `retriever` 호출 함수와
-선택적 `context_hasher`를 추가한다. A 연결은 `member_ysl727727.indexing.embeddings`,
-`member_ysl727727.retrieval.service`이며 C 연결은 `member_Damsebi.observability`다.
+선택적 `context_hasher`를 추가한다. A 연결은 `app.indexing.embeddings`,
+`app.retrieval.service`이며 C 연결은 `app.observability`다.
 
 `run_record`와 `attempt_log`는 기존 호출을 유지하는 선택 출력 수집 인자다.
 요청마다 별도 객체를 사용한다. 실패한 모델 시도도 입력·오류 종류·확인되지 않은
 사용량 null을 남긴다. B는 RunRecord를 조립하며 C의 검증·usage 집계를 대체하지 않는다.
 
-B의 `member_chsopo89.service.adapters`에서 다음 연결 함수를 제공한다.
+B의 `app.service.adapters`에서 다음 연결 함수를 제공한다.
 
 - `make_query_adapter(resources, settings)` → `adapter(question, retrieval_mode, request_id)`.
   반환값은 평탄 실행 기록이다. 오류도 기록으로 반환하여 C가 다음 문항을 처리할 수 있다.

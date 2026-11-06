@@ -1,6 +1,6 @@
 # 데이터 배치와 검증
 
-제공 자료는 Git에 올리지 않는다. 각자 아래 위치에 풀고 해시로 같은 파일인지 확인한다.
+제공 자료는 Git에 올리지 않는다. 저장소 루트의 `data/basic/`에 풀고 아래 해시로 같은 파일인지 확인한다. 기능별 코드 이동은 원본 데이터, `artifacts/basic/`의 파일, Qdrant 컬렉션을 이동·재생성하지 않는다.
 
 ## 1. 원본
 프로젝트(3) Basic 데이터셋의 해운 ZIP 2개를 사용한다.
@@ -26,12 +26,7 @@ data/basic/
 색인은 `documents/*.pdf`만 읽는다. 정답 JSON은 색인·검색·생성 입력에 넣지 않는다.
 일부 PDF와 `security_tasks.json`에는 보안 시험용 지시문이 일부러 들어 있다. 모두 데이터로만 다룬다.
 
-Git 제외 규칙은 B가 `.gitignore`에 취합한다. 반영 전까지는 각자 `.git/info/exclude`에 아래를 추가한다.
-```text
-/data/basic/documents/
-/data/basic/evaluation/
-/artifacts/
-```
+저장소 `.gitignore`는 제공 자료와 `artifacts/`를 Git에서 제외한다. `data/README.md`만 추적한다.
 
 ## 3. 검증
 PDF 15개, 각 24쪽, 총 360쪽이다. Git Bash에서 `data/basic/documents`로 이동해 아래 해시와 비교한다.
@@ -66,18 +61,16 @@ QDRANT_API_KEY=<클러스터 API 키>
 무료 클러스터는 1주일 동안 쓰지 않으면 일시정지되고, 4주가 지나면 삭제된다. 정지되면 Qdrant Cloud 콘솔에서 다시 켠다.
 
 ## 5. 색인 생성
-저장소 루트에서 실행한다. 처음 실행하면 E5 모델(약 470MB)을 내려받는다.
+저장소 루트에서 실행한다. 루트 README의 공통 설치 명령으로 패키지를 설치한다. 처음 새 색인을 만들 때는 E5 모델(약 470MB)을 내려받는다.
 ```bash
-pip install pypdf sentence-transformers qdrant-client python-dotenv
-python -m member_ysl727727.scripts.build_index
+python -m pip install -e '.[test]'
+python -m app.indexing.scripts.build_index
 ```
-확인한 버전: pypdf 6.21.4, sentence-transformers 6.2.0, qdrant-client 1.20.0, python-dotenv 1.2.4, torch 2.15.0(CPU).
+2026-11-06 작업 기록의 확인 버전: pypdf 6.21.4, sentence-transformers 6.2.0, qdrant-client 1.20.0, python-dotenv 1.2.4, torch 2.15.0(CPU). 현재 설치 환경의 검증된 잠금 파일을 뜻하지 않는다.
 
-컬렉션 이름은 `<데이터 폴더>_<모델>_p<청크 글자 수>`이다 (Basic 기본값: `basic_multilingual-e5-small_p800`).
-같은 이름이 이미 있으면 멈춘다. 팀원이 쓰는 중일 수 있으므로, 확인한 뒤에만 `--recreate`로 다시 만든다.
-색인은 담당자(A) 한 명이 만들고, 다른 팀원은 같은 `artifacts/basic/index_manifest.json`으로 컬렉션 이름을 맞춘다.
+컬렉션 이름은 `<데이터 폴더>_<모델>_p<청크 글자 수>`이다 (Basic 기본값: `basic_multilingual-e5-small_p800`). 같은 이름이 이미 있으면 기본적으로 중단한다. 색인을 새로 만들기 전에는 기존 `artifacts/basic/index_manifest.json`과 팀 공용 컬렉션을 확인한다. 구조 이전 자체로 색인을 다시 만들지 않는다. 컬렉션을 삭제하는 `--recreate`는 색인을 의도적으로 재생성하기로 합의한 경우에만 사용한다. 다른 구성원도 같은 manifest의 컬렉션 이름과 설정을 사용한다.
 
-정상이면 다음과 같이 나온다.
+처음 색인을 생성해 새 컬렉션을 만들 수 있으면 다음과 같은 요약이 나온다. 숫자는 2026-11-06 A의 처리 기록에 나온 예시다. 기존 컬렉션이 이미 있으면 보호를 위해 색인 생성 중간에 멈추므로, 이 출력 예시가 매 실행의 예상 결과는 아니다.
 ```text
 추출·청킹 | PDF 15개, 페이지 360개, 청크 620개
   빈 페이지 0개, 실패 0개 []
@@ -95,16 +88,16 @@ Dense 색인 → Qdrant Cloud 'basic_multilingual-e5-small_p800'
 | Qdrant Cloud 컬렉션 | 청크 벡터와 청크 정보(payload) |
 
 ## 6. 검색만 확인
-LLM 없이 상위 5개 청크의 문서로 Hit@5·Recall@5를 잰다. 검색 시간에는 클라우드 왕복 시간이 포함된다.
+LLM 생성 없이 상위 5개 청크의 문서로 Hit@5·Recall@5를 잰다. 검색 시간에는 클라우드 왕복 시간이 포함된다. 이 실행은 검색 전용 측정이며 생성 모델을 포함한 전체 서비스 통합 검증을 뜻하지 않는다.
 ```bash
-python -m member_ysl727727.scripts.eval_retrieval --mode naive
+python -m app.evaluation.scripts.eval_retrieval --mode naive
 ```
 
-2026-11-05 측정 (클러스터 리전 us-west, Naive, k=5):
+2026-11-05 기록 (클러스터 리전 us-west, Naive, k=5; 당시 검색 전용 실행):
 
 | 질문 | 채점 / N/A | Hit@5 | Recall@5 | 검색 시간 중앙값 |
 | --- | --- | --- | --- | --- |
 | development 30 | 28 / 2 | 0.929 | 0.564 | 142ms |
 | additional 30 | 28 / 2 | 0.929 | 0.641 | 140ms |
 
-같은 색인을 로컬 모드로 쟀을 때와 점수는 같고, 검색 시간만 약 10ms에서 140ms로 늘었다.
+같은 색인을 로컬 모드로 쟀을 때와 점수는 같고, 검색 시간은 약 10ms에서 140ms로 늘었다고 당시 기록했다. 이 과거 수치는 현재 기능별 구조에서의 통합 검증 결과가 아니다.
