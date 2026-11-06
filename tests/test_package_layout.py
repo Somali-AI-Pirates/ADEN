@@ -28,7 +28,7 @@ class PackageLayoutTests(unittest.TestCase):
             "import sys; sys.modules.update({name:None for name in "
             "('app.indexing','app.retrieval','app.observability')}); "
             "import main, app.service.query, app.generation.chain; "
-            "assert main.app.state.query_handler is None"
+            "assert main.app.state.resources is None"
         )
         result = subprocess.run([sys.executable, '-c', code], cwd=PROJECT_ROOT, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)

@@ -228,7 +228,7 @@ Hybrid·리랭킹용 추가 자원은 A·B가 공통 변경으로 정한다. A·
 
 ## 5. 함수 호출 계약
 
-기존 작업 브랜치의 호출 방식을 기준으로 **아래 기능 함수는 모두 동기 함수**로 통일한다. 반환값에 임의로 `await`하지 않는다. FastAPI의 비동기 라우터가 호출할 때 B의 래퍼가 `run_in_threadpool` 또는 `asyncio.to_thread`로 요청 파이프라인을 실행한다. 동기 모델·검색 연산으로 이벤트 루프를 막지 않는다.
+기존 작업 브랜치의 호출 방식을 기준으로 **아래 기능 함수는 모두 동기 함수**로 통일한다. 반환값에 임의로 `await`하지 않는다. FastAPI의 비동기 `/query` 라우트는 `answer_query()`를 `asyncio.to_thread`로 직접 실행한다. 동기 모델·검색 연산으로 이벤트 루프를 막지 않는다.
 
 | 담당·함수 | 확정 호출 형태 → 반환 |
 | --- | --- |
@@ -295,16 +295,38 @@ A 기능 모듈이 없어도 API·답변 모듈 import는 가능하다. 검색 �
 ## 8. 서비스와 평가 어댑터 연결 계약
 
 서비스 연결은 `app/service/`에서 관리하고 검색·추적 구현은 해당 공통 기능 모듈을 사용한다.
-검색·추적 모듈은 자원 준비 시 연결한다. 검색 모듈이 없으면 `/docs`·`/openapi.json`·`/health`는
-사용할 수 있고 `query_ready=false`, `/query`는 명시적인 503이다. 추적 모듈이 없으면
-추적은 비활성 상태다. 실제 업무 응답을 가짜 검색으로 대체하지 않는다.
+검색·추적 모듈은 자원 준비 시 연결한다. API 계약은 다음과 같다.
+
+- `create_app(config_path=DEFAULT_CONFIG, *, run_record_sink=None) -> FastAPI`. 설정을 읽어
+  `app.state.settings`에 두고 앱 생성 중 `app.state.resources = None`으로 시작한다.
+  제거된 `query_handler` 인자와 호환 옵션은 제공하지 않는다.
+- 최상위 `lifespan(app)`은 `app.state.settings`를 사용해 `load_resources()`를
+  `asyncio.to_thread`로 호출한다. 성공한 `Resources`를 `app.state.resources`에 둔다.
+  준비 실패 때 값은 `None`으로 유지하고 기존에 정리된 오류 이유를 제공한다.
+- 종료 때 `app.state.resources`를 먼저 비우고, 준비된 객체가 있으면 `close()`를 한 번
+  호출한다. 앱 생성·모듈 import만으로 자원을 준비하지 않는다.
+- `GET /health`의 기존 `query_ready` 응답 필드는 자원 준비 여부를 나타내고,
+  필드 설명은 `기본 질의 자원의 준비 여부`다.
+  자원이 없을 때 `/docs`, `/openapi.json`, `/health`는 계속 제공되고 `/query`는 기존
+  503 JSON 오류 응답을 반환한다. 추적 모듈이 없으면 추적은 비활성 상태다.
+
+`POST /query`는 입력을 검증하고 생략된 검색 방식을 설정의 기본값으로 채운다. 요청
+미들웨어가 만든 `request.state.request_id`와 `request.state.run_record`를 사용해
+`answer_query(request, resources, request_id, settings, *, run_record=...)`를
+`asyncio.to_thread`로 직접 실행하며 `run_record`를 명시적으로 전달한다.
+실제 업무 응답을 가짜 검색으로 대체하지 않는다.
+
+이 연결 변경은 기존 응답 JSON 필드·HTTP 상태 코드·`X-Request-ID` 헤더·검색 기본값과
+오류 사유 정리 규칙을 보존한다. 자원 미준비 503, 미구현 검색 방식 501, 모델 오류 502/504,
+입력 오류 422의 응답 형식은 변경하지 않는다.
 
 Resources는 `retriever` 호출 함수와 선택적 `context_hasher`를 포함한다.
 색인·검색 연결은 `app.indexing.embeddings`·`app.retrieval.service`이며,
 실행 기록 연결은 `app.observability`다.
 
-`run_record`와 `attempt_log`는 기존 호출을 유지하는 선택 출력 수집 인자다.
-요청마다 별도 객체를 사용한다. 실패한 모델 시도도 입력·오류 종류·확인되지 않은
+`run_record`와 `attempt_log`는 기존 서비스·생성 함수의 선택 출력 수집 인자다.
+API 요청에서는 미들웨어가 생성한 `request.state.run_record`를 라우트가 `answer_query()`에
+명시적으로 전달한다. 요청마다 별도 객체를 사용한다. 실패한 모델 시도도 입력·오류 종류·확인되지 않은
 사용량 null을 남긴다. B는 RunRecord를 조립하며 C의 검증·usage 집계를 대체하지 않는다.
 
 `app.service.adapters`에서 다음 연결 함수를 제공한다.
@@ -318,7 +340,7 @@ Resources는 `retriever` 호출 함수와 선택적 `context_hasher`를 포함�
 C가 연결되지 않았으면 평가 어댑터는 준비 오류를 알린다. 검색·생성·정답 채점 코드를
 B에서 새로 복제하지 않는다.
 
-`create_app(run_record_sink=callback)`은 응답 JSON을 바꾸지 않고 요청별 실행 기록을
+`create_app(..., run_record_sink=callback)`은 응답 JSON을 바꾸지 않고 요청별 실행 기록을
 동기 callback에 전달한다. [API 미들웨어](../../app/api/middleware.py)가 수신부터 응답 생성 직전까지 잰 값을
 `latency_ms`, `latency_scope="http"`로 확정한다. 기록 저장 실패는 업무 답변을
 바꾸지 않고 경고로 남긴다. 서비스 직접 호출과 고정 문맥 생성은 각각

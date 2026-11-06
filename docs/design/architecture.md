@@ -43,11 +43,11 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 
 | 경계 | 책임과 새 코드 작성 기준 |
 | --- | --- |
-| 앱 조립 | `main.py`는 `create_app()`을 호출한다. `app/api/app.py`는 설정을 읽고 FastAPI에 시작·종료, 요청 기록, 오류 처리와 라우터를 연결한다. |
+| 앱 조립 | `main.py`는 `create_app()`을 호출한다. `app/api/app.py`는 설정을 읽고 `app/api/lifespan.py`의 수명주기 함수, 요청 기록, 오류 처리와 라우터를 FastAPI에 연결한다. 앱 설정·자원은 `app.state`에 둔다. |
 | API | `app/api/routes.py`는 HTTP 입력 검증·기본값·준비 상태·응답을 처리하고 연결된 서비스 함수를 호출한다. 검색·생성 파이프라인을 넣지 않는다. |
 | 서비스 계층 | `app/service/query.py`가 검색 → 문맥 구성 → 생성 → 출처 확인을 연결한다. 필요한 자원·설정·요청 ID·기록을 인자로 받아 HTTP 없이도 호출할 수 있게 한다. |
 | 기능 모듈 | `ingestion/`, `indexing/`, `retrieval/`, `generation/`, `observability/`는 해당 기능을 구현한다. 새 구현은 관련 기능의 기존 진입점과 공통 계약을 재사용한다. |
-| 자원 수명주기 | API의 자원 준비·해제는 `app/api/lifespan.py`에서 `app/service/resources.py`를 통해 연결한다. 요청 기록과 오류 변환은 각각 `middleware.py`, `errors.py`에서 등록한다. |
+| 자원 수명주기 | `app/api/lifespan.py`의 최상위 `lifespan(app)`이 `app.state.settings`를 읽어 자원을 준비·해제한다. 요청 기록과 오류 변환은 각각 `middleware.py`, `errors.py`에서 등록한다. |
 | 설정 | 실험 재현에 필요한 모델·검색·문맥 설정은 YAML에서 읽어 `shared/settings.py`의 Pydantic 모델로 검증한다. 인증값은 환경변수로 읽고 로컬 `.env`는 Git에서 제외한다. |
 | 평가·CLI | 평가기는 초기화된 서비스 호출 함수를 전달받고, CLI는 필요한 자원을 조립하는 진입점이다. API를 import해서 서버를 띄우거나 질문 처리 파이프라인을 복제하지 않는다. |
 
@@ -59,7 +59,7 @@ Basic 안내는 복합 운임 계산을 요구하지 않는다. 안내에 나온
 - 기능에 필요한 하위 구현은 재사용할 수 있다. 현재 검색 → 색인, 색인 → 문서 가공, 평가 → 관측 기록 정규화가 그 예다. 재사용할 때 순환 의존을 만들지 않는다.
 - 제품 코드·기본 검사·설치는 `experimental/<GitHubID>/`에 의존하지 않는다. 채택할 구현은 관련 기능 모듈에 통합하고 개인 폴더의 내부 구성은 자율로 둔다.
 
-자원의 초기화 시점·소유자·해제 방식을 명시하고 import만으로 모델을 읽거나 네트워크에 연결하지 않는다. 현재 API의 기본 자원은 lifespan에서 준비하며, BM25·리랭커는 주입되지 않았으면 검색 모듈이 최초 사용 때 만들어 프로세스 안에 캐시한다. 이 기존 지연 초기화 경로를 모든 자원이 서버 시작 때 준비된 것으로 설명하지 않는다.
+자원의 초기화 시점·소유자·해제 방식을 명시하고 import만으로 모델을 읽거나 네트워크에 연결하지 않는다. API는 lifespan에서 `load_resources()`를 작업 스레드로 실행해 `app.state.resources`에 보관한다. BM25·리랭커는 주입되지 않았으면 검색 모듈이 최초 사용 때 만들어 프로세스 안에 캐시한다. 이 지연 초기화 경로를 모든 자원이 서버 시작 때 준비된 것으로 설명하지 않는다.
 
 현재 평가 CLI에 필요한 서비스 자원 bootstrap은 후속 작업이다. 초기화된 callable을 받는 설계와 실제 실행 준비 완료를 구분하며 [평가 가이드](../guides/c-module-guide.md)를 따른다. 타입·함수·응답·기록의 상세는 [공통 계약](contracts.md)이 기준이다.
 
@@ -149,8 +149,8 @@ ADEN/
 | `app/indexing/` | 임베딩, Dense 색인 생성과 CLI |
 | `app/retrieval/` | `retrieve()` 진입점. `naive`, `hybrid`, `hybrid_rerank` 검색 |
 | `app/generation/` | 문맥 구성, 답변 생성, 출처 ID 해석 |
-| `app/service/` | 자원 준비, 요청 흐름과 평가 어댑터 연결 |
-| `app/api/` | FastAPI 앱 수명주기, 라우트와 오류 변환 |
+| `app/service/` | 자원 준비 함수, 요청 흐름과 평가 어댑터 연결 |
+| `app/api/` | FastAPI 앱 조립·수명주기, 라우트와 오류 변환 |
 | `app/observability/` | 실행 기록 검증·정규화와 Langfuse 추적 |
 | `app/evaluation/` | 검색 측정, 답변 채점, 보안 비교와 실행 CLI |
 
@@ -166,17 +166,32 @@ from app.api.app import create_app
 app = create_app()
 ```
 
-`create_app()`은 설정 로드 → FastAPI 생성 → 앱 상태 설정 → 요청 기록·오류 처리·라우터 등록 → 앱 반환 순서로 조립한다. 함수 안에 시작·종료 절차나 요청·오류 처리 함수를 중첩 정의하지 않는다.
+`create_app(config_path=DEFAULT_CONFIG, *, run_record_sink=None)`은 설정 로드 → FastAPI 생성 → `app.state.settings`와 초기 `app.state.resources = None` 설정 → 요청 기록·오류 처리·라우터 등록 → 앱 반환 순서로 조립한다. lifespan은 이 함수 바깥의 최상위 `lifespan(app)`을 연결한다. 함수 안에 시작·종료 절차나 요청·오류 처리 함수를 중첩 정의하지 않는다.
 
 | 읽을 코드 | 확인할 내용 |
 | --- | --- |
-| [app.py](../../app/api/app.py) | 앱 조립 순서와 기존 선택 인자 |
-| [lifespan.py](../../app/api/lifespan.py) | `create_lifespan()`이 앱별 설정과 선택 처리 함수를 연결. 서버 시작 때 `load_resources()`를 호출하고 종료 때 해제 |
-| [middleware.py](../../app/api/middleware.py) | `register_request_tracking()`이 요청 ID·HTTP 시간·기록 전달을 등록 |
+| [app.py](../../app/api/app.py) | `create_app()`의 앱 조립과 최상위 `lifespan(app)` 등록 |
+| [lifespan.py](../../app/api/lifespan.py) | 앱 상태의 설정을 사용하는 자원 준비·해제 수명주기 |
+| [middleware.py](../../app/api/middleware.py) | `register_request_tracking()`이 요청 ID·HTTP 시간·명시적 요청 기록 전달을 등록 |
 | [errors.py](../../app/api/errors.py) | `register_error_handlers()`가 세 오류 처리 함수를 등록 |
-| [routes.py](../../app/api/routes.py) | `/health`, `/query` 요청의 입력과 처리 함수 호출 |
+| [routes.py](../../app/api/routes.py) | `/health`, `/query` 요청의 입력·준비 상태 확인과 `answer_query()` 직접 호출 |
 
-`main:app`과 `create_app(config_path=..., query_handler=..., run_record_sink=...)` 호출은 유지한다. 기본 실행에서는 기존 자원을 준비하고, `query_handler`를 전달한 앱은 기본 자원 로드를 건너뛴다. 자원 로드는 앱 생성·import 시점이 아니라 서버 시작 때 실행한다.
+`main:app` 진입점을 유지하며 `create_app(config_path=DEFAULT_CONFIG, *, run_record_sink=None)`을 사용한다. 설정은 앱 생성 때 읽고, 자원은 서버 시작 때 `asyncio.to_thread(load_resources, app.state.settings)`로 준비한다. 준비 실패 때 `app.state.resources`는 `None`으로 남아 `/health`의 기존 `query_ready` 필드가 자원 준비 여부를 나타내고 `/query`는 기존 503 오류 응답을 반환한다. 종료할 때 상태에서 자원을 지운 뒤 한 번 해제한다. 요청 처리용 선택 핸들러 인자는 두지 않는다.
+
+요청 미들웨어는 `request.state.request_id`와 `request.state.run_record`를 만든다. `/query`는 자원이 준비되지 않았으면 서비스 호출 없이 오류 응답을 반환한다. 준비되어 있으면 생략된 검색 방식을 설정 기본값으로 채우고 다음처럼 서비스 함수를 직접 작업 스레드에서 실행한다.
+
+```python
+return await asyncio.to_thread(
+    answer_query,
+    payload,
+    request.app.state.resources,
+    request.state.request_id,
+    request.app.state.settings,
+    run_record=request.state.run_record,
+)
+```
+
+서비스가 같은 요청 기록 객체에 실행 정보를 채우면 미들웨어가 HTTP 처리 시간과 `X-Request-ID`를 확정하고 설정된 sink에 기록을 전달한다. HTTP JSON, 기본 검색 방식, 오류 상태·메시지 정리 규칙과 응답 헤더는 이 수명주기 단순화로 바뀌지 않는다. API→서비스 사이 기록 전달은 요청 상태 인자로 명시한다.
 
 ```python
 # app/service/query.py의 핵심 흐름을 단순화한 예시
