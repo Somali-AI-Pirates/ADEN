@@ -4,6 +4,7 @@ from contextlib import ExitStack
 from dataclasses import dataclass
 from functools import lru_cache
 from importlib import import_module
+from types import ModuleType
 from typing import Any
 
 import tiktoken
@@ -22,7 +23,9 @@ _C_MODULES = ("app.observability",)
 def _is_missing_module(error: ModuleNotFoundError, roots: tuple[str, ...]) -> bool:
     """기능 모듈 누락과 타사 의존성 누락을 구분한다."""
     name = error.name
-    return name is not None and any(name == root or name.startswith(f"{root}.") for root in roots)
+    return name is not None and any(
+        name == root or name.startswith(f"{root}.") for root in roots
+    )
 
 
 @dataclass
@@ -42,74 +45,123 @@ class Resources:
 
 
 def load_resources(settings: Settings) -> Resources:
+    """설정 확인 → 관측 → 검색 → 생성 순서로 자원을 준비한다."""
     load_dotenv(DEFAULT_CONFIG.parent.parent / ".env", override=False)
-    try:
-        embeddings = import_module("app.indexing.embeddings")
-        retrieval = import_module("app.retrieval.service")
-    except ModuleNotFoundError as error:
-        if _is_missing_module(error, _A_MODULES):
-            raise ServiceError("A의 검색 모듈을 연결해야 실제 질문을 처리할 수 있습니다. B 개발용 API 문서는 이용할 수 있습니다.", 503) from error
-        raise
-    for name in ["OPENAI_API_KEY", "QDRANT_URL", "QDRANT_API_KEY"]:
-        if not os.environ.get(name, "").strip():
-            raise ServiceError(f"서버의 {name} 설정을 확인해 주세요.", 503)
+    embeddings, retrieval = _load_search_modules()
+    _require_environment()
 
     with ExitStack() as cleanup:
-        tracer = None
-        context_hasher = None
-        try:
-            tracing = import_module("app.observability.tracing")
-            records = import_module("app.observability.records")
-        except ModuleNotFoundError as error:
-            if not _is_missing_module(error, _C_MODULES):
-                raise
-        else:
-            tracer = tracing.Tracer.from_env()
-            cleanup.callback(tracer.shutdown)
-            context_hasher = records.compute_context_hash
-        embedder = embeddings.Embedder(settings.embedding_model, device=settings.embedding_device)
-        qdrant = QdrantClient(
-            url=os.environ["QDRANT_URL"].strip(), api_key=os.environ["QDRANT_API_KEY"].strip(),
-            timeout=20, check_compatibility=False,
+        tracer, context_hasher = _create_observability(cleanup)
+        embedder = embeddings.Embedder(
+            settings.embedding_model,
+            device=settings.embedding_device,
         )
-        cleanup.callback(qdrant.close)
-        if not qdrant.collection_exists(settings.qdrant_collection):
-            raise ServiceError("설정한 검색 색인이 없습니다. A의 색인 준비와 컬렉션 이름을 확인해 주세요.", 503)
-        info = qdrant.get_collection(settings.qdrant_collection)
-        if getattr(info.config.params.vectors, "size", None) != embedder.dim:
-            raise ServiceError("검색 색인과 질문 임베딩의 차원을 확인해 주세요.", 503)
-        counter = OpenAI(
-            api_key=os.environ["OPENAI_API_KEY"],
-            timeout=settings.model_timeout_seconds,
-            max_retries=0,
-        )
-        cleanup.callback(counter.close)
-        model = ChatOpenAI(
-            model=settings.generation_model,
-            api_key=os.environ["OPENAI_API_KEY"],
-            client=counter.chat.completions,
-            root_client=counter,
-            timeout=settings.model_timeout_seconds,
-            max_retries=0,
-            max_tokens=settings.max_output_tokens,
-        )
+        qdrant = _connect_qdrant(settings, embedder.dim, cleanup)
+        model = _create_generation_model(settings, cleanup)
+        count_tokens = _create_token_counter(settings.context_tokenizer)
 
-        # 문맥 예산 확인용 로컬 토큰 계산. 요청마다 원격 API를 반복 호출하지 않는다.
-        # 생성 모델의 실제 토큰 수와 약간 다를 수 있으며, 실제 사용량은 모델 응답의 usage로 기록한다.
-        encoding = tiktoken.get_encoding(settings.context_tokenizer)
-
-        @lru_cache(maxsize=1024)
-        def count_tokens(text: str) -> int:
-            return len(encoding.encode(text)) if text else 0
-
-        return Resources(
+        resources = Resources(
             embedder=embedder,
             qdrant=qdrant,
             collection=settings.qdrant_collection,
             model=model,
             count_tokens=count_tokens,
-            cleanup=cleanup.pop_all(),
+            cleanup=cleanup,
             retriever=retrieval.retrieve,
             tracer=tracer,
             context_hasher=context_hasher,
         )
+        # 반환 객체의 조립까지 성공했을 때만 종료 책임을 넘긴다.
+        resources.cleanup = cleanup.pop_all()
+        return resources
+
+
+def _load_search_modules() -> tuple[ModuleType, ModuleType]:
+    """부분 설치를 지원하되, 기능 내부의 의존성 오류는 그대로 알린다."""
+    try:
+        embeddings = import_module("app.indexing.embeddings")
+        retrieval = import_module("app.retrieval.service")
+    except ModuleNotFoundError as error:
+        if _is_missing_module(error, _A_MODULES):
+            raise ServiceError(
+                "A의 검색 모듈을 연결해야 실제 질문을 처리할 수 있습니다. B 개발용 API 문서는 이용할 수 있습니다.",
+                503,
+            ) from error
+        raise
+    return embeddings, retrieval
+
+
+def _require_environment() -> None:
+    for name in ["OPENAI_API_KEY", "QDRANT_URL", "QDRANT_API_KEY"]:
+        if not os.environ.get(name, "").strip():
+            raise ServiceError(f"서버의 {name} 설정을 확인해 주세요.", 503)
+
+
+def _create_observability(
+    cleanup: ExitStack,
+) -> tuple[Any | None, Callable[[list[dict]], str] | None]:
+    try:
+        tracing = import_module("app.observability.tracing")
+        records = import_module("app.observability.records")
+    except ModuleNotFoundError as error:
+        if not _is_missing_module(error, _C_MODULES):
+            raise
+        return None, None
+
+    tracer = tracing.Tracer.from_env()
+    cleanup.callback(tracer.shutdown)
+    return tracer, records.compute_context_hash
+
+
+def _connect_qdrant(
+    settings: Settings,
+    embedding_dimension: int,
+    cleanup: ExitStack,
+) -> QdrantClient:
+    """연결을 즉시 정리 대상으로 등록하고 기존 색인의 호환성을 검사한다."""
+    qdrant = QdrantClient(
+        url=os.environ["QDRANT_URL"].strip(),
+        api_key=os.environ["QDRANT_API_KEY"].strip(),
+        timeout=20,
+        check_compatibility=False,
+    )
+    cleanup.callback(qdrant.close)
+    if not qdrant.collection_exists(settings.qdrant_collection):
+        raise ServiceError(
+            "설정한 검색 색인이 없습니다. A의 색인 준비와 컬렉션 이름을 확인해 주세요.",
+            503,
+        )
+    info = qdrant.get_collection(settings.qdrant_collection)
+    if getattr(info.config.params.vectors, "size", None) != embedding_dimension:
+        raise ServiceError("검색 색인과 질문 임베딩의 차원을 확인해 주세요.", 503)
+    return qdrant
+
+
+def _create_generation_model(settings: Settings, cleanup: ExitStack) -> ChatOpenAI:
+    """SDK 클라이언트를 생성 모델과 공유하고 재시도는 서비스 계층에 맡긴다."""
+    openai_client = OpenAI(
+        api_key=os.environ["OPENAI_API_KEY"],
+        timeout=settings.model_timeout_seconds,
+        max_retries=0,
+    )
+    cleanup.callback(openai_client.close)
+    return ChatOpenAI(
+        model=settings.generation_model,
+        api_key=os.environ["OPENAI_API_KEY"],
+        client=openai_client.chat.completions,
+        root_client=openai_client,
+        timeout=settings.model_timeout_seconds,
+        max_retries=0,
+        max_tokens=settings.max_output_tokens,
+    )
+
+
+def _create_token_counter(tokenizer: str) -> Callable[[str], int]:
+    """문맥 예산용 로컬 추정값. 실제 사용 토큰은 모델 응답에서 기록한다."""
+    encoding = tiktoken.get_encoding(tokenizer)
+
+    @lru_cache(maxsize=1024)
+    def count_tokens(text: str) -> int:
+        return len(encoding.encode(text)) if text else 0
+
+    return count_tokens
