@@ -4,7 +4,9 @@
 
 관련 문서: [문서 목차](../README.md) · [시스템 설계](architecture.md) · [Git 협업 규칙](../guides/git-workflow.md)
 
-이 문서는 Basic의 모듈 연결 기준이다. Python 공통 데이터 타입은 구현 시 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. SDK 클라이언트를 포함하는 실행 자원은 B가 `member_chsopo89/service/resources.py`에서 관리한다. C의 로그 검증·직렬화 코드는 `member_Damsebi/observability/records.py`가 맡는다. 현재 main에는 문서만 있으며, 아래 계약을 실제 코드에 적용한 것은 아니다.
+이 문서는 Basic의 모듈 연결 기준이다. Python 공통 데이터 타입은 구현 시 `shared/contracts.py`에서 정의하고 이 문서의 예시와 맞춘다. SDK 클라이언트를 포함하는 실행 자원은 B가 `member_chsopo89/service/resources.py`에서 관리한다. C의 로그 검증·직렬화 코드는 `member_Damsebi/observability/records.py`가 맡는다.
+
+A의 데이터 처리·Naive 검색과 C의 실행 기록·평가 코드는 main에 병합돼 있고, B는 이 계약을 `shared/`·`member_chsopo89/`에 반영해 가짜 검색·모델로 검증했다. 세 패키지를 합쳐 실제 색인과 실제 모델로 질의한 결과는 아직 확인하지 않았다.
 
 ## 1. 패키지명과 의존 방향
 
@@ -26,7 +28,7 @@ Basic의 import 경로는 담당자 ID를 붙인 `member_ysl727727`(A), `member_
 | `Chunk` | `chunk_id`, `book_id`, `file_name`, `page`, `text`; 선택 `heading=""` | 청크 본문은 `text`; heading은 원문에서 확인된 제목만 사용 |
 | `RetrievedChunk` | `chunk: Chunk`, `rank: int`, `score: float`, `retriever: str` | **중첩 구조**. 본문은 `item.chunk.text`로 접근 |
 | `Citation` | `source_id`, `book_id`, `file_name`, `page` | `source_id`는 이번 요청 안의 `S1`, `S2` 등 |
-| `ContextBundle` | `text`, `final_chunks: list[RetrievedChunk]`, `source_map: dict[str, Citation]`, `context_hash`, `token_count: int` | 실제 모델에 전달할 최종 문맥과 출처 매핑 |
+| `ContextBundle` | `text`, `final_chunks: list[RetrievedChunk]`, `source_map: dict[str, Citation]`, `context_hash`, `token_count: int`; 선택 `excluded_chunk_ids: list[str] = []` | 실제 모델에 전달할 최종 문맥과 출처 매핑. `excluded_chunk_ids`는 토큰 예산 때문에 뺀 청크 ID |
 | `ModelAnswer` | `status`, `answer`, `reason`, `source_ids: list[str]` | 모델 상태는 `answered`, `needs_clarification`, `abstained` |
 | `GenerationResult` | `model_answer: ModelAnswer`, `attempts: list[AttemptRecord]`, `usage` | 성공한 호출도 실제 시도·사용량 기록 보존 |
 | `QueryRequest` | `question: str`, 선택 `retrieval_mode` | 질문 공백 제거 후 빈 문자열 거부; mode 생략 시 서버 기본값 |
@@ -53,6 +55,8 @@ Basic의 import 경로는 담당자 ID를 붙인 `member_ysl727727`(A), `member_
 ```
 
 `ContextBundle.final_chunks`에도 같은 중첩 구조를 사용한다. 최종 선택 순서의 첫 청크에는 `S1`, 두 번째에는 `S2`를 부여한다. `source_map["S1"]`의 문서·페이지는 첫 청크와 일치해야 한다. 검색 순위와 최종 출처 번호가 항상 같다고 가정하지 않는다.
+
+`k`와 토큰 예산을 모두 만족하지 못해 뺀 청크는 `excluded_chunk_ids`에 남긴다. 순위 k 밖이라 애초에 보지 않은 후보나 `chunk_id`가 중복이라 건너뛴 후보는 제외 기록 대상이 아니다. 연결부는 이 목록과 실제 최종 청크 수를 실행 기록에 함께 보존한다.
 
 `ContextBundle.context_hash`는 **실제 문맥 문자열 `text`의 UTF-8 바이트에 대한 SHA-256 hex**다. 제목·문서명·페이지 헤더·줄바꿈까지 포함하고 `sha256:` 접두어는 붙이지 않는다. `token_count`는 이 문자열 전체를 `Resources.count_tokens`로 계산한 값이다. 토크나이저가 근사값이면 설정에 표시하고 실제 사용 토큰과 구분한다.
 
@@ -149,7 +153,7 @@ Basic의 import 경로는 담당자 ID를 붙인 `member_ysl727727`(A), `member_
 | `attempts` | `AttemptRecord` 배열. 미기록 시 `[]`로 두되 모델을 호출하지 않았다는 증명으로 해석하지 않음 |
 | `langfuse_trace_id` | 실제 ID 또는 `null`; ID가 있다는 사실만으로 서버 저장 완료를 보장하지 않음 |
 
-위 표의 키는 모두 존재해야 한다. `usage`는 `attempts`에서 C가 계산한다. 오류에는 `error_type`과 확인 가능한 진단 이유를 보존한다. `model_context_text`·`model_context_hash`와 실제 모델 입출력은 생성 단계에 도달한 실행에서 필수이며, 그 전에 실패하면 null 또는 해당 단계 미도달 사유를 남긴다. 실제 입출력은 시도별 `attempts[].model_input/model_output`에 보존하고, 보안 분석용 루트 `model_input/model_output`에는 마지막 실제 호출의 값을 연결한다. 평가 결과가 없는 단계의 데이터를 만들어 채우지 않는다.
+위 표의 키는 모두 존재해야 한다. `usage`는 `attempts`에서 C가 계산하므로 B가 조립한 기록에는 없을 수 있다. B는 위 키 외에 문맥 구성 진단용으로 `model_context_token_count`, `final_context_chunk_count`, `budget_excluded_chunk_ids`와 처리 시간 범위를 뜻하는 `latency_scope`를 덧붙인다. C는 이 선택 키의 유무로 기록 검증을 실패 처리하지 않는다. 오류에는 `error_type`과 확인 가능한 진단 이유를 보존한다. `model_context_text`·`model_context_hash`와 실제 모델 입출력은 생성 단계에 도달한 실행에서 필수이며, 그 전에 실패하면 null 또는 해당 단계 미도달 사유를 남긴다. 실제 입출력은 시도별 `attempts[].model_input/model_output`에 보존하고, 보안 분석용 루트 `model_input/model_output`에는 마지막 실제 호출의 값을 연결한다. 평가 결과가 없는 단계의 데이터를 만들어 채우지 않는다.
 
 ### 문맥 해시 두 종류
 
@@ -171,6 +175,8 @@ Basic의 import 경로는 담당자 ID를 붙인 `member_ysl727727`(A), `member_
 | `error` | 오류 이름 또는 null |
 | `prompt_variant`, `model_parameters` | `base`/`defense`와 실제 적용한 설정; 정상 일반 비교에서는 공통 설정 유지 |
 
+재시도 정책은 한 곳에서만 둔다. B의 모델 클라이언트는 `max_retries=0`으로 만들고, 출력 형식·출처 검증에 실패했을 때만 같은 문맥으로 `generation_max_attempts`까지 다시 생성한다. 시도마다 `attempt`를 1부터 올려 모두 남기고, 마지막 시도까지 검증을 통과하지 못하면 출력 검증 오류다. 모델 호출 자체의 timeout·API 오류는 재시도하지 않고 그대로 올려 504·502 구분을 유지한다.
+
 SDK가 반환한 실제 사용량만 기록한다. 합계를 모든 시도에 복제하지 않는다. B의 기존 `input_messages`/`output_message`가 있으면 연결부가 `model_input`/`model_output`으로 이름을 맞춘다. 시도별 사용량이 없으면 근거 없이 나누어 채우지 않는다.
 
 `usage`는 `input_tokens`, `output_tokens`, `status`를 가진다. 각 토큰 합계는 확인분 합산이며 확인값이 하나도 없으면 null이다. status는 전부 확인한 `complete`, 일부만 확인한 `partial`, 확인값이 없는 `unknown`, 시도 기록이 없는 `no_attempts`다. 평가 모델 호출은 서비스 attempts/usage에 넣지 않는다.
@@ -185,6 +191,8 @@ SDK가 반환한 실제 사용량만 기록한다. 합계를 모든 시도에 �
 | `retrieval.default_mode`, `retrieval.k` | 기본 검색 방식과 최종 최대 청크 수 |
 | `retrieval.context_token_budget`, `retrieval.candidate_count` | 문맥 한도와 후보 수 |
 | `generation_model`, `model_timeout_seconds`, `max_output_tokens` | 생성 모델·호출 한도 |
+| `generation_max_attempts` | 출력 검증 실패 시 재생성을 포함한 한 요청의 최대 모델 호출 수 |
+| `context_tokenizer` | 문맥 예산용 로컬 토크나이저. 실제 사용량은 모델 usage로 확인 |
 | `qdrant_collection`, `embedding_model`, `embedding_device` | 색인·임베딩 연결 설정 |
 
 Hybrid 결합과 리랭커 설정은 A가 제안하고 B가 위 설정과 함께 한 번 반영한다. 최종 비교 전에 값을 동결해 manifest에 남긴다. 특정 환경 변수·원격 저장소를 필수로 가정하지 않고 실제 사용하는 연결 방식을 문서화한다.
@@ -208,9 +216,9 @@ Hybrid·리랭킹용 추가 자원은 A·B가 공통 변경으로 정한다. A·
 | A `retrieve` | `retrieve(question, mode, resources, top_n=20) -> list[RetrievedChunk]` |
 | B `load_resources` | `load_resources(settings) -> Resources` |
 | B `build_context` | `build_context(candidates, k, token_budget, count_tokens) -> ContextBundle` |
-| B `generate_answer` | `generate_answer(question, context, model, *, prompt_path=..., defense="", trace=None) -> GenerationResult` |
+| B `generate_answer` | `generate_answer(question, context, model, *, prompt_path=..., defense="", trace=None, attempt_log=None, max_attempts=1) -> GenerationResult` |
 | B `resolve_citations` | `resolve_citations(source_ids, source_map) -> list[Citation]` |
-| B `answer_query` | `answer_query(request, resources, request_id, settings) -> QueryResponse` |
+| B `answer_query` | `answer_query(request, resources, request_id, settings, *, run_record=None) -> QueryResponse` |
 | C `normalize_run_record` | `normalize_run_record(raw: Mapping) -> dict`. 실행 기록 검증·usage 계산 |
 | C `run_comparison` | `run_comparison(questions, adapter, *, experiment_id, dataset_id, config_hash, modes=...) -> list[dict]` |
 | C `grade_all` | `grade_all(records, references, *, k, judge_fn, faithfulness_fn) -> list[dict]` |
@@ -256,7 +264,7 @@ python -m member_Damsebi.scripts.run_security --help
 
 각 패키지·하위 Python 패키지에는 `__init__.py`를 둔다. 직접 파일 실행이나 개인별 sys.path 수정보다 위 모듈 실행 방식을 사용한다. 프롬프트 경로는 모듈 위치 또는 명시 설정에서 구하고, 데이터·산출물 경로는 프로젝트 기준 경로로 정규화한다.
 
-B 브랜치처럼 setuptools를 사용하면 pyproject의 패키지 탐색을 기존 `app*`에서 아래처럼 바꾼다. main.py는 실행 위치를 고정해 저장소 루트에서 사용한다. 휠 배포가 필요해지면 main 모듈과 프롬프트 package-data 포함도 따로 확인한다.
+루트 `pyproject.toml`은 setuptools를 사용하며 패키지 탐색을 아래와 같이 둔다. main.py는 실행 위치를 고정해 저장소 루트에서 사용한다. 휠 배포가 필요해지면 main 모듈과 프롬프트 package-data 포함도 따로 확인한다.
 
 ```toml
 [tool.setuptools.packages.find]
@@ -265,7 +273,7 @@ include = ["shared", "shared.*", "member_ysl727727", "member_ysl727727.*", "memb
 exclude = ["*.tests", "*.tests.*"]
 ```
 
-이 설정은 향후 코드의 배치·설치 기준이며 현재 pyproject를 생성하거나 수정한 것이 아니다. 다른 빌드 도구를 택하면 같은 패키지·리소스 포함 조건을 만족하도록 명시한다.
+B 프롬프트는 `[tool.setuptools.package-data]`의 `member_chsopo89 = ["prompts/*.txt"]`로 함께 담는다. A·C 소스가 없어도 `member_chsopo89`와 `shared`만으로 import가 되도록 유지한다. 다른 빌드 도구를 택하면 같은 패키지·리소스 포함 조건을 만족하도록 명시한다.
 
 ## 8. 기존 브랜치 코드에서 맞출 항목
 
@@ -290,3 +298,40 @@ exclude = ["*.tests", "*.tests.*"]
 - [ ] 설치·모듈 import와 위 실행 명령을 공통 환경에서 확인한다.
 
 샘플 인터페이스 확인은 실제 Basic 성능 평가와 구분한다. 선택한 일반 질문 전체의 세 방식 비교, 두 자동 평가와 보안 4개 실행은 기존 시스템 설계의 완료 기준을 따른다.
+
+## 10. B 구현 연결 안내 — 2026-11-06
+
+B는 `member_chsopo89/`와 `shared/` 구조를 유지하고 A/C 소스를 복사하지 않는다.
+외부 모듈은 자원 준비 시 연결한다. A가 없으면 `/docs`·`/openapi.json`·`/health`는
+사용할 수 있고 `query_ready=false`, `/query`는 명시적인 503이다. C가 없으면
+추적은 비활성 상태다. 실제 업무 응답을 가짜 검색으로 대체하지 않는다.
+
+Resources의 기존 필드는 유지하며 B 연결용 `retriever` 호출 함수와
+선택적 `context_hasher`를 추가한다. A 연결은 `member_ysl727727.indexing.embeddings`,
+`member_ysl727727.retrieval.service`이며 C 연결은 `member_Damsebi.observability`다.
+
+`run_record`와 `attempt_log`는 기존 호출을 유지하는 선택 출력 수집 인자다.
+요청마다 별도 객체를 사용한다. 실패한 모델 시도도 입력·오류 종류·확인되지 않은
+사용량 null을 남긴다. B는 RunRecord를 조립하며 C의 검증·usage 집계를 대체하지 않는다.
+
+B의 `member_chsopo89.service.adapters`에서 다음 연결 함수를 제공한다.
+
+- `make_query_adapter(resources, settings)` → `adapter(question, retrieval_mode, request_id)`.
+  반환값은 평탄 실행 기록이다. 오류도 기록으로 반환하여 C가 다음 문항을 처리할 수 있다.
+- `make_security_adapters(resources, settings, *, defense)` → `retrieve_fn`, `generate_fn`.
+  검색·문맥을 한 번 준비해 base/defense에 재사용한다. 질문이나 문맥을 바꾸면 거부한다.
+
+정식 평가 어댑터에는 C가 제공한 `compute_context_hash` 콜백이 필요하다.
+C가 연결되지 않았으면 평가 어댑터는 준비 오류를 알린다. 검색·생성·정답 채점 코드를
+B에서 새로 복제하지 않는다.
+
+`create_app(run_record_sink=callback)`은 응답 JSON을 바꾸지 않고 요청별 실행 기록을
+동기 callback에 전달한다. API 미들웨어가 수신부터 응답 생성 직전까지 잰 값을
+`latency_ms`, `latency_scope="http"`로 확정한다. 기록 저장 실패는 업무 답변을
+바꾸지 않고 경고로 남긴다. 서비스 직접 호출과 고정 문맥 생성은 각각
+`service`/`in_process_adapter`, `fixed_context_generation` 범위로 표시한다.
+클라이언트 왕복 시간이나 이 범위들을 HTTP 처리 시간과 섞어 비교하지 않는다.
+Langfuse 루트의 서비스 시간과 자식 관측 타임라인 보완은 C 연결 때 별도로 검증한다.
+
+문맥 토큰은 `context_tokenizer` 설정의 로컬 추정값이며 실제 모델 usage와 구분한다.
+최종 문자열도 예산을 재확인하고 초과하면 마지막 청크 전체를 제외한다.

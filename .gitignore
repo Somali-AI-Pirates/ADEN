@@ -151,6 +151,8 @@ activemq-data/
 
 # Environments
 .env
+.env.*
+!.env.example
 .envrc
 .venv
 env/
@@ -219,5 +221,14 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+# 제공 자료: 안내와 자리표시 파일만 추적
+/data/**
+!/data/**/
+!/data/**/.gitkeep
+!/data/README.md
+
 # 로컬 실행 기록·샘플 결과 (제출 결과는 reports/)
 /artifacts/
+/storage/
+/models/
+/logs/
