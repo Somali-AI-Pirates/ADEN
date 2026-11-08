@@ -1,0 +1,2094 @@
+{
+  "model_id": "BAAI/bge-m3",
+  "run_at": "2026-11-08T17:05:06.582126+09:00",
+  "retrieval_unit": "page",
+  "similarity": "cosine",
+  "top_k": 3,
+  "evidence_basis": "unique_evidence_pages",
+  "aggregation": "macro_average_over_scored_questions",
+  "inputs": {
+    "pages": {
+      "path": "artifacts/u_10o0o/basic_restored_pages.json",
+      "sha256": "08cc4afc7c769998a404f166b8270ae3f54f36cbe80dab9c955c17d5725718ee"
+    },
+    "vectors": {
+      "path": "artifacts/u_10o0o/basic_bge_m3_vectors.npy",
+      "sha256": "a540a75e3678e72a7801776741385eab79a0d789a6a1623eac34fec589b8894f"
+    },
+    "evaluation": {
+      "development": {
+        "questions": {
+          "path": "data/basic/evaluation/development_questions.json",
+          "sha256": "fb7b718382ba3af18b0a6fb8f33f5edbd10f340d457b5c5d277ded86c2e413a8"
+        },
+        "references": {
+          "path": "data/basic/evaluation/development.json",
+          "sha256": "e5227ec27a94a49665a9df89d00610834fe32d7fcfdb1dbfd5a4fa891650d030"
+        }
+      },
+      "additional": {
+        "questions": {
+          "path": "data/basic/evaluation/additional_questions.json",
+          "sha256": "7a0b6feddea936573fa4641b57144ca528107b0b27aa01c9ebbdbfc396d7c11f"
+        },
+        "references": {
+          "path": "data/basic/evaluation/additional.json",
+          "sha256": "c82461f98951dfc690bb4fca415c696c7dd7baf1464ab68942b24f06e5c291c6"
+        }
+      },
+      "expansion_validation": {
+        "questions": {
+          "path": "data/basic/evaluation/expansion_validation_questions.json",
+          "sha256": "18521be84dd1387e67f71559ca8247e54a84832e609772fdcbce63857579e54a"
+        },
+        "references": {
+          "path": "data/basic/evaluation/expansion_validation.json",
+          "sha256": "fb95856e5216a9f5aa8cd7d4ac22a18ee03a799367bb36cf4b35cb3159b8b3bf"
+        }
+      }
+    }
+  },
+  "summary": {
+    "overall": {
+      "questions": 72,
+      "scored": 68,
+      "excluded": 4,
+      "hit": 0.5,
+      "recall": 0.3105392156862745,
+      "precision": 0.18137254901960784
+    },
+    "development": {
+      "questions": 30,
+      "scored": 28,
+      "excluded": 2,
+      "hit": 0.5357142857142857,
+      "recall": 0.25,
+      "precision": 0.20238095238095238
+    },
+    "additional": {
+      "questions": 30,
+      "scored": 28,
+      "excluded": 2,
+      "hit": 0.32142857142857145,
+      "recall": 0.14702380952380953,
+      "precision": 0.11904761904761904
+    },
+    "expansion_validation": {
+      "questions": 12,
+      "scored": 12,
+      "excluded": 0,
+      "hit": 0.8333333333333334,
+      "recall": 0.8333333333333334,
+      "precision": 0.2777777777777778
+    }
+  },
+  "records": {
+    "development": [
+      {
+        "question_id": "S-DEV-01",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB01",
+            "page": 1,
+            "score": 0.7673913240432739
+          },
+          {
+            "rank": 2,
+            "book_id": "SB01",
+            "page": 18,
+            "score": 0.6875323057174683
+          },
+          {
+            "rank": 3,
+            "book_id": "SB01",
+            "page": 2,
+            "score": 0.6868193745613098
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.5,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-02",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 1,
+            "score": 0.820244312286377
+          },
+          {
+            "rank": 2,
+            "book_id": "SB01",
+            "page": 2,
+            "score": 0.8109737038612366
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 1,
+            "score": 0.8021119832992554
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.25,
+          "precision": 0.6666666666666666
+        }
+      },
+      {
+        "question_id": "S-DEV-03",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB01",
+            "page": 3,
+            "score": 0.7540756464004517
+          },
+          {
+            "rank": 2,
+            "book_id": "SB12",
+            "page": 5,
+            "score": 0.7406266927719116
+          },
+          {
+            "rank": 3,
+            "book_id": "SB01",
+            "page": 23,
+            "score": 0.7217347621917725
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.5,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-04",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB12",
+            "page": 19,
+            "score": 0.7969523668289185
+          },
+          {
+            "rank": 2,
+            "book_id": "SB08",
+            "page": 19,
+            "score": 0.7951292395591736
+          },
+          {
+            "rank": 3,
+            "book_id": "SB09",
+            "page": 3,
+            "score": 0.7797144651412964
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.25,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-05",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 1,
+            "score": 0.8015415668487549
+          },
+          {
+            "rank": 2,
+            "book_id": "SB15",
+            "page": 1,
+            "score": 0.7776529788970947
+          },
+          {
+            "rank": 3,
+            "book_id": "SB03",
+            "page": 10,
+            "score": 0.7765747308731079
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.25,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-06",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB15",
+            "page": 2,
+            "score": 0.7584476470947266
+          },
+          {
+            "rank": 2,
+            "book_id": "SB03",
+            "page": 9,
+            "score": 0.7517697811126709
+          },
+          {
+            "rank": 3,
+            "book_id": "SB07",
+            "page": 18,
+            "score": 0.7510119676589966
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-07",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB04",
+            "page": 1,
+            "score": 0.7769924402236938
+          },
+          {
+            "rank": 2,
+            "book_id": "SB02",
+            "page": 1,
+            "score": 0.7694774866104126
+          },
+          {
+            "rank": 3,
+            "book_id": "SB04",
+            "page": 10,
+            "score": 0.7671933174133301
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-08",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 3,
+            "score": 0.7075811624526978
+          },
+          {
+            "rank": 2,
+            "book_id": "SB15",
+            "page": 4,
+            "score": 0.7048298120498657
+          },
+          {
+            "rank": 3,
+            "book_id": "SB10",
+            "page": 20,
+            "score": 0.68927401304245
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.3333333333333333,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-09",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB07",
+            "page": 18,
+            "score": 0.7754178047180176
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 6,
+            "score": 0.73698890209198
+          },
+          {
+            "rank": 3,
+            "book_id": "SB07",
+            "page": 4,
+            "score": 0.7284246683120728
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.25,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-10",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB02",
+            "page": 17,
+            "score": 0.7988547086715698
+          },
+          {
+            "rank": 2,
+            "book_id": "SB04",
+            "page": 16,
+            "score": 0.789126992225647
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 7,
+            "score": 0.7876521348953247
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-11",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB12",
+            "page": 12,
+            "score": 0.7859917879104614
+          },
+          {
+            "rank": 2,
+            "book_id": "SB15",
+            "page": 16,
+            "score": 0.77037513256073
+          },
+          {
+            "rank": 3,
+            "book_id": "SB10",
+            "page": 19,
+            "score": 0.7626306414604187
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-12",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB13",
+            "page": 1,
+            "score": 0.6340664029121399
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 1,
+            "score": 0.6301219463348389
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 1,
+            "score": 0.5876837372779846
+          }
+        ],
+        "metrics": null
+      },
+      {
+        "question_id": "S-DEV-13",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB03",
+            "page": 10,
+            "score": 0.7929578423500061
+          },
+          {
+            "rank": 2,
+            "book_id": "SB15",
+            "page": 20,
+            "score": 0.7600356936454773
+          },
+          {
+            "rank": 3,
+            "book_id": "SB11",
+            "page": 6,
+            "score": 0.7583116292953491
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-14",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB03",
+            "page": 9,
+            "score": 0.7615872621536255
+          },
+          {
+            "rank": 2,
+            "book_id": "SB04",
+            "page": 7,
+            "score": 0.753384530544281
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 2,
+            "score": 0.733302116394043
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-15",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB08",
+            "page": 12,
+            "score": 0.7532890439033508
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 14,
+            "score": 0.7522329092025757
+          },
+          {
+            "rank": 3,
+            "book_id": "SB05",
+            "page": 12,
+            "score": 0.7480391263961792
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-16",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 8,
+            "score": 0.8240193128585815
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 11,
+            "score": 0.8227892518043518
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 21,
+            "score": 0.7887390851974487
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-17",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 8,
+            "score": 0.7427740097045898
+          },
+          {
+            "rank": 2,
+            "book_id": "SB10",
+            "page": 9,
+            "score": 0.7328044176101685
+          },
+          {
+            "rank": 3,
+            "book_id": "SB10",
+            "page": 1,
+            "score": 0.7279940843582153
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.25,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-18",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 7,
+            "score": 0.7606489062309265
+          },
+          {
+            "rank": 2,
+            "book_id": "SB09",
+            "page": 11,
+            "score": 0.7544975280761719
+          },
+          {
+            "rank": 3,
+            "book_id": "SB05",
+            "page": 12,
+            "score": 0.7492280006408691
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-19",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB09",
+            "page": 3,
+            "score": 0.771682620048523
+          },
+          {
+            "rank": 2,
+            "book_id": "SB12",
+            "page": 19,
+            "score": 0.7483444213867188
+          },
+          {
+            "rank": 3,
+            "book_id": "SB08",
+            "page": 1,
+            "score": 0.7409681081771851
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.3333333333333333,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-20",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 7,
+            "score": 0.8204198479652405
+          },
+          {
+            "rank": 2,
+            "book_id": "SB05",
+            "page": 2,
+            "score": 0.7552223801612854
+          },
+          {
+            "rank": 3,
+            "book_id": "SB05",
+            "page": 8,
+            "score": 0.7531970739364624
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.5,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-21",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB04",
+            "page": 2,
+            "score": 0.7757519483566284
+          },
+          {
+            "rank": 2,
+            "book_id": "SB04",
+            "page": 19,
+            "score": 0.7693350315093994
+          },
+          {
+            "rank": 3,
+            "book_id": "SB04",
+            "page": 9,
+            "score": 0.7635695934295654
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.3333333333333333,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-22",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB06",
+            "page": 13,
+            "score": 0.720154881477356
+          },
+          {
+            "rank": 2,
+            "book_id": "SB13",
+            "page": 3,
+            "score": 0.7112999558448792
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 16,
+            "score": 0.7058709859848022
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.25,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-23",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB01",
+            "page": 1,
+            "score": 0.7212339639663696
+          },
+          {
+            "rank": 2,
+            "book_id": "SB14",
+            "page": 3,
+            "score": 0.6965728402137756
+          },
+          {
+            "rank": 3,
+            "book_id": "SB01",
+            "page": 17,
+            "score": 0.6781122088432312
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.6666666666666666
+        }
+      },
+      {
+        "question_id": "S-DEV-24",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB06",
+            "page": 3,
+            "score": 0.7035463452339172
+          },
+          {
+            "rank": 2,
+            "book_id": "SB14",
+            "page": 24,
+            "score": 0.6851834058761597
+          },
+          {
+            "rank": 3,
+            "book_id": "SB02",
+            "page": 24,
+            "score": 0.6776437759399414
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-DEV-25",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 17,
+            "score": 0.6934603452682495
+          },
+          {
+            "rank": 2,
+            "book_id": "SB13",
+            "page": 19,
+            "score": 0.6905890703201294
+          },
+          {
+            "rank": 3,
+            "book_id": "SB11",
+            "page": 15,
+            "score": 0.6831433773040771
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-26",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB13",
+            "page": 8,
+            "score": 0.7601027488708496
+          },
+          {
+            "rank": 2,
+            "book_id": "SB13",
+            "page": 20,
+            "score": 0.7399990558624268
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 20,
+            "score": 0.7359448671340942
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-27",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB15",
+            "page": 19,
+            "score": 0.6618556380271912
+          },
+          {
+            "rank": 2,
+            "book_id": "SB08",
+            "page": 17,
+            "score": 0.6510787010192871
+          },
+          {
+            "rank": 3,
+            "book_id": "SB11",
+            "page": 2,
+            "score": 0.6412583589553833
+          }
+        ],
+        "metrics": null
+      },
+      {
+        "question_id": "S-DEV-28",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB06",
+            "page": 6,
+            "score": 0.7583299875259399
+          },
+          {
+            "rank": 2,
+            "book_id": "SB01",
+            "page": 22,
+            "score": 0.694246768951416
+          },
+          {
+            "rank": 3,
+            "book_id": "SB11",
+            "page": 10,
+            "score": 0.6888948082923889
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-29",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB15",
+            "page": 10,
+            "score": 0.6680591702461243
+          },
+          {
+            "rank": 2,
+            "book_id": "SB07",
+            "page": 10,
+            "score": 0.650198757648468
+          },
+          {
+            "rank": 3,
+            "book_id": "SB09",
+            "page": 9,
+            "score": 0.6339479684829712
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-DEV-30",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB15",
+            "page": 23,
+            "score": 0.6251738667488098
+          },
+          {
+            "rank": 2,
+            "book_id": "SB03",
+            "page": 16,
+            "score": 0.6081002950668335
+          },
+          {
+            "rank": 3,
+            "book_id": "SB07",
+            "page": 21,
+            "score": 0.6002472639083862
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      }
+    ],
+    "additional": [
+      {
+        "question_id": "S-FINAL-01",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB01",
+            "page": 1,
+            "score": 0.6577754020690918
+          },
+          {
+            "rank": 2,
+            "book_id": "SB10",
+            "page": 2,
+            "score": 0.6308239698410034
+          },
+          {
+            "rank": 3,
+            "book_id": "SB06",
+            "page": 1,
+            "score": 0.6282945871353149
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.5,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-FINAL-02",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 6,
+            "score": 0.7754824161529541
+          },
+          {
+            "rank": 2,
+            "book_id": "SB01",
+            "page": 10,
+            "score": 0.7541748285293579
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 1,
+            "score": 0.7520231008529663
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-03",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB01",
+            "page": 23,
+            "score": 0.6655223369598389
+          },
+          {
+            "rank": 2,
+            "book_id": "SB15",
+            "page": 22,
+            "score": 0.6613224744796753
+          },
+          {
+            "rank": 3,
+            "book_id": "SB01",
+            "page": 20,
+            "score": 0.6573553681373596
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-04",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB07",
+            "page": 7,
+            "score": 0.7514867186546326
+          },
+          {
+            "rank": 2,
+            "book_id": "SB10",
+            "page": 1,
+            "score": 0.6983243227005005
+          },
+          {
+            "rank": 3,
+            "book_id": "SB07",
+            "page": 1,
+            "score": 0.6961647868156433
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-FINAL-05",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB03",
+            "page": 10,
+            "score": 0.7890127897262573
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 1,
+            "score": 0.7451183795928955
+          },
+          {
+            "rank": 3,
+            "book_id": "SB11",
+            "page": 6,
+            "score": 0.7445797324180603
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.25,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-FINAL-06",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB07",
+            "page": 18,
+            "score": 0.7747204899787903
+          },
+          {
+            "rank": 2,
+            "book_id": "SB12",
+            "page": 19,
+            "score": 0.7576962113380432
+          },
+          {
+            "rank": 3,
+            "book_id": "SB03",
+            "page": 9,
+            "score": 0.7567566633224487
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-07",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB12",
+            "page": 14,
+            "score": 0.7208783626556396
+          },
+          {
+            "rank": 2,
+            "book_id": "SB12",
+            "page": 15,
+            "score": 0.7199856638908386
+          },
+          {
+            "rank": 3,
+            "book_id": "SB02",
+            "page": 16,
+            "score": 0.7138077020645142
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-08",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB06",
+            "page": 2,
+            "score": 0.747079074382782
+          },
+          {
+            "rank": 2,
+            "book_id": "SB06",
+            "page": 14,
+            "score": 0.7411214113235474
+          },
+          {
+            "rank": 3,
+            "book_id": "SB12",
+            "page": 18,
+            "score": 0.7222966551780701
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.5,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-FINAL-09",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 20,
+            "score": 0.7346452474594116
+          },
+          {
+            "rank": 2,
+            "book_id": "SB04",
+            "page": 16,
+            "score": 0.7345637083053589
+          },
+          {
+            "rank": 3,
+            "book_id": "SB04",
+            "page": 13,
+            "score": 0.7295756340026855
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-10",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 14,
+            "score": 0.7863595485687256
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 15,
+            "score": 0.7805205583572388
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 18,
+            "score": 0.7759995460510254
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-11",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 3,
+            "score": 0.7722920179367065
+          },
+          {
+            "rank": 2,
+            "book_id": "SB05",
+            "page": 20,
+            "score": 0.7695177793502808
+          },
+          {
+            "rank": 3,
+            "book_id": "SB05",
+            "page": 15,
+            "score": 0.7548242807388306
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-12",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 1,
+            "score": 0.508607029914856
+          },
+          {
+            "rank": 2,
+            "book_id": "SB13",
+            "page": 1,
+            "score": 0.5024086236953735
+          },
+          {
+            "rank": 3,
+            "book_id": "SB12",
+            "page": 1,
+            "score": 0.49536097049713135
+          }
+        ],
+        "metrics": null
+      },
+      {
+        "question_id": "S-FINAL-13",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB03",
+            "page": 10,
+            "score": 0.7029274702072144
+          },
+          {
+            "rank": 2,
+            "book_id": "SB15",
+            "page": 10,
+            "score": 0.6744986176490784
+          },
+          {
+            "rank": 3,
+            "book_id": "SB09",
+            "page": 2,
+            "score": 0.6688955426216125
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.2,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-FINAL-14",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 11,
+            "score": 0.7853976488113403
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 8,
+            "score": 0.7729362845420837
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 21,
+            "score": 0.767120361328125
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-15",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB03",
+            "page": 9,
+            "score": 0.8238488435745239
+          },
+          {
+            "rank": 2,
+            "book_id": "SB07",
+            "page": 18,
+            "score": 0.8207517862319946
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 2,
+            "score": 0.805768609046936
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-16",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB15",
+            "page": 3,
+            "score": 0.7462016940116882
+          },
+          {
+            "rank": 2,
+            "book_id": "SB02",
+            "page": 16,
+            "score": 0.7394707202911377
+          },
+          {
+            "rank": 3,
+            "book_id": "SB12",
+            "page": 6,
+            "score": 0.737865149974823
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-17",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 7,
+            "score": 0.7647354006767273
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 15,
+            "score": 0.7396416664123535
+          },
+          {
+            "rank": 3,
+            "book_id": "SB11",
+            "page": 14,
+            "score": 0.719896674156189
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-18",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB13",
+            "page": 7,
+            "score": 0.8074256181716919
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 9,
+            "score": 0.8058171272277832
+          },
+          {
+            "rank": 3,
+            "book_id": "SB13",
+            "page": 13,
+            "score": 0.7775141000747681
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-19",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 8,
+            "score": 0.805471658706665
+          },
+          {
+            "rank": 2,
+            "book_id": "SB07",
+            "page": 23,
+            "score": 0.787704348564148
+          },
+          {
+            "rank": 3,
+            "book_id": "SB07",
+            "page": 7,
+            "score": 0.7642737627029419
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-20",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB09",
+            "page": 11,
+            "score": 0.7615611553192139
+          },
+          {
+            "rank": 2,
+            "book_id": "SB07",
+            "page": 2,
+            "score": 0.7539575099945068
+          },
+          {
+            "rank": 3,
+            "book_id": "SB09",
+            "page": 3,
+            "score": 0.7270302772521973
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.6666666666666666,
+          "precision": 0.6666666666666666
+        }
+      },
+      {
+        "question_id": "S-FINAL-21",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 22,
+            "score": 0.7222191095352173
+          },
+          {
+            "rank": 2,
+            "book_id": "SB12",
+            "page": 11,
+            "score": 0.708545446395874
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 9,
+            "score": 0.6991972923278809
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-22",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB06",
+            "page": 12,
+            "score": 0.8094409704208374
+          },
+          {
+            "rank": 2,
+            "book_id": "SB12",
+            "page": 3,
+            "score": 0.7807267308235168
+          },
+          {
+            "rank": 3,
+            "book_id": "SB06",
+            "page": 8,
+            "score": 0.7561453580856323
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.3333333333333333,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-FINAL-23",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 17,
+            "score": 0.696243405342102
+          },
+          {
+            "rank": 2,
+            "book_id": "SB05",
+            "page": 3,
+            "score": 0.6672700047492981
+          },
+          {
+            "rank": 3,
+            "book_id": "SB05",
+            "page": 1,
+            "score": 0.6574098467826843
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.5,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-FINAL-24",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 14,
+            "score": 0.7999248504638672
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 3,
+            "score": 0.7850507497787476
+          },
+          {
+            "rank": 3,
+            "book_id": "SB11",
+            "page": 15,
+            "score": 0.7637065649032593
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 0.16666666666666666,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-FINAL-25",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB15",
+            "page": 20,
+            "score": 0.7470252513885498
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 7,
+            "score": 0.7344894409179688
+          },
+          {
+            "rank": 3,
+            "book_id": "SB13",
+            "page": 6,
+            "score": 0.7217627167701721
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-26",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB08",
+            "page": 13,
+            "score": 0.7083128690719604
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 15,
+            "score": 0.7024754285812378
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 18,
+            "score": 0.6899586319923401
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-27",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 10,
+            "score": 0.7419761419296265
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 20,
+            "score": 0.7307882308959961
+          },
+          {
+            "rank": 3,
+            "book_id": "SB03",
+            "page": 20,
+            "score": 0.7214522957801819
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-28",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB15",
+            "page": 12,
+            "score": 0.7730840444564819
+          },
+          {
+            "rank": 2,
+            "book_id": "SB12",
+            "page": 15,
+            "score": 0.7558815479278564
+          },
+          {
+            "rank": 3,
+            "book_id": "SB02",
+            "page": 13,
+            "score": 0.7545750141143799
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-FINAL-29",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB15",
+            "page": 19,
+            "score": 0.666523814201355
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 2,
+            "score": 0.6637061238288879
+          },
+          {
+            "rank": 3,
+            "book_id": "SB11",
+            "page": 12,
+            "score": 0.6237021684646606
+          }
+        ],
+        "metrics": null
+      },
+      {
+        "question_id": "S-FINAL-30",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB06",
+            "page": 22,
+            "score": 0.6424933671951294
+          },
+          {
+            "rank": 2,
+            "book_id": "SB04",
+            "page": 3,
+            "score": 0.6393688917160034
+          },
+          {
+            "rank": 3,
+            "book_id": "SB04",
+            "page": 22,
+            "score": 0.5966705679893494
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      }
+    ],
+    "expansion_validation": [
+      {
+        "question_id": "S-VAL-DEV-01",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB01",
+            "page": 19,
+            "score": 0.7565066814422607
+          },
+          {
+            "rank": 2,
+            "book_id": "SB03",
+            "page": 12,
+            "score": 0.7221068143844604
+          },
+          {
+            "rank": 3,
+            "book_id": "SB02",
+            "page": 17,
+            "score": 0.6916213631629944
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-DEV-02",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB02",
+            "page": 10,
+            "score": 0.8093075752258301
+          },
+          {
+            "rank": 2,
+            "book_id": "SB02",
+            "page": 9,
+            "score": 0.7959051132202148
+          },
+          {
+            "rank": 3,
+            "book_id": "SB02",
+            "page": 8,
+            "score": 0.7917267084121704
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-DEV-03",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB03",
+            "page": 14,
+            "score": 0.7515742778778076
+          },
+          {
+            "rank": 2,
+            "book_id": "SB07",
+            "page": 17,
+            "score": 0.7134846448898315
+          },
+          {
+            "rank": 3,
+            "book_id": "SB03",
+            "page": 15,
+            "score": 0.6847021579742432
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-DEV-04",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB04",
+            "page": 14,
+            "score": 0.8528703451156616
+          },
+          {
+            "rank": 2,
+            "book_id": "SB04",
+            "page": 10,
+            "score": 0.7615287899971008
+          },
+          {
+            "rank": 3,
+            "book_id": "SB04",
+            "page": 11,
+            "score": 0.7606192827224731
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-DEV-05",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB05",
+            "page": 14,
+            "score": 0.8213216662406921
+          },
+          {
+            "rank": 2,
+            "book_id": "SB05",
+            "page": 20,
+            "score": 0.7677991986274719
+          },
+          {
+            "rank": 3,
+            "book_id": "SB05",
+            "page": 3,
+            "score": 0.7648752927780151
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-DEV-06",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB06",
+            "page": 7,
+            "score": 0.7799676060676575
+          },
+          {
+            "rank": 2,
+            "book_id": "SB06",
+            "page": 8,
+            "score": 0.7723342180252075
+          },
+          {
+            "rank": 3,
+            "book_id": "SB06",
+            "page": 5,
+            "score": 0.7595782279968262
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      },
+      {
+        "question_id": "S-VAL-FINAL-01",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB09",
+            "page": 11,
+            "score": 0.7721952795982361
+          },
+          {
+            "rank": 2,
+            "book_id": "SB07",
+            "page": 11,
+            "score": 0.751822292804718
+          },
+          {
+            "rank": 3,
+            "book_id": "SB07",
+            "page": 20,
+            "score": 0.7449096441268921
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-FINAL-02",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB08",
+            "page": 8,
+            "score": 0.7976427674293518
+          },
+          {
+            "rank": 2,
+            "book_id": "SB03",
+            "page": 18,
+            "score": 0.6854859590530396
+          },
+          {
+            "rank": 3,
+            "book_id": "SB14",
+            "page": 23,
+            "score": 0.677236795425415
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-FINAL-03",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB09",
+            "page": 10,
+            "score": 0.7615838050842285
+          },
+          {
+            "rank": 2,
+            "book_id": "SB09",
+            "page": 20,
+            "score": 0.7147043943405151
+          },
+          {
+            "rank": 3,
+            "book_id": "SB07",
+            "page": 10,
+            "score": 0.6994603276252747
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-FINAL-04",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB10",
+            "page": 5,
+            "score": 0.7448896169662476
+          },
+          {
+            "rank": 2,
+            "book_id": "SB10",
+            "page": 11,
+            "score": 0.7262078523635864
+          },
+          {
+            "rank": 3,
+            "book_id": "SB10",
+            "page": 2,
+            "score": 0.698898196220398
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-FINAL-05",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 19,
+            "score": 0.8283795118331909
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 13,
+            "score": 0.8000751733779907
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 6,
+            "score": 0.7945992946624756
+          }
+        ],
+        "metrics": {
+          "hit": 1,
+          "recall": 1.0,
+          "precision": 0.3333333333333333
+        }
+      },
+      {
+        "question_id": "S-VAL-FINAL-06",
+        "retrieved_pages": [
+          {
+            "rank": 1,
+            "book_id": "SB11",
+            "page": 8,
+            "score": 0.8075057864189148
+          },
+          {
+            "rank": 2,
+            "book_id": "SB11",
+            "page": 11,
+            "score": 0.7856958508491516
+          },
+          {
+            "rank": 3,
+            "book_id": "SB15",
+            "page": 21,
+            "score": 0.7810310125350952
+          }
+        ],
+        "metrics": {
+          "hit": 0,
+          "recall": 0.0,
+          "precision": 0.0
+        }
+      }
+    ]
+  },
+  "archive_note": "Archived copy. Raw query and answer text and explicit evidence/matched page labels are omitted. Per-question retrieved locations, scores, metrics, input fingerprints, and runtime metadata remain."
+}

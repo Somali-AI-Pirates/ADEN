@@ -1,0 +1,61 @@
+{
+  "dataset": "advanced",
+  "run_at": "2026-11-08T20:15:48.983299+09:00",
+  "device": "cpu",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "versions": {
+    "torch": "2.15.0",
+    "transformers": "5.22.1",
+    "sentence-transformers": "6.2.0",
+    "numpy": "2.5.4"
+  },
+  "cpu_threads": 8,
+  "interop_threads": 1,
+  "dtype": "float32",
+  "backend": "torch",
+  "warmup_questions": 3,
+  "bm25": {
+    "tokenizer": "kiwi",
+    "kiwipiepy_version": "0.24.1",
+    "kiwipiepy_model_version": "0.24.0",
+    "k1": 1.5,
+    "b": 0.75,
+    "index_seconds": 94.71574556999985
+  },
+  "dense": {
+    "model": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+    "revision": "55ec6e9358a56d56af759bc8372e970caf8c305f"
+  },
+  "rrf": {
+    "k": 60,
+    "weights": {
+      "bm25": 0.6,
+      "dense": 0.4
+    }
+  },
+  "candidates_per_retriever": 20,
+  "rerank_candidates": 20,
+  "final_top_k": 3,
+  "rerank_token_limit": 512,
+  "rerank_batch_size": 8,
+  "rerank_models": {
+    "BAAI/bge-reranker-v2-m3": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "nlpai-lab/KURE-Reranker-nano": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "Horizon-Labs/multilingual-reranker-small": "23139fec6f1f448cdf89a5ac2d2c6bf5e8c7b398"
+  },
+  "execution": {
+    "command": "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OPENBLAS_NUM_THREADS=1 uv run --no-sync python -m experimental.u_10o0o.rerank",
+    "python_version": "3.13.15",
+    "cpu": "Intel(R) Core(TM) Ultra 9 275HX",
+    "git_base": "d0006456e22eec9f815b1ae3a2c3b1ef6694e559",
+    "source_sha256": {
+      "experimental/u_10o0o/rerank.py": "423208e08d018a0abfcf9df096e7b7d2df3abfd4e57e9dfb6c6e34d49a6e0727",
+      "experimental/u_10o0o/bm25.py": "a9292fbf58e439ddf5fcfeb16f62aafa0137b3ef35af86da8444f14b8740178f",
+      "experimental/u_10o0o/embeding.py": "94ffa7f3eb39cb16c71abb0aa331ecf3df9e02ea4a0544ff2dfae287cb3ece92",
+      "experimental/u_10o0o/evaluate.py": "e31a10cfb537077fb06ad1bcdaa51e43d5a7498fdc5b4266a6b2b47603bdc6eb",
+      "experimental/u_10o0o/hybrid.py": "abcd7e929b26c3b6e17311cecc5f30c000b27f83a588ac9c8519c85158cc0460",
+      "experimental/u_10o0o/prepare.py": "04fdc28ef6a5039f75a8c2a88aa422c14799e69e2f37bb66eac288f7161455c4",
+      "experimental/u_10o0o/search.py": "4d6546d272444d9b09262b718e1d42393d540eb6d087555a56a88acab7ffe4c5"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+2026-11-08T20:15:48+09:00 CPU 비교 시작 · advanced-reranking-20261108-201548-983299
+2026-11-08T20:17:23+09:00 Kiwi BM25 색인 완료 · 18,000쪽 · 94.72초
+2026-11-08T20:17:45+09:00 RRF 후보 고정 · 60문항 · 문항당 최대 20쪽
+2026-11-08T20:17:45+09:00 BAAI/bge-reranker-v2-m3 · 평가 시작
+2026-11-08T20:20:51+09:00 BAAI/bge-reranker-v2-m3 · 10문항 완료
+2026-11-08T20:23:20+09:00 BAAI/bge-reranker-v2-m3 · 20문항 완료
+2026-11-08T20:25:40+09:00 BAAI/bge-reranker-v2-m3 · 30문항 완료
+2026-11-08T20:27:55+09:00 BAAI/bge-reranker-v2-m3 · 40문항 완료
+2026-11-08T20:30:04+09:00 BAAI/bge-reranker-v2-m3 · 50문항 완료
+2026-11-08T20:32:09+09:00 BAAI/bge-reranker-v2-m3 · 60문항 완료
+2026-11-08T20:32:09+09:00 BAAI/bge-reranker-v2-m3 · Hit@3 93.10% · Recall@3 53.30% · Precision@3 49.43%
+2026-11-08T20:32:09+09:00 nlpai-lab/KURE-Reranker-nano · 평가 시작
+2026-11-08T20:33:20+09:00 nlpai-lab/KURE-Reranker-nano · 10문항 완료
+2026-11-08T20:34:15+09:00 nlpai-lab/KURE-Reranker-nano · 20문항 완료
+2026-11-08T20:35:07+09:00 nlpai-lab/KURE-Reranker-nano · 30문항 완료
+2026-11-08T20:36:03+09:00 nlpai-lab/KURE-Reranker-nano · 40문항 완료
+2026-11-08T20:36:54+09:00 nlpai-lab/KURE-Reranker-nano · 50문항 완료
+2026-11-08T20:37:46+09:00 nlpai-lab/KURE-Reranker-nano · 60문항 완료
+2026-11-08T20:37:46+09:00 nlpai-lab/KURE-Reranker-nano · Hit@3 94.83% · Recall@3 60.20% · Precision@3 56.32%
+2026-11-08T20:37:46+09:00 Horizon-Labs/multilingual-reranker-small · 평가 시작
+2026-11-08T20:38:17+09:00 Horizon-Labs/multilingual-reranker-small · 10문항 완료
+2026-11-08T20:38:39+09:00 Horizon-Labs/multilingual-reranker-small · 20문항 완료
+2026-11-08T20:39:03+09:00 Horizon-Labs/multilingual-reranker-small · 30문항 완료
+2026-11-08T20:39:25+09:00 Horizon-Labs/multilingual-reranker-small · 40문항 완료
+2026-11-08T20:39:46+09:00 Horizon-Labs/multilingual-reranker-small · 50문항 완료
+2026-11-08T20:40:09+09:00 Horizon-Labs/multilingual-reranker-small · 60문항 완료
+2026-11-08T20:40:09+09:00 Horizon-Labs/multilingual-reranker-small · Hit@3 94.83% · Recall@3 57.76% · Precision@3 53.45%
+2026-11-08T20:40:09+09:00 리랭커 비교 완료
