@@ -7,7 +7,7 @@ from unittest.mock import Mock, patch
 
 from fastapi.testclient import TestClient
 
-from app.api.app import create_app
+from app.api.main import app
 from app.observability.records import compute_context_hash
 from app.service.resources import load_resources
 from shared.contracts import Chunk
@@ -31,7 +31,7 @@ class ResourceTests(unittest.TestCase):
                 clear=True,
             )
         )
-        stack.enter_context(patch("app.api.app.load_dotenv"))
+        stack.enter_context(patch("app.api.lifespan.load_dotenv"))
         self.embedder = SimpleNamespace(
             dim=2,
             embed_query=Mock(return_value=SimpleNamespace(tolist=lambda: [0.1, 0.2])),
@@ -64,7 +64,7 @@ class ResourceTests(unittest.TestCase):
             points=[SimpleNamespace(payload=asdict(chunk), score=0.9)],
         )
         self.model_factory.return_value = FakeModel(["S1"])
-        with TestClient(create_app()) as client:
+        with TestClient(app) as client:
             self.assertTrue(client.get("/health").json()["query_ready"])
             for _ in range(2):
                 response = client.post("/query", json={"question": "예약 문의"})
