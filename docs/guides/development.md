@@ -1,6 +1,6 @@
 # 개발 환경과 검사
 
-수정일: 2026-11-06
+수정일: 2026-11-08
 
 Python·의존성·편집기·검사의 사용법을 관리한다. 협업·PR·완료 기준은 [CONTRIBUTING](../../CONTRIBUTING.md), 데이터·색인 작업은 [데이터 안내](../../data/README.md), 실제 평가 조건은 [평가 가이드](c-module-guide.md)를 따른다.
 
@@ -40,7 +40,7 @@ uv sync --extra test --locked
 
 기존 환경의 추가 도구를 유지하려면 `--inexact`를 덧붙인다. 잠금 파일은 직접 편집하지 않는다. 의존성이 바뀌면 `pyproject.toml`과 함께 `uv lock`으로 갱신하고 `uv lock --check`로 정합성을 확인한다. 현재 CI가 잠금 파일로 설치한다고 해석하지 않는다.
 
-서버 시작은 [README 빠른 시작](../../README.md#빠른-시작)을 따른다. `uv run server`는 자동 재시작 없이, `uv run dev`는 코드 변경 시 재시작하며 실행한다. pip로 editable 설치하고 가상환경을 활성화한 경우에는 설치된 `server`·`dev` 명령을 직접 사용한다. `.env.example`에는 키 이름과 예시만 두고 실제 키는 로컬 환경으로 주입한다. 서버 실행은 실제 자원 준비를 시도하므로 키 없이 가능한 검사와 구분한다.
+서버 시작은 [README 빠른 시작](../../README.md#빠른-시작)을 따른다. pip로 editable 설치하고 가상환경을 활성화한 경우에는 `fastapi dev`를 직접 실행한다. `.env.example`에는 키 이름과 예시만 두고 실제 키는 로컬 환경으로 주입한다. 서버 시작 때 실제 자원을 준비한다.
 
 ## 2. VS Code·Ruff·Pylance
 
@@ -98,4 +98,4 @@ python -m build
 
 전체 제품 패키지를 설치한다. A/B/C 부분 설치와 필수 제품 모듈의 동적 대체 경로를 개발 방식으로 사용하지 않는다. 평가 CLI의 명시적 callable 입력 계약은 유지한다. 키·색인이 없을 때의 안내는 실제 준비 실패 경로에서 확인한다.
 
-HTTP 운영 로그는 서버 CLI가 Uvicorn에 전달하는 표준 logging 설정을 사용한다. `app` 로거는 INFO이며 개발 서버가 재시작되어도 같은 설정을 적용한다. 실행·로그 설정의 기준은 [시스템 설계](../design/architecture.md#5-서버-시작과-요청-실행-흐름)다. `app.api.middleware`의 `http_request` 로그에서 요청 ID·메서드·라우트·상태 코드·처리 시간을 확인하며 질문·인증 헤더·쿼리 문자열을 추가하지 않는다. 요약 로그·Langfuse·평가 RunRecord의 차이는 [공통 계약](../design/contracts.md#기록의-소비자와-시간-범위)을 따른다.
+`app.api.middleware`의 `http_request` 로그에서 요청 ID·메서드·라우트·상태 코드·처리 시간을 확인한다. 실행·로그 설정의 기준은 [시스템 설계](../design/architecture.md#5-서버-시작과-요청-실행-흐름)다. 요약 로그·Langfuse·평가 RunRecord의 차이는 [공통 계약](../design/contracts.md#기록의-소비자와-시간-범위)을 따른다.

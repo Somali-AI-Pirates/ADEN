@@ -1,6 +1,6 @@
 # 공통 입출력·호출 계약
 
-작성일: 2026-11-06 · 수정일: 2026-11-06.
+작성일: 2026-11-06 · 수정일: 2026-11-08.
 
 관련 문서: [문서 목차](../README.md) · [시스템 설계](architecture.md) · [공통 협업 규칙](../../CONTRIBUTING.md)
 
@@ -274,7 +274,7 @@ Langfuse의 flush 호출이나 trace ID 생성만으로 저장 확인을 완료 
 
 ## 7. 실행 위치와 패키지 설정
 
-공통 실행 위치는 저장소 루트다. `uv run server`와 `uv run dev`가 API 실행 명령이며 각각 자동 재시작을 끄고 켠다. 두 명령은 `app.api.app:create_app`을 Uvicorn 앱 팩토리로 호출한다. 실행 연결·로그 설정의 기준은 [시스템 설계](architecture.md#5-서버-시작과-요청-실행-흐름)다. 설치·검사는 [개발 가이드](../guides/development.md), 서버 시작은 [README](../../README.md#빠른-시작), 색인·평가 실행은 해당 [데이터](../../data/README.md)·[평가 가이드](../guides/c-module-guide.md)를 따른다. 도움말·모의 샘플 성공과 실제 질의 성공을 구분한다.
+공통 실행 위치는 저장소 루트다. API 개발 서버는 `uv run fastapi dev`로 실행한다. 앱 연결·로그 설정의 기준은 [시스템 설계](architecture.md#5-서버-시작과-요청-실행-흐름)다. 설치·검사는 [개발 가이드](../guides/development.md), 서버 시작은 [README](../../README.md#빠른-시작), 색인·평가 실행은 해당 [데이터](../../data/README.md)·[평가 가이드](../guides/c-module-guide.md)를 따른다. 도움말·모의 샘플 성공과 실제 질의 성공을 구분한다.
 
 패키지·하위 Python 패키지에는 `__init__.py`를 둔다. 직접 파일 실행이나 개인별
 `sys.path` 수정보다 모듈 실행을 사용한다. `shared.settings.PROJECT_ROOT`와
