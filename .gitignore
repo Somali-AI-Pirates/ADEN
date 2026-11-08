@@ -33,6 +33,11 @@ Thumbs.db
 !/data/**/
 !/data/**/.gitkeep
 
+# 팀이 각 난이도 자료로 작성한 평가 세트. 팀원이 같은 기준으로 채점하도록 질문과 기대 답변·출처를 함께 추적한다.
+# 제공 데이터셋의 원본·정답 파일은 계속 제외한다.
+!/data/*/evaluation/custom_questions.json
+!/data/*/evaluation/custom.json
+
 # 팀이 검토하는 정제 지식 스냅샷. 원본·평가 정답·추출 캐시는 계속 제외한다.
 !/data/curated/
 !/data/curated/**/

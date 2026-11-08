@@ -12,6 +12,7 @@ Basic은 제공 ZIP 두 개의 PDF를 합치고, 두 ZIP에 공통인 평가 JSO
 
 - `{development,additional,expansion_validation}_questions.json`에는 실행용 `id`와 `question`이 있다.
 - 같은 이름에서 `_questions`를 뺀 JSON은 채점용 정답·근거다. 보안 비교 파일은 `security_questions.json`과 `security_tasks.json`이다. 대응 파일 지정과 입력 점검은 [평가 가이드](c-module-guide.md#실제-연결)를 따른다.
+- `custom_questions.json`·`custom.json`은 팀이 해당 난이도 PDF에서 작성한 평가 세트다(S 단일 근거, M 복수 근거). 제공 자료와 달리 팀원이 같은 기준으로 채점하도록 질문과 기대 답변·출처를 모두 Git으로 추적한다. `custom.json`은 채점 단계에서만 읽고 검색·생성 입력에 넣지 않는다. Basic 결과와 파일 hash는 [reports/custom-2026-11-07](../../reports/custom-2026-11-07/analysis.md)에 있다.
 
 색인·정제 입력은 해당 난이도의 `documents/*.pdf`다. 원본 PDF·평가 자료·추출 캐시·색인·전체 실행 기록은 Git에서 제외한다. 검토한 [정제본](../design/knowledge-data.md)은 Git으로 관리한다. 보안 시험용 문구는 데이터로 처리한다.
 
