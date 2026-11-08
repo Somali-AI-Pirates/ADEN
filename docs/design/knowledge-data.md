@@ -1,6 +1,6 @@
 # 정제 지식 데이터
 
-[Basic](../../data/curated/basic/), [Intermediate](../../data/curated/intermediate/), [Advanced](../../data/curated/advanced/) 정제본은 Git으로 관리하는 오프라인 지식이다. 현재 서비스는 [기존 Basic PDF 색인](../guides/data.md#qdrant-색인)을 사용한다. 정제본에서 렌더링한 검색 입력을 서비스 색인에 연결하는 단계가 남아 있다.
+Basic, Intermediate, Advanced 정제본은 원본 PDF에서 생성하는 오프라인 산출물이다. 기본 경로는 `artifacts/knowledge/curated/<dataset>/`이다. 현재 서비스는 [기존 Basic PDF 색인](../guides/data.md#qdrant-색인)을 사용한다.
 
 ## 파일 구조와 사용 규칙
 
@@ -22,14 +22,14 @@
 
 ## 생성과 검사
 
-최초 PDF 추출은 Poppler의 `pdftotext`를 사용한다. 검토본 검사와 검색 입력 렌더링은 원본 없이 실행할 수 있다.
+최초 PDF 추출은 Poppler의 `pdftotext`를 사용한다. 생성한 정제본을 검증하거나 검색 입력으로 렌더링할 때는 정제본 파일만 있으면 된다.
 
 ```bash
-python -m app.ingestion.scripts.curate --check
-python -m app.ingestion.scripts.curate --check --render-search
-python -m app.ingestion.scripts.curate --datasets basic --output artifacts/curation-candidate
+python -m app.ingestion.scripts.curate --datasets basic
+python -m app.ingestion.scripts.curate --datasets basic --check
+python -m app.ingestion.scripts.curate --datasets basic --check --render-search
 ```
 
-마지막 명령은 새 후보를 만든다. 입력·코드가 바뀌면 후보를 검토본과 비교해 반영하고 기존 검토본을 보호한다. 기본 추출 캐시는 `artifacts/knowledge/layout-cache/`다. `prepare_knowledge`는 기존 Basic v1 산출물 재현용이다.
+`--datasets`를 생략하면 세 난이도를 모두 처리한다. 별도 위치에 정제본을 만들거나 검증하려면 `--output`으로 해당 경로를 지정한다. 예를 들어 입력·코드가 바뀌면 `--output artifacts/curation-candidate`에 새 정제본을 만들고 기존 정제본과 비교할 수 있다. 기본 추출 캐시는 `artifacts/knowledge/layout-cache/`다. `prepare_knowledge`는 기존 Basic v1 산출물 재현용이다.
 
 렌더링 결과는 `artifacts/knowledge/search/<dataset>/<build_id>/`의 `search_records.jsonl`과 `search_rules.jsonl`이다. 기록은 런타임 `Chunk` 필드를 `chunk`에 담고 규칙·사례 ID를 메타데이터로 분리한다. 서비스 연결 전에 임베딩 토큰 한도, 규칙 조회, 실제 페이지 인용, 같은 조건에서의 검색·답변 품질을 확인한다.
