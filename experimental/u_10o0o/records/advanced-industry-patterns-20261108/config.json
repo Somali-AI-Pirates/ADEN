@@ -1,0 +1,175 @@
+{
+  "started_at": "2026-11-08T23:50:43.650223+09:00",
+  "inputs": {
+    "holdout": {
+      "questions": {
+        "path": "experimental/u_10o0o/evaluation/advanced_holdout/advanced_holdout_questions.json",
+        "sha256": "43dc38583f1d7a6e7e26b283eeedba9c2be312576ec1dbe042feb3a3a366f6a3"
+      },
+      "references": {
+        "path": "experimental/u_10o0o/evaluation/advanced_holdout/advanced_holdout.json",
+        "sha256": "e6328280ff7cfd3dd7180dcb3f893b90b299a904bb93f3249389f8ec4bdfdee1"
+      }
+    },
+    "development": {
+      "questions": {
+        "path": "data/advanced/evaluation/development_questions.json",
+        "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c"
+      },
+      "references": {
+        "path": "data/advanced/evaluation/development.json",
+        "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+      }
+    },
+    "additional": {
+      "questions": {
+        "path": "data/advanced/evaluation/additional_questions.json",
+        "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f"
+      },
+      "references": {
+        "path": "data/advanced/evaluation/additional.json",
+        "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+      }
+    },
+    "pilot": {
+      "questions": {
+        "path": "experimental/u_10o0o/evaluation/advanced_coverage_v2/pilot_questions.json",
+        "sha256": "333d4f20f447e9ded96f9fa1b616daf9b8f5ed2726825585f02cf817b4e0f44c"
+      },
+      "references": {
+        "path": "experimental/u_10o0o/evaluation/advanced_coverage_v2/pilot_references.json",
+        "sha256": "6007624e993871d062cf40942bb41cb0e62409ba62c5b5b8d0bdb10a0a6d7da5"
+      }
+    }
+  },
+  "pages": {
+    "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+    "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+  },
+  "curation_manifest_sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+  "candidate_count": 20,
+  "final_k": 8,
+  "context_budget": 4000,
+  "context_tokenizer": "o200k_base",
+  "kure": {
+    "model": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "max_tokens": 512,
+    "batch_size": 32,
+    "dtype": "float16"
+  },
+  "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "arms": [
+    "baseline",
+    "fielded",
+    "table_view",
+    "roles",
+    "role_followup",
+    "validity"
+  ],
+  "retrieval": {
+    "tokenizer": {
+      "tokenizer": "bigram-id",
+      "identifier_pattern": "(?<![A-Za-z0-9])[A-Z][A-Z0-9]{0,6}(?:-[A-Z0-9]{1,8}){1,4}(?![A-Za-z0-9])"
+    },
+    "fielded": {
+      "fusion": "max_normalized_bm25_heading_bonus",
+      "field_pool": 80,
+      "heading_weight": 0.25,
+      "heading_block_limit": 3,
+      "heading_char_limit": 600
+    },
+    "roles": {
+      "terms": {
+        "contract_terms": [
+          "계약",
+          "요율",
+          "운임",
+          "요금",
+          "보관료",
+          "반납지연료",
+          "무료기간",
+          "과금",
+          "약관",
+          "조건",
+          "기준",
+          "contract",
+          "rate",
+          "tariff"
+        ],
+        "operational_event": [
+          "반입",
+          "반출",
+          "반납",
+          "예약",
+          "입항",
+          "출항",
+          "작업",
+          "실적",
+          "일자",
+          "시각",
+          "처리",
+          "상태",
+          "완료",
+          "event",
+          "operation"
+        ],
+        "approval_change": [
+          "신청",
+          "승인",
+          "결재",
+          "요청",
+          "변경",
+          "정정",
+          "확정",
+          "취소",
+          "통지",
+          "회신",
+          "접수",
+          "confirmation",
+          "approval",
+          "amendment"
+        ],
+        "billing_record": [
+          "청구",
+          "계산",
+          "검산",
+          "입금",
+          "지급",
+          "영수",
+          "비용",
+          "금액",
+          "산출",
+          "정산",
+          "invoice",
+          "billing",
+          "payment",
+          "amount"
+        ]
+      },
+      "lookahead": 10
+    },
+    "followup": {
+      "max_additions": 3,
+      "search_k": 100
+    }
+  },
+  "code": {
+    "advanced_patterns": {
+      "path": "experimental/u_10o0o/advanced_patterns.py",
+      "sha256": "9d040b89173e96e8487791e0463d49a6a4ef992680f977037f1882e6d7564add"
+    },
+    "advanced_field_roles": {
+      "path": "experimental/u_10o0o/advanced_field_roles.py",
+      "sha256": "6d98c63422743a038058a07bede6f725e58acb2b67f86d544a738795ffdfdde6"
+    },
+    "advanced_table_views": {
+      "path": "experimental/u_10o0o/advanced_table_views.py",
+      "sha256": "b32708e2ccb49f90483aafaebb51930e9087b409d588464318210b7c2ba0978e"
+    },
+    "advanced_validity": {
+      "path": "experimental/u_10o0o/advanced_validity.py",
+      "sha256": "7ed29a278a90053ae9969b00f30c1f6fa9c076de3c6f9c28a6d456ebe64c2edc"
+    }
+  }
+}

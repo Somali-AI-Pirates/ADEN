@@ -1,0 +1,6 @@
+검증된 업무 자료집 표 파서 입력 50개 파일 지문 일치
+전수 검증 {'exact_primary_quotes': 20546, 'billing_days_reconciled': 2730, 'questions_read_by_common_loader': 6500, 'ledger_rows': 18000, 'all_gold_pages_fit_4000': 6500, 'largest_gold_context_tokens': 2476, 'question_length_char_range': [25, 165], 'curated_record_file_hashes_checked': 50}
+페이지 원장 18,000행, PDF 120개 각각 150쪽, 최초 참조 16,398쪽, 미참조 0쪽
+대체 근거 112 개 참조 연결 / 84 쪽
+기존 입력 파일과 새 산출물 해시 일치
+기존 블라인드 후보와 식별 가능한 사건·출처가 연결된 신규 문항 397개를 튜닝 제외 목록으로 분리

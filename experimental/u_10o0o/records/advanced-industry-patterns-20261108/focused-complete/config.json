@@ -1,0 +1,82 @@
+{
+  "inputs": {
+    "holdout": {
+      "questions": {
+        "path": "experimental/u_10o0o/evaluation/advanced_holdout/advanced_holdout_questions.json",
+        "sha256": "43dc38583f1d7a6e7e26b283eeedba9c2be312576ec1dbe042feb3a3a366f6a3"
+      },
+      "references": {
+        "path": "experimental/u_10o0o/evaluation/advanced_holdout/advanced_holdout.json",
+        "sha256": "e6328280ff7cfd3dd7180dcb3f893b90b299a904bb93f3249389f8ec4bdfdee1"
+      }
+    },
+    "development": {
+      "questions": {
+        "path": "data/advanced/evaluation/development_questions.json",
+        "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c"
+      },
+      "references": {
+        "path": "data/advanced/evaluation/development.json",
+        "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+      }
+    },
+    "additional": {
+      "questions": {
+        "path": "data/advanced/evaluation/additional_questions.json",
+        "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f"
+      },
+      "references": {
+        "path": "data/advanced/evaluation/additional.json",
+        "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+      }
+    }
+  },
+  "pages": {
+    "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+    "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+  },
+  "archive": {
+    "path": "experimental/u_10o0o/records/advanced-factor-ablation-20261108/selected-results.json",
+    "sha256": "39f6c1e3eb31abf741cf529bf58514dab7578261a3bbc198cf9aa06741114c40"
+  },
+  "curation_manifest_sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+  "code": {
+    "advanced_pattern_focused": {
+      "path": "experimental/u_10o0o/advanced_pattern_focused.py",
+      "sha256": "8192c8a4fdd59ef885c28edf7b11016d64d6a827093cb157aafd6de6c822f023"
+    },
+    "advanced_table_views": {
+      "path": "experimental/u_10o0o/advanced_table_views.py",
+      "sha256": "4f217d8bf493dea6d9630f066497bbb035aa6120772199865849f811acb5d3f9"
+    },
+    "advanced_validity": {
+      "path": "experimental/u_10o0o/advanced_validity.py",
+      "sha256": "0569f1ed0fc90a107e3074eeb5e1358a93617db9c90a3433f6dee91ad7d93ffd"
+    },
+    "advanced_pattern_answers": {
+      "path": "experimental/u_10o0o/advanced_pattern_answers.py",
+      "sha256": "dfa3c7f4a0a41fa5fff68c320b48001a3cf68300569db50e301702467b196c88"
+    }
+  },
+  "table_changed_official_candidates": 34,
+  "table_answer_sample": [
+    "AS-ADD21",
+    "AS-DEV28",
+    "AS-ADD20",
+    "AS-ADD30",
+    "AS-DEV16",
+    "AS-ADD15",
+    "AS-ADD18",
+    "AS-ADD24",
+    "AS-ADD22",
+    "AS-DEV01",
+    "AS-DEV29",
+    "AS-DEV20",
+    "AS-DEV21",
+    "AS-DEV27",
+    "AS-DEV17",
+    "AS-ADD17"
+  ],
+  "max_generation_calls": 32,
+  "max_judge_calls": 32
+}

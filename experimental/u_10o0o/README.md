@@ -13,6 +13,10 @@ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
 
 `--compare`를 붙이면 순수 KURE 재정렬, Bigram-ID BM25 단독, Kiwi·Bigram-ID 각각의 Snowflake 6:4 RRF도 평가한다. 이 옵션에는 Kiwi와 Snowflake-ko 모델 및 페이지 벡터 캐시가 필요하다.
 
+[Advanced 근거 범위 확장 세트](evaluation/advanced_coverage_v2/README.md)에 파일럿 40문항과 블라인드 벤치 후보 410문항을 보관한다. 본 세트는 원본 120개 PDF 각각의 앞·중간·뒤 구간을 참조하며, 사람 검수 상태와 PDF별 근거 페이지 수를 별도로 기록한다.
+
+[Advanced 전 페이지 근거 세트](evaluation/advanced_full_coverage/README.md)에 신규 6,500문항을 보관한다. 기존 평가와 합하면 120개 PDF의 18,000쪽 전체를 참조한다. 페이지별 문항 연결과 기존 블라인드 후보의 사건을 공유하는 문항 목록을 함께 제공한다.
+
 ## Basic 기준 임베딩
 
 2026-11-08에 `dragonkue/snowflake-arctic-embed-l-v2.0-ko`를 개인 검색 실험의 기준 임베딩 모델로 정했다. Basic 원본 PDF 360쪽을 대상으로 한 페이지 Top 3 실험에서 세 검색 지표가 후보 중 가장 높았다. GTE보다 근거를 찾은 문항이 2개 늘었고, 질문 임베딩 중앙값은 약 40ms 길었다. [로컬 CPU 비교 결과](records/retrieval_evaluations/cpu-candidates-20261108-173451/report.md)
