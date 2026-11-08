@@ -8,6 +8,7 @@ ADEN은 해운 PDF를 검색해 예약·서류·처리 상태·비용 조건에 
 
 | 찾는 내용 | 문서 |
 | --- | --- |
+| 발제문 요구사항, 평가 규칙, 선택 과제와 제출 | [프로젝트 발제문 요구사항](project-brief.md) |
 | 작업 브랜치, PR, 리뷰, 개인 실험 | [기여 가이드](CONTRIBUTING.md) |
 | 코드 배치, 의존 방향, 요청 흐름 | [시스템 설계](design/architecture.md) |
 | HTTP, 타입, 함수, 실행 기록 | [공통 계약](design/contracts.md) |
