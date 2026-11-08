@@ -50,7 +50,7 @@ def main():
     out = Path(args.artifacts)
     out.mkdir(parents=True, exist_ok=True)
     pdfs = sorted(Path(args.data, "documents").glob("*.pdf"))
-    assert pdfs, f"{args.data}/documents 에 PDF가 없습니다. data/README.md 를 보고 자료를 배치하세요."
+    assert pdfs, f"{args.data}/documents 에 PDF가 없습니다. docs/guides/data.md를 보고 자료를 배치하세요."
 
     t = time.time()
     pages, report = extract_pages(pdfs)

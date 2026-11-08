@@ -3,7 +3,7 @@
     python -m app.evaluation.scripts.eval_retrieval --mode naive
     python -m app.evaluation.scripts.eval_retrieval --mode naive --split additional
 
-지표 (docs/design/architecture.md 9장):
+지표 (docs/guides/c-module-guide.md):
     정답 문서  evidence_groups 전체 book_id 중복 제거. 비어 있으면 N/A로 평균에서 뺀다
     Hit@k      상위 k개 청크의 문서 중 정답 문서가 하나라도 있으면 1
     Recall@k   찾은 정답 문서 수 / 정답 문서 수

@@ -40,7 +40,7 @@ def model_context(final: Sequence[Mapping[str, Any]]) -> tuple[str, str]:
 def _attempt(n: int, model_input: Any, model_output: Any, variant: str, *,
              input_tokens: int | None, output_tokens: int | None,
              error: str | None = None) -> dict[str, Any]:
-    """AttemptRecord 한 건(docs/design/contracts.md 3절)."""
+    """AttemptRecord 한 건(docs/design/contracts.md의 모델 시도 절)."""
     return {"attempt": n, "model": SAMPLE_MODEL, "model_input": model_input,
             "model_output": None if error else model_output, "input_tokens": input_tokens,
             "output_tokens": output_tokens, "error": error, "prompt_variant": variant,
