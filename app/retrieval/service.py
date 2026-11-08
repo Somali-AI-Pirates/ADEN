@@ -7,7 +7,7 @@ resources에 필요한 속성 (app.service.resources.load_resources()가 채운�
     retrieval   이 실행 자원이 소유하는 RetrievalResources.
                 BM25·리랭커는 첫 사용 때 한 번 준비하고 종료 때 참조를 해제한다.
 
-방식별 흐름 (docs/design/architecture.md 6장):
+방식별 흐름 (docs/design/architecture.md):
     naive          Dense 상위 top_n
     hybrid         Dense 20 + BM25 20 → RRF → 상위 top_n
     hybrid_rerank  hybrid 후보 20 → 리랭커 재정렬 → 상위 top_n

@@ -28,16 +28,14 @@ tempCodeRunnerFile.py
 .DS_Store
 Thumbs.db
 
-# 제공 자료: 안내와 자리표시 파일만 추적
+# 제공 자료: 자리표시 파일만 추적
 /data/**
 !/data/**/
 !/data/**/.gitkeep
-!/data/README.md
 
 # 팀이 검토하는 정제 지식 스냅샷. 원본·평가 정답·추출 캐시는 계속 제외한다.
 !/data/curated/
 !/data/curated/**/
-!/data/curated/README.md
 !/data/curated/*/rules.jsonl
 !/data/curated/*/sources.jsonl
 !/data/curated/*/cases.jsonl

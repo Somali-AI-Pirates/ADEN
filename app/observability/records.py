@@ -1,4 +1,4 @@
-"""C 측 실행 기록(RunRecord) 검증·정규화. 계약은 docs/design/contracts.md 3절.
+"""실행 기록(RunRecord) 검증·정규화. 계약은 docs/design/contracts.md의 RunRecord 절.
 
 A·B의 중첩 객체(RetrievedChunk.chunk)가 아니라 B 연결부가 평탄화한 로그 청크를 받는다.
 문맥 해시는 두 종류다.
