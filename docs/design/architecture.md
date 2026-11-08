@@ -22,13 +22,13 @@
 
 ## 서버 시작과 요청 흐름
 
-FastAPI CLI는 [패키지 진입점](../../pyproject.toml)의 `app.api.main:app`을 불러온다. [앱 조립](../../app/api/app.py)은 루트 `.env`와 YAML 설정을 읽고, 기존 환경변수를 우선한다. 수명주기·라우터·오류 처리·요청 기록을 연결하고 설정을 `app.state`에 둔다.
+FastAPI CLI는 [패키지 진입점](../../pyproject.toml)의 `app.api.main:app`을 불러온다. [서버 앱](../../app/api/main.py)은 프로세스당 하나이며 수명주기·라우터·오류 처리·요청 기록을 연결한다.
 
-[수명주기](../../app/api/lifespan.py)는 시작 시 작업 스레드에서 [질의 자원](../../app/service/resources.py)을 준비하고 종료 시 정리한다. 초기화 중 오류가 나면 이미 만든 자원을 정리한다. BM25와 리랭커는 각 실행의 `RetrievalResources`에 첫 사용 때 준비한다. 자원 준비에 실패했을 때의 응답은 [HTTP 계약](contracts.md#http)을 따른다.
+[수명주기](../../app/api/lifespan.py)는 시작할 때 서버 로그를 설정하고, 루트 `.env`를 기존 환경변수 우선으로 읽은 뒤 Basic YAML을 검증한다. YAML 검증 오류는 서버 시작을 중단한다. 설정은 `app.state`에 두고 작업 스레드에서 [질의 자원](../../app/service/resources.py)을 준비한다. 자원 준비에 실패했을 때의 응답은 [HTTP 계약](contracts.md#http)을 따른다. 초기화 중 오류가 나면 이미 만든 자원을 정리하고, 종료 시 앱 상태의 설정과 자원 참조를 비운 뒤 자원을 닫는다. BM25와 리랭커는 각 실행의 `RetrievalResources`에 첫 사용 때 준비한다.
 
 `/query` → `answer_query()` → 검색 → 문맥 구성 → 생성 → 출처 검증 → 응답
 
-라우트는 동기 서비스를 작업 스레드에서 호출한다. [서버 로그 설정](../../app/api/main.py)은 Uvicorn 접근 로그를 끄고 앱의 요청 요약을 사용한다. 요청 ID와 로그·평가 시간의 의미는 [기록 계약](contracts.md#기록-형식과-측정-범위)을 따른다.
+라우트는 동기 서비스를 작업 스레드에서 호출한다. 서버 시작 단계에서 Uvicorn 접근 로그를 끄고 요청 ID가 담긴 앱 로그를 요청당 한 줄 남긴다. 요청 ID와 로그·평가 시간의 의미는 [기록 계약](contracts.md#기록-형식과-측정-범위)을 따른다.
 
 ## 검색과 답변
 

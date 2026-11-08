@@ -12,8 +12,9 @@ import httpx
 import yaml
 from fastapi.testclient import TestClient
 from openai import APITimeoutError
+from pydantic import ValidationError
 
-from app.api.app import create_app
+from app.api.main import app
 from app.indexing.keyword_store import KeywordIndex
 from app.observability.records import compute_context_hash
 from shared.contracts import Chunk
@@ -26,30 +27,25 @@ class ApiTests(unittest.TestCase):
     def setUp(self):
         self.resources = make_query_resources()
         self.environment_root = Path(self.enterContext(TemporaryDirectory()))
-        self.enterContext(
-            patch("app.api.app.PROJECT_ROOT", self.environment_root)
-        )
+        self.enterContext(patch("app.api.lifespan.PROJECT_ROOT", self.environment_root))
 
-    def test_app_creation_loads_root_environment_and_preserves_existing_values(self):
+    def test_startup_loads_root_environment_and_preserves_existing_values(self):
         (self.environment_root / ".env").write_text(
             "ADEN_TEST_LOADED=from-file\nADEN_TEST_EXISTING=from-file\n",
             encoding="utf-8",
         )
         with (
             patch.dict(os.environ, {"ADEN_TEST_EXISTING": "from-process"}, clear=True),
-            patch("app.api.lifespan.load_resources") as load,
+            self.client(),
         ):
-            app = create_app()
             self.assertEqual(os.environ.get("ADEN_TEST_LOADED"), "from-file")
             self.assertEqual(os.environ["ADEN_TEST_EXISTING"], "from-process")
-            self.assertIsNone(app.state.resources)
-            load.assert_not_called()
 
     @contextmanager
     def client(self, **options):
         with (
             patch("app.api.lifespan.load_resources", return_value=self.resources),
-            TestClient(create_app(), **options) as client,
+            TestClient(app, **options) as client,
         ):
             yield client
 
@@ -99,7 +95,7 @@ class ApiTests(unittest.TestCase):
                     "app.api.lifespan.load_resources",
                     side_effect=ServiceError("준비 중", 503),
                 ),
-                TestClient(create_app()) as client,
+                TestClient(app) as client,
             ):
                 unready = client.post("/query", json={"question": "예약 문의"})
         responses = [success, invalid, failed, unready]
@@ -130,40 +126,41 @@ class ApiTests(unittest.TestCase):
         self.assertNotIn(secret, "\n".join(logs.output))
         self.assertEqual(logs.records[-1].path, "<unmatched>")
 
-    def test_create_app_loads_resources_only_during_lifespan(self):
-        with patch(
-            "app.api.lifespan.load_resources", return_value=self.resources
-        ) as load:
-            app = create_app()
-            load.assert_not_called()
-            self.assertIsNone(app.state.resources)
-            with TestClient(app) as client:
-                self.assertTrue(client.get("/health").json()["query_ready"])
-                self.assertIs(app.state.resources, self.resources)
-                load.assert_called_once()
-            self.assertIsNone(app.state.resources)
-        self.resources.qdrant.close.assert_called_once()
-
-    def test_apps_keep_resources_and_lazy_search_state_isolated(self):
+    def test_each_start_prepares_and_closes_its_own_resources(self):
         second = make_query_resources()
-        second.model = FakeModel(["S1"], answer="두 번째 앱의 답변입니다. [S1]")
+        second.model = FakeModel(["S1"], answer="재시작 후 답변입니다. [S1]")
         with patch(
             "app.api.lifespan.load_resources", side_effect=[self.resources, second]
         ):
-            first_app, second_app = create_app(), create_app()
-            with (
-                TestClient(first_app) as first_client,
-                TestClient(second_app) as second_client,
-            ):
-                first = first_client.post("/query", json={"question": "예약 문의"})
-                other = second_client.post("/query", json={"question": "예약 문의"})
-                self.assertIsNot(first_app.state.resources, second_app.state.resources)
-                self.assertIsNot(self.resources.retrieval, second.retrieval)
-                self.assertNotEqual(first.json()["answer"], other.json()["answer"])
-            self.assertIsNone(first_app.state.resources)
-            self.assertIsNone(second_app.state.resources)
-        self.resources.qdrant.close.assert_called_once()
-        second.qdrant.close.assert_called_once()
+            with TestClient(app) as client:
+                first_response = client.post("/query", json={"question": "예약 문의"})
+            self.assertEqual(first_response.status_code, 200)
+            self.assertEqual(
+                first_response.json()["answer"], self.resources.model.answer
+            )
+            self.assertIsNone(app.state.resources)
+            self.resources.qdrant.close.assert_called_once()
+
+            with TestClient(app) as client:
+                second_response = client.post("/query", json={"question": "예약 문의"})
+            self.assertEqual(second_response.status_code, 200)
+            self.assertEqual(second_response.json()["answer"], second.model.answer)
+            self.assertIsNone(app.state.resources)
+            second.qdrant.close.assert_called_once()
+
+    def test_invalid_yaml_stops_startup_before_loading_resources(self):
+        invalid_config = self.environment_root / "invalid.yaml"
+        invalid_config.write_text("dataset: basic\n", encoding="utf-8")
+
+        with (
+            patch("app.api.lifespan.DEFAULT_CONFIG", invalid_config),
+            patch("app.api.lifespan.load_resources") as load,
+            self.assertRaises(ValidationError),
+            TestClient(app),
+        ):
+            pass
+
+        load.assert_not_called()
 
     def test_empty_search_abstains_without_calling_model(self):
         self.resources.qdrant.query_points.return_value.points = []
@@ -196,11 +193,13 @@ class ApiTests(unittest.TestCase):
                 "app.api.lifespan.load_resources",
                 side_effect=ServiceError("서버 설정 확인", 503),
             ),
-            TestClient(create_app()) as client,
+            TestClient(app) as client,
         ):
             self.assertEqual(client.get("/docs").status_code, 200)
             self.assertEqual(client.get("/openapi.json").status_code, 200)
-            self.assertFalse(client.get("/health").json()["query_ready"])
+            health = client.get("/health")
+            self.assertEqual(health.status_code, 200)
+            self.assertFalse(health.json()["query_ready"])
             response = client.post("/query", json={"question": "예약 문의"})
         self.assertEqual(response.status_code, 503)
         self.assertEqual(
@@ -218,8 +217,8 @@ class ApiTests(unittest.TestCase):
             path = Path(temporary) / "custom.yaml"
             path.write_text(yaml.safe_dump(config), encoding="utf-8")
             with (
-                patch("app.api.lifespan.load_resources", return_value=self.resources),
-                TestClient(create_app(path)) as client,
+                patch("app.api.lifespan.DEFAULT_CONFIG", path),
+                self.client() as client,
             ):
                 for payload, expected in [
                     ({"question": "예약 문의"}, "hybrid"),
@@ -238,7 +237,7 @@ class ApiTests(unittest.TestCase):
                 side_effect=RuntimeError("private startup"),
             ),
             self.assertLogs("app.api.lifespan", level="ERROR") as logs,
-            TestClient(create_app()) as client,
+            TestClient(app) as client,
         ):
             response = client.post("/query", json={"question": "예약 문의"})
         self.assertEqual(response.status_code, 503)
