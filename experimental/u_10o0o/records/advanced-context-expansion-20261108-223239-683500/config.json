@@ -1,0 +1,68 @@
+{
+  "experiment": "Advanced 개인 실험",
+  "owner": "u_10o0o",
+  "variant_order": "Alternating within each question pair",
+  "purpose": "Measure generation quality when adding two nonduplicate RRF pages",
+  "questions": 60,
+  "max_generation_calls": 120,
+  "max_judge_calls": 120,
+  "workers": 6,
+  "budget_usd": null,
+  "estimated_usd": 0.12,
+  "pricing_usd_per_million_input_output": {
+    "generation": [
+      0.1,
+      0.5
+    ],
+    "judge": [
+      0.1,
+      0.5
+    ]
+  },
+  "stop_condition": "failed smoke or systemic API authentication, access, or rate error",
+  "generation_model": "gpt-6-luna",
+  "judge_model": "gpt-6-luna",
+  "generation_max_output_tokens": 2048,
+  "judge_max_output_tokens": 2048,
+  "judge_reasoning_effort": "low",
+  "context_tokenizer": "o200k_base",
+  "context_budget": 4000,
+  "generation_prompt_sha256": "3d689c768e1143d06772e97ad9274dc3e40866ef3845128346b6235af6af9230",
+  "judge_prompt_sha256": "de8f990be8a318a1ec9aa5733c2bc7c09a49e3dafbcd8ab251de6ef4e4263d5f",
+  "basic_config_sha256": "64f8c2af8b308724218ddbdfd77deab13f192086b37d0f7b8e8c84b1c9ae2674",
+  "runner_sha256": "f6fba028bf873b3d456d7d8cbc78874443cbb1d1339aabea3ac818015f76c95a",
+  "kure_results_sha256": "b44b8d5bc5848967b839a8da3a678c460e2b044a28b4dd1611baf0e99647d726",
+  "rrf_results_sha256": "223ecca6a75508626bfb7495784886d9f9827f3412357b5b875e9e199c1d6947",
+  "inputs": {
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "vectors": {
+      "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+      "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+    },
+    "evaluation": {
+      "development": {
+        "questions": {
+          "path": "data/advanced/evaluation/development_questions.json",
+          "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c"
+        },
+        "references": {
+          "path": "data/advanced/evaluation/development.json",
+          "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+        }
+      },
+      "additional": {
+        "questions": {
+          "path": "data/advanced/evaluation/additional_questions.json",
+          "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f"
+        },
+        "references": {
+          "path": "data/advanced/evaluation/additional.json",
+          "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+        }
+      }
+    }
+  }
+}

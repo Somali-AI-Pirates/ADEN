@@ -1,4 +1,6 @@
 import json
+import subprocess
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -198,3 +200,19 @@ def test_rendered_search_keeps_rules_separate_and_chunk_contract(tmp_path, monke
     assert all(Chunk(**row["chunk"]).book_id == "IS01" for row in rows)
     assert (output / "search_rules.jsonl").exists()
     assert json.loads((output / "manifest.json").read_text(encoding="utf-8"))["embedding_executed"] is False
+
+
+def test_git_excludes_raw_data_and_generated_knowledge():
+    root = Path(__file__).resolve().parents[2]
+    paths = [
+        "data/advanced/documents/AS001.pdf",
+        "data/advanced/evaluation/development.json",
+        "data/curated/basic/sources.jsonl",
+        "artifacts/knowledge/curated/basic/sources.jsonl",
+        "artifacts/knowledge/search/advanced/example/search_records.jsonl",
+    ]
+    result = subprocess.run(
+        ["git", "check-ignore", "--no-index", *paths],
+        cwd=root, check=True, capture_output=True, text=True,
+    )
+    assert result.stdout.splitlines() == paths

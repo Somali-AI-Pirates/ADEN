@@ -1,0 +1,26 @@
+team: extracted 120 PDFs, 18,000 pages 16.3
+Could not reach the Hub (Cannot reach https://huggingface.co/api/models/intfloat/multilingual-e5-small: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable.). Using cached commit hash for 'intfloat/multilingual-e5-small'.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights:   3%|▎         | 5/199 [00:00<00:04, 42.44it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 1643.90it/s]
+  임베딩 adv/p800/e5s: 22355개 41s
+team: p800 index ready 22355 70.1
+Loading weights:   0%|          | 0/393 [00:00<?, ?it/s]
+Loading weights:   2%|▏         | 9/393 [00:00<00:12, 29.86it/s]
+Loading weights:  51%|█████     | 201/393 [00:00<00:00, 627.76it/s]
+Loading weights:  79%|███████▉  | 310/393 [00:00<00:00, 741.18it/s]
+Loading weights: 100%|██████████| 393/393 [00:00<00:00, 652.13it/s]
+team: ranked 35 / 340 87.4
+team: ranked 70 / 340 103.1
+team: ranked 105 / 340 119.2
+team: ranked 140 / 340 135.6
+team: ranked 175 / 340 153.0
+team: ranked 210 / 340 171.6
+team: ranked 245 / 340 189.5
+team: ranked 280 / 340 206.4
+team: ranked 315 / 340 222.1
+team: frozen all ranks 233.6
+team: wrote 3 rankings for 340 queries
+team_base · holdout 280 Recall@8 0.8012 · official 58 Recall@8 0.7601
+team_diverse · holdout 280 Recall@8 0.8074 · official 58 Recall@8 0.7744
+team_graph · holdout 280 Recall@8 0.9786 · official 58 Recall@8 0.9684

@@ -33,17 +33,7 @@ Thumbs.db
 !/data/**/
 !/data/**/.gitkeep
 
-# 팀이 검토하는 정제 지식 스냅샷. 원본·평가 정답·추출 캐시는 계속 제외한다.
-!/data/curated/
-!/data/curated/**/
-!/data/curated/*/rules.jsonl
-!/data/curated/*/sources.jsonl
-!/data/curated/*/cases.jsonl
-!/data/curated/*/manifest.json
-!/data/curated/*/validation_report.json
-!/data/curated/*/records/*.jsonl
-
-# 로컬 모델·색인·전체 실행 기록 (공식 제출 결과는 reports/)
+# 로컬 모델·정제본·색인·전체 실행 기록 (공식 제출 결과는 reports/)
 /artifacts/
 /storage/
 /models/

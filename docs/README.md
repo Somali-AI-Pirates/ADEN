@@ -1,6 +1,6 @@
 # ADEN 해운 문서 질의응답
 
-ADEN은 해운 PDF를 검색해 예약·서류·처리 상태·비용 조건에 답하고 문서명과 페이지를 인용한다. 현재 서비스는 Basic 색인을 사용하며 Dense, Hybrid, Hybrid + Reranking 검색을 제공한다. 세 난이도의 [오프라인 정제본](design/knowledge-data.md)은 별도로 관리한다.
+ADEN은 해운 PDF를 검색해 예약·서류·처리 상태·비용 조건에 답하고 문서명과 페이지를 인용한다. 현재 서비스는 Basic 색인을 사용하며 Dense, Hybrid, Hybrid + Reranking 검색을 제공한다. [오프라인 정제 도구](design/knowledge-data.md)로 세 난이도의 정제본을 로컬에 생성할 수 있다.
 
 [설치와 서버 실행](guides/development.md#서버-실행)을 마치면 [Swagger UI](http://127.0.0.1:8000/docs)에서 질문할 수 있다.
 

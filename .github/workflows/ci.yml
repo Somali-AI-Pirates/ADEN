@@ -42,7 +42,6 @@ jobs:
       - name: 실행 명령 연결 확인
         run: |
           python -m app.ingestion.scripts.curate --help
-          python -m app.ingestion.scripts.curate --check
           python -m app.ingestion.scripts.prepare_knowledge --help
           python -m app.indexing.scripts.build_index --help
           python -m app.evaluation.scripts.eval_retrieval --help

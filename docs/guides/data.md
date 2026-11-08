@@ -8,12 +8,12 @@
 | Intermediate | `data/intermediate/documents/IS01.pdf`~`IS50.pdf` | 50개, 3,750쪽 |
 | Advanced | `data/advanced/documents/AS001.pdf`~`AS120.pdf` | 120개, 18,000쪽 |
 
-Basic은 제공 ZIP 두 개의 PDF를 합치고, 두 ZIP에 공통인 평가 JSON 8개는 `data/basic/evaluation/`에 한 벌만 둔다. `sha256sum data/basic/documents/*.pdf`의 결과를 [Basic 출처 목록](../../data/curated/basic/sources.jsonl)의 `file_sha256`과 비교한다. 파일명은 원본을 유지한다.
+Basic은 제공 ZIP 두 개의 PDF를 합치고, 두 ZIP에 공통인 평가 JSON 8개는 `data/basic/evaluation/`에 한 벌만 둔다. `sha256sum data/basic/documents/*.pdf`의 결과를 [Basic 문서 카탈로그](../../app/ingestion/catalogs/basic.json)의 `documents[].sha256`과 비교한다. 파일명은 원본을 유지한다.
 
 - `{development,additional,expansion_validation}_questions.json`에는 실행용 `id`와 `question`이 있다.
 - 같은 이름에서 `_questions`를 뺀 JSON은 채점용 정답·근거다. 보안 비교 파일은 `security_questions.json`과 `security_tasks.json`이다. 대응 파일 지정과 입력 점검은 [평가 가이드](c-module-guide.md#실제-연결)를 따른다.
 
-색인·정제 입력은 해당 난이도의 `documents/*.pdf`다. 원본 PDF·평가 자료·추출 캐시·색인·전체 실행 기록은 Git에서 제외한다. 검토한 [정제본](../design/knowledge-data.md)은 Git으로 관리한다. 보안 시험용 문구는 데이터로 처리한다.
+색인·정제 입력은 해당 난이도의 `documents/*.pdf`다. 원본 PDF·평가 자료·[정제본](../design/knowledge-data.md)·추출 캐시·색인·전체 실행 기록은 로컬에서 관리한다. 보안 시험용 문구는 데이터로 처리한다.
 
 ## Qdrant 색인
 
