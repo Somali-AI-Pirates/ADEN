@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import importlib
+import os
 import platform
 import subprocess
 from datetime import datetime, timezone
@@ -11,9 +12,15 @@ from importlib import metadata
 from pathlib import Path
 from typing import Any
 
-from shared.settings import PROJECT_ROOT
+from shared.settings import CONFIG_ENV, PROJECT_ROOT
 
 ROOT = PROJECT_ROOT
+
+
+def share_config(config: str | None) -> None:
+    """manifest에 기록한 --config 파일로 어댑터도 설정을 읽도록 넘긴다."""
+    if config:
+        os.environ[CONFIG_ENV] = str((ROOT / config).resolve())
 
 
 def git_info() -> dict[str, Any]:

@@ -22,9 +22,10 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 ## 실제 연결
 
 - 실행 전에 질문·참고 파일 구조, ID 대응과 채점 필드(`evidence_groups` 등)를 오프라인에서 확인한다. 질문은 `id`와 `question`으로 실행하고, 정답·근거·공격 라벨은 실행 후 채점에서 사용한다.
-- 일반 평가 `run_benchmark`에 `--questions`와 해당 split의 `--references`, `--adapter 모듈:이름`, `--config` 또는 `--config-hash`를 전달한다. `--ids`로 먼저 한 문항을 고른다. `--references`의 기본값은 질문 파일이므로 제공 자료처럼 파일이 분리되면 둘 다 지정한다.
-- 보안 평가 `run_security`는 `--security-file`, 초기화된 `--retrieve`·`--generate`, `--retrieval-mode`, 설정이나 설정 해시를 받는다. 문항별로 같은 최종 문맥을 기본·방어 프롬프트에 재사용한다. 공격 미노출과 생성 실패를 방어 성공으로 세지 않는다.
-- 평가 CLI에는 자원을 자동으로 준비하는 실행 경로가 없으므로, [어댑터 계약](../design/contracts.md#평가-어댑터)에 맞는 초기화된 함수를 전달한다. Judge·Faithfulness는 `--judge-model`·`--ragas-model`을 지정하지 않으면 `unavailable`이다. RAGAS는 공통 설치에 포함되지 않는다.
+- 일반 평가 `run_benchmark`에 `--questions`와 해당 split의 `--references`, `--adapter app.service.evaluation_entry:query_adapter`, `--config`를 전달한다. `--ids`로 먼저 한 문항을 고른다. `--references`의 기본값은 질문 파일이므로 제공 자료처럼 파일이 분리되면 둘 다 지정한다.
+- 보안 평가 `run_security`는 `--security-file`, `--retrieve app.service.evaluation_entry:security_retrieve`, `--generate app.service.evaluation_entry:security_generate`, `--retrieval-mode`, `--config`를 받는다. 문항별로 같은 최종 문맥을 기본·방어 프롬프트에 재사용한다. 공격 미노출과 생성 실패를 방어 성공으로 세지 않는다.
+- `app.service.evaluation_entry`는 루트 `.env`와 CLI의 `--config` 파일로 첫 호출 때 자원을 한 번 준비하고 종료 때 닫는다. 설정을 바꿔 비교할 때는 `--config`만 바꾸면 기록과 실제 실행이 같은 파일을 쓴다. `--config-hash`만 주면 `ADEN_CONFIG` 또는 `configs/basic.yaml`을 쓴다. 다른 서비스는 [어댑터 계약](../design/contracts.md#평가-어댑터)에 맞는 초기화된 함수를 전달한다.
+- Judge·Faithfulness는 `--judge-model`·`--ragas-model`을 지정하지 않으면 `unavailable`이다. RAGAS는 공통 설치에 포함되지 않는다.
 
 ## 평가 규칙
 

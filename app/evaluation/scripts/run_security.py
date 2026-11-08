@@ -4,7 +4,8 @@
     python -m app.evaluation.scripts.run_security --sample
 실제:
     python -m app.evaluation.scripts.run_security --security-file data/basic/evaluation/<보안 파일>.json \
-        --retrieve <B모듈>:<retrieve_context> --generate <B모듈>:<generate_with_context> \
+        --retrieve app.service.evaluation_entry:security_retrieve \
+        --generate app.service.evaluation_entry:security_generate \
         --retrieval-mode hybrid_rerank --experiment-id <일반 평가와 같은 ID> --config configs/basic.yaml \
         --judge-model <모델>
 """
@@ -15,7 +16,7 @@ import argparse
 from pathlib import Path
 
 from app.evaluation.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
-                                      now_id, sha256_file)
+                                      now_id, sha256_file, share_config)
 
 from app.observability.records import RETRIEVAL_MODES
 from app.evaluation.dataset import load_questions, load_references
@@ -64,6 +65,7 @@ def main() -> None:
         experiment_id = args.experiment_id or now_id(args.dataset_id)
         path, dataset_id = args.security_file, args.dataset_id
         config_hash = args.config_hash or sha256_file(ROOT / args.config)
+        share_config(args.config)
         retrieve_fn, generate_fn = load_callable(args.retrieve), load_callable(args.generate)
         judge_fn = (make_openai_security_judge(args.judge_model, load_prompt("security_judge.txt"))
                     if args.judge_model else None)

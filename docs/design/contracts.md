@@ -57,7 +57,7 @@
 
 - `make_query_adapter(resources, settings)`는 `adapter(question, retrieval_mode, request_id)`를 반환한다. 어댑터는 `answer_query()`를 직접 호출하고 실패도 평탄한 실행 기록으로 반환한다.
 - `make_security_adapters(resources, settings, *, defense)`는 `retrieve_fn(question, mode)`과 `generate_fn(question, final_context_chunks, prompt_variant)`를 반환한다. 검색과 문맥 구성은 한 번 하고 `base`와 `defense`에 같은 문맥을 전달한다. 반환 기록에는 실제 문맥·모델 입출력·해시·시도·요청 ID를 담는다.
-- 평가 CLI의 `모듈:이름`은 초기화된 callable이다. 실제 실행 준비 절차는 [평가 가이드](../guides/c-module-guide.md#실제-연결)를 따른다.
+- 평가 CLI의 `모듈:이름`은 초기화된 callable이다. 실제 서비스 연결은 `app.service.evaluation_entry`의 `query_adapter`, `security_retrieve`, `security_generate`이며, CLI가 `ADEN_CONFIG`로 넘긴 `--config` 파일로 자원을 준비한다. 실제 실행 준비 절차는 [평가 가이드](../guides/c-module-guide.md#실제-연결)를 따른다.
 
 ## 기록 형식과 측정 범위
 

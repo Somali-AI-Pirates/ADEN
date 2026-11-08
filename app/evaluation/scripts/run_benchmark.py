@@ -4,7 +4,8 @@
     python -m app.evaluation.scripts.run_benchmark --sample
 실제:
     python -m app.evaluation.scripts.run_benchmark --questions data/basic/evaluation/<파일>.json \
-        --adapter <B모듈>:<어댑터> --ids Q1,Q2 --config configs/basic.yaml \
+        --references data/basic/evaluation/<정답 파일>.json \
+        --adapter app.service.evaluation_entry:query_adapter --ids Q1,Q2 --config configs/basic.yaml \
         --judge-model <모델> --ragas-model <모델> --selection-reason "..."
 Langfuse 저장 확인:
     python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id> [<trace_id> ...]
@@ -25,7 +26,7 @@ from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_fa
 from app.evaluation.report import write_artifacts, write_report
 from app.evaluation.runner import grade_all, run_comparison
 from app.evaluation.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
-                                      now_id, sha256_file)
+                                      now_id, sha256_file, share_config)
 
 
 def parse_args() -> argparse.Namespace:
@@ -86,6 +87,7 @@ def main() -> None:
             references_path = args.references
         dataset_id = args.dataset_id
         config_hash = args.config_hash or sha256_file(ROOT / args.config)
+        share_config(args.config)
         adapter = load_callable(args.adapter)
         tracer = getattr(adapter, "tracer", None)
         judge_fn = make_openai_judge(args.judge_model) if args.judge_model else None

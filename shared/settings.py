@@ -7,6 +7,8 @@ from shared.contracts import RetrievalMode
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = PROJECT_ROOT / "configs" / "basic.yaml"
+# 평가 CLI가 --config 경로를 서비스 쪽 평가 어댑터에 넘길 때 쓰는 환경변수.
+CONFIG_ENV = "ADEN_CONFIG"
 
 
 class RetrievalSettings(BaseModel):
