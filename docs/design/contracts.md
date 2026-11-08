@@ -2,21 +2,29 @@
 
 ## HTTP
 
-`POST /query`는 `question`과 선택 필드 `retrieval_mode`를 받는다. 질문은 양끝 공백을 제거한 뒤 빈 값이면 거부한다. 방식은 `naive`, `hybrid`, `hybrid_rerank`이며 생략하거나 `null`이면 서비스 설정을 사용한다.
+`POST /query`는 `{"question": "예약이 확정됐나요?"}` 형식의 JSON 본문을 받는다. 질문은 양끝 공백을 제거한다. 비어 있는 질문이나 `retrieval_mode`를 비롯한 추가 필드가 있으면 `422`를 반환한다. 검색 방식은 서버 설정의 `retrieval.default_mode`를 사용한다.
 
 응답은 `request_id`, `status`, `answer`, `reason`, `citations`를 반환한다. `X-Request-ID`와 본문의 요청 ID로 로그를 연결한다.
 
 | HTTP | 상태·조건 |
 | --- | --- |
 | 200 | `answered` 답변, `needs_clarification` 추가 확인, `abstained` 근거 부족·충돌로 보류 |
-| 422 | 질문이나 검색 방식 검증 실패 |
-| 501 | 선택한 검색 방식의 구현을 사용할 수 없음 |
+| 422 | 질의 요청의 입력값 또는 JSON 형식 검증 실패 |
+| 501 | 서버에 설정된 검색 방식을 사용할 수 없음 |
 | 502 | 모델 호출·출력 형식·출처 검증 실패 |
-| 503 | 앱 자원 미준비 또는 색인·검색 의존성 실패 |
+| 503 | 앱 자원 미준비 또는 Qdrant 요청 실패 |
 | 504 | 모델 호출 시간 초과 |
 | 500 | 예상 밖 처리 오류 |
 
-오류 응답은 `status="error"`, 빈 답변과 출처 목록, 안내 문구를 반환한다. `GET /health`는 `status="ok"`, `dataset`, `query_ready`를 반환한다. 자원 초기화가 실패해도 `/health`, `/docs`, `/openapi.json`은 열리며, 유효한 질의에는 `503`을 반환한다.
+`GET /health`는 `status="ok"`, `dataset`, `query_ready`를 반환한다. 자원 초기화가 실패해도 `/health`, `/docs`, `/openapi.json`은 열리며, 유효한 질의에는 `503`을 반환한다.
+
+### 서버 오류 처리
+
+`POST /query`의 오류 응답은 `QueryResponse`를 사용한다. `status="error"`, 빈 답변과 출처 목록, 공개 안내 문구를 반환한다.
+
+- `/query` 라우트는 질의 서비스의 `ServiceError`에 담긴 상태 코드로 응답하고 공개 메시지를 `reason`에 넣는다. 서버 시작 중의 자원 준비 오류는 수명주기에서 준비 상태로 기록하며, 자원 미준비 시 `/query`가 `503`을 반환한다.
+- FastAPI는 `query()`를 호출하기 전에 요청을 검증한다. 질의 라우터는 이 단계의 `RequestValidationError`를 받아 본문에 비어 있지 않은 질문만 입력하라는 안내를 `QueryResponse.reason`에 담아 `422`로 반환한다. 다른 라우트의 검증 오류는 FastAPI 기본 응답을 사용한다.
+- 예상 밖 오류는 전역 핸들러가 `500`과 공통 서버 오류 안내로 응답한다. 요청 ID가 있는 `POST /query`는 안내를 `QueryResponse.reason`에, 다른 요청과 ID 생성 전 실패는 `detail`에 담는다. 요청 ID가 있으면 `X-Request-ID` 헤더에도 넣는다. 앱의 오류 로그에는 예외 타입과 요청 ID를 기록한다.
 
 ## 데이터 객체
 
@@ -30,7 +38,7 @@
 | `Citation` | `source_id`, `book_id`, `file_name`, `page` |
 | `ContextBundle` | `text`, `final_chunks`, `source_map`, `context_hash`, `token_count`, 선택 `excluded_chunk_ids` |
 | `ModelAnswer` | `status`, `answer`, `reason`, `source_ids`. `error`는 서비스가 정한다 |
-| `GenerationResult` | `model_answer`, `attempts`, `usage` |
+| `GenerationResult` | `model_answer`, 검증한 `citations`, `attempts`, `usage` |
 
 `book_id`는 PDF 확장자를 뺀 파일명이다. 페이지와 순위는 1부터 센다. 검색 단계별 점수는 서로 직접 비교하지 않는다. 최종 문맥 순서대로 `S1`, `S2`를 부여하고 `source_map`에서 실제 문서·페이지를 찾는다. `excluded_chunk_ids`는 토큰 예산 때문에 제외한 청크만 기록한다. `token_count`는 제목과 구분자를 포함한 최종 문자열의 로컬 추정값이다.
 
@@ -43,9 +51,10 @@
 | `load_resources` | `(settings) → Resources`. `close()`로 정리 |
 | `retrieve` | `(question, mode, resources, top_n=20) → list[RetrievedChunk]` |
 | `build_context` | `(candidates, k, token_budget, count_tokens) → ContextBundle` |
-| `generate_answer` | `(question, context, model, *, prompt_path=..., defense="", trace=None, attempt_log=None, max_attempts=1) → GenerationResult` |
+| `generate_answer` | `(question, context, model, *, prompt_path=..., defense="", trace=None, attempt_log=None, max_attempts=1, capture_attempts=True) → GenerationResult` |
 | `resolve_citations` | `(source_ids, source_map) → list[Citation]` |
-| `answer_query` | `(request, resources, request_id, settings, *, run_record=None) → QueryResponse` |
+| `answer_query` | `(question, resources, request_id, settings) → QueryResponse`. 서버 설정의 검색 방식 사용 |
+| `record_query` | `(question, resources, request_id, settings, *, retrieval_mode=None) → dict`. 평가용 실행 기록 반환 |
 | `normalize_run_record` | `(raw: Mapping) → dict` |
 | `run_comparison` | `(questions, adapter, *, experiment_id, dataset_id, config_hash, modes=...) → list[dict]` |
 | `grade_all` | `(records, references, *, k, judge_fn, faithfulness_fn) → list[dict]` |
@@ -53,9 +62,11 @@
 
 기능 함수는 동기 호출이다. 모델 클라이언트의 자동 재시도는 끈다. 서비스는 출력 형식·출처 검증에 실패했을 때만 같은 문맥으로 `generation_max_attempts`까지 다시 생성한다. 모델 호출 자체의 API 오류와 시간 초과는 바로 반환한다.
 
+HTTP 질의는 추적이 켜져 있을 때만 검색·모델 시도 기록을 준비한다. 평가 경로는 추적과 별도로 실행 기록을 남긴다. 검색에 성공하고 문맥 구성에 실패하면 평가 기록에 검색 후보와 실패 상태를 남긴다.
+
 ### 평가 어댑터
 
-- `make_query_adapter(resources, settings)`는 `adapter(question, retrieval_mode, request_id)`를 반환한다. 어댑터는 `answer_query()`를 직접 호출하고 실패도 평탄한 실행 기록으로 반환한다.
+- `make_query_adapter(resources, settings)`는 `adapter(question, retrieval_mode, request_id)`를 반환한다. 일반 평가는 `naive`, `hybrid`, `hybrid_rerank`를 이 어댑터로 비교한다. 어댑터는 검증한 질문과 검색 방식으로 `record_query()`를 호출한다. 서비스는 실행이 실패해도 완료한 단계의 기록을 반환한다.
 - `make_security_adapters(resources, settings, *, defense)`는 `retrieve_fn(question, mode)`과 `generate_fn(question, final_context_chunks, prompt_variant)`를 반환한다. 검색과 문맥 구성은 한 번 하고 `base`와 `defense`에 같은 문맥을 전달한다. 반환 기록에는 실제 문맥·모델 입출력·해시·시도·요청 ID를 담는다.
 - 평가 CLI의 `모듈:이름`은 초기화된 callable이다. 실제 실행 준비 절차는 [평가 가이드](../guides/c-module-guide.md#실제-연결)를 따른다.
 

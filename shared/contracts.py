@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 RetrievalMode = Literal["naive", "hybrid", "hybrid_rerank"]
 AnswerStatus = Literal["answered", "needs_clarification", "abstained"]
@@ -62,25 +62,18 @@ class ModelAnswer(BaseModel):
 
 class GenerationResult(BaseModel):
     model_answer: ModelAnswer
+    citations: list[Citation]
     attempts: list[dict[str, Any]]
     usage: dict[str, Any] | None
 
 
 class QueryRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     question: str = Field(
         title="질문",
         description="해운 문서에서 확인하고 싶은 내용을 입력해 주세요.",
         examples=["예약 접수번호를 받으면 예약이 확정된 건가요?"],
-    )
-    retrieval_mode: RetrievalMode | None = Field(
-        default=None,
-        title="검색 방식",
-        description=(
-            "naive는 의미 검색, hybrid는 의미 검색과 키워드 검색의 결합, "
-            "hybrid_rerank는 결합한 후보를 다시 정렬하는 방식입니다. "
-            "생략하면 서버 설정의 기본 검색 방식을 사용합니다."
-        ),
-        examples=["naive"],
     )
 
     @field_validator("question")

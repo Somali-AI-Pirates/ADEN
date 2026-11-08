@@ -16,6 +16,7 @@ class GenerationTests(unittest.TestCase):
         model = FakeModel(["S1"])
         result = generate_answer("예약이 확정됐나요?", self.context, model, defense="방어 지시")
         self.assertEqual(result.model_answer.status, "answered")
+        self.assertEqual([item.source_id for item in result.citations], ["S1"])
         self.assertIn(self.context.text, model.messages[1].content)
         self.assertIn("방어 지시", model.messages[0].content)
         self.assertEqual(result.usage["input_tokens"], 100)

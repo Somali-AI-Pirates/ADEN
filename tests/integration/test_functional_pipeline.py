@@ -1,19 +1,40 @@
 """기능 패키지 사이의 실제 연결을 가짜 외부 자원으로 확인한다."""
 
+from unittest.mock import Mock
+
+import pytest
+
 from app.evaluation.security import check_same_context, run_security_comparison
+from app.indexing.keyword_store import KeywordIndex
 from app.observability.records import compute_context_hash, normalize_run_record
 from app.service.adapters import make_query_adapter, make_security_adapters
+from shared.contracts import Chunk
 from shared.settings import load_settings
 from tests.pipeline_fakes import make_query_resources
 
 
-def test_retrieval_generation_and_record_validation_share_one_contract():
+@pytest.mark.parametrize(
+    ("mode", "retriever"),
+    [("naive", "dense"), ("hybrid", "hybrid"), ("hybrid_rerank", "reranker")],
+)
+def test_retrieval_generation_and_record_validation_share_one_contract(mode, retriever):
     res = make_query_resources()
-    record = make_query_adapter(res, load_settings())("예약 문의", "naive", "integration-1")
+    point = res.qdrant.query_points.return_value.points[0]
+    res.retrieval.keyword_index = KeywordIndex([Chunk(**point.payload)])
+    res.retrieval.reranker = Mock()
+    res.retrieval.reranker.score.return_value = [1.0]
+    try:
+        adapter = make_query_adapter(res, load_settings())
+        record = adapter(" 예약 문의 ", mode, "integration-1")
+    finally:
+        res.close()
     normalized = normalize_run_record(record)
 
     assert normalized["status"] == "answered"
     assert normalized["request_id"] == "integration-1"
+    assert normalized["question"] == "예약 문의"
+    assert normalized["retrieval_mode"] == mode
+    assert normalized["retrieved_candidates"][0]["retriever"] == retriever
     assert normalized["citations"] == [{
         "source_id": "S1", "book_id": "DEMO", "file_name": "DEMO.pdf", "page": 1,
     }]

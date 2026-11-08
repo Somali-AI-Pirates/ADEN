@@ -30,21 +30,25 @@ def create_run_record(question, mode, request_id, settings, config_hash):
     }
 
 
-def context_record(candidates, context):
+def candidate_records(candidates):
+    return [
+        {
+            **asdict(item.chunk),
+            "rank": item.rank,
+            "score": item.score,
+            "retriever": item.retriever,
+        }
+        for item in candidates
+    ]
+
+
+def context_record(retrieved_candidates, context):
     final_chunks = [
         {**asdict(item.chunk), "source_id": f"S{index}"}
         for index, item in enumerate(context.final_chunks, 1)
     ]
     return {
-        "retrieved_candidates": [
-            {
-                **asdict(item.chunk),
-                "rank": item.rank,
-                "score": item.score,
-                "retriever": item.retriever,
-            }
-            for item in candidates
-        ],
+        "retrieved_candidates": retrieved_candidates,
         "final_context_chunks": final_chunks,
         "final_context_hash": compute_context_hash(final_chunks),
         "model_context_text": context.text,

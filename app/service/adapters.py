@@ -1,32 +1,39 @@
 """일반·보안 평가기가 공통 서비스와 생성 기능을 호출하는 어댑터."""
 
-from dataclasses import asdict
+from copy import deepcopy
 from hashlib import sha256
 from time import perf_counter
 from uuid import uuid4
 
-from shared.contracts import QueryRequest
+from pydantic import TypeAdapter
+
+from shared.contracts import QueryRequest, RetrievalMode
 from app.retrieval.service import retrieve
 from app.generation.chain import generate_answer
-from app.generation.citations import resolve_citations
 from app.generation.context import build_context
-from app.service.query import answer_query, experiment_config_hash, start_request_trace
+from app.service.query import (
+    experiment_config_hash,
+    prompt_hash,
+    record_query,
+    start_request_trace,
+)
 from app.service.records import (
     attach_last_model_messages,
+    candidate_records,
     context_record,
     create_run_record,
 )
 
+_retrieval_mode_validator = TypeAdapter(RetrievalMode | None)
+
 
 def make_query_adapter(resources, settings):
     def adapter(question, retrieval_mode, request_id):
-        request = QueryRequest(question=question, retrieval_mode=retrieval_mode)
-        record = {}
-        try:
-            answer_query(request, resources, request_id, settings, run_record=record)
-        except Exception:
-            if record.get("status") != "error":
-                raise
+        question = QueryRequest(question=question).question
+        mode = _retrieval_mode_validator.validate_python(retrieval_mode)
+        record = record_query(
+            question, resources, request_id, settings, retrieval_mode=mode
+        )
         record["latency_scope"] = "in_process_adapter"
         return record
 
@@ -39,11 +46,13 @@ def make_security_adapters(resources, settings, *, defense):
     def retrieve_fn(question, mode):
         nonlocal cached
         cached = None
-        request = QueryRequest(question=question, retrieval_mode=mode)
-        mode = request.retrieval_mode or settings.retrieval.default_mode
-        request = request.model_copy(update={"retrieval_mode": mode})
+        question = QueryRequest(question=question).question
+        mode = (
+            _retrieval_mode_validator.validate_python(mode)
+            or settings.retrieval.default_mode
+        )
         candidates = retrieve(
-            request.question, mode, resources, top_n=settings.retrieval.candidate_count
+            question, mode, resources, top_n=settings.retrieval.candidate_count
         )
         context = build_context(
             candidates,
@@ -51,19 +60,19 @@ def make_security_adapters(resources, settings, *, defense):
             settings.retrieval.context_token_budget,
             resources.count_tokens,
         )
-        cached = (request, candidates, context)
-        return context_record(candidates, context)
+        data = context_record(candidate_records(candidates), context)
+        cached = (question, mode, context, data)
+        return deepcopy(data)
 
     def generate_fn(question, final_context_chunks, prompt_variant):
         if cached is None:
             raise ValueError("보안 비교 문맥을 먼저 준비해 주세요.")
         question = QueryRequest(question=question).question
-        request, candidates, context = cached
-        expected = [
-            {**asdict(item.chunk), "source_id": f"S{index}"}
-            for index, item in enumerate(context.final_chunks, 1)
-        ]
-        if question != request.question or final_context_chunks != expected:
+        cached_question, mode, context, data = cached
+        if (
+            question != cached_question
+            or final_context_chunks != data["final_context_chunks"]
+        ):
             raise ValueError("보안 비교의 질문 또는 고정 문맥이 변경되었습니다.")
         if prompt_variant not in ("base", "defense") or (
             prompt_variant == "defense" and not defense.strip()
@@ -71,14 +80,15 @@ def make_security_adapters(resources, settings, *, defense):
             raise ValueError("프롬프트 변형과 방어 문장을 확인해 주세요.")
         started = perf_counter()
         request_id = uuid4().hex
+        prompt_digest = prompt_hash()
         record = create_run_record(
             question,
-            request.retrieval_mode,
+            mode,
             request_id,
             settings,
-            experiment_config_hash(settings),
+            experiment_config_hash(settings, prompt_digest=prompt_digest),
         )
-        record.update(context_record(candidates, context))
+        record.update(deepcopy(data))
         record.update(
             prompt_variant=prompt_variant,
             defense_hash=sha256(defense.encode()).hexdigest()
@@ -87,7 +97,16 @@ def make_security_adapters(resources, settings, *, defense):
         )
         trace = None
         try:
-            trace = start_request_trace(resources, request, request_id, settings)
+            trace = start_request_trace(
+                resources,
+                request_id,
+                settings,
+                question=question,
+                retrieval_mode=mode,
+                prompt_digest=prompt_digest,
+            )
+            if trace is None and resources.tracer is not None:
+                record.update(langfuse_status="disabled", langfuse_errors=[])
             if trace is not None:
                 trace.record_retrieval(
                     retrieved_candidates=record["retrieved_candidates"],
@@ -119,10 +138,7 @@ def make_security_adapters(resources, settings, *, defense):
                     answer=answer.answer,
                     reason=answer.reason,
                     citations=[
-                        item.model_dump(mode="json")
-                        for item in resolve_citations(
-                            answer.source_ids, context.source_map
-                        )
+                        item.model_dump(mode="json") for item in result.citations
                     ],
                 )
         except Exception as error:

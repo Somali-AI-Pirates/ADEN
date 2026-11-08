@@ -1,15 +1,40 @@
-import asyncio
 from typing import Literal
 
 from fastapi import APIRouter, Request, Response
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
+from fastapi.routing import APIRoute
 from pydantic import BaseModel, Field
 
+from app.api.errors import query_error_body
 from app.service.query import answer_query
 from app.service.resources import Resources
 from shared.contracts import QueryRequest, QueryResponse
+from shared.exceptions import ServiceError
 from shared.settings import Settings
 
-router = APIRouter()
+
+class QueryValidationRoute(APIRoute):
+    def get_route_handler(self):
+        original_handler = super().get_route_handler()
+
+        async def handle_request(request: Request) -> Response:
+            try:
+                return await original_handler(request)
+            except RequestValidationError:
+                body = query_error_body(
+                    request.state.request_id,
+                    "요청 본문에 비어 있지 않은 질문만 입력해 주세요.",
+                )
+                return JSONResponse(
+                    status_code=422, content=body.model_dump(mode="json")
+                )
+
+        return handle_request
+
+
+health_router = APIRouter()
+query_router = APIRouter(route_class=QueryValidationRoute)
 
 
 class HealthResponse(BaseModel):
@@ -22,7 +47,7 @@ class HealthResponse(BaseModel):
     )
 
 
-@router.get(
+@health_router.get(
     "/health",
     tags=["서비스 상태"],
     summary="서비스 실행 상태 확인",
@@ -37,17 +62,17 @@ async def health(request: Request) -> HealthResponse:
     )
 
 
-@router.post(
+@query_router.post(
     "/query",
     response_model=QueryResponse,
     tags=["해운 질의응답"],
     summary="해운 문서에 질문하기",
-    description="질문과 검색 방식을 입력하면 검색 자료를 바탕으로 답변과 출처를 반환합니다.",
+    description="질문을 입력하면 서버에 설정된 검색 방식으로 자료를 찾아 답변과 출처를 반환합니다.",
     response_description="답변, 처리 상태, 판단 이유와 출처",
     responses={
         422: {
             "model": QueryResponse,
-            "description": "질문 또는 검색 방식이 올바르지 않습니다.",
+            "description": "요청 본문에 비어 있지 않은 질문만 입력해 주세요.",
         },
         503: {
             "model": QueryResponse,
@@ -55,7 +80,7 @@ async def health(request: Request) -> HealthResponse:
         },
         501: {
             "model": QueryResponse,
-            "description": "선택한 검색 방식은 준비 중입니다.",
+            "description": "서버에 설정된 검색 방식을 사용할 수 없습니다.",
         },
         502: {
             "model": QueryResponse,
@@ -65,9 +90,13 @@ async def health(request: Request) -> HealthResponse:
             "model": QueryResponse,
             "description": "답변 처리 시간이 초과되었습니다.",
         },
+        500: {
+            "model": QueryResponse,
+            "description": "서버에서 예상하지 못한 오류가 발생했습니다.",
+        },
     },
 )
-async def query(
+def query(
     payload: QueryRequest,
     request: Request,
     response: Response,
@@ -76,19 +105,16 @@ async def query(
     resources: Resources | None = request.app.state.resources
     if resources is None:
         response.status_code = 503
-        return QueryResponse(
-            request_id=request_id,
-            status="error",
-            answer="",
-            reason=request.app.state.readiness_reason,
-            citations=[],
-        )
+        return query_error_body(request_id, request.app.state.readiness_reason)
 
     settings: Settings = request.app.state.settings
-    return await asyncio.to_thread(
-        answer_query,
-        payload,
-        resources,
-        request_id,
-        settings,
-    )
+    try:
+        return answer_query(
+            question=payload.question,
+            resources=resources,
+            request_id=request_id,
+            settings=settings,
+        )
+    except ServiceError as error:
+        response.status_code = error.status_code
+        return query_error_body(request_id, str(error))

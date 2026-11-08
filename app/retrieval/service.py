@@ -12,8 +12,7 @@ resources에 필요한 속성 (app.service.resources.load_resources()가 채운�
     hybrid         Dense 20 + BM25 20 → RRF → 상위 top_n
     hybrid_rerank  hybrid 후보 20 → 리랭커 재정렬 → 상위 top_n
 
-동기 함수다. 현재 비동기 API는 이 함수를 호출하는 answer_query() 전체를
-asyncio.to_thread로 실행해 이벤트 루프를 막지 않는다.
+동기 함수다. FastAPI는 이 함수를 사용하는 동기 /query 라우트를 작업 스레드에서 실행한다.
 """
 
 from app.retrieval.dense import dense_search

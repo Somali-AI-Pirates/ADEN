@@ -10,9 +10,11 @@ from unittest.mock import Mock, patch
 
 import httpx
 import yaml
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from openai import APITimeoutError
 from pydantic import ValidationError
+from qdrant_client.http.exceptions import ResponseHandlingException
 
 from app.api.main import app
 from app.indexing.keyword_store import KeywordIndex
@@ -53,7 +55,7 @@ class ApiTests(unittest.TestCase):
         question = "예약이 확정됐나요?"
         with self.client() as client:
             self.assertTrue(client.get("/health").json()["query_ready"])
-            response = client.post("/query", json={"question": question})
+            response = client.post("/query", json={"question": f"  {question}  "})
         result = response.json()
         self.assertEqual(response.status_code, 200, response.text)
         self.assertEqual(result["status"], "answered")
@@ -85,6 +87,15 @@ class ApiTests(unittest.TestCase):
             with self.client(raise_server_exceptions=False) as client:
                 success = client.post("/query", json={"question": "예약 문의"})
                 invalid = client.post("/query", json={"question": " "})
+                malformed = client.post(
+                    "/query", content="{", headers={"Content-Type": "application/json"}
+                )
+                extra_fields = [
+                    client.post(
+                        "/query", json={"question": "예약 문의", "retrieval_mode": mode}
+                    )
+                    for mode in ("naive", None)
+                ]
                 with patch(
                     "app.api.routes.answer_query",
                     side_effect=RuntimeError("private failure"),
@@ -98,8 +109,17 @@ class ApiTests(unittest.TestCase):
                 TestClient(app) as client,
             ):
                 unready = client.post("/query", json={"question": "예약 문의"})
-        responses = [success, invalid, failed, unready]
-        self.assertEqual([r.status_code for r in responses], [200, 422, 500, 503])
+        invalid_responses = [invalid, malformed, *extra_fields]
+        for response in invalid_responses:
+            self.assertEqual(response.status_code, 422)
+            self.assertEqual(
+                response.json()["reason"],
+                "요청 본문에 비어 있지 않은 질문만 입력해 주세요.",
+            )
+        self.assertEqual(
+            [r.status_code for r in (success, failed, unready)], [200, 500, 503]
+        )
+        responses = [success, *invalid_responses, failed, unready]
         self.assertEqual(len(logs.records), len(responses))
         by_id = {record.request_id: record for record in logs.records}
         for response in responses:
@@ -110,6 +130,36 @@ class ApiTests(unittest.TestCase):
             self.assertEqual(record.path, "/query")
             self.assertEqual(record.latency_scope, "http")
             self.assertGreaterEqual(record.latency_ms, 0)
+
+    def test_non_query_validation_uses_fastapi_response(self):
+        other_app = FastAPI(exception_handlers=app.exception_handlers)
+
+        @other_app.get("/items/{item_id}")
+        async def read_item(item_id: int) -> dict[str, int]:
+            return {"item_id": item_id}
+
+        with TestClient(other_app) as client:
+            response = client.get("/items/invalid")
+
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(response.json()["detail"][0]["loc"], ["path", "item_id"])
+
+    def test_health_service_error_uses_generic_server_response(self):
+        with (
+            self.client(raise_server_exceptions=False) as client,
+            patch(
+                "app.api.routes.HealthResponse",
+                side_effect=ServiceError("private health", 503),
+            ),
+        ):
+            response = client.get("/health")
+
+        self.assertEqual(response.status_code, 500)
+        self.assertEqual(
+            response.json(),
+            {"detail": "서버에서 오류가 발생했습니다. 잠시 후 다시 시도해 주세요."},
+        )
+        self.assertTrue(response.headers["X-Request-ID"])
 
     def test_http_log_does_not_include_question_query_or_headers(self):
         secret = "private-diagnostic-value"
@@ -206,7 +256,16 @@ class ApiTests(unittest.TestCase):
             response.json()["request_id"], response.headers["X-Request-ID"]
         )
 
-    def test_configured_default_and_explicit_mode_reach_the_real_pipeline(self):
+    def test_query_openapi_requires_only_question(self):
+        with self.client() as client:
+            openapi = client.get("/openapi.json").json()
+
+        schema = openapi["components"]["schemas"]["QueryRequest"]
+        self.assertEqual(set(schema["properties"]), {"question"})
+        self.assertEqual(schema["required"], ["question"])
+        self.assertIs(schema["additionalProperties"], False)
+
+    def test_query_uses_configured_default_in_the_real_pipeline(self):
         config = yaml.safe_load(DEFAULT_CONFIG.read_text(encoding="utf-8"))
         config["dataset"] = "custom-dataset"
         config["retrieval"]["default_mode"] = "hybrid"
@@ -220,15 +279,16 @@ class ApiTests(unittest.TestCase):
                 patch("app.api.lifespan.DEFAULT_CONFIG", path),
                 self.client() as client,
             ):
-                for payload, expected in [
-                    ({"question": "예약 문의"}, "hybrid"),
-                    ({"question": "예약 문의", "retrieval_mode": "naive"}, "naive"),
-                ]:
-                    response = client.post("/query", json=payload)
-                    self.assertEqual(response.status_code, 200, response.text)
-                    call = self.resources.tracer.start_request.call_args
-                    self.assertEqual(call.kwargs["retrieval_mode"], expected)
-                    self.assertEqual(call.kwargs["dataset_id"], "custom-dataset")
+                response = client.post("/query", json={"question": "예약 문의"})
+
+        self.assertEqual(response.status_code, 200, response.text)
+        call = self.resources.tracer.start_request.call_args
+        self.assertEqual(call.kwargs["retrieval_mode"], "hybrid")
+        self.assertEqual(call.kwargs["dataset_id"], "custom-dataset")
+        retrieval = self.resources.tracer.start_request.return_value.record_retrieval
+        self.assertEqual(
+            retrieval.call_args.kwargs["retrieved_candidates"][0]["retriever"], "hybrid"
+        )
 
     def test_preparation_and_query_errors_do_not_expose_private_details(self):
         with (
@@ -252,6 +312,10 @@ class ApiTests(unittest.TestCase):
             response = client.post("/query", json={"question": "예약 문의"})
         self.assertEqual(response.status_code, 500)
         self.assertNotIn("private query", response.text + "\n".join(logs.output))
+        self.assertEqual(
+            response.json()["reason"],
+            "서버에서 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+        )
         self.assertEqual(
             response.json()["request_id"], response.headers["X-Request-ID"]
         )
@@ -289,7 +353,14 @@ class ApiTests(unittest.TestCase):
     def test_processing_errors_keep_the_public_status_and_request_id(self):
         cases = [
             ("retrieval", NotImplementedError(), 501),
-            ("retrieval", RuntimeError("private retrieval"), 503),
+            (
+                "retrieval",
+                ResponseHandlingException(RuntimeError("private failure")),
+                503,
+            ),
+            ("retrieval", TypeError("private failure"), 500),
+            ("context", ValueError("private failure"), 500),
+            ("model", ValueError("private failure"), 500),
             (
                 "model",
                 APITimeoutError(request=httpx.Request("POST", "https://example.test")),
@@ -298,22 +369,24 @@ class ApiTests(unittest.TestCase):
             ("citation", None, 502),
         ]
         for kind, error, code in cases:
-            with self.subTest(code=code):
+            with self.subTest(stage=kind, code=code):
                 self.resources = make_query_resources()
                 if kind == "retrieval":
                     self.resources.qdrant.query_points.side_effect = error
+                elif kind == "context":
+                    self.resources.count_tokens = Mock(side_effect=error)
                 elif kind == "model":
                     self.resources.model.invoke = Mock(side_effect=error)
                 else:
                     self.resources.model.source_ids = ["S9"]
-                with self.client() as client:
+                with self.client(raise_server_exceptions=code != 500) as client:
                     response = client.post("/query", json={"question": "예약 문의"})
                 self.assertEqual(response.status_code, code, response.text)
                 self.assertEqual(response.json()["status"], "error")
                 self.assertEqual(
                     response.json()["request_id"], response.headers["X-Request-ID"]
                 )
-                self.assertNotIn("private retrieval", response.text)
+                self.assertNotIn("private failure", response.text)
                 self.resources.qdrant.close.assert_called_once()
 
 
