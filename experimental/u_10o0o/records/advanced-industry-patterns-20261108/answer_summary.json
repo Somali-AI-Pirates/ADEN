@@ -1,0 +1,320 @@
+{
+  "model": "gpt-6-luna",
+  "rows": 144,
+  "completed_questions": 24,
+  "variants": {
+    "baseline": {
+      "rows": 24,
+      "reused_rows": 16,
+      "generation": {
+        "calls": 8,
+        "statuses": {
+          "answered": 23,
+          "needs_clarification": 1
+        },
+        "input_tokens": 37751,
+        "output_tokens": 4212,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 5833.0
+      },
+      "judge": {
+        "calls": 8,
+        "statuses": {
+          "complete": 24
+        },
+        "input_tokens": 40992,
+        "output_tokens": 2937,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 4784.2
+      },
+      "criteria": {
+        "fact": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "condition": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "evidence": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "decision": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.7917
+        }
+      }
+    },
+    "fielded": {
+      "rows": 24,
+      "reused_rows": 2,
+      "generation": {
+        "calls": 22,
+        "statuses": {
+          "answered": 22,
+          "needs_clarification": 1,
+          "abstained": 1
+        },
+        "input_tokens": 104736,
+        "output_tokens": 10297,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 5347.0
+      },
+      "judge": {
+        "calls": 22,
+        "statuses": {
+          "complete": 24
+        },
+        "input_tokens": 113158,
+        "output_tokens": 7327,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 4171.5
+      },
+      "criteria": {
+        "fact": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.9167
+        },
+        "condition": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.9167
+        },
+        "evidence": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.9583
+        },
+        "decision": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.8333
+        }
+      }
+    },
+    "table_view": {
+      "rows": 24,
+      "reused_rows": 17,
+      "generation": {
+        "calls": 7,
+        "statuses": {
+          "answered": 23,
+          "needs_clarification": 1
+        },
+        "input_tokens": 33006,
+        "output_tokens": 2470,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 4231.3
+      },
+      "judge": {
+        "calls": 7,
+        "statuses": {
+          "complete": 24
+        },
+        "input_tokens": 35617,
+        "output_tokens": 2439,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 4552.0
+      },
+      "criteria": {
+        "fact": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "condition": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "evidence": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "decision": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.7917
+        }
+      }
+    },
+    "roles": {
+      "rows": 24,
+      "reused_rows": 20,
+      "generation": {
+        "calls": 4,
+        "statuses": {
+          "answered": 23,
+          "needs_clarification": 1
+        },
+        "input_tokens": 18339,
+        "output_tokens": 1497,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 5088.2
+      },
+      "judge": {
+        "calls": 4,
+        "statuses": {
+          "complete": 24
+        },
+        "input_tokens": 19718,
+        "output_tokens": 1330,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 4132.2
+      },
+      "criteria": {
+        "fact": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "condition": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "evidence": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "decision": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.7917
+        }
+      }
+    },
+    "role_followup": {
+      "rows": 24,
+      "reused_rows": 20,
+      "generation": {
+        "calls": 4,
+        "statuses": {
+          "answered": 23,
+          "needs_clarification": 1
+        },
+        "input_tokens": 18396,
+        "output_tokens": 1586,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 4580.2
+      },
+      "judge": {
+        "calls": 4,
+        "statuses": {
+          "complete": 24
+        },
+        "input_tokens": 19844,
+        "output_tokens": 1572,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 4280.0
+      },
+      "criteria": {
+        "fact": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "condition": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "evidence": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.875
+        },
+        "decision": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.7917
+        }
+      }
+    },
+    "validity": {
+      "rows": 24,
+      "reused_rows": 3,
+      "generation": {
+        "calls": 21,
+        "statuses": {
+          "answered": 19,
+          "needs_clarification": 1,
+          "abstained": 2,
+          "error": 2
+        },
+        "input_tokens": 89037,
+        "output_tokens": 8489,
+        "calls_missing_usage": 2,
+        "mean_latency_ms": 5185.5
+      },
+      "judge": {
+        "calls": 19,
+        "statuses": {
+          "complete": 22,
+          "skipped_generation_error": 2
+        },
+        "input_tokens": 96025,
+        "output_tokens": 6390,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 4358.4
+      },
+      "criteria": {
+        "fact": {
+          "statuses": {
+            "scored": 22,
+            "unavailable": 2
+          },
+          "mean_score": 0.8636
+        },
+        "condition": {
+          "statuses": {
+            "scored": 22,
+            "unavailable": 2
+          },
+          "mean_score": 0.8636
+        },
+        "evidence": {
+          "statuses": {
+            "scored": 22,
+            "unavailable": 2
+          },
+          "mean_score": 0.9091
+        },
+        "decision": {
+          "statuses": {
+            "scored": 24
+          },
+          "mean_score": 0.7917
+        }
+      }
+    }
+  }
+}

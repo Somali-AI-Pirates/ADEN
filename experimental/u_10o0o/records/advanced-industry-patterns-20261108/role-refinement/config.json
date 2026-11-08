@@ -1,0 +1,298 @@
+{
+  "created_at": "2026-11-09T00:09:50+09:00",
+  "inputs": {
+    "holdout": {
+      "questions": {
+        "path": "experimental/u_10o0o/evaluation/advanced_holdout/advanced_holdout_questions.json",
+        "sha256": "43dc38583f1d7a6e7e26b283eeedba9c2be312576ec1dbe042feb3a3a366f6a3"
+      },
+      "references": {
+        "path": "experimental/u_10o0o/evaluation/advanced_holdout/advanced_holdout.json",
+        "sha256": "e6328280ff7cfd3dd7180dcb3f893b90b299a904bb93f3249389f8ec4bdfdee1"
+      }
+    },
+    "development": {
+      "questions": {
+        "path": "data/advanced/evaluation/development_questions.json",
+        "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c"
+      },
+      "references": {
+        "path": "data/advanced/evaluation/development.json",
+        "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+      }
+    },
+    "additional": {
+      "questions": {
+        "path": "data/advanced/evaluation/additional_questions.json",
+        "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f"
+      },
+      "references": {
+        "path": "data/advanced/evaluation/additional.json",
+        "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+      }
+    },
+    "pilot": {
+      "questions": {
+        "path": "experimental/u_10o0o/evaluation/advanced_coverage_v2/pilot_questions.json",
+        "sha256": "333d4f20f447e9ded96f9fa1b616daf9b8f5ed2726825585f02cf817b4e0f44c"
+      },
+      "references": {
+        "path": "experimental/u_10o0o/evaluation/advanced_coverage_v2/pilot_references.json",
+        "sha256": "6007624e993871d062cf40942bb41cb0e62409ba62c5b5b8d0bdb10a0a6d7da5"
+      }
+    }
+  },
+  "pilot_manifest": {
+    "path": "experimental/u_10o0o/evaluation/advanced_coverage_v2/manifest.json",
+    "sha256": "922ad725628a6dbe10bfee0e58effe71baecacc6e437b932b8b8ffa8d7a7b93a"
+  },
+  "pilot_manifest_status": "automatic_checks_complete_human_review_pending",
+  "page_cache": {
+    "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+    "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+  },
+  "archives": {
+    "personal_controls": {
+      "path": "experimental/u_10o0o/records/advanced-factor-ablation-20261108/personal-controls.json",
+      "sha256": "2e948ff8d77c9e3d3f64be489d693722c4241824deeb4c91313b5fb0d2dab8c8"
+    },
+    "selected_results": {
+      "path": "experimental/u_10o0o/records/advanced-factor-ablation-20261108/selected-results.json",
+      "sha256": "39f6c1e3eb31abf741cf529bf58514dab7578261a3bbc198cf9aa06741114c40"
+    }
+  },
+  "candidate_count": 20,
+  "final_k": 8,
+  "context_budget": 4000,
+  "reranker": {
+    "model": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "max_tokens": 512,
+    "batch_size": 16,
+    "dtype": "float16",
+    "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "local_files_only": true
+  },
+  "retrieval": {
+    "tokenizer": {
+      "tokenizer": "bigram-id",
+      "identifier_pattern": "(?<![A-Za-z0-9])[A-Z][A-Z0-9]{0,6}(?:-[A-Z0-9]{1,8}){1,4}(?![A-Za-z0-9])"
+    },
+    "fielded": {
+      "fusion": "max_normalized_bm25_heading_bonus",
+      "field_pool": 80,
+      "heading_weight": 0.25,
+      "heading_block_limit": 3,
+      "heading_char_limit": 600
+    },
+    "roles": {
+      "terms": {
+        "contract_terms": [
+          "계약",
+          "요율",
+          "운임",
+          "요금",
+          "보관료",
+          "반납지연료",
+          "무료기간",
+          "과금",
+          "약관",
+          "조건",
+          "기준",
+          "contract",
+          "rate",
+          "tariff"
+        ],
+        "operational_event": [
+          "반입",
+          "반출",
+          "반납",
+          "예약",
+          "입항",
+          "출항",
+          "작업",
+          "실적",
+          "일자",
+          "시각",
+          "처리",
+          "상태",
+          "완료",
+          "event",
+          "operation"
+        ],
+        "approval_change": [
+          "신청",
+          "승인",
+          "결재",
+          "요청",
+          "변경",
+          "정정",
+          "확정",
+          "취소",
+          "통지",
+          "회신",
+          "접수",
+          "confirmation",
+          "approval",
+          "amendment"
+        ],
+        "billing_record": [
+          "청구",
+          "계산",
+          "검산",
+          "입금",
+          "지급",
+          "영수",
+          "비용",
+          "금액",
+          "산출",
+          "정산",
+          "invoice",
+          "billing",
+          "payment",
+          "amount"
+        ]
+      },
+      "lookahead": 10,
+      "strict_terms": {
+        "contract_terms": [
+          "계약요율",
+          "계약 조건",
+          "계약서",
+          "요율표",
+          "운임표",
+          "보관료",
+          "반납지연료",
+          "무료기간",
+          "tariff",
+          "contract rate"
+        ],
+        "operational_event": [
+          "반입기록",
+          "반출기록",
+          "반납기록",
+          "입항기록",
+          "출항기록",
+          "예약·장비",
+          "운항문의",
+          "작업실적",
+          "작업기록",
+          "실제 반입",
+          "실제 반출",
+          "실제 반납",
+          "arrival record",
+          "operation log"
+        ],
+        "approval_change": [
+          "신청·승인기록",
+          "승인기록",
+          "승인번호",
+          "수정통지",
+          "정정통지",
+          "변경요청",
+          "결재",
+          "approval record",
+          "amendment notice"
+        ],
+        "billing_record": [
+          "청구번호",
+          "청구내역",
+          "청구서",
+          "입금기록",
+          "계산메모",
+          "검산기록",
+          "검산번호",
+          "정산서",
+          "청구금액",
+          "invoice",
+          "payment record"
+        ]
+      },
+      "strict_query_terms": {
+        "contract_terms": [
+          "계약",
+          "요율",
+          "운임",
+          "보관료",
+          "반납지연료",
+          "무료기간",
+          "tariff"
+        ],
+        "operational_event": [
+          "반입",
+          "반출",
+          "반납",
+          "입항",
+          "출항",
+          "작업실적",
+          "운항기록"
+        ],
+        "approval_change": [
+          "신청",
+          "승인",
+          "결재",
+          "수정통지",
+          "정정통지",
+          "변경요청"
+        ],
+        "billing_record": [
+          "청구",
+          "계산",
+          "검산",
+          "입금",
+          "지급",
+          "영수",
+          "정산",
+          "invoice"
+        ]
+      }
+    },
+    "followup": {
+      "max_additions": 3,
+      "search_k": 100
+    }
+  },
+  "strict_roles_enabled": true,
+  "strict_role_top3_protected": true,
+  "locally_reranked_pairs": 3048,
+  "code": {
+    "field_roles": {
+      "path": "experimental/u_10o0o/advanced_field_roles.py",
+      "sha256": "68f8fc42e9283db641fa5da0363c517e9ab1dd5890641ea43e980b730bb23ff5"
+    },
+    "refinement_runner": {
+      "path": "experimental/u_10o0o/advanced_role_refinement.py",
+      "sha256": "d3bffd81d3e2af91bf234d50dbd2972e30f416fa152a318dd6bb10d2a4154be6"
+    },
+    "pattern_scorer": {
+      "path": "experimental/u_10o0o/advanced_patterns.py",
+      "sha256": "d5f68cfda94da046077f6e95ef61512672d614ae4d6878649ef708aca71fd662"
+    },
+    "selected_search": {
+      "path": "experimental/u_10o0o/advanced_search.py",
+      "sha256": "85b6056bb3a7d4b85b86dc1e09fe350f58ce313886e784fa6761064f0dd2b7e3"
+    },
+    "context_packer": {
+      "path": "app/generation/context.py",
+      "sha256": "0cf9f7f26bfc8aa75c5c3b6f4febd916d9266da1b5c01f327c4f14b4c9fcdf5f"
+    },
+    "context_evidence": {
+      "path": "experimental/u_10o0o/context_evidence.py",
+      "sha256": "4bd6a6531acdb17be8fd60f5e1ced019a8ef25f09400e93c89d27a2e3e391e6a"
+    },
+    "retrieval_metrics": {
+      "path": "app/evaluation/metrics.py",
+      "sha256": "5dbf7dae190d125c091a0ea34fa8ec8d0a89621a53f2cf27d3c13c98bf88b533"
+    },
+    "personal_controls": {
+      "path": "experimental/u_10o0o/records/advanced-factor-ablation-20261108/personal-controls.json",
+      "sha256": "2e948ff8d77c9e3d3f64be489d693722c4241824deeb4c91313b5fb0d2dab8c8"
+    },
+    "selected_results": {
+      "path": "experimental/u_10o0o/records/advanced-factor-ablation-20261108/selected-results.json",
+      "sha256": "39f6c1e3eb31abf741cf529bf58514dab7578261a3bbc198cf9aa06741114c40"
+    }
+  },
+  "note": "The retrieval config hash differs from the first full-pattern run because strict role rules were added as an opt-in branch; default behavior remains unchanged.",
+  "config_sha256": "e403aa2d20b29996e0f9880630a55df16d221fff7a48188588874657ec2983cc"
+}
