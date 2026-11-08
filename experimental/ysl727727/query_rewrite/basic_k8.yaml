@@ -1,0 +1,16 @@
+dataset: basic
+documents_dir: data/basic/documents
+generation_model: gpt-6-luna
+qdrant_collection: basic_multilingual-e5-small_p800
+embedding_model: intfloat/multilingual-e5-small
+embedding_device: cpu
+model_timeout_seconds: 60
+max_output_tokens: 2048
+generation_max_attempts: 2  # 출력 형식·출처 검증 실패 시 재생성을 포함한 한 요청의 최대 모델 호출 수.
+context_tokenizer: o200k_base  # 문맥 예산용 로컬 추정값. 실제 사용량은 모델 usage로 확인한다.
+
+retrieval:
+  default_mode: hybrid_rerank
+  k: 8
+  context_token_budget: 6500
+  candidate_count: 20
