@@ -1,0 +1,234 @@
+{
+  "dataset": "advanced",
+  "run_date": "2026-11-08",
+  "evaluation_splits": [
+    "development",
+    "additional"
+  ],
+  "retrieval_unit": "page",
+  "questions": 60,
+  "scored": 58,
+  "excluded": 2,
+  "cutoffs": [
+    3,
+    5,
+    8,
+    10,
+    15,
+    20
+  ],
+  "aggregation": "macro_average_over_scored_questions",
+  "evidence_basis": "unique_evidence_pages",
+  "source_config": "../advanced-reranking-20261108-201548-983299/config.json",
+  "frozen_candidates": {
+    "path": "../advanced-reranking-20261108-201548-983299/candidates/results.json",
+    "sha256": "223ecca6a75508626bfb7495784886d9f9827f3412357b5b875e9e199c1d6947",
+    "count": 20
+  },
+  "inputs": {
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "vectors": {
+      "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+      "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+    },
+    "evaluation": {
+      "development": {
+        "questions": {
+          "path": "data/advanced/evaluation/development_questions.json",
+          "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c"
+        },
+        "references": {
+          "path": "data/advanced/evaluation/development.json",
+          "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+        }
+      },
+      "additional": {
+        "questions": {
+          "path": "data/advanced/evaluation/additional_questions.json",
+          "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f"
+        },
+        "references": {
+          "path": "data/advanced/evaluation/additional.json",
+          "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+        }
+      }
+    }
+  },
+  "reranking": {
+    "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "backend": "torch",
+    "dtype": "float32",
+    "token_limit": 512,
+    "batch_size": 8,
+    "models": {
+      "BAAI/bge-reranker-v2-m3": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+      "nlpai-lab/KURE-Reranker-nano": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "Horizon-Labs/multilingual-reranker-small": "23139fec6f1f448cdf89a5ac2d2c6bf5e8c7b398"
+    }
+  },
+  "results": {
+    "kiwi": {
+      "3": {
+        "hit": 0.8620689655172413,
+        "recall": 0.5905172413793104,
+        "precision": 0.5977011494252873
+      },
+      "5": {
+        "hit": 0.896551724137931,
+        "recall": 0.7313218390804598,
+        "precision": 0.4482758620689655
+      },
+      "8": {
+        "hit": 0.896551724137931,
+        "recall": 0.7600574712643678,
+        "precision": 0.29310344827586204
+      },
+      "10": {
+        "hit": 0.896551724137931,
+        "recall": 0.7744252873563219,
+        "precision": 0.2396551724137931
+      },
+      "15": {
+        "hit": 0.9310344827586207,
+        "recall": 0.8031609195402298,
+        "precision": 0.16551724137931034
+      },
+      "20": {
+        "hit": 0.9482758620689655,
+        "recall": 0.8376436781609196,
+        "precision": 0.1267241379310345
+      }
+    },
+    "rrf": {
+      "3": {
+        "hit": 0.8793103448275862,
+        "recall": 0.514367816091954,
+        "precision": 0.48275862068965514
+      },
+      "5": {
+        "hit": 0.896551724137931,
+        "recall": 0.6724137931034483,
+        "precision": 0.4
+      },
+      "8": {
+        "hit": 0.9137931034482759,
+        "recall": 0.7471264367816092,
+        "precision": 0.2823275862068966
+      },
+      "10": {
+        "hit": 0.9137931034482759,
+        "recall": 0.7787356321839081,
+        "precision": 0.23793103448275862
+      },
+      "15": {
+        "hit": 0.9310344827586207,
+        "recall": 0.8117816091954023,
+        "precision": 0.16666666666666666
+      },
+      "20": {
+        "hit": 0.9482758620689655,
+        "recall": 0.8376436781609196,
+        "precision": 0.1267241379310345
+      }
+    },
+    "baai": {
+      "3": {
+        "hit": 0.9310344827586207,
+        "recall": 0.5330459770114943,
+        "precision": 0.49425287356321834
+      },
+      "5": {
+        "hit": 0.9482758620689655,
+        "recall": 0.5890804597701149,
+        "precision": 0.3310344827586207
+      },
+      "8": {
+        "hit": 0.9482758620689655,
+        "recall": 0.6408045977011494,
+        "precision": 0.22844827586206898
+      },
+      "10": {
+        "hit": 0.9482758620689655,
+        "recall": 0.6623563218390804,
+        "precision": 0.18793103448275864
+      },
+      "15": {
+        "hit": 0.9482758620689655,
+        "recall": 0.75,
+        "precision": 0.1471264367816092
+      },
+      "20": {
+        "hit": 0.9482758620689655,
+        "recall": 0.8376436781609196,
+        "precision": 0.1267241379310345
+      }
+    },
+    "kure": {
+      "3": {
+        "hit": 0.9482758620689655,
+        "recall": 0.6020114942528736,
+        "precision": 0.5632183908045977
+      },
+      "5": {
+        "hit": 0.9482758620689655,
+        "recall": 0.6451149425287356,
+        "precision": 0.36551724137931035
+      },
+      "8": {
+        "hit": 0.9482758620689655,
+        "recall": 0.6968390804597702,
+        "precision": 0.2521551724137931
+      },
+      "10": {
+        "hit": 0.9482758620689655,
+        "recall": 0.7227011494252874,
+        "precision": 0.2120689655172414
+      },
+      "15": {
+        "hit": 0.9482758620689655,
+        "recall": 0.7701149425287356,
+        "precision": 0.1528735632183908
+      },
+      "20": {
+        "hit": 0.9482758620689655,
+        "recall": 0.8376436781609196,
+        "precision": 0.1267241379310345
+      }
+    },
+    "horizon": {
+      "3": {
+        "hit": 0.9482758620689655,
+        "recall": 0.5775862068965517,
+        "precision": 0.5344827586206896
+      },
+      "5": {
+        "hit": 0.9482758620689655,
+        "recall": 0.6623563218390804,
+        "precision": 0.38275862068965516
+      },
+      "8": {
+        "hit": 0.9482758620689655,
+        "recall": 0.7169540229885057,
+        "precision": 0.2650862068965517
+      },
+      "10": {
+        "hit": 0.9482758620689655,
+        "recall": 0.7614942528735632,
+        "precision": 0.22758620689655173
+      },
+      "15": {
+        "hit": 0.9482758620689655,
+        "recall": 0.8160919540229885,
+        "precision": 0.16436781609195403
+      },
+      "20": {
+        "hit": 0.9482758620689655,
+        "recall": 0.8376436781609196,
+        "precision": 0.1267241379310345
+      }
+    }
+  }
+}

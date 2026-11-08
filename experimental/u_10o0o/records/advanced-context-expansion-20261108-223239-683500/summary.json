@@ -1,0 +1,717 @@
+{
+  "all": {
+    "kure3": {
+      "n": 60,
+      "status": {
+        "answered": 48,
+        "abstained": 4,
+        "needs_clarification": 4,
+        "error": 4
+      },
+      "generation_error": {
+        "ValueError": 4
+      },
+      "judge_error": {},
+      "generation_ms": {
+        "p50_ms": 6391.5,
+        "p95_ms": 11635,
+        "n": 56
+      },
+      "context_tokens": 1703.22,
+      "judge": {
+        "fact": {
+          "passed": 39,
+          "scored": 56,
+          "unavailable": 4
+        },
+        "condition": {
+          "passed": 46,
+          "scored": 56,
+          "unavailable": 4
+        },
+        "evidence": {
+          "passed": 47,
+          "scored": 55,
+          "not_applicable": 1,
+          "unavailable": 4
+        },
+        "decision": {
+          "passed": 49,
+          "scored": 60
+        }
+      },
+      "has_extra_citation": 0,
+      "has_extra_gold_page_citation": 0,
+      "extra_citations_evidence_pass": 0,
+      "usage": {
+        "generation": {
+          "known": [
+            60,
+            60
+          ],
+          "sum": [
+            163927,
+            22183
+          ],
+          "mean": [
+            2732.12,
+            369.72
+          ],
+          "estimated_usd_uncached": 0.0274842
+        },
+        "judge": {
+          "known": [
+            56,
+            56
+          ],
+          "sum": [
+            187476,
+            21258
+          ],
+          "mean": [
+            3347.79,
+            379.61
+          ],
+          "estimated_usd_uncached": 0.0293766
+        }
+      }
+    },
+    "kure3_rrf2": {
+      "n": 60,
+      "status": {
+        "answered": 53,
+        "needs_clarification": 4,
+        "abstained": 2,
+        "error": 1
+      },
+      "generation_error": {
+        "ValueError": 1
+      },
+      "judge_error": {},
+      "generation_ms": {
+        "p50_ms": 6732,
+        "p95_ms": 12044,
+        "n": 59
+      },
+      "context_tokens": 2787.13,
+      "judge": {
+        "fact": {
+          "passed": 40,
+          "scored": 59,
+          "unavailable": 1
+        },
+        "condition": {
+          "passed": 53,
+          "scored": 59,
+          "unavailable": 1
+        },
+        "evidence": {
+          "passed": 49,
+          "scored": 58,
+          "not_applicable": 1,
+          "unavailable": 1
+        },
+        "decision": {
+          "passed": 55,
+          "scored": 60
+        }
+      },
+      "has_extra_citation": 16,
+      "has_extra_gold_page_citation": 11,
+      "extra_citations_evidence_pass": 14,
+      "usage": {
+        "generation": {
+          "known": [
+            60,
+            60
+          ],
+          "sum": [
+            228962,
+            24717
+          ],
+          "mean": [
+            3816.03,
+            411.95
+          ],
+          "estimated_usd_uncached": 0.0352547
+        },
+        "judge": {
+          "known": [
+            59,
+            59
+          ],
+          "sum": [
+            261048,
+            22463
+          ],
+          "mean": [
+            4424.54,
+            380.73
+          ],
+          "estimated_usd_uncached": 0.0373363
+        }
+      }
+    },
+    "paired": {
+      "fact": {
+        "wins": 2,
+        "losses": 4,
+        "ties": 49,
+        "unavailable": 5
+      },
+      "condition": {
+        "wins": 6,
+        "losses": 2,
+        "ties": 47,
+        "unavailable": 5
+      },
+      "evidence": {
+        "wins": 3,
+        "losses": 4,
+        "ties": 46,
+        "unavailable": 7
+      },
+      "decision": {
+        "wins": 8,
+        "losses": 2,
+        "ties": 50,
+        "unavailable": 0
+      }
+    },
+    "complete_pairs": 60
+  },
+  "multi_document": {
+    "kure3": {
+      "n": 47,
+      "status": {
+        "abstained": 3,
+        "answered": 38,
+        "needs_clarification": 2,
+        "error": 4
+      },
+      "generation_error": {
+        "ValueError": 4
+      },
+      "judge_error": {},
+      "generation_ms": {
+        "p50_ms": 6555,
+        "p95_ms": 11635,
+        "n": 43
+      },
+      "context_tokens": 1651.53,
+      "judge": {
+        "fact": {
+          "passed": 28,
+          "scored": 43,
+          "unavailable": 4
+        },
+        "condition": {
+          "passed": 35,
+          "scored": 43,
+          "unavailable": 4
+        },
+        "evidence": {
+          "passed": 36,
+          "scored": 43,
+          "unavailable": 4
+        },
+        "decision": {
+          "passed": 37,
+          "scored": 47
+        }
+      },
+      "has_extra_citation": 0,
+      "has_extra_gold_page_citation": 0,
+      "extra_citations_evidence_pass": 0,
+      "usage": {
+        "generation": {
+          "known": [
+            47,
+            47
+          ],
+          "sum": [
+            126296,
+            19133
+          ],
+          "mean": [
+            2687.15,
+            407.09
+          ],
+          "estimated_usd_uncached": 0.0221961
+        },
+        "judge": {
+          "known": [
+            43,
+            43
+          ],
+          "sum": [
+            145074,
+            16922
+          ],
+          "mean": [
+            3373.81,
+            393.53
+          ],
+          "estimated_usd_uncached": 0.0229684
+        }
+      }
+    },
+    "kure3_rrf2": {
+      "n": 47,
+      "status": {
+        "answered": 42,
+        "needs_clarification": 2,
+        "abstained": 2,
+        "error": 1
+      },
+      "generation_error": {
+        "ValueError": 1
+      },
+      "judge_error": {},
+      "generation_ms": {
+        "p50_ms": 6961.5,
+        "p95_ms": 12044,
+        "n": 46
+      },
+      "context_tokens": 2710.85,
+      "judge": {
+        "fact": {
+          "passed": 30,
+          "scored": 46,
+          "unavailable": 1
+        },
+        "condition": {
+          "passed": 43,
+          "scored": 46,
+          "unavailable": 1
+        },
+        "evidence": {
+          "passed": 39,
+          "scored": 46,
+          "unavailable": 1
+        },
+        "decision": {
+          "passed": 42,
+          "scored": 47
+        }
+      },
+      "has_extra_citation": 15,
+      "has_extra_gold_page_citation": 11,
+      "extra_citations_evidence_pass": 13,
+      "usage": {
+        "generation": {
+          "known": [
+            47,
+            47
+          ],
+          "sum": [
+            176084,
+            21122
+          ],
+          "mean": [
+            3746.47,
+            449.4
+          ],
+          "estimated_usd_uncached": 0.0281694
+        },
+        "judge": {
+          "known": [
+            46,
+            46
+          ],
+          "sum": [
+            203726,
+            18069
+          ],
+          "mean": [
+            4428.83,
+            392.8
+          ],
+          "estimated_usd_uncached": 0.0294071
+        }
+      }
+    },
+    "paired": {
+      "fact": {
+        "wins": 1,
+        "losses": 2,
+        "ties": 39,
+        "unavailable": 5
+      },
+      "condition": {
+        "wins": 6,
+        "losses": 1,
+        "ties": 35,
+        "unavailable": 5
+      },
+      "evidence": {
+        "wins": 3,
+        "losses": 3,
+        "ties": 36,
+        "unavailable": 5
+      },
+      "decision": {
+        "wins": 7,
+        "losses": 2,
+        "ties": 38,
+        "unavailable": 0
+      }
+    },
+    "complete_pairs": 47
+  },
+  "splits": {
+    "development": {
+      "kure3": {
+        "n": 30,
+        "status": {
+          "answered": 24,
+          "abstained": 2,
+          "needs_clarification": 2,
+          "error": 2
+        },
+        "generation_error": {
+          "ValueError": 2
+        },
+        "judge_error": {},
+        "generation_ms": {
+          "p50_ms": 6536.0,
+          "p95_ms": 11635,
+          "n": 28
+        },
+        "context_tokens": 1712.23,
+        "judge": {
+          "fact": {
+            "passed": 21,
+            "scored": 28,
+            "unavailable": 2
+          },
+          "condition": {
+            "passed": 22,
+            "scored": 28,
+            "unavailable": 2
+          },
+          "evidence": {
+            "passed": 22,
+            "scored": 27,
+            "not_applicable": 1,
+            "unavailable": 2
+          },
+          "decision": {
+            "passed": 24,
+            "scored": 30
+          }
+        },
+        "has_extra_citation": 0,
+        "has_extra_gold_page_citation": 0,
+        "extra_citations_evidence_pass": 0,
+        "usage": {
+          "generation": {
+            "known": [
+              30,
+              30
+            ],
+            "sum": [
+              82246,
+              11524
+            ],
+            "mean": [
+              2741.53,
+              384.13
+            ],
+            "estimated_usd_uncached": 0.0139866
+          },
+          "judge": {
+            "known": [
+              28,
+              28
+            ],
+            "sum": [
+              93638,
+              10493
+            ],
+            "mean": [
+              3344.21,
+              374.75
+            ],
+            "estimated_usd_uncached": 0.0146103
+          }
+        }
+      },
+      "kure3_rrf2": {
+        "n": 30,
+        "status": {
+          "answered": 28,
+          "needs_clarification": 2
+        },
+        "generation_error": {},
+        "judge_error": {},
+        "generation_ms": {
+          "p50_ms": 7607.0,
+          "p95_ms": 12044,
+          "n": 30
+        },
+        "context_tokens": 2805.9,
+        "judge": {
+          "fact": {
+            "passed": 22,
+            "scored": 30
+          },
+          "condition": {
+            "passed": 27,
+            "scored": 30
+          },
+          "evidence": {
+            "passed": 26,
+            "scored": 30
+          },
+          "decision": {
+            "passed": 29,
+            "scored": 30
+          }
+        },
+        "has_extra_citation": 9,
+        "has_extra_gold_page_citation": 7,
+        "extra_citations_evidence_pass": 8,
+        "usage": {
+          "generation": {
+            "known": [
+              30,
+              30
+            ],
+            "sum": [
+              115056,
+              13718
+            ],
+            "mean": [
+              3835.2,
+              457.27
+            ],
+            "estimated_usd_uncached": 0.0183646
+          },
+          "judge": {
+            "known": [
+              30,
+              30
+            ],
+            "sum": [
+              133676,
+              10818
+            ],
+            "mean": [
+              4455.87,
+              360.6
+            ],
+            "estimated_usd_uncached": 0.0187766
+          }
+        }
+      },
+      "paired": {
+        "fact": {
+          "wins": 0,
+          "losses": 1,
+          "ties": 27,
+          "unavailable": 2
+        },
+        "condition": {
+          "wins": 4,
+          "losses": 1,
+          "ties": 23,
+          "unavailable": 2
+        },
+        "evidence": {
+          "wins": 2,
+          "losses": 1,
+          "ties": 24,
+          "unavailable": 3
+        },
+        "decision": {
+          "wins": 6,
+          "losses": 1,
+          "ties": 23,
+          "unavailable": 0
+        }
+      },
+      "complete_pairs": 30
+    },
+    "additional": {
+      "kure3": {
+        "n": 30,
+        "status": {
+          "answered": 24,
+          "abstained": 2,
+          "needs_clarification": 2,
+          "error": 2
+        },
+        "generation_error": {
+          "ValueError": 2
+        },
+        "judge_error": {},
+        "generation_ms": {
+          "p50_ms": 6267.5,
+          "p95_ms": 11231,
+          "n": 28
+        },
+        "context_tokens": 1694.2,
+        "judge": {
+          "fact": {
+            "passed": 18,
+            "scored": 28,
+            "unavailable": 2
+          },
+          "condition": {
+            "passed": 24,
+            "scored": 28,
+            "unavailable": 2
+          },
+          "evidence": {
+            "passed": 25,
+            "scored": 28,
+            "unavailable": 2
+          },
+          "decision": {
+            "passed": 25,
+            "scored": 30
+          }
+        },
+        "has_extra_citation": 0,
+        "has_extra_gold_page_citation": 0,
+        "extra_citations_evidence_pass": 0,
+        "usage": {
+          "generation": {
+            "known": [
+              30,
+              30
+            ],
+            "sum": [
+              81681,
+              10659
+            ],
+            "mean": [
+              2722.7,
+              355.3
+            ],
+            "estimated_usd_uncached": 0.0134976
+          },
+          "judge": {
+            "known": [
+              28,
+              28
+            ],
+            "sum": [
+              93838,
+              10765
+            ],
+            "mean": [
+              3351.36,
+              384.46
+            ],
+            "estimated_usd_uncached": 0.0147663
+          }
+        }
+      },
+      "kure3_rrf2": {
+        "n": 30,
+        "status": {
+          "answered": 25,
+          "abstained": 2,
+          "needs_clarification": 2,
+          "error": 1
+        },
+        "generation_error": {
+          "ValueError": 1
+        },
+        "judge_error": {},
+        "generation_ms": {
+          "p50_ms": 6133,
+          "p95_ms": 10612,
+          "n": 29
+        },
+        "context_tokens": 2768.37,
+        "judge": {
+          "fact": {
+            "passed": 18,
+            "scored": 29,
+            "unavailable": 1
+          },
+          "condition": {
+            "passed": 26,
+            "scored": 29,
+            "unavailable": 1
+          },
+          "evidence": {
+            "passed": 23,
+            "scored": 28,
+            "not_applicable": 1,
+            "unavailable": 1
+          },
+          "decision": {
+            "passed": 26,
+            "scored": 30
+          }
+        },
+        "has_extra_citation": 7,
+        "has_extra_gold_page_citation": 4,
+        "extra_citations_evidence_pass": 6,
+        "usage": {
+          "generation": {
+            "known": [
+              30,
+              30
+            ],
+            "sum": [
+              113906,
+              10999
+            ],
+            "mean": [
+              3796.87,
+              366.63
+            ],
+            "estimated_usd_uncached": 0.0168901
+          },
+          "judge": {
+            "known": [
+              29,
+              29
+            ],
+            "sum": [
+              127372,
+              11645
+            ],
+            "mean": [
+              4392.14,
+              401.55
+            ],
+            "estimated_usd_uncached": 0.0185597
+          }
+        }
+      },
+      "paired": {
+        "fact": {
+          "wins": 2,
+          "losses": 3,
+          "ties": 22,
+          "unavailable": 3
+        },
+        "condition": {
+          "wins": 2,
+          "losses": 1,
+          "ties": 24,
+          "unavailable": 3
+        },
+        "evidence": {
+          "wins": 1,
+          "losses": 3,
+          "ties": 22,
+          "unavailable": 4
+        },
+        "decision": {
+          "wins": 2,
+          "losses": 1,
+          "ties": 27,
+          "unavailable": 0
+        }
+      },
+      "complete_pairs": 30
+    }
+  }
+}
