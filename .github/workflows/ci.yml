@@ -64,7 +64,7 @@ jobs:
           with ZipFile(next(Path('dist').glob('*.whl'))) as wheel:
               names = set(wheel.namelist())
               required = {
-                  'app/api/cli.py',
+                  'app/api/main.py',
                   'app/ingestion/catalogs/basic.json',
                   'app/generation/prompts/shipping_qa.txt',
                   'app/generation/prompts/defense.txt',
