@@ -1,0 +1,134 @@
+{
+  "inputs": {
+    "workflow": {
+      "questions": {
+        "path": "artifacts/u_10o0o/advanced-workflow-20261109-data-checked/questions.json",
+        "sha256": "7453032cfb1ab8a1dd400a738ce166ded7ea8a8ccc4c1288a6e7d31248d3b1f8"
+      },
+      "references": {
+        "path": "artifacts/u_10o0o/advanced-workflow-20261109-data-checked/references.json",
+        "sha256": "19331b9285bc47355ab02fbf0bd284ffda445d1cbf67bab4b63ffc638b19b2db"
+      },
+      "rankings": {
+        "path": "artifacts/u_10o0o/advanced-workflow-20261109-personal-checked/rankings.jsonl",
+        "sha256": "e8308e0d5ea364b08fde8bf6058877162034a8f03debd1d38a519c570a75aaeb"
+      }
+    },
+    "blind": {
+      "questions": {
+        "path": "experimental/u_10o0o/evaluation/advanced_usage_blind/local/blind_questions.json",
+        "sha256": "6c51dce68f8ee49bcc6f2c76edd64880e21eb030cb3001efeec7b28315b14c2b"
+      },
+      "references": {
+        "path": "experimental/u_10o0o/evaluation/advanced_usage_blind/local/blind_references.json",
+        "sha256": "ef062ed12930eb2360cc8ef5ddab81650558a030e8b078198f2c004870f6892d"
+      },
+      "rankings": {
+        "path": "artifacts/u_10o0o/advanced-target-retrieval-20261109-canonical/rankings.jsonl",
+        "sha256": "cddf27bbe1e016ce3a6210e8e93673d8510d95eeb3ca553c1dee00fe2a3f04a3"
+      }
+    }
+  },
+  "pages": {
+    "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+    "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+  },
+  "code": {
+    "path": "experimental/u_10o0o/advanced_pair_context.py",
+    "sha256": "2f689e1fbf3deba50c3e810d20c2acc48d8bce0450f697e5a7eac318483c8b37"
+  },
+  "limits": {
+    "candidates": 20,
+    "final_pages": 8,
+    "tokens": 4000
+  },
+  "calls": {
+    "search": 0,
+    "rerank": 0,
+    "external_api": 0
+  },
+  "baseline_context_reproduced": 320,
+  "candidate_membership_changes": 0,
+  "context_changes": {
+    "workflow": 4,
+    "blind": 0
+  },
+  "routes": {
+    "workflow": {
+      "no_verified_pair": 14,
+      "covered": 2,
+      "repacked": 3,
+      "repacked_partial": 1
+    },
+    "blind": {
+      "no_verified_pair": 300
+    }
+  },
+  "summary": {
+    "workflow": {
+      "baseline": {
+        "full_evidence": 12,
+        "facts_found": 43,
+        "facts_expected": 61,
+        "context_doc_recall": 0.7333333333333333
+      },
+      "pair_context": {
+        "full_evidence": 15,
+        "facts_found": 48,
+        "facts_expected": 61,
+        "context_doc_recall": 0.7916666666666667
+      },
+      "questions": 20,
+      "gained": 3,
+      "lost": 0
+    },
+    "blind": {
+      "baseline": {
+        "full_evidence": 230,
+        "facts_found": 722,
+        "facts_expected": 850,
+        "context_doc_recall": 0.8327777777777778
+      },
+      "pair_context": {
+        "full_evidence": 230,
+        "facts_found": 722,
+        "facts_expected": 850,
+        "context_doc_recall": 0.8327777777777778
+      },
+      "questions": 300,
+      "gained": 0,
+      "lost": 0
+    },
+    "parallel": {
+      "baseline": {
+        "full_evidence": 2,
+        "facts_found": 22,
+        "facts_expected": 28,
+        "context_doc_recall": 0.7777777777777778
+      },
+      "pair_context": {
+        "full_evidence": 5,
+        "facts_found": 27,
+        "facts_expected": 28,
+        "context_doc_recall": 0.9722222222222222
+      },
+      "questions": 6,
+      "gained": 3,
+      "lost": 0
+    }
+  },
+  "peer": {
+    "config": {
+      "path": "experimental/u_10o0o/records/advanced-workflow-20261109/peer-config.json",
+      "sha256": "167fd398b01cef9cdeb6e84d0b0fc87cb8bba2a6ac4f955ba894dda800420b3b"
+    },
+    "results": {
+      "path": "experimental/u_10o0o/records/advanced-workflow-20261109/peer-results.json",
+      "sha256": "6c3d064070d24f901417a94fe22d587d662ce5677db93d972c6215027c77a5ec"
+    },
+    "full_evidence": 13,
+    "parallel_full_evidence": 3,
+    "facts_found": 44,
+    "context_doc_recall": 0.7708333333333333
+  }
+}

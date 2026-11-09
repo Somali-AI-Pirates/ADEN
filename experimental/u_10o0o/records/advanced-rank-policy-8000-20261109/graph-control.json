@@ -1,0 +1,138 @@
+{
+  "source": {
+    "path": "artifacts/u_10o0o/advanced-rank-policy-8000-reference-suites-20261109/rankings.jsonl",
+    "sha256": "e20cfb917cb1f8dd2e6aaf6062646b0ef46f315b7ee5d016a7e72b699f2ce572"
+  },
+  "source_preset": {
+    "chunks": "p800",
+    "emb": "e5s",
+    "tok": "main",
+    "cand_d": 20,
+    "cand_b": 20,
+    "pool": 20,
+    "rerank": "BAAI/bge-reranker-v2-m3",
+    "entity": false,
+    "hop2": 0,
+    "cap": 0,
+    "rrf_w": null,
+    "qr": null,
+    "graph": 6,
+    "mmr": 0.2,
+    "seed": 1,
+    "pcap": 0,
+    "mq": null,
+    "route": 0,
+    "ppr": 0,
+    "gkey": false,
+    "llmsel": 0,
+    "gfix": true,
+    "gfloor": 0.05,
+    "selkeep": 0,
+    "selil": false,
+    "seleff": null,
+    "selskip": 0
+  },
+  "changed": {
+    "graph": [
+      6,
+      0
+    ]
+  },
+  "matched_archived_graph_on": 364,
+  "context_pages": 8,
+  "context_tokens": 8000,
+  "external_api_calls": 0,
+  "elapsed_seconds": 123.7,
+  "summary": {
+    "official": {
+      "questions": 58,
+      "required_pages": 170,
+      "off_pages": 109,
+      "on_pages": 154,
+      "off_recall": 0.6867816091954023,
+      "on_recall": 0.889367816091954,
+      "gained": 45,
+      "lost": 0
+    },
+    "development": {
+      "questions": 29,
+      "required_pages": 86,
+      "off_pages": 61,
+      "on_pages": 80,
+      "off_recall": 0.7701149425287356,
+      "on_recall": 0.9396551724137931,
+      "gained": 19,
+      "lost": 0
+    },
+    "official_no_case": {
+      "questions": 28,
+      "required_pages": 58,
+      "off_pages": 42,
+      "on_pages": 42,
+      "off_recall": 0.7708333333333333,
+      "on_recall": 0.7708333333333333,
+      "gained": 0,
+      "lost": 0
+    },
+    "official_case": {
+      "questions": 30,
+      "required_pages": 112,
+      "off_pages": 67,
+      "on_pages": 112,
+      "off_recall": 0.6083333333333333,
+      "on_recall": 1.0,
+      "gained": 45,
+      "lost": 0
+    },
+    "additional": {
+      "questions": 29,
+      "required_pages": 84,
+      "off_pages": 48,
+      "on_pages": 74,
+      "off_recall": 0.603448275862069,
+      "on_recall": 0.8390804597701149,
+      "gained": 26,
+      "lost": 0
+    },
+    "peer": {
+      "questions": 304,
+      "required_pages": 877,
+      "off_pages": 441,
+      "on_pages": 516,
+      "off_recall": 0.5153508771929824,
+      "on_recall": 0.5923793859649124,
+      "gained": 89,
+      "lost": 14
+    },
+    "peer_false_premise": {
+      "questions": 20,
+      "required_pages": 61,
+      "off_pages": 41,
+      "on_pages": 51,
+      "off_recall": 0.6875,
+      "on_recall": 0.8458333333333334,
+      "gained": 12,
+      "lost": 2
+    },
+    "peer_two_doc": {
+      "questions": 114,
+      "required_pages": 228,
+      "off_pages": 124,
+      "on_pages": 135,
+      "off_recall": 0.543859649122807,
+      "on_recall": 0.5921052631578947,
+      "gained": 16,
+      "lost": 5
+    },
+    "peer_multi_doc": {
+      "questions": 170,
+      "required_pages": 588,
+      "off_pages": 276,
+      "on_pages": 330,
+      "off_recall": 0.4759803921568628,
+      "on_recall": 0.5627450980392157,
+      "gained": 61,
+      "lost": 7
+    }
+  }
+}

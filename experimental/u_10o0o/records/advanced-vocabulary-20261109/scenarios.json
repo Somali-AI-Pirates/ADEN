@@ -1,0 +1,494 @@
+[
+  {
+    "id": "V01",
+    "type": "spec",
+    "source": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec})에 관한 공식 기록에서 적재 장비 실제 게이트 반출일 항목을 확인해 주세요.",
+    "plain": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec_spoken})에 관한 공식 기록에서 적재 장비 실제 게이트 반출일 항목을 확인해 주세요.",
+    "contrast": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec})에 관한 공식 기록에서 선박 실제 양하일 항목을 확인해 주세요.",
+    "requests": [
+      "gate"
+    ],
+    "contrast_requests": [
+      "discharge"
+    ]
+  },
+  {
+    "id": "V02",
+    "type": "spec",
+    "source": "공식 기록 조회 요청: 화주 {shipper}, 화물 {cargo}, 규격 코드 {spec}; 선박 실제 양하일 관련 값을 알려 주세요.",
+    "plain": "공식 기록 조회 요청: 화주 {shipper}, 화물 {cargo}, 규격 코드 {spec_spoken}; 선박 실제 양하일 관련 값을 알려 주세요.",
+    "contrast": "공식 기록 조회 요청: 화주 {shipper}, 화물 {cargo}, 규격 코드 {spec}; 적재 장비 실제 게이트 반출일 관련 값을 알려 주세요.",
+    "requests": [
+      "discharge"
+    ],
+    "contrast_requests": [
+      "gate"
+    ]
+  },
+  {
+    "id": "V03",
+    "type": "spec",
+    "source": "화주 {shipper} / 화물 {cargo} / 규격 코드 {spec}에 대응하는 공식 기록에서 공 장비 반납 예정일 내역을 찾아 주세요.",
+    "plain": "화주 {shipper} / 화물 {cargo} / 규격 코드 {spec_spoken}에 대응하는 공식 기록에서 공 장비 반납 예정일 내역을 찾아 주세요.",
+    "contrast": "화주 {shipper} / 화물 {cargo} / 규격 코드 {spec}에 대응하는 공식 기록에서 지정 장소 실제 반납일 내역을 찾아 주세요.",
+    "requests": [
+      "scheduled"
+    ],
+    "contrast_requests": [
+      "returned"
+    ]
+  },
+  {
+    "id": "V04",
+    "type": "spec",
+    "source": "규격 코드 {spec}인 화물 {cargo}의 화주 {shipper} 건에서 공식 기록상 지정 장소 실제 반납일 항목을 확인해 주세요.",
+    "plain": "규격 코드 {spec_spoken}인 화물 {cargo}의 화주 {shipper} 건에서 공식 기록상 지정 장소 실제 반납일 항목을 확인해 주세요.",
+    "contrast": "규격 코드 {spec}인 화물 {cargo}의 화주 {shipper} 건에서 공식 기록상 공 장비 반납 예정일 항목을 확인해 주세요.",
+    "requests": [
+      "returned"
+    ],
+    "contrast_requests": [
+      "scheduled"
+    ]
+  },
+  {
+    "id": "V05",
+    "type": "spec",
+    "source": "화주 {shipper}가 맡긴 화물 {cargo} (규격 코드 {spec})의 공식 기록에 초기 무료 보관 일수가 어떻게 남았는지 알려 주세요.",
+    "plain": "화주 {shipper}가 맡긴 화물 {cargo} (규격 코드 {spec_spoken})의 공식 기록에 초기 무료 보관 일수가 어떻게 남았는지 알려 주세요.",
+    "contrast": "화주 {shipper}가 맡긴 화물 {cargo} (규격 코드 {spec})의 공식 기록에 유료 보관 일수가 어떻게 남았는지 알려 주세요.",
+    "requests": [
+      "free"
+    ],
+    "contrast_requests": [
+      "paid"
+    ]
+  },
+  {
+    "id": "V06",
+    "type": "spec",
+    "source": "화주 {shipper}의 {cargo} 화물, 규격 코드 {spec} 건에 대해 공식 기록에 등록된 유료 보관 일수 정보를 요청합니다.",
+    "plain": "화주 {shipper}의 {cargo} 화물, 규격 코드 {spec_spoken} 건에 대해 공식 기록에 등록된 유료 보관 일수 정보를 요청합니다.",
+    "contrast": "화주 {shipper}의 {cargo} 화물, 규격 코드 {spec} 건에 대해 공식 기록에 등록된 초기 무료 보관 일수 정보를 요청합니다.",
+    "requests": [
+      "paid"
+    ],
+    "contrast_requests": [
+      "free"
+    ]
+  },
+  {
+    "id": "V07",
+    "type": "spec",
+    "source": "화주 {shipper}, 화물 {cargo}, 규격 코드 {spec} 조건으로 공식 기록을 찾아 최종 보관료 청구액을 확인해 주세요.",
+    "plain": "화주 {shipper}, 화물 {cargo}, 규격 코드 {spec_spoken} 조건으로 공식 기록을 찾아 최종 보관료 청구액을 확인해 주세요.",
+    "contrast": "화주 {shipper}, 화물 {cargo}, 규격 코드 {spec} 조건으로 공식 기록을 찾아 실제 수납액을 확인해 주세요.",
+    "requests": [
+      "charged"
+    ],
+    "contrast_requests": [
+      "received"
+    ]
+  },
+  {
+    "id": "V08",
+    "type": "spec",
+    "source": "화물 {cargo} (화주 {shipper}, 규격 코드 {spec})의 공식 내역 중 실제 수납액 항목을 조회해 주세요.",
+    "plain": "화물 {cargo} (화주 {shipper}, 규격 코드 {spec_spoken})의 공식 내역 중 실제 수납액 항목을 조회해 주세요.",
+    "contrast": "화물 {cargo} (화주 {shipper}, 규격 코드 {spec})의 공식 내역 중 최종 보관료 청구액 항목을 조회해 주세요.",
+    "requests": [
+      "received"
+    ],
+    "contrast_requests": [
+      "charged"
+    ]
+  },
+  {
+    "id": "V09",
+    "type": "spec",
+    "source": "화주 {shipper}의 화물 {cargo}에 해당하는 규격 코드 {spec} 공식 기록에서 미수 잔액이 무엇인지 알려 주세요.",
+    "plain": "화주 {shipper}의 화물 {cargo}에 해당하는 규격 코드 {spec_spoken} 공식 기록에서 미수 잔액이 무엇인지 알려 주세요.",
+    "contrast": "화주 {shipper}의 화물 {cargo}에 해당하는 규격 코드 {spec} 공식 기록에서 실제 수납액가 무엇인지 알려 주세요.",
+    "requests": [
+      "balance"
+    ],
+    "contrast_requests": [
+      "received"
+    ]
+  },
+  {
+    "id": "V10",
+    "type": "spec",
+    "source": "규격 코드 {spec}의 화물 {cargo}, 화주 {shipper}에 대해 공식 기록에 기재된 추가 조건 승인 기록 값을 확인해 주세요.",
+    "plain": "규격 코드 {spec_spoken}의 화물 {cargo}, 화주 {shipper}에 대해 공식 기록에 기재된 추가 조건 승인 기록 값을 확인해 주세요.",
+    "contrast": "규격 코드 {spec}의 화물 {cargo}, 화주 {shipper}에 대해 공식 기록에 기재된 적재 장비 실제 게이트 반출일 값을 확인해 주세요.",
+    "requests": [
+      "approval"
+    ],
+    "contrast_requests": [
+      "gate"
+    ]
+  },
+  {
+    "id": "V11",
+    "type": "spec",
+    "source": "화주 {shipper} / 규격 코드 {spec} / 화물 {cargo}의 공식 기록을 확인하려고 합니다. 적재 장비 실제 게이트 반출일 및 공 장비 반납 예정일 내역을 부탁합니다.",
+    "plain": "화주 {shipper} / 규격 코드 {spec_spoken} / 화물 {cargo}의 공식 기록을 확인하려고 합니다. 적재 장비 실제 게이트 반출일 및 공 장비 반납 예정일 내역을 부탁합니다.",
+    "contrast": "화주 {shipper} / 규격 코드 {spec} / 화물 {cargo}의 공식 기록을 확인하려고 합니다. 선박 실제 양하일 및 지정 장소 실제 반납일 내역을 부탁합니다.",
+    "requests": [
+      "gate",
+      "scheduled"
+    ],
+    "contrast_requests": [
+      "discharge",
+      "returned"
+    ]
+  },
+  {
+    "id": "V12",
+    "type": "spec",
+    "source": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec}) 기록에서 공식 관리되는 초기 무료 보관 일수 및 최종 보관료 청구액 항목을 조회해 주세요.",
+    "plain": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec_spoken}) 기록에서 공식 관리되는 초기 무료 보관 일수 및 최종 보관료 청구액 항목을 조회해 주세요.",
+    "contrast": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec}) 기록에서 공식 관리되는 유료 보관 일수 및 실제 수납액 항목을 조회해 주세요.",
+    "requests": [
+      "free",
+      "charged"
+    ],
+    "contrast_requests": [
+      "paid",
+      "received"
+    ]
+  },
+  {
+    "id": "V13",
+    "type": "record",
+    "source": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec})에 관한 공식 기록에서 적재 장비 실제 게이트 반출일 항목을 확인해 주세요.",
+    "plain": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec})에서 궁금한 항목은 적재 장비가 실제 게이트를 빠져나간 날짜입니다. 확인해 주실 수 있나요?",
+    "contrast": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec})에 관한 공식 기록에서 선박 실제 양하일 항목을 확인해 주세요.",
+    "requests": [
+      "gate"
+    ],
+    "contrast_requests": [
+      "discharge"
+    ]
+  },
+  {
+    "id": "V14",
+    "type": "record",
+    "source": "공식 기록 조회 요청: 화주 {shipper}, 화물 {cargo}, 규격 코드 {spec}; 선박 실제 양하일 관련 값을 알려 주세요.",
+    "plain": "화물 {cargo}를 맡긴 화주 {shipper}, 규격 코드 {spec} 건입니다. 요청 정보는 선박에서 실제로 내린 날입니다.",
+    "contrast": "공식 기록 조회 요청: 화주 {shipper}, 화물 {cargo}, 규격 코드 {spec}; 적재 장비 실제 게이트 반출일 관련 값을 알려 주세요.",
+    "requests": [
+      "discharge"
+    ],
+    "contrast_requests": [
+      "gate"
+    ]
+  },
+  {
+    "id": "V15",
+    "type": "record",
+    "source": "화주 {shipper} / 화물 {cargo} / 규격 코드 {spec}에 대응하는 공식 기록에서 공 장비 반납 예정일 및 초기 무료 보관 일수 내역을 찾아 주세요.",
+    "plain": "규격 코드 {spec}인 {shipper} 화주의 화물 {cargo}에 대해 빈 장비를 돌려줄 예정일 및 처음 무료로 보관할 수 있었던 일수가 어떻게 됐는지 알려 주세요.",
+    "contrast": "화주 {shipper} / 화물 {cargo} / 규격 코드 {spec}에 대응하는 공식 기록에서 지정 장소 실제 반납일 및 유료 보관 일수 내역을 찾아 주세요.",
+    "requests": [
+      "scheduled",
+      "free"
+    ],
+    "contrast_requests": [
+      "returned",
+      "paid"
+    ]
+  },
+  {
+    "id": "V16",
+    "type": "record",
+    "source": "규격 코드 {spec}인 화물 {cargo}의 화주 {shipper} 건에서 공식 기록상 지정 장소 실제 반납일 항목을 확인해 주세요.",
+    "plain": "화물 {cargo} (화주 {shipper}, 규격 코드 {spec})에서 알고 싶은 것은 장비가 지정된 장소로 실제 돌아간 날이에요.",
+    "contrast": "규격 코드 {spec}인 화물 {cargo}의 화주 {shipper} 건에서 공식 기록상 공 장비 반납 예정일 항목을 확인해 주세요.",
+    "requests": [
+      "returned"
+    ],
+    "contrast_requests": [
+      "scheduled"
+    ]
+  },
+  {
+    "id": "V17",
+    "type": "record",
+    "source": "화주 {shipper}가 맡긴 화물 {cargo} (규격 코드 {spec})의 공식 기록에 초기 무료 보관 일수 및 유료 보관 일수가 어떻게 남았는지 알려 주세요.",
+    "plain": "화주 {shipper}의 {cargo} 화물, 규격 코드 {spec} 건을 확인 중입니다. 처음 무료로 보관할 수 있었던 일수 및 요금이 부과된 보관 일수 정보가 필요해요.",
+    "contrast": "화주 {shipper}가 맡긴 화물 {cargo} (규격 코드 {spec})의 공식 기록에 유료 보관 일수 및 최종 보관료 청구액이 어떻게 남았는지 알려 주세요.",
+    "requests": [
+      "free",
+      "paid"
+    ],
+    "contrast_requests": [
+      "paid",
+      "charged"
+    ]
+  },
+  {
+    "id": "V18",
+    "type": "record",
+    "source": "화주 {shipper}의 {cargo} 화물, 규격 코드 {spec} 건에 대해 공식 기록에 등록된 유료 보관 일수 정보를 요청합니다.",
+    "plain": "규격이 {spec}인 화물 {cargo}의 화주 {shipper} 건입니다. 궁금한 내용은 요금이 부과된 보관 일수입니다.",
+    "contrast": "화주 {shipper}의 {cargo} 화물, 규격 코드 {spec} 건에 대해 공식 기록에 등록된 초기 무료 보관 일수 정보를 요청합니다.",
+    "requests": [
+      "paid"
+    ],
+    "contrast_requests": [
+      "free"
+    ]
+  },
+  {
+    "id": "V19",
+    "type": "record",
+    "source": "화주 {shipper}, 화물 {cargo}, 규격 코드 {spec} 조건으로 공식 기록을 찾아 최종 보관료 청구액 및 실제 수납액을 확인해 주세요.",
+    "plain": "화주 {shipper} / 화물 {cargo} / 규격 코드 {spec}인 건에 대해 조회할 내용: 마지막으로 확정된 보관료 금액 및 실제로 입금 또는 수납된 금액.",
+    "contrast": "화주 {shipper}, 화물 {cargo}, 규격 코드 {spec} 조건으로 공식 기록을 찾아 실제 수납액 및 미수 잔액를 확인해 주세요.",
+    "requests": [
+      "charged",
+      "received"
+    ],
+    "contrast_requests": [
+      "received",
+      "balance"
+    ]
+  },
+  {
+    "id": "V20",
+    "type": "record",
+    "source": "화물 {cargo} (화주 {shipper}, 규격 코드 {spec})의 공식 내역 중 실제 수납액 항목을 조회해 주세요.",
+    "plain": "화물 {cargo}를 맡은 {shipper}의 규격 코드 {spec} 건으로, 실제로 입금 또는 수납된 금액이 무엇인지 알고 싶어요.",
+    "contrast": "화물 {cargo} (화주 {shipper}, 규격 코드 {spec})의 공식 내역 중 미수 잔액 항목을 조회해 주세요.",
+    "requests": [
+      "received"
+    ],
+    "contrast_requests": [
+      "balance"
+    ]
+  },
+  {
+    "id": "V21",
+    "type": "record",
+    "source": "화주 {shipper}의 화물 {cargo}에 해당하는 규격 코드 {spec} 공식 기록에서 미수 잔액이 무엇인지 알려 주세요.",
+    "plain": "화주 {shipper}의 화물 {cargo} 중 규격 코드 {spec} 건에서 찾는 정보는 아직 받지 못한 돈입니다.",
+    "contrast": "화주 {shipper}의 화물 {cargo}에 해당하는 규격 코드 {spec} 공식 기록에서 최종 보관료 청구액이 무엇인지 알려 주세요.",
+    "requests": [
+      "balance"
+    ],
+    "contrast_requests": [
+      "charged"
+    ]
+  },
+  {
+    "id": "V22",
+    "type": "record",
+    "source": "규격 코드 {spec}의 화물 {cargo}, 화주 {shipper}에 대해 공식 기록에 기재된 추가 조건 승인 기록 값을 확인해 주세요.",
+    "plain": "화물 {cargo}, 화주 {shipper}, 규격 코드 {spec}에 대한 질문입니다. 추가 조건이 승인됐는지 그 기록을 확인해 주세요.",
+    "contrast": "규격 코드 {spec}의 화물 {cargo}, 화주 {shipper}에 대해 공식 기록에 기재된 지정 장소 실제 반납일 값을 확인해 주세요.",
+    "requests": [
+      "approval"
+    ],
+    "contrast_requests": [
+      "returned"
+    ]
+  },
+  {
+    "id": "V23",
+    "type": "record",
+    "source": "화주 {shipper} / 규격 코드 {spec} / 화물 {cargo}의 공식 기록을 확인하려고 합니다. 적재 장비 실제 게이트 반출일 및 선박 실제 양하일 내역을 부탁합니다.",
+    "plain": "화주 {shipper}가 맡긴 {cargo} (규격 코드 {spec})에 관해 확인하고 싶은 항목은 적재 장비가 실제 게이트를 빠져나간 날짜 및 선박에서 실제로 내린 날이에요.",
+    "contrast": "화주 {shipper} / 규격 코드 {spec} / 화물 {cargo}의 공식 기록을 확인하려고 합니다. 공 장비 반납 예정일 및 지정 장소 실제 반납일 내역을 부탁합니다.",
+    "requests": [
+      "gate",
+      "discharge"
+    ],
+    "contrast_requests": [
+      "scheduled",
+      "returned"
+    ]
+  },
+  {
+    "id": "V24",
+    "type": "record",
+    "source": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec}) 기록에서 공식 관리되는 초기 무료 보관 일수 및 추가 조건 승인 기록 항목을 조회해 주세요.",
+    "plain": "화주 {shipper} 건의 화물은 {cargo}, 규격 코드는 {spec}입니다. 필요한 정보는 처음 무료로 보관할 수 있었던 일수 및 추가 조건이 승인됐는지 남은 기록입니다.",
+    "contrast": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec}) 기록에서 공식 관리되는 유료 보관 일수 및 미수 잔액 항목을 조회해 주세요.",
+    "requests": [
+      "free",
+      "approval"
+    ],
+    "contrast_requests": [
+      "paid",
+      "balance"
+    ]
+  },
+  {
+    "id": "V25",
+    "type": "combined",
+    "source": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec})에 관한 공식 기록에서 적재 장비 실제 게이트 반출일 항목을 확인해 주세요.",
+    "plain": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec_spoken})에서 궁금한 항목은 적재 장비가 실제 게이트를 빠져나간 날짜입니다. 확인해 주실 수 있나요?",
+    "contrast": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec})에 관한 공식 기록에서 선박 실제 양하일 항목을 확인해 주세요.",
+    "requests": [
+      "gate"
+    ],
+    "contrast_requests": [
+      "discharge"
+    ]
+  },
+  {
+    "id": "V26",
+    "type": "combined",
+    "source": "공식 기록 조회 요청: 화주 {shipper}, 화물 {cargo}, 규격 코드 {spec}; 선박 실제 양하일 관련 값을 알려 주세요.",
+    "plain": "화물 {cargo}를 맡긴 화주 {shipper}, 규격 코드 {spec_spoken} 건입니다. 요청 정보는 선박에서 실제로 내린 날입니다.",
+    "contrast": "공식 기록 조회 요청: 화주 {shipper}, 화물 {cargo}, 규격 코드 {spec}; 적재 장비 실제 게이트 반출일 관련 값을 알려 주세요.",
+    "requests": [
+      "discharge"
+    ],
+    "contrast_requests": [
+      "gate"
+    ]
+  },
+  {
+    "id": "V27",
+    "type": "combined",
+    "source": "화주 {shipper} / 화물 {cargo} / 규격 코드 {spec}에 대응하는 공식 기록에서 공 장비 반납 예정일 내역을 찾아 주세요.",
+    "plain": "규격 코드 {spec_spoken}인 {shipper} 화주의 화물 {cargo}에 대해 빈 장비를 돌려줄 예정일이 어떻게 됐는지 알려 주세요.",
+    "contrast": "화주 {shipper} / 화물 {cargo} / 규격 코드 {spec}에 대응하는 공식 기록에서 지정 장소 실제 반납일 내역을 찾아 주세요.",
+    "requests": [
+      "scheduled"
+    ],
+    "contrast_requests": [
+      "returned"
+    ]
+  },
+  {
+    "id": "V28",
+    "type": "combined",
+    "source": "규격 코드 {spec}인 화물 {cargo}의 화주 {shipper} 건에서 공식 기록상 지정 장소 실제 반납일 및 초기 무료 보관 일수 항목을 확인해 주세요.",
+    "plain": "화물 {cargo} (화주 {shipper}, 규격 코드 {spec_spoken})에서 알고 싶은 것은 장비가 지정된 장소로 실제 돌아간 날 및 처음 무료로 보관할 수 있었던 일수예요.",
+    "contrast": "규격 코드 {spec}인 화물 {cargo}의 화주 {shipper} 건에서 공식 기록상 공 장비 반납 예정일 및 유료 보관 일수 항목을 확인해 주세요.",
+    "requests": [
+      "returned",
+      "free"
+    ],
+    "contrast_requests": [
+      "scheduled",
+      "paid"
+    ]
+  },
+  {
+    "id": "V29",
+    "type": "combined",
+    "source": "화주 {shipper}가 맡긴 화물 {cargo} (규격 코드 {spec})의 공식 기록에 초기 무료 보관 일수가 어떻게 남았는지 알려 주세요.",
+    "plain": "화주 {shipper}의 {cargo} 화물, 규격 코드 {spec_spoken} 건을 확인 중입니다. 처음 무료로 보관할 수 있었던 일수 정보가 필요해요.",
+    "contrast": "화주 {shipper}가 맡긴 화물 {cargo} (규격 코드 {spec})의 공식 기록에 유료 보관 일수가 어떻게 남았는지 알려 주세요.",
+    "requests": [
+      "free"
+    ],
+    "contrast_requests": [
+      "paid"
+    ]
+  },
+  {
+    "id": "V30",
+    "type": "combined",
+    "source": "화주 {shipper}의 {cargo} 화물, 규격 코드 {spec} 건에 대해 공식 기록에 등록된 유료 보관 일수 및 최종 보관료 청구액 정보를 요청합니다.",
+    "plain": "규격이 {spec_spoken}인 화물 {cargo}의 화주 {shipper} 건입니다. 궁금한 내용은 요금이 부과된 보관 일수 및 마지막으로 확정된 보관료 금액입니다.",
+    "contrast": "화주 {shipper}의 {cargo} 화물, 규격 코드 {spec} 건에 대해 공식 기록에 등록된 초기 무료 보관 일수 및 실제 수납액 정보를 요청합니다.",
+    "requests": [
+      "paid",
+      "charged"
+    ],
+    "contrast_requests": [
+      "free",
+      "received"
+    ]
+  },
+  {
+    "id": "V31",
+    "type": "combined",
+    "source": "화주 {shipper}, 화물 {cargo}, 규격 코드 {spec} 조건으로 공식 기록을 찾아 최종 보관료 청구액을 확인해 주세요.",
+    "plain": "화주 {shipper} / 화물 {cargo} / 규격 코드 {spec_spoken}인 건에 대해 조회할 내용: 마지막으로 확정된 보관료 금액.",
+    "contrast": "화주 {shipper}, 화물 {cargo}, 규격 코드 {spec} 조건으로 공식 기록을 찾아 실제 수납액을 확인해 주세요.",
+    "requests": [
+      "charged"
+    ],
+    "contrast_requests": [
+      "received"
+    ]
+  },
+  {
+    "id": "V32",
+    "type": "combined",
+    "source": "화물 {cargo} (화주 {shipper}, 규격 코드 {spec})의 공식 내역 중 실제 수납액 및 미수 잔액 항목을 조회해 주세요.",
+    "plain": "화물 {cargo}를 맡은 {shipper}의 규격 코드 {spec_spoken} 건으로, 실제로 입금 또는 수납된 금액 및 아직 받지 못한 돈이 무엇인지 알고 싶어요.",
+    "contrast": "화물 {cargo} (화주 {shipper}, 규격 코드 {spec})의 공식 내역 중 최종 보관료 청구액 및 미수 잔액 항목을 조회해 주세요.",
+    "requests": [
+      "received",
+      "balance"
+    ],
+    "contrast_requests": [
+      "charged",
+      "balance"
+    ]
+  },
+  {
+    "id": "V33",
+    "type": "combined",
+    "source": "화주 {shipper}의 화물 {cargo}에 해당하는 규격 코드 {spec} 공식 기록에서 미수 잔액이 무엇인지 알려 주세요.",
+    "plain": "화주 {shipper}의 화물 {cargo} 중 규격 코드 {spec_spoken} 건에서 찾는 정보는 아직 받지 못한 돈입니다.",
+    "contrast": "화주 {shipper}의 화물 {cargo}에 해당하는 규격 코드 {spec} 공식 기록에서 실제 수납액가 무엇인지 알려 주세요.",
+    "requests": [
+      "balance"
+    ],
+    "contrast_requests": [
+      "received"
+    ]
+  },
+  {
+    "id": "V34",
+    "type": "combined",
+    "source": "규격 코드 {spec}의 화물 {cargo}, 화주 {shipper}에 대해 공식 기록에 기재된 추가 조건 승인 기록 값을 확인해 주세요.",
+    "plain": "화물 {cargo}, 화주 {shipper}, 규격 코드 {spec_spoken}에 대한 질문입니다. 추가 조건이 승인됐는지 그 기록을 확인해 주세요.",
+    "contrast": "규격 코드 {spec}의 화물 {cargo}, 화주 {shipper}에 대해 공식 기록에 기재된 적재 장비 실제 게이트 반출일 값을 확인해 주세요.",
+    "requests": [
+      "approval"
+    ],
+    "contrast_requests": [
+      "gate"
+    ]
+  },
+  {
+    "id": "V35",
+    "type": "combined",
+    "source": "화주 {shipper} / 규격 코드 {spec} / 화물 {cargo}의 공식 기록을 확인하려고 합니다. 적재 장비 실제 게이트 반출일 및 초기 무료 보관 일수 내역을 부탁합니다.",
+    "plain": "화주 {shipper}가 맡긴 {cargo} (규격 코드 {spec_spoken})에 관해 확인하고 싶은 항목은 적재 장비가 실제 게이트를 빠져나간 날짜 및 처음 무료로 보관할 수 있었던 일수예요.",
+    "contrast": "화주 {shipper} / 규격 코드 {spec} / 화물 {cargo}의 공식 기록을 확인하려고 합니다. 선박 실제 양하일 및 유료 보관 일수 내역을 부탁합니다.",
+    "requests": [
+      "gate",
+      "free"
+    ],
+    "contrast_requests": [
+      "discharge",
+      "paid"
+    ]
+  },
+  {
+    "id": "V36",
+    "type": "combined",
+    "source": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec}) 기록에서 공식 관리되는 지정 장소 실제 반납일 및 추가 조건 승인 기록 항목을 조회해 주세요.",
+    "plain": "화주 {shipper} 건의 화물은 {cargo}, 규격 코드는 {spec_spoken}입니다. 필요한 정보는 장비가 지정된 장소로 실제 돌아간 날 및 추가 조건이 승인됐는지 남은 기록입니다.",
+    "contrast": "화주 {shipper}의 화물 {cargo} (규격 코드 {spec}) 기록에서 공식 관리되는 공 장비 반납 예정일 및 미수 잔액 항목을 조회해 주세요.",
+    "requests": [
+      "returned",
+      "approval"
+    ],
+    "contrast_requests": [
+      "scheduled",
+      "balance"
+    ]
+  }
+]

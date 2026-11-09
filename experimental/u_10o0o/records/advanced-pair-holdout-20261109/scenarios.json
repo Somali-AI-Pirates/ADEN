@@ -1,0 +1,212 @@
+[
+  {
+    "id": "P01",
+    "type": "explicit",
+    "question": "케이스 {case_a}는 최초 무료 보관일수와 최종 보관료가 얼마였나요? 장비 {equipment_b} 건은 추가 조건 승인 기록과 실제 장비 반출일을 확인해 주세요.",
+    "requests": [["free", "charged"], ["approval", "gate"]],
+    "identify": [[], []]
+  },
+  {
+    "id": "P02",
+    "type": "explicit",
+    "question": "장비 {equipment_a}의 보관료 산정 과금일수와 입금액, 케이스 {case_b}의 화물 하역일 및 예정 반납일을 한 번에 전달해 주세요.",
+    "requests": [["paid", "received"], ["discharge", "scheduled"]],
+    "identify": [[], []]
+  },
+  {
+    "id": "P03",
+    "type": "explicit",
+    "question": "현장 회의 전에 케이스 {case_a}가 실제로 반출된 날짜와 지정 장소에 반환된 날을, 장비 {equipment_b}의 확정 청구액 및 남은 잔액과 함께 대조해 주세요.",
+    "requests": [["gate", "returned"], ["charged", "balance"]],
+    "identify": [[], []]
+  },
+  {
+    "id": "P04",
+    "type": "explicit",
+    "question": "케이스 {case_a}의 최초 무료 보관기간과 추가 조건 승인 여부를 알려 주세요. 장비 {equipment_b}는 예정 반납일과 실제 반납일이 맞았는지 볼 수 있도록 두 날짜를 부탁합니다.",
+    "requests": [["free", "approval"], ["scheduled", "returned"]],
+    "identify": [[], []]
+  },
+  {
+    "id": "P05",
+    "type": "explicit",
+    "question": "장비 {equipment_a}의 과금된 보관일수와 확정 보관료가 필요합니다. 케이스 {case_b}는 입금액, 최종 청구액, 수납 후 잔액을 각각 정리해 주세요.",
+    "requests": [["paid", "charged"], ["received", "charged", "balance"]],
+    "identify": [[], []]
+  },
+  {
+    "id": "P06",
+    "type": "explicit",
+    "question": "두 기록의 현장 일정을 확인하겠습니다. 케이스 {case_a}의 예정 반납일과 실제 반환일, 장비 {equipment_b}가 화물을 싣고 실제 반출된 날짜와 확정 보관료는 각각 어떻게 됩니까?",
+    "requests": [["scheduled", "returned"], ["gate", "charged"]],
+    "identify": [[], []]
+  },
+  {
+    "id": "P07",
+    "type": "explicit",
+    "question": "케이스 {case_a}에 추가 조건이 승인됐는지와 최초 무료일수를 정리하고, 케이스 {case_b}의 확정 청구액·입금액·잔액은 회계팀에 넘길 수 있게 부탁합니다.",
+    "requests": [["approval", "free"], ["charged", "received", "balance"]],
+    "identify": [[], []]
+  },
+  {
+    "id": "P08",
+    "type": "explicit",
+    "question": "장비 {equipment_a}의 실제 하역일 및 반출일을 확인해 주세요. 케이스 {case_b}는 유료 과금일수와 실제 반납일, 확정 보관료를 나란히 볼 수 있게 정리해 주세요.",
+    "requests": [["discharge", "gate"], ["paid", "returned", "charged"]],
+    "identify": [[], []]
+  },
+  {
+    "id": "P09",
+    "type": "mixed",
+    "question": "케이스 {case_a}의 최초 무료 보관일수와 과금된 보관일수를 정리해 주세요. 화주 {shipper_b}의 화물 {cargo_b}가 실제 반출일 {gate_b}인 작업은 예정 반납일과 실제 반납일이 언제였나요?",
+    "requests": [["free", "paid"], ["scheduled", "returned"]],
+    "identify": [[], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P10",
+    "type": "mixed",
+    "question": "장비 {equipment_a}의 최종 보관료와 입금액을 먼저 확인한 뒤, 화주 {shipper_b}가 보낸 {cargo_b} 중 실제 반출일 {gate_b}인 건의 확정 청구액과 잔액도 알려 주세요.",
+    "requests": [["charged", "received"], ["charged", "balance"]],
+    "identify": [[], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P11",
+    "type": "mixed",
+    "question": "화주 {shipper_b}의 {cargo_b}가 실제 반출일 {gate_b}인 건은 반환일과 남은 미수액을 짚고, 케이스 {case_a}는 추가 조건 승인 기록과 최초 무료기간을 함께 정리해 주세요.",
+    "requests": [["approval", "free"], ["returned", "balance"]],
+    "identify": [[], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P12",
+    "type": "mixed",
+    "question": "케이스 {case_a}의 하역일, 실제 장비 반출일, 최종 보관료를 요청합니다. 화주 {shipper_b}의 {cargo_b} 중 반출일이 {gate_b}로 기록된 작업은 빈 장비의 예정 반납일과 실제 반납일을 알려 주세요.",
+    "requests": [["discharge", "gate", "charged"], ["scheduled", "returned"]],
+    "identify": [[], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P13",
+    "type": "mixed",
+    "question": "장비 {equipment_a}는 예정 반납일과 실제 반환일 비교만 있으면 됩니다. 화주 {shipper_b}가 선적한 {cargo_b} 중 {gate_b}에 실제 반출된 건은 과금일수, 확정 보관료, 회계 수납액을 확인해 주세요.",
+    "requests": [["scheduled", "returned"], ["paid", "charged", "received"]],
+    "identify": [[], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P14",
+    "type": "mixed",
+    "question": "화주 {shipper_b}의 {cargo_b} 중 실제 반출일이 {gate_b}인 작업에서 하역 완료일과 추가 조건 승인 기록을 살펴봐 주세요. 케이스 {case_a}에 배분된 수납액과 수납 후 잔액도 필요합니다.",
+    "requests": [["received", "balance"], ["discharge", "approval"]],
+    "identify": [[], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P15",
+    "type": "mixed",
+    "question": "케이스 {case_a}의 보관료 산정 일수, 수납액, 잔액을 먼저 맞춰 주세요. 이어서 화주 {shipper_b}의 {cargo_b}가 {gate_b}에 실제 반출된 기록에서 무료 보관기간과 최종 청구액을 확인해 주세요.",
+    "requests": [["paid", "received", "balance"], ["free", "charged"]],
+    "identify": [[], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P16",
+    "type": "mixed",
+    "question": "장비 {equipment_a}가 하역된 날짜와 실제로 반출된 날을 확인합니다. 화주 {shipper_b}가 맡긴 {cargo_b} 중 실제 반출일 {gate_b}인 건의 확정 청구액과 입금액을 대조해 주세요.",
+    "requests": [["discharge", "gate"], ["charged", "received"]],
+    "identify": [[], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P17",
+    "type": "indirect",
+    "question": "화주 {shipper_a}의 {cargo_a}가 실제 반출일 {gate_a}로 기록된 건은 최초 무료 보관일수와 과금일수를 알려 주세요. 화주 {shipper_b}의 {cargo_b}, 실제 반출일 {gate_b} 건은 최종 청구액과 수납액을 부탁합니다.",
+    "requests": [["free", "paid"], ["charged", "received"]],
+    "identify": [["shipper", "cargo", "gate"], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P18",
+    "type": "indirect",
+    "question": "화주 {shipper_b}가 맡긴 {cargo_b} 중 실제 {gate_b}에 반출한 건의 입금액과 잔액부터 확인하고, 화주 {shipper_a}의 {cargo_a}가 {gate_a}에 나간 건은 하역일과 장비 반환일을 정리해 주세요.",
+    "requests": [["discharge", "returned"], ["received", "balance"]],
+    "identify": [["shipper", "cargo", "gate"], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P19",
+    "type": "indirect",
+    "question": "보관료 이견을 검토합니다. 화주 {shipper_a}의 {cargo_a} 중 {gate_a}에 실제 반출된 작업은 무료 보관기간과 추가 조건 승인 기록을, 화주 {shipper_b}의 {cargo_b} 중 {gate_b}에 반출된 건은 예정 반납일과 확정 보관료를 알려 주세요.",
+    "requests": [["free", "approval"], ["scheduled", "charged"]],
+    "identify": [["shipper", "cargo", "gate"], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P20",
+    "type": "indirect",
+    "question": "계획 대비 실제 반납일을 확인하고 싶습니다. 화주 {shipper_b}의 {cargo_b}가 {gate_b}에 나간 작업은 예정일과 실제일을, 화주 {shipper_a}의 {cargo_a} 중 실제 반출일 {gate_a}인 건은 과금일수·최종 청구액·수납액을 정리해 주세요.",
+    "requests": [["paid", "charged", "received"], ["scheduled", "returned"]],
+    "identify": [["shipper", "cargo", "gate"], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P21",
+    "type": "indirect",
+    "question": "화주 {shipper_a}의 화물 {cargo_a}가 {gate_a}에 반출된 건은 하역 완료일, 승인 기록, 최초 무료일수를 알려 주세요. 별도로 화주 {shipper_b}가 보낸 {cargo_b} 중 {gate_b}에 나간 작업의 청구액과 잔액을 확인해 주세요.",
+    "requests": [["discharge", "approval", "free"], ["charged", "balance"]],
+    "identify": [["shipper", "cargo", "gate"], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P22",
+    "type": "indirect",
+    "question": "화주 {shipper_a}가 맡긴 {cargo_a} 중 {gate_a}에 실제 반출된 건은 지정 장소에 돌려준 날짜와 최초 무료 보관기간을 확인해 주세요. 화주 {shipper_b}의 {cargo_b}가 {gate_b}에 나간 이력은 과금일수, 추가 조건 승인 기록, 입금액이 필요합니다.",
+    "requests": [["returned", "free"], ["paid", "approval", "received"]],
+    "identify": [["shipper", "cargo", "gate"], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P23",
+    "type": "indirect",
+    "question": "두 건의 정산 인계 자료를 준비해 주세요. 화주 {shipper_a}의 {cargo_a} 중 실제 반출일 {gate_a}인 작업은 무료일수, 청구액, 수납 후 잔액을, 화주 {shipper_b}의 {cargo_b}가 {gate_b}에 반출된 건은 하역일·예정 반납일·실제 반납일을 알려 주세요.",
+    "requests": [["free", "charged", "balance"], ["discharge", "scheduled", "returned"]],
+    "identify": [["shipper", "cargo", "gate"], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P24",
+    "type": "indirect",
+    "question": "화주 {shipper_b}의 {cargo_b}가 {gate_b}에 실제 반출된 작업에서 추가 조건 승인 여부와 청구액을 확인해 주세요. 화주 {shipper_a}의 {cargo_a} 중 {gate_a}에 나간 건은 과금일수, 실제 반환일, 수납액까지 필요합니다.",
+    "requests": [["paid", "returned", "received"], ["approval", "charged"]],
+    "identify": [["shipper", "cargo", "gate"], ["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P25",
+    "type": "single",
+    "question": "케이스 {case_a} 한 건의 예정 반납일과 실제 지정 장소 반납일을 나란히 알려 주세요.",
+    "requests": [["scheduled", "returned"]],
+    "identify": [[]]
+  },
+  {
+    "id": "P26",
+    "type": "single",
+    "question": "케이스 {case_a}와 장비 {equipment_a}는 같은 작업을 가리킵니다. 그 한 건의 과금일수, 확정 보관료, 실제 입금액을 회계 메모에 적어 주세요.",
+    "requests": [["paid", "charged", "received"]],
+    "identify": [[]]
+  },
+  {
+    "id": "P27",
+    "type": "single",
+    "question": "케이스 {case_a}에서 화물이 배에서 내려진 날짜와 장비가 실제 반출된 날짜, 최초 무료 보관기간을 알려 주시면 현장 기록을 맞춰 보겠습니다.",
+    "requests": [["discharge", "gate", "free"]],
+    "identify": [[]]
+  },
+  {
+    "id": "P28",
+    "type": "single",
+    "question": "화주 {shipper_a}의 {cargo_a} 중 실제 반출일이 {gate_a}인 한 건에 대해 추가 조건 승인 기록, 최종 보관료, 수납 후 잔액을 확인해 주세요.",
+    "requests": [["approval", "charged", "balance"]],
+    "identify": [["shipper", "cargo", "gate"]]
+  },
+  {
+    "id": "P29",
+    "type": "clarify",
+    "question": "화주 {shipper_a}의 {spec_phrase_a} 화물 중 실제 반출일이 {gate_a}인 건을 찾고 있습니다. 해당 건의 실제 반출일과 확정 보관료를 알려 주세요.",
+    "requests": [["gate", "charged"], ["gate", "charged"]],
+    "identify": [[], []]
+  },
+  {
+    "id": "P30",
+    "type": "clarify",
+    "question": "{shipper_a} 화주가 보낸 {spec_phrase_a} 중 장비 반출 기록이 {gate_a}인 업무의 실제 반출 날짜와 청구 보관료가 필요합니다.",
+    "requests": [["gate", "charged"], ["gate", "charged"]],
+    "identify": [[], []]
+  }
+]
