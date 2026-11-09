@@ -99,6 +99,22 @@ def test_judge_prompt_gets_reference_but_service_does_not():
     assert "정답 비밀문장" in prompts[0] and s["judge"]["fact"]["value"] == 1.0
 
 
+def test_chunk_heading_reaches_judge_and_faithfulness_context():
+    # 고급 자료는 화주·예약번호가 제목에만 있어 생성 모델처럼 채점기도 제목을 봐야 한다
+    final = [{**FINAL[0], "heading": "화주 ACME 예약 BK-1"}]
+    prompts, seen = [], {}
+
+    def faith(q, resp, ctx):
+        seen["ctx"] = ctx
+        return {"value": 1.0}
+
+    grade(record(retrieved_candidates=final, final_context_chunks=final,
+                 final_context_hash=compute_context_hash(final)),
+          lambda p: prompts.append(p) or judge_returning(True)(p), faith)
+    assert "제목: 화주 ACME 예약 BK-1\n문맥 문장" in prompts[0]
+    assert seen["ctx"] == ["제목: 화주 ACME 예약 BK-1\n문맥 문장"]
+
+
 def test_runner_passes_only_question_and_saves_failures(tmp_path):
     questions = load_questions(SAMPLE_EVAL)
     assert all(set(q) == {"id", "question"} for q in questions)
