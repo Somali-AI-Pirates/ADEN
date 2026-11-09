@@ -35,6 +35,10 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 | Judge | 사실·조건·근거·판단을 각각 0/1과 이유로 기록한다. 서비스 오류는 판단 0, 다른 항목은 평가 불가다 |
 | 평균·운영 지표 | `scored`만 평균하며 0점은 포함한다. `not_applicable`·`unavailable`은 건수를 따로 센다. 오류율은 `error` 요청만 세며 서비스 시간·토큰과 평가기 사용량은 분리한다 |
 
+Judge와 Faithfulness는 저장된 `model_context_text`가 있으면 제목·출처 표기·순서를 포함한 문자열을 그대로 근거로 사용한다. 실제 문맥이 빈 문자열이면 검색 청크로 대신 채우지 않는다. 문자열이 없는 과거 기록은 최종 청크의 자료 ID·문서 ID·파일명·쪽수·제목·본문을 복원해 사용하며, 당시 문맥과 완전히 같다고 보장하지 않는다. 참고 정답은 Judge의 채점 기준으로만 전달하며 Faithfulness 근거에는 넣지 않는다.
+
+채점 문맥 처리 방식이 바뀐 결과는 새 실험 ID나 별도 결과 경로에 저장한다. 기존 답변·실행 기록·점수를 덮어쓰지 않고 같은 저장 답변을 새 기준으로 재채점해 비교한다. 문맥 수정만으로 점수가 개선됐다고 간주하지 않는다.
+
 ## Langfuse
 
 `LANGFUSE_PUBLIC_KEY`와 `LANGFUSE_SECRET_KEY`로 추적을 활성화한다. `LANGFUSE_BASE_URL`로 서버를 지정할 수 있다. 요청 ID에서 trace ID를 만들며, 추적은 `rag-query` → `retrieval` → `final-context` → `generation-attempt-N` 순서로 이어진다.

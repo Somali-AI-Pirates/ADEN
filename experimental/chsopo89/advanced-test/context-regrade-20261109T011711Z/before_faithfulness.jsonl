@@ -1,0 +1,12 @@
+{"question_id": "S07", "retrieval_mode": "hybrid", "value": 0.5, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 11240}
+{"question_id": "S09", "retrieval_mode": "hybrid", "value": 0.6666666666666666, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 18361}
+{"question_id": "M01", "retrieval_mode": "hybrid", "value": 0.8055555555555556, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 49348}
+{"question_id": "M19", "retrieval_mode": "hybrid", "value": 0.13333333333333333, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 28393}
+{"question_id": "S07", "retrieval_mode": "hybrid_rerank", "value": 0.625, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 11443}
+{"question_id": "S09", "retrieval_mode": "hybrid_rerank", "value": 0.7142857142857143, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 11882}
+{"question_id": "M01", "retrieval_mode": "hybrid_rerank", "value": 0.8292682926829268, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 43673}
+{"question_id": "M19", "retrieval_mode": "hybrid_rerank", "value": 0.9583333333333334, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 29933}
+{"question_id": "S07", "retrieval_mode": "naive", "value": 0.875, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 12286}
+{"question_id": "S09", "retrieval_mode": "naive", "value": 0.7777777777777778, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 19306}
+{"question_id": "M01", "retrieval_mode": "naive", "value": 0.7435897435897436, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 42466}
+{"question_id": "M19", "retrieval_mode": "naive", "value": 0.6666666666666666, "status": "scored", "reason": "RAGAS Faithfulness", "latency_ms": 26314}

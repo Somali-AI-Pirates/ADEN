@@ -1,0 +1,206 @@
+{
+  "version": "advanced-v2.0-draft",
+  "question_count": 40,
+  "required_items": 244,
+  "single": 20,
+  "multi": 20,
+  "pdf_documents": 59,
+  "pdf_pages": 99,
+  "questions_unchanged": true,
+  "calculation_checks": [
+    {
+      "id": "M01",
+      "storage_days": 11,
+      "detention_days": 10,
+      "storage_raw_usd": 335,
+      "storage_final_usd": 305,
+      "detention_raw_usd": 275,
+      "detention_final_usd": 275
+    },
+    {
+      "id": "M02",
+      "storage_days": 9,
+      "detention_days": 10,
+      "storage_raw_usd": 360,
+      "storage_final_usd": 360,
+      "detention_raw_usd": 260,
+      "detention_final_usd": 260
+    },
+    {
+      "id": "M03",
+      "storage_days": 13,
+      "detention_days": 10,
+      "storage_raw_usd": 560,
+      "storage_final_usd": 560,
+      "detention_raw_usd": 260,
+      "detention_final_usd": 260
+    },
+    {
+      "id": "M04",
+      "storage_days": 14,
+      "detention_days": 11,
+      "storage_raw_usd": 625,
+      "storage_final_usd": 625,
+      "detention_raw_usd": 305,
+      "detention_final_usd": 305
+    },
+    {
+      "id": "M05",
+      "storage_days": 8,
+      "detention_days": 6,
+      "storage_raw_usd": 160,
+      "storage_final_usd": 160,
+      "detention_raw_usd": 75,
+      "detention_final_usd": 75
+    },
+    {
+      "id": "M06",
+      "storage_days": 12,
+      "detention_days": 9,
+      "storage_raw_usd": 320,
+      "storage_final_usd": 320,
+      "detention_raw_usd": 170,
+      "detention_final_usd": 170
+    },
+    {
+      "id": "M07",
+      "storage_days": 10,
+      "detention_days": 8,
+      "storage_raw_usd": 510,
+      "storage_final_usd": 510,
+      "detention_raw_usd": 180,
+      "detention_final_usd": 180
+    },
+    {
+      "id": "M08",
+      "storage_days": 13,
+      "detention_days": 8,
+      "storage_raw_usd": 560,
+      "storage_final_usd": 560,
+      "detention_raw_usd": 220,
+      "detention_final_usd": 220
+    },
+    {
+      "id": "M09",
+      "storage_days": 12,
+      "detention_days": 10,
+      "storage_raw_usd": 320,
+      "storage_final_usd": 320,
+      "detention_raw_usd": 205,
+      "detention_final_usd": 205
+    },
+    {
+      "id": "M10",
+      "storage_days": 10,
+      "detention_days": 9,
+      "storage_raw_usd": 210,
+      "storage_final_usd": 210,
+      "detention_raw_usd": 240,
+      "detention_final_usd": 240
+    },
+    {
+      "id": "M11",
+      "storage_days": 9,
+      "detention_days": 10,
+      "storage_raw_usd": 395,
+      "storage_final_usd": 395,
+      "detention_raw_usd": 345,
+      "detention_final_usd": 345
+    },
+    {
+      "id": "M12",
+      "storage_days": 9,
+      "detention_days": 6,
+      "storage_raw_usd": 300,
+      "storage_final_usd": 300,
+      "detention_raw_usd": 80,
+      "detention_final_usd": 0
+    },
+    {
+      "id": "M13",
+      "storage_days": 10,
+      "detention_days": 11,
+      "storage_raw_usd": 400,
+      "storage_final_usd": 180,
+      "detention_raw_usd": 390,
+      "detention_final_usd": 390
+    },
+    {
+      "id": "M14",
+      "storage_days": 10,
+      "detention_days": 11,
+      "storage_raw_usd": 400,
+      "storage_final_usd": 400,
+      "detention_raw_usd": 390,
+      "detention_final_usd": 140
+    },
+    {
+      "id": "M15",
+      "storage_days": 10,
+      "detention_days": 8,
+      "storage_raw_usd": 330,
+      "storage_final_usd": 295,
+      "detention_raw_usd": 200,
+      "detention_final_usd": 200
+    },
+    {
+      "id": "M16",
+      "storage_days": 13,
+      "detention_days": 9,
+      "storage_raw_usd": 560,
+      "storage_final_usd": 560,
+      "detention_raw_usd": 265,
+      "detention_final_usd": 265
+    },
+    {
+      "id": "M17",
+      "storage_days": 14,
+      "detention_days": null,
+      "storage_raw_usd": 515,
+      "storage_final_usd": 515,
+      "detention_raw_usd": null,
+      "detention_final_usd": null
+    },
+    {
+      "id": "M18",
+      "storage_days": 13,
+      "detention_days": 9,
+      "storage_raw_usd": 560,
+      "storage_final_usd": 560,
+      "detention_raw_usd": 265,
+      "detention_final_usd": 265
+    },
+    {
+      "id": "M19",
+      "storage_days": 7,
+      "detention_days": 6,
+      "storage_raw_usd": 265,
+      "storage_final_usd": 265,
+      "detention_raw_usd": 165,
+      "detention_final_usd": 165
+    },
+    {
+      "id": "M20",
+      "storage_days": 12,
+      "detention_days": 8,
+      "storage_raw_usd": 640,
+      "storage_final_usd": 640,
+      "detention_raw_usd": 280,
+      "detention_final_usd": 280
+    }
+  ],
+  "sources_sha256": {
+    "data\\advanced\\evaluation\\custom.json": "15b5ec501873a7cba37619f3ad750036fb1361db2d32510ce1e7416a9fd33bb5"
+  },
+  "item_check_methods": {
+    "value_comparison": 144,
+    "meaning_and_scope_review": 100
+  },
+  "api_calls": 0,
+  "model_response_scoring_performed": false,
+  "automated_answer_extraction_implemented": false,
+  "existing_loader_compatible": true,
+  "generation_input_question_only": true,
+  "prompt_assembly_checks": 12,
+  "review_boundary_cases": 10
+}

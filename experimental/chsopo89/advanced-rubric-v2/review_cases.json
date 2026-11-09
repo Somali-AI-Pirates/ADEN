@@ -1,0 +1,12 @@
+[
+  {"id":"S07","scenario":"승인 완료·보관료 무료 2일 추가·장비반납지연료 무료기간 유지까지 정확히 답하고 승인자·서명일은 쓰지 않음","expected":"필수 항목 충족 가능. 서명일 미언급만으로 fact=0 금지.","review_type":"human_policy_check"},
+  {"id":"S09","scenario":"장비반납지연료 USD 25 한 번 감액, 보관료 미적용만 정확히 답함","expected":"필수 항목 충족 가능. 무료일수·단가 불변 설명 누락 감점 금지.","review_type":"human_policy_check"},
+  {"id":"S09","scenario":"보관료에 USD 25 감액을 적용한다고 답함","expected":"감액 대상 오답. fact=0이며 비용 조건도 오판.","review_type":"human_policy_check"},
+  {"id":"S12","scenario":"조회 시점의 미효력은 맞게 답했지만 질문에서 명시적으로 요청한 승인 서명일을 쓰지 않음","expected":"서명일 필수 항목 누락. S07과 달리 fact=0 사유가 됨.","review_type":"human_policy_check"},
+  {"id":"S18","scenario":"예약 변경 날짜·증빙 미수신·실제 완료일 확정 불가를 답함. 계속 미반납이라는 단정도, 그런 단정을 부정하는 별도 문장도 없음","expected":"별도 부정 문장 미언급 감점 금지.","review_type":"human_policy_check"},
+  {"id":"S18","scenario":"인수증이 없으므로 아직 반납하지 않았다고 단정","expected":"증빙 부재를 실제 미반납 사실로 바꾼 오류로 감점.","review_type":"human_policy_check"},
+  {"id":"M01","scenario":"명세의 USD 305/275/580만 맞게 옮기고 실제 사건·계약의 산입 구간과 계산을 확인하지 못함","expected":"최종 금액 일부는 맞아도 검산 필수 항목 미충족. 명세만으로 독립 검산 완료를 인정하지 않음.","review_type":"human_policy_check"},
+  {"id":"M15","scenario":"보관료 감액 USD 20→35 대체, 원문 사건·계약 계산 330−35=295, 추가 차감 불가를 정확히 답함. 반납지연료·전체 합계는 쓰지 않음","expected":"질문 범위의 필수 항목 충족 가능. 다른 비용·합계 미언급 감점 금지.","review_type":"human_policy_check"},
+  {"id":"M17","scenario":"보관료 USD 515를 검산하고 지정 장치장 인수증 미수신으로 반납지연료·합계는 미확정이라고 답함","expected":"정상 부분 답변. 모든 비용을 숫자로 확정하지 않아도 answered 허용.","review_type":"human_policy_check"},
+  {"id":"M17","scenario":"임시 야드 반입일을 지정 장치장 실제 반납일로 사용해 합계를 확정","expected":"계약상 종료 사건 오인. 조건·계산·확정 범위 오류로 감점.","review_type":"human_policy_check"}
+]
