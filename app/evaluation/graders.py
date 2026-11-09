@@ -9,6 +9,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import math
 import os
@@ -178,10 +179,15 @@ def make_ragas_faithfulness(model: str) -> FaithfulnessFn:
     from ragas.llms import llm_factory
     from ragas.metrics.collections import Faithfulness
 
+    async def run(question: str, response: str, contexts: list[str]) -> Any:
+        # 클라이언트를 같은 이벤트 루프 안에서 닫는다. 루프가 닫힌 뒤 정리되면 경고가 남는다.
+        async with AsyncOpenAI() as client:
+            metric = Faithfulness(llm=llm_factory(model, client=client))
+            return await metric.ascore(user_input=question, response=response,
+                                       retrieved_contexts=contexts)
+
     def faithfulness(question: str, response: str, contexts: list[str]) -> dict[str, Any]:
-        # 호출마다 새 비동기 클라이언트: score()가 매번 새 이벤트 루프를 만들기 때문
-        metric = Faithfulness(llm=llm_factory(model, client=AsyncOpenAI()))
-        result = metric.score(user_input=question, response=response, retrieved_contexts=contexts)
+        result = asyncio.run(run(question, response, contexts))
         return {"value": result.value, "input_tokens": None, "output_tokens": None}
 
     return faithfulness
