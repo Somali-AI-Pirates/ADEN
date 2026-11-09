@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-11-09T10:28:10+09:00",
+  "curation_manifest_sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+  "charges_sha256": "0a58428b7863f53d16473c049580c2b4f2d12b5bbd38d15ed6da295b418d6b30",
+  "cases": {
+    "HG": 2730,
+    "HA": 198
+  },
+  "counts_by_family_and_cost": {
+    "HG:late_return": {
+      "deferred": 2730
+    },
+    "HG:storage": {
+      "deferred": 2730
+    },
+    "HA:storage": {
+      "matched": 132,
+      "deferred": 66
+    },
+    "HA:late_return": {
+      "matched": 122,
+      "deferred": 76
+    }
+  },
+  "reasons": {
+    "HG:contract_currency_missing": 5460,
+    "HA:adjustment_or_correction_requires_review": 76,
+    "HA:actual_event_unverified": 32,
+    "HA:amendment_requires_review": 34
+  }
+}

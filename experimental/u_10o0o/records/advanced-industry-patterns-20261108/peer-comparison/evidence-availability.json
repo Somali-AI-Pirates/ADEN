@@ -1,0 +1,321 @@
+{
+  "generated_at_utc": "2026-11-09T00:16:06+00:00",
+  "method": {
+    "normalization": "NFKC; remove zero-width space/BOM; remove all whitespace",
+    "quote_match": "exact normalized substring on matching (book_id,page) in one source page or one p800 chunk; never join chunks",
+    "fact_match": "all quotes in primary bundle, or all quotes in any one alternative bundle, must match; alternatives as supplied in full reference set",
+    "all_facts_question": "all evidence_requirements satisfied",
+    "retrieval_ranking": false,
+    "context_token_budget": false,
+    "primary_quote_denominator": "unique (book_id,page,normalized quote) anchors in primary bundles only, counted per question"
+  },
+  "inputs_sha256": {
+    "questions.json": "0574126e0085137c0ff5e456a8951eccaf62ce9f5b5f76216252b60ddf6914ab",
+    "references.json": "7351b50903b9a107325185d9b803cc8f870b34066838aa9e889e022fce328f15",
+    "blind_related_question_ids.json": "b7f5db481f58b6122a97dfb08a477830b7598983d385c2b970f81d08176d8690",
+    "restored_pages_cache": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d",
+    "peer_pypdf_pages": "98252b8c0873385e1edde37c243484e2eb174e953674c05d5c2148533e387875",
+    "peer_p800_chunks": "804187e890674e83e6d1214dfb89535974a9969d52c97212c1462eab278cf416"
+  },
+  "corpus_sizes": {
+    "restored_pages": 18000,
+    "pypdf_pages": 18000,
+    "p800_chunks": 22355,
+    "p800_source_pages": 18000
+  },
+  "question_type_counts": {
+    "handbook_record": 3572,
+    "linked_cost_handoff": 2730,
+    "terminal_handoff": 198
+  },
+  "groups": {
+    "all": {
+      "questions": 6500,
+      "fact_requirements": 17816,
+      "primary_quote_anchors": 20546,
+      "primary_and_alternative_quote_anchors": 20658,
+      "representations": {
+        "restored_page": {
+          "fact_hits": 17816,
+          "primary_quote_hits": 20546,
+          "all_quote_hits": 20658,
+          "all_facts_questions": 6500,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "pypdf_page": {
+          "fact_hits": 14453,
+          "primary_quote_hits": 17183,
+          "all_quote_hits": 17225,
+          "all_facts_questions": 3137,
+          "fact_recall": 0.8112370902559497,
+          "primary_quote_recall": 0.8363185048184562,
+          "all_quote_recall": 0.8338174072998354,
+          "all_facts_question_recall": 0.4826153846153846
+        },
+        "p800_chunk_text": {
+          "fact_hits": 14453,
+          "primary_quote_hits": 17183,
+          "all_quote_hits": 17225,
+          "all_facts_questions": 3137,
+          "fact_recall": 0.8112370902559497,
+          "primary_quote_recall": 0.8363185048184562,
+          "all_quote_recall": 0.8338174072998354,
+          "all_facts_question_recall": 0.4826153846153846
+        },
+        "p800_index_text": {
+          "fact_hits": 14453,
+          "primary_quote_hits": 17183,
+          "all_quote_hits": 17225,
+          "all_facts_questions": 3137,
+          "fact_recall": 0.8112370902559497,
+          "primary_quote_recall": 0.8363185048184562,
+          "all_quote_recall": 0.8338174072998354,
+          "all_facts_question_recall": 0.4826153846153846
+        }
+      }
+    },
+    "disjoint": {
+      "questions": 6103,
+      "fact_requirements": 16103,
+      "primary_quote_anchors": 18510,
+      "primary_and_alternative_quote_anchors": 18618,
+      "representations": {
+        "restored_page": {
+          "fact_hits": 16103,
+          "primary_quote_hits": 18510,
+          "all_quote_hits": 18618,
+          "all_facts_questions": 6103,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "pypdf_page": {
+          "fact_hits": 12802,
+          "primary_quote_hits": 15209,
+          "all_quote_hits": 15251,
+          "all_facts_questions": 2802,
+          "fact_recall": 0.7950071415264236,
+          "primary_quote_recall": 0.821663965424095,
+          "all_quote_recall": 0.8191535073584703,
+          "all_facts_question_recall": 0.4591184663280354
+        },
+        "p800_chunk_text": {
+          "fact_hits": 12802,
+          "primary_quote_hits": 15209,
+          "all_quote_hits": 15251,
+          "all_facts_questions": 2802,
+          "fact_recall": 0.7950071415264236,
+          "primary_quote_recall": 0.821663965424095,
+          "all_quote_recall": 0.8191535073584703,
+          "all_facts_question_recall": 0.4591184663280354
+        },
+        "p800_index_text": {
+          "fact_hits": 12802,
+          "primary_quote_hits": 15209,
+          "all_quote_hits": 15251,
+          "all_facts_questions": 2802,
+          "fact_recall": 0.7950071415264236,
+          "primary_quote_recall": 0.821663965424095,
+          "all_quote_recall": 0.8191535073584703,
+          "all_facts_question_recall": 0.4591184663280354
+        }
+      }
+    },
+    "overlap": {
+      "questions": 397,
+      "fact_requirements": 1713,
+      "primary_quote_anchors": 2036,
+      "primary_and_alternative_quote_anchors": 2040,
+      "representations": {
+        "restored_page": {
+          "fact_hits": 1713,
+          "primary_quote_hits": 2036,
+          "all_quote_hits": 2040,
+          "all_facts_questions": 397,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "pypdf_page": {
+          "fact_hits": 1651,
+          "primary_quote_hits": 1974,
+          "all_quote_hits": 1974,
+          "all_facts_questions": 335,
+          "fact_recall": 0.963806187974314,
+          "primary_quote_recall": 0.9695481335952849,
+          "all_quote_recall": 0.9676470588235294,
+          "all_facts_question_recall": 0.8438287153652393
+        },
+        "p800_chunk_text": {
+          "fact_hits": 1651,
+          "primary_quote_hits": 1974,
+          "all_quote_hits": 1974,
+          "all_facts_questions": 335,
+          "fact_recall": 0.963806187974314,
+          "primary_quote_recall": 0.9695481335952849,
+          "all_quote_recall": 0.9676470588235294,
+          "all_facts_question_recall": 0.8438287153652393
+        },
+        "p800_index_text": {
+          "fact_hits": 1651,
+          "primary_quote_hits": 1974,
+          "all_quote_hits": 1974,
+          "all_facts_questions": 335,
+          "fact_recall": 0.963806187974314,
+          "primary_quote_recall": 0.9695481335952849,
+          "all_quote_recall": 0.9676470588235294,
+          "all_facts_question_recall": 0.8438287153652393
+        }
+      }
+    },
+    "type:handbook_record": {
+      "questions": 3572,
+      "fact_requirements": 3572,
+      "primary_quote_anchors": 3572,
+      "primary_and_alternative_quote_anchors": 3684,
+      "representations": {
+        "restored_page": {
+          "fact_hits": 3572,
+          "primary_quote_hits": 3572,
+          "all_quote_hits": 3684,
+          "all_facts_questions": 3572,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "pypdf_page": {
+          "fact_hits": 209,
+          "primary_quote_hits": 209,
+          "all_quote_hits": 251,
+          "all_facts_questions": 209,
+          "fact_recall": 0.05851063829787234,
+          "primary_quote_recall": 0.05851063829787234,
+          "all_quote_recall": 0.06813246471226928,
+          "all_facts_question_recall": 0.05851063829787234
+        },
+        "p800_chunk_text": {
+          "fact_hits": 209,
+          "primary_quote_hits": 209,
+          "all_quote_hits": 251,
+          "all_facts_questions": 209,
+          "fact_recall": 0.05851063829787234,
+          "primary_quote_recall": 0.05851063829787234,
+          "all_quote_recall": 0.06813246471226928,
+          "all_facts_question_recall": 0.05851063829787234
+        },
+        "p800_index_text": {
+          "fact_hits": 209,
+          "primary_quote_hits": 209,
+          "all_quote_hits": 251,
+          "all_facts_questions": 209,
+          "fact_recall": 0.05851063829787234,
+          "primary_quote_recall": 0.05851063829787234,
+          "all_quote_recall": 0.06813246471226928,
+          "all_facts_question_recall": 0.05851063829787234
+        }
+      }
+    },
+    "type:linked_cost_handoff": {
+      "questions": 2730,
+      "fact_requirements": 13650,
+      "primary_quote_anchors": 16380,
+      "primary_and_alternative_quote_anchors": 16380,
+      "representations": {
+        "restored_page": {
+          "fact_hits": 13650,
+          "primary_quote_hits": 16380,
+          "all_quote_hits": 16380,
+          "all_facts_questions": 2730,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "pypdf_page": {
+          "fact_hits": 13650,
+          "primary_quote_hits": 16380,
+          "all_quote_hits": 16380,
+          "all_facts_questions": 2730,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "p800_chunk_text": {
+          "fact_hits": 13650,
+          "primary_quote_hits": 16380,
+          "all_quote_hits": 16380,
+          "all_facts_questions": 2730,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "p800_index_text": {
+          "fact_hits": 13650,
+          "primary_quote_hits": 16380,
+          "all_quote_hits": 16380,
+          "all_facts_questions": 2730,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        }
+      }
+    },
+    "type:terminal_handoff": {
+      "questions": 198,
+      "fact_requirements": 594,
+      "primary_quote_anchors": 594,
+      "primary_and_alternative_quote_anchors": 594,
+      "representations": {
+        "restored_page": {
+          "fact_hits": 594,
+          "primary_quote_hits": 594,
+          "all_quote_hits": 594,
+          "all_facts_questions": 198,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "pypdf_page": {
+          "fact_hits": 594,
+          "primary_quote_hits": 594,
+          "all_quote_hits": 594,
+          "all_facts_questions": 198,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "p800_chunk_text": {
+          "fact_hits": 594,
+          "primary_quote_hits": 594,
+          "all_quote_hits": 594,
+          "all_facts_questions": 198,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        },
+        "p800_index_text": {
+          "fact_hits": 594,
+          "primary_quote_hits": 594,
+          "all_quote_hits": 594,
+          "all_facts_questions": 198,
+          "fact_recall": 1.0,
+          "primary_quote_recall": 1.0,
+          "all_quote_recall": 1.0,
+          "all_facts_question_recall": 1.0
+        }
+      }
+    }
+  }
+}

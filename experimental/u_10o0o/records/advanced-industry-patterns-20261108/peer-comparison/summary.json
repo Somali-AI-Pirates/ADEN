@@ -1,0 +1,471 @@
+{
+  "all": {
+    "questions": 6500,
+    "arms": {
+      "baseline": {
+        "doc_recall@20": 0.950123076923077,
+        "page_recall@20": 0.9457846153846154,
+        "doc_recall@8": 0.8942153846153845,
+        "page_recall@8": 0.8892,
+        "quote_recall": 0.8376410256410257,
+        "fact_recall": 0.8664307692307692,
+        "all_facts": 0.6555384615384615,
+        "context_tokens": 3708.8815384615386,
+        "all_facts_count": 4261,
+        "alternative_only_hits": 1
+      },
+      "fielded": {
+        "doc_recall@20": 0.9815692307692307,
+        "page_recall@20": 0.9802153846153846,
+        "doc_recall@8": 0.9512307692307692,
+        "page_recall@8": 0.9503076923076923,
+        "quote_recall": 0.9216410256410257,
+        "fact_recall": 0.9411692307692309,
+        "all_facts": 0.7526153846153846,
+        "context_tokens": 3696.7612307692307,
+        "all_facts_count": 4892,
+        "alternative_only_hits": 0
+      },
+      "team_diverse": {
+        "doc_recall@20": 0.7463794871794871,
+        "page_recall@20": 0.7109333333333333,
+        "doc_recall@8": 0.6734871794871795,
+        "page_recall@8": 0.6324000000000001,
+        "quote_recall": 0.11853846153846154,
+        "fact_recall": 0.1317846153846154,
+        "all_facts": 0.03230769230769231,
+        "context_tokens": 3629.3796923076925,
+        "all_facts_count": 210,
+        "alternative_only_hits": 0
+      },
+      "team_graph": {
+        "doc_recall@20": 0.9642461538461539,
+        "page_recall@20": 0.9489538461538461,
+        "doc_recall@8": 0.9076,
+        "page_recall@8": 0.8852615384615384,
+        "quote_recall": 0.37676923076923075,
+        "fact_recall": 0.37951794871794875,
+        "all_facts": 0.3610769230769231,
+        "context_tokens": 3625.9107692307693,
+        "all_facts_count": 2347,
+        "alternative_only_hits": 0
+      }
+    },
+    "fielded_to_graph_all_facts": {
+      "0:0": 613,
+      "0:1": 995,
+      "1:0": 3540,
+      "1:1": 1352
+    }
+  },
+  "disjoint": {
+    "questions": 6103,
+    "arms": {
+      "baseline": {
+        "doc_recall@20": 0.9534655087661805,
+        "page_recall@20": 0.9496968703916107,
+        "doc_recall@8": 0.9010650499754219,
+        "page_recall@8": 0.8963788300835656,
+        "quote_recall": 0.8485171227265279,
+        "fact_recall": 0.8754383090283467,
+        "all_facts": 0.6778633458954613,
+        "context_tokens": 3710.0499754219236,
+        "all_facts_count": 4137,
+        "alternative_only_hits": 1
+      },
+      "fielded": {
+        "doc_recall@20": 0.9828281173193512,
+        "page_recall@20": 0.9817139111912174,
+        "doc_recall@8": 0.9548091102736359,
+        "page_recall@8": 0.9539570702932983,
+        "quote_recall": 0.927248893986564,
+        "fact_recall": 0.9452728166475504,
+        "all_facts": 0.7699492053088645,
+        "context_tokens": 3698.368507291496,
+        "all_facts_count": 4699,
+        "alternative_only_hits": 0
+      },
+      "team_diverse": {
+        "doc_recall@20": 0.7611775629471844,
+        "page_recall@20": 0.7274892129553772,
+        "doc_recall@8": 0.6920967830028948,
+        "page_recall@8": 0.6527281664755038,
+        "quote_recall": 0.11650008192692118,
+        "fact_recall": 0.12888743241029002,
+        "all_facts": 0.03440930689824676,
+        "context_tokens": 3623.7512698672786,
+        "all_facts_count": 210,
+        "alternative_only_hits": 0
+      },
+      "team_graph": {
+        "doc_recall@20": 0.9667704407668359,
+        "page_recall@20": 0.9520891364902507,
+        "doc_recall@8": 0.9133213173848926,
+        "page_recall@8": 0.8918892348025561,
+        "quote_recall": 0.36042383527227045,
+        "fact_recall": 0.3630236495712491,
+        "all_facts": 0.3455677535638211,
+        "context_tokens": 3621.3436015074553,
+        "all_facts_count": 2109,
+        "alternative_only_hits": 0
+      }
+    },
+    "fielded_to_graph_all_facts": {
+      "0:0": 534,
+      "0:1": 870,
+      "1:0": 3460,
+      "1:1": 1239
+    }
+  },
+  "type:linked_cost_handoff": {
+    "questions": 2730,
+    "arms": {
+      "baseline": {
+        "doc_recall@20": 0.8812454212454213,
+        "page_recall@20": 0.8709157509157509,
+        "doc_recall@8": 0.7481318681318682,
+        "page_recall@8": 0.7361904761904762,
+        "quote_recall": 0.6137973137973137,
+        "fact_recall": 0.6819780219780219,
+        "all_facts": 0.17985347985347985,
+        "context_tokens": 3695.1347985347984,
+        "all_facts_count": 491,
+        "alternative_only_hits": 0
+      },
+      "fielded": {
+        "doc_recall@20": 0.956117216117216,
+        "page_recall@20": 0.952893772893773,
+        "doc_recall@8": 0.8838827838827839,
+        "page_recall@8": 0.8816849816849817,
+        "quote_recall": 0.8137973137973138,
+        "fact_recall": 0.8602930402930402,
+        "all_facts": 0.41135531135531134,
+        "context_tokens": 3668.449084249084,
+        "all_facts_count": 1123,
+        "alternative_only_hits": 0
+      },
+      "team_diverse": {
+        "doc_recall@20": 0.42849816849816846,
+        "page_recall@20": 0.3627838827838828,
+        "doc_recall@8": 0.2564102564102564,
+        "page_recall@8": 0.19472527472527473,
+        "quote_recall": 0.1631868131868132,
+        "fact_recall": 0.19472527472527473,
+        "all_facts": 0.0,
+        "context_tokens": 3777.392307692308,
+        "all_facts_count": 0,
+        "alternative_only_hits": 0
+      },
+      "team_graph": {
+        "doc_recall@20": 0.9225641025641025,
+        "page_recall@20": 0.8975091575091575,
+        "doc_recall@8": 0.7891575091575092,
+        "page_recall@8": 0.7568498168498168,
+        "quote_recall": 0.7503052503052504,
+        "fact_recall": 0.7568498168498168,
+        "all_facts": 0.7175824175824176,
+        "context_tokens": 3736.7633699633698,
+        "all_facts_count": 1959,
+        "alternative_only_hits": 0
+      }
+    },
+    "fielded_to_graph_all_facts": {
+      "0:0": 612,
+      "0:1": 995,
+      "1:0": 159,
+      "1:1": 964
+    }
+  },
+  "identifier:explicit": {
+    "questions": 5120,
+    "arms": {
+      "baseline": {
+        "doc_recall@20": 0.9998828124999999,
+        "page_recall@20": 0.9998437499999999,
+        "doc_recall@8": 0.9712109375000001,
+        "page_recall@8": 0.9701562499999999,
+        "quote_recall": 0.9382486979166667,
+        "fact_recall": 0.9505078125,
+        "all_facts": 0.8322265625,
+        "context_tokens": 3715.2279296875,
+        "all_facts_count": 4261,
+        "alternative_only_hits": 1
+      },
+      "fielded": {
+        "doc_recall@20": 1.0,
+        "page_recall@20": 1.0,
+        "doc_recall@8": 0.983359375,
+        "page_recall@8": 0.9832421874999999,
+        "quote_recall": 0.9765950520833334,
+        "fact_recall": 0.9775,
+        "all_facts": 0.88828125,
+        "context_tokens": 3694.7259765625,
+        "all_facts_count": 4548,
+        "alternative_only_hits": 0
+      },
+      "team_diverse": {
+        "doc_recall@20": 0.7526302083333334,
+        "page_recall@20": 0.7165755208333333,
+        "doc_recall@8": 0.7419270833333333,
+        "page_recall@8": 0.7064843749999999,
+        "quote_recall": 0.07014973958333334,
+        "fact_recall": 0.0709375,
+        "all_facts": 0.041015625,
+        "context_tokens": 3597.9779296875,
+        "all_facts_count": 210,
+        "alternative_only_hits": 0
+      },
+      "team_graph": {
+        "doc_recall@20": 0.9958984375,
+        "page_recall@20": 0.98984375,
+        "doc_recall@8": 0.9951171875,
+        "page_recall@8": 0.983984375,
+        "quote_recall": 0.3419270833333333,
+        "fact_recall": 0.3419270833333333,
+        "all_facts": 0.339453125,
+        "context_tokens": 3597.43203125,
+        "all_facts_count": 1738,
+        "alternative_only_hits": 0
+      }
+    },
+    "fielded_to_graph_all_facts": {
+      "0:0": 1,
+      "0:1": 571,
+      "1:0": 3381,
+      "1:1": 1167
+    }
+  },
+  "overlap": {
+    "questions": 397,
+    "arms": {
+      "baseline": {
+        "doc_recall@20": 0.8987405541561713,
+        "page_recall@20": 0.8856423173803527,
+        "doc_recall@8": 0.7889168765743073,
+        "page_recall@8": 0.7788413098236776,
+        "quote_recall": 0.6704450041981529,
+        "fact_recall": 0.7279596977329975,
+        "all_facts": 0.3123425692695214,
+        "context_tokens": 3690.919395465995,
+        "all_facts_count": 124,
+        "alternative_only_hits": 0
+      },
+      "fielded": {
+        "doc_recall@20": 0.9622166246851386,
+        "page_recall@20": 0.9571788413098237,
+        "doc_recall@8": 0.8962216624685139,
+        "page_recall@8": 0.8942065491183879,
+        "quote_recall": 0.8354324097397146,
+        "fact_recall": 0.8780856423173804,
+        "all_facts": 0.48614609571788414,
+        "context_tokens": 3672.052896725441,
+        "all_facts_count": 193,
+        "alternative_only_hits": 0
+      },
+      "team_diverse": {
+        "doc_recall@20": 0.5188916876574308,
+        "page_recall@20": 0.4564231738035264,
+        "doc_recall@8": 0.38740554156171286,
+        "page_recall@8": 0.3198992443324937,
+        "quote_recall": 0.14987405541561713,
+        "fact_recall": 0.17632241813602015,
+        "all_facts": 0.0,
+        "context_tokens": 3715.904282115869,
+        "all_facts_count": 0,
+        "alternative_only_hits": 0
+      },
+      "team_graph": {
+        "doc_recall@20": 0.92544080604534,
+        "page_recall@20": 0.9007556675062973,
+        "doc_recall@8": 0.8196473551637279,
+        "page_recall@8": 0.783375314861461,
+        "quote_recall": 0.6280436607892528,
+        "fact_recall": 0.6330814441645676,
+        "all_facts": 0.5994962216624685,
+        "context_tokens": 3696.1209068010075,
+        "all_facts_count": 238,
+        "alternative_only_hits": 0
+      }
+    },
+    "fielded_to_graph_all_facts": {
+      "0:0": 79,
+      "0:1": 125,
+      "1:0": 80,
+      "1:1": 113
+    }
+  },
+  "identifier:implicit": {
+    "questions": 1380,
+    "arms": {
+      "baseline": {
+        "doc_recall@20": 0.7655072463768117,
+        "page_recall@20": 0.7452173913043479,
+        "doc_recall@8": 0.6085507246376812,
+        "page_recall@8": 0.5888405797101449,
+        "quote_recall": 0.46437198067632846,
+        "fact_recall": 0.5544927536231884,
+        "all_facts": 0.0,
+        "context_tokens": 3685.335507246377,
+        "all_facts_count": 0,
+        "alternative_only_hits": 0
+      },
+      "fielded": {
+        "doc_recall@20": 0.9131884057971015,
+        "page_recall@20": 0.9068115942028986,
+        "doc_recall@8": 0.8320289855072464,
+        "page_recall@8": 0.8281159420289854,
+        "quote_recall": 0.7177536231884057,
+        "fact_recall": 0.8063768115942028,
+        "all_facts": 0.2492753623188406,
+        "context_tokens": 3704.31231884058,
+        "all_facts_count": 344,
+        "alternative_only_hits": 0
+      },
+      "team_diverse": {
+        "doc_recall@20": 0.7231884057971014,
+        "page_recall@20": 0.6900000000000001,
+        "doc_recall@8": 0.41956521739130437,
+        "page_recall@8": 0.357536231884058,
+        "quote_recall": 0.2980676328502415,
+        "fact_recall": 0.357536231884058,
+        "all_facts": 0.0,
+        "context_tokens": 3745.884782608696,
+        "all_facts_count": 0,
+        "alternative_only_hits": 0
+      },
+      "team_graph": {
+        "doc_recall@20": 0.8468115942028985,
+        "page_recall@20": 0.7972463768115943,
+        "doc_recall@8": 0.5828985507246377,
+        "page_recall@8": 0.5189855072463768,
+        "quote_recall": 0.5060386473429952,
+        "fact_recall": 0.5189855072463768,
+        "all_facts": 0.44130434782608696,
+        "context_tokens": 3731.5710144927534,
+        "all_facts_count": 609,
+        "alternative_only_hits": 0
+      }
+    },
+    "fielded_to_graph_all_facts": {
+      "0:0": 612,
+      "0:1": 424,
+      "1:0": 159,
+      "1:1": 185
+    }
+  },
+  "type:terminal_handoff": {
+    "questions": 198,
+    "arms": {
+      "baseline": {
+        "doc_recall@20": 1.0,
+        "page_recall@20": 1.0,
+        "doc_recall@8": 1.0,
+        "page_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3816.050505050505,
+        "all_facts_count": 198,
+        "alternative_only_hits": 0
+      },
+      "fielded": {
+        "doc_recall@20": 1.0,
+        "page_recall@20": 1.0,
+        "doc_recall@8": 1.0,
+        "page_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3807.9949494949497,
+        "all_facts_count": 198,
+        "alternative_only_hits": 0
+      },
+      "team_diverse": {
+        "doc_recall@20": 0.67003367003367,
+        "page_recall@20": 0.5942760942760942,
+        "doc_recall@8": 0.67003367003367,
+        "page_recall@8": 0.5909090909090909,
+        "quote_recall": 0.5909090909090909,
+        "fact_recall": 0.5909090909090909,
+        "all_facts": 0.010101010101010102,
+        "context_tokens": 3483.010101010101,
+        "all_facts_count": 2,
+        "alternative_only_hits": 0
+      },
+      "team_graph": {
+        "doc_recall@20": 1.0,
+        "page_recall@20": 1.0,
+        "doc_recall@8": 1.0,
+        "page_recall@8": 1.0,
+        "quote_recall": 0.968013468013468,
+        "fact_recall": 0.968013468013468,
+        "all_facts": 0.9040404040404041,
+        "context_tokens": 3835.5555555555557,
+        "all_facts_count": 179,
+        "alternative_only_hits": 0
+      }
+    },
+    "fielded_to_graph_all_facts": {
+      "1:0": 19,
+      "1:1": 179
+    }
+  },
+  "type:handbook_record": {
+    "questions": 3572,
+    "arms": {
+      "baseline": {
+        "doc_recall@20": 1.0,
+        "page_recall@20": 1.0,
+        "doc_recall@8": 1.0,
+        "page_recall@8": 1.0,
+        "quote_recall": 0.9997200447928332,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3713.4473684210525,
+        "all_facts_count": 3572,
+        "alternative_only_hits": 1
+      },
+      "fielded": {
+        "doc_recall@20": 1.0,
+        "page_recall@20": 1.0,
+        "doc_recall@8": 1.0,
+        "page_recall@8": 1.0,
+        "quote_recall": 0.9997200447928332,
+        "fact_recall": 0.9997200447928332,
+        "all_facts": 0.9997200447928332,
+        "context_tokens": 3712.2337625979844,
+        "all_facts_count": 3571,
+        "alternative_only_hits": 0
+      },
+      "team_diverse": {
+        "doc_recall@20": 0.9935610302351624,
+        "page_recall@20": 0.9834826427771557,
+        "doc_recall@8": 0.9924412094064949,
+        "page_recall@8": 0.9692049272116461,
+        "quote_recall": 0.05823068309070549,
+        "fact_recall": 0.05823068309070549,
+        "all_facts": 0.05823068309070549,
+        "context_tokens": 3524.3703807390816,
+        "all_facts_count": 208,
+        "alternative_only_hits": 0
+      },
+      "team_graph": {
+        "doc_recall@20": 0.9941209406494961,
+        "page_recall@20": 0.9854423292273237,
+        "doc_recall@8": 0.9930011198208286,
+        "page_recall@8": 0.977043673012318,
+        "quote_recall": 0.05851063829787234,
+        "fact_recall": 0.05851063829787234,
+        "all_facts": 0.05851063829787234,
+        "context_tokens": 3529.5677491601346,
+        "all_facts_count": 209,
+        "alternative_only_hits": 0
+      }
+    },
+    "fielded_to_graph_all_facts": {
+      "0:0": 1,
+      "1:0": 3362,
+      "1:1": 209
+    }
+  }
+}
