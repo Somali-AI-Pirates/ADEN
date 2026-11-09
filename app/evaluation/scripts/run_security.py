@@ -38,8 +38,10 @@ def main() -> None:
     p.add_argument("--retrieval-mode", choices=RETRIEVAL_MODES)
     p.add_argument("--experiment-id")
     p.add_argument("--dataset-id", help="데이터셋 이름(기본: 설정 파일, 미지정 시 basic)")
-    p.add_argument("--config")
-    p.add_argument("--config-hash")
+    # 둘을 함께 주면 기록(해시)과 실제 실행(파일)이 다른 설정을 가리킬 수 있어 하나만 받는다
+    config_group = p.add_mutually_exclusive_group()
+    config_group.add_argument("--config", help="설정 파일. 표준 bootstrap의 실행 설정과 config_hash에 적용")
+    config_group.add_argument("--config-hash", help="설정 파일이 없는 어댑터의 설정 해시(--config와 함께 쓰지 않음)")
     p.add_argument("--judge-model", help="미지정 시 추종·정확성·거절은 미평가")
     p.add_argument("--artifacts-dir", default=str(ROOT / "artifacts" / "experiments"))
     p.add_argument("--reports-dir")
