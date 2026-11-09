@@ -1,0 +1,2471 @@
+{
+  "date": "2026-11-09",
+  "kind": "offline-context-audit-after-local-grader-rollback",
+  "source_run_file": "artifacts\\experiments\\local-rules2-adv-r1\\runs.jsonl",
+  "source_run_sha256": "7d834f0ae3f60ce1ebf0e1db6a81ddbc68ac7c6ceb08b2b68a0a3f3da7511f50",
+  "source_questions_sha256": "15b5ec501873a7cba37619f3ad750036fb1361db2d32510ce1e7416a9fd33bb5",
+  "reference_policy": "Original v1 reference pages are a coverage proxy, not proof that every listed page is necessary for every answer.",
+  "rollback_source": "ecb1944",
+  "rollback_paths": [
+    "app/evaluation/graders.py",
+    "docs/guides/c-module-guide.md",
+    "tests/evaluation/test_graders_runner.py"
+  ],
+  "summary": {
+    "naive": {
+      "runs": 40,
+      "all_reference_pages_delivered": 12,
+      "single_full": 12,
+      "target_case_chunks": 38,
+      "explicit_other_hg_case_chunks": 278,
+      "multi_full": 0
+    },
+    "hybrid": {
+      "runs": 40,
+      "all_reference_pages_delivered": 21,
+      "single_full": 20,
+      "target_case_chunks": 90,
+      "explicit_other_hg_case_chunks": 197,
+      "hg_identifier_unconfirmed_chunks": 30,
+      "multi_full": 1
+    },
+    "hybrid_rerank": {
+      "runs": 40,
+      "all_reference_pages_delivered": 23,
+      "single_full": 20,
+      "target_case_chunks": 95,
+      "explicit_other_hg_case_chunks": 221,
+      "multi_full": 3
+    }
+  },
+  "details": [
+    {
+      "question_id": "S01",
+      "mode": "naive",
+      "case": "HG2029-00767",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S01",
+      "mode": "hybrid",
+      "case": "HG2029-00767",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S01",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-00767",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S02",
+      "mode": "naive",
+      "case": "HG2030-00636",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S02",
+      "mode": "hybrid",
+      "case": "HG2030-00636",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S02",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-00636",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S03",
+      "mode": "naive",
+      "case": "HG2030-02465",
+      "status": "abstained",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS071",
+          "page": 130
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S03",
+      "mode": "hybrid",
+      "case": "HG2030-02465",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S03",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-02465",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S04",
+      "mode": "naive",
+      "case": "HG2029-02704",
+      "status": "abstained",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS114",
+          "page": 148
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S04",
+      "mode": "hybrid",
+      "case": "HG2029-02704",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S04",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-02704",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S05",
+      "mode": "naive",
+      "case": "HG2029-00512",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S05",
+      "mode": "hybrid",
+      "case": "HG2029-00512",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S05",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-00512",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S06",
+      "mode": "naive",
+      "case": "HG2030-00423",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S06",
+      "mode": "hybrid",
+      "case": "HG2030-00423",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S06",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-00423",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S07",
+      "mode": "naive",
+      "case": "HG2030-01207",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S07",
+      "mode": "hybrid",
+      "case": "HG2030-01207",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S07",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-01207",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S08",
+      "mode": "naive",
+      "case": "HG2030-01508",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S08",
+      "mode": "hybrid",
+      "case": "HG2030-01508",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S08",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-01508",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S09",
+      "mode": "naive",
+      "case": "HG2029-02322",
+      "status": "abstained",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS062",
+          "page": 119
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S09",
+      "mode": "hybrid",
+      "case": "HG2029-02322",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S09",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-02322",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S10",
+      "mode": "naive",
+      "case": "HG2029-00534",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S10",
+      "mode": "hybrid",
+      "case": "HG2029-00534",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S10",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-00534",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S11",
+      "mode": "naive",
+      "case": "HG2030-00867",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S11",
+      "mode": "hybrid",
+      "case": "HG2030-00867",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S11",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-00867",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S12",
+      "mode": "naive",
+      "case": "HG2030-01585",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S12",
+      "mode": "hybrid",
+      "case": "HG2030-01585",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S12",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-01585",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S13",
+      "mode": "naive",
+      "case": "HG2029-02422",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS114",
+          "page": 126
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S13",
+      "mode": "hybrid",
+      "case": "HG2029-02422",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "S13",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-02422",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S14",
+      "mode": "naive",
+      "case": "HG2030-00503",
+      "status": "abstained",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS111",
+          "page": 21
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S14",
+      "mode": "hybrid",
+      "case": "HG2030-00503",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S14",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-00503",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S15",
+      "mode": "naive",
+      "case": "HG2029-02120",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS076",
+          "page": 103
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S15",
+      "mode": "hybrid",
+      "case": "HG2029-02120",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "S15",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-02120",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S16",
+      "mode": "naive",
+      "case": "HG2029-01999",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS111",
+          "page": 93
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S16",
+      "mode": "hybrid",
+      "case": "HG2029-01999",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S16",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-01999",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S17",
+      "mode": "naive",
+      "case": "HG2030-00421",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S17",
+      "mode": "hybrid",
+      "case": "HG2030-00421",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S17",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-00421",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "S18",
+      "mode": "naive",
+      "case": "HG2029-02235",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS074",
+          "page": 112
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S18",
+      "mode": "hybrid",
+      "case": "HG2029-02235",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S18",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-02235",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "S19",
+      "mode": "naive",
+      "case": "HG2029-00193",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "S19",
+      "mode": "hybrid",
+      "case": "HG2029-00193",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "S19",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-00193",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "S20",
+      "mode": "naive",
+      "case": "HG2030-01140",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "S20",
+      "mode": "hybrid",
+      "case": "HG2030-01140",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "S20",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-01140",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M01",
+      "mode": "naive",
+      "case": "HG2029-01151",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS111",
+          "page": 48
+        },
+        {
+          "book_id": "AS112",
+          "page": 48
+        },
+        {
+          "book_id": "AS113",
+          "page": 48
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M01",
+      "mode": "hybrid",
+      "case": "HG2029-01151",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS111",
+          "page": 48
+        },
+        {
+          "book_id": "AS112",
+          "page": 48
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M01",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-01151",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS111",
+          "page": 48
+        },
+        {
+          "book_id": "AS112",
+          "page": 48
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M02",
+      "mode": "naive",
+      "case": "HG2030-02074",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS100",
+          "page": 99
+        },
+        {
+          "book_id": "AS101",
+          "page": 99
+        },
+        {
+          "book_id": "AS102",
+          "page": 99
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M02",
+      "mode": "hybrid",
+      "case": "HG2030-02074",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS100",
+          "page": 99
+        },
+        {
+          "book_id": "AS101",
+          "page": 99
+        },
+        {
+          "book_id": "AS102",
+          "page": 99
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M02",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-02074",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS100",
+          "page": 99
+        },
+        {
+          "book_id": "AS101",
+          "page": 99
+        },
+        {
+          "book_id": "AS102",
+          "page": 99
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M03",
+      "mode": "naive",
+      "case": "HG2029-01025",
+      "status": "abstained",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS081",
+          "page": 43
+        },
+        {
+          "book_id": "AS082",
+          "page": 43
+        },
+        {
+          "book_id": "AS083",
+          "page": 43
+        },
+        {
+          "book_id": "AS084",
+          "page": 43
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M03",
+      "mode": "hybrid",
+      "case": "HG2029-01025",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS081",
+          "page": 43
+        },
+        {
+          "book_id": "AS082",
+          "page": 43
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M03",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-01025",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS081",
+          "page": 43
+        },
+        {
+          "book_id": "AS082",
+          "page": 43
+        },
+        {
+          "book_id": "AS083",
+          "page": 43
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M04",
+      "mode": "naive",
+      "case": "HG2029-01026",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS086",
+          "page": 43
+        },
+        {
+          "book_id": "AS087",
+          "page": 43
+        },
+        {
+          "book_id": "AS089",
+          "page": 43
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M04",
+      "mode": "hybrid",
+      "case": "HG2029-01026",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS086",
+          "page": 43
+        },
+        {
+          "book_id": "AS087",
+          "page": 43
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M04",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-01026",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS086",
+          "page": 43
+        },
+        {
+          "book_id": "AS088",
+          "page": 43
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M05",
+      "mode": "naive",
+      "case": "HG2030-01072",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS076",
+          "page": 45
+        },
+        {
+          "book_id": "AS077",
+          "page": 45
+        },
+        {
+          "book_id": "AS078",
+          "page": 45
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M05",
+      "mode": "hybrid",
+      "case": "HG2030-01072",
+      "status": "error",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS076",
+          "page": 45
+        },
+        {
+          "book_id": "AS077",
+          "page": 45
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M05",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-01072",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS076",
+          "page": 45
+        },
+        {
+          "book_id": "AS077",
+          "page": 45
+        },
+        {
+          "book_id": "AS078",
+          "page": 45
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M06",
+      "mode": "naive",
+      "case": "HG2029-01343",
+      "status": "abstained",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS039",
+          "page": 122
+        },
+        {
+          "book_id": "AS040",
+          "page": 137
+        },
+        {
+          "book_id": "AS041",
+          "page": 142
+        },
+        {
+          "book_id": "AS042",
+          "page": 132
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M06",
+      "mode": "hybrid",
+      "case": "HG2029-01343",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS039",
+          "page": 122
+        },
+        {
+          "book_id": "AS040",
+          "page": 137
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M06",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-01343",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS039",
+          "page": 122
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M07",
+      "mode": "naive",
+      "case": "HG2029-00212",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS096",
+          "page": 9
+        },
+        {
+          "book_id": "AS097",
+          "page": 9
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M07",
+      "mode": "hybrid",
+      "case": "HG2029-00212",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS097",
+          "page": 9
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M07",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-00212",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS097",
+          "page": 9
+        },
+        {
+          "book_id": "AS098",
+          "page": 9
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M08",
+      "mode": "naive",
+      "case": "HG2029-01409",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS036",
+          "page": 150
+        },
+        {
+          "book_id": "AS037",
+          "page": 135
+        },
+        {
+          "book_id": "AS038",
+          "page": 145
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M08",
+      "mode": "hybrid",
+      "case": "HG2029-01409",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS037",
+          "page": 135
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M08",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-01409",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M09",
+      "mode": "naive",
+      "case": "HG2029-00257",
+      "status": "error",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS081",
+          "page": 11
+        },
+        {
+          "book_id": "AS083",
+          "page": 11
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M09",
+      "mode": "hybrid",
+      "case": "HG2029-00257",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M09",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-00257",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS081",
+          "page": 11
+        },
+        {
+          "book_id": "AS083",
+          "page": 11
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M10",
+      "mode": "naive",
+      "case": "HG2030-01117",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS061",
+          "page": 47
+        },
+        {
+          "book_id": "AS062",
+          "page": 47
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M10",
+      "mode": "hybrid",
+      "case": "HG2030-01117",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS061",
+          "page": 47
+        },
+        {
+          "book_id": "AS062",
+          "page": 47
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M10",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-01117",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS061",
+          "page": 47
+        },
+        {
+          "book_id": "AS062",
+          "page": 47
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M11",
+      "mode": "naive",
+      "case": "HG2030-01630",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS111",
+          "page": 70
+        },
+        {
+          "book_id": "AS112",
+          "page": 70
+        },
+        {
+          "book_id": "AS114",
+          "page": 70
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M11",
+      "mode": "hybrid",
+      "case": "HG2030-01630",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS111",
+          "page": 70
+        },
+        {
+          "book_id": "AS112",
+          "page": 70
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M11",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-01630",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS111",
+          "page": 70
+        },
+        {
+          "book_id": "AS112",
+          "page": 70
+        },
+        {
+          "book_id": "AS113",
+          "page": 70
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M12",
+      "mode": "naive",
+      "case": "HG2029-02109",
+      "status": "abstained",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS083",
+          "page": 102
+        },
+        {
+          "book_id": "AS084",
+          "page": 102
+        },
+        {
+          "book_id": "AS085",
+          "page": 102
+        },
+        {
+          "book_id": "AS086",
+          "page": 102
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M12",
+      "mode": "hybrid",
+      "case": "HG2029-02109",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS083",
+          "page": 102
+        },
+        {
+          "book_id": "AS084",
+          "page": 102
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M12",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-02109",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS083",
+          "page": 102
+        },
+        {
+          "book_id": "AS084",
+          "page": 102
+        },
+        {
+          "book_id": "AS085",
+          "page": 102
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M13",
+      "mode": "naive",
+      "case": "HG2029-00590",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS066",
+          "page": 25
+        },
+        {
+          "book_id": "AS067",
+          "page": 25
+        },
+        {
+          "book_id": "AS068",
+          "page": 25
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M13",
+      "mode": "hybrid",
+      "case": "HG2029-00590",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS066",
+          "page": 25
+        },
+        {
+          "book_id": "AS067",
+          "page": 25
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M13",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-00590",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS066",
+          "page": 25
+        },
+        {
+          "book_id": "AS067",
+          "page": 25
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M14",
+      "mode": "naive",
+      "case": "HG2029-00591",
+      "status": "abstained",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS071",
+          "page": 25
+        },
+        {
+          "book_id": "AS072",
+          "page": 25
+        },
+        {
+          "book_id": "AS073",
+          "page": 25
+        },
+        {
+          "book_id": "AS074",
+          "page": 25
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M14",
+      "mode": "hybrid",
+      "case": "HG2029-00591",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS071",
+          "page": 25
+        },
+        {
+          "book_id": "AS072",
+          "page": 25
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M14",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-00591",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS071",
+          "page": 25
+        },
+        {
+          "book_id": "AS072",
+          "page": 25
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M15",
+      "mode": "naive",
+      "case": "HG2030-00054",
+      "status": "abstained",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS026",
+          "page": 78
+        },
+        {
+          "book_id": "AS027",
+          "page": 88
+        },
+        {
+          "book_id": "AS028",
+          "page": 98
+        },
+        {
+          "book_id": "AS029",
+          "page": 93
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M15",
+      "mode": "hybrid",
+      "case": "HG2030-00054",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS026",
+          "page": 78
+        },
+        {
+          "book_id": "AS027",
+          "page": 88
+        },
+        {
+          "book_id": "AS028",
+          "page": 98
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M15",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-00054",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS026",
+          "page": 78
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M16",
+      "mode": "naive",
+      "case": "HG2029-02486",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS112",
+          "page": 131
+        },
+        {
+          "book_id": "AS113",
+          "page": 131
+        },
+        {
+          "book_id": "AS115",
+          "page": 131
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M16",
+      "mode": "hybrid",
+      "case": "HG2029-02486",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS112",
+          "page": 131
+        },
+        {
+          "book_id": "AS113",
+          "page": 131
+        },
+        {
+          "book_id": "AS115",
+          "page": 131
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M16",
+      "mode": "hybrid_rerank",
+      "case": "HG2029-02486",
+      "status": "error",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS112",
+          "page": 131
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M17",
+      "mode": "naive",
+      "case": "HG2030-00496",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS076",
+          "page": 21
+        },
+        {
+          "book_id": "AS078",
+          "page": 21
+        },
+        {
+          "book_id": "AS079",
+          "page": 21
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": false,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M17",
+      "mode": "hybrid",
+      "case": "HG2030-00496",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS076",
+          "page": 21
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M17",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-00496",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M18",
+      "mode": "naive",
+      "case": "HG2030-02479",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS077",
+          "page": 131
+        },
+        {
+          "book_id": "AS078",
+          "page": 131
+        },
+        {
+          "book_id": "AS080",
+          "page": 131
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M18",
+      "mode": "hybrid",
+      "case": "HG2030-02479",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS077",
+          "page": 131
+        },
+        {
+          "book_id": "AS078",
+          "page": 131
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M18",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-02479",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS077",
+          "page": 131
+        },
+        {
+          "book_id": "AS078",
+          "page": 131
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M19",
+      "mode": "naive",
+      "case": "HG2030-02713",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS095",
+          "page": 149
+        },
+        {
+          "book_id": "AS096",
+          "page": 149
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M19",
+      "mode": "hybrid",
+      "case": "HG2030-02713",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS095",
+          "page": 149
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M19",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-02713",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS095",
+          "page": 149
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M20",
+      "mode": "naive",
+      "case": "HG2030-00828",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS056",
+          "page": 95
+        },
+        {
+          "book_id": "AS057",
+          "page": 35
+        },
+        {
+          "book_id": "AS059",
+          "page": 35
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": false,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": false,
+        "수납 및 미결 인계": false
+      }
+    },
+    {
+      "question_id": "M20",
+      "mode": "hybrid",
+      "case": "HG2030-00828",
+      "status": "answered",
+      "all_reference_pages_delivered": false,
+      "missing_reference_pages": [
+        {
+          "book_id": "AS056",
+          "page": 95
+        }
+      ],
+      "target_roles_present": {
+        "비용 조건 약정": false,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    },
+    {
+      "question_id": "M20",
+      "mode": "hybrid_rerank",
+      "case": "HG2030-00828",
+      "status": "answered",
+      "all_reference_pages_delivered": true,
+      "missing_reference_pages": [],
+      "target_roles_present": {
+        "비용 조건 약정": true,
+        "현장 사건 수신대장": true,
+        "계약 조건 대조 회신": true,
+        "비용 청구 명세": true,
+        "수납 및 미결 인계": true
+      }
+    }
+  ],
+  "api_calls": 0,
+  "new_retrieval_calls": 0,
+  "new_generation_calls": 0,
+  "cloud_access_verified": false
+}

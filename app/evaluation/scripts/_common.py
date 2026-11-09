@@ -53,12 +53,17 @@ def now_id(prefix: str) -> str:
     return f"{prefix}-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
 
 
-def load_callable(spec: str) -> Any:
+def load_callable(spec: str, *, config_path: Path | None = None) -> Any:
     """'package.module:attr' 형식. B의 서비스 코드를 C 모듈이 직접 import하지 않도록 실행 시 지정한다."""
     module, _, attr = spec.partition(":")
     if not module or not attr:
         raise SystemExit(f"'모듈:이름' 형식이어야 한다: {spec}")
-    return getattr(importlib.import_module(module), attr)
+    loaded_module = importlib.import_module(module)
+    function = getattr(loaded_module, attr)
+    configure = getattr(loaded_module, "configure_evaluation", None)
+    if config_path is not None and callable(configure):
+        configure(config_path)
+    return function
 
 
 def guard_overwrite(path: Path, overwrite: bool) -> None:

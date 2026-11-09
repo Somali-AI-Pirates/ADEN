@@ -1,0 +1,26 @@
+{
+  "experiment_id": "rubric-v2-pilot-20261109T020023Z",
+  "paired_summary": {
+    "fact": {
+      "before": 4.0,
+      "after": 6.0,
+      "n": 12
+    },
+    "condition": {
+      "before": 7.0,
+      "after": 12.0,
+      "n": 12
+    },
+    "evidence": {
+      "before": 11.0,
+      "after": 12.0,
+      "n": 12
+    },
+    "decision": {
+      "before": 10.0,
+      "after": 12.0,
+      "n": 12
+    }
+  },
+  "ragas_recomputed": false
+}

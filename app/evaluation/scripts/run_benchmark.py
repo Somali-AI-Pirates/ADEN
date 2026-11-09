@@ -18,6 +18,8 @@ import time
 from collections import Counter
 from pathlib import Path
 
+from shared.settings import load_settings
+
 from app.observability.records import RETRIEVAL_MODES
 from app.observability.tracing import Tracer
 from app.evaluation.dataset import load_questions, load_references
@@ -37,10 +39,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--ids", help="선택 질문 ID, 쉼표 구분(기본: 전체)")
     p.add_argument("--selection-reason", default="")
     p.add_argument("--experiment-id")
-    p.add_argument("--dataset-id", default="basic")
-    p.add_argument("--config", help="설정 파일. 해시를 config_hash로 사용")
+    p.add_argument("--dataset-id", help="데이터셋 이름(기본: 설정 파일, 미지정 시 basic)")
+    p.add_argument("--config", help="설정 파일. 표준 bootstrap의 실행 설정과 config_hash에 적용")
     p.add_argument("--config-hash")
-    p.add_argument("--k", type=int, default=5)
+    p.add_argument("--k", type=int,
+                   help="Hit/Recall 평가의 상위 청크 수(기본: 설정 retrieval.k, 설정 없으면 8)")
     p.add_argument("--modes", default=",".join(RETRIEVAL_MODES))
     p.add_argument("--judge-model", help="미지정 시 Judge는 평가 불가로 기록")
     p.add_argument("--ragas-model", help="미지정 시 Faithfulness는 평가 불가로 기록")
@@ -60,6 +63,13 @@ def main() -> None:
         for trace_id in args.verify_langfuse:
             print(trace_id, json.dumps(tracer.verify_trace(trace_id), ensure_ascii=False))
         return
+
+    config_path = (ROOT / args.config).resolve() if args.config and not args.sample else None
+    config = load_settings(config_path) if config_path is not None else None
+    if args.k is None:
+        args.k = config.retrieval.k if config else 8
+    if args.dataset_id is None:
+        args.dataset_id = config.dataset if config else "basic"
 
     modes = [m for m in args.modes.split(",") if m]
     if args.sample:
@@ -86,7 +96,7 @@ def main() -> None:
             references_path = args.references
         dataset_id = args.dataset_id
         config_hash = args.config_hash or sha256_file(ROOT / args.config)
-        adapter = load_callable(args.adapter)
+        adapter = load_callable(args.adapter, config_path=config_path)
         tracer = getattr(adapter, "tracer", None)
         judge_fn = make_openai_judge(args.judge_model) if args.judge_model else None
         faith_fn = make_ragas_faithfulness(args.ragas_model) if args.ragas_model else None

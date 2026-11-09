@@ -14,6 +14,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from shared.settings import load_settings
+
 from app.evaluation.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
                                       now_id, sha256_file)
 
@@ -35,7 +37,7 @@ def main() -> None:
     p.add_argument("--generate", help="'모듈:이름' (question, chunks, prompt_variant) -> 생성 결과")
     p.add_argument("--retrieval-mode", choices=RETRIEVAL_MODES)
     p.add_argument("--experiment-id")
-    p.add_argument("--dataset-id", default="basic")
+    p.add_argument("--dataset-id", help="데이터셋 이름(기본: 설정 파일, 미지정 시 basic)")
     p.add_argument("--config")
     p.add_argument("--config-hash")
     p.add_argument("--judge-model", help="미지정 시 추종·정확성·거절은 미평가")
@@ -43,6 +45,11 @@ def main() -> None:
     p.add_argument("--reports-dir")
     p.add_argument("--overwrite", action="store_true")
     args = p.parse_args()
+
+    config_path = (ROOT / args.config).resolve() if args.config and not args.sample else None
+    config = load_settings(config_path) if config_path is not None else None
+    if args.dataset_id is None:
+        args.dataset_id = config.dataset if config else "basic"
 
     if args.sample:
         from app.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_SECURITY, make_sample_generate,
@@ -64,7 +71,8 @@ def main() -> None:
         experiment_id = args.experiment_id or now_id(args.dataset_id)
         path, dataset_id = args.security_file, args.dataset_id
         config_hash = args.config_hash or sha256_file(ROOT / args.config)
-        retrieve_fn, generate_fn = load_callable(args.retrieve), load_callable(args.generate)
+        retrieve_fn = load_callable(args.retrieve, config_path=config_path)
+        generate_fn = load_callable(args.generate, config_path=config_path)
         judge_fn = (make_openai_security_judge(args.judge_model, load_prompt("security_judge.txt"))
                     if args.judge_model else None)
         judge_desc, mode = args.judge_model, args.retrieval_mode

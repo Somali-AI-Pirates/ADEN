@@ -9,39 +9,54 @@
         --retrieve app.service.bootstrap:retrieve_context \
         --generate app.service.bootstrap:generate_with_context ...
 
-설정은 ``configs/basic.yaml``(``shared.settings.DEFAULT_CONFIG``)을 읽는다. CLI의
-``--config``는 결과에 남길 설정 해시용이므로 같은 파일을 지정한다. 접속 정보는 앱과
+설정은 기본적으로 ``configs/basic.yaml``을 읽는다. 평가 CLI의 ``--config``가
+있으면 ``configure_evaluation()``을 통해 지정 파일을 실제 자원 초기화에 적용한다. 접속 정보는 앱과
 같이 저장소 루트의 ``.env``를 읽으며 이미 설정된 환경변수를 우선한다.
 """
 
 import atexit
+from functools import partial
+from pathlib import Path
 
 from dotenv import load_dotenv
 
 from app.generation.chain import DEFAULT_PROMPT
 from app.service.adapters import make_query_adapter, make_security_adapters
 from app.service.resources import Resources, load_resources
-from shared.settings import PROJECT_ROOT, Settings, load_settings
+from shared.settings import DEFAULT_CONFIG, PROJECT_ROOT, Settings, load_settings
 
 DEFENSE_PROMPT = DEFAULT_PROMPT.parent / "defense.txt"
 
 
-def load_settings_with_env() -> Settings:
-    """``create_app()``과 같은 순서로 ``.env``를 읽은 뒤 기본 설정을 검증한다."""
+def load_settings_with_env(config_path: Path = DEFAULT_CONFIG) -> Settings:
+    """``create_app()``과 같은 순서로 ``.env``를 읽은 뒤 지정 설정을 검증한다."""
     load_dotenv(PROJECT_ROOT / ".env")
-    return load_settings()
+    return load_settings(config_path)
 
 
 class ServiceBootstrap:
     """평가 실행 한 번 동안 설정·Resources와 어댑터를 한 벌만 준비해 공유한다."""
 
     def __init__(self, settings_loader=load_settings_with_env, resources_loader=load_resources):
+        self._config_path: Path | None = None
         self._settings_loader = settings_loader
         self._resources_loader = resources_loader
         self._settings: Settings | None = None
         self._resources: Resources | None = None
         self._query_adapter = None
         self._security_adapters = None
+
+    def configure(self, config_path: Path) -> None:
+        """자원 준비 전에 평가 설정을 선택한다. 실행 중 설정 교체는 거부한다."""
+        config_path = Path(config_path).resolve()
+        active_path = self._config_path or DEFAULT_CONFIG.resolve()
+        if self._resources is not None:
+            if config_path == active_path and load_settings(config_path) == self._settings:
+                return
+            raise ValueError("이미 준비된 평가 자원의 설정을 바꿀 수 없습니다. 먼저 close()하거나 새 실행을 사용하세요.")
+        self._config_path = config_path
+        self._settings_loader = partial(load_settings_with_env, config_path)
+        self._settings = None
 
     def resources(self) -> Resources:
         if self._resources is None:
@@ -88,6 +103,11 @@ class _QueryAdapter:
 _default = ServiceBootstrap()
 
 query_adapter = _QueryAdapter(_default)
+
+
+def configure_evaluation(config_path: Path) -> None:
+    """평가 CLI의 설정 전달 훅. 일반·보안 callable이 같은 설정/자원을 공유한다."""
+    _default.configure(config_path)
 
 
 def retrieve_context(question, retrieval_mode):
