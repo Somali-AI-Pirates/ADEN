@@ -2,8 +2,9 @@
 
 import argparse
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import datetime
+from hashlib import sha256
 from importlib.metadata import version
 from pathlib import Path
 from statistics import fmean
@@ -14,6 +15,15 @@ from sentence_transformers import CrossEncoder
 
 from app.evaluation.dataset import load_questions, load_references
 from app.evaluation.metrics import retrieval_metrics
+from experimental.u_10o0o.advanced_case_sources import CURATED
+from experimental.u_10o0o.advanced_field_roles import PatternIndex
+from experimental.u_10o0o.advanced_hg_lookup import (
+    CASE_INDEX,
+    ProfileIndex,
+    load_cases,
+    load_profiles,
+    rank_with_hg_lookup,
+)
 from experimental.u_10o0o.bm25 import B, K1, BM25Index, load_tokenizer
 from experimental.u_10o0o.context_evidence import score_context
 from experimental.u_10o0o.embeding import MODEL_ID, MODEL_REVISION, VECTORS_PATH
@@ -30,7 +40,9 @@ CONTEXT_TOKENS = 4000
 RERANKED_HEAD = 3
 FINAL_K = 8
 BIGRAM_KURE = "bigram_id_kure"
-SELECTED = "bigram_id_kure_top3_bm25"
+BODY_SELECTED = "bigram_id_kure_top3_bm25"
+TITLE_ONLY = "bigram_id_fielded_kure_top3"
+SELECTED = "bigram_id_fielded_kure_top3_hg_lookup"
 
 
 def evaluation_files():
@@ -141,13 +153,15 @@ def retain_reranked_head(sparse, reranked):
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Advanced Bigram-ID 페이지 검색과 KURE 상위 3쪽 고정 평가"
+        description="Advanced 제목 보너스·명시 및 간접 HG 사건 조회 평가"
     )
     parser.add_argument(
         "--compare",
         action="store_true",
-        help="순수 KURE 재정렬, Bigram-ID BM25 단독 및 Kiwi·Bigram-ID RRF도 비교",
+        help="제목 보너스 단독, 이전 본문 기준선 및 기존 검색 대조군도 비교",
     )
+    parser.add_argument("--curated", type=Path, default=CURATED)
+    parser.add_argument("--case-index", type=Path, default=CASE_INDEX)
     parser.add_argument("--output-dir", type=Path, help="결과를 저장할 새 디렉터리")
     args = parser.parse_args()
     if DATASET != "advanced" or not torch.cuda.is_available():
@@ -155,6 +169,17 @@ def main() -> None:
 
     files = evaluation_files()
     questions = evaluation_questions(files)
+    pages = load_index()[0] if args.compare else json.loads(CACHE_PATH.read_bytes())
+    try:
+        manifest = (args.curated / "manifest.json").read_bytes()
+        if json.loads(manifest)["identity"]["dataset"] != DATASET:
+            raise ValueError("Advanced 정제 스냅샷이 필요합니다.")
+        manifest_sha = sha256(manifest).hexdigest()
+        cases = load_cases(args.case_index, pages, manifest_sha)
+        profiles = ProfileIndex(load_profiles(args.curated, cases))
+    except (FileNotFoundError, ValueError) as error:
+        parser.error(f"HG 조회 자료를 확인하세요. {error}")
+
     now = datetime.now(KST)
     output = (
         args.output_dir or RECORDS_DIR / f"advanced-selected-{now:%Y%m%d-%H%M%S-%f}"
@@ -171,15 +196,16 @@ def main() -> None:
     log(
         f"Advanced 검색 비교 시작 · {len(questions)}문항 · {torch.cuda.get_device_name()}"
     )
-    pages = load_index()[0] if args.compare else json.loads(CACHE_PATH.read_bytes())
-    tokenize, tokenizer_config = load_tokenizer("bigram-id")
-    sparse_index = BM25Index(pages, tokenizer=tokenize)
-    sparse = [sparse_index.search(q["question"], top_k=CANDIDATES) for q in questions]
-    log(f"Bigram-ID 후보 고정 · {len(pages):,}쪽 · {perf_counter() - started:.1f}초")
-    candidates = {BIGRAM_KURE: sparse}
+    log(f"HG 조회 준비 완료 · 검증된 {len(cases):,}사건")
+    index = PatternIndex(pages)
+    fielded = [index.fielded(q["question"], top_k=CANDIDATES) for q in questions]
+    log(f"제목 보너스 후보 고정 · {len(pages):,}쪽 · {perf_counter() - started:.1f}초")
+    candidates = {"fielded": fielded}
     if args.compare:
+        sparse = [index.base(q["question"], top_k=CANDIDATES) for q in questions]
         kiwi_tokenize, kiwi_config = load_tokenizer("kiwi")
         kiwi_index = BM25Index(pages, tokenizer=kiwi_tokenize)
+        candidates[BIGRAM_KURE] = sparse
         candidates.update(kiwi_rrf_kure=[], bigram_id_rrf_kure=[])
         for q, base in zip(questions, sparse, strict=True):
             question = q["question"]
@@ -202,13 +228,29 @@ def main() -> None:
         model_kwargs={"dtype": torch.float16},
     )
     reranked = rerank_variants(reranker, questions, candidates, log)
-    rankings = {
-        SELECTED: [
+    fielded_reranked = reranked.pop("fielded")
+    title_rankings = [
+        retain_reranked_head(base, head)
+        for base, head in zip(fielded, fielded_reranked, strict=True)
+    ]
+    lookup_rankings = []
+    routes = Counter()
+    for question, order in zip(questions, title_rankings, strict=True):
+        ranked, route = rank_with_hg_lookup(
+            question["question"], order, cases, profiles
+        )
+        lookup_rankings.append(ranked[:CANDIDATES])
+        routes[route] += 1
+    log(
+        f"HG 조회 적용 · 명시 {routes['explicit_hg']}문항 · 간접 {routes['indirect_hg']}문항"
+    )
+    rankings = {SELECTED: lookup_rankings}
+    if args.compare:
+        rankings[TITLE_ONLY] = title_rankings
+        rankings[BODY_SELECTED] = [
             retain_reranked_head(base, head)
             for base, head in zip(sparse, reranked[BIGRAM_KURE], strict=True)
-        ],
-    }
-    if args.compare:
+        ]
         rankings.update(reranked)
         rankings["bigram_id_bm25"] = sparse
     results = {
@@ -222,7 +264,19 @@ def main() -> None:
             for split, (q, r) in files.items()
         },
         "pages": fingerprint(CACHE_PATH),
-        "bm25": {**tokenizer_config, "k1": K1, "b": B},
+        "bm25": {**index.tokenizer_config, "k1": K1, "b": B},
+        "fielded": index.config["fielded"],
+        "hg_lookup": {
+            "curated": str(args.curated),
+            "curation_manifest_sha256": manifest_sha,
+            "case_index": str(args.case_index),
+            "case_sources_sha256": sha256(
+                (args.case_index / "case_sources.jsonl").read_bytes()
+            ).hexdigest(),
+            "indexed_cases": len(cases),
+            "context": "restored_full_page",
+            "routes": dict(routes),
+        },
         "candidate_count": CANDIDATES,
         "reranker": {
             "model": KURE,

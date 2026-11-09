@@ -1,0 +1,534 @@
+{
+  "render": {
+    "비용 조건 약정": {
+      "pages": 2730,
+      "full_page_tokens": 1391512,
+      "no_token_reduction": 2730,
+      "excerpt_tokens": 1391512
+    },
+    "현장 사건 수신대장": {
+      "pages": 2730,
+      "full_page_tokens": 1255800,
+      "rewritten_pages": 2639,
+      "excerpt_tokens": 1087268,
+      "no_token_reduction": 91
+    },
+    "계약 조건 대조 회신": {
+      "pages": 2730,
+      "full_page_tokens": 1183518,
+      "no_token_reduction": 2730,
+      "excerpt_tokens": 1183518
+    },
+    "비용 청구 명세": {
+      "pages": 2730,
+      "full_page_tokens": 1288891,
+      "no_token_reduction": 2639,
+      "excerpt_tokens": 1284705,
+      "rewritten_pages": 91
+    },
+    "수납 및 미결 인계": {
+      "pages": 2730,
+      "full_page_tokens": 1050978,
+      "rewritten_pages": 2366,
+      "excerpt_tokens": 1008982,
+      "no_token_reduction": 364
+    }
+  },
+  "cohorts": {
+    "all": {
+      "questions": 6500,
+      "hg_contexts": 2730,
+      "changed_contexts": 2639,
+      "archived_control_differences": 0,
+      "lost_all_facts": 0,
+      "gained_all_facts": 0,
+      "role_coverage": {
+        "비용 조건 약정": {
+          "facts": 2730,
+          "full_page": 2730,
+          "source_excerpt": 2730
+        },
+        "현장 사건 수신대장": {
+          "facts": 2730,
+          "full_page": 2730,
+          "source_excerpt": 2730
+        },
+        "계약 조건 대조 회신": {
+          "facts": 2730,
+          "full_page": 2730,
+          "source_excerpt": 2730
+        },
+        "비용 청구 명세": {
+          "facts": 2730,
+          "full_page": 2730,
+          "source_excerpt": 2730
+        },
+        "수납 및 미결 인계": {
+          "facts": 2730,
+          "full_page": 2730,
+          "source_excerpt": 2730
+        }
+      },
+      "arms": {
+        "full_page": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 0.9998461538461538,
+          "fact_recall": 0.9998461538461538,
+          "all_facts": 0.9998461538461538,
+          "context_tokens": 3710.6044615384617,
+          "context_chunks": 6.693076923076923
+        },
+        "source_excerpt": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 0.9998461538461538,
+          "fact_recall": 0.9998461538461538,
+          "all_facts": 0.9998461538461538,
+          "context_tokens": 3772.484923076923,
+          "context_chunks": 6.865230769230769
+        }
+      }
+    },
+    "disjoint": {
+      "questions": 6103,
+      "hg_contexts": 2407,
+      "changed_contexts": 2336,
+      "archived_control_differences": 0,
+      "lost_all_facts": 0,
+      "gained_all_facts": 0,
+      "role_coverage": {
+        "비용 조건 약정": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        },
+        "현장 사건 수신대장": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        },
+        "계약 조건 대조 회신": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        },
+        "비용 청구 명세": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        },
+        "수납 및 미결 인계": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        }
+      },
+      "arms": {
+        "full_page": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 0.9998361461576274,
+          "fact_recall": 0.9998361461576274,
+          "all_facts": 0.9998361461576274,
+          "context_tokens": 3711.352285761101,
+          "context_chunks": 6.663116500081927
+        },
+        "source_excerpt": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 0.9998361461576274,
+          "fact_recall": 0.9998361461576274,
+          "all_facts": 0.9998361461576274,
+          "context_tokens": 3770.3460593150908,
+          "context_chunks": 6.826970342454531
+        }
+      }
+    },
+    "disjoint:hg": {
+      "questions": 2407,
+      "hg_contexts": 2407,
+      "changed_contexts": 2336,
+      "archived_control_differences": 0,
+      "lost_all_facts": 0,
+      "gained_all_facts": 0,
+      "role_coverage": {
+        "비용 조건 약정": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        },
+        "현장 사건 수신대장": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        },
+        "계약 조건 대조 회신": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        },
+        "비용 청구 명세": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        },
+        "수납 및 미결 인계": {
+          "facts": 2407,
+          "full_page": 2407,
+          "source_excerpt": 2407
+        }
+      },
+      "arms": {
+        "full_page": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3702.159119235563,
+          "context_chunks": 7.437474034067304
+        },
+        "source_excerpt": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3851.7390943082673,
+          "context_chunks": 7.852928957208143
+        }
+      }
+    },
+    "disjoint:hg:explicit": {
+      "questions": 1196,
+      "hg_contexts": 1196,
+      "changed_contexts": 1166,
+      "archived_control_differences": 0,
+      "lost_all_facts": 0,
+      "gained_all_facts": 0,
+      "role_coverage": {
+        "비용 조건 약정": {
+          "facts": 1196,
+          "full_page": 1196,
+          "source_excerpt": 1196
+        },
+        "현장 사건 수신대장": {
+          "facts": 1196,
+          "full_page": 1196,
+          "source_excerpt": 1196
+        },
+        "계약 조건 대조 회신": {
+          "facts": 1196,
+          "full_page": 1196,
+          "source_excerpt": 1196
+        },
+        "비용 청구 명세": {
+          "facts": 1196,
+          "full_page": 1196,
+          "source_excerpt": 1196
+        },
+        "수납 및 미결 인계": {
+          "facts": 1196,
+          "full_page": 1196,
+          "source_excerpt": 1196
+        }
+      },
+      "arms": {
+        "full_page": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3733.4448160535117,
+          "context_chunks": 7.4941471571906355
+        },
+        "source_excerpt": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3859.1245819397996,
+          "context_chunks": 7.862876254180602
+        }
+      }
+    },
+    "overlap": {
+      "questions": 397,
+      "hg_contexts": 323,
+      "changed_contexts": 303,
+      "archived_control_differences": 0,
+      "lost_all_facts": 0,
+      "gained_all_facts": 0,
+      "role_coverage": {
+        "비용 조건 약정": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        },
+        "현장 사건 수신대장": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        },
+        "계약 조건 대조 회신": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        },
+        "비용 청구 명세": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        },
+        "수납 및 미결 인계": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        }
+      },
+      "arms": {
+        "full_page": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3699.108312342569,
+          "context_chunks": 7.153652392947103
+        },
+        "source_excerpt": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3805.36523929471,
+          "context_chunks": 7.4534005037783375
+        }
+      }
+    },
+    "overlap:hg": {
+      "questions": 323,
+      "hg_contexts": 323,
+      "changed_contexts": 303,
+      "archived_control_differences": 0,
+      "lost_all_facts": 0,
+      "gained_all_facts": 0,
+      "role_coverage": {
+        "비용 조건 약정": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        },
+        "현장 사건 수신대장": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        },
+        "계약 조건 대조 회신": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        },
+        "비용 청구 명세": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        },
+        "수납 및 미결 인계": {
+          "facts": 323,
+          "full_page": 323,
+          "source_excerpt": 323
+        }
+      },
+      "arms": {
+        "full_page": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3695.8204334365323,
+          "context_chunks": 7.414860681114551
+        },
+        "source_excerpt": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3826.4210526315787,
+          "context_chunks": 7.78328173374613
+        }
+      }
+    },
+    "overlap:hg:implicit": {
+      "questions": 169,
+      "hg_contexts": 169,
+      "changed_contexts": 155,
+      "archived_control_differences": 0,
+      "lost_all_facts": 0,
+      "gained_all_facts": 0,
+      "role_coverage": {
+        "비용 조건 약정": {
+          "facts": 169,
+          "full_page": 169,
+          "source_excerpt": 169
+        },
+        "현장 사건 수신대장": {
+          "facts": 169,
+          "full_page": 169,
+          "source_excerpt": 169
+        },
+        "계약 조건 대조 회신": {
+          "facts": 169,
+          "full_page": 169,
+          "source_excerpt": 169
+        },
+        "비용 청구 명세": {
+          "facts": 169,
+          "full_page": 169,
+          "source_excerpt": 169
+        },
+        "수납 및 미결 인계": {
+          "facts": 169,
+          "full_page": 169,
+          "source_excerpt": 169
+        }
+      },
+      "arms": {
+        "full_page": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3680.579881656805,
+          "context_chunks": 7.378698224852071
+        },
+        "source_excerpt": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3811.591715976331,
+          "context_chunks": 7.7514792899408285
+        }
+      }
+    },
+    "disjoint:hg:implicit": {
+      "questions": 1211,
+      "hg_contexts": 1211,
+      "changed_contexts": 1170,
+      "archived_control_differences": 0,
+      "lost_all_facts": 0,
+      "gained_all_facts": 0,
+      "role_coverage": {
+        "비용 조건 약정": {
+          "facts": 1211,
+          "full_page": 1211,
+          "source_excerpt": 1211
+        },
+        "현장 사건 수신대장": {
+          "facts": 1211,
+          "full_page": 1211,
+          "source_excerpt": 1211
+        },
+        "계약 조건 대조 회신": {
+          "facts": 1211,
+          "full_page": 1211,
+          "source_excerpt": 1211
+        },
+        "비용 청구 명세": {
+          "facts": 1211,
+          "full_page": 1211,
+          "source_excerpt": 1211
+        },
+        "수납 및 미결 인계": {
+          "facts": 1211,
+          "full_page": 1211,
+          "source_excerpt": 1211
+        }
+      },
+      "arms": {
+        "full_page": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3671.260941370768,
+          "context_chunks": 7.381502890173411
+        },
+        "source_excerpt": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3844.4450867052024,
+          "context_chunks": 7.843104872006606
+        }
+      }
+    },
+    "overlap:hg:explicit": {
+      "questions": 154,
+      "hg_contexts": 154,
+      "changed_contexts": 148,
+      "archived_control_differences": 0,
+      "lost_all_facts": 0,
+      "gained_all_facts": 0,
+      "role_coverage": {
+        "비용 조건 약정": {
+          "facts": 154,
+          "full_page": 154,
+          "source_excerpt": 154
+        },
+        "현장 사건 수신대장": {
+          "facts": 154,
+          "full_page": 154,
+          "source_excerpt": 154
+        },
+        "계약 조건 대조 회신": {
+          "facts": 154,
+          "full_page": 154,
+          "source_excerpt": 154
+        },
+        "비용 청구 명세": {
+          "facts": 154,
+          "full_page": 154,
+          "source_excerpt": 154
+        },
+        "수납 및 미결 인계": {
+          "facts": 154,
+          "full_page": 154,
+          "source_excerpt": 154
+        }
+      },
+      "arms": {
+        "full_page": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3712.5454545454545,
+          "context_chunks": 7.454545454545454
+        },
+        "source_excerpt": {
+          "page_recall@8": 1.0,
+          "doc_recall@8": 1.0,
+          "quote_recall": 1.0,
+          "fact_recall": 1.0,
+          "all_facts": 1.0,
+          "context_tokens": 3842.694805194805,
+          "context_chunks": 7.818181818181818
+        }
+      }
+    }
+  }
+}

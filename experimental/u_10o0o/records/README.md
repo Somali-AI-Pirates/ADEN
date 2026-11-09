@@ -2,7 +2,9 @@
 
 실험 결과 요약과 채택 근거를 조회하는 시작점이다. 모델 선택 및 채택 결정은 [선택 기록](decisions.md)에 기록한다.
 
-현재 Advanced 개인 검색은 **Bigram-ID BM25 후보 20쪽 → KURE nano 상위 3쪽 고정 → BM25 순서로 최대 8쪽**을 사용한다. [현재 구성과 동료 재벤치](advanced-factor-ablation-20261108/report.md)
+현재 Advanced 개인 검색 기준선은 **Bigram-ID BM25 + 제목 보너스, 검증된 HG 사건 조회, 복원 원본 페이지 문맥**이다. 제목 보너스만 적용하는 이전 구성을 `--compare`의 대조군으로 유지한다. [기준선 선택 기록](decisions.md#2026-11-09--advanced-개인-기준선을-hg-사건-조회와-원본-페이지로-갱신) · [HG 조회·원본 페이지 실험](../advanced-curation-plan.md#현재-개인-기준선)
+
+[Advanced 검색 실험 종합 보고서 PDF](advanced-curation/advanced-retrieval-report-20261109.pdf)에서 초기 검색 실험, 명시·간접 HG 조회 예시, 동료 설정 비교와 최종 선정 근거를 볼 수 있다. [추가 실험 후 최종 결정](decisions.md#2026-11-09--추가-실험-후-개인-advanced-기준선-확정)에 기존 검색과 HG 조회를 유지한 근거를 기록했다.
 
 ## 보관 범위
 
@@ -51,7 +53,9 @@ Advanced 원본 PDF 120개에서 복원한 18,000쪽과 일반 평가 60문항�
 
 ## Advanced 검색·문맥 패턴 비교
 
+- 직접 실행하는 [Advanced 기본 검색 명령](../README.md#현재-advanced-구성)은 공식 평가 60문항과 블라인드 holdout 280문항, 총 340문항을 사용한다. 별도의 전 페이지 증강 6,500문항은 보관된 `advanced-industry-patterns-20261108/full-coverage/` 결과에서 확인한다. 두 실행은 입력 세트와 결과 폴더가 다르다.
 - [패턴 비교 보고서](advanced-industry-patterns-20261108/report.md)는 제목 보너스, 표 행 문맥, 근거 역할·보강 검색, 유효 시점 검증을 기준선과 비교한다. 기존 340문항, 파일럿 40문항, 전 페이지 증강 6,500문항의 검색 결과와 별도 답변 표본을 구분한다. [조사 출처와 가설](advanced-industry-patterns-20261108/research.md)
+- [동료 ID 연결 재벤치](advanced-industry-patterns-20261108/peer-comparison/report.md)는 질문 분해와 근거 집합 선택을 끈 설정을 동일한 증강 6,500문항에서 비교한다. 패턴 비교 보고서의 전체 지표 표와 유형별 표에 함께 실었다.
 
 ## 결과 해석
 

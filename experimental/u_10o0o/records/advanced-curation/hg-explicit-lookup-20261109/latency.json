@@ -1,0 +1,31 @@
+{
+  "question_ids": [
+    "ADV-FULL-01161",
+    "ADV-FULL-00067",
+    "ADV-FULL-02606",
+    "ADV-FULL-01240",
+    "ADV-FULL-00109",
+    "ADV-FULL-01049",
+    "ADV-FULL-02158",
+    "ADV-FULL-00964",
+    "ADV-FULL-00253",
+    "ADV-FULL-01590",
+    "ADV-FULL-01900",
+    "ADV-FULL-02659",
+    "ADV-FULL-00570",
+    "ADV-FULL-02474",
+    "ADV-FULL-00320",
+    "ADV-FULL-01438"
+  ],
+  "scope": "warm single-query search, KURE, lookup and context packing",
+  "arms": {
+    "fielded": {
+      "p50_ms": 190.61611450001692,
+      "p95_ms": 192.79210800004876
+    },
+    "case_lookup": {
+      "p50_ms": 190.6542530000479,
+      "p95_ms": 193.94662600006995
+    }
+  }
+}

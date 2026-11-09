@@ -1,0 +1,15 @@
+{
+  "shared_initial_bge_pairs": 130000,
+  "graph_additional_bge_pairs": 11366,
+  "timing_scope": "batch-embedded queries; pre-graph search plus incremental graph pass; context excluded",
+  "arms": {
+    "team_graph": {
+      "p50_ms": 277.48196600032315,
+      "p95_ms": 345.9443569998939
+    },
+    "team_diverse": {
+      "p50_ms": 269.1462939999383,
+      "p95_ms": 283.6868659999823
+    }
+  }
+}
