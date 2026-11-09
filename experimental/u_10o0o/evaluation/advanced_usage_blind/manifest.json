@@ -1,0 +1,188 @@
+{
+  "blind": {
+    "questions": 300,
+    "actions": {
+      "clarify": 25,
+      "abstain": 25,
+      "answer": 250
+    },
+    "answer_fact_counts": {
+      "1": 50,
+      "2": 50,
+      "3": 50,
+      "4": 50,
+      "5": 50
+    },
+    "families": {
+      "hg": 199,
+      "ha": 39,
+      "handbook": 62
+    },
+    "question_styles": {
+      "shared_clues": 25,
+      "colloquial_spec": 37,
+      "source_terms": 40,
+      "partial_terms": 38,
+      "explicit": 69,
+      "equipment_code": 29,
+      "record_key": 62
+    },
+    "intents": {
+      "유사 사건 식별": 25,
+      "반납 증빙 확인": 25,
+      "기한 확인": 6,
+      "입금 확인": 5,
+      "현장 인계": 6,
+      "비용 확인": 6,
+      "정산 확인": 3,
+      "현장 확인": 2,
+      "일정 확인": 2,
+      "기록번호 업무 확인": 7,
+      "입금 기록 업무 확인": 10,
+      "처리 기록 업무 확인": 2,
+      "상태 기록 업무 확인": 6,
+      "신청·승인 기록 업무 확인": 4,
+      "업무 기록번호 업무 확인": 11,
+      "계획번호 업무 확인": 4,
+      "청구번호 업무 확인": 1,
+      "대조번호 업무 확인": 3,
+      "접수번호 업무 확인": 6,
+      "등록번호 업무 확인": 2,
+      "인계번호 업무 확인": 2,
+      "원문 번호 업무 확인": 4,
+      "실제와 예정 대조": 5,
+      "예정일과 실제일 혼동": 5,
+      "현장 일정 대조": 5,
+      "계약 변경 확인": 5,
+      "입금 대조": 5,
+      "수납 대조": 3,
+      "현장 일정 확인": 2,
+      "기준과 정산 대조": 2,
+      "반납 일정 대조": 10,
+      "청구 내역 인계": 9,
+      "계약 조건 대조": 9,
+      "일정 인계": 4,
+      "정산 인계": 15,
+      "수납 후속 처리": 11,
+      "변경과 청구 대조": 10,
+      "수납 인계": 4,
+      "비용 근거 정리": 4,
+      "현장부터 수납까지 대조": 21,
+      "비용 사건 인계": 20,
+      "현장부터 정산까지 대조": 5,
+      "터미널 비용 인계": 4
+    },
+    "pages": 653,
+    "books": 120,
+    "question_source_page_counts": {
+      "1": 126,
+      "2": 70,
+      "3": 49,
+      "4": 35,
+      "5": 20
+    },
+    "source_regions": {
+      "101–150": 212,
+      "1–50": 161,
+      "51–100": 280
+    },
+    "evidence_slots": 850,
+    "sha256": {
+      "blind_questions.json": "6c51dce68f8ee49bcc6f2c76edd64880e21eb030cb3001efeec7b28315b14c2b",
+      "blind_references.json": "ef062ed12930eb2360cc8ef5ddab81650558a030e8b078198f2c004870f6892d"
+    }
+  },
+  "pilot": {
+    "questions": 30,
+    "actions": {
+      "clarify": 5,
+      "abstain": 5,
+      "answer": 20
+    },
+    "answer_fact_counts": {
+      "1": 4,
+      "2": 4,
+      "3": 4,
+      "4": 4,
+      "5": 4
+    },
+    "families": {
+      "hg": 21,
+      "ha": 5,
+      "handbook": 4
+    },
+    "question_styles": {
+      "shared_clues": 5,
+      "colloquial_spec": 4,
+      "source_terms": 3,
+      "partial_terms": 2,
+      "explicit": 8,
+      "record_key": 4,
+      "equipment_code": 4
+    },
+    "intents": {
+      "유사 사건 식별": 5,
+      "반납 증빙 확인": 5,
+      "기한 확인": 1,
+      "비용 확인": 1,
+      "현장 확인": 1,
+      "기록번호 업무 확인": 3,
+      "현장 일정 대조": 1,
+      "실제와 예정 대조": 1,
+      "현장 일정 확인": 1,
+      "반납 일정 대조": 1,
+      "청구 내역 인계": 1,
+      "일정 인계": 1,
+      "수납 후속 처리": 1,
+      "정산 인계": 1,
+      "수납 인계": 1,
+      "업무 기록번호 업무 확인": 1,
+      "현장부터 수납까지 대조": 2,
+      "비용 사건 인계": 1,
+      "현장부터 정산까지 대조": 1
+    },
+    "pages": 64,
+    "books": 55,
+    "question_source_page_counts": {
+      "1": 12,
+      "2": 9,
+      "3": 3,
+      "4": 5,
+      "5": 1
+    },
+    "source_regions": {
+      "101–150": 37,
+      "1–50": 11,
+      "51–100": 16
+    },
+    "evidence_slots": 80,
+    "sha256": {
+      "pilot_questions.json": "f7ce86e09610892408ecb6566d2b0946538c25e3e74fb3857e4d3bf79f157e95",
+      "pilot_references.json": "82df1a10303c7a63e13318de912cf0574d0b473ea912c73dd8289815f62048b5"
+    }
+  },
+  "validation": {
+    "previous_formal_holdout_pilot_and_blind_pages_excluded": 1602,
+    "old_full_coverage_question_texts_excluded": true,
+    "same_case_between_splits": 0,
+    "previous_full_coverage_source_overlap_allowed": true,
+    "original_pdf_and_restored_quote_check": true,
+    "context_limit": {
+      "pages": 8,
+      "tokens": 4000
+    },
+    "review_state": "source_and_structure_checked_human_review_pending"
+  },
+  "input_sha256": {
+    "curation_manifest": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+    "case_sources": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326",
+    "role_facts": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66",
+    "restored_pages": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d",
+    "full_coverage_references": "7351b50903b9a107325185d9b803cc8f870b34066838aa9e889e022fce328f15",
+    "development.json": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39",
+    "additional.json": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e",
+    "advanced_holdout.json": "e6328280ff7cfd3dd7180dcb3f893b90b299a904bb93f3249389f8ec4bdfdee1",
+    "pilot_references.json": "6007624e993871d062cf40942bb41cb0e62409ba62c5b5b8d0bdb10a0a6d7da5",
+    "blind_references.json": "d5c1bb85e24979f8e92203d398a1901b96dc374f111b0695407ac48b495d8790"
+  }
+}

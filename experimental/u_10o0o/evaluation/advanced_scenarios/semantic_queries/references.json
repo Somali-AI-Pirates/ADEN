@@ -1,0 +1,2224 @@
+[
+  {
+    "id": "AS-SEM-01",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "예약 접수와 확정",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "접수는 확정이 아니다. 본문 상태가 확정인 예약 확인서에서 화주, 항로, 예정 출항일, 장비 배정을 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS008",
+          "page": 3,
+          "quote": "예약지원팀의 접수 회신은 신청 내용을 받았다는 뜻이다. 회신 제목에 접수번호가 있어도 본문 상태가 검토 중이면 예약은 아직 확정되지 않았다. 예약 확정은 상태가 확정인 예약 확인서로 확인하며, 확인서에는 예약번호, 화주, 항로, 예정 출항일, 장비 종류와 대수가 적힌다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "예약 접수와 확정",
+        "ask": "예약 접수와 확정",
+        "primary": [
+          {
+            "book_id": "AS008",
+            "page": 3,
+            "quote": "예약지원팀의 접수 회신은 신청 내용을 받았다는 뜻이다. 회신 제목에 접수번호가 있어도 본문 상태가 검토 중이면 예약은 아직 확정되지 않았다. 예약 확정은 상태가 확정인 예약 확인서로 확인하며, 확인서에는 예약번호, 화주, 항로, 예정 출항일, 장비 종류와 대수가 적힌다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "접수는 확정이 아니다. 본문 상태가 확정인 예약 확인서에서 화주, 항로, 예정 출항일, 장비 배정을 확인한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 912,
+    "required_facts": [
+      "접수는 확정이 아니다. 본문 상태가 확정인 예약 확인서에서 화주, 항로, 예정 출항일, 장비 배정을 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-02",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "화물과 장비의 중량 차이",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "포장을 포함한 화물 총중량은 컨테이너 자체를 제외한다. 장비 전체의 검증 총중량은 별도라 두 값이 다르다는 이유만으로 오류라고 할 수 없다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS009",
+          "page": 21,
+          "quote": "SI의 화물 총중량은 포장을 포함한 화물의 중량이며 컨테이너 자체의 중량을 포함하지 않는다. 중량과 함께 단위를 적는다. VGM은 화물이 적입된 컨테이너 전체의 검증 총중량을 뜻하므로 같은 항목이 아니다. SI의 숫자를그대로 VGM 칸으로 복사하거나 두 값이 다르다는 이유만으로 오류라고 판단하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "화물과 장비의 중량 차이",
+        "ask": "화물과 장비의 중량 차이",
+        "primary": [
+          {
+            "book_id": "AS009",
+            "page": 21,
+            "quote": "SI의 화물 총중량은 포장을 포함한 화물의 중량이며 컨테이너 자체의 중량을 포함하지 않는다. 중량과 함께 단위를 적는다. VGM은 화물이 적입된 컨테이너 전체의 검증 총중량을 뜻하므로 같은 항목이 아니다. SI의 숫자를그대로 VGM 칸으로 복사하거나 두 값이 다르다는 이유만으로 오류라고 판단하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "포장을 포함한 화물 총중량은 컨테이너 자체를 제외한다. 장비 전체의 검증 총중량은 별도라 두 값이 다르다는 이유만으로 오류라고 할 수 없다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 833,
+    "required_facts": [
+      "포장을 포함한 화물 총중량은 컨테이너 자체를 제외한다. 장비 전체의 검증 총중량은 별도라 두 값이 다르다는 이유만으로 오류라고 할 수 없다."
+    ]
+  },
+  {
+    "id": "AS-SEM-03",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "배차와 반입 가능 상태",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "배차 자체는 반입 허용이 아니다. 반입운영팀의 회신을 확인하고 장비번호 불일치를 관련 팀과 대조한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS011",
+          "page": 2,
+          "quote": "화주는 반입운영팀의 반입 예약 회신을 확인한 뒤 운송사에 배차 내용을 전달한다. 접수된 서류에 보완 사항이 남아 있거나 장비번호가 맞지 않으면 관련 팀의 확인이필요하다. 운송사가 차량을 배정했다는 연락은 반입 허용을 의미하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "배차와 반입 가능 상태",
+        "ask": "배차와 반입 가능 상태",
+        "primary": [
+          {
+            "book_id": "AS011",
+            "page": 2,
+            "quote": "화주는 반입운영팀의 반입 예약 회신을 확인한 뒤 운송사에 배차 내용을 전달한다. 접수된 서류에 보완 사항이 남아 있거나 장비번호가 맞지 않으면 관련 팀의 확인이필요하다. 운송사가 차량을 배정했다는 연락은 반입 허용을 의미하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "배차 자체는 반입 허용이 아니다. 반입운영팀의 회신을 확인하고 장비번호 불일치를 관련 팀과 대조한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 697,
+    "required_facts": [
+      "배차 자체는 반입 허용이 아니다. 반입운영팀의 회신을 확인하고 장비번호 불일치를 관련 팀과 대조한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-04",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "받았다는 회신과 승인",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "수신 확인은 내용 승인이 아니다. 승인할 판본을 명시해 회신하고 내부 승인과 선사에 보낸 승인 기록을 구분한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS012",
+          "page": 35,
+          "quote": "초안 승인 회신에는 승인하는 판본을 명시한다. 담당자가 파일을 받았다고 답하거나 읽음 표시가 나타난 것만으로 기재 내용의 승인이라고 처리하지 않는다. 수정 요청이 있으면 그 항목의 반영과 새 판본 검토를 확인한다. 화주 내부에서 승인한 파일과 선사에 회신한 승인 기록도 구별하여 보관한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "받았다는 회신과 승인",
+        "ask": "받았다는 회신과 승인",
+        "primary": [
+          {
+            "book_id": "AS012",
+            "page": 35,
+            "quote": "초안 승인 회신에는 승인하는 판본을 명시한다. 담당자가 파일을 받았다고 답하거나 읽음 표시가 나타난 것만으로 기재 내용의 승인이라고 처리하지 않는다. 수정 요청이 있으면 그 항목의 반영과 새 판본 검토를 확인한다. 화주 내부에서 승인한 파일과 선사에 회신한 승인 기록도 구별하여 보관한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "수신 확인은 내용 승인이 아니다. 승인할 판본을 명시해 회신하고 내부 승인과 선사에 보낸 승인 기록을 구분한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 624,
+    "required_facts": [
+      "수신 확인은 내용 승인이 아니다. 승인할 판본을 명시해 회신하고 내부 승인과 선사에 보낸 승인 기록을 구분한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-05",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "예상 도착과 화물 인도",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "도착 예정 안내로 실제 도착이나 인도 가능 여부, 인도 승인을 확인할 수 없다. 개별 인도 승인과 수하인 권한은 별도로 확인할 사항이다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS013",
+          "page": 20,
+          "quote": "도착 예정 안내를 받았다는 사실만으로 실제 도착, 화물 인도 가능 또는 인도 승인이 확인되는 것은 아니다. 이자료 모음에는 목적지의 개별 인도 승인 기록과 수하인의 인수 권한 확인 자료가 없다. 화물을 바로 찾아갈 수있는지 묻는 경우에는 해당 안내만으로 승인 여부를 판단할 수 없다고 설명한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "예상 도착과 화물 인도",
+        "ask": "예상 도착과 화물 인도",
+        "primary": [
+          {
+            "book_id": "AS013",
+            "page": 20,
+            "quote": "도착 예정 안내를 받았다는 사실만으로 실제 도착, 화물 인도 가능 또는 인도 승인이 확인되는 것은 아니다. 이자료 모음에는 목적지의 개별 인도 승인 기록과 수하인의 인수 권한 확인 자료가 없다. 화물을 바로 찾아갈 수있는지 묻는 경우에는 해당 안내만으로 승인 여부를 판단할 수 없다고 설명한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "도착 예정 안내로 실제 도착이나 인도 가능 여부, 인도 승인을 확인할 수 없다. 개별 인도 승인과 수하인 권한은 별도로 확인할 사항이다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 597,
+    "required_facts": [
+      "도착 예정 안내로 실제 도착이나 인도 가능 여부, 인도 승인을 확인할 수 없다. 개별 인도 승인과 수하인 권한은 별도로 확인할 사항이다."
+    ]
+  },
+  {
+    "id": "AS-SEM-06",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "선적 예정과 실적",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "적재 예정이나 초안 승인은 완료 증거가 아니다. 운항팀의 실제 진행 회신을 확인하고 그전까지 확인 대기로 구분한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS013",
+          "page": 7,
+          "quote": "실제 진행 회신 대기 건은 적재 완료가 확인되지 않은 상태로 남아 있다. 따라서 초안 승인이나 적재 예정 기록을 완료 증거로 사용하지 말고, 운항팀 회신이 확인될 때까지 진행 상태를 구분해 인계한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "선적 예정과 실적",
+        "ask": "선적 예정과 실적",
+        "primary": [
+          {
+            "book_id": "AS013",
+            "page": 7,
+            "quote": "실제 진행 회신 대기 건은 적재 완료가 확인되지 않은 상태로 남아 있다. 따라서 초안 승인이나 적재 예정 기록을 완료 증거로 사용하지 말고, 운항팀 회신이 확인될 때까지 진행 상태를 구분해 인계한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "적재 예정이나 초안 승인은 완료 증거가 아니다. 운항팀의 실제 진행 회신을 확인하고 그전까지 확인 대기로 구분한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 488,
+    "required_facts": [
+      "적재 예정이나 초안 승인은 완료 증거가 아니다. 운항팀의 실제 진행 회신을 확인하고 그전까지 확인 대기로 구분한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-07",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "금액 초안과 유효 발행본",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "최신 계산 초안이 기존 유효 발행 통지를 자동으로 대체하지 않는다. 철회되거나 대체되지 않은 발행 원문과 상태를 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS051",
+          "page": 1,
+          "quote": "청구 계산 초안, 발행 요청, 발행 완료, 수정·대체 발행은 별개 상태다. 아직 발행되지 않은 최신 계산 초안이 기존 유효 발행 통지를 자동으로 대체하지 않는다. 고객에게 현재 발행 금액을 안내할 때에는 철회·대체되지 않은발행 원문과 그 상태를 확인한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "금액 초안과 유효 발행본",
+        "ask": "금액 초안과 유효 발행본",
+        "primary": [
+          {
+            "book_id": "AS051",
+            "page": 1,
+            "quote": "청구 계산 초안, 발행 요청, 발행 완료, 수정·대체 발행은 별개 상태다. 아직 발행되지 않은 최신 계산 초안이 기존 유효 발행 통지를 자동으로 대체하지 않는다. 고객에게 현재 발행 금액을 안내할 때에는 철회·대체되지 않은발행 원문과 그 상태를 확인한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "최신 계산 초안이 기존 유효 발행 통지를 자동으로 대체하지 않는다. 철회되거나 대체되지 않은 발행 원문과 상태를 확인한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 569,
+    "required_facts": [
+      "최신 계산 초안이 기존 유효 발행 통지를 자동으로 대체하지 않는다. 철회되거나 대체되지 않은 발행 원문과 상태를 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-08",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "등록일과 현행값",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "등록일만으로 현행값이 바뀌지 않는다. 원문과 유효한 확정 정정을 확인하고 요청 중인 값은 현행값과 분리한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS056",
+          "page": 1,
+          "quote": "문서 등록부는 원문 번호, 발행 부서, 적용 대상, 수신일과 정정·대체 참조를 관리한다. 등록일이 최신이라고 실제 업무값이 바뀌는 것은 아니다. 원문과 유효한 확정 정정을 확인하고, 요청 중인 변경값은 현행값과 별도 칸에둔다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "등록일과 현행값",
+        "ask": "등록일과 현행값",
+        "primary": [
+          {
+            "book_id": "AS056",
+            "page": 1,
+            "quote": "문서 등록부는 원문 번호, 발행 부서, 적용 대상, 수신일과 정정·대체 참조를 관리한다. 등록일이 최신이라고 실제 업무값이 바뀌는 것은 아니다. 원문과 유효한 확정 정정을 확인하고, 요청 중인 변경값은 현행값과 별도 칸에둔다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "등록일만으로 현행값이 바뀌지 않는다. 원문과 유효한 확정 정정을 확인하고 요청 중인 값은 현행값과 분리한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 611,
+    "required_facts": [
+      "등록일만으로 현행값이 바뀌지 않는다. 원문과 유효한 확정 정정을 확인하고 요청 중인 값은 현행값과 분리한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-09",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "수신 금액과 배분",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "승인 배분된 일부만 해당 청구에 반영한다. 나머지는 임의로 배분하지 않고 미배분 상태로 남긴다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS053",
+          "page": 8,
+          "quote": "1월 27일 수신분은 연결 청구에 승인 배분이 일부만 이뤄져 잔액이 미배분으로 남았습니다. 이 금액을 해당 청구에 임의로 더 배분한 것으로 처리하지 않고 미배분 상태를 유지해야 합니다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "수신 금액과 배분",
+        "ask": "수신 금액과 배분",
+        "primary": [
+          {
+            "book_id": "AS053",
+            "page": 8,
+            "quote": "1월 27일 수신분은 연결 청구에 승인 배분이 일부만 이뤄져 잔액이 미배분으로 남았습니다. 이 금액을 해당 청구에 임의로 더 배분한 것으로 처리하지 않고 미배분 상태를 유지해야 합니다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "승인 배분된 일부만 해당 청구에 반영한다. 나머지는 임의로 배분하지 않고 미배분 상태로 남긴다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 582,
+    "required_facts": [
+      "승인 배분된 일부만 해당 청구에 반영한다. 나머지는 임의로 배분하지 않고 미배분 상태로 남긴다."
+    ]
+  },
+  {
+    "id": "AS-SEM-10",
+    "scenario": "semantic_queries",
+    "variant": "procedure_paraphrase",
+    "topic": "접수 내역의 현재 상태",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "최초 접수일은 상태 확인 시각이 아니며 이 기록만으로 선후나 정정 관계를 확정할 수 없다. 상충하면 담당자의 최신 접수 회신을 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS010",
+          "page": 1,
+          "quote": "표와 본문은 대조번호별 기재 상태다. 최초 접수일은 상태 확인 시각이 아니며, 상태 간 선후·정정 관계는 이 자료에명시되지 않았다. 본문의 ‘현재’·‘완료’도 해당 기록의 표기이며 자료집 편집일의 현황은 아니다. 같은 대상의 기록이상충하면 현재 상태를 확정하지 않고 담당자의 최신 접수 회신을 확인한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "접수 내역의 현재 상태",
+        "ask": "접수 내역의 현재 상태",
+        "primary": [
+          {
+            "book_id": "AS010",
+            "page": 1,
+            "quote": "표와 본문은 대조번호별 기재 상태다. 최초 접수일은 상태 확인 시각이 아니며, 상태 간 선후·정정 관계는 이 자료에명시되지 않았다. 본문의 ‘현재’·‘완료’도 해당 기록의 표기이며 자료집 편집일의 현황은 아니다. 같은 대상의 기록이상충하면 현재 상태를 확정하지 않고 담당자의 최신 접수 회신을 확인한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "최초 접수일은 상태 확인 시각이 아니며 이 기록만으로 선후나 정정 관계를 확정할 수 없다. 상충하면 담당자의 최신 접수 회신을 확인한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 747,
+    "required_facts": [
+      "최초 접수일은 상태 확인 시각이 아니며 이 기록만으로 선후나 정정 관계를 확정할 수 없다. 상충하면 담당자의 최신 접수 회신을 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-11",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "특수 화물의 서비스 범위",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "냉동 컨테이너, 위험물 등은 일반 건화물 조건 적용 범위 밖이다. 별도 서비스 조건을 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS007",
+          "page": 1,
+          "quote": "냉동 컨테이너, 위험물, 규격을 벗어난 화물과 다른 항로는 이 안내의 대상이 아니다. 그런 문의가 들어오면 본문에 적힌 조건을 확대 적용하지 않고 별도 서비스 안내를 요청한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "특수 화물의 서비스 범위",
+        "ask": "특수 화물의 서비스 범위",
+        "primary": [
+          {
+            "book_id": "AS007",
+            "page": 1,
+            "quote": "냉동 컨테이너, 위험물, 규격을 벗어난 화물과 다른 항로는 이 안내의 대상이 아니다. 그런 문의가 들어오면 본문에 적힌 조건을 확대 적용하지 않고 별도 서비스 안내를 요청한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "냉동 컨테이너, 위험물 등은 일반 건화물 조건 적용 범위 밖이다. 별도 서비스 조건을 확인한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 593,
+    "required_facts": [
+      "냉동 컨테이너, 위험물 등은 일반 건화물 조건 적용 범위 밖이다. 별도 서비스 조건을 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-12",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "터미널 내부 보관료 범위",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "2027년 1월 1일 이후 실제 양하한 부산–LA 일반 건화물 20피트·40피트의 지정 두 터미널 내부 보관료를 다룬다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS017",
+          "page": 1,
+          "quote": "가온루트해운의 이 자료집은 2027-01-01 이후 실제 양하한 부산–LA 일반 건화물 20GP·40GP의 LA N1·S2 터미널 내부 보관료를 다룬다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "터미널 내부 보관료 범위",
+        "ask": "터미널 내부 보관료 범위",
+        "primary": [
+          {
+            "book_id": "AS017",
+            "page": 1,
+            "quote": "가온루트해운의 이 자료집은 2027-01-01 이후 실제 양하한 부산–LA 일반 건화물 20GP·40GP의 LA N1·S2 터미널 내부 보관료를 다룬다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "2027년 1월 1일 이후 실제 양하한 부산–LA 일반 건화물 20피트·40피트의 지정 두 터미널 내부 보관료를 다룬다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 728,
+    "required_facts": [
+      "2027년 1월 1일 이후 실제 양하한 부산–LA 일반 건화물 20피트·40피트의 지정 두 터미널 내부 보관료를 다룬다."
+    ]
+  },
+  {
+    "id": "AS-SEM-13",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "현지 날짜와 시차",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "터미널 현지 달력일을 사용하며 시차 변환으로 보관일수를 보정하지 않는다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS017",
+          "page": 9,
+          "quote": "보관일수 대조는 터미널 현지 날짜를 기준으로 하며, 양하일은 산입하지 않고 다음 날부터 반출일까지 센다. 주말도 달력일에 포함하고 시차 변환은 적용하지 않는다. 대장 각 건의 결과는 ‘현지 달력일 확인’으로 기록되어있어 별도의 시간대 계산을 더하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "현지 날짜와 시차",
+        "ask": "현지 날짜와 시차",
+        "primary": [
+          {
+            "book_id": "AS017",
+            "page": 9,
+            "quote": "보관일수 대조는 터미널 현지 날짜를 기준으로 하며, 양하일은 산입하지 않고 다음 날부터 반출일까지 센다. 주말도 달력일에 포함하고 시차 변환은 적용하지 않는다. 대장 각 건의 결과는 ‘현지 달력일 확인’으로 기록되어있어 별도의 시간대 계산을 더하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "터미널 현지 달력일을 사용하며 시차 변환으로 보관일수를 보정하지 않는다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 627,
+    "required_facts": [
+      "터미널 현지 달력일을 사용하며 시차 변환으로 보관일수를 보정하지 않는다."
+    ]
+  },
+  {
+    "id": "AS-SEM-14",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "작은 장비의 요율 개정 제외",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "이번 일요율 변경은 그 터미널의 일반 건화물 40피트 장비에 한정된다. 20피트 장비는 기존 조건을 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS023",
+          "page": 4,
+          "quote": "N1 20GP 대조 건은 실제 양하일이 모두 2027년 2월 1일 이후지만, T-2702의 변경 대상은 N1 일반 건화물40GP의 일요율이다. 따라서 이 대장의 20GP 건은 개정 적용 대상이 아니라 기존 조건을 확인하는 범위로 정리한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "작은 장비의 요율 개정 제외",
+        "ask": "작은 장비의 요율 개정 제외",
+        "primary": [
+          {
+            "book_id": "AS023",
+            "page": 4,
+            "quote": "N1 20GP 대조 건은 실제 양하일이 모두 2027년 2월 1일 이후지만, T-2702의 변경 대상은 N1 일반 건화물40GP의 일요율이다. 따라서 이 대장의 20GP 건은 개정 적용 대상이 아니라 기존 조건을 확인하는 범위로 정리한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "이번 일요율 변경은 그 터미널의 일반 건화물 40피트 장비에 한정된다. 20피트 장비는 기존 조건을 확인한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 640,
+    "required_facts": [
+      "이번 일요율 변경은 그 터미널의 일반 건화물 40피트 장비에 한정된다. 20피트 장비는 기존 조건을 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-15",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "금액 감면과 무료일수",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "고정액 감액 승인과 추가 무료기간 승인은 별개다. 무료일수 변경이 명시되지 않으면 기존 무료기간을 유지한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS025",
+          "page": 19,
+          "quote": "USD 고정액 감액 승인과 추가 무료기간 승인은 별개다. 금액 감액 승인에 무료일수 변경이 명시되지 않았다면기존 무료기간을 유지한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "금액 감면과 무료일수",
+        "ask": "금액 감면과 무료일수",
+        "primary": [
+          {
+            "book_id": "AS025",
+            "page": 19,
+            "quote": "USD 고정액 감액 승인과 추가 무료기간 승인은 별개다. 금액 감액 승인에 무료일수 변경이 명시되지 않았다면기존 무료기간을 유지한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "고정액 감액 승인과 추가 무료기간 승인은 별개다. 무료일수 변경이 명시되지 않으면 기존 무료기간을 유지한다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 692,
+    "required_facts": [
+      "고정액 감액 승인과 추가 무료기간 승인은 별개다. 무료일수 변경이 명시되지 않으면 기존 무료기간을 유지한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-16",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "개별 무료기간과 기본표",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "유효한 개별 무료기간 계약의 일수가 기본표 무료일수를 대체한다. 기본일수와 특약일수를 합하지 않는다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS020",
+          "page": 19,
+          "quote": "유효한 개별 무료기간 계약이 연결되면 그 계약의 무료일수가 기본표의 무료일수를 대체한다. 기본 무료일수와특약 무료일수를 더하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "개별 무료기간과 기본표",
+        "ask": "개별 무료기간과 기본표",
+        "primary": [
+          {
+            "book_id": "AS020",
+            "page": 19,
+            "quote": "유효한 개별 무료기간 계약이 연결되면 그 계약의 무료일수가 기본표의 무료일수를 대체한다. 기본 무료일수와특약 무료일수를 더하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "유효한 개별 무료기간 계약의 일수가 기본표 무료일수를 대체한다. 기본일수와 특약일수를 합하지 않는다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 746,
+    "required_facts": [
+      "유효한 개별 무료기간 계약의 일수가 기본표 무료일수를 대체한다. 기본일수와 특약일수를 합하지 않는다."
+    ]
+  },
+  {
+    "id": "AS-SEM-17",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "무료기간 신청의 승인 경계",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "보완자료를 받아 검토하는 단계는 승인과 다르다. 승인 원문이 확인되기 전에는 신청 일수를 청구 계산에 넣지 않는다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS022",
+          "page": 31,
+          "quote": "신청 접수, 보완자료 수신, 추가 검토, 반려, 승인과 철회는 서로 다른 상태다. 보완 뒤 추가 검토 중인 건은 반려완료도 승인 완료도 아니다. 승인 원문이 없으면 신청한 일수를 청구 계산에 넣지 않으며, 대상 신청과 후속 회신을 연결해 확인한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "무료기간 신청의 승인 경계",
+        "ask": "무료기간 신청의 승인 경계",
+        "primary": [
+          {
+            "book_id": "AS022",
+            "page": 31,
+            "quote": "신청 접수, 보완자료 수신, 추가 검토, 반려, 승인과 철회는 서로 다른 상태다. 보완 뒤 추가 검토 중인 건은 반려완료도 승인 완료도 아니다. 승인 원문이 없으면 신청한 일수를 청구 계산에 넣지 않으며, 대상 신청과 후속 회신을 연결해 확인한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "보완자료를 받아 검토하는 단계는 승인과 다르다. 승인 원문이 확인되기 전에는 신청 일수를 청구 계산에 넣지 않는다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 626,
+    "required_facts": [
+      "보완자료를 받아 검토하는 단계는 승인과 다르다. 승인 원문이 확인되기 전에는 신청 일수를 청구 계산에 넣지 않는다."
+    ]
+  },
+  {
+    "id": "AS-SEM-18",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "감액의 최저 금액",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "해당 장비의 보관료에 승인된 고정액을 한 번 차감하고 결과는 최저 0으로 제한한다. 다른 비용이나 장비로 확대하지 않는다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS025",
+          "page": 7,
+          "quote": "USD 감액은 승인서가 지정한 장비와 보관료 항목에 고정액으로 한 번만 적용한다. 유효 무료기간을 제외한 유료일수에 일요율을 곱한 뒤 승인 USD를 차감하고 결과가 음수면 0으로 제한한다. 다른 장비, 다른 비용 항목이나 다른 통화로 승인을 확대하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "감액의 최저 금액",
+        "ask": "감액의 최저 금액",
+        "primary": [
+          {
+            "book_id": "AS025",
+            "page": 7,
+            "quote": "USD 감액은 승인서가 지정한 장비와 보관료 항목에 고정액으로 한 번만 적용한다. 유효 무료기간을 제외한 유료일수에 일요율을 곱한 뒤 승인 USD를 차감하고 결과가 음수면 0으로 제한한다. 다른 장비, 다른 비용 항목이나 다른 통화로 승인을 확대하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "해당 장비의 보관료에 승인된 고정액을 한 번 차감하고 결과는 최저 0으로 제한한다. 다른 비용이나 장비로 확대하지 않는다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 708,
+    "required_facts": [
+      "해당 장비의 보관료에 승인된 고정액을 한 번 차감하고 결과는 최저 0으로 제한한다. 다른 비용이나 장비로 확대하지 않는다."
+    ]
+  },
+  {
+    "id": "AS-SEM-19",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "계산 메모의 권한",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "준비 메모는 공식 계약이나 요율 공지를 대체하지 않는다. 발행 역할과 승인 상태를 확인하며 수신 순서만으로 조건을 변경하지 않는다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS045",
+          "page": 1,
+          "quote": "청구 준비 메모는 확보한 자료와 검토 중인 계산을 기록하며 공식 계약이나 요율 공지를 대체하지 않는다. 고객이 최신 또는 확정이라고 적은 자료도 원 발행 역할과 실제 승인 상태를 확인한다. 문서 수신 순서만으로 적용조건을 변경하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "계산 메모의 권한",
+        "ask": "계산 메모의 권한",
+        "primary": [
+          {
+            "book_id": "AS045",
+            "page": 1,
+            "quote": "청구 준비 메모는 확보한 자료와 검토 중인 계산을 기록하며 공식 계약이나 요율 공지를 대체하지 않는다. 고객이 최신 또는 확정이라고 적은 자료도 원 발행 역할과 실제 승인 상태를 확인한다. 문서 수신 순서만으로 적용조건을 변경하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "준비 메모는 공식 계약이나 요율 공지를 대체하지 않는다. 발행 역할과 승인 상태를 확인하며 수신 순서만으로 조건을 변경하지 않는다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 595,
+    "required_facts": [
+      "준비 메모는 공식 계약이나 요율 공지를 대체하지 않는다. 발행 역할과 승인 상태를 확인하며 수신 순서만으로 조건을 변경하지 않는다."
+    ]
+  },
+  {
+    "id": "AS-SEM-20",
+    "scenario": "semantic_queries",
+    "variant": "rule_paraphrase",
+    "topic": "갱신 계약과 기존 예약",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "수락이 등록된 화주의 해당 기준일 이후 처음 확정된 새 예약에 갱신 조건을 적용한다. 기존 예약의 일정 변경이나 실제 양하일만으로 전환하지 않는다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS024",
+          "page": 1,
+          "quote": "2027년2월 계약 갱신은 수락 등록된 해당 화주의 최초 예약 확정일이2027-02-01 이후인 새 예약에 적용한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS024",
+          "page": 1,
+          "quote": "기존 예약의 일정 변경·실제 양하일·문서 수신일만으로 B계약으로 전환하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "갱신 적용 기준",
+        "ask": "갱신 적용 기준",
+        "primary": [
+          {
+            "book_id": "AS024",
+            "page": 1,
+            "quote": "2027년2월 계약 갱신은 수락 등록된 해당 화주의 최초 예약 확정일이2027-02-01 이후인 새 예약에 적용한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "수락이 등록된 화주의 기준일 이후 최초 확정된 새 예약에 갱신 조건을 적용한다."
+      },
+      {
+        "role": "기존 예약 유지",
+        "ask": "기존 예약 유지",
+        "primary": [
+          {
+            "book_id": "AS024",
+            "page": 1,
+            "quote": "기존 예약의 일정 변경·실제 양하일·문서 수신일만으로 B계약으로 전환하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "기존 예약의 일정 변경이나 실제 양하일만으로 새 계약에 전환하지 않는다."
+      }
+    ],
+    "required_document_count": 1,
+    "required_page_count": 1,
+    "identifier_count": 0,
+    "gold_context_tokens": 847,
+    "required_facts": [
+      "수락이 등록된 화주의 기준일 이후 최초 확정된 새 예약에 갱신 조건을 적용한다.",
+      "기존 예약의 일정 변경이나 실제 양하일만으로 새 계약에 전환하지 않는다."
+    ]
+  },
+  {
+    "id": "AS-SEM-21",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "자리 확정 뒤 반입 준비",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "접수 회신과 구별되는 확정 상태의 예약 확인서를 본다. 반입 준비에는 확정 예약번호, 실제 장비와 봉인 번호, 운송사 연락처, 서류 검토와 검증 중량 접수 상태를 전달한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS008",
+          "page": 3,
+          "quote": "예약지원팀의 접수 회신은 신청 내용을 받았다는 뜻이다. 회신 제목에 접수번호가 있어도 본문 상태가 검토 중이면 예약은 아직 확정되지 않았다. 예약 확정은 상태가 확정인 예약 확인서로 확인하며, 확인서에는 예약번호, 화주, 항로, 예정 출항일, 장비 종류와 대수가 적힌다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS011",
+          "page": 1,
+          "quote": "반입 준비에는 확정 예약번호, 실제 장비번호와 봉인번호, 운송사 연락처, 서류 검토 상태와 VGM 접수 상태가 필요하다. 반입운영팀은 이 정보를 바탕으로 반입 예약과 남은 확인 사항을 회신한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "예약 확정 증빙",
+        "ask": "예약 확정 증빙",
+        "primary": [
+          {
+            "book_id": "AS008",
+            "page": 3,
+            "quote": "예약지원팀의 접수 회신은 신청 내용을 받았다는 뜻이다. 회신 제목에 접수번호가 있어도 본문 상태가 검토 중이면 예약은 아직 확정되지 않았다. 예약 확정은 상태가 확정인 예약 확인서로 확인하며, 확인서에는 예약번호, 화주, 항로, 예정 출항일, 장비 종류와 대수가 적힌다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "접수 회신과 구별되는 확정 상태의 예약 확인서를 확인한다."
+      },
+      {
+        "role": "반입 준비 정보",
+        "ask": "반입 준비 정보",
+        "primary": [
+          {
+            "book_id": "AS011",
+            "page": 1,
+            "quote": "반입 준비에는 확정 예약번호, 실제 장비번호와 봉인번호, 운송사 연락처, 서류 검토 상태와 VGM 접수 상태가 필요하다. 반입운영팀은 이 정보를 바탕으로 반입 예약과 남은 확인 사항을 회신한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "확정 예약번호, 실제 장비와 봉인 번호, 운송사 연락처, 서류 검토와 검증 중량 접수 상태를 전달한다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1556,
+    "required_facts": [
+      "접수 회신과 구별되는 확정 상태의 예약 확인서를 확인한다.",
+      "확정 예약번호, 실제 장비와 봉인 번호, 운송사 연락처, 서류 검토와 검증 중량 접수 상태를 전달한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-22",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "장비 배정과 서류 중량 정정",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "장비 배정은 예약지원팀에 예약번호와 변경 전후 내용을 보내 수정 확인서를 받아야 한다. 서류 중량은 기존 값과 새 값·단위·변경 이유를 전달하고 포장명세서도 대조한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS008",
+          "page": 8,
+          "quote": "예약 확정 후 장비 종류, 장비 대수 또는 희망 출항일을 바꾸려면 예약지원팀에 예약번호와 변경 전·후 내용을보낸다. 서류지원팀에 선적지시서를 정정했다고 해서 예약상의 장비 배정까지 바뀌지는 않는다. 예약지원팀이변경 가능 여부를 검토하고 수정 확인서를 회신한 뒤 그 내용을 기준으로 후속 준비를 한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS009",
+          "page": 23,
+          "quote": "화물 총중량을 바꾸는 경우에는 SI의 해당 값과 단위, 기존 값, 변경 이유를 전달하고 포장명세서의 같은 항목도확인한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "장비 배정 변경",
+        "ask": "장비 배정 변경",
+        "primary": [
+          {
+            "book_id": "AS008",
+            "page": 8,
+            "quote": "예약 확정 후 장비 종류, 장비 대수 또는 희망 출항일을 바꾸려면 예약지원팀에 예약번호와 변경 전·후 내용을보낸다. 서류지원팀에 선적지시서를 정정했다고 해서 예약상의 장비 배정까지 바뀌지는 않는다. 예약지원팀이변경 가능 여부를 검토하고 수정 확인서를 회신한 뒤 그 내용을 기준으로 후속 준비를 한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "예약지원팀에 예약번호와 변경 전후를 보내고 수정 확인서를 받는다."
+      },
+      {
+        "role": "서류 중량 정정",
+        "ask": "서류 중량 정정",
+        "primary": [
+          {
+            "book_id": "AS009",
+            "page": 23,
+            "quote": "화물 총중량을 바꾸는 경우에는 SI의 해당 값과 단위, 기존 값, 변경 이유를 전달하고 포장명세서의 같은 항목도확인한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "기존 값과 새 값·단위·변경 이유를 알리고 포장명세서를 대조한다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1540,
+    "required_facts": [
+      "예약지원팀에 예약번호와 변경 전후를 보내고 수정 확인서를 받는다.",
+      "기존 값과 새 값·단위·변경 이유를 알리고 포장명세서를 대조한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-23",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "포함 중량과 최초 제출",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "짐만의 화물 총중량은 포장을 포함하되 컨테이너를 제외하며 검증 중량은 적입 컨테이너 전체다. 2026년 11월 3일 이후 40피트 장비의 신규 검증 중량은 업무 포털의 등록함으로 보낸다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS009",
+          "page": 21,
+          "quote": "SI의 화물 총중량은 포장을 포함한 화물의 중량이며 컨테이너 자체의 중량을 포함하지 않는다. 중량과 함께 단위를 적는다. VGM은 화물이 적입된 컨테이너 전체의 검증 총중량을 뜻하므로 같은 항목이 아니다. SI의 숫자를그대로 VGM 칸으로 복사하거나 두 값이 다르다는 이유만으로 오류라고 판단하지 않는다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS014",
+          "page": 18,
+          "quote": "2026년 11월 3일부터 신규로 접수하는 40GP VGM은 가온루트 업무 포털의 VGM 등록함에 제출한다. 이는포털 이름이며 실제 서비스 접속 주소를 제공하는 안내가 아니다. 적용 기준은 예정 출항일이 아니라VGM 신규 접수일과 장비 종류다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "화물 총중량과 검증 총중량",
+        "ask": "화물 총중량과 검증 총중량",
+        "primary": [
+          {
+            "book_id": "AS009",
+            "page": 21,
+            "quote": "SI의 화물 총중량은 포장을 포함한 화물의 중량이며 컨테이너 자체의 중량을 포함하지 않는다. 중량과 함께 단위를 적는다. VGM은 화물이 적입된 컨테이너 전체의 검증 총중량을 뜻하므로 같은 항목이 아니다. SI의 숫자를그대로 VGM 칸으로 복사하거나 두 값이 다르다는 이유만으로 오류라고 판단하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "화물 총중량은 포장을 포함하되 컨테이너를 제외하고 검증 중량은 장비 전체다."
+      },
+      {
+        "role": "최초 검증 중량 제출",
+        "ask": "최초 검증 중량 제출",
+        "primary": [
+          {
+            "book_id": "AS014",
+            "page": 18,
+            "quote": "2026년 11월 3일부터 신규로 접수하는 40GP VGM은 가온루트 업무 포털의 VGM 등록함에 제출한다. 이는포털 이름이며 실제 서비스 접속 주소를 제공하는 안내가 아니다. 적용 기준은 예정 출항일이 아니라VGM 신규 접수일과 장비 종류다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "2026년 11월 3일 이후 40피트의 신규 검증 중량은 업무 포털 등록함으로 보낸다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1587,
+    "required_facts": [
+      "화물 총중량은 포장을 포함하되 컨테이너를 제외하고 검증 중량은 장비 전체다.",
+      "2026년 11월 3일 이후 40피트의 신규 검증 중량은 업무 포털 등록함으로 보낸다."
+    ]
+  },
+  {
+    "id": "AS-SEM-24",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "두 종류 중량의 정정 경로",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "서류 중량은 값·단위·기존 값·사유를 전달하고 포장명세서를 확인한다. 검증 총중량은 별도로 정정하며 이미 이메일 접수된 값의 정정은 기존 경로를 따른다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS009",
+          "page": 23,
+          "quote": "화물 총중량을 바꾸는 경우에는 SI의 해당 값과 단위, 기존 값, 변경 이유를 전달하고 포장명세서의 같은 항목도확인한다. VGM은 컨테이너 전체의 별도 검증 중량이므로 SI 중량 변경이 VGM 값을 자동으로 정정하지 않는다. VGM에도 영향이 있는지 확인한 뒤 필요할 때 해당 접수 기록을 기준으로 별도 정정을 요청한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS010",
+          "page": 1,
+          "quote": "이미 접수된 VGM의 정정은 기존 접수 경로를 따라 요청한다. 제출 경로 변경 공지는 신규 접수 대상을 정한 것이며, 이전에 접수된 자료의 정정을 신규 접수로 바꾸라는 지시가 아니다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "화물 서류의 중량 변경",
+        "ask": "화물 서류의 중량 변경",
+        "primary": [
+          {
+            "book_id": "AS009",
+            "page": 23,
+            "quote": "화물 총중량을 바꾸는 경우에는 SI의 해당 값과 단위, 기존 값, 변경 이유를 전달하고 포장명세서의 같은 항목도확인한다. VGM은 컨테이너 전체의 별도 검증 중량이므로 SI 중량 변경이 VGM 값을 자동으로 정정하지 않는다. VGM에도 영향이 있는지 확인한 뒤 필요할 때 해당 접수 기록을 기준으로 별도 정정을 요청한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "값·단위·기존 값·사유를 전달하고 포장명세서를 확인한다."
+      },
+      {
+        "role": "기접수 검증 중량 정정",
+        "ask": "기접수 검증 중량 정정",
+        "primary": [
+          {
+            "book_id": "AS010",
+            "page": 1,
+            "quote": "이미 접수된 VGM의 정정은 기존 접수 경로를 따라 요청한다. 제출 경로 변경 공지는 신규 접수 대상을 정한 것이며, 이전에 접수된 자료의 정정을 신규 접수로 바꾸라는 지시가 아니다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "기존에 이메일 접수한 검증 중량의 정정은 같은 경로로 한다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1564,
+    "required_facts": [
+      "값·단위·기존 값·사유를 전달하고 포장명세서를 확인한다.",
+      "기존에 이메일 접수한 검증 중량의 정정은 같은 경로로 한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-25",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "취소 대기와 차량 지시",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "예약지원팀의 취소 완료 회신을 확인하고 진행 중인 반입 준비 상태를 알린다. 배차 연락은 반입 허용이 아니며 반입운영팀의 반입 예약 회신을 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS008",
+          "page": 9,
+          "quote": "취소 문의도 예약지원팀으로 보낸다. 요청 접수와 취소 완료는 다른 상태이며, 취소 완료 회신 전에는 예약이 없어진 것으로 안내하지 않는다. 이미 반입 준비나 서류 검토가 진행 중이라면 그 상태를 함께 알리고 관련 담당자에게 변경 내용을 공유한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS011",
+          "page": 2,
+          "quote": "예약이 확정되어도 반입이 자동 허용되지는 않는다. 화주는 반입운영팀의 반입 예약 회신을 확인한 뒤 운송사에 배차 내용을 전달한다. 접수된 서류에 보완 사항이 남아 있거나 장비번호가 맞지 않으면 관련 팀의 확인이필요하다. 운송사가 차량을 배정했다는 연락은 반입 허용을 의미하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "예약 취소 완료",
+        "ask": "예약 취소 완료",
+        "primary": [
+          {
+            "book_id": "AS008",
+            "page": 9,
+            "quote": "취소 문의도 예약지원팀으로 보낸다. 요청 접수와 취소 완료는 다른 상태이며, 취소 완료 회신 전에는 예약이 없어진 것으로 안내하지 않는다. 이미 반입 준비나 서류 검토가 진행 중이라면 그 상태를 함께 알리고 관련 담당자에게 변경 내용을 공유한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "예약지원팀의 취소 완료 회신을 확인하고 진행 중인 반입 준비 상태를 알린다."
+      },
+      {
+        "role": "차량 반입 조건",
+        "ask": "차량 반입 조건",
+        "primary": [
+          {
+            "book_id": "AS011",
+            "page": 2,
+            "quote": "예약이 확정되어도 반입이 자동 허용되지는 않는다. 화주는 반입운영팀의 반입 예약 회신을 확인한 뒤 운송사에 배차 내용을 전달한다. 접수된 서류에 보완 사항이 남아 있거나 장비번호가 맞지 않으면 관련 팀의 확인이필요하다. 운송사가 차량을 배정했다는 연락은 반입 허용을 의미하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "배차는 반입 허용이 아니며 반입운영팀의 예약 회신을 확인한다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1400,
+    "required_facts": [
+      "예약지원팀의 취소 완료 회신을 확인하고 진행 중인 반입 준비 상태를 알린다.",
+      "배차는 반입 허용이 아니며 반입운영팀의 예약 회신을 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-26",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "문서 수신과 본선 적재",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "파일 수신은 내용 승인이 아니며 승인 회신에 판본을 명시한다. 적재 예정은 완료 근거가 아니므로 운항팀의 실제 진행 회신을 확인할 때까지 별도 상태로 인계한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS012",
+          "page": 35,
+          "quote": "초안 승인 회신에는 승인하는 판본을 명시한다. 담당자가 파일을 받았다고 답하거나 읽음 표시가 나타난 것만으로 기재 내용의 승인이라고 처리하지 않는다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS013",
+          "page": 7,
+          "quote": "실제 진행 회신 대기 건은 적재 완료가 확인되지 않은 상태로 남아 있다. 따라서 초안 승인이나 적재 예정 기록을 완료 증거로 사용하지 말고, 운항팀 회신이 확인될 때까지 진행 상태를 구분해 인계한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "서류 내용 승인",
+        "ask": "서류 내용 승인",
+        "primary": [
+          {
+            "book_id": "AS012",
+            "page": 35,
+            "quote": "초안 승인 회신에는 승인하는 판본을 명시한다. 담당자가 파일을 받았다고 답하거나 읽음 표시가 나타난 것만으로 기재 내용의 승인이라고 처리하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "파일 수신은 내용 승인이 아니며 승인 회신에 판본을 명시한다."
+      },
+      {
+        "role": "실제 적재 확인",
+        "ask": "실제 적재 확인",
+        "primary": [
+          {
+            "book_id": "AS013",
+            "page": 7,
+            "quote": "실제 진행 회신 대기 건은 적재 완료가 확인되지 않은 상태로 남아 있다. 따라서 초안 승인이나 적재 예정 기록을 완료 증거로 사용하지 말고, 운항팀 회신이 확인될 때까지 진행 상태를 구분해 인계한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "적재 예정은 완료 근거가 아니므로 운항팀의 실제 회신 전까지 별도 상태로 남긴다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1113,
+    "required_facts": [
+      "파일 수신은 내용 승인이 아니며 승인 회신에 판본을 명시한다.",
+      "적재 예정은 완료 근거가 아니므로 운항팀의 실제 회신 전까지 별도 상태로 남긴다."
+    ]
+  },
+  {
+    "id": "AS-SEM-27",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "정식 발행과 목적지 인도",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "정식 발행은 서류지원팀의 발행 안내와 발행본을 확인한다. 예정 도착만으로 실제 도착과 인도 승인 여부를 판단할 수 없다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS012",
+          "page": 34,
+          "quote": "초안 승인은 기재 내용에 대한 회신이며 발행 완료를 뜻하지 않는다. 발행 여부는 서류지원팀의 발행 안내와 해당 발행본으로 확인한다. 발행 안내가 없고 초안 승인 회신만 있을 때에는 발행이 확인되지 않았다고 설명한다. 파일 이름에 최종이라는 표현이 들어 있다는 이유만으로 발행본으로 분류하지 않는다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS013",
+          "page": 20,
+          "quote": "도착 예정 안내를 받았다는 사실만으로 실제 도착, 화물 인도 가능 또는 인도 승인이 확인되는 것은 아니다. 이자료 모음에는 목적지의 개별 인도 승인 기록과 수하인의 인수 권한 확인 자료가 없다. 화물을 바로 찾아갈 수있는지 묻는 경우에는 해당 안내만으로 승인 여부를 판단할 수 없다고 설명한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "서류 정식 발행",
+        "ask": "서류 정식 발행",
+        "primary": [
+          {
+            "book_id": "AS012",
+            "page": 34,
+            "quote": "초안 승인은 기재 내용에 대한 회신이며 발행 완료를 뜻하지 않는다. 발행 여부는 서류지원팀의 발행 안내와 해당 발행본으로 확인한다. 발행 안내가 없고 초안 승인 회신만 있을 때에는 발행이 확인되지 않았다고 설명한다. 파일 이름에 최종이라는 표현이 들어 있다는 이유만으로 발행본으로 분류하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "파일 이름에 최종이 있어도 발행 안내와 발행본으로 정식 발행을 확인한다."
+      },
+      {
+        "role": "도착 예정과 인도 승인",
+        "ask": "도착 예정과 인도 승인",
+        "primary": [
+          {
+            "book_id": "AS013",
+            "page": 20,
+            "quote": "도착 예정 안내를 받았다는 사실만으로 실제 도착, 화물 인도 가능 또는 인도 승인이 확인되는 것은 아니다. 이자료 모음에는 목적지의 개별 인도 승인 기록과 수하인의 인수 권한 확인 자료가 없다. 화물을 바로 찾아갈 수있는지 묻는 경우에는 해당 안내만으로 승인 여부를 판단할 수 없다고 설명한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "도착 예정 안내만으로 실제 도착이나 인도 가능 여부를 판단할 수 없다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1267,
+    "required_facts": [
+      "파일 이름에 최종이 있어도 발행 안내와 발행본으로 정식 발행을 확인한다.",
+      "도착 예정 안내만으로 실제 도착이나 인도 가능 여부를 판단할 수 없다."
+    ]
+  },
+  {
+    "id": "AS-SEM-28",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "예정 변경과 원문 관리",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "새 안내의 대상 예약과 바뀐 항목을 일정 담당에게 전하고 기존 예정일을 이력으로 남긴다. 등록일만으로 업무값을 바꾸지 않고 원문과 유효한 정정을 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS013",
+          "page": 19,
+          "quote": "안내에 적힌 LA 도착 예정일은 실제 도착 완료 시각과 다르다. 예정일이 변경되면 새 안내의 대상 예약과 변경 항목을 확인하고 내부 일정 담당자에게 전달한다. 예약 당시의 예정일도 이력으로 남긴다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS056",
+          "page": 1,
+          "quote": "문서 등록부는 원문 번호, 발행 부서, 적용 대상, 수신일과 정정·대체 참조를 관리한다. 등록일이 최신이라고 실제 업무값이 바뀌는 것은 아니다. 원문과 유효한 확정 정정을 확인하고, 요청 중인 변경값은 현행값과 별도 칸에둔다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "변경 일정 전달",
+        "ask": "변경 일정 전달",
+        "primary": [
+          {
+            "book_id": "AS013",
+            "page": 19,
+            "quote": "안내에 적힌 LA 도착 예정일은 실제 도착 완료 시각과 다르다. 예정일이 변경되면 새 안내의 대상 예약과 변경 항목을 확인하고 내부 일정 담당자에게 전달한다. 예약 당시의 예정일도 이력으로 남긴다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "새 안내의 대상 예약과 변경 항목을 전달하고 기존 예정일은 이력으로 남긴다."
+      },
+      {
+        "role": "등록과 업무값 효력",
+        "ask": "등록과 업무값 효력",
+        "primary": [
+          {
+            "book_id": "AS056",
+            "page": 1,
+            "quote": "문서 등록부는 원문 번호, 발행 부서, 적용 대상, 수신일과 정정·대체 참조를 관리한다. 등록일이 최신이라고 실제 업무값이 바뀌는 것은 아니다. 원문과 유효한 확정 정정을 확인하고, 요청 중인 변경값은 현행값과 별도 칸에둔다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "등록일만으로 업무값을 바꾸지 않고 원문과 유효한 확정 정정을 확인한다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1252,
+    "required_facts": [
+      "새 안내의 대상 예약과 변경 항목을 전달하고 기존 예정일은 이력으로 남긴다.",
+      "등록일만으로 업무값을 바꾸지 않고 원문과 유효한 확정 정정을 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-29",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "유효 발행액과 입금 배분",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "현재 발행 금액은 철회·대체되지 않은 유효 발행 원문으로 안내한다. 들어온 돈 중 승인 배분되지 않은 부분은 미배분으로 남긴다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS051",
+          "page": 1,
+          "quote": "아직 발행되지 않은 최신 계산 초안이 기존 유효 발행 통지를 자동으로 대체하지 않는다. 고객에게 현재 발행 금액을 안내할 때에는 철회·대체되지 않은발행 원문과 그 상태를 확인한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS053",
+          "page": 8,
+          "quote": "1월 27일 수신분은 연결 청구에 승인 배분이 일부만 이뤄져 잔액이 미배분으로 남았습니다. 이 금액을 해당 청구에 임의로 더 배분한 것으로 처리하지 않고 미배분 상태를 유지해야 합니다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "현재 발행 금액",
+        "ask": "현재 발행 금액",
+        "primary": [
+          {
+            "book_id": "AS051",
+            "page": 1,
+            "quote": "아직 발행되지 않은 최신 계산 초안이 기존 유효 발행 통지를 자동으로 대체하지 않는다. 고객에게 현재 발행 금액을 안내할 때에는 철회·대체되지 않은발행 원문과 그 상태를 확인한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "철회·대체되지 않은 유효 발행 원문으로 현재 발행 금액을 확인한다."
+      },
+      {
+        "role": "미배분 수신액",
+        "ask": "미배분 수신액",
+        "primary": [
+          {
+            "book_id": "AS053",
+            "page": 8,
+            "quote": "1월 27일 수신분은 연결 청구에 승인 배분이 일부만 이뤄져 잔액이 미배분으로 남았습니다. 이 금액을 해당 청구에 임의로 더 배분한 것으로 처리하지 않고 미배분 상태를 유지해야 합니다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "승인 배분되지 않은 수신액은 해당 청구에 임의 반영하지 않고 미배분으로 남긴다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1152,
+    "required_facts": [
+      "철회·대체되지 않은 유효 발행 원문으로 현재 발행 금액을 확인한다.",
+      "승인 배분되지 않은 수신액은 해당 청구에 임의 반영하지 않고 미배분으로 남긴다."
+    ]
+  },
+  {
+    "id": "AS-SEM-30",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_workflow",
+    "topic": "월말 인계와 감액 검토",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "예약·서류·실제 양하와 반출·청구 발행·입금과 배분을 각각 확인해 적는다. 감액 자료 재요청은 승인 완료가 아니며 대상과 금액·효력의 승인 원문 또는 결과 회신을 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS055",
+          "page": 1,
+          "quote": "월말 인계는 예약, 서류, 실제 양하·반출, 청구 발행, 입금과 배분의 확인 상태를 각각 남긴다. 한 단계 완료를 모든 업무 완료로 합치지 않는다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS025",
+          "page": 1,
+          "quote": "고객의 감액·면제 요청이나 이의 접수는 승인과 다르다. 담당자의 자료 재요청·검토 의견만으로 전액 면제나 감액 완료를 기록하지 않는다. 대상과 승인 금액·효력 상태가 적힌 승인 원문 또는 처리 결과 회신을 확인한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "업무 단계별 인계",
+        "ask": "업무 단계별 인계",
+        "primary": [
+          {
+            "book_id": "AS055",
+            "page": 1,
+            "quote": "월말 인계는 예약, 서류, 실제 양하·반출, 청구 발행, 입금과 배분의 확인 상태를 각각 남긴다. 한 단계 완료를 모든 업무 완료로 합치지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "예약·서류·양하와 반출·청구 발행·입금과 배분의 상태를 각각 남긴다."
+      },
+      {
+        "role": "감액 승인 증빙",
+        "ask": "감액 승인 증빙",
+        "primary": [
+          {
+            "book_id": "AS025",
+            "page": 1,
+            "quote": "고객의 감액·면제 요청이나 이의 접수는 승인과 다르다. 담당자의 자료 재요청·검토 의견만으로 전액 면제나 감액 완료를 기록하지 않는다. 대상과 승인 금액·효력 상태가 적힌 승인 원문 또는 처리 결과 회신을 확인한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "자료 재요청은 감액 승인이 아니며 대상과 승인 금액·효력을 확인한다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1246,
+    "required_facts": [
+      "예약·서류·양하와 반출·청구 발행·입금과 배분의 상태를 각각 남긴다.",
+      "자료 재요청은 감액 승인이 아니며 대상과 승인 금액·효력을 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-31",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "서류 마감·중량 정정·반입",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "2026년 해당 조건에서는 선적지시서를 11월 14일 토요일 낮 12시 한국시간까지 보낸다. 기존 이메일 접수 중량 정정은 기존 경로를 이용하고, 차량 배차 외에 반입운영팀의 반입 예약 회신을 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS014",
+          "page": 1,
+          "quote": "예정 출항일이 2026년 11월 1일 이후인 예약은 예정 출항일 이틀 전 낮 12시까지 SI를제출한다. 날짜에서 이틀을 빼며 평일만 세는 방식이 아니다. 시각은 한국 표준시를 기준으로 한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS010",
+          "page": 1,
+          "quote": "이미 접수된 VGM의 정정은 기존 접수 경로를 따라 요청한다. 제출 경로 변경 공지는 신규 접수 대상을 정한 것이며, 이전에 접수된 자료의 정정을 신규 접수로 바꾸라는 지시가 아니다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS011",
+          "page": 2,
+          "quote": "예약이 확정되어도 반입이 자동 허용되지는 않는다. 화주는 반입운영팀의 반입 예약 회신을 확인한 뒤 운송사에 배차 내용을 전달한다. 접수된 서류에 보완 사항이 남아 있거나 장비번호가 맞지 않으면 관련 팀의 확인이필요하다. 운송사가 차량을 배정했다는 연락은 반입 허용을 의미하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "선적지시서 제출 기한",
+        "ask": "선적지시서 제출 기한",
+        "primary": [
+          {
+            "book_id": "AS014",
+            "page": 1,
+            "quote": "예정 출항일이 2026년 11월 1일 이후인 예약은 예정 출항일 이틀 전 낮 12시까지 SI를제출한다. 날짜에서 이틀을 빼며 평일만 세는 방식이 아니다. 시각은 한국 표준시를 기준으로 한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "예정 출항일 이틀 전인 11월 14일 토요일 낮 12시 한국시간까지 제출한다."
+      },
+      {
+        "role": "기접수 검증 중량 정정",
+        "ask": "기접수 검증 중량 정정",
+        "primary": [
+          {
+            "book_id": "AS010",
+            "page": 1,
+            "quote": "이미 접수된 VGM의 정정은 기존 접수 경로를 따라 요청한다. 제출 경로 변경 공지는 신규 접수 대상을 정한 것이며, 이전에 접수된 자료의 정정을 신규 접수로 바꾸라는 지시가 아니다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "이미 이메일로 낸 값은 같은 경로로 정정한다."
+      },
+      {
+        "role": "배차와 반입 승인",
+        "ask": "배차와 반입 승인",
+        "primary": [
+          {
+            "book_id": "AS011",
+            "page": 2,
+            "quote": "예약이 확정되어도 반입이 자동 허용되지는 않는다. 화주는 반입운영팀의 반입 예약 회신을 확인한 뒤 운송사에 배차 내용을 전달한다. 접수된 서류에 보완 사항이 남아 있거나 장비번호가 맞지 않으면 관련 팀의 확인이필요하다. 운송사가 차량을 배정했다는 연락은 반입 허용을 의미하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "배차와 별개로 반입운영팀의 반입 예약 회신을 확인한다."
+      }
+    ],
+    "required_document_count": 3,
+    "required_page_count": 3,
+    "identifier_count": 0,
+    "gold_context_tokens": 2217,
+    "required_facts": [
+      "예정 출항일 이틀 전인 11월 14일 토요일 낮 12시 한국시간까지 제출한다.",
+      "이미 이메일로 낸 값은 같은 경로로 정정한다.",
+      "배차와 별개로 반입운영팀의 반입 예약 회신을 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-32",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "보관일 계산과 계약 무료기간",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "현지 달력일로 양하일을 빼고 반출일까지 세므로 3일이다. 유효한 개별 계약 무료일수가 기본표 일수를 대체한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS017",
+          "page": 8,
+          "quote": "보관일수는 실제 양하일을 제외하고 다음 날부터 실제 반출일까지 센다. 실제 반출일은 포함하며 주말을 포함한 달력일을 사용한다. 날짜는 터미널 현지 날짜로 읽고 문서 발행일이나 수신일을 대신 넣지 않는다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS020",
+          "page": 19,
+          "quote": "유효한 개별 무료기간 계약이 연결되면 그 계약의 무료일수가 기본표의 무료일수를 대체한다. 기본 무료일수와특약 무료일수를 더하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "보관일수 산입",
+        "ask": "보관일수 산입",
+        "primary": [
+          {
+            "book_id": "AS017",
+            "page": 8,
+            "quote": "보관일수는 실제 양하일을 제외하고 다음 날부터 실제 반출일까지 센다. 실제 반출일은 포함하며 주말을 포함한 달력일을 사용한다. 날짜는 터미널 현지 날짜로 읽고 문서 발행일이나 수신일을 대신 넣지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "현지 달력일로 실제 양하일을 빼고 반출일까지 세면 3일이다."
+      },
+      {
+        "role": "개별 계약 무료일수",
+        "ask": "개별 계약 무료일수",
+        "primary": [
+          {
+            "book_id": "AS020",
+            "page": 19,
+            "quote": "유효한 개별 무료기간 계약이 연결되면 그 계약의 무료일수가 기본표의 무료일수를 대체한다. 기본 무료일수와특약 무료일수를 더하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "유효 특약 무료일수가 기본표를 대체하고 두 값을 더하지 않는다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1424,
+    "required_facts": [
+      "현지 달력일로 실제 양하일을 빼고 반출일까지 세면 3일이다.",
+      "유효 특약 무료일수가 기본표를 대체하고 두 값을 더하지 않는다."
+    ]
+  },
+  {
+    "id": "AS-SEM-33",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "요금 개정과 예약 날짜 변경",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "인상 대상 장비의 일요율은 실제 양하일을 기준으로 새 요율을 적용한다. 개별 무료기간 계약은 예약 최초 확정일과 계약 범위를 기준으로 고르며 출항 일정 변경으로 기준일을 바꾸지 않는다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS023",
+          "page": 1,
+          "quote": "실제 양하일이 2027-02-01 이후인 N1 일반 건화물 40GP의 일요율을 USD 68에서USD 74/장비/일로 변경한다. 적용 기준은 실제 양하일이며 예약일, 예정 양하일, 청구일 또는 공지 수신일이 아니다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS020",
+          "page": 1,
+          "quote": "개별 무료기간 계약의 판본은 해당 예약의 최초 확정일과 계약에 명시된 화주·터미널·장비 범위로 선택한다. 예약 후 예정 출항일만 바뀌면 최초 확정일은 바뀌지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "일요율 개정 기준일",
+        "ask": "일요율 개정 기준일",
+        "primary": [
+          {
+            "book_id": "AS023",
+            "page": 1,
+            "quote": "실제 양하일이 2027-02-01 이후인 N1 일반 건화물 40GP의 일요율을 USD 68에서USD 74/장비/일로 변경한다. 적용 기준은 실제 양하일이며 예약일, 예정 양하일, 청구일 또는 공지 수신일이 아니다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "대상 장비는 실제 양하일로 요율을 선택하므로 2027년 2월 초 양하에 새 요율을 적용한다."
+      },
+      {
+        "role": "무료기간 계약 기준일",
+        "ask": "무료기간 계약 기준일",
+        "primary": [
+          {
+            "book_id": "AS020",
+            "page": 1,
+            "quote": "개별 무료기간 계약의 판본은 해당 예약의 최초 확정일과 계약에 명시된 화주·터미널·장비 범위로 선택한다. 예약 후 예정 출항일만 바뀌면 최초 확정일은 바뀌지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "개별 계약은 최초 예약 확정일과 대상 범위로 선택하고 이후 출항 일정 변경으로 기준을 바꾸지 않는다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1461,
+    "required_facts": [
+      "대상 장비는 실제 양하일로 요율을 선택하므로 2027년 2월 초 양하에 새 요율을 적용한다.",
+      "개별 계약은 최초 예약 확정일과 대상 범위로 선택하고 이후 출항 일정 변경으로 기준을 바꾸지 않는다."
+    ]
+  },
+  {
+    "id": "AS-SEM-34",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "요율 개정 제외 터미널의 기본표",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "개정 대상에서 제외된 S2는 기존 조건을 사용한다. 작은 20피트는 4일·하루 38달러, 큰 40피트는 5일·하루 62달러다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS023",
+          "page": 5,
+          "quote": "S2 터미널의 20GP·40GP 건은 실제 양하일이 2027년 2월 중이어도 T-2702의 적용 범위에 포함되지 않는다. 변경 조건은 N1 일반 건화물 40GP의 일요율에 한정되므로, S2 기록은 기존 조건을 확인하는 비대상 건으로 구분한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS019",
+          "page": 2,
+          "quote": "S2 일반 건화물의 장비 규격별 기본 행은 20GP와 40GP로 구분된다. 대장상 20GP는 기본 4일·USD 38/일, 40GP는 기본 5일·USD 62/일이며, 무료일수와 일요율은 서로 다른 항목으로 확인한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "개정 제외 터미널",
+        "ask": "개정 제외 터미널",
+        "primary": [
+          {
+            "book_id": "AS023",
+            "page": 5,
+            "quote": "S2 터미널의 20GP·40GP 건은 실제 양하일이 2027년 2월 중이어도 T-2702의 적용 범위에 포함되지 않는다. 변경 조건은 N1 일반 건화물 40GP의 일요율에 한정되므로, S2 기록은 기존 조건을 확인하는 비대상 건으로 구분한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "S2는 이번 일요율 개정에서 제외된다."
+      },
+      {
+        "role": "장비별 기본 조건",
+        "ask": "장비별 기본 조건",
+        "primary": [
+          {
+            "book_id": "AS019",
+            "page": 2,
+            "quote": "S2 일반 건화물의 장비 규격별 기본 행은 20GP와 40GP로 구분된다. 대장상 20GP는 기본 4일·USD 38/일, 40GP는 기본 5일·USD 62/일이며, 무료일수와 일요율은 서로 다른 항목으로 확인한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "S2 20피트는 기본 4일·하루 38달러, 40피트는 기본 5일·하루 62달러다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1291,
+    "required_facts": [
+      "S2는 이번 일요율 개정에서 제외된다.",
+      "S2 20피트는 기본 4일·하루 38달러, 40피트는 기본 5일·하루 62달러다."
+    ]
+  },
+  {
+    "id": "AS-SEM-35",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "계약 무료기간과 감액 순서",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "유효 특약 무료일수가 기본표 무료일수를 대체한다. 무료기간을 제외한 유료일수에 일요율을 곱한 뒤 승인 고정액을 한 번 차감하며 최저 0으로 제한한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS020",
+          "page": 19,
+          "quote": "유효한 개별 무료기간 계약이 연결되면 그 계약의 무료일수가 기본표의 무료일수를 대체한다. 기본 무료일수와특약 무료일수를 더하지 않는다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS025",
+          "page": 7,
+          "quote": "USD 감액은 승인서가 지정한 장비와 보관료 항목에 고정액으로 한 번만 적용한다. 유효 무료기간을 제외한 유료일수에 일요율을 곱한 뒤 승인 USD를 차감하고 결과가 음수면 0으로 제한한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "무료일수 선택",
+        "ask": "무료일수 선택",
+        "primary": [
+          {
+            "book_id": "AS020",
+            "page": 19,
+            "quote": "유효한 개별 무료기간 계약이 연결되면 그 계약의 무료일수가 기본표의 무료일수를 대체한다. 기본 무료일수와특약 무료일수를 더하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "유효 개별 계약의 무료일수를 기본표 대신 사용한다."
+      },
+      {
+        "role": "고정액 차감 순서",
+        "ask": "고정액 차감 순서",
+        "primary": [
+          {
+            "book_id": "AS025",
+            "page": 7,
+            "quote": "USD 감액은 승인서가 지정한 장비와 보관료 항목에 고정액으로 한 번만 적용한다. 유효 무료기간을 제외한 유료일수에 일요율을 곱한 뒤 승인 USD를 차감하고 결과가 음수면 0으로 제한한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "유료일수에 일요율을 곱하고 승인 고정액을 한 번 차감하며 최저 금액은 0이다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1455,
+    "required_facts": [
+      "유효 개별 계약의 무료일수를 기본표 대신 사용한다.",
+      "유료일수에 일요율을 곱하고 승인 고정액을 한 번 차감하며 최저 금액은 0이다."
+    ]
+  },
+  {
+    "id": "AS-SEM-36",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "추가 무료기간과 금액 승인 범위",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "추가 무료일은 승인서가 지정한 예약·장비에만 더한다. 다른 장비의 고정액 감액에 무료기간 변경이 명시되지 않으면 기존 무료기간을 유지한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS022",
+          "page": 7,
+          "quote": "추가 무료기간은 승인서가 지정한 예약·장비에 승인된 일수만 적용한다. 해당 장비의 유효한 기본 또는 개별 계약 무료일수에 더하되, 신청서의 희망 일수나 보완자료 수신을 승인으로 처리하지 않는다. 같은 화주의 다른 장비에 일괄 적용하려면 별도의 명시적 승인 범위가 필요하다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS025",
+          "page": 19,
+          "quote": "USD 고정액 감액 승인과 추가 무료기간 승인은 별개다. 금액 감액 승인에 무료일수 변경이 명시되지 않았다면기존 무료기간을 유지한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "장비별 추가 무료일수",
+        "ask": "장비별 추가 무료일수",
+        "primary": [
+          {
+            "book_id": "AS022",
+            "page": 7,
+            "quote": "추가 무료기간은 승인서가 지정한 예약·장비에 승인된 일수만 적용한다. 해당 장비의 유효한 기본 또는 개별 계약 무료일수에 더하되, 신청서의 희망 일수나 보완자료 수신을 승인으로 처리하지 않는다. 같은 화주의 다른 장비에 일괄 적용하려면 별도의 명시적 승인 범위가 필요하다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "추가 무료일은 승인에 지정된 예약·장비에만 더한다."
+      },
+      {
+        "role": "고정액 감면의 범위",
+        "ask": "고정액 감면의 범위",
+        "primary": [
+          {
+            "book_id": "AS025",
+            "page": 19,
+            "quote": "USD 고정액 감액 승인과 추가 무료기간 승인은 별개다. 금액 감액 승인에 무료일수 변경이 명시되지 않았다면기존 무료기간을 유지한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "다른 장비의 고정액 감액 승인에 무료일수 변경이 없으면 기존 무료기간을 유지한다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1374,
+    "required_facts": [
+      "추가 무료일은 승인에 지정된 예약·장비에만 더한다.",
+      "다른 장비의 고정액 감액 승인에 무료일수 변경이 없으면 기존 무료기간을 유지한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-37",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "대체 승인과 현재 발행 금액",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "대체 승인은 이전 승인을 종료하며 두 승인액을 합하지 않는다. 발행되지 않은 계산 초안은 기존 유효 발행 통지를 자동으로 대체하지 않아 현재 발행 금액은 유효 발행 원문으로 확인한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS025",
+          "page": 33,
+          "quote": "대체 승인은 대체 대상으로 적힌 이전 승인을 종료하고 새 범위와 금액을 적용한다. 이전 승인과 새 승인 금액을 합산하지 않는다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS051",
+          "page": 1,
+          "quote": "아직 발행되지 않은 최신 계산 초안이 기존 유효 발행 통지를 자동으로 대체하지 않는다. 고객에게 현재 발행 금액을 안내할 때에는 철회·대체되지 않은발행 원문과 그 상태를 확인한다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "이전 감액 승인 종료",
+        "ask": "이전 감액 승인 종료",
+        "primary": [
+          {
+            "book_id": "AS025",
+            "page": 33,
+            "quote": "대체 승인은 대체 대상으로 적힌 이전 승인을 종료하고 새 범위와 금액을 적용한다. 이전 승인과 새 승인 금액을 합산하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "대체 승인으로 종료된 이전 감액을 새 승인에 합하지 않는다."
+      },
+      {
+        "role": "발행 전 금액 구분",
+        "ask": "발행 전 금액 구분",
+        "primary": [
+          {
+            "book_id": "AS051",
+            "page": 1,
+            "quote": "아직 발행되지 않은 최신 계산 초안이 기존 유효 발행 통지를 자동으로 대체하지 않는다. 고객에게 현재 발행 금액을 안내할 때에는 철회·대체되지 않은발행 원문과 그 상태를 확인한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "새 계산 초안은 유효 발행 통지를 대체하지 않아 기존 유효 발행액을 확인한다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1262,
+    "required_facts": [
+      "대체 승인으로 종료된 이전 감액을 새 승인에 합하지 않는다.",
+      "새 계산 초안은 유효 발행 통지를 대체하지 않아 기존 유효 발행액을 확인한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-38",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "차량 도착과 보관료 종료일",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "차량 도착 연락과 실제 반출 확인은 구분한다. 보관일수는 실제 양하일 다음 날부터 실제 반출일까지 현지 달력일로 세며 예정 날짜를 대신 넣지 않는다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS036",
+          "page": 3,
+          "quote": "가온루트해운의 업무 기준일인 2027-03-05까지 접수된 기록을 바탕으로 예정 날짜, 차량 도착 연락, 실제 반출확인과 자료 미확인을 구분한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS017",
+          "page": 16,
+          "quote": "예정 날짜와 실제 날짜를 구별할 때 보관일수는 실제 양하일과 실제 반출일을 기준으로 확인한다. 양하일은 세지 않고 그 다음 날을 첫날로 잡으며 실제 반출일은 포함한다. 주말을 포함한 달력일로 산정하고 시차 변환은추가하지 않으므로, 예정 날짜를 실제 기록처럼 기간 계산에 대입하지 않는다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "차량 도착과 실제 반출 증빙",
+        "ask": "차량 도착과 실제 반출 증빙",
+        "primary": [
+          {
+            "book_id": "AS036",
+            "page": 3,
+            "quote": "가온루트해운의 업무 기준일인 2027-03-05까지 접수된 기록을 바탕으로 예정 날짜, 차량 도착 연락, 실제 반출확인과 자료 미확인을 구분한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "차량 도착 연락과 실제 반출 확인을 별개 상태로 구분한다."
+      },
+      {
+        "role": "보관일수 종료일",
+        "ask": "보관일수 종료일",
+        "primary": [
+          {
+            "book_id": "AS017",
+            "page": 16,
+            "quote": "예정 날짜와 실제 날짜를 구별할 때 보관일수는 실제 양하일과 실제 반출일을 기준으로 확인한다. 양하일은 세지 않고 그 다음 날을 첫날로 잡으며 실제 반출일은 포함한다. 주말을 포함한 달력일로 산정하고 시차 변환은추가하지 않으므로, 예정 날짜를 실제 기록처럼 기간 계산에 대입하지 않는다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "실제 반출일까지 현지 달력일로 세며 예정 날짜를 대신 쓰지 않는다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1224,
+    "required_facts": [
+      "차량 도착 연락과 실제 반출 확인을 별개 상태로 구분한다.",
+      "실제 반출일까지 현지 달력일로 세며 예정 날짜를 대신 쓰지 않는다."
+    ]
+  },
+  {
+    "id": "AS-SEM-39",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "과거 상담과 공식 일요율",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "과거 상담의 고객 추정은 공식 계약·요율 공지가 아니다. 변경 대상의 요율은 청구일이 아니라 실제 양하일을 기준으로 한다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS016",
+          "page": 1,
+          "quote": "이 자료집의 2026년 상담 기록은 당시 예약·SI·VGM·운항 문의의 접수와 회신 이력이다. 고객이 2027년 LA 보관료를 추정해 적은 내용이 있더라도 새 보관료 계약이나 요율 공지가 아니다. 2027년 조건은 해당 기간의 공식조건과 승인 범위로 확인한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS023",
+          "page": 1,
+          "quote": "실제 양하일이 2027-02-01 이후인 N1 일반 건화물 40GP의 일요율을 USD 68에서USD 74/장비/일로 변경한다. 적용 기준은 실제 양하일이며 예약일, 예정 양하일, 청구일 또는 공지 수신일이 아니다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "과거 상담의 권한",
+        "ask": "과거 상담의 권한",
+        "primary": [
+          {
+            "book_id": "AS016",
+            "page": 1,
+            "quote": "이 자료집의 2026년 상담 기록은 당시 예약·SI·VGM·운항 문의의 접수와 회신 이력이다. 고객이 2027년 LA 보관료를 추정해 적은 내용이 있더라도 새 보관료 계약이나 요율 공지가 아니다. 2027년 조건은 해당 기간의 공식조건과 승인 범위로 확인한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "과거 상담에 나온 고객 추정은 공식 계약이나 요율 공지가 아니다."
+      },
+      {
+        "role": "개정 일요율의 기준",
+        "ask": "개정 일요율의 기준",
+        "primary": [
+          {
+            "book_id": "AS023",
+            "page": 1,
+            "quote": "실제 양하일이 2027-02-01 이후인 N1 일반 건화물 40GP의 일요율을 USD 68에서USD 74/장비/일로 변경한다. 적용 기준은 실제 양하일이며 예약일, 예정 양하일, 청구일 또는 공지 수신일이 아니다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "인상 대상의 일요율은 청구일이 아니라 실제 양하일로 결정한다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1322,
+    "required_facts": [
+      "과거 상담에 나온 고객 추정은 공식 계약이나 요율 공지가 아니다.",
+      "인상 대상의 일요율은 청구일이 아니라 실제 양하일로 결정한다."
+    ]
+  },
+  {
+    "id": "AS-SEM-40",
+    "scenario": "semantic_queries",
+    "variant": "cross_document_rule",
+    "topic": "운송 범위와 연도별 비용 적용",
+    "evaluation_stage": "retrieval",
+    "expected_action": "answer",
+    "accepted_action_labels": [
+      "answer"
+    ],
+    "evidence_required": true,
+    "reference_answer": "냉동 컨테이너는 일반 건화물 운송 안내 범위 밖이라 별도 서비스 조건이 필요하다. 2027년 보관료 안내는 2027년 1월 1일 이후 실제 양하한 해당 일반 화물에 적용되므로 전년도 양하 건은 그 범위에 들지 않는다.",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS007",
+          "page": 1,
+          "quote": "냉동 컨테이너, 위험물, 규격을 벗어난 화물과 다른 항로는 이 안내의 대상이 아니다. 그런 문의가 들어오면 본문에 적힌 조건을 확대 적용하지 않고 별도 서비스 안내를 요청한다."
+        }
+      ],
+      [
+        {
+          "book_id": "AS017",
+          "page": 1,
+          "quote": "가온루트해운의 이 자료집은 2027-01-01 이후 실제 양하한 부산–LA 일반 건화물 20GP·40GP의 LA N1·S2 터미널 내부 보관료를 다룬다."
+        }
+      ]
+    ],
+    "evidence_requirements": [
+      {
+        "role": "냉동 운송의 안내 범위",
+        "ask": "냉동 운송의 안내 범위",
+        "primary": [
+          {
+            "book_id": "AS007",
+            "page": 1,
+            "quote": "냉동 컨테이너, 위험물, 규격을 벗어난 화물과 다른 항로는 이 안내의 대상이 아니다. 그런 문의가 들어오면 본문에 적힌 조건을 확대 적용하지 않고 별도 서비스 안내를 요청한다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "온도 유지가 필요한 냉동 컨테이너는 일반 건화물 조건 대신 별도 서비스 조건을 확인한다."
+      },
+      {
+        "role": "보관료 안내의 시간 범위",
+        "ask": "보관료 안내의 시간 범위",
+        "primary": [
+          {
+            "book_id": "AS017",
+            "page": 1,
+            "quote": "가온루트해운의 이 자료집은 2027-01-01 이후 실제 양하한 부산–LA 일반 건화물 20GP·40GP의 LA N1·S2 터미널 내부 보관료를 다룬다."
+          }
+        ],
+        "alternatives": [],
+        "fact": "2027년 안내는 2027년 1월 1일 이후 실제 양하 건부터 다뤄 전년도 양하 건은 제외된다."
+      }
+    ],
+    "required_document_count": 2,
+    "required_page_count": 2,
+    "identifier_count": 0,
+    "gold_context_tokens": 1322,
+    "required_facts": [
+      "온도 유지가 필요한 냉동 컨테이너는 일반 건화물 조건 대신 별도 서비스 조건을 확인한다.",
+      "2027년 안내는 2027년 1월 1일 이후 실제 양하 건부터 다뤄 전년도 양하 건은 제외된다."
+    ]
+  }
+]

@@ -1,0 +1,1653 @@
+{
+  "limits": {
+    "candidates": 20,
+    "pages": 8,
+    "context_tokens": 8000
+  },
+  "arms": {
+    "A": [],
+    "unique": [
+      "unique"
+    ],
+    "ambiguous": [
+      "ambiguous"
+    ],
+    "both": [
+      "unique",
+      "ambiguous"
+    ]
+  },
+  "inputs": {
+    "negative_control_questions.json": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-20261109-v2/negative_control_questions.json",
+      "sha256": "f490c928dd3298629229b008b1cade8b166966fb01ccc328c2cff843f6760404"
+    },
+    "negative_control_references.json": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-20261109-v2/negative_control_references.json",
+      "sha256": "100ec141d87ab3dba5878af0ecacecd192f1bb5c3092917f57d0cbe63221d466"
+    },
+    "retrieval_questions.json": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-20261109-v2/retrieval_questions.json",
+      "sha256": "612cc0422657a1dc4d175165ea850c6635361b6c6f2de867159402a7c928f39b"
+    },
+    "retrieval_references.json": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-20261109-v2/retrieval_references.json",
+      "sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309"
+    }
+  },
+  "archived_personal_and_peer": {
+    "results.json": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-benchmark-20261109-v2/results.json",
+      "sha256": "f475a3d1ee7b4980fe0ee60c527924874360acf896d080151fe82c229918c584"
+    },
+    "rankings.jsonl": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-benchmark-20261109-v2/rankings.jsonl",
+      "sha256": "53a2766ab9c9c99b64fad57d8318a324a26f6ce4cb5f4e723c8f3fd84f1de191"
+    },
+    "scores.jsonl": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-benchmark-20261109-v2/scores.jsonl",
+      "sha256": "9f2c5c55e2aa3500cfd58aabe8766859116a90bf16712b7e88a6406b9811fc4e"
+    }
+  },
+  "prior_A": {
+    "path": "artifacts/u_10o0o/advanced-scenarios-clause-ab-20261109/rankings.jsonl",
+    "sha256": "e9043f9f563d985aaed2e5038438c9b066dd10844f66b2679cf47982b3600971"
+  },
+  "source_index": {
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "case_links": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    },
+    "role_facts": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+      "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+    }
+  },
+  "code": {
+    "runner": {
+      "path": "experimental/u_10o0o/advanced_clause_ab.py",
+      "sha256": "4d88da92d0af50bb9b524af21af3cdefd7acc98741b73b51022173ada5b43595"
+    },
+    "selector": {
+      "path": "experimental/u_10o0o/advanced_pair_context.py",
+      "sha256": "2f689e1fbf3deba50c3e810d20c2acc48d8bce0450f697e5a7eac318483c8b37"
+    },
+    "clause_binding": {
+      "path": "experimental/u_10o0o/advanced_clause_binding.py",
+      "sha256": "9cf80b56e0d87339a753c4ba379ca7dc22a06858b361adb5b946353cd688c88c"
+    },
+    "scenario_runner": {
+      "path": "experimental/u_10o0o/advanced_scenarios_clause_ab.py",
+      "sha256": "b4893461f5ed2cc6d5faae9ec19bc64134ccd1237028e5fcd6e3a269838e777b"
+    },
+    "source_lookup_runner": {
+      "path": "experimental/u_10o0o/advanced_source_lookup_ab.py",
+      "sha256": "dfb6246ed162cbfff653a823d532c3add63af5bad176916d270c66ae642a7d0c"
+    },
+    "advanced_target_lookup": {
+      "path": "experimental/u_10o0o/advanced_target_lookup.py",
+      "sha256": "ea63976000b1dc1ac7c8bf8ec12e85742f547e64a830b29a80245f6d48fcd71b"
+    },
+    "advanced_clarify_lookup": {
+      "path": "experimental/u_10o0o/advanced_clarify_lookup.py",
+      "sha256": "fa97022f4913461a42bb26e2ffa1a0aa15e6d811b92145d68d6def2280005bc2"
+    },
+    "advanced_hg_lookup": {
+      "path": "experimental/u_10o0o/advanced_hg_lookup.py",
+      "sha256": "5c47e8dfe82587f8ad2cca218aeac28b646ee023291ed4bd05213f0e291e21e9"
+    }
+  },
+  "external_api_calls": 0,
+  "summary": {
+    "all": {
+      "questions": 140,
+      "facts_required": 306,
+      "arms": {
+        "A": {
+          "candidate_complete": 101,
+          "candidate_facts_hit": 231,
+          "full_evidence": 101,
+          "facts_hit": 230,
+          "context_changed": 0,
+          "page_recall_at_8": 0.7428571428571429,
+          "lookup_routes": {
+            "fallback": 140
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 113,
+          "candidate_facts_hit": 253,
+          "full_evidence": 113,
+          "facts_hit": 252,
+          "context_changed": 12,
+          "page_recall_at_8": 0.8285714285714286,
+          "lookup_routes": {
+            "fallback": 120,
+            "unique": 20
+          },
+          "lookup_exact": 20,
+          "candidate_changed": 12,
+          "gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 121,
+          "candidate_facts_hit": 271,
+          "full_evidence": 121,
+          "facts_hit": 270,
+          "context_changed": 20,
+          "page_recall_at_8": 0.8857142857142857,
+          "lookup_routes": {
+            "fallback": 120,
+            "ambiguous": 20
+          },
+          "lookup_exact": 20,
+          "candidate_changed": 20,
+          "gained": [
+            "AS-S06-01",
+            "AS-S06-02",
+            "AS-S06-03",
+            "AS-S06-04",
+            "AS-S06-05",
+            "AS-S06-06",
+            "AS-S06-07",
+            "AS-S06-08",
+            "AS-S06-09",
+            "AS-S06-10",
+            "AS-S06-11",
+            "AS-S06-12",
+            "AS-S06-13",
+            "AS-S06-14",
+            "AS-S06-15",
+            "AS-S06-16",
+            "AS-S06-17",
+            "AS-S06-18",
+            "AS-S06-19",
+            "AS-S06-20"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S06-01",
+            "AS-S06-02",
+            "AS-S06-03",
+            "AS-S06-04",
+            "AS-S06-05",
+            "AS-S06-06",
+            "AS-S06-07",
+            "AS-S06-08",
+            "AS-S06-09",
+            "AS-S06-10",
+            "AS-S06-11",
+            "AS-S06-12",
+            "AS-S06-13",
+            "AS-S06-14",
+            "AS-S06-15",
+            "AS-S06-16",
+            "AS-S06-17",
+            "AS-S06-18",
+            "AS-S06-19",
+            "AS-S06-20"
+          ],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 133,
+          "candidate_facts_hit": 293,
+          "full_evidence": 133,
+          "facts_hit": 292,
+          "context_changed": 32,
+          "page_recall_at_8": 0.9714285714285714,
+          "lookup_routes": {
+            "fallback": 100,
+            "unique": 20,
+            "ambiguous": 20
+          },
+          "lookup_exact": 40,
+          "candidate_changed": 32,
+          "gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20",
+            "AS-S06-01",
+            "AS-S06-02",
+            "AS-S06-03",
+            "AS-S06-04",
+            "AS-S06-05",
+            "AS-S06-06",
+            "AS-S06-07",
+            "AS-S06-08",
+            "AS-S06-09",
+            "AS-S06-10",
+            "AS-S06-11",
+            "AS-S06-12",
+            "AS-S06-13",
+            "AS-S06-14",
+            "AS-S06-15",
+            "AS-S06-16",
+            "AS-S06-17",
+            "AS-S06-18",
+            "AS-S06-19",
+            "AS-S06-20"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20",
+            "AS-S06-01",
+            "AS-S06-02",
+            "AS-S06-03",
+            "AS-S06-04",
+            "AS-S06-05",
+            "AS-S06-06",
+            "AS-S06-07",
+            "AS-S06-08",
+            "AS-S06-09",
+            "AS-S06-10",
+            "AS-S06-11",
+            "AS-S06-12",
+            "AS-S06-13",
+            "AS-S06-14",
+            "AS-S06-15",
+            "AS-S06-16",
+            "AS-S06-17",
+            "AS-S06-18",
+            "AS-S06-19",
+            "AS-S06-20"
+          ],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 97,
+          "candidate_facts_hit": 224,
+          "full_evidence": 96,
+          "facts_hit": 222,
+          "context_changed": 140,
+          "page_recall_at_8": 0.7214285714285714,
+          "lookup_routes": {
+            "peer": 140
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-12"
+          ],
+          "lost": [
+            "AS-S02-03",
+            "AS-S02-05",
+            "AS-S02-06",
+            "AS-S02-07",
+            "AS-S02-08",
+            "AS-S04-11",
+            "AS-S04-14",
+            "AS-S04-17"
+          ],
+          "any_fact_gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-17",
+            "AS-S04-10",
+            "AS-S04-13",
+            "AS-S04-19",
+            "AS-S06-03",
+            "AS-S06-10"
+          ],
+          "any_fact_lost": [
+            "AS-S02-03",
+            "AS-S02-05",
+            "AS-S02-06",
+            "AS-S02-07",
+            "AS-S02-08",
+            "AS-S04-11",
+            "AS-S04-14",
+            "AS-S04-15",
+            "AS-S04-16",
+            "AS-S04-17",
+            "AS-S04-18",
+            "AS-S04-19",
+            "AS-S04-20"
+          ]
+        }
+      }
+    },
+    "regression": {
+      "questions": 100,
+      "facts_required": 236,
+      "arms": {
+        "A": {
+          "candidate_complete": 93,
+          "candidate_facts_hit": 223,
+          "full_evidence": 93,
+          "facts_hit": 222,
+          "context_changed": 0,
+          "page_recall_at_8": 0.96,
+          "lookup_routes": {
+            "fallback": 100
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 93,
+          "candidate_facts_hit": 223,
+          "full_evidence": 93,
+          "facts_hit": 222,
+          "context_changed": 0,
+          "page_recall_at_8": 0.96,
+          "lookup_routes": {
+            "fallback": 100
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 93,
+          "candidate_facts_hit": 223,
+          "full_evidence": 93,
+          "facts_hit": 222,
+          "context_changed": 0,
+          "page_recall_at_8": 0.96,
+          "lookup_routes": {
+            "fallback": 100
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 93,
+          "candidate_facts_hit": 223,
+          "full_evidence": 93,
+          "facts_hit": 222,
+          "context_changed": 0,
+          "page_recall_at_8": 0.96,
+          "lookup_routes": {
+            "fallback": 100
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 91,
+          "candidate_facts_hit": 212,
+          "full_evidence": 90,
+          "facts_hit": 211,
+          "context_changed": 100,
+          "page_recall_at_8": 0.9275,
+          "lookup_routes": {
+            "peer": 100
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [
+            "AS-S04-11",
+            "AS-S04-14",
+            "AS-S04-17"
+          ],
+          "any_fact_gained": [
+            "AS-S04-10",
+            "AS-S04-13",
+            "AS-S04-19"
+          ],
+          "any_fact_lost": [
+            "AS-S04-11",
+            "AS-S04-14",
+            "AS-S04-15",
+            "AS-S04-16",
+            "AS-S04-17",
+            "AS-S04-18",
+            "AS-S04-19",
+            "AS-S04-20"
+          ]
+        }
+      }
+    },
+    "S01": {
+      "questions": 20,
+      "facts_required": 20,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 20,
+          "full_evidence": 20,
+          "facts_hit": 20,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 20,
+          "full_evidence": 20,
+          "facts_hit": 20,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 20,
+          "full_evidence": 20,
+          "facts_hit": 20,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 20,
+          "full_evidence": 20,
+          "facts_hit": 20,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 20,
+          "full_evidence": 20,
+          "facts_hit": 20,
+          "context_changed": 20,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "peer": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        }
+      }
+    },
+    "S02": {
+      "questions": 20,
+      "facts_required": 30,
+      "arms": {
+        "A": {
+          "candidate_complete": 8,
+          "candidate_facts_hit": 8,
+          "full_evidence": 8,
+          "facts_hit": 8,
+          "context_changed": 0,
+          "page_recall_at_8": 0.4,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 30,
+          "full_evidence": 20,
+          "facts_hit": 30,
+          "context_changed": 12,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "unique": 20
+          },
+          "lookup_exact": 20,
+          "candidate_changed": 12,
+          "gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 8,
+          "candidate_facts_hit": 8,
+          "full_evidence": 8,
+          "facts_hit": 8,
+          "context_changed": 0,
+          "page_recall_at_8": 0.4,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 30,
+          "full_evidence": 20,
+          "facts_hit": 30,
+          "context_changed": 12,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "unique": 20
+          },
+          "lookup_exact": 20,
+          "candidate_changed": 12,
+          "gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 6,
+          "candidate_facts_hit": 10,
+          "full_evidence": 6,
+          "facts_hit": 9,
+          "context_changed": 20,
+          "page_recall_at_8": 0.35,
+          "lookup_routes": {
+            "peer": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-12"
+          ],
+          "lost": [
+            "AS-S02-03",
+            "AS-S02-05",
+            "AS-S02-06",
+            "AS-S02-07",
+            "AS-S02-08"
+          ],
+          "any_fact_gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-17"
+          ],
+          "any_fact_lost": [
+            "AS-S02-03",
+            "AS-S02-05",
+            "AS-S02-06",
+            "AS-S02-07",
+            "AS-S02-08"
+          ]
+        }
+      }
+    },
+    "S03": {
+      "questions": 20,
+      "facts_required": 70,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 70,
+          "full_evidence": 20,
+          "facts_hit": 70,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 70,
+          "full_evidence": 20,
+          "facts_hit": 70,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 70,
+          "full_evidence": 20,
+          "facts_hit": 70,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 70,
+          "full_evidence": 20,
+          "facts_hit": 70,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 70,
+          "full_evidence": 20,
+          "facts_hit": 70,
+          "context_changed": 20,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "peer": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        }
+      }
+    },
+    "S04": {
+      "questions": 20,
+      "facts_required": 66,
+      "arms": {
+        "A": {
+          "candidate_complete": 13,
+          "candidate_facts_hit": 53,
+          "full_evidence": 13,
+          "facts_hit": 52,
+          "context_changed": 0,
+          "page_recall_at_8": 0.8,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 13,
+          "candidate_facts_hit": 53,
+          "full_evidence": 13,
+          "facts_hit": 52,
+          "context_changed": 0,
+          "page_recall_at_8": 0.8,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 13,
+          "candidate_facts_hit": 53,
+          "full_evidence": 13,
+          "facts_hit": 52,
+          "context_changed": 0,
+          "page_recall_at_8": 0.8,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 13,
+          "candidate_facts_hit": 53,
+          "full_evidence": 13,
+          "facts_hit": 52,
+          "context_changed": 0,
+          "page_recall_at_8": 0.8,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 11,
+          "candidate_facts_hit": 42,
+          "full_evidence": 10,
+          "facts_hit": 41,
+          "context_changed": 20,
+          "page_recall_at_8": 0.6375,
+          "lookup_routes": {
+            "peer": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [
+            "AS-S04-11",
+            "AS-S04-14",
+            "AS-S04-17"
+          ],
+          "any_fact_gained": [
+            "AS-S04-10",
+            "AS-S04-13",
+            "AS-S04-19"
+          ],
+          "any_fact_lost": [
+            "AS-S04-11",
+            "AS-S04-14",
+            "AS-S04-15",
+            "AS-S04-16",
+            "AS-S04-17",
+            "AS-S04-18",
+            "AS-S04-19",
+            "AS-S04-20"
+          ]
+        }
+      }
+    },
+    "S05": {
+      "questions": 20,
+      "facts_required": 40,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 20,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "peer": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        }
+      }
+    },
+    "S06": {
+      "questions": 20,
+      "facts_required": 40,
+      "arms": {
+        "A": {
+          "candidate_complete": 0,
+          "candidate_facts_hit": 0,
+          "full_evidence": 0,
+          "facts_hit": 0,
+          "context_changed": 0,
+          "page_recall_at_8": 0.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 0,
+          "candidate_facts_hit": 0,
+          "full_evidence": 0,
+          "facts_hit": 0,
+          "context_changed": 0,
+          "page_recall_at_8": 0.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 20,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "ambiguous": 20
+          },
+          "lookup_exact": 20,
+          "candidate_changed": 20,
+          "gained": [
+            "AS-S06-01",
+            "AS-S06-02",
+            "AS-S06-03",
+            "AS-S06-04",
+            "AS-S06-05",
+            "AS-S06-06",
+            "AS-S06-07",
+            "AS-S06-08",
+            "AS-S06-09",
+            "AS-S06-10",
+            "AS-S06-11",
+            "AS-S06-12",
+            "AS-S06-13",
+            "AS-S06-14",
+            "AS-S06-15",
+            "AS-S06-16",
+            "AS-S06-17",
+            "AS-S06-18",
+            "AS-S06-19",
+            "AS-S06-20"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S06-01",
+            "AS-S06-02",
+            "AS-S06-03",
+            "AS-S06-04",
+            "AS-S06-05",
+            "AS-S06-06",
+            "AS-S06-07",
+            "AS-S06-08",
+            "AS-S06-09",
+            "AS-S06-10",
+            "AS-S06-11",
+            "AS-S06-12",
+            "AS-S06-13",
+            "AS-S06-14",
+            "AS-S06-15",
+            "AS-S06-16",
+            "AS-S06-17",
+            "AS-S06-18",
+            "AS-S06-19",
+            "AS-S06-20"
+          ],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 20,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "ambiguous": 20
+          },
+          "lookup_exact": 20,
+          "candidate_changed": 20,
+          "gained": [
+            "AS-S06-01",
+            "AS-S06-02",
+            "AS-S06-03",
+            "AS-S06-04",
+            "AS-S06-05",
+            "AS-S06-06",
+            "AS-S06-07",
+            "AS-S06-08",
+            "AS-S06-09",
+            "AS-S06-10",
+            "AS-S06-11",
+            "AS-S06-12",
+            "AS-S06-13",
+            "AS-S06-14",
+            "AS-S06-15",
+            "AS-S06-16",
+            "AS-S06-17",
+            "AS-S06-18",
+            "AS-S06-19",
+            "AS-S06-20"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S06-01",
+            "AS-S06-02",
+            "AS-S06-03",
+            "AS-S06-04",
+            "AS-S06-05",
+            "AS-S06-06",
+            "AS-S06-07",
+            "AS-S06-08",
+            "AS-S06-09",
+            "AS-S06-10",
+            "AS-S06-11",
+            "AS-S06-12",
+            "AS-S06-13",
+            "AS-S06-14",
+            "AS-S06-15",
+            "AS-S06-16",
+            "AS-S06-17",
+            "AS-S06-18",
+            "AS-S06-19",
+            "AS-S06-20"
+          ],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 0,
+          "candidate_facts_hit": 2,
+          "full_evidence": 0,
+          "facts_hit": 2,
+          "context_changed": 20,
+          "page_recall_at_8": 0.0625,
+          "lookup_routes": {
+            "peer": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S06-03",
+            "AS-S06-10"
+          ],
+          "any_fact_lost": []
+        }
+      }
+    },
+    "S07": {
+      "questions": 20,
+      "facts_required": 40,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "full_evidence": 20,
+          "facts_hit": 40,
+          "context_changed": 20,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "peer": 20
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        }
+      }
+    },
+    "S02/화주·규격·실제 반출일": {
+      "questions": 10,
+      "facts_required": 20,
+      "arms": {
+        "A": {
+          "candidate_complete": 0,
+          "candidate_facts_hit": 0,
+          "full_evidence": 0,
+          "facts_hit": 0,
+          "context_changed": 0,
+          "page_recall_at_8": 0.0,
+          "lookup_routes": {
+            "fallback": 10
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 10,
+          "candidate_facts_hit": 20,
+          "full_evidence": 10,
+          "facts_hit": 20,
+          "context_changed": 10,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "unique": 10
+          },
+          "lookup_exact": 10,
+          "candidate_changed": 10,
+          "gained": [
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 0,
+          "candidate_facts_hit": 0,
+          "full_evidence": 0,
+          "facts_hit": 0,
+          "context_changed": 0,
+          "page_recall_at_8": 0.0,
+          "lookup_routes": {
+            "fallback": 10
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 10,
+          "candidate_facts_hit": 20,
+          "full_evidence": 10,
+          "facts_hit": 20,
+          "context_changed": 10,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "unique": 10
+          },
+          "lookup_exact": 10,
+          "candidate_changed": 10,
+          "gained": [
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-13",
+            "AS-S02-14",
+            "AS-S02-15",
+            "AS-S02-16",
+            "AS-S02-17",
+            "AS-S02-18",
+            "AS-S02-19",
+            "AS-S02-20"
+          ],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 1,
+          "candidate_facts_hit": 5,
+          "full_evidence": 1,
+          "facts_hit": 4,
+          "context_changed": 10,
+          "page_recall_at_8": 0.2,
+          "lookup_routes": {
+            "peer": 10
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [
+            "AS-S02-12"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S02-11",
+            "AS-S02-12",
+            "AS-S02-17"
+          ],
+          "any_fact_lost": []
+        }
+      }
+    },
+    "S02/화주·화물·규격 / charged": {
+      "questions": 5,
+      "facts_required": 5,
+      "arms": {
+        "A": {
+          "candidate_complete": 5,
+          "candidate_facts_hit": 5,
+          "full_evidence": 5,
+          "facts_hit": 5,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 5
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 5,
+          "candidate_facts_hit": 5,
+          "full_evidence": 5,
+          "facts_hit": 5,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "unique": 5
+          },
+          "lookup_exact": 5,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 5,
+          "candidate_facts_hit": 5,
+          "full_evidence": 5,
+          "facts_hit": 5,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "fallback": 5
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 5,
+          "candidate_facts_hit": 5,
+          "full_evidence": 5,
+          "facts_hit": 5,
+          "context_changed": 0,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "unique": 5
+          },
+          "lookup_exact": 5,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 2,
+          "candidate_facts_hit": 2,
+          "full_evidence": 2,
+          "facts_hit": 2,
+          "context_changed": 5,
+          "page_recall_at_8": 0.4,
+          "lookup_routes": {
+            "peer": 5
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [
+            "AS-S02-06",
+            "AS-S02-07",
+            "AS-S02-08"
+          ],
+          "any_fact_gained": [],
+          "any_fact_lost": [
+            "AS-S02-06",
+            "AS-S02-07",
+            "AS-S02-08"
+          ]
+        }
+      }
+    },
+    "S02/화주·화물·규격 / gate": {
+      "questions": 5,
+      "facts_required": 5,
+      "arms": {
+        "A": {
+          "candidate_complete": 3,
+          "candidate_facts_hit": 3,
+          "full_evidence": 3,
+          "facts_hit": 3,
+          "context_changed": 0,
+          "page_recall_at_8": 0.6,
+          "lookup_routes": {
+            "fallback": 5
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "unique": {
+          "candidate_complete": 5,
+          "candidate_facts_hit": 5,
+          "full_evidence": 5,
+          "facts_hit": 5,
+          "context_changed": 2,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "unique": 5
+          },
+          "lookup_exact": 5,
+          "candidate_changed": 2,
+          "gained": [
+            "AS-S02-01",
+            "AS-S02-04"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S02-01",
+            "AS-S02-04"
+          ],
+          "any_fact_lost": []
+        },
+        "ambiguous": {
+          "candidate_complete": 3,
+          "candidate_facts_hit": 3,
+          "full_evidence": 3,
+          "facts_hit": 3,
+          "context_changed": 0,
+          "page_recall_at_8": 0.6,
+          "lookup_routes": {
+            "fallback": 5
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [],
+          "lost": [],
+          "any_fact_gained": [],
+          "any_fact_lost": []
+        },
+        "both": {
+          "candidate_complete": 5,
+          "candidate_facts_hit": 5,
+          "full_evidence": 5,
+          "facts_hit": 5,
+          "context_changed": 2,
+          "page_recall_at_8": 1.0,
+          "lookup_routes": {
+            "unique": 5
+          },
+          "lookup_exact": 5,
+          "candidate_changed": 2,
+          "gained": [
+            "AS-S02-01",
+            "AS-S02-04"
+          ],
+          "lost": [],
+          "any_fact_gained": [
+            "AS-S02-01",
+            "AS-S02-04"
+          ],
+          "any_fact_lost": []
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 3,
+          "candidate_facts_hit": 3,
+          "full_evidence": 3,
+          "facts_hit": 3,
+          "context_changed": 5,
+          "page_recall_at_8": 0.6,
+          "lookup_routes": {
+            "peer": 5
+          },
+          "lookup_exact": 0,
+          "candidate_changed": 0,
+          "gained": [
+            "AS-S02-01",
+            "AS-S02-04"
+          ],
+          "lost": [
+            "AS-S02-03",
+            "AS-S02-05"
+          ],
+          "any_fact_gained": [
+            "AS-S02-01",
+            "AS-S02-04"
+          ],
+          "any_fact_lost": [
+            "AS-S02-03",
+            "AS-S02-05"
+          ]
+        }
+      }
+    }
+  },
+  "seconds": 4.106
+}

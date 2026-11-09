@@ -1,0 +1,95 @@
+{
+  "created_at": "2026-11-09T13:04:36.519890+09:00",
+  "questions": {
+    "path": "artifacts/u_10o0o/advanced-workflow-20261109-data-checked/questions.json",
+    "sha256": "7453032cfb1ab8a1dd400a738ce166ded7ea8a8ccc4c1288a6e7d31248d3b1f8",
+    "count": 20
+  },
+  "references": {
+    "path": "artifacts/u_10o0o/advanced-workflow-20261109-data-checked/references.json",
+    "sha256": "19331b9285bc47355ab02fbf0bd284ffda445d1cbf67bab4b63ffc638b19b2db"
+  },
+  "restored_pages": {
+    "path": "/home/jake/workspace/projects/kant/ADEN/artifacts/u_10o0o/advanced_restored_pages.json",
+    "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d",
+    "page_count": 18000
+  },
+  "team_archive": {
+    "path": "experimental/u_10o0o/records/advanced-industry-patterns-20261108/peer-comparison/config.json",
+    "sha256": "14e15c4a375aec6261964176e58264e668bee4214497859196cae6fb21e72ae9"
+  },
+  "team_source": [
+    {
+      "path": "experimental/ysl727727/overnight/prepare.py",
+      "sha256": "32efce1d8399875b422c656941d43aa9f1af1ce5b17732f44d7e22c554ae6ddd"
+    },
+    {
+      "path": "experimental/ysl727727/overnight/common.py",
+      "sha256": "5b909aeb1542af60a02486a1a0074337f4bc00135fb7a188952293e73f8b38c7"
+    },
+    {
+      "path": "experimental/ysl727727/overnight/index.py",
+      "sha256": "7df8b90480c6fac5b4a5fe0a6bde4e7d10971a6ec77cf0951ebf7478b5d4e38c"
+    },
+    {
+      "path": "experimental/ysl727727/overnight/run.py",
+      "sha256": "8bce13558effe94059f775e23a6bd53adfea26d32364258ecdcdeca0e24f12bf"
+    }
+  ],
+  "preset_name": "team_graph",
+  "preset": {
+    "chunks": "p800",
+    "emb": "e5s",
+    "tok": "main",
+    "cand_d": 20,
+    "cand_b": 20,
+    "pool": 20,
+    "rerank": "BAAI/bge-reranker-v2-m3",
+    "entity": false,
+    "hop2": 0,
+    "cap": 0,
+    "rrf_w": null,
+    "qr": null,
+    "graph": 6,
+    "mmr": 0.2,
+    "seed": 1,
+    "pcap": 0,
+    "mq": null,
+    "route": 0,
+    "ppr": 0,
+    "gkey": false,
+    "llmsel": 0,
+    "gfix": true,
+    "gfloor": 0.05,
+    "selkeep": 0,
+    "selil": false,
+    "seleff": null,
+    "selskip": 0
+  },
+  "retrieval": {
+    "candidate_chunks": 20,
+    "candidate_dense": 20,
+    "candidate_bm25": 20,
+    "distinct_page_deduplication": "first occurrence in teammate final chunk rank",
+    "context_page_limit": 8,
+    "context_token_limit": 4000,
+    "context_source": "restored complete page text",
+    "context_adaptation": "rank p800 chunks -> collapse to unique (book_id,page) -> restore complete source pages -> common context builder",
+    "llm_calls": 0
+  },
+  "models": {
+    "dense": {
+      "model": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "dtype": "float16"
+    },
+    "reranker": {
+      "model": "BAAI/bge-reranker-v2-m3",
+      "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+      "max_tokens": 512,
+      "dtype": "float16"
+    },
+    "device": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "index_dir": "/home/jake/workspace/projects/kant/ADEN/artifacts/u_10o0o/advanced-workflow-peer-index-20261109"
+}

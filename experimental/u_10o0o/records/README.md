@@ -2,7 +2,7 @@
 
 실험 결과 요약과 채택 근거를 조회하는 시작점이다. 모델 선택 및 채택 결정은 [선택 기록](decisions.md)에 기록한다.
 
-현재 Advanced 개인 검색 기준선은 **Bigram-ID BM25 + 제목 보너스, 검증된 HG 사건 조회, 복원 원본 페이지 문맥**이다. 제목 보너스만 적용하는 이전 구성을 `--compare`의 대조군으로 유지한다. [기준선 선택 기록](decisions.md#2026-11-09--advanced-개인-기준선을-hg-사건-조회와-원본-페이지로-갱신) · [HG 조회·원본 페이지 실험](../advanced-curation-plan.md#현재-개인-기준선)
+현재 Advanced 개인 기준선은 **제목 보너스 Bigram-ID BM25와 Snowflake-ko의 5:5 RRF, KURE nano 상위 3쪽, HG 및 원문 조회, 복원 원본 최대 8쪽·8,000토큰**이다. 이전 BM25 기준선은 `--compare`로 함께 평가한다. [기준선 선택 기록](decisions.md#2026-11-09--55-하이브리드를-개인-advanced-기준선에-채택) · [현재 실행 방법](../README.md#현재-advanced-구성)
 
 [Advanced 검색 실험 종합 보고서 PDF](advanced-curation/advanced-retrieval-report-20261109.pdf)에서 초기 검색 실험, 명시·간접 HG 조회 예시, 동료 설정 비교와 최종 선정 근거를 볼 수 있다. [추가 실험 후 최종 결정](decisions.md#2026-11-09--추가-실험-후-개인-advanced-기준선-확정)에 기존 검색과 HG 조회를 유지한 근거를 기록했다.
 
@@ -56,6 +56,26 @@ Advanced 원본 PDF 120개에서 복원한 18,000쪽과 일반 평가 60문항�
 - 직접 실행하는 [Advanced 기본 검색 명령](../README.md#현재-advanced-구성)은 공식 평가 60문항과 블라인드 holdout 280문항, 총 340문항을 사용한다. 별도의 전 페이지 증강 6,500문항은 보관된 `advanced-industry-patterns-20261108/full-coverage/` 결과에서 확인한다. 두 실행은 입력 세트와 결과 폴더가 다르다.
 - [패턴 비교 보고서](advanced-industry-patterns-20261108/report.md)는 제목 보너스, 표 행 문맥, 근거 역할·보강 검색, 유효 시점 검증을 기준선과 비교한다. 기존 340문항, 파일럿 40문항, 전 페이지 증강 6,500문항의 검색 결과와 별도 답변 표본을 구분한다. [조사 출처와 가설](advanced-industry-patterns-20261108/research.md)
 - [동료 ID 연결 재벤치](advanced-industry-patterns-20261108/peer-comparison/report.md)는 질문 분해와 근거 집합 선택을 끈 설정을 동일한 증강 6,500문항에서 비교한다. 패턴 비교 보고서의 전체 지표 표와 유형별 표에 함께 실었다.
+
+## Advanced 대상별 검색과 평가 근거 점검
+
+- [데이터 감사와 검색 비교](advanced-target-retrieval-20261109/report.md)에 동료 합성 세트의 근거 재검증, 대상별 필드 조회와 조건부 벡터 검색 비교, 사람 검수 절차를 정리했다.
+- [업무 상황 질문 20개](advanced-workflow-20261109/report.md)는 질문 원형을 먼저 고정하고 원본에서 근거를 판정한 별도 검색 비교다. 기존 개인·동료 평가의 용도도 함께 정리했다.
+- [두 사건 문맥 배치](advanced-pair-context-20261109/report.md)는 후보 20쪽과 최종 8쪽·4,000토큰을 고정한 비교다. 업무형 20문항의 기존 기준선·동료 결과와 블라인드 300문항 회귀 확인을 기록했다.
+- [두 사건 문맥 배치 별도 검증](advanced-pair-holdout-20261109/report.md)은 새 두 사건 질문 24개와 대조 질문 6개에서 배치 효과와 기본 설정 채택 여부를 확인한다.
+- [질문 표현 차이 검색 실험](advanced-vocabulary-20261109/report.md)은 같은 사건의 원문식·일상식 쌍, 요청 항목을 바꾼 대조 질문, 기존 번호 질문에서 별칭 확장과 벡터 후보 구성의 효과를 비교한다.
+- [Advanced 최종 8쪽 순위 비교](advanced-rank-policy-8000-20261109/report.md)는 최대 8,000토큰에서 KURE 상위 3쪽 뒤의 RRF·BM25 순서, KURE 전체 순서, 개인 기준선과 동료 무 API 설정을 비교한다. 기존 268문항, 공식 60문항, 동료 304문항을 별도 집계했다.
+- [첫 검색 결과의 사건 키로 후보 보충](advanced-seed-lookup-20261109/report.md)은 공식 60문항·4문서 합성 78문항·번호 회귀 160문항에서 후보 회수와 최종 근거를 비교한다.
+- [대상과 요청 기록의 단계별 진단](advanced-target-diagnosis-20261109/report.md)은 보관 두 사건 문항과 독립 에이전트가 작성한 새 업무형 표본에서 대상·역할, 후보 20쪽, 최종 문맥의 실패를 나눠 기록한다.
+- [두 사건 질문의 절별 대상·기록 연결 A/B](advanced-clause-binding-20261109/report.md)는 같은 후보 20쪽과 선택기로 기존 규칙과 절별 규칙을 비교하고, 최종 8쪽·8,000토큰의 문항별 근거 변화를 기록한다.
+- [상황별 140문항의 절별 연결 A/B](advanced-scenarios-clause-ab-20261109/report.md)는 4번 두 사건 비교의 문항별 변화, 나머지 120문항의 회귀, 동료 무 LLM 결과를 함께 기록한다.
+- [단일·모호 사건 원문 조회 연결](advanced-source-lookup-20261109/report.md)은 A를 기준으로 2번 조회와 6번 조회를 각각 켠 설정, 두 조회를 함께 켠 설정을 같은 140문항에서 비교한다.
+- [두 사건 원문 조회 비교](advanced-pair-source-20261109/report.md)는 두 조회를 채택한 기준선에 4번의 간접 대상별 원문 조회를 실험으로 추가해 개선·하락과 다른 유형의 회귀를 기록한다.
+- [Advanced 상황별·업무 규정 180문항 비교](advanced-scenarios-180-20261109/report.md)는 두 사건 조회를 포함한 당시 BM25 기준선과 동료 무 LLM 설정을 비교한다. 근거가 있는 160문항과 범위 밖 대조 20문항을 분리한다.
+- [Advanced 일상 표현 40문항 검색 비교](advanced-semantic-queries-20261109/report.md)는 당시 BM25 기준선과 Snowflake-ko 5:5 후보 추가를 비교하고, 한 문서·여러 문서 유형별 개선과 하락 및 팀원 무 LLM 결과를 기록한다.
+- [Advanced 전체 카테고리 비교](advanced-category-comparison-20261109/report.md)는 이전 BM25·5:5 하이브리드·동료 무 LLM의 유형별 결과와 새 기본 실행으로 재현한 220문항을 기록한다.
+
+- [Advanced 상황별 160문항과 검색 결과](advanced-scenarios-benchmark-20261109-v2/report.md)는 검색 140문항과 범위 밖 대조 20문항을 나눠 개인 기준선과 동료 무 API 설정을 비교한다. [평가 입력](../evaluation/advanced_scenarios/README.md)
 
 ## 결과 해석
 

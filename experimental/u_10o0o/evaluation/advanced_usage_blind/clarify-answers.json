@@ -1,0 +1,111 @@
+{
+  "config": {
+    "model": "gpt-6-luna",
+    "judge_model": "gpt-6-luna",
+    "questions": 25,
+    "variants": [
+      "bm25",
+      "hybrid_55"
+    ],
+    "initial_generation_pairs": 25,
+    "generation_max_attempts": 2,
+    "max_output_tokens": 2048,
+    "judge_max_output_tokens": 1024,
+    "workers": 6,
+    "budget_usd": null,
+    "store": false,
+    "generation_prompt_sha256": "3d689c768e1143d06772e97ad9274dc3e40866ef3845128346b6235af6af9230",
+    "generation_settings_sha256": "9f802f7c4882277341f09502642d7bc89ae5c8b968614ba89dd970013557d4aa",
+    "retrieval_config_sha256": "5c99cc8e96cc6a3067052f08268673aaf92e5710bd985c907e1968fe73aff4ac",
+    "context_layout_sha256": "331465a4305f81e4c424b57585bbd1f1f9dbdc29424162af1fba64a2c4f31688",
+    "questions_sha256": "6c51dce68f8ee49bcc6f2c76edd64880e21eb030cb3001efeec7b28315b14c2b",
+    "judge_prompt_sha256": "177c62be793a2e9fe4c91ce2a6db1dbaf66aa030c1512aa43e77732231315480",
+    "judge_input": "question and visible answer only",
+    "correct_followup": "asks_distinguishing_detail and no concludes_charge or claims_unique_case"
+  },
+  "summary": {
+    "questions": 25,
+    "arms": {
+      "bm25": {
+        "generation_calls": 25,
+        "judge_calls": 25,
+        "generated": 25,
+        "graded": 25,
+        "statuses": {
+          "abstained": 25
+        },
+        "proper_clarifications": 0,
+        "asks_distinguishing_detail": 0,
+        "concludes_charge": 0,
+        "mentions_amount": 0,
+        "claims_unique_case": 0,
+        "safe_without_followup": 25,
+        "status_vs_visible_question": {
+          "abstained/False": 25
+        },
+        "generation_usage": {
+          "input_tokens": 114197,
+          "output_tokens": 8530
+        },
+        "judge_usage": {
+          "input_tokens": 13021,
+          "output_tokens": 1798
+        }
+      },
+      "hybrid_55": {
+        "generation_calls": 26,
+        "judge_calls": 25,
+        "generated": 25,
+        "graded": 25,
+        "statuses": {
+          "abstained": 19,
+          "answered": 5,
+          "needs_clarification": 1
+        },
+        "proper_clarifications": 3,
+        "asks_distinguishing_detail": 3,
+        "concludes_charge": 4,
+        "mentions_amount": 15,
+        "claims_unique_case": 6,
+        "safe_without_followup": 16,
+        "status_vs_visible_question": {
+          "abstained/False": 18,
+          "answered/False": 4,
+          "needs_clarification/True": 1,
+          "answered/True": 1,
+          "abstained/True": 1
+        },
+        "generation_usage": {
+          "input_tokens": 124904,
+          "output_tokens": 13355
+        },
+        "judge_usage": {
+          "input_tokens": 13439,
+          "output_tokens": 2642
+        }
+      }
+    },
+    "paired_proper_clarification": {
+      "neither": 22,
+      "hybrid_only": 3
+    }
+  },
+  "context_diagnostics": {
+    "bm25": {
+      "contexts_with_any_target_page": 0,
+      "contexts_with_one_complete_event": 0,
+      "contexts_with_both_complete_events": 0,
+      "definite_charge_in_context_with_any_target_page": 0,
+      "amount_label_pattern_disagreements": 0
+    },
+    "hybrid_55": {
+      "contexts_with_any_target_page": 20,
+      "contexts_with_one_complete_event": 0,
+      "contexts_with_both_complete_events": 0,
+      "definite_charge_in_context_with_any_target_page": 3,
+      "amount_label_pattern_disagreements": 0
+    }
+  },
+  "results_metadata_sha256": "83a8d0a85e6e0a434474432578e150485d0b7fcc976fe6f8af6f002d5cd03619",
+  "runner_sha256": "d90c792133e317e0b9bbb9e6820929495cd539b1899d4d46c5d30577c49ac774"
+}

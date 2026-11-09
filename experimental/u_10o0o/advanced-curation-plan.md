@@ -4,16 +4,17 @@
 
 ## 현재 개인 기준선
 
-HG 조회와 문맥 비교를 마친 뒤 개인 Advanced 기본값을 **Bigram-ID BM25 제목 보너스 검색 + 검증된 명시·간접 HG 사건 조회 + 복원 원본 페이지**로 갱신했다. 제목 보너스로 후보 20쪽을 고르고 KURE nano로 재정렬한다. 정확한 HG 사건을 확인하면 다섯 역할의 원본 쪽을 먼저 배치하고 기존 순위에서 중복 없이 채운다. 조회 조건을 통과하지 않으면 제목 보너스 결과를 그대로 사용한다. 최종 문맥은 최대 8쪽·4,000토큰이며 발췌 렌더링은 기준선에 넣지 않는다. 제목 보너스 단독은 대조군으로 보존한다. [결정과 선택 근거](records/decisions.md#2026-11-09--advanced-개인-기준선을-hg-사건-조회와-원본-페이지로-갱신)
+개인 Advanced 기본 실행은 제목 보너스 BM25와 Snowflake-ko를 5:5 RRF로 합쳐 후보 20쪽을 만든다. KURE nano 상위 3쪽과 나머지 RRF 순서에 기존 HG 조회, 단일 사건 원문 조회, 모호한 두 후보 사건 조회, 두 사건 비교의 대상별 원문 조회를 적용한다. 기존 선택기로 복원 원본을 최대 8쪽·8,000토큰 담는다. 이전 BM25 기준선은 같은 원문 조회를 적용하는 비교군으로 실행할 수 있다. [현재 실행 조건](README.md#현재-advanced-구성) · [카테고리 비교](records/advanced-category-comparison-20261109/report.md)
 
-겹침 없는 증강 6,103문항의 전체 근거 충족률은 4,699/6,103(76.99%)에서 6,102/6,103(99.98%)로 바뀌었다. 비용 사건 2,407문항은 1,004/2,407(41.71%)에서 2,407/2,407(100%)로 바뀌었다. 증강 전체 6,500문항에서 6,499건이 충족됐고, 오연결과 회귀는 없었다. [명시 조회](records/advanced-curation/hg-explicit-lookup-20261109/report.md) · [간접 조회](records/advanced-curation/hg-indirect-lookup-20261109/report.md) · [원본 페이지 비교](records/advanced-curation/hg-role-context-20261109/report.md)
+당시 4,000토큰 조건에서 겹침 없는 증강 6,103문항의 전체 근거 충족률은 4,699/6,103(76.99%)에서 6,102/6,103(99.98%)로 바뀌었다. 비용 사건 2,407문항은 1,004/2,407(41.71%)에서 2,407/2,407(100%)로 바뀌었다. 증강 전체 6,500문항에서 6,499건이 충족됐고, 오연결과 회귀는 없었다. [명시 조회](records/advanced-curation/hg-explicit-lookup-20261109/report.md) · [간접 조회](records/advanced-curation/hg-indirect-lookup-20261109/report.md) · [원본 페이지 비교](records/advanced-curation/hg-role-context-20261109/report.md)
 
 이 결과는 사건 필드가 질문에 들어간 통제 증강 세트에서 확인한 검색·문맥 근거 확보율이다. 문항별 사람 검수와 별칭·생략을 포함한 자연어 일반화, 생성 답변의 품질은 아직 확인하지 않았다. 공식 평가와 실제 질의에서 이 조회 경로가 얼마나 자주 적용되는지 별도로 살핀다.
 
-기본 실행은 복원 페이지 캐시 외에 아래 로컬 인덱스가 필요하다. 두 인덱스는 무시되는 `artifacts/u_10o0o/` 아래에서 준비한다. 기존 출력 경로가 있으면 덮어쓰지 않도록 새 출력 위치를 사용한다.
+기본 실행은 복원 페이지 캐시 외에 같은 스냅샷에서 생성한 아래 로컬 입력이 필요하다. `artifacts/u_10o0o/` 아래에서 준비하고 기존 결과는 새 출력 위치에 저장한다.
 
 - Advanced 정제본 기본 경로: `artifacts/u_10o0o/pattern-curation/advanced`
 - HG 사건·출처 인덱스 기본 경로: `artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109`
+- HG 역할별 정규화 필드 기본 경로: `artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109`. [생성 방법](records/advanced-curation/hg-role-facts-20261109/report.md)
 - 인덱스 생성 및 검증 결과: [HG 사건–출처 연결](records/advanced-curation/hg-case-sources-20261109/report.md)
 
 ## 데이터에서 확인한 패턴
@@ -107,7 +108,7 @@ uv run --no-sync python -m app.ingestion.scripts.curate --datasets advanced --ch
 
 HA 비용 396건 중 조건이 확인된 **254건을 계산해 모두 원문 기재액과 일치**했다. HA의 조정·개정·증빙 미확인 비용 142건과 계약 단가의 통화를 확인할 수 없었던 HG 비용 5,460건은 보류했다. [계산 조건과 검증 결과](records/advanced-curation/charge-audit-20261109/report.md)
 
-HA 세 역할과 자료집 상위 두 표 양식의 조회는 발동한 1,597문항 모두에서 평가의 주 근거 쪽 집합을 정확히 찾았다. 블라인드 후보와 겹치지 않는 6,103문항의 전체 근거 충족은 두 조건 모두 **6,102/6,103(99.98%)**였고 평균 문맥 토큰도 같았다. 현재 개인 기준선은 기존 검색과 HG 조회를 사용한다. HA·자료집 매핑은 별도 실험 산출물로 보관하고 기타 특수 양식 6쪽은 원본 검색으로 처리한다. [양식별 비교 결과](records/advanced-curation/format-extension-20261109/report.md) · [추가 실험 후 최종 결정](records/decisions.md#2026-11-09--추가-실험-후-개인-advanced-기준선-확정) · [종합 보고서 PDF](records/advanced-curation/advanced-retrieval-report-20261109.pdf)
+HA 세 역할과 자료집 상위 두 표 양식의 조회는 발동한 1,597문항 모두에서 평가의 주 근거 쪽 집합을 정확히 찾았다. 블라인드 후보와 겹치지 않는 6,103문항의 전체 근거 충족은 두 조건 모두 **6,102/6,103(99.98%)**였고 평균 문맥 토큰도 같았다. 당시 기존 검색과 HG 조회를 채택했다. HA·자료집 매핑은 별도 실험 산출물로 보관하고 기타 특수 양식 6쪽은 원본 검색으로 처리한다. [양식별 비교 결과](records/advanced-curation/format-extension-20261109/report.md) · [당시 결정](records/decisions.md#2026-11-09--추가-실험-후-개인-advanced-기준선-확정) · [종합 보고서 PDF](records/advanced-curation/advanced-retrieval-report-20261109.pdf)
 
 ## 실행 기록 양식
 

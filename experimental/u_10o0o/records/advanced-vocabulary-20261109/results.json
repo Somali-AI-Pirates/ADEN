@@ -1,0 +1,924 @@
+{
+  "dataset": {
+    "seed": "advanced-vocabulary-20261109-v1",
+    "scenarios": {
+      "path": "experimental/u_10o0o/records/advanced-vocabulary-20261109/scenarios.json",
+      "sha256": "c22a0d8b12fba10273c9a6870b98c79b2868b98aa78366f8631d298c3df204cc"
+    },
+    "questions": {
+      "path": "artifacts/u_10o0o/advanced-vocabulary-20261109-data/questions.json",
+      "sha256": "2674363b82c377079f3383fff625b1c029ed9f790a0ebee5e70eae291e07a29c"
+    },
+    "references": {
+      "path": "artifacts/u_10o0o/advanced-vocabulary-20261109-data/references.json",
+      "sha256": "e22cf010d702bcead3ad8d0c7d7d7101644e632b669b3500a252f19bec1408bb"
+    },
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "role_facts": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+      "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+    },
+    "case_links": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    },
+    "builder": {
+      "path": "experimental/u_10o0o/advanced_vocabulary_data.py",
+      "sha256": "114c3790108e5d957dbcb07b66ff184d5be42a81bbe83d0706dbeb2591e652ea"
+    },
+    "counts": {
+      "scenarios": 36,
+      "questions": 108,
+      "questions_by_variant": {
+        "source": 36,
+        "plain": 36,
+        "contrast": 36
+      },
+      "questions_by_type": {
+        "spec": 12,
+        "record": 12,
+        "combined": 12
+      },
+      "references_by_type": {
+        "spec": 36,
+        "record": 36,
+        "combined": 36
+      },
+      "selected_cases": 36,
+      "unique_profile_tuples": 36,
+      "unique_gold_pages": 65,
+      "required_fact_instances": 144,
+      "fact_key_instances": {
+        "gate": 17,
+        "discharge": 13,
+        "scheduled": 13,
+        "returned": 14,
+        "free": 19,
+        "paid": 16,
+        "charged": 14,
+        "received": 15,
+        "balance": 13,
+        "approval": 10
+      }
+    },
+    "token_budget": {
+      "max_context_tokens": 4000,
+      "max_gold_context_tokens": 1066,
+      "mean_gold_context_tokens": 584.8518518518518,
+      "gold_contexts_verified": 108
+    },
+    "reserved_evidence": {
+      "prior_evaluation": {
+        "reserved_cases": 904,
+        "reserved_pages": 1602
+      },
+      "workflow_evaluation": {
+        "reserved_cases": 360,
+        "reserved_pages": 1155
+      },
+      "workflow_checked": {
+        "reserved_cases": 84,
+        "reserved_pages": 154,
+        "references": 50
+      }
+    },
+    "selection_exclusions": {
+      "fact_missing_or_unverified": 1
+    },
+    "reserved_reference_fingerprints": [
+      {
+        "path": "artifacts/u_10o0o/advanced-workflow-20261109-data-checked/references.json",
+        "sha256": "19331b9285bc47355ab02fbf0bd284ffda445d1cbf67bab4b63ffc638b19b2db"
+      },
+      {
+        "path": "artifacts/u_10o0o/advanced-pair-holdout-20261109-data/references.json",
+        "sha256": "77eee4f3961f5c6dde29c10a80deaed5c356dae211db664a050764798bac7dfd"
+      }
+    ],
+    "scenario_seeded_case_links": 36
+  },
+  "regression_inputs": {
+    "blind_questions.json": {
+      "path": "experimental/u_10o0o/evaluation/advanced_usage_blind/local/blind_questions.json",
+      "sha256": "6c51dce68f8ee49bcc6f2c76edd64880e21eb030cb3001efeec7b28315b14c2b"
+    },
+    "blind_references.json": {
+      "path": "experimental/u_10o0o/evaluation/advanced_usage_blind/local/blind_references.json",
+      "sha256": "ef062ed12930eb2360cc8ef5ddab81650558a030e8b078198f2c004870f6892d"
+    },
+    "advanced_restored_pages.json": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "advanced_snowflake_ko_vectors.npy": {
+      "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+      "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+    },
+    "case_sources.jsonl": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    }
+  },
+  "code": {
+    "path": "experimental/u_10o0o/advanced_vocabulary.py",
+    "sha256": "6c39c7c595c92a9c0598d6ae997ee6381f558544a9ed5f1c7229f85e49ffc40b"
+  },
+  "search_code": [
+    {
+      "path": "experimental/u_10o0o/advanced_field_roles.py",
+      "sha256": "68f8fc42e9283db641fa5da0363c517e9ab1dd5890641ea43e980b730bb23ff5"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_full_metrics.py",
+      "sha256": "6d43e8321663af7e26acf725a24dd621e8380131eb6a8531126bb41f60210ac8"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_hg_lookup.py",
+      "sha256": "5c47e8dfe82587f8ad2cca218aeac28b646ee023291ed4bd05213f0e291e21e9"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_patterns.py",
+      "sha256": "d5f68cfda94da046077f6e95ef61512672d614ae4d6878649ef708aca71fd662"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_search.py",
+      "sha256": "ef92507ac8effd1d7a21d1813eed060297083c809a70986b0ea52a5fb5c2237d"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_target_benchmark.py",
+      "sha256": "4ddffbbeca7f21d69960d981a49462d7dfb46cd5798c56273ce501607bad6ff2"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_target_lookup.py",
+      "sha256": "ea63976000b1dc1ac7c8bf8ec12e85742f547e64a830b29a80245f6d48fcd71b"
+    },
+    {
+      "path": "experimental/u_10o0o/bm25.py",
+      "sha256": "ad487dac19bda350ae1686bb5d197ee7075f2271dce7d602896e61840867a929"
+    },
+    {
+      "path": "experimental/u_10o0o/hybrid.py",
+      "sha256": "b2f3f483ecd3db6c3ce853e12446224f2a05558934a6dc49bc7d0aa967592181"
+    },
+    {
+      "path": "experimental/u_10o0o/search.py",
+      "sha256": "4d6546d272444d9b09262b718e1d42393d540eb6d087555a56a88acab7ffe4c5"
+    },
+    {
+      "path": "app/generation/context.py",
+      "sha256": "0cf9f7f26bfc8aa75c5c3b6f4febd916d9266da1b5c01f327c4f14b4c9fcdf5f"
+    }
+  ],
+  "limits": {
+    "candidates": 20,
+    "reranked_head": 3,
+    "pages": 8,
+    "tokens": 4000
+  },
+  "models": {
+    "embedding": {
+      "name": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+      "revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+      "device": "cpu"
+    },
+    "reranker": {
+      "name": "nlpai-lab/KURE-Reranker-nano",
+      "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "max_length": 512
+    }
+  },
+  "rrf": {
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "k": 60
+  },
+  "bm25": {
+    "fusion": "max_normalized_bm25_heading_bonus",
+    "field_pool": 80,
+    "heading_weight": 0.25,
+    "heading_block_limit": 3,
+    "heading_char_limit": 600,
+    "tokenizer": "bigram-id",
+    "identifier_pattern": "(?<![A-Za-z0-9])[A-Z][A-Z0-9]{0,6}(?:-[A-Z0-9]{1,8}){1,4}(?![A-Za-z0-9])",
+    "k1": 1.5,
+    "b": 0.75
+  },
+  "dense_slots": 3,
+  "aliases": {
+    "20피트 일반형 컨테이너": "20gp",
+    "40피트 일반형 컨테이너": "40gp",
+    "처음 계약에서 보관에 돈이 붙지 않는 일수": "보관료 무료기간",
+    "화물을 실은 장비가 실제로 밖으로 나간 날": "실제 적입 장비 반출",
+    "실제로 배에서 화물을 내린 날": "실제 양하",
+    "빈 장비를 돌려주기로 잡아 둔 날": "반납 예약 예정",
+    "빈 장비를 지정 장소에 실제로 돌려준 날": "실제 지정 장치장 반납",
+    "보관료 계산에서 실제로 돈을 매긴 일수": "보관료 유료일",
+    "보관료로 최종 청구한 금액": "보관료 확정 금액",
+    "회계 기록에 실제로 들어온 돈": "수납",
+    "20피트짜리 일반 컨테이너": "20gp",
+    "40피트짜리 일반 컨테이너": "40gp",
+    "배에서 화물을 실제로 내린 날": "실제 양하",
+    "화물을 실은 장비를 실제로 내보낸 날": "실제 적입 장비 반출",
+    "빈 장비를 돌려주기로 한 날": "반납 예약 예정",
+    "지정 장소에 빈 장비를 실제로 돌려준 날": "실제 지정 장치장 반납",
+    "보관료를 매긴 일수": "보관료 유료일"
+  },
+  "external_api_calls": 0,
+  "paired_wording": {
+    "bm25": {
+      "both": 25,
+      "source_only": 11,
+      "plain_only": 0,
+      "neither": 0
+    },
+    "alias_bm25": {
+      "both": 26,
+      "source_only": 10,
+      "plain_only": 0,
+      "neither": 0
+    },
+    "snowflake": {
+      "both": 29,
+      "source_only": 6,
+      "plain_only": 0,
+      "neither": 1
+    },
+    "rrf_55": {
+      "both": 30,
+      "source_only": 6,
+      "plain_only": 0,
+      "neither": 0
+    },
+    "dense_slots": {
+      "both": 29,
+      "source_only": 7,
+      "plain_only": 0,
+      "neither": 0
+    }
+  },
+  "summary": {
+    "source": {
+      "questions": 36,
+      "required_pages": 44,
+      "required_facts": 48,
+      "alias_matched": 0,
+      "dense_unique_gold": 0,
+      "dense_unique_gold_dropped_by_rrf": 0,
+      "lexical_unique_gold": 6,
+      "lexical_unique_gold_dropped_by_rrf": 0,
+      "union_gold_pages": 41,
+      "arms": {
+        "bm25": {
+          "candidate_pages": 41,
+          "candidate_facts": 45,
+          "reranked_head_facts": 45,
+          "hg_head_facts": 48,
+          "facts": 48,
+          "complete": 36,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 33,
+          "gain": 0,
+          "loss": 0
+        },
+        "alias_bm25": {
+          "candidate_pages": 41,
+          "candidate_facts": 45,
+          "reranked_head_facts": 45,
+          "hg_head_facts": 48,
+          "facts": 48,
+          "complete": 36,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 33,
+          "gain": 0,
+          "loss": 0
+        },
+        "snowflake": {
+          "candidate_pages": 35,
+          "candidate_facts": 39,
+          "reranked_head_facts": 39,
+          "hg_head_facts": 46,
+          "facts": 46,
+          "complete": 35,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 28,
+          "gain": 0,
+          "loss": 1
+        },
+        "rrf_55": {
+          "candidate_pages": 41,
+          "candidate_facts": 45,
+          "reranked_head_facts": 45,
+          "hg_head_facts": 48,
+          "facts": 48,
+          "complete": 36,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 33,
+          "gain": 0,
+          "loss": 0
+        },
+        "dense_slots": {
+          "candidate_pages": 41,
+          "candidate_facts": 45,
+          "reranked_head_facts": 45,
+          "hg_head_facts": 48,
+          "facts": 48,
+          "complete": 36,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 33,
+          "gain": 0,
+          "loss": 0
+        }
+      }
+    },
+    "plain": {
+      "questions": 36,
+      "required_pages": 44,
+      "required_facts": 48,
+      "alias_matched": 24,
+      "dense_unique_gold": 11,
+      "dense_unique_gold_dropped_by_rrf": 3,
+      "lexical_unique_gold": 7,
+      "lexical_unique_gold_dropped_by_rrf": 0,
+      "union_gold_pages": 43,
+      "arms": {
+        "bm25": {
+          "candidate_pages": 32,
+          "candidate_facts": 35,
+          "reranked_head_facts": 35,
+          "hg_head_facts": 35,
+          "facts": 35,
+          "complete": 25,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 25,
+          "gain": 0,
+          "loss": 0
+        },
+        "alias_bm25": {
+          "candidate_pages": 33,
+          "candidate_facts": 37,
+          "reranked_head_facts": 37,
+          "hg_head_facts": 37,
+          "facts": 37,
+          "complete": 26,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 26,
+          "gain": 1,
+          "loss": 0
+        },
+        "snowflake": {
+          "candidate_pages": 36,
+          "candidate_facts": 40,
+          "reranked_head_facts": 39,
+          "hg_head_facts": 40,
+          "facts": 40,
+          "complete": 29,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 29,
+          "gain": 9,
+          "loss": 5
+        },
+        "rrf_55": {
+          "candidate_pages": 40,
+          "candidate_facts": 44,
+          "reranked_head_facts": 42,
+          "hg_head_facts": 42,
+          "facts": 42,
+          "complete": 30,
+          "other_variant_fact_without_complete": 3,
+          "candidate_complete": 32,
+          "gain": 7,
+          "loss": 2
+        },
+        "dense_slots": {
+          "candidate_pages": 38,
+          "candidate_facts": 42,
+          "reranked_head_facts": 41,
+          "hg_head_facts": 41,
+          "facts": 41,
+          "complete": 29,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 30,
+          "gain": 5,
+          "loss": 1
+        }
+      }
+    },
+    "contrast": {
+      "questions": 36,
+      "required_pages": 44,
+      "required_facts": 48,
+      "alias_matched": 0,
+      "dense_unique_gold": 0,
+      "dense_unique_gold_dropped_by_rrf": 0,
+      "lexical_unique_gold": 10,
+      "lexical_unique_gold_dropped_by_rrf": 0,
+      "union_gold_pages": 43,
+      "arms": {
+        "bm25": {
+          "candidate_pages": 43,
+          "candidate_facts": 47,
+          "reranked_head_facts": 47,
+          "hg_head_facts": 48,
+          "facts": 48,
+          "complete": 36,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 35,
+          "gain": 0,
+          "loss": 0
+        },
+        "alias_bm25": {
+          "candidate_pages": 43,
+          "candidate_facts": 47,
+          "reranked_head_facts": 47,
+          "hg_head_facts": 48,
+          "facts": 48,
+          "complete": 36,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 35,
+          "gain": 0,
+          "loss": 0
+        },
+        "snowflake": {
+          "candidate_pages": 33,
+          "candidate_facts": 37,
+          "reranked_head_facts": 37,
+          "hg_head_facts": 45,
+          "facts": 45,
+          "complete": 34,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 27,
+          "gain": 0,
+          "loss": 2
+        },
+        "rrf_55": {
+          "candidate_pages": 43,
+          "candidate_facts": 47,
+          "reranked_head_facts": 47,
+          "hg_head_facts": 48,
+          "facts": 48,
+          "complete": 36,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 35,
+          "gain": 0,
+          "loss": 0
+        },
+        "dense_slots": {
+          "candidate_pages": 43,
+          "candidate_facts": 47,
+          "reranked_head_facts": 47,
+          "hg_head_facts": 48,
+          "facts": 48,
+          "complete": 36,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 35,
+          "gain": 0,
+          "loss": 0
+        }
+      }
+    },
+    "identifier": {
+      "questions": 160,
+      "required_pages": 271,
+      "required_facts": 457,
+      "alias_matched": 78,
+      "dense_unique_gold": 0,
+      "dense_unique_gold_dropped_by_rrf": 0,
+      "lexical_unique_gold": 222,
+      "lexical_unique_gold_dropped_by_rrf": 0,
+      "union_gold_pages": 271,
+      "arms": {
+        "bm25": {
+          "candidate_pages": 271,
+          "candidate_facts": 457,
+          "reranked_head_facts": 457,
+          "hg_head_facts": 457,
+          "facts": 457,
+          "complete": 160,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 160,
+          "gain": 0,
+          "loss": 0
+        },
+        "alias_bm25": {
+          "candidate_pages": 271,
+          "candidate_facts": 457,
+          "reranked_head_facts": 452,
+          "hg_head_facts": 457,
+          "facts": 457,
+          "complete": 160,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 160,
+          "gain": 0,
+          "loss": 0
+        },
+        "snowflake": {
+          "candidate_pages": 49,
+          "candidate_facts": 95,
+          "reranked_head_facts": 95,
+          "hg_head_facts": 187,
+          "facts": 187,
+          "complete": 50,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 23,
+          "gain": 0,
+          "loss": 110
+        },
+        "rrf_55": {
+          "candidate_pages": 271,
+          "candidate_facts": 457,
+          "reranked_head_facts": 447,
+          "hg_head_facts": 451,
+          "facts": 449,
+          "complete": 154,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 160,
+          "gain": 0,
+          "loss": 6
+        },
+        "dense_slots": {
+          "candidate_pages": 271,
+          "candidate_facts": 457,
+          "reranked_head_facts": 457,
+          "hg_head_facts": 457,
+          "facts": 457,
+          "complete": 160,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 160,
+          "gain": 0,
+          "loss": 0
+        }
+      }
+    },
+    "plain_alias_matched": {
+      "questions": 24,
+      "required_pages": 28,
+      "required_facts": 31,
+      "alias_matched": 24,
+      "dense_unique_gold": 11,
+      "dense_unique_gold_dropped_by_rrf": 3,
+      "lexical_unique_gold": 2,
+      "lexical_unique_gold_dropped_by_rrf": 0,
+      "union_gold_pages": 27,
+      "arms": {
+        "bm25": {
+          "candidate_pages": 16,
+          "candidate_facts": 18,
+          "reranked_head_facts": 18,
+          "hg_head_facts": 18,
+          "facts": 18,
+          "complete": 13,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 13,
+          "gain": 0,
+          "loss": 0
+        },
+        "alias_bm25": {
+          "candidate_pages": 17,
+          "candidate_facts": 20,
+          "reranked_head_facts": 20,
+          "hg_head_facts": 20,
+          "facts": 20,
+          "complete": 14,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 14,
+          "gain": 1,
+          "loss": 0
+        },
+        "snowflake": {
+          "candidate_pages": 25,
+          "candidate_facts": 28,
+          "reranked_head_facts": 27,
+          "hg_head_facts": 27,
+          "facts": 27,
+          "complete": 20,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 21,
+          "gain": 9,
+          "loss": 2
+        },
+        "rrf_55": {
+          "candidate_pages": 24,
+          "candidate_facts": 27,
+          "reranked_head_facts": 26,
+          "hg_head_facts": 26,
+          "facts": 26,
+          "complete": 19,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 20,
+          "gain": 7,
+          "loss": 1
+        },
+        "dense_slots": {
+          "candidate_pages": 22,
+          "candidate_facts": 25,
+          "reranked_head_facts": 24,
+          "hg_head_facts": 24,
+          "facts": 24,
+          "complete": 17,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 18,
+          "gain": 5,
+          "loss": 1
+        }
+      }
+    },
+    "plain_alias_unmatched": {
+      "questions": 12,
+      "required_pages": 16,
+      "required_facts": 17,
+      "alias_matched": 0,
+      "dense_unique_gold": 0,
+      "dense_unique_gold_dropped_by_rrf": 0,
+      "lexical_unique_gold": 5,
+      "lexical_unique_gold_dropped_by_rrf": 0,
+      "union_gold_pages": 16,
+      "arms": {
+        "bm25": {
+          "candidate_pages": 16,
+          "candidate_facts": 17,
+          "reranked_head_facts": 17,
+          "hg_head_facts": 17,
+          "facts": 17,
+          "complete": 12,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 12,
+          "gain": 0,
+          "loss": 0
+        },
+        "alias_bm25": {
+          "candidate_pages": 16,
+          "candidate_facts": 17,
+          "reranked_head_facts": 17,
+          "hg_head_facts": 17,
+          "facts": 17,
+          "complete": 12,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 12,
+          "gain": 0,
+          "loss": 0
+        },
+        "snowflake": {
+          "candidate_pages": 11,
+          "candidate_facts": 12,
+          "reranked_head_facts": 12,
+          "hg_head_facts": 13,
+          "facts": 13,
+          "complete": 9,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 8,
+          "gain": 0,
+          "loss": 3
+        },
+        "rrf_55": {
+          "candidate_pages": 16,
+          "candidate_facts": 17,
+          "reranked_head_facts": 16,
+          "hg_head_facts": 16,
+          "facts": 16,
+          "complete": 11,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 12,
+          "gain": 0,
+          "loss": 1
+        },
+        "dense_slots": {
+          "candidate_pages": 16,
+          "candidate_facts": 17,
+          "reranked_head_facts": 17,
+          "hg_head_facts": 17,
+          "facts": 17,
+          "complete": 12,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 12,
+          "gain": 0,
+          "loss": 0
+        }
+      }
+    },
+    "plain_spec": {
+      "questions": 12,
+      "required_pages": 13,
+      "required_facts": 14,
+      "alias_matched": 12,
+      "dense_unique_gold": 4,
+      "dense_unique_gold_dropped_by_rrf": 1,
+      "lexical_unique_gold": 1,
+      "lexical_unique_gold_dropped_by_rrf": 0,
+      "union_gold_pages": 12,
+      "arms": {
+        "bm25": {
+          "candidate_pages": 8,
+          "candidate_facts": 9,
+          "reranked_head_facts": 9,
+          "hg_head_facts": 9,
+          "facts": 9,
+          "complete": 7,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 7,
+          "gain": 0,
+          "loss": 0
+        },
+        "alias_bm25": {
+          "candidate_pages": 8,
+          "candidate_facts": 9,
+          "reranked_head_facts": 9,
+          "hg_head_facts": 9,
+          "facts": 9,
+          "complete": 7,
+          "other_variant_fact_without_complete": 2,
+          "candidate_complete": 7,
+          "gain": 0,
+          "loss": 0
+        },
+        "snowflake": {
+          "candidate_pages": 11,
+          "candidate_facts": 12,
+          "reranked_head_facts": 12,
+          "hg_head_facts": 12,
+          "facts": 12,
+          "complete": 10,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 10,
+          "gain": 4,
+          "loss": 1
+        },
+        "rrf_55": {
+          "candidate_pages": 11,
+          "candidate_facts": 12,
+          "reranked_head_facts": 12,
+          "hg_head_facts": 12,
+          "facts": 12,
+          "complete": 10,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 10,
+          "gain": 3,
+          "loss": 0
+        },
+        "dense_slots": {
+          "candidate_pages": 9,
+          "candidate_facts": 10,
+          "reranked_head_facts": 10,
+          "hg_head_facts": 10,
+          "facts": 10,
+          "complete": 8,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 8,
+          "gain": 1,
+          "loss": 0
+        }
+      }
+    },
+    "plain_record": {
+      "questions": 12,
+      "required_pages": 16,
+      "required_facts": 17,
+      "alias_matched": 0,
+      "dense_unique_gold": 0,
+      "dense_unique_gold_dropped_by_rrf": 0,
+      "lexical_unique_gold": 5,
+      "lexical_unique_gold_dropped_by_rrf": 0,
+      "union_gold_pages": 16,
+      "arms": {
+        "bm25": {
+          "candidate_pages": 16,
+          "candidate_facts": 17,
+          "reranked_head_facts": 17,
+          "hg_head_facts": 17,
+          "facts": 17,
+          "complete": 12,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 12,
+          "gain": 0,
+          "loss": 0
+        },
+        "alias_bm25": {
+          "candidate_pages": 16,
+          "candidate_facts": 17,
+          "reranked_head_facts": 17,
+          "hg_head_facts": 17,
+          "facts": 17,
+          "complete": 12,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 12,
+          "gain": 0,
+          "loss": 0
+        },
+        "snowflake": {
+          "candidate_pages": 11,
+          "candidate_facts": 12,
+          "reranked_head_facts": 12,
+          "hg_head_facts": 13,
+          "facts": 13,
+          "complete": 9,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 8,
+          "gain": 0,
+          "loss": 3
+        },
+        "rrf_55": {
+          "candidate_pages": 16,
+          "candidate_facts": 17,
+          "reranked_head_facts": 16,
+          "hg_head_facts": 16,
+          "facts": 16,
+          "complete": 11,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 12,
+          "gain": 0,
+          "loss": 1
+        },
+        "dense_slots": {
+          "candidate_pages": 16,
+          "candidate_facts": 17,
+          "reranked_head_facts": 17,
+          "hg_head_facts": 17,
+          "facts": 17,
+          "complete": 12,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 12,
+          "gain": 0,
+          "loss": 0
+        }
+      }
+    },
+    "plain_combined": {
+      "questions": 12,
+      "required_pages": 15,
+      "required_facts": 17,
+      "alias_matched": 12,
+      "dense_unique_gold": 7,
+      "dense_unique_gold_dropped_by_rrf": 2,
+      "lexical_unique_gold": 1,
+      "lexical_unique_gold_dropped_by_rrf": 0,
+      "union_gold_pages": 15,
+      "arms": {
+        "bm25": {
+          "candidate_pages": 8,
+          "candidate_facts": 9,
+          "reranked_head_facts": 9,
+          "hg_head_facts": 9,
+          "facts": 9,
+          "complete": 6,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 6,
+          "gain": 0,
+          "loss": 0
+        },
+        "alias_bm25": {
+          "candidate_pages": 9,
+          "candidate_facts": 11,
+          "reranked_head_facts": 11,
+          "hg_head_facts": 11,
+          "facts": 11,
+          "complete": 7,
+          "other_variant_fact_without_complete": 0,
+          "candidate_complete": 7,
+          "gain": 1,
+          "loss": 0
+        },
+        "snowflake": {
+          "candidate_pages": 14,
+          "candidate_facts": 16,
+          "reranked_head_facts": 15,
+          "hg_head_facts": 15,
+          "facts": 15,
+          "complete": 10,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 11,
+          "gain": 5,
+          "loss": 1
+        },
+        "rrf_55": {
+          "candidate_pages": 13,
+          "candidate_facts": 15,
+          "reranked_head_facts": 14,
+          "hg_head_facts": 14,
+          "facts": 14,
+          "complete": 9,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 10,
+          "gain": 4,
+          "loss": 1
+        },
+        "dense_slots": {
+          "candidate_pages": 13,
+          "candidate_facts": 15,
+          "reranked_head_facts": 14,
+          "hg_head_facts": 14,
+          "facts": 14,
+          "complete": 9,
+          "other_variant_fact_without_complete": 1,
+          "candidate_complete": 10,
+          "gain": 4,
+          "loss": 1
+        }
+      }
+    }
+  }
+}

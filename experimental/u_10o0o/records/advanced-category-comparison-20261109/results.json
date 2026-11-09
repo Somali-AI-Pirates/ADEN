@@ -1,0 +1,981 @@
+{
+  "limits": {
+    "candidates": 20,
+    "pages": 8,
+    "context_tokens": 8000
+  },
+  "hybrid": {
+    "model": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+    "revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+    "vectors": {
+      "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+      "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+    },
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "rrf_k": 60
+  },
+  "archives": {
+    "earlier": {
+      "results.json": {
+        "path": "artifacts/u_10o0o/advanced-scenarios-180-20261109/results.json",
+        "sha256": "309e46f8a5be6bfaaff4df3d4177dee6db9f935593221dddaf0dcbe624deb1c5"
+      },
+      "rankings.jsonl": {
+        "path": "artifacts/u_10o0o/advanced-scenarios-180-20261109/rankings.jsonl",
+        "sha256": "bfa1ea9f4d257a4d8da3c4e2debcb8db5166a3d144c7351dd3db90124726f1a7"
+      },
+      "scores.jsonl": {
+        "path": "artifacts/u_10o0o/advanced-scenarios-180-20261109/scores.jsonl",
+        "sha256": "e15dc958145ced2bf843bf476ab4ce7a2d9d02edd322ce826afbefc6632fc869"
+      }
+    },
+    "semantic": {
+      "results.json": {
+        "path": "artifacts/u_10o0o/advanced-semantic-queries-20261109/results.json",
+        "sha256": "de5bf8fd079460e880be9bc4d5f99af76ce0947dd959cd371665a799eb72383a"
+      },
+      "rankings.jsonl": {
+        "path": "artifacts/u_10o0o/advanced-semantic-queries-20261109/rankings.jsonl",
+        "sha256": "0b02ee85ef0688e573d6dd3324500f13e469146842f270d5344dc7a2a53ad99b"
+      },
+      "scores.jsonl": {
+        "path": "artifacts/u_10o0o/advanced-semantic-queries-20261109/scores.jsonl",
+        "sha256": "bfcae26895a0481da08864307bde66db176590d5a79e1890e80bbccc2a24dc79"
+      }
+    }
+  },
+  "code": {
+    "path": "experimental/u_10o0o/evaluation/advanced_scenarios/compare_categories.py",
+    "sha256": "288be37fef2adf3b07c54f941c6a0017868d7d9fa879ccef3f6bbfdb411f4fda"
+  },
+  "external_api_calls": 0,
+  "summary": {
+    "S01": {
+      "questions": 20,
+      "required_facts": 20,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 20,
+          "candidate_hits": 20,
+          "expanded_complete": 20,
+          "expanded_hits": 20,
+          "final_complete": 20,
+          "final_hits": 20,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 12,
+            "explicit_hg/fallback/no_verified_pair": 8
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 20,
+          "candidate_hits": 20,
+          "expanded_complete": 20,
+          "expanded_hits": 20,
+          "final_complete": 20,
+          "final_hits": 20,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 12,
+            "explicit_hg/fallback/no_verified_pair": 8
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_hits": 20,
+          "expanded_complete": 20,
+          "expanded_hits": 20,
+          "final_complete": 20,
+          "final_hits": 20,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "team_graph": 20
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        }
+      }
+    },
+    "S02": {
+      "questions": 20,
+      "required_facts": 30,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 8,
+          "candidate_hits": 8,
+          "expanded_complete": 20,
+          "expanded_hits": 30,
+          "final_complete": 20,
+          "final_hits": 30,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "missing_terms/unique/no_verified_pair": 10,
+            "unsupported_constraint/unique/no_verified_pair": 10
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 10,
+          "candidate_hits": 14,
+          "expanded_complete": 20,
+          "expanded_hits": 30,
+          "final_complete": 20,
+          "final_hits": 30,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "missing_terms/unique/no_verified_pair": 10,
+            "unsupported_constraint/unique/no_verified_pair": 10
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 6,
+          "candidate_hits": 10,
+          "expanded_complete": 6,
+          "expanded_hits": 10,
+          "final_complete": 6,
+          "final_hits": 9,
+          "page_recall_at_8": 0.35,
+          "routes": {
+            "team_graph": 20
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-S02-01",
+            "AS-S02-04"
+          ],
+          "complete_lost": [],
+          "facts_gained": 6,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        }
+      }
+    },
+    "S03": {
+      "questions": 20,
+      "required_facts": 70,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 20,
+          "candidate_hits": 70,
+          "expanded_complete": 20,
+          "expanded_hits": 70,
+          "final_complete": 20,
+          "final_hits": 70,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "explicit_hg/fallback/no_verified_pair": 20
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 20,
+          "candidate_hits": 70,
+          "expanded_complete": 20,
+          "expanded_hits": 70,
+          "final_complete": 20,
+          "final_hits": 70,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "explicit_hg/fallback/no_verified_pair": 20
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_hits": 70,
+          "expanded_complete": 20,
+          "expanded_hits": 70,
+          "final_complete": 20,
+          "final_hits": 70,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "team_graph": 20
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        }
+      }
+    },
+    "S04": {
+      "questions": 20,
+      "required_facts": 66,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 10,
+          "candidate_hits": 49,
+          "expanded_complete": 20,
+          "expanded_hits": 66,
+          "final_complete": 20,
+          "final_hits": 66,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "unverified_hg/fallback/covered": 7,
+            "unverified_hg/fallback/repacked": 1,
+            "explicit_hg/pair/no_verified_pair": 6,
+            "ambiguous_terms/pair/no_verified_pair": 6
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 10,
+          "candidate_hits": 49,
+          "expanded_complete": 20,
+          "expanded_hits": 66,
+          "final_complete": 20,
+          "final_hits": 66,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "unverified_hg/fallback/covered": 5,
+            "unverified_hg/fallback/repacked": 3,
+            "explicit_hg/pair/no_verified_pair": 6,
+            "ambiguous_terms/pair/no_verified_pair": 6
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 11,
+          "candidate_hits": 42,
+          "expanded_complete": 11,
+          "expanded_hits": 42,
+          "final_complete": 10,
+          "final_hits": 41,
+          "page_recall_at_8": 0.6375,
+          "routes": {
+            "team_graph": 20
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 2,
+          "facts_lost": 2
+        },
+        "final": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        }
+      }
+    },
+    "S05": {
+      "questions": 20,
+      "required_facts": 40,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 20,
+          "candidate_hits": 40,
+          "expanded_complete": 20,
+          "expanded_hits": 40,
+          "final_complete": 20,
+          "final_hits": 40,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "explicit_hg/fallback/no_verified_pair": 20
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 20,
+          "candidate_hits": 40,
+          "expanded_complete": 20,
+          "expanded_hits": 40,
+          "final_complete": 20,
+          "final_hits": 40,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "explicit_hg/fallback/no_verified_pair": 20
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_hits": 40,
+          "expanded_complete": 20,
+          "expanded_hits": 40,
+          "final_complete": 20,
+          "final_hits": 40,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "team_graph": 20
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        }
+      }
+    },
+    "S06": {
+      "questions": 20,
+      "required_facts": 40,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 0,
+          "candidate_hits": 0,
+          "expanded_complete": 20,
+          "expanded_hits": 40,
+          "final_complete": 20,
+          "final_hits": 40,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "unsupported_constraint/ambiguous/no_verified_pair": 20
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 0,
+          "candidate_hits": 0,
+          "expanded_complete": 20,
+          "expanded_hits": 40,
+          "final_complete": 20,
+          "final_hits": 40,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "unsupported_constraint/ambiguous/no_verified_pair": 20
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 0,
+          "candidate_hits": 2,
+          "expanded_complete": 0,
+          "expanded_hits": 2,
+          "final_complete": 0,
+          "final_hits": 2,
+          "page_recall_at_8": 0.0625,
+          "routes": {
+            "team_graph": 20
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        }
+      }
+    },
+    "S07": {
+      "questions": 20,
+      "required_facts": 40,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 20,
+          "candidate_hits": 40,
+          "expanded_complete": 20,
+          "expanded_hits": 40,
+          "final_complete": 20,
+          "final_hits": 40,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "explicit_hg/fallback/no_verified_pair": 20
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 20,
+          "candidate_hits": 40,
+          "expanded_complete": 20,
+          "expanded_hits": 40,
+          "final_complete": 20,
+          "final_hits": 40,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "explicit_hg/fallback/no_verified_pair": 20
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_hits": 40,
+          "expanded_complete": 20,
+          "expanded_hits": 40,
+          "final_complete": 20,
+          "final_hits": 40,
+          "page_recall_at_8": 1.0,
+          "routes": {
+            "team_graph": 20
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [],
+          "complete_lost": [],
+          "facts_gained": 0,
+          "facts_lost": 0
+        }
+      }
+    },
+    "work_rules/procedure": {
+      "questions": 10,
+      "required_facts": 12,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 8,
+          "candidate_hits": 10,
+          "expanded_complete": 8,
+          "expanded_hits": 10,
+          "final_complete": 8,
+          "final_hits": 10,
+          "page_recall_at_8": 0.85,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 10
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 9,
+          "candidate_hits": 11,
+          "expanded_complete": 9,
+          "expanded_hits": 11,
+          "final_complete": 9,
+          "final_hits": 11,
+          "page_recall_at_8": 0.9,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 10
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 9,
+          "candidate_hits": 11,
+          "expanded_complete": 9,
+          "expanded_hits": 11,
+          "final_complete": 9,
+          "final_hits": 11,
+          "page_recall_at_8": 0.9,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-WR-07"
+          ],
+          "complete_lost": [],
+          "facts_gained": 1,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [
+            "AS-WR-07"
+          ],
+          "complete_lost": [],
+          "facts_gained": 1,
+          "facts_lost": 0
+        }
+      }
+    },
+    "work_rules/applicability": {
+      "questions": 10,
+      "required_facts": 15,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 8,
+          "candidate_hits": 12,
+          "expanded_complete": 8,
+          "expanded_hits": 12,
+          "final_complete": 7,
+          "final_hits": 11,
+          "page_recall_at_8": 0.8,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 4,
+            "missing_terms/fallback/no_verified_pair": 6
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 9,
+          "candidate_hits": 14,
+          "expanded_complete": 9,
+          "expanded_hits": 14,
+          "final_complete": 8,
+          "final_hits": 13,
+          "page_recall_at_8": 0.9,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 4,
+            "missing_terms/fallback/no_verified_pair": 6
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 8,
+          "candidate_hits": 12,
+          "expanded_complete": 8,
+          "expanded_hits": 12,
+          "final_complete": 7,
+          "final_hits": 11,
+          "page_recall_at_8": 0.8,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-WR-14"
+          ],
+          "complete_lost": [],
+          "facts_gained": 2,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [
+            "AS-WR-14"
+          ],
+          "complete_lost": [],
+          "facts_gained": 2,
+          "facts_lost": 0
+        }
+      }
+    },
+    "semantic/procedure_paraphrase": {
+      "questions": 10,
+      "required_facts": 10,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 3,
+          "candidate_hits": 3,
+          "expanded_complete": 3,
+          "expanded_hits": 3,
+          "final_complete": 3,
+          "final_hits": 3,
+          "page_recall_at_8": 0.3,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 10
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 6,
+          "candidate_hits": 6,
+          "expanded_complete": 6,
+          "expanded_hits": 6,
+          "final_complete": 6,
+          "final_hits": 6,
+          "page_recall_at_8": 0.6,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 10
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 3,
+          "candidate_hits": 3,
+          "expanded_complete": 3,
+          "expanded_hits": 3,
+          "final_complete": 2,
+          "final_hits": 2,
+          "page_recall_at_8": 0.2,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09"
+          ],
+          "complete_lost": [],
+          "facts_gained": 3,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09"
+          ],
+          "complete_lost": [],
+          "facts_gained": 3,
+          "facts_lost": 0
+        }
+      }
+    },
+    "semantic/rule_paraphrase": {
+      "questions": 10,
+      "required_facts": 11,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 2,
+          "candidate_hits": 2,
+          "expanded_complete": 2,
+          "expanded_hits": 2,
+          "final_complete": 2,
+          "final_hits": 2,
+          "page_recall_at_8": 0.2,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 8,
+            "unsupported_constraint/fallback/no_verified_pair": 2
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 5,
+          "candidate_hits": 5,
+          "expanded_complete": 5,
+          "expanded_hits": 5,
+          "final_complete": 4,
+          "final_hits": 4,
+          "page_recall_at_8": 0.4,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 8,
+            "unsupported_constraint/fallback/no_verified_pair": 2
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 3,
+          "candidate_hits": 3,
+          "expanded_complete": 3,
+          "expanded_hits": 3,
+          "final_complete": 3,
+          "final_hits": 3,
+          "page_recall_at_8": 0.3,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-12",
+            "AS-SEM-13",
+            "AS-SEM-17"
+          ],
+          "complete_lost": [],
+          "facts_gained": 3,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-12",
+            "AS-SEM-17"
+          ],
+          "complete_lost": [],
+          "facts_gained": 2,
+          "facts_lost": 0
+        }
+      }
+    },
+    "semantic/cross_document_workflow": {
+      "questions": 10,
+      "required_facts": 20,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 2,
+          "candidate_hits": 7,
+          "expanded_complete": 2,
+          "expanded_hits": 7,
+          "final_complete": 2,
+          "final_hits": 7,
+          "page_recall_at_8": 0.35,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 9,
+            "unsupported_constraint/fallback/no_verified_pair": 1
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 2,
+          "candidate_hits": 11,
+          "expanded_complete": 2,
+          "expanded_hits": 11,
+          "final_complete": 2,
+          "final_hits": 11,
+          "page_recall_at_8": 0.55,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 9,
+            "unsupported_constraint/fallback/no_verified_pair": 1
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 2,
+          "candidate_hits": 9,
+          "expanded_complete": 2,
+          "expanded_hits": 9,
+          "final_complete": 2,
+          "final_hits": 8,
+          "page_recall_at_8": 0.4,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-25"
+          ],
+          "complete_lost": [
+            "AS-SEM-29"
+          ],
+          "facts_gained": 5,
+          "facts_lost": 1
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-25"
+          ],
+          "complete_lost": [
+            "AS-SEM-29"
+          ],
+          "facts_gained": 5,
+          "facts_lost": 1
+        }
+      }
+    },
+    "semantic/cross_document_rule": {
+      "questions": 10,
+      "required_facts": 21,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 1,
+          "candidate_hits": 6,
+          "expanded_complete": 1,
+          "expanded_hits": 6,
+          "final_complete": 0,
+          "final_hits": 5,
+          "page_recall_at_8": 0.23333333333333334,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 5,
+            "missing_terms/fallback/no_verified_pair": 5
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 1,
+          "candidate_hits": 7,
+          "expanded_complete": 1,
+          "expanded_hits": 7,
+          "final_complete": 1,
+          "final_hits": 5,
+          "page_recall_at_8": 0.23333333333333334,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 5,
+            "missing_terms/fallback/no_verified_pair": 5
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 2,
+          "candidate_hits": 8,
+          "expanded_complete": 2,
+          "expanded_hits": 8,
+          "final_complete": 2,
+          "final_hits": 8,
+          "page_recall_at_8": 0.38333333333333336,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-37"
+          ],
+          "complete_lost": [
+            "AS-SEM-40"
+          ],
+          "facts_gained": 3,
+          "facts_lost": 2
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-37"
+          ],
+          "complete_lost": [],
+          "facts_gained": 2,
+          "facts_lost": 2
+        }
+      }
+    },
+    "all_positive": {
+      "questions": 200,
+      "required_facts": 395,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 122,
+          "candidate_hits": 267,
+          "expanded_complete": 164,
+          "expanded_hits": 346,
+          "final_complete": 162,
+          "final_hits": 344,
+          "page_recall_at_8": 0.8366666666666667,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 24,
+            "explicit_hg/fallback/no_verified_pair": 68,
+            "missing_terms/unique/no_verified_pair": 10,
+            "unsupported_constraint/unique/no_verified_pair": 10,
+            "unverified_hg/fallback/covered": 7,
+            "unverified_hg/fallback/repacked": 1,
+            "explicit_hg/pair/no_verified_pair": 6,
+            "ambiguous_terms/pair/no_verified_pair": 6,
+            "unsupported_constraint/ambiguous/no_verified_pair": 20,
+            "missing_terms/fallback/no_verified_pair": 48
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 132,
+          "candidate_hits": 287,
+          "expanded_complete": 172,
+          "expanded_hits": 360,
+          "final_complete": 170,
+          "final_hits": 356,
+          "page_recall_at_8": 0.8791666666666668,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 24,
+            "explicit_hg/fallback/no_verified_pair": 68,
+            "missing_terms/unique/no_verified_pair": 10,
+            "unsupported_constraint/unique/no_verified_pair": 10,
+            "unverified_hg/fallback/covered": 5,
+            "unverified_hg/fallback/repacked": 3,
+            "explicit_hg/pair/no_verified_pair": 6,
+            "ambiguous_terms/pair/no_verified_pair": 6,
+            "unsupported_constraint/ambiguous/no_verified_pair": 20,
+            "missing_terms/fallback/no_verified_pair": 48
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 124,
+          "candidate_hits": 270,
+          "expanded_complete": 124,
+          "expanded_hits": 270,
+          "final_complete": 121,
+          "final_hits": 265,
+          "page_recall_at_8": 0.6541666666666667,
+          "routes": {
+            "team_graph": 200
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-S02-01",
+            "AS-S02-04",
+            "AS-WR-07",
+            "AS-WR-14",
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09",
+            "AS-SEM-12",
+            "AS-SEM-13",
+            "AS-SEM-17",
+            "AS-SEM-25",
+            "AS-SEM-37"
+          ],
+          "complete_lost": [
+            "AS-SEM-29",
+            "AS-SEM-40"
+          ],
+          "facts_gained": 25,
+          "facts_lost": 5
+        },
+        "final": {
+          "complete_gained": [
+            "AS-WR-07",
+            "AS-WR-14",
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09",
+            "AS-SEM-12",
+            "AS-SEM-17",
+            "AS-SEM-25",
+            "AS-SEM-37"
+          ],
+          "complete_lost": [
+            "AS-SEM-29"
+          ],
+          "facts_gained": 15,
+          "facts_lost": 3
+        }
+      }
+    }
+  },
+  "negative_controls": {
+    "negative/unrelated": {
+      "questions": 10,
+      "arms": {
+        "bm25": {
+          "nonempty_context": 10,
+          "mean_final_pages": 8.0
+        },
+        "rrf_55": {
+          "nonempty_context": 10,
+          "mean_final_pages": 8.0
+        },
+        "peer_v2_no_llm": {
+          "nonempty_context": 10,
+          "mean_final_pages": 8.0
+        }
+      }
+    },
+    "negative/near_domain": {
+      "questions": 10,
+      "arms": {
+        "bm25": {
+          "nonempty_context": 10,
+          "mean_final_pages": 8.0
+        },
+        "rrf_55": {
+          "nonempty_context": 10,
+          "mean_final_pages": 8.0
+        },
+        "peer_v2_no_llm": {
+          "nonempty_context": 10,
+          "mean_final_pages": 8.0
+        }
+      }
+    }
+  }
+}

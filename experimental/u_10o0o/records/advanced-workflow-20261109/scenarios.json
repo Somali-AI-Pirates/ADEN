@@ -1,0 +1,22 @@
+[
+  {"id":"W01","type":"single_key","question":"{case_a} 건 청구서 확인 중인데, 계약상 보관료가 며칠까지 무료였고 무료 기간 다음 첫 구간 단가는 얼마인가요?"},
+  {"id":"W02","type":"single_key","question":"{equipment_a} 컨테이너, 현장에서 실제로 반출한 날짜랑 청구서에 적힌 보관료 유료 일수 좀 같이 찾아 주세요."},
+  {"id":"W03","type":"single_key","question":"{case_a} 건 비용 조정 요청 결과가 어떻게 됐죠? 마지막으로 청구된 보관료 금액도 같이 확인해 주세요."},
+  {"id":"W04","type":"single_key","question":"재무 쪽에서 {case_a} 건 마감한다고 합니다. 보관료 청구액과 실제 수납 기록을 각각 확인해 주세요."},
+  {"id":"W05","type":"single_key","question":"{equipment_a} 반납이 늦었는지 확인해야 합니다. 기록상 반납 예정일과 지정 장소에 실제로 반납한 날짜가 각각 언제였나요?"},
+  {"id":"W06","type":"single_key","question":"{case_a} 건 선사에 넘길 자료입니다. 실제 양하일과 적입 장비 실제 반출일을 각각 적어 주세요."},
+  {"id":"W07","type":"indirect","question":"{shipper_a}에서 {cargo_a} 실었던 {spec_phrase_a} 건요. 보관료 유료 일수하고 실제 반출일을 알려 주세요."},
+  {"id":"W08","type":"indirect","question":"{gate_a}에 실제로 반출한 {shipper_a} {spec_phrase_a} 건에 보관료가 얼마 청구됐는지 확인 부탁합니다."},
+  {"id":"W09","type":"indirect","question":"{shipper_a} {cargo_a} 건입니다. 장비가 {spec_phrase_a}였어요. 비용 조정 회신이랑 보관료 청구액만 찾아 주세요."},
+  {"id":"W10","type":"indirect","question":"{shipper_a} 쪽 {cargo_a} 실은 건이고 {gate_a}에 실제로 반출했습니다. 보관료 청구액과 수납액을 알려 주세요."},
+  {"id":"W11","type":"parallel","question":"{case_a}랑 {case_b} 두 건 각각 보관료 무료 기간과 첫 구간 요율을 비교해 주세요."},
+  {"id":"W12","type":"parallel","question":"{equipment_a}와 {equipment_b} 두 컨테이너요. 각각 실제 반출일과 보관료 청구액을 알려 주세요."},
+  {"id":"W13","type":"parallel","question":"{case_a} 건과, {shipper_b}가 {cargo_b}를 실어서 {gate_b}에 실제 반출한 건을 비교하고 싶습니다. 두 건 각각 보관료 유료 일수와 청구액을 확인해 주세요."},
+  {"id":"W14","type":"parallel","question":"{shipper_a}의 {cargo_a} 건이랑 {shipper_b}의 {cargo_b} 건, 각각 {gate_a}, {gate_b}에 실제 반출됐습니다. 건별 보관료 청구액과 실제 수납액을 확인해 주세요."},
+  {"id":"W15","type":"parallel","question":"거래처에 진행 상황을 보내려고요. {case_a} 건은 비용 조정 회신 결과, {case_b} 건은 수납 상태와 수납액을 찾아 주세요."},
+  {"id":"W16","type":"parallel","question":"{equipment_a} 건이랑 {case_b} 건 청구 근거 비교 부탁해요. 각각 계약상 무료 기간, 실제 반출일, 청구된 보관료를 확인해 주세요."},
+  {"id":"W17","type":"clarify","question":"{gate_a}에 실제로 반출한 {shipper_a} {spec_phrase_a} 건, 청구된 보관료 금액을 알려 주세요."},
+  {"id":"W18","type":"clarify","question":"청구서에 붙일 건데요. {gate_a}에 실제 반출한 {shipper_a} {spec_phrase_a}의 보관료가 얼마였나요?"},
+  {"id":"W19","type":"abstain","question":"{case_a} 반납지연료를 거래처에 확정해서 보내도 될까요? 지정 장소 실제 반납 기록과 청구 상태를 같이 확인해 주세요."},
+  {"id":"W20","type":"abstain","question":"{equipment_a} 장비 건, 오늘 반납지연료를 마감해야 합니다. 실제 지정 장소에 반납됐는지랑 이 금액이 확정인지 확인 부탁해요."}
+]

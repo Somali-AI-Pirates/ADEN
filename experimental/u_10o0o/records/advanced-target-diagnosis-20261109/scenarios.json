@@ -1,0 +1,437 @@
+[
+  {
+    "id": "N01",
+    "type": "explicit",
+    "question": "{case_a}와 {case_b} 두 건의 최초 무상 보관일수와 이후 청구일수를 각각 알려주세요.",
+    "requests": [
+      [
+        "free",
+        "paid"
+      ],
+      [
+        "free",
+        "paid"
+      ]
+    ],
+    "identify": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "N02",
+    "type": "explicit",
+    "question": "{equipment_a}, {equipment_b} 각각 기록 잔액, 확정 보관료, 최초 유료 단가 순으로 확인 부탁드립니다.",
+    "requests": [
+      [
+        "balance",
+        "charged",
+        "rate"
+      ],
+      [
+        "balance",
+        "charged",
+        "rate"
+      ]
+    ],
+    "identify": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "N03",
+    "type": "explicit",
+    "question": "{case_a}와 {case_b}의 실제 양하일, 예정 공컨테이너 반납일, 실제 지정 야드 반납일을 비교해서 회신해 주세요.",
+    "requests": [
+      [
+        "discharge",
+        "scheduled",
+        "returned"
+      ],
+      [
+        "discharge",
+        "scheduled",
+        "returned"
+      ]
+    ],
+    "identify": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "N04",
+    "type": "mixed",
+    "question": "{case_a} 건은 확정 보관료와 추가 조건 승인 여부를 부탁드립니다. 아울러 {shipper_b}가 맡긴 {cargo_b} 중 {gate_b} 반출 건의 최초 무상 보관일수와 실제 양하일도 확인해 주세요.",
+    "requests": [
+      [
+        "charged",
+        "approval"
+      ],
+      [
+        "free",
+        "discharge"
+      ]
+    ],
+    "identify": [
+      [],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N05",
+    "type": "mixed",
+    "question": "{equipment_a}에 입금 처리된 금액과 장부상 잔액을 확인해 주시고, {shipper_b}가 맡긴 {cargo_b} 중 {gate_b} 반출 건의 확정 보관료와 지정 야드 실제 반납일도 알려주세요.",
+    "requests": [
+      [
+        "received",
+        "balance"
+      ],
+      [
+        "charged",
+        "returned"
+      ]
+    ],
+    "identify": [
+      [],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N06",
+    "type": "indirect",
+    "question": "혹시 {shipper_a} 쪽 {cargo_a} 건 가운데 {gate_a}에 나간 건, 처음 적용된 유료 단가와 확정 보관료를 찾아서 알려주실 수 있을까요? 그리고 {shipper_b}가 맡긴 {cargo_b} 중 {gate_b} 반출 건은 최초 무상 보관일수와 장부상 잔액도 확인 부탁드립니다.",
+    "requests": [
+      [
+        "rate",
+        "charged"
+      ],
+      [
+        "free",
+        "balance"
+      ]
+    ],
+    "identify": [
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N07",
+    "type": "indirect",
+    "question": "{shipper_a}의 {cargo_a} 중 {gate_a} 반출분 기록에서 최초 무상 보관일수, 양하 완료일, 추가 조건 승인 여부를 확인 부탁드립니다. 또 {shipper_b}의 {cargo_b} 가운데 {gate_b} 반출 건은 실제 납부 금액과 지정 야드 실제 반납일도 찾아주세요.",
+    "requests": [
+      [
+        "free",
+        "discharge",
+        "approval"
+      ],
+      [
+        "received",
+        "returned"
+      ]
+    ],
+    "identify": [
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N08",
+    "type": "single",
+    "question": "{equipment_a} 건에 실제 납부된 금액, 현재 기록 잔액, 확정 보관료를 정리해 주시면 감사하겠습니다.",
+    "requests": [
+      [
+        "received",
+        "balance",
+        "charged"
+      ]
+    ],
+    "identify": [
+      []
+    ]
+  },
+  {
+    "id": "N09",
+    "type": "single",
+    "question": "{shipper_a}가 보낸 {cargo_a} 중 {gate_a} 반출 건의 예정 공컨테이너 반납일과 실제 지정 야드 반납일을 확인해 주세요.",
+    "requests": [
+      [
+        "scheduled",
+        "returned"
+      ]
+    ],
+    "identify": [
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N10",
+    "type": "clarify",
+    "question": "안녕하세요. {shipper_a}의 {spec_phrase_a} 관련해 {gate_a} 건의 실제 반출일과 확정 보관료를 확인해 주시겠어요? 후보가 여러 건이면, 한 건을 특정하는 데 어떤 추가 정보가 필요한지 먼저 알려주세요.",
+    "requests": [
+      [
+        "gate",
+        "charged"
+      ],
+      [
+        "gate",
+        "charged"
+      ]
+    ],
+    "identify": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "N11",
+    "type": "explicit",
+    "question": "팀 메신저로 확인 부탁드려요. {case_a}와 {case_b} 각각의 초기 보관 무료 기간과 첫 유료 단가를 알려주실래요?",
+    "requests": [
+      [
+        "free",
+        "rate"
+      ],
+      [
+        "free",
+        "rate"
+      ]
+    ],
+    "identify": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "N12",
+    "type": "explicit",
+    "question": "{equipment_a}와 {equipment_b} 건을 정산표에 반영 중입니다. 각각 청구된 보관 일수와 기록상 잔액을 확인해 주세요.",
+    "requests": [
+      [
+        "paid",
+        "balance"
+      ],
+      [
+        "paid",
+        "balance"
+      ]
+    ],
+    "identify": [
+      [],
+      []
+    ]
+  },
+  {
+    "id": "N13",
+    "type": "mixed",
+    "question": "안녕하세요. {shipper_b}의 {cargo_b} 중 {gate_b}에 실제 반출된 건의 지정 야드 반납일과 실제 하역일을 알려주세요. 그리고 {case_a}의 입금액과 확정 보관료도 회신 부탁드립니다.",
+    "requests": [
+      [
+        "received",
+        "charged"
+      ],
+      [
+        "returned",
+        "discharge"
+      ]
+    ],
+    "identify": [
+      [],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N14",
+    "type": "mixed",
+    "question": "{equipment_a}의 추가 조건 승인 여부와 최초 보관 무료 기간을 확인해 주시겠어요? 아울러 {shipper_b}의 {cargo_b} 중 {gate_b}에 실제 반출된 건의 청구 보관 일수와 확정 보관료도 부탁드립니다.",
+    "requests": [
+      [
+        "approval",
+        "free"
+      ],
+      [
+        "paid",
+        "charged"
+      ]
+    ],
+    "identify": [
+      [],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N15",
+    "type": "mixed",
+    "question": "정산 마감 전에 부탁드립니다. {case_a}의 기록상 잔액과 첫 유료 단가를 확인해 주세요. 그리고 {shipper_b}의 {cargo_b} 중 {gate_b}에 실제 반출된 건의 최초 무료 보관 기간과 첫 유료 단가도 알려주세요.",
+    "requests": [
+      [
+        "balance",
+        "rate"
+      ],
+      [
+        "free",
+        "rate"
+      ]
+    ],
+    "identify": [
+      [],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N16",
+    "type": "indirect",
+    "question": "오늘 중 회신 가능하실까요? {shipper_a}의 {cargo_a} 중 {gate_a}에 실제 반출된 건의 추가 조건 승인 여부와 확정 보관료를 확인 부탁드립니다. 또 {shipper_b}의 {cargo_b} 중 {gate_b}에 실제 반출된 건의 청구 보관 일수와 장부상 잔액도 부탁드려요.",
+    "requests": [
+      [
+        "approval",
+        "charged"
+      ],
+      [
+        "paid",
+        "balance"
+      ]
+    ],
+    "identify": [
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N17",
+    "type": "indirect",
+    "question": "지난 정산 메일 건 이어서 확인 부탁드려요. {shipper_a}의 {cargo_a} 중 {gate_a}에 실제 반출된 건의 첫 유료 단가와 입금액을 알려주시고, {shipper_b}의 {cargo_b} 중 {gate_b}에 실제 반출된 건의 실제 하역일과 지정 야드 반납일도 회신해 주세요.",
+    "requests": [
+      [
+        "rate",
+        "received"
+      ],
+      [
+        "discharge",
+        "returned"
+      ]
+    ],
+    "identify": [
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N18",
+    "type": "indirect",
+    "question": "차량 배차와 정산 기록을 맞추는 중입니다. {shipper_a}의 {cargo_a} 중 {gate_a}에 실제 반출된 건의 확정 보관료와 기록상 잔액, 그리고 {shipper_b}의 {cargo_b} 중 {gate_b}에 실제 반출된 건의 예정 공컨테이너 반납일과 실제 지정 야드 반납일을 확인해 주세요.",
+    "requests": [
+      [
+        "charged",
+        "balance"
+      ],
+      [
+        "scheduled",
+        "returned"
+      ]
+    ],
+    "identify": [
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ],
+      [
+        "shipper",
+        "cargo",
+        "gate"
+      ]
+    ]
+  },
+  {
+    "id": "N19",
+    "type": "single",
+    "question": "다음 주 빈 장비 반납 계획을 잡으려고 합니다. {equipment_a}의 예정 공컨테이너 반납일과 실제 지정 야드 반납일을 알려주세요.",
+    "requests": [
+      [
+        "scheduled",
+        "returned"
+      ]
+    ],
+    "identify": [
+      []
+    ]
+  },
+  {
+    "id": "N20",
+    "type": "clarify",
+    "question": "정산 메모에 {spec_phrase_a}라고만 적혀 있어 {shipper_a}의 {gate_a}에 실제 반출된 건을 특정하기 어렵습니다. 그 표현이 가리키는 기록을 확인할 수 있도록 필요한 추가 정보를 알려주시겠어요? 확인되면 해당 한 건의 실제 반출일과 확정 보관료도 부탁드립니다.",
+    "requests": [
+      [
+        "gate",
+        "charged"
+      ],
+      [
+        "gate",
+        "charged"
+      ]
+    ],
+    "identify": [
+      [],
+      []
+    ]
+  }
+]

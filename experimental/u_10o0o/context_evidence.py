@@ -17,7 +17,7 @@ from typing import Any
 import tiktoken
 
 from app.generation.context import build_context
-from shared.contracts import Chunk, RetrievedChunk
+from shared.contracts import Chunk, ContextBundle, RetrievedChunk
 
 _CONTEXT_CHUNKS = 3
 _TOKENIZER = "o200k_base"
@@ -132,7 +132,7 @@ def score_context(
     ranked: Sequence[tuple[Mapping[str, Any], float]],
     evidence_groups: Sequence[Sequence[Mapping[str, Any]]],
     *,
-    token_budget: int = 4000,
+    token_budget: int | None = 4000,
     top_k: int = _CONTEXT_CHUNKS,
 ) -> dict[str, int]:
     """Score quote coverage in the actual context assembled from ranked results.
@@ -141,17 +141,17 @@ def score_context(
     single selected chunk with the same document and page as its gold label. Text
     from separate chunks is never joined for matching. The returned mapping has
     integer values only and contains no labels or source text.
+    Pass None as the token budget to limit the context only by page count.
     """
-    if (
+    if token_budget is not None and (
         isinstance(token_budget, bool)
         or not isinstance(token_budget, int)
         or token_budget <= 0
     ):
-        raise ValueError("token_budget must be a positive integer.")
+        raise ValueError("token_budget must be None or a positive integer.")
     if isinstance(top_k, bool) or not isinstance(top_k, int) or top_k <= 0:
         raise ValueError("top_k must be a positive integer.")
 
-    groups, expected = _quote_groups(evidence_groups)
     candidates = _context_candidates(ranked)
     context = build_context(
         candidates,
@@ -159,7 +159,13 @@ def score_context(
         token_budget=token_budget,
         count_tokens=_count_tokens,
     )
+    return score_packed_context(context, evidence_groups)
 
+
+def score_packed_context(
+    context: ContextBundle, evidence_groups: Sequence[Sequence[Mapping[str, Any]]]
+) -> dict[str, int]:
+    groups, expected = _quote_groups(evidence_groups)
     found: set[tuple[str, int, str]] = set()
     for result in context.final_chunks:
         chunk = result.chunk
