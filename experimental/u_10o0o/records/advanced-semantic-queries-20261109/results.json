@@ -1,0 +1,618 @@
+{
+  "inputs": {
+    "manifest.json": {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/manifest.json",
+      "sha256": "5cf003df1d9ebf23af28e9440f3f0e5f99072b21551dae320789969994804854"
+    },
+    "questions.json": {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/questions.json",
+      "sha256": "b6347f69fe72b4ead5147aed367f03bf5110286eb52d364df460269421959d82"
+    },
+    "references.json": {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+    }
+  },
+  "source": {
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "case_links": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    }
+  },
+  "code": {
+    "runner": {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/compare.py",
+      "sha256": "8f559a74fdf9cd5d231a8efd45897a1b8ae6e6e7fa3cffa320effc812dbad80a"
+    },
+    "source_lookup": {
+      "path": "experimental/u_10o0o/advanced_source_lookup.py",
+      "sha256": "9ac42d6faec1bad8269b0a5818be8095fa3a7391864ed60e31afdd49ffc23231"
+    }
+  },
+  "limits": {
+    "candidates": 20,
+    "pages": 8,
+    "context_tokens": 8000
+  },
+  "personal": {
+    "baseline": "bigram_id_fielded_kure_top3_paired_source_lookup",
+    "reranker": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd"
+  },
+  "hybrid": {
+    "model": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+    "revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+    "vectors": {
+      "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+      "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+    },
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "rrf_k": 60
+  },
+  "peer": {
+    "prepared_at": "2026-11-09T17:27:04.945166+09:00",
+    "source_code": [
+      {
+        "path": "experimental/ysl727727/overnight/prepare.py",
+        "sha256": "32efce1d8399875b422c656941d43aa9f1af1ce5b17732f44d7e22c554ae6ddd"
+      },
+      {
+        "path": "experimental/ysl727727/overnight/common.py",
+        "sha256": "5b909aeb1542af60a02486a1a0074337f4bc00135fb7a188952293e73f8b38c7"
+      },
+      {
+        "path": "experimental/ysl727727/overnight/index.py",
+        "sha256": "7df8b90480c6fac5b4a5fe0a6bde4e7d10971a6ec77cf0951ebf7478b5d4e38c"
+      },
+      {
+        "path": "experimental/ysl727727/overnight/run.py",
+        "sha256": "8bce13558effe94059f775e23a6bd53adfea26d32364258ecdcdeca0e24f12bf"
+      }
+    ],
+    "archive_sha256": "14e15c4a375aec6261964176e58264e668bee4214497859196cae6fb21e72ae9",
+    "dataset": "data/advanced/documents/*.pdf",
+    "pdf_count": 120,
+    "page_count": 18000,
+    "p800_chunk_count": 22355,
+    "dense": {
+      "model": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "dtype": "float16"
+    },
+    "reranker": {
+      "model": "BAAI/bge-reranker-v2-m3",
+      "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+      "max_tokens": 512,
+      "dtype": "float16"
+    },
+    "preset_name": "team_graph",
+    "preset": {
+      "chunks": "p800",
+      "emb": "e5s",
+      "tok": "main",
+      "cand_d": 20,
+      "cand_b": 20,
+      "pool": 20,
+      "rerank": "BAAI/bge-reranker-v2-m3",
+      "entity": false,
+      "hop2": 0,
+      "cap": 0,
+      "rrf_w": null,
+      "qr": null,
+      "graph": 6,
+      "mmr": 0.2,
+      "seed": 1,
+      "pcap": 0,
+      "mq": null,
+      "route": 0,
+      "ppr": 0,
+      "gkey": false,
+      "llmsel": 0,
+      "gfix": true,
+      "gfloor": 0.05,
+      "selkeep": 0,
+      "selil": false,
+      "seleff": null,
+      "selskip": 0
+    },
+    "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "candidate_chunks": 20,
+    "llm_calls": 0,
+    "index_dir": "artifacts/u_10o0o/advanced-semantic-queries-20261109/peer-index",
+    "returned": {
+      "chunks": 800,
+      "unique_pages": 789,
+      "missing_pages": 0
+    },
+    "reranker_pairs": 850
+  },
+  "external_api_calls": 0,
+  "summary": {
+    "all": {
+      "questions": 40,
+      "required_facts": 62,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 8,
+          "candidate_hits": 18,
+          "expanded_complete": 8,
+          "expanded_hits": 18,
+          "final_complete": 7,
+          "final_hits": 17,
+          "page_recall_at_8": 0.27083333333333337,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 32,
+            "unsupported_constraint/fallback/no_verified_pair": 8
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 14,
+          "candidate_hits": 29,
+          "expanded_complete": 14,
+          "expanded_hits": 29,
+          "final_complete": 13,
+          "final_hits": 26,
+          "page_recall_at_8": 0.4458333333333333,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 32,
+            "unsupported_constraint/fallback/no_verified_pair": 8
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 10,
+          "candidate_hits": 23,
+          "expanded_complete": 10,
+          "expanded_hits": 23,
+          "final_complete": 9,
+          "final_hits": 21,
+          "page_recall_at_8": 0.32083333333333336,
+          "routes": {
+            "team_graph": 40
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09",
+            "AS-SEM-12",
+            "AS-SEM-13",
+            "AS-SEM-17",
+            "AS-SEM-25",
+            "AS-SEM-37"
+          ],
+          "complete_lost": [
+            "AS-SEM-29",
+            "AS-SEM-40"
+          ],
+          "facts_gained": 14,
+          "facts_lost": 3
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09",
+            "AS-SEM-12",
+            "AS-SEM-17",
+            "AS-SEM-25",
+            "AS-SEM-37"
+          ],
+          "complete_lost": [
+            "AS-SEM-29"
+          ],
+          "facts_gained": 12,
+          "facts_lost": 3
+        }
+      }
+    },
+    "single_document": {
+      "questions": 20,
+      "required_facts": 21,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 5,
+          "candidate_hits": 5,
+          "expanded_complete": 5,
+          "expanded_hits": 5,
+          "final_complete": 5,
+          "final_hits": 5,
+          "page_recall_at_8": 0.25,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 18,
+            "unsupported_constraint/fallback/no_verified_pair": 2
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 11,
+          "candidate_hits": 11,
+          "expanded_complete": 11,
+          "expanded_hits": 11,
+          "final_complete": 10,
+          "final_hits": 10,
+          "page_recall_at_8": 0.5,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 18,
+            "unsupported_constraint/fallback/no_verified_pair": 2
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 6,
+          "candidate_hits": 6,
+          "expanded_complete": 6,
+          "expanded_hits": 6,
+          "final_complete": 5,
+          "final_hits": 5,
+          "page_recall_at_8": 0.25,
+          "routes": {
+            "team_graph": 20
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09",
+            "AS-SEM-12",
+            "AS-SEM-13",
+            "AS-SEM-17"
+          ],
+          "complete_lost": [],
+          "facts_gained": 6,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09",
+            "AS-SEM-12",
+            "AS-SEM-17"
+          ],
+          "complete_lost": [],
+          "facts_gained": 5,
+          "facts_lost": 0
+        }
+      }
+    },
+    "multi_document": {
+      "questions": 20,
+      "required_facts": 41,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 3,
+          "candidate_hits": 13,
+          "expanded_complete": 3,
+          "expanded_hits": 13,
+          "final_complete": 2,
+          "final_hits": 12,
+          "page_recall_at_8": 0.29166666666666663,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 14,
+            "unsupported_constraint/fallback/no_verified_pair": 6
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 3,
+          "candidate_hits": 18,
+          "expanded_complete": 3,
+          "expanded_hits": 18,
+          "final_complete": 3,
+          "final_hits": 16,
+          "page_recall_at_8": 0.39166666666666666,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 14,
+            "unsupported_constraint/fallback/no_verified_pair": 6
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 4,
+          "candidate_hits": 17,
+          "expanded_complete": 4,
+          "expanded_hits": 17,
+          "final_complete": 4,
+          "final_hits": 16,
+          "page_recall_at_8": 0.39166666666666666,
+          "routes": {
+            "team_graph": 20
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-25",
+            "AS-SEM-37"
+          ],
+          "complete_lost": [
+            "AS-SEM-29",
+            "AS-SEM-40"
+          ],
+          "facts_gained": 8,
+          "facts_lost": 3
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-25",
+            "AS-SEM-37"
+          ],
+          "complete_lost": [
+            "AS-SEM-29"
+          ],
+          "facts_gained": 7,
+          "facts_lost": 3
+        }
+      }
+    },
+    "procedure_paraphrase": {
+      "questions": 10,
+      "required_facts": 10,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 3,
+          "candidate_hits": 3,
+          "expanded_complete": 3,
+          "expanded_hits": 3,
+          "final_complete": 3,
+          "final_hits": 3,
+          "page_recall_at_8": 0.3,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 10
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 6,
+          "candidate_hits": 6,
+          "expanded_complete": 6,
+          "expanded_hits": 6,
+          "final_complete": 6,
+          "final_hits": 6,
+          "page_recall_at_8": 0.6,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 10
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 3,
+          "candidate_hits": 3,
+          "expanded_complete": 3,
+          "expanded_hits": 3,
+          "final_complete": 2,
+          "final_hits": 2,
+          "page_recall_at_8": 0.2,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09"
+          ],
+          "complete_lost": [],
+          "facts_gained": 3,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-05",
+            "AS-SEM-07",
+            "AS-SEM-09"
+          ],
+          "complete_lost": [],
+          "facts_gained": 3,
+          "facts_lost": 0
+        }
+      }
+    },
+    "rule_paraphrase": {
+      "questions": 10,
+      "required_facts": 11,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 2,
+          "candidate_hits": 2,
+          "expanded_complete": 2,
+          "expanded_hits": 2,
+          "final_complete": 2,
+          "final_hits": 2,
+          "page_recall_at_8": 0.2,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 8,
+            "unsupported_constraint/fallback/no_verified_pair": 2
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 5,
+          "candidate_hits": 5,
+          "expanded_complete": 5,
+          "expanded_hits": 5,
+          "final_complete": 4,
+          "final_hits": 4,
+          "page_recall_at_8": 0.4,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 8,
+            "unsupported_constraint/fallback/no_verified_pair": 2
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 3,
+          "candidate_hits": 3,
+          "expanded_complete": 3,
+          "expanded_hits": 3,
+          "final_complete": 3,
+          "final_hits": 3,
+          "page_recall_at_8": 0.3,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-12",
+            "AS-SEM-13",
+            "AS-SEM-17"
+          ],
+          "complete_lost": [],
+          "facts_gained": 3,
+          "facts_lost": 0
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-12",
+            "AS-SEM-17"
+          ],
+          "complete_lost": [],
+          "facts_gained": 2,
+          "facts_lost": 0
+        }
+      }
+    },
+    "cross_document_workflow": {
+      "questions": 10,
+      "required_facts": 20,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 2,
+          "candidate_hits": 7,
+          "expanded_complete": 2,
+          "expanded_hits": 7,
+          "final_complete": 2,
+          "final_hits": 7,
+          "page_recall_at_8": 0.35,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 9,
+            "unsupported_constraint/fallback/no_verified_pair": 1
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 2,
+          "candidate_hits": 11,
+          "expanded_complete": 2,
+          "expanded_hits": 11,
+          "final_complete": 2,
+          "final_hits": 11,
+          "page_recall_at_8": 0.55,
+          "routes": {
+            "missing_terms/fallback/no_verified_pair": 9,
+            "unsupported_constraint/fallback/no_verified_pair": 1
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 2,
+          "candidate_hits": 9,
+          "expanded_complete": 2,
+          "expanded_hits": 9,
+          "final_complete": 2,
+          "final_hits": 8,
+          "page_recall_at_8": 0.4,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-25"
+          ],
+          "complete_lost": [
+            "AS-SEM-29"
+          ],
+          "facts_gained": 5,
+          "facts_lost": 1
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-25"
+          ],
+          "complete_lost": [
+            "AS-SEM-29"
+          ],
+          "facts_gained": 5,
+          "facts_lost": 1
+        }
+      }
+    },
+    "cross_document_rule": {
+      "questions": 10,
+      "required_facts": 21,
+      "arms": {
+        "bm25": {
+          "candidate_complete": 1,
+          "candidate_hits": 6,
+          "expanded_complete": 1,
+          "expanded_hits": 6,
+          "final_complete": 0,
+          "final_hits": 5,
+          "page_recall_at_8": 0.23333333333333334,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 5,
+            "missing_terms/fallback/no_verified_pair": 5
+          }
+        },
+        "rrf_55": {
+          "candidate_complete": 1,
+          "candidate_hits": 7,
+          "expanded_complete": 1,
+          "expanded_hits": 7,
+          "final_complete": 1,
+          "final_hits": 5,
+          "page_recall_at_8": 0.23333333333333334,
+          "routes": {
+            "unsupported_constraint/fallback/no_verified_pair": 5,
+            "missing_terms/fallback/no_verified_pair": 5
+          }
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 2,
+          "candidate_hits": 8,
+          "expanded_complete": 2,
+          "expanded_hits": 8,
+          "final_complete": 2,
+          "final_hits": 8,
+          "page_recall_at_8": 0.38333333333333336,
+          "routes": {
+            "team_graph": 10
+          }
+        }
+      },
+      "hybrid_vs_bm25": {
+        "candidate": {
+          "complete_gained": [
+            "AS-SEM-37"
+          ],
+          "complete_lost": [
+            "AS-SEM-40"
+          ],
+          "facts_gained": 3,
+          "facts_lost": 2
+        },
+        "final": {
+          "complete_gained": [
+            "AS-SEM-37"
+          ],
+          "complete_lost": [],
+          "facts_gained": 2,
+          "facts_lost": 2
+        }
+      }
+    }
+  }
+}
