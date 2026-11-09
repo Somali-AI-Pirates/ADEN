@@ -156,6 +156,11 @@ def render_readme(report_dir: Path) -> str:
                   "(`flushed_unverified`는 전송 요청만 끝난 상태이며 저장 확인이 아니다)",
                   f"- Langfuse 저장 확인(요청 수): `{bench.get('langfuse_verification')}` "
                   "(`verified`만 API에서 관측을 조회한 것, `None`은 추적 비활성·어댑터 관리)"]
+    regrade = manifest.get("regrade")
+    if regrade:
+        lines += [f"- 재채점: 원본 `{regrade['source_experiment_id']}`의 저장 답변을 다시 채점했다"
+                  f"(답변 재생성 없음). Judge 프롬프트 `{regrade['judge_prompt_file']}`, "
+                  f"Faithfulness {regrade['faithfulness']}"]
 
     if summary:
         lines += ["", "## 방식별 품질 요약", "",
