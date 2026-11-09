@@ -1,0 +1,572 @@
+{
+  "all": {
+    "questions": 6500,
+    "triggered": 1350,
+    "changed_contexts": 1350,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 1350,
+    "archived_control_differences": 0,
+    "gained_all_facts": 571,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.9503076923076923,
+        "doc_recall@8": 0.9512307692307692,
+        "quote_recall": 0.9216410256410257,
+        "fact_recall": 0.9411692307692309,
+        "all_facts": 0.7526153846153846,
+        "context_tokens": 3696.7612307692307,
+        "context_chunks": 6.632923076923077
+      },
+      "case_lookup": {
+        "page_recall@8": 0.9635076923076923,
+        "doc_recall@8": 0.9643384615384615,
+        "quote_recall": 0.939923076923077,
+        "fact_recall": 0.9587384615384615,
+        "all_facts": 0.8404615384615385,
+        "context_tokens": 3717.3792307692306,
+        "context_chunks": 6.681230769230769
+      }
+    }
+  },
+  "disjoint": {
+    "questions": 6103,
+    "triggered": 1196,
+    "changed_contexts": 1196,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 1196,
+    "archived_control_differences": 0,
+    "gained_all_facts": 498,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.9539570702932983,
+        "doc_recall@8": 0.9548091102736359,
+        "quote_recall": 0.927248893986564,
+        "fact_recall": 0.9452728166475504,
+        "all_facts": 0.7699492053088645,
+        "context_tokens": 3698.368507291496,
+        "context_chunks": 6.606914632148124
+      },
+      "case_lookup": {
+        "page_recall@8": 0.9663116500081926,
+        "doc_recall@8": 0.9670981484515812,
+        "quote_recall": 0.9441531487246709,
+        "fact_recall": 0.9615926593478618,
+        "all_facts": 0.8515484188104211,
+        "context_tokens": 3717.6840897919055,
+        "context_chunks": 6.65197443880059
+      }
+    }
+  },
+  "triggered": {
+    "questions": 1350,
+    "triggered": 1350,
+    "changed_contexts": 1350,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 1350,
+    "archived_control_differences": 0,
+    "gained_all_facts": 571,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.9364444444444445,
+        "doc_recall@8": 0.9368888888888889,
+        "quote_recall": 0.9119753086419754,
+        "fact_recall": 0.9154074074074073,
+        "all_facts": 0.577037037037037,
+        "context_tokens": 3631.788888888889,
+        "context_chunks": 7.257037037037037
+      },
+      "case_lookup": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3731.0607407407406,
+        "context_chunks": 7.489629629629629
+      }
+    }
+  },
+  "disjoint:triggered": {
+    "questions": 1196,
+    "triggered": 1196,
+    "changed_contexts": 1196,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 1196,
+    "archived_control_differences": 0,
+    "gained_all_facts": 498,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.9369565217391304,
+        "doc_recall@8": 0.9372909698996655,
+        "quote_recall": 0.9137402452619843,
+        "fact_recall": 0.916722408026756,
+        "all_facts": 0.5836120401337793,
+        "context_tokens": 3634.8804347826085,
+        "context_chunks": 7.264214046822742
+      },
+      "case_lookup": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3733.4448160535117,
+        "context_chunks": 7.4941471571906355
+      }
+    }
+  },
+  "disjoint:type:linked_cost_handoff": {
+    "questions": 2407,
+    "triggered": 1196,
+    "changed_contexts": 1196,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 1196,
+    "archived_control_differences": 0,
+    "gained_all_facts": 498,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.8832571665974241,
+        "doc_recall@8": 0.8854175321977564,
+        "quote_recall": 0.8159534690486082,
+        "fact_recall": 0.8616535105941006,
+        "all_facts": 0.41711674283340255,
+        "context_tokens": 3669.238471125883,
+        "context_chunks": 7.294972995429996
+      },
+      "case_lookup": {
+        "page_recall@8": 0.9145824678022435,
+        "doc_recall@8": 0.9165766514333195,
+        "quote_recall": 0.8588145686193047,
+        "fact_recall": 0.9030328209389281,
+        "all_facts": 0.6240132945575405,
+        "context_tokens": 3718.2135438304945,
+        "context_chunks": 7.409223099293727
+      }
+    }
+  },
+  "disjoint:identifier:explicit": {
+    "questions": 4892,
+    "triggered": 1196,
+    "changed_contexts": 1196,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 1196,
+    "archived_control_differences": 0,
+    "gained_all_facts": 498,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.9845870809484873,
+        "doc_recall@8": 0.9846688470973017,
+        "quote_recall": 0.9787067320795857,
+        "fact_recall": 0.9794358135731807,
+        "all_facts": 0.8979967293540474,
+        "context_tokens": 3697.17968111202,
+        "context_chunks": 6.429067865903516
+      },
+      "case_lookup": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 0.999795584627964,
+        "fact_recall": 0.999795584627964,
+        "all_facts": 0.999795584627964,
+        "context_tokens": 3721.276778413737,
+        "context_chunks": 6.485282093213409
+      }
+    }
+  },
+  "overlap": {
+    "questions": 397,
+    "triggered": 154,
+    "changed_contexts": 154,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 154,
+    "archived_control_differences": 0,
+    "gained_all_facts": 73,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.8942065491183879,
+        "doc_recall@8": 0.8962216624685139,
+        "quote_recall": 0.8354324097397146,
+        "fact_recall": 0.8780856423173804,
+        "all_facts": 0.48614609571788414,
+        "context_tokens": 3672.052896725441,
+        "context_chunks": 7.0327455919395465
+      },
+      "case_lookup": {
+        "page_recall@8": 0.9204030226700252,
+        "doc_recall@8": 0.9219143576826196,
+        "quote_recall": 0.874895046179681,
+        "fact_recall": 0.9148614609571788,
+        "all_facts": 0.6700251889168766,
+        "context_tokens": 3712.6926952141057,
+        "context_chunks": 7.130982367758186
+      }
+    }
+  },
+  "fallback": {
+    "questions": 5150,
+    "triggered": 0,
+    "changed_contexts": 0,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 0,
+    "archived_control_differences": 0,
+    "gained_all_facts": 0,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.9539417475728156,
+        "doc_recall@8": 0.9549902912621359,
+        "quote_recall": 0.9241747572815534,
+        "fact_recall": 0.9479223300970874,
+        "all_facts": 0.7986407766990291,
+        "context_tokens": 3713.7928155339805,
+        "context_chunks": 6.469320388349515
+      },
+      "case_lookup": {
+        "page_recall@8": 0.9539417475728156,
+        "doc_recall@8": 0.9549902912621359,
+        "quote_recall": 0.9241747572815534,
+        "fact_recall": 0.9479223300970874,
+        "all_facts": 0.7986407766990291,
+        "context_tokens": 3713.7928155339805,
+        "context_chunks": 6.469320388349515
+      }
+    }
+  },
+  "overlap:fallback": {
+    "questions": 243,
+    "triggered": 0,
+    "changed_contexts": 0,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 0,
+    "archived_control_differences": 0,
+    "gained_all_facts": 0,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.8699588477366256,
+        "doc_recall@8": 0.8724279835390947,
+        "quote_recall": 0.7956104252400549,
+        "fact_recall": 0.8609053497942387,
+        "all_facts": 0.4609053497942387,
+        "context_tokens": 3712.786008230453,
+        "context_chunks": 6.925925925925926
+      },
+      "case_lookup": {
+        "page_recall@8": 0.8699588477366256,
+        "doc_recall@8": 0.8724279835390947,
+        "quote_recall": 0.7956104252400549,
+        "fact_recall": 0.8609053497942387,
+        "all_facts": 0.4609053497942387,
+        "context_tokens": 3712.786008230453,
+        "context_chunks": 6.925925925925926
+      }
+    }
+  },
+  "overlap:type:linked_cost_handoff": {
+    "questions": 323,
+    "triggered": 154,
+    "changed_contexts": 154,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 154,
+    "archived_control_differences": 0,
+    "gained_all_facts": 73,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.8699690402476781,
+        "doc_recall@8": 0.8724458204334365,
+        "quote_recall": 0.7977296181630548,
+        "fact_recall": 0.8501547987616099,
+        "all_facts": 0.3684210526315789,
+        "context_tokens": 3662.5665634674924,
+        "context_chunks": 7.266253869969041
+      },
+      "case_lookup": {
+        "page_recall@8": 0.9021671826625386,
+        "doc_recall@8": 0.9040247678018576,
+        "quote_recall": 0.8462332301341589,
+        "fact_recall": 0.8953560371517028,
+        "all_facts": 0.5944272445820433,
+        "context_tokens": 3712.517027863777,
+        "context_chunks": 7.386996904024768
+      }
+    }
+  },
+  "overlap:identifier:implicit": {
+    "questions": 169,
+    "triggered": 0,
+    "changed_contexts": 0,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 0,
+    "archived_control_differences": 0,
+    "gained_all_facts": 0,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.81301775147929,
+        "doc_recall@8": 0.8165680473372781,
+        "quote_recall": 0.7061143984220907,
+        "fact_recall": 0.8000000000000002,
+        "all_facts": 0.22485207100591717,
+        "context_tokens": 3712.491124260355,
+        "context_chunks": 7.325443786982248
+      },
+      "case_lookup": {
+        "page_recall@8": 0.81301775147929,
+        "doc_recall@8": 0.8165680473372781,
+        "quote_recall": 0.7061143984220907,
+        "fact_recall": 0.8000000000000002,
+        "all_facts": 0.22485207100591717,
+        "context_tokens": 3712.491124260355,
+        "context_chunks": 7.325443786982248
+      }
+    }
+  },
+  "disjoint:fallback": {
+    "questions": 4907,
+    "triggered": 0,
+    "changed_contexts": 0,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 0,
+    "archived_control_differences": 0,
+    "gained_all_facts": 0,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.958100672508661,
+        "doc_recall@8": 0.9590788669248013,
+        "quote_recall": 0.9305414034372665,
+        "fact_recall": 0.9522315060118199,
+        "all_facts": 0.8153658039535358,
+        "context_tokens": 3713.842673731404,
+        "context_chunks": 6.446708783370695
+      },
+      "case_lookup": {
+        "page_recall@8": 0.958100672508661,
+        "doc_recall@8": 0.9590788669248013,
+        "quote_recall": 0.9305414034372665,
+        "fact_recall": 0.9522315060118199,
+        "all_facts": 0.8153658039535358,
+        "context_tokens": 3713.842673731404,
+        "context_chunks": 6.446708783370695
+      }
+    }
+  },
+  "disjoint:identifier:implicit": {
+    "questions": 1211,
+    "triggered": 0,
+    "changed_contexts": 0,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 0,
+    "archived_control_differences": 0,
+    "gained_all_facts": 0,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.8302229562345169,
+        "doc_recall@8": 0.834186622625929,
+        "quote_recall": 0.7193779245802366,
+        "fact_recall": 0.8072667217175888,
+        "all_facts": 0.2526837324525186,
+        "context_tokens": 3703.1709331131296,
+        "context_chunks": 7.325350949628406
+      },
+      "case_lookup": {
+        "page_recall@8": 0.8302229562345169,
+        "doc_recall@8": 0.834186622625929,
+        "quote_recall": 0.7193779245802366,
+        "fact_recall": 0.8072667217175888,
+        "all_facts": 0.2526837324525186,
+        "context_tokens": 3703.1709331131296,
+        "context_chunks": 7.325350949628406
+      }
+    }
+  },
+  "overlap:triggered": {
+    "questions": 154,
+    "triggered": 154,
+    "changed_contexts": 154,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 154,
+    "archived_control_differences": 0,
+    "gained_all_facts": 73,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.9324675324675324,
+        "doc_recall@8": 0.9337662337662338,
+        "quote_recall": 0.8982683982683983,
+        "fact_recall": 0.9051948051948052,
+        "all_facts": 0.525974025974026,
+        "context_tokens": 3607.779220779221,
+        "context_chunks": 7.201298701298701
+      },
+      "case_lookup": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3712.5454545454545,
+        "context_chunks": 7.454545454545454
+      }
+    }
+  },
+  "overlap:identifier:explicit": {
+    "questions": 228,
+    "triggered": 154,
+    "changed_contexts": 154,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 154,
+    "archived_control_differences": 0,
+    "gained_all_facts": 73,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 0.9543859649122807,
+        "doc_recall@8": 0.9552631578947369,
+        "quote_recall": 0.9312865497076024,
+        "fact_recall": 0.9359649122807018,
+        "all_facts": 0.6798245614035088,
+        "context_tokens": 3642.0789473684213,
+        "context_chunks": 6.815789473684211
+      },
+      "case_lookup": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3712.842105263158,
+        "context_chunks": 6.9868421052631575
+      }
+    }
+  },
+  "disjoint:type:terminal_handoff": {
+    "questions": 186,
+    "triggered": 0,
+    "changed_contexts": 0,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 0,
+    "archived_control_differences": 0,
+    "gained_all_facts": 0,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3807.3602150537636,
+        "context_chunks": 6.0
+      },
+      "case_lookup": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3807.3602150537636,
+        "context_chunks": 6.0
+      }
+    }
+  },
+  "overlap:type:terminal_handoff": {
+    "questions": 12,
+    "triggered": 0,
+    "changed_contexts": 0,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 0,
+    "archived_control_differences": 0,
+    "gained_all_facts": 0,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3817.8333333333335,
+        "context_chunks": 6.0
+      },
+      "case_lookup": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3817.8333333333335,
+        "context_chunks": 6.0
+      }
+    }
+  },
+  "disjoint:type:handbook_record": {
+    "questions": 3510,
+    "triggered": 0,
+    "changed_contexts": 0,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 0,
+    "archived_control_differences": 0,
+    "gained_all_facts": 0,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 0.9997150997150998,
+        "fact_recall": 0.9997150997150998,
+        "all_facts": 0.9997150997150998,
+        "context_tokens": 3712.568945868946,
+        "context_chunks": 6.167236467236467
+      },
+      "case_lookup": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 0.9997150997150998,
+        "fact_recall": 0.9997150997150998,
+        "all_facts": 0.9997150997150998,
+        "context_tokens": 3712.568945868946,
+        "context_chunks": 6.167236467236467
+      }
+    }
+  },
+  "overlap:type:handbook_record": {
+    "questions": 62,
+    "triggered": 0,
+    "changed_contexts": 0,
+    "wrong_cases": 0,
+    "all_linked_pages_in_context": 0,
+    "archived_control_differences": 0,
+    "gained_all_facts": 0,
+    "lost_all_facts": 0,
+    "arms": {
+      "fielded": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3693.2580645161293,
+        "context_chunks": 6.016129032258065
+      },
+      "case_lookup": {
+        "page_recall@8": 1.0,
+        "doc_recall@8": 1.0,
+        "quote_recall": 1.0,
+        "fact_recall": 1.0,
+        "all_facts": 1.0,
+        "context_tokens": 3693.2580645161293,
+        "context_chunks": 6.016129032258065
+      }
+    }
+  }
+}

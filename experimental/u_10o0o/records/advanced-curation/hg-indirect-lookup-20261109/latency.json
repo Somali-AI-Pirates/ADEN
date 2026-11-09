@@ -1,0 +1,31 @@
+{
+  "question_ids": [
+    "ADV-FULL-02148",
+    "ADV-FULL-01111",
+    "ADV-FULL-01827",
+    "ADV-FULL-01962",
+    "ADV-FULL-02324",
+    "ADV-FULL-00312",
+    "ADV-FULL-00475",
+    "ADV-FULL-01403",
+    "ADV-FULL-00639",
+    "ADV-FULL-02005",
+    "ADV-FULL-00869",
+    "ADV-FULL-01281",
+    "ADV-FULL-00782",
+    "ADV-FULL-02359",
+    "ADV-FULL-02368",
+    "ADV-FULL-00537"
+  ],
+  "scope": "warm single-query search, KURE, lookup and context packing on implicit queries",
+  "arms": {
+    "explicit_lookup": {
+      "p50_ms": 191.79607649994068,
+      "p95_ms": 198.36248599995088
+    },
+    "indirect_lookup": {
+      "p50_ms": 191.52513649987668,
+      "p95_ms": 197.9520249997222
+    }
+  }
+}

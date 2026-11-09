@@ -7,7 +7,6 @@ from app.api.lifespan import lifespan
 from app.api.middleware import track_request
 from app.api.routes import router
 
-
 app = FastAPI(
     title="ADEN 해운 문서 질의응답",
     description=(

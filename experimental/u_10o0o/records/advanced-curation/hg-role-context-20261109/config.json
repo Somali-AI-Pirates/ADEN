@@ -1,0 +1,82 @@
+{
+  "inputs": {
+    "questions": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/questions.json",
+      "sha256": "0574126e0085137c0ff5e456a8951eccaf62ce9f5b5f76216252b60ddf6914ab"
+    },
+    "references": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/references.json",
+      "sha256": "7351b50903b9a107325185d9b803cc8f870b34066838aa9e889e022fce328f15"
+    },
+    "blind_related_question_ids": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/blind_related_question_ids.json",
+      "sha256": "b7f5db481f58b6122a97dfb08a477830b7598983d385c2b970f81d08176d8690"
+    },
+    "manifest": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/manifest.json",
+      "sha256": "3942b790427bd5abcc67df1af0039e322b246a229cc1d39b65cab7aefb26e241"
+    }
+  },
+  "pages": {
+    "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+    "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+  },
+  "candidate_count": 20,
+  "final_k": 8,
+  "context_tokens": 4000,
+  "kure": {
+    "model": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "max_tokens": 512,
+    "batch_size": 32,
+    "dtype": "float16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "previous_results": {
+    "path": "experimental/u_10o0o/records/advanced-curation/hg-indirect-lookup-20261109/questions.jsonl",
+    "sha256": "eb98119aea920e75362e1f2cb6eead3dc66a4a7b59b59fe5638fab18b5219e23"
+  },
+  "curation_manifest_sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+  "role_facts": {
+    "curation_manifest_sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+    "case_sources_sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326",
+    "role_facts_sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66",
+    "cases": 2730,
+    "source_pages": 13650,
+    "source_table_rows": 68796,
+    "normalized_facts": 107016,
+    "unrecognized_table_rows": 0,
+    "facts_by_role_and_state": {
+      "비용 조건 약정": {
+        "reported": 5460,
+        "needs_review": 10920
+      },
+      "현장 사건 수신대장": {
+        "reported": 13377,
+        "receipt_missing": 182,
+        "non_designated_yard_only": 91
+      },
+      "계약 조건 대조 회신": {
+        "reported": 16653,
+        "needs_review": 273
+      },
+      "비용 청구 명세": {
+        "reported": 29029,
+        "not_applicable": 7917,
+        "needs_review": 5642,
+        "unconfirmed": 1092
+      },
+      "수납 및 미결 인계": {
+        "reported": 15561,
+        "unconfirmed": 819
+      }
+    },
+    "review_reasons": {
+      "currency_missing": 16562,
+      "currency_or_rate_band_unspecified": 273
+    }
+  },
+  "condition_note_pattern": "조건|효력|정정|예외|증빙|누락|미결|미확정|승인|요청|반려|환급|충당|산입|적용|기준|상한|감액|면제|각주|비고|참고|유의|오기|지정 외|수신|인계",
+  "runner_sha256": "9e52732d5d34fa053476fb1116b8def4353a8a503ea51946c86587bfb137749b",
+  "generation_calls": 0
+}

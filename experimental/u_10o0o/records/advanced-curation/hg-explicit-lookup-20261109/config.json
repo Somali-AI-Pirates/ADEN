@@ -1,0 +1,66 @@
+{
+  "inputs": {
+    "questions": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/questions.json",
+      "sha256": "0574126e0085137c0ff5e456a8951eccaf62ce9f5b5f76216252b60ddf6914ab"
+    },
+    "references": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/references.json",
+      "sha256": "7351b50903b9a107325185d9b803cc8f870b34066838aa9e889e022fce328f15"
+    },
+    "blind_related_question_ids": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/blind_related_question_ids.json",
+      "sha256": "b7f5db481f58b6122a97dfb08a477830b7598983d385c2b970f81d08176d8690"
+    },
+    "manifest": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/manifest.json",
+      "sha256": "3942b790427bd5abcc67df1af0039e322b246a229cc1d39b65cab7aefb26e241"
+    }
+  },
+  "pages": {
+    "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+    "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+  },
+  "candidate_count": 20,
+  "final_k": 8,
+  "context_tokens": 4000,
+  "kure": {
+    "model": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "max_tokens": 512,
+    "batch_size": 32,
+    "dtype": "float16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "case_index": {
+    "curation_manifest_sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+    "case_sources_sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326",
+    "indexed_cases": 2730,
+    "source_links": 13650,
+    "review_cases": 0,
+    "unidentified_contexts": 0,
+    "review_reasons": {},
+    "links_by_role": {
+      "비용 조건 약정": 2730,
+      "현장 사건 수신대장": 2730,
+      "계약 조건 대조 회신": 2730,
+      "비용 청구 명세": 2730,
+      "수납 및 미결 인계": 2730
+    }
+  },
+  "archived_control": {
+    "config.json": {
+      "path": "experimental/u_10o0o/records/advanced-industry-patterns-20261108/full-coverage/config.json",
+      "sha256": "42a3b48b19a8e6f24eb343bf86abda0726816cabd4623adf9c433d837da8f064"
+    },
+    "questions.jsonl": {
+      "path": "experimental/u_10o0o/records/advanced-industry-patterns-20261108/full-coverage/questions.jsonl",
+      "sha256": "29b0b3ceec4bb24754996b23bd37e5ffcd573eee0d9a5ec2901c4eccec9b5134"
+    }
+  },
+  "runner_sha256": "7d242cbc7833f3df1cc5732a1acf082d6d9dc86afc67a51b649f6f94cfca7559",
+  "active_questions": 1350,
+  "control_replay": "same-run paired scores on triggered queries; archived scores on identical fallback",
+  "question_batch_size": 160,
+  "generation_calls": 0
+}
