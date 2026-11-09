@@ -16,3 +16,4 @@ ADEN은 해운 PDF를 검색해 예약·서류·처리 상태·비용 조건에 
 | 원본 배치, Qdrant 색인, 검색 확인 | [데이터 가이드](guides/data.md) |
 | 정제본 구조와 서비스 연결 범위 | [지식 데이터 설계](design/knowledge-data.md) |
 | 일반·보안 평가, 공식 실행과 검증 상태 | [평가 가이드](guides/c-module-guide.md) |
+| Judge 채점 기준 버전과 점수 변화 | [채점 기준 이력](guides/judge-rubric.md) |
