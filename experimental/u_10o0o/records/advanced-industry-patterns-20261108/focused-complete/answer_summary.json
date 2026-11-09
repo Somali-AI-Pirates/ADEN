@@ -1,0 +1,119 @@
+{
+  "model": "gpt-6-luna",
+  "rows": 32,
+  "completed_questions": 16,
+  "variants": {
+    "baseline": {
+      "rows": 16,
+      "reused_rows": 0,
+      "generation": {
+        "calls": 16,
+        "statuses": {
+          "error": 2,
+          "answered": 13,
+          "abstained": 1
+        },
+        "input_tokens": 71466,
+        "output_tokens": 5570,
+        "calls_missing_usage": 1,
+        "mean_latency_ms": 4519.1
+      },
+      "judge": {
+        "calls": 14,
+        "statuses": {
+          "skipped_generation_error": 2,
+          "complete": 14
+        },
+        "input_tokens": 73539,
+        "output_tokens": 4645,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 4617.4
+      },
+      "criteria": {
+        "fact": {
+          "statuses": {
+            "unavailable": 2,
+            "scored": 14
+          },
+          "mean_score": 1.0
+        },
+        "condition": {
+          "statuses": {
+            "unavailable": 2,
+            "scored": 14
+          },
+          "mean_score": 1.0
+        },
+        "evidence": {
+          "statuses": {
+            "unavailable": 2,
+            "scored": 14
+          },
+          "mean_score": 1.0
+        },
+        "decision": {
+          "statuses": {
+            "scored": 16
+          },
+          "mean_score": 0.875
+        }
+      }
+    },
+    "table_view": {
+      "rows": 16,
+      "reused_rows": 0,
+      "generation": {
+        "calls": 16,
+        "statuses": {
+          "answered": 9,
+          "error": 5,
+          "abstained": 2
+        },
+        "input_tokens": 70440,
+        "output_tokens": 7429,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 5592.2
+      },
+      "judge": {
+        "calls": 11,
+        "statuses": {
+          "complete": 11,
+          "skipped_generation_error": 5
+        },
+        "input_tokens": 53051,
+        "output_tokens": 4589,
+        "calls_missing_usage": 0,
+        "mean_latency_ms": 5353.0
+      },
+      "criteria": {
+        "fact": {
+          "statuses": {
+            "scored": 11,
+            "unavailable": 5
+          },
+          "mean_score": 0.6364
+        },
+        "condition": {
+          "statuses": {
+            "scored": 11,
+            "unavailable": 5
+          },
+          "mean_score": 0.8182
+        },
+        "evidence": {
+          "statuses": {
+            "scored": 11,
+            "unavailable": 5
+          },
+          "mean_score": 0.8182
+        },
+        "decision": {
+          "statuses": {
+            "scored": 16
+          },
+          "mean_score": 0.5
+        }
+      }
+    }
+  }
+}

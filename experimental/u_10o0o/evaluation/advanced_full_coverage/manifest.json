@@ -1,0 +1,89 @@
+{
+  "created_kst": "2026-11-08T23:55:11.517078+09:00",
+  "status": "source_checks_complete_human_review_pending",
+  "scope": "advanced_page_coverage_regression",
+  "pdfs": 120,
+  "physical_pages": 18000,
+  "prior_referenced_pages": 1602,
+  "new_set_primary_pages": 17816,
+  "first_time_referenced_pages": 16398,
+  "combined_coverage": 18000,
+  "by_page_family": {
+    "linked_cost": {
+      "all_pages": 13650,
+      "prior": 1391,
+      "new": 13650
+    },
+    "terminal": {
+      "all_pages": 600,
+      "prior": 33,
+      "new": 594
+    },
+    "handbook": {
+      "all_pages": 3750,
+      "prior": 178,
+      "new": 3572
+    }
+  },
+  "questions": 6500,
+  "by_question_type": {
+    "linked_cost_handoff": 2730,
+    "terminal_handoff": 198,
+    "handbook_record": 3572
+  },
+  "by_identifier_mode": {
+    "explicit": 5120,
+    "implicit": 1380
+  },
+  "by_required_page_count": {
+    "5": 2730,
+    "3": 198,
+    "1": 3572
+  },
+  "primary_quotes": 20546,
+  "pages_with_exact_same_record_alternate": 84,
+  "generation_methods": {
+    "verified_case_fields": 2730,
+    "verified_terminal_rows": 198,
+    "layout_parsed": 3572
+  },
+  "input_sha256": {
+    "data/advanced/evaluation/development.json": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39",
+    "data/advanced/evaluation/additional.json": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e",
+    "experimental/u_10o0o/evaluation/advanced_holdout/advanced_holdout.json": "e6328280ff7cfd3dd7180dcb3f893b90b299a904bb93f3249389f8ec4bdfdee1",
+    "experimental/u_10o0o/evaluation/advanced_coverage_v2/pilot_references.json": "6007624e993871d062cf40942bb41cb0e62409ba62c5b5b8d0bdb10a0a6d7da5",
+    "experimental/u_10o0o/evaluation/advanced_coverage_v2/blind_references.json": "d5c1bb85e24979f8e92203d398a1901b96dc374f111b0695407ac48b495d8790",
+    "artifacts/u_10o0o/advanced_restored_pages.json": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d",
+    "experimental/u_10o0o/evaluation/advanced_holdout/manifest.json": "83b6d557d988337d84eab2620a6e6ae580f98cab685f7d0105111c541f3f2a0e",
+    "artifacts/u_10o0o/pattern-curation/advanced/manifest.json": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf"
+  },
+  "output_sha256": {
+    "questions.json": "0574126e0085137c0ff5e456a8951eccaf62ce9f5b5f76216252b60ddf6914ab",
+    "references.json": "7351b50903b9a107325185d9b803cc8f870b34066838aa9e889e022fce328f15",
+    "page_ledger.jsonl": "803d21a705641e84306f3f407f0dbadfcf2b2f6d318085f3383daa86c09459b1",
+    "coverage.csv": "1bfd7c3ea9f329cd5363cbc0d8c534bc07855d2e198cee814347fcf2014b6b5d",
+    "blind_related_question_ids.json": "b7f5db481f58b6122a97dfb08a477830b7598983d385c2b970f81d08176d8690"
+  },
+  "validation": {
+    "exact_primary_quotes": 20546,
+    "billing_days_reconciled": 2730,
+    "questions_read_by_common_loader": 6500,
+    "ledger_rows": 18000,
+    "all_gold_pages_fit_4000": 6500,
+    "largest_gold_context_tokens": 2476,
+    "question_length_char_range": [
+      25,
+      165
+    ],
+    "curated_record_file_hashes_checked": 50
+  },
+  "blind_related": {
+    "prior_candidate_count": 410,
+    "coverage_question_count": 397,
+    "by_overlapping_key": {
+      "case_key": 340,
+      "prior_page": 336,
+      "record_identifier": 61
+    }
+  }
+}

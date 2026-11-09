@@ -1,0 +1,13 @@
+{
+  "scope": "Ruff formatting and unused import removal only; normalized ASTs matched",
+  "files": {
+    "advanced_full_metrics.py": {
+      "before": "3a9ac22644cabf0ce4421660b5efffd5a88daf0a02eee22a29c0f500c3eb3377",
+      "after": "6d43e8321663af7e26acf725a24dd621e8380131eb6a8531126bb41f60210ac8"
+    },
+    "advanced_validity.py": {
+      "before": "0569f1ed0fc90a107e3074eeb5e1358a93617db9c90a3433f6dee91ad7d93ffd",
+      "after": "b48f4b78719ab7245d61570ee741057080922ac03baf98a80f687cb4249679bc"
+    }
+  }
+}

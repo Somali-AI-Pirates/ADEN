@@ -1,0 +1,239 @@
+{
+  "started_at": "2026-11-09T00:07:28.283302+09:00",
+  "inputs": {
+    "questions": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/questions.json",
+      "sha256": "0574126e0085137c0ff5e456a8951eccaf62ce9f5b5f76216252b60ddf6914ab"
+    },
+    "references": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/references.json",
+      "sha256": "7351b50903b9a107325185d9b803cc8f870b34066838aa9e889e022fce328f15"
+    },
+    "blind_related_question_ids": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/blind_related_question_ids.json",
+      "sha256": "b7f5db481f58b6122a97dfb08a477830b7598983d385c2b970f81d08176d8690"
+    },
+    "manifest": {
+      "path": "experimental/u_10o0o/evaluation/advanced_full_coverage/manifest.json",
+      "sha256": "3942b790427bd5abcc67df1af0039e322b246a229cc1d39b65cab7aefb26e241"
+    }
+  },
+  "pages": {
+    "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+    "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+  },
+  "curation_manifest_sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+  "code_sha256": {
+    "advanced_pattern_full.py": "a9d50f2763b1d6a767bdbb0e1908b643adf22e8fb2f3ef9650c5770991d02ddf",
+    "advanced_patterns.py": "d5f68cfda94da046077f6e95ef61512672d614ae4d6878649ef708aca71fd662",
+    "advanced_search.py": "85b6056bb3a7d4b85b86dc1e09fe350f58ce313886e784fa6761064f0dd2b7e3",
+    "advanced_full_metrics.py": "3a9ac22644cabf0ce4421660b5efffd5a88daf0a02eee22a29c0f500c3eb3377",
+    "advanced_fast_bm25.py": "6af87be3a769543cc8785251e2481eb36e091aa17b4534d8c1dbd78d7314e2a8",
+    "advanced_field_roles.py": "68f8fc42e9283db641fa5da0363c517e9ab1dd5890641ea43e980b730bb23ff5",
+    "advanced_table_views.py": "4f217d8bf493dea6d9630f066497bbb035aa6120772199865849f811acb5d3f9",
+    "advanced_validity.py": "0569f1ed0fc90a107e3074eeb5e1358a93617db9c90a3433f6dee91ad7d93ffd"
+  },
+  "candidate_count": 20,
+  "reranked_head": 3,
+  "final_k": 8,
+  "context_tokens": 4000,
+  "context_tokenizer": "o200k_base",
+  "kure": {
+    "model": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "max_tokens": 512,
+    "batch_size": 32,
+    "dtype": "float16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "question_batch_size": 160,
+  "retrieval": {
+    "tokenizer": {
+      "tokenizer": "bigram-id",
+      "identifier_pattern": "(?<![A-Za-z0-9])[A-Z][A-Z0-9]{0,6}(?:-[A-Z0-9]{1,8}){1,4}(?![A-Za-z0-9])"
+    },
+    "fielded": {
+      "fusion": "max_normalized_bm25_heading_bonus",
+      "field_pool": 80,
+      "heading_weight": 0.25,
+      "heading_block_limit": 3,
+      "heading_char_limit": 600
+    },
+    "roles": {
+      "terms": {
+        "contract_terms": [
+          "계약",
+          "요율",
+          "운임",
+          "요금",
+          "보관료",
+          "반납지연료",
+          "무료기간",
+          "과금",
+          "약관",
+          "조건",
+          "기준",
+          "contract",
+          "rate",
+          "tariff"
+        ],
+        "operational_event": [
+          "반입",
+          "반출",
+          "반납",
+          "예약",
+          "입항",
+          "출항",
+          "작업",
+          "실적",
+          "일자",
+          "시각",
+          "처리",
+          "상태",
+          "완료",
+          "event",
+          "operation"
+        ],
+        "approval_change": [
+          "신청",
+          "승인",
+          "결재",
+          "요청",
+          "변경",
+          "정정",
+          "확정",
+          "취소",
+          "통지",
+          "회신",
+          "접수",
+          "confirmation",
+          "approval",
+          "amendment"
+        ],
+        "billing_record": [
+          "청구",
+          "계산",
+          "검산",
+          "입금",
+          "지급",
+          "영수",
+          "비용",
+          "금액",
+          "산출",
+          "정산",
+          "invoice",
+          "billing",
+          "payment",
+          "amount"
+        ]
+      },
+      "lookahead": 10,
+      "strict_terms": {
+        "contract_terms": [
+          "계약요율",
+          "계약 조건",
+          "계약서",
+          "요율표",
+          "운임표",
+          "보관료",
+          "반납지연료",
+          "무료기간",
+          "tariff",
+          "contract rate"
+        ],
+        "operational_event": [
+          "반입기록",
+          "반출기록",
+          "반납기록",
+          "입항기록",
+          "출항기록",
+          "예약·장비",
+          "운항문의",
+          "작업실적",
+          "작업기록",
+          "실제 반입",
+          "실제 반출",
+          "실제 반납",
+          "arrival record",
+          "operation log"
+        ],
+        "approval_change": [
+          "신청·승인기록",
+          "승인기록",
+          "승인번호",
+          "수정통지",
+          "정정통지",
+          "변경요청",
+          "결재",
+          "approval record",
+          "amendment notice"
+        ],
+        "billing_record": [
+          "청구번호",
+          "청구내역",
+          "청구서",
+          "입금기록",
+          "계산메모",
+          "검산기록",
+          "검산번호",
+          "정산서",
+          "청구금액",
+          "invoice",
+          "payment record"
+        ]
+      },
+      "strict_query_terms": {
+        "contract_terms": [
+          "계약",
+          "요율",
+          "운임",
+          "보관료",
+          "반납지연료",
+          "무료기간",
+          "tariff"
+        ],
+        "operational_event": [
+          "반입",
+          "반출",
+          "반납",
+          "입항",
+          "출항",
+          "작업실적",
+          "운항기록"
+        ],
+        "approval_change": [
+          "신청",
+          "승인",
+          "결재",
+          "수정통지",
+          "정정통지",
+          "변경요청"
+        ],
+        "billing_record": [
+          "청구",
+          "계산",
+          "검산",
+          "입금",
+          "지급",
+          "영수",
+          "정산",
+          "invoice"
+        ]
+      }
+    },
+    "followup": {
+      "max_additions": 3,
+      "search_k": 100
+    }
+  },
+  "strict_roles": true,
+  "arms": [
+    "baseline",
+    "fielded",
+    "table_view",
+    "roles",
+    "role_followup",
+    "validity"
+  ],
+  "generation_calls": 0
+}
