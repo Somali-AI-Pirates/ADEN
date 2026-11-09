@@ -55,7 +55,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.115,<1" },
     { name = "fastapi-cli", specifier = ">=0.0.15,<1" },
     { name = "httpx", marker = "extra == 'test'", specifier = ">=0.27,<1" },
-    { name = "langchain-community", marker = "extra == 'eval'", specifier = "<0.4.2" },
+    { name = "langchain-community", marker = "extra == 'eval'", specifier = "==0.4.1" },
     { name = "langchain-core", specifier = ">=1,<2" },
     { name = "langchain-openai", specifier = ">=1,<2" },
     { name = "langfuse", specifier = ">=5,<6" },

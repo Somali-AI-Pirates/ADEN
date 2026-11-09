@@ -34,7 +34,7 @@ test = [
 eval = [
     "ragas==0.4.3",
     # ragas 0.4.3이 import하는 chat_models.vertexai가 langchain-community 0.4.2에서 제거됨
-    "langchain-community<0.4.2",
+    "langchain-community==0.4.1",
 ]
 
 [tool.setuptools.packages.find]
