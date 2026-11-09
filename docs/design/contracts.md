@@ -57,8 +57,9 @@
 
 - `make_query_adapter(resources, settings)`는 `adapter(question, retrieval_mode, request_id)`를 반환한다. 어댑터는 `answer_query()`를 직접 호출하고 실패도 평탄한 실행 기록으로 반환한다.
 - `make_security_adapters(resources, settings, *, defense)`는 `retrieve_fn(question, mode)`과 `generate_fn(question, final_context_chunks, prompt_variant)`를 반환한다. 검색과 문맥 구성은 한 번 하고 `base`와 `defense`에 같은 문맥을 전달한다. 반환 기록에는 실제 문맥·모델 입출력·해시·시도·요청 ID를 담는다.
+- 평가 모듈이 `configure_evaluation(config_path: Path)`를 제공하면 CLI의 `--config` 경로를 자원 준비 전에 전달한다. 표준 bootstrap은 지정 설정을 일반·보안 어댑터가 공유하고, 활성 자원의 다른 설정 경로나 같은 설정 파일의 내용 변경을 거부한다. 훅이 없는 사용자 정의 모듈은 자체 설정을 사용한다.
 - 평가 CLI의 `모듈:이름`은 초기화된 callable이다. 실제 실행 준비 절차는 [평가 가이드](../guides/c-module-guide.md#실제-연결)를 따른다.
-- `app.service.bootstrap`이 그 callable을 제공한다. `query_adapter`(`--adapter`), `retrieve_context`(`--retrieve`), `generate_with_context`(`--generate`)이며, import 때가 아니라 첫 사용 때 프로젝트 루트 `.env`(기존 환경변수 우선)·`configs/basic.yaml`·`load_resources()`를 한 번 준비하고 프로세스 종료 때 `Resources.close()`로 해제한다. `query_adapter`는 실행기의 flush·저장 확인용 `tracer` 속성을 노출하고, 보안 두 callable은 같은 어댑터 쌍과 `app/generation/prompts/defense.txt`를 사용한다.
+- `app.service.bootstrap`이 그 callable을 제공한다. `query_adapter`(`--adapter`), `retrieve_context`(`--retrieve`), `generate_with_context`(`--generate`)이며, import 때가 아니라 첫 사용 때 프로젝트 루트 `.env`(기존 환경변수 우선)·선택 설정 파일(미지정 시 `configs/basic.yaml`)·`load_resources()`를 한 번 준비하고 프로세스 종료 때 `Resources.close()`로 해제한다. `query_adapter`는 실행기의 flush·저장 확인용 `tracer` 속성을 노출하고, 보안 두 callable은 같은 어댑터 쌍과 `app/generation/prompts/defense.txt`를 사용한다.
 
 ## 기록 형식과 측정 범위
 

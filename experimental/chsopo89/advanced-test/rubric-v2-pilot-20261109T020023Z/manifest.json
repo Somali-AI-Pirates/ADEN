@@ -1,0 +1,39 @@
+{
+  "experiment_id": "rubric-v2-pilot-20261109T020023Z",
+  "dataset_id": "advanced",
+  "status": "complete",
+  "kind": "v2-rubric-stored-answer-pilot",
+  "created_utc": "20261109T020023Z",
+  "source_experiment_id": "context-regrade-20261109T011711Z",
+  "model": "gpt-6-luna",
+  "judge_call_limit": 12,
+  "generation_calls": 0,
+  "retrieval_calls": 0,
+  "ragas_calls": 0,
+  "ragas_policy": "Not rerun; same answers and context; earlier scores are prior measurements only.",
+  "changed": [
+    "reference rubric",
+    "dedicated Judge prompt"
+  ],
+  "fixed": [
+    "question",
+    "answer",
+    "reason",
+    "citations",
+    "request_id",
+    "model_context_text",
+    "Judge model",
+    "grader implementation"
+  ],
+  "sdk_max_retries": 0,
+  "sdk_timeout_seconds": 60,
+  "source_sha256": {
+    "experimental\\chsopo89\\advanced-test\\context-regrade-20261109T011711Z\\runs.jsonl": "d7511d83bc653ebffcf501963674ed5ac5d0339adc189f407916608c55174e17",
+    "experimental\\chsopo89\\advanced-test\\context-regrade-20261109T011711Z\\after_scores.jsonl": "b60510363281cea2e6b75bf2a220e024da72a6caf29bf062c9ec19614a74f4a9",
+    "experimental\\chsopo89\\advanced-test\\context-regrade-20261109T011711Z\\after_faithfulness.jsonl": "160f655d067df0a9fba55cccdd69778f86f24e0fc7daafaea49d94728d3f53b1",
+    "experimental\\chsopo89\\advanced-rubric-v2\\references_v2.json": "6604dad38a24a179a3bf7ce7580c0906b9d01beaed7b61bfebd5bc9e2065d123",
+    "experimental\\chsopo89\\advanced-rubric-v2\\judge_advanced_v2.txt": "2d2c35cfe722c1dec3cf9fc9584eaa681dfff4d8ff1f98372f77e0e999df6df2",
+    "app\\evaluation\\graders.py": "53ae3b7699a44613224babfa4ee452497eae0bdf58c67ac0f1c31868a31745cc"
+  },
+  "judge_calls": 12
+}

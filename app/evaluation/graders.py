@@ -49,28 +49,10 @@ def _timed(fn: Callable[[], Mapping[str, Any]]) -> tuple[Mapping[str, Any] | Non
     return out, usage
 
 
-def _evaluation_contexts(record: Mapping[str, Any]) -> list[str]:
-    """실제 모델 문맥을 우선 사용하고, 없는 과거 기록은 최종 청크에서 복원한다."""
-    context = record.get("model_context_text")
-    if context is not None:
-        return [context] if context else []
-    # shortcut: 과거 기록 복원은 당시 형식을 보장하지 못하므로 완전 재현에는 실제 문맥을 보관한다.
-    contexts = []
-    for chunk in record.get("final_context_chunks") or []:
-        heading = f"제목: {chunk['heading']}\n" if chunk.get("heading") else ""
-        contexts.append(
-            f"[{chunk['source_id']}]\n"
-            f"문서 ID: {chunk['book_id']}\n"
-            f"문서명: {chunk['file_name']}\n"
-            f"PDF 페이지: {chunk['page']}\n"
-            f"{heading}내용: {chunk['text']}"
-        )
-    return contexts
-
-
 def build_judge_prompt(template: str, record: Mapping[str, Any],
                        reference: Mapping[str, Any]) -> str:
-    context = "\n\n".join(_evaluation_contexts(record))
+    context = "\n\n".join(f"[{c['source_id']}] {c['file_name']} p.{c['page']}\n{c['text']}"
+                          for c in record.get("final_context_chunks") or [])
     ref = {k: v for k, v in reference.items() if k != "question"}
     values = {
         "question": record["question"], "status": record["status"],
@@ -139,7 +121,7 @@ def grade_faithfulness(record: Mapping[str, Any], has_claims: bool | None,
     response = response_text(record)
     if not response or has_claims is False:
         return score(None, "not_applicable", "사실 주장 없음(조건 확인·보류만)"), None
-    contexts = _evaluation_contexts(record)
+    contexts = [c["text"] for c in record.get("final_context_chunks") or []]
     if not contexts:
         if has_claims:
             return score(0.0, "scored", "최종 문맥 없이 사실 주장을 함"), None

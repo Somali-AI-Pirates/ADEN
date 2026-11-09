@@ -1,0 +1,748 @@
+[
+  {
+    "id": "S07",
+    "title": "보관료 무료일 연장 승인",
+    "asker": "화주기업 담당자",
+    "case": "HG2030-01207",
+    "question": "율곡산업 담당자입니다. 예약 HG2030-01207, 장비 HL-40GP-01207에 대해 문의합니다. 2030-11-24 16:00 KST 기준 AP-01207에서 무료기간 연장이 승인됐나요? 승인된 비용과 추가 일수를 알려주고, 장비반납지연료의 무료기간 변경 여부도 확인해 주세요. 답변에 근거로 사용한 PDF 파일명과 쪽수를 적어주세요.",
+    "rubric_version": "advanced-v2.0-draft",
+    "expected_action": "answer",
+    "required_items": [
+      {
+        "question_requirement": "무료기간 연장이 승인됐나요",
+        "expected": "조회 기준에 무료기간 연장 승인 완료.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R01",
+        "source_refs": [
+          {
+            "book_id": "AS039",
+            "page": 116
+          }
+        ]
+      },
+      {
+        "question_requirement": "승인된 비용과 추가 일수",
+        "expected": "보관료 무료기간에 2일 추가.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "additional_storage_free_days": 2
+        },
+        "id": "R02",
+        "source_refs": [
+          {
+            "book_id": "AS039",
+            "page": 116
+          }
+        ]
+      },
+      {
+        "question_requirement": "장비반납지연료의 무료기간 변경 여부",
+        "expected": "장비반납지연료 무료기간은 유지.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R03",
+        "source_refs": [
+          {
+            "book_id": "AS039",
+            "page": 116
+          }
+        ]
+      }
+    ],
+    "supplementary_items": [
+      "승인 주체인 계약운영책임자.",
+      "승인 서명일 2030-11-22.",
+      "감액·면제와 무료기간 연장의 차이 설명."
+    ],
+    "critical_errors": [
+      "장비반납지연료에도 2일 연장을 적용.",
+      "기존 무료기간을 2일로 대체."
+    ],
+    "scope_note": "승인 서명일·승인자 이름은 질문이 요구하지 않으므로 누락만으로 사실 0점을 주지 않는다.",
+    "reference_answer": "조회 기준에 무료기간 연장 승인 완료. [AS039 p116]\n보관료 무료기간에 2일 추가. [AS039 p116]\n장비반납지연료 무료기간은 유지. [AS039 p116]",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS039",
+          "page": 116
+        }
+      ]
+    ],
+    "rubric": "required_items만 누락 감점 대상으로 사용한다. supplementary_items 미언급은 감점하지 않는다. critical_errors에 해당하거나 추가 설명이 원문과 모순되면 감점한다. 문장 일치·문체·보충 설명 개수로 채점하지 않는다. 항목 판정과 감점 근거를 구분해 남긴다."
+  },
+  {
+    "id": "S09",
+    "title": "반납지연료 정액 감액",
+    "asker": "운송사 담당자",
+    "case": "HG2029-02322",
+    "question": "예약 HG2029-02322, 장비 HL-20GP-02322의 지정 운송사 담당자입니다. 2029-12-27 16:00 KST 기준 AP-02322의 정액 감액은 어느 비용에 얼마를 몇 번 적용하나요? 보관료에도 같은 감액을 적용할 수 있는지 알려주세요. 답변에 근거로 사용한 PDF 파일명과 쪽수를 적어주세요.",
+    "rubric_version": "advanced-v2.0-draft",
+    "expected_action": "answer",
+    "required_items": [
+      {
+        "question_requirement": "어느 비용에",
+        "expected": "감액 대상은 장비반납지연료.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R01",
+        "source_refs": [
+          {
+            "book_id": "AS062",
+            "page": 119
+          }
+        ]
+      },
+      {
+        "question_requirement": "얼마를",
+        "expected": "정액 감액액 USD 25.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "discount_usd": 25
+        },
+        "id": "R02",
+        "source_refs": [
+          {
+            "book_id": "AS062",
+            "page": 119
+          }
+        ]
+      },
+      {
+        "question_requirement": "몇 번",
+        "expected": "감액은 한 번 적용.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "application_count": 1
+        },
+        "id": "R03",
+        "source_refs": [
+          {
+            "book_id": "AS062",
+            "page": 119
+          }
+        ]
+      },
+      {
+        "question_requirement": "보관료에도 같은 감액을 적용할 수 있는지",
+        "expected": "보관료에는 적용하지 않는다.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R04",
+        "source_refs": [
+          {
+            "book_id": "AS062",
+            "page": 119
+          }
+        ]
+      }
+    ],
+    "supplementary_items": [
+      "정액 감액이 무료일수·구간 단가를 바꾸지 않는다는 설명.",
+      "비용 명세의 최종 청구액."
+    ],
+    "critical_errors": [
+      "보관료에도 감액.",
+      "USD 25를 중복 차감."
+    ],
+    "scope_note": "무료일수·단가 불변 설명은 보충 항목이다. 미언급을 필수 사실 누락으로 취급하지 않는다.",
+    "reference_answer": "감액 대상은 장비반납지연료. [AS062 p119]\n정액 감액액 USD 25. [AS062 p119]\n감액은 한 번 적용. [AS062 p119]\n보관료에는 적용하지 않는다. [AS062 p119]",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS062",
+          "page": 119
+        }
+      ]
+    ],
+    "rubric": "required_items만 누락 감점 대상으로 사용한다. supplementary_items 미언급은 감점하지 않는다. critical_errors에 해당하거나 추가 설명이 원문과 모순되면 감점한다. 문장 일치·문체·보충 설명 개수로 채점하지 않는다. 항목 판정과 감점 근거를 구분해 남긴다."
+  },
+  {
+    "id": "M01",
+    "title": "보관료 정액 감액",
+    "asker": "화주기업 담당자",
+    "case": "HG2029-01151",
+    "question": "수안부품 담당자입니다. 예약 HG2029-01151, 장비 HL-40GP-01151에 대해 문의합니다. 2029-03-19 16:00 KST 기준, 실제 운송 사건과 계약 조건, 승인 변경을 연결해 보관료·장비반납지연료와 두 비용 합계를 계산해 주세요. 보관료 정액 감액이 무료일수나 유료일 순번을 바꾸는지도 설명하고 청구 명세와 대조해 주세요. 답변에 근거로 사용한 PDF 파일명과 쪽수를 적어주세요.",
+    "rubric_version": "advanced-v2.0-draft",
+    "expected_action": "answer",
+    "required_items": [
+      {
+        "question_requirement": "실제 운송 사건과 계약 조건",
+        "expected": "해당 장비의 실제 사건 기록과 계약을 연결해 비용별 산입 구간을 확인할 수 있는 날짜/기간 또는 사건 근거를 제시. 청구 명세만으로 실제 사건 검산 완료를 주장하지 않는다.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R01",
+        "source_refs": [
+          {
+            "book_id": "AS111",
+            "page": 48
+          },
+          {
+            "book_id": "AS112",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "계산해 주세요",
+        "expected": "보관료 산입 11일·적용 무료 4일·유료 7일.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "storage_counted_days": 11,
+          "storage_free_days": 4,
+          "storage_paid_days": 7
+        },
+        "id": "R02",
+        "source_refs": [
+          {
+            "book_id": "AS111",
+            "page": 48
+          },
+          {
+            "book_id": "AS112",
+            "page": 48
+          },
+          {
+            "book_id": "AS113",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "계산해 주세요",
+        "expected": "보관료 구간 계산 4×35+3×65=USD 335. 계산 구조가 같은 동등 산식도 인정.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "storage_raw_usd": 335,
+          "storage_first_paid_days": 4,
+          "storage_first_rate_usd": 35,
+          "storage_next_paid_days": 3,
+          "storage_next_rate_usd": 65
+        },
+        "id": "R03",
+        "source_refs": [
+          {
+            "book_id": "AS111",
+            "page": 48
+          },
+          {
+            "book_id": "AS112",
+            "page": 48
+          },
+          {
+            "book_id": "AS113",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "계산해 주세요",
+        "expected": "보관료 적용 조건 반영 후 확정액 USD 305.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "storage_final_usd": 305
+        },
+        "id": "R04",
+        "source_refs": [
+          {
+            "book_id": "AS111",
+            "page": 48
+          },
+          {
+            "book_id": "AS112",
+            "page": 48
+          },
+          {
+            "book_id": "AS113",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "계산해 주세요",
+        "expected": "장비반납지연료 산입 10일·적용 무료 3일·유료 7일.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "detention_counted_days": 10,
+          "detention_free_days": 3,
+          "detention_paid_days": 7
+        },
+        "id": "R05",
+        "source_refs": [
+          {
+            "book_id": "AS111",
+            "page": 48
+          },
+          {
+            "book_id": "AS112",
+            "page": 48
+          },
+          {
+            "book_id": "AS113",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "계산해 주세요",
+        "expected": "장비반납지연료 구간 계산 2×25+5×45=USD 275. 계산 구조가 같은 동등 산식도 인정.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "detention_raw_usd": 275,
+          "detention_first_paid_days": 2,
+          "detention_first_rate_usd": 25,
+          "detention_next_paid_days": 5,
+          "detention_next_rate_usd": 45
+        },
+        "id": "R06",
+        "source_refs": [
+          {
+            "book_id": "AS111",
+            "page": 48
+          },
+          {
+            "book_id": "AS112",
+            "page": 48
+          },
+          {
+            "book_id": "AS113",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "계산해 주세요",
+        "expected": "장비반납지연료 적용 조건 반영 후 확정액 USD 275.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "detention_final_usd": 275
+        },
+        "id": "R07",
+        "source_refs": [
+          {
+            "book_id": "AS111",
+            "page": 48
+          },
+          {
+            "book_id": "AS112",
+            "page": 48
+          },
+          {
+            "book_id": "AS113",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "승인 변경",
+        "expected": "보관료 정액 USD 30을 한 번 감액해 USD 335→305. 장비반납지연료에는 감액 미적용.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "storage_discount_usd": 30
+        },
+        "id": "R08",
+        "source_refs": [
+          {
+            "book_id": "AS113",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "무료일수나 유료일 순번을 바꾸는지도",
+        "expected": "정액 감액은 무료일수·유료일 순번을 바꾸지 않는다.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R09",
+        "source_refs": [
+          {
+            "book_id": "AS111",
+            "page": 48
+          },
+          {
+            "book_id": "AS113",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "두 비용 합계",
+        "expected": "두 비용 합계 USD 580.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "total_usd": 580
+        },
+        "id": "R10",
+        "source_refs": [
+          {
+            "book_id": "AS111",
+            "page": 48
+          },
+          {
+            "book_id": "AS112",
+            "page": 48
+          },
+          {
+            "book_id": "AS113",
+            "page": 48
+          },
+          {
+            "book_id": "AS114",
+            "page": 48
+          }
+        ]
+      },
+      {
+        "question_requirement": "청구 명세와 대조",
+        "expected": "계산한 질문 대상 비용의 금액이 해당 청구 명세와 일치한다고 확인.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R11",
+        "source_refs": [
+          {
+            "book_id": "AS114",
+            "page": 48
+          }
+        ]
+      }
+    ],
+    "supplementary_items": [
+      "승인 서명일 2029-03-17.",
+      "D/G/R 세 날짜를 모두 별도 목록으로 반복."
+    ],
+    "critical_errors": [
+      "감액을 무료일수 증가로 해석.",
+      "장비반납지연료도 감액.",
+      "사건·계약 대조 없이 청구 명세만 인용해 독립 검산 완료를 주장."
+    ],
+    "scope_note": "원문 사건과 산입 구간의 연결은 필요하나 숨은 추론 과정이나 특정 설명 순서를 요구하지 않는다. 같은 정보를 담은 날짜 구간·표·산식을 인정한다.",
+    "reference_answer": "해당 장비의 실제 사건 기록과 계약을 연결해 비용별 산입 구간을 확인할 수 있는 날짜/기간 또는 사건 근거를 제시. 청구 명세만으로 실제 사건 검산 완료를 주장하지 않는다. [AS111 p48][AS112 p48]\n보관료 산입 11일·적용 무료 4일·유료 7일. [AS111 p48][AS112 p48][AS113 p48]\n보관료 구간 계산 4×35+3×65=USD 335. 계산 구조가 같은 동등 산식도 인정. [AS111 p48][AS112 p48][AS113 p48]\n보관료 적용 조건 반영 후 확정액 USD 305. [AS111 p48][AS112 p48][AS113 p48]\n장비반납지연료 산입 10일·적용 무료 3일·유료 7일. [AS111 p48][AS112 p48][AS113 p48]\n장비반납지연료 구간 계산 2×25+5×45=USD 275. 계산 구조가 같은 동등 산식도 인정. [AS111 p48][AS112 p48][AS113 p48]\n장비반납지연료 적용 조건 반영 후 확정액 USD 275. [AS111 p48][AS112 p48][AS113 p48]\n보관료 정액 USD 30을 한 번 감액해 USD 335→305. 장비반납지연료에는 감액 미적용. [AS113 p48]\n정액 감액은 무료일수·유료일 순번을 바꾸지 않는다. [AS111 p48][AS113 p48]\n두 비용 합계 USD 580. [AS111 p48][AS112 p48][AS113 p48][AS114 p48]\n계산한 질문 대상 비용의 금액이 해당 청구 명세와 일치한다고 확인. [AS114 p48]",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS111",
+          "page": 48
+        }
+      ],
+      [
+        {
+          "book_id": "AS112",
+          "page": 48
+        }
+      ],
+      [
+        {
+          "book_id": "AS113",
+          "page": 48
+        }
+      ],
+      [
+        {
+          "book_id": "AS114",
+          "page": 48
+        }
+      ]
+    ],
+    "rubric": "required_items만 누락 감점 대상으로 사용한다. supplementary_items 미언급은 감점하지 않는다. critical_errors에 해당하거나 추가 설명이 원문과 모순되면 감점한다. 문장 일치·문체·보충 설명 개수로 채점하지 않는다. 항목 판정과 감점 근거를 구분해 남긴다."
+  },
+  {
+    "id": "M19",
+    "title": "부분 수납 배분",
+    "asker": "해운사 내부 담당자",
+    "case": "HG2030-02713",
+    "question": "해운사 내부 담당자입니다. 한결기재의 예약 HG2030-02713, 장비 HL-40GP-02713를 조회합니다. 2030-03-31 16:00 KST 기준 두 비용을 실제 사건·계약·승인 회신으로 검산해 주세요. 청구 명세와 RCPT-02713 수납 원장을 연결해 비용별 수납 충당액·미수 잔액과 거래 전체 미수 잔액을 계산하고, 청구 총액과 수납 후 잔액을 구분해 주세요. 답변에 근거로 사용한 PDF 파일명과 쪽수를 적어주세요.",
+    "rubric_version": "advanced-v2.0-draft",
+    "expected_action": "answer",
+    "required_items": [
+      {
+        "question_requirement": "실제 사건·계약·승인 회신으로 검산",
+        "expected": "해당 장비의 실제 사건 기록과 계약을 연결해 비용별 산입 구간을 확인할 수 있는 날짜/기간 또는 사건 근거를 제시. 청구 명세만으로 실제 사건 검산 완료를 주장하지 않는다.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R01",
+        "source_refs": [
+          {
+            "book_id": "AS095",
+            "page": 149
+          },
+          {
+            "book_id": "AS096",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "승인 회신",
+        "expected": "추가 변경 없이 최초 계약 조건 사용.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R02",
+        "source_refs": [
+          {
+            "book_id": "AS097",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "두 비용을",
+        "expected": "보관료 산입 7일·적용 무료 2일·유료 5일.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "storage_counted_days": 7,
+          "storage_free_days": 2,
+          "storage_paid_days": 5
+        },
+        "id": "R03",
+        "source_refs": [
+          {
+            "book_id": "AS095",
+            "page": 149
+          },
+          {
+            "book_id": "AS096",
+            "page": 149
+          },
+          {
+            "book_id": "AS097",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "두 비용을",
+        "expected": "보관료 구간 계산 2×35+3×65=USD 265. 계산 구조가 같은 동등 산식도 인정.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "storage_raw_usd": 265,
+          "storage_first_paid_days": 2,
+          "storage_first_rate_usd": 35,
+          "storage_next_paid_days": 3,
+          "storage_next_rate_usd": 65
+        },
+        "id": "R04",
+        "source_refs": [
+          {
+            "book_id": "AS095",
+            "page": 149
+          },
+          {
+            "book_id": "AS096",
+            "page": 149
+          },
+          {
+            "book_id": "AS097",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "두 비용을",
+        "expected": "보관료 적용 조건 반영 후 확정액 USD 265.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "storage_final_usd": 265
+        },
+        "id": "R05",
+        "source_refs": [
+          {
+            "book_id": "AS095",
+            "page": 149
+          },
+          {
+            "book_id": "AS096",
+            "page": 149
+          },
+          {
+            "book_id": "AS097",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "두 비용을",
+        "expected": "장비반납지연료 산입 6일·적용 무료 1일·유료 5일.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "detention_counted_days": 6,
+          "detention_free_days": 1,
+          "detention_paid_days": 5
+        },
+        "id": "R06",
+        "source_refs": [
+          {
+            "book_id": "AS095",
+            "page": 149
+          },
+          {
+            "book_id": "AS096",
+            "page": 149
+          },
+          {
+            "book_id": "AS097",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "두 비용을",
+        "expected": "장비반납지연료 구간 계산 2×15+3×45=USD 165. 계산 구조가 같은 동등 산식도 인정.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "detention_raw_usd": 165,
+          "detention_first_paid_days": 2,
+          "detention_first_rate_usd": 15,
+          "detention_next_paid_days": 3,
+          "detention_next_rate_usd": 45
+        },
+        "id": "R07",
+        "source_refs": [
+          {
+            "book_id": "AS095",
+            "page": 149
+          },
+          {
+            "book_id": "AS096",
+            "page": 149
+          },
+          {
+            "book_id": "AS097",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "두 비용을",
+        "expected": "장비반납지연료 적용 조건 반영 후 확정액 USD 165.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "detention_final_usd": 165
+        },
+        "id": "R08",
+        "source_refs": [
+          {
+            "book_id": "AS095",
+            "page": 149
+          },
+          {
+            "book_id": "AS096",
+            "page": 149
+          },
+          {
+            "book_id": "AS097",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "청구 총액과 수납 후 잔액을 구분",
+        "expected": "청구 총액 USD 430과 수납 후 미수 USD 83은 다른 값.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "invoice_total_usd": 430,
+          "total_due_usd": 83
+        },
+        "id": "R09",
+        "source_refs": [
+          {
+            "book_id": "AS098",
+            "page": 149
+          },
+          {
+            "book_id": "AS099",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "수납 원장을 연결",
+        "expected": "수납 USD 347을 보관료 우선 충당하고 잔액을 장비반납지연료에 충당.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "cash_received_usd": 347
+        },
+        "id": "R10",
+        "source_refs": [
+          {
+            "book_id": "AS099",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "비용별 수납 충당액·미수 잔액",
+        "expected": "보관료 충당 USD 265·미수 USD 0, 장비반납지연료 충당 USD 82·미수 USD 83.",
+        "check_method": "value_comparison",
+        "numeric_targets": {
+          "storage_allocation_usd": 265,
+          "storage_due_usd": 0,
+          "detention_allocation_usd": 82,
+          "detention_due_usd": 83
+        },
+        "id": "R11",
+        "source_refs": [
+          {
+            "book_id": "AS099",
+            "page": 149
+          }
+        ]
+      },
+      {
+        "question_requirement": "청구 명세와",
+        "expected": "계산한 질문 대상 비용의 금액이 해당 청구 명세와 일치한다고 확인.",
+        "check_method": "meaning_and_scope_review",
+        "numeric_targets": {},
+        "id": "R12",
+        "source_refs": [
+          {
+            "book_id": "AS098",
+            "page": 149
+          }
+        ]
+      }
+    ],
+    "supplementary_items": [
+      "반납 예약 예정일 2030-03-26.",
+      "D/G/R 날짜를 별도 목록으로 반복."
+    ],
+    "critical_errors": [
+      "미수 USD 83을 청구 총액으로 대체.",
+      "장비반납지연료에 수납액 전액을 중복 충당."
+    ],
+    "scope_note": "",
+    "reference_answer": "해당 장비의 실제 사건 기록과 계약을 연결해 비용별 산입 구간을 확인할 수 있는 날짜/기간 또는 사건 근거를 제시. 청구 명세만으로 실제 사건 검산 완료를 주장하지 않는다. [AS095 p149][AS096 p149]\n추가 변경 없이 최초 계약 조건 사용. [AS097 p149]\n보관료 산입 7일·적용 무료 2일·유료 5일. [AS095 p149][AS096 p149][AS097 p149]\n보관료 구간 계산 2×35+3×65=USD 265. 계산 구조가 같은 동등 산식도 인정. [AS095 p149][AS096 p149][AS097 p149]\n보관료 적용 조건 반영 후 확정액 USD 265. [AS095 p149][AS096 p149][AS097 p149]\n장비반납지연료 산입 6일·적용 무료 1일·유료 5일. [AS095 p149][AS096 p149][AS097 p149]\n장비반납지연료 구간 계산 2×15+3×45=USD 165. 계산 구조가 같은 동등 산식도 인정. [AS095 p149][AS096 p149][AS097 p149]\n장비반납지연료 적용 조건 반영 후 확정액 USD 165. [AS095 p149][AS096 p149][AS097 p149]\n청구 총액 USD 430과 수납 후 미수 USD 83은 다른 값. [AS098 p149][AS099 p149]\n수납 USD 347을 보관료 우선 충당하고 잔액을 장비반납지연료에 충당. [AS099 p149]\n보관료 충당 USD 265·미수 USD 0, 장비반납지연료 충당 USD 82·미수 USD 83. [AS099 p149]\n계산한 질문 대상 비용의 금액이 해당 청구 명세와 일치한다고 확인. [AS098 p149]",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS095",
+          "page": 149
+        }
+      ],
+      [
+        {
+          "book_id": "AS096",
+          "page": 149
+        }
+      ],
+      [
+        {
+          "book_id": "AS097",
+          "page": 149
+        }
+      ],
+      [
+        {
+          "book_id": "AS098",
+          "page": 149
+        }
+      ],
+      [
+        {
+          "book_id": "AS099",
+          "page": 149
+        }
+      ]
+    ],
+    "rubric": "required_items만 누락 감점 대상으로 사용한다. supplementary_items 미언급은 감점하지 않는다. critical_errors에 해당하거나 추가 설명이 원문과 모순되면 감점한다. 문장 일치·문체·보충 설명 개수로 채점하지 않는다. 항목 판정과 감점 근거를 구분해 남긴다."
+  }
+]

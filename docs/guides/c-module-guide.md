@@ -23,7 +23,9 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 
 - 실행 전에 질문·참고 파일 구조, ID 대응과 채점 필드(`evidence_groups` 등)를 오프라인에서 확인한다. 질문은 `id`와 `question`으로 실행하고, 정답·근거·공격 라벨은 실행 후 채점에서 사용한다.
 - 일반 평가 `run_benchmark`에 `--questions`와 해당 split의 `--references`, `--adapter 모듈:이름`, `--config` 또는 `--config-hash`를 전달한다. `--ids`로 먼저 한 문항을 고른다. `--references`의 기본값은 질문 파일이므로 제공 자료처럼 파일이 분리되면 둘 다 지정한다.
+- 일반 평가의 `--k`는 명시값을 우선하고, 생략하면 `--config`의 `retrieval.k`, 설정 파일도 없으면 8을 사용한다. 실제 검색 k는 서비스/어댑터 설정이 정하므로 `--k`만 지정해도 검색 개수가 바뀌는 것은 아니다. `--dataset-id`를 생략하면 설정 파일의 `dataset`을 기록한다(설정 파일이 없으면 basic).
 - 보안 평가 `run_security`는 `--security-file`, 초기화된 `--retrieve`·`--generate`, `--retrieval-mode`, 설정이나 설정 해시를 받는다. 문항별로 같은 최종 문맥을 기본·방어 프롬프트에 재사용한다. 공격 미노출과 생성 실패를 방어 성공으로 세지 않는다.
+- `--config`는 표준 `app.service.bootstrap`의 실제 실행 설정으로 전달한다. CLI는 모듈의 선택적 `configure_evaluation(config_path)` 훅을 자원 준비 전에 호출한다. 사용자 정의 어댑터는 이 훅을 제공하거나 자체 설정 로더를 같은 파일에 맞춰야 한다. 이미 준비된 표준 자원은 다른 설정 경로나 같은 파일의 내용 변경을 감지하면 거부하므로 다른 설정의 실험은 새 실행으로 시작한다.
 - 초기화된 함수는 `app.service.bootstrap`이 제공한다. 일반 평가는 `--adapter app.service.bootstrap:query_adapter`, 보안 평가는 `--retrieve app.service.bootstrap:retrieve_context --generate app.service.bootstrap:generate_with_context`를 지정하고 `--config configs/basic.yaml`을 함께 준다. 자원은 첫 사용 때 준비되며 계약은 [어댑터 계약](../design/contracts.md#평가-어댑터)을 따른다. Judge·Faithfulness는 `--judge-model`·`--ragas-model`을 지정하지 않으면 `unavailable`이다. RAGAS는 공통 설치에 포함되지 않는다.
 
 ## 평가 규칙
@@ -34,10 +36,6 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 | Faithfulness | 질문, 생성 출력과 실제 최종 청크를 평가한다. 사실 주장이 없으면 해당 없음, 문맥 없이 사실을 주장하면 0, 평가기 오류는 평가 불가다 |
 | Judge | 사실·조건·근거·판단을 각각 0/1과 이유로 기록한다. 서비스 오류는 판단 0, 다른 항목은 평가 불가다 |
 | 평균·운영 지표 | `scored`만 평균하며 0점은 포함한다. `not_applicable`·`unavailable`은 건수를 따로 센다. 오류율은 `error` 요청만 세며 서비스 시간·토큰과 평가기 사용량은 분리한다 |
-
-Judge와 Faithfulness는 저장된 `model_context_text`가 있으면 제목·출처 표기·순서를 포함한 문자열을 그대로 근거로 사용한다. 실제 문맥이 빈 문자열이면 검색 청크로 대신 채우지 않는다. 문자열이 없는 과거 기록은 최종 청크의 자료 ID·문서 ID·파일명·쪽수·제목·본문을 복원해 사용하며, 당시 문맥과 완전히 같다고 보장하지 않는다. 참고 정답은 Judge의 채점 기준으로만 전달하며 Faithfulness 근거에는 넣지 않는다.
-
-채점 문맥 처리 방식이 바뀐 결과는 새 실험 ID나 별도 결과 경로에 저장한다. 기존 답변·실행 기록·점수를 덮어쓰지 않고 같은 저장 답변을 새 기준으로 재채점해 비교한다. 문맥 수정만으로 점수가 개선됐다고 간주하지 않는다.
 
 ## Langfuse
 
