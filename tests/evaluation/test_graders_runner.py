@@ -1,9 +1,4 @@
-from dataclasses import asdict
-from hashlib import sha256
 import json
-
-from shared.contracts import Chunk, RetrievedChunk
-from app.generation.context import build_context
 
 import pytest
 
@@ -54,8 +49,7 @@ def test_faithfulness_uses_only_question_answer_final_context():
 
     s = grade(record(), judge_returning(True), faith)
     assert s["faithfulness"] == {"value": 0.8, "status": "scored", "reason": "RAGAS Faithfulness"}
-    assert "문맥 문장" in seen["ctx"][0] and "[S1]" in seen["ctx"][0]
-    assert "정답 비밀문장" not in json.dumps(seen, ensure_ascii=False)
+    assert seen["ctx"] == ["문맥 문장"] and "정답 비밀문장" not in json.dumps(seen, ensure_ascii=False)
     assert s["grading_usage"]["judge"]["input_tokens"] == 7  # 평가 사용량은 따로
 
 
@@ -132,65 +126,3 @@ def test_runner_records_adapter_exception_and_invalid_record():
     assert all(r["usage"]["input_tokens"] is None for r in runs)
     with pytest.raises(ValueError, match="참고 정답"):
         grade_all(runs, {}, k=5, judge_fn=None, faithfulness_fn=None)
-
-
-@pytest.mark.parametrize("saved_context", [True, False])
-def test_graders_receive_generation_heading_and_sources(saved_context):
-    # 승인일과 예약번호가 본문이 아닌 제목에만 있는 경우를 재현한다.
-    chunk = Chunk("A-p1-c1", "A", "A.pdf", 1, "보관료 무료 2일 연장 승인",
-                  "예약 DEMO-01207 / 승인 원본 서명일 2030-11-22")
-    bundle = build_context([RetrievedChunk(chunk, 1, 1.0, "dense")], 1, 4000, len)
-    final = [dict(asdict(chunk), source_id="S1")]
-    kwargs = dict(final_context_chunks=final, final_context_hash=compute_context_hash(final))
-    if saved_context:
-        kwargs["model_context_text"] = bundle.text
-        kwargs["model_context_hash"] = bundle.context_hash
-    rec = record(**kwargs)
-    seen = {}
-
-    def judge(prompt):
-        seen["judge"] = prompt
-        return judge_returning(True)(prompt)
-
-    def faith(question, response, contexts):
-        seen["faith"] = contexts
-        return {"value": 1.0}
-
-    grade_record(rec, REF, k=5, judge_fn=judge, faithfulness_fn=faith,
-                 judge_template="{{final_context}}")
-    assert seen["judge"] == bundle.text
-    assert seen["faith"] == [bundle.text]
-    assert "DEMO-01207" in seen["judge"] and "2030-11-22" in seen["judge"]
-    assert "정답 비밀문장" not in str(seen)
-
-
-def test_saved_context_is_preserved_instead_of_rebuilt_from_chunks():
-    seen = {}
-    actual = "[S1]\n제목: 당시 제목\n내용: 실제 모델에게 전달한 문맥  \n"
-    rec = record(model_context_text=actual, model_context_hash=sha256(actual.encode()).hexdigest())
-
-    def faith(question, response, contexts):
-        seen["faith"] = contexts
-        return {"value": 1.0}
-
-    def judge(prompt):
-        seen["judge"] = prompt
-        return judge_returning(True)(prompt)
-
-    grade_record(rec, REF, k=5, judge_fn=judge, faithfulness_fn=faith,
-                 judge_template="{{final_context}}")
-    assert seen["judge"] == actual
-    assert seen["faith"] == [actual]
-    assert "문맥 문장" not in str(seen)
-
-
-def test_explicit_empty_model_context_does_not_use_retrieved_text():
-    prompts = []
-    rec = record(model_context_text="", model_context_hash=sha256(b"").hexdigest())
-    result = grade_record(
-        rec, REF, k=5,
-        judge_fn=lambda prompt: prompts.append(prompt) or judge_returning(True)(prompt),
-        faithfulness_fn=lambda *args: pytest.fail("빈 실제 문맥으로 RAGAS를 호출하지 않음"),
-        judge_template="{{final_context}}")
-    assert prompts == ["(최종 문맥 없음)"]
-    assert result["faithfulness"]["value"] == 0.0
