@@ -115,6 +115,30 @@ def test_benchmark_without_config_uses_explicit_k(tmp_path, monkeypatch, configu
     assert scores[0]["retrieval"]["k"] == 8
 
 
+
+@pytest.mark.parametrize("script, args", [
+    (run_benchmark, ["--questions", "{questions}",
+                     "--adapter", "app.service.bootstrap:query_adapter", "--modes", "naive"]),
+    (run_security, ["--security-file", "{questions}",
+                    "--retrieve", "app.service.bootstrap:retrieve_context",
+                    "--generate", "app.service.bootstrap:generate_with_context",
+                    "--retrieval-mode", "naive"]),
+])
+def test_config_and_config_hash_are_mutually_exclusive(tmp_path, monkeypatch, capsys,
+                                                       configured_service, script, args):
+    config, questions = write_inputs(tmp_path)
+    args = [str(questions) if item == "{questions}" else item for item in args]
+    monkeypatch.setattr("sys.argv", ["cli", *args, "--config", str(config),
+                                     "--config-hash", "manual-hash", "--experiment-id", "both",
+                                     "--artifacts-dir", str(tmp_path / "a"),
+                                     "--reports-dir", str(tmp_path / "r")])
+    with pytest.raises(SystemExit) as exc:
+        script.main()
+    assert exc.value.code == 2 and "not allowed with" in capsys.readouterr().err
+    configured_service[1].assert_not_called()  # 서비스 자원·유료 호출 전에 멈춘다
+    assert not (tmp_path / "a" / "both").exists()
+
+
 def test_security_config_applies_once_to_both_callables(tmp_path, monkeypatch, configured_service):
     config, questions = write_inputs(tmp_path)
     monkeypatch.setattr("sys.argv", ["run_security", "--security-file", str(questions),

@@ -22,7 +22,7 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 ## 실제 연결
 
 - 실행 전에 질문·참고 파일 구조, ID 대응과 채점 필드(`evidence_groups` 등)를 오프라인에서 확인한다. 질문은 `id`와 `question`으로 실행하고, 정답·근거·공격 라벨은 실행 후 채점에서 사용한다.
-- 일반 평가 `run_benchmark`에 `--questions`와 해당 split의 `--references`, `--adapter 모듈:이름`, `--config` 또는 `--config-hash`를 전달한다. `--ids`로 먼저 한 문항을 고른다. `--references`의 기본값은 질문 파일이므로 제공 자료처럼 파일이 분리되면 둘 다 지정한다.
+- 일반 평가 `run_benchmark`에 `--questions`와 해당 split의 `--references`, `--adapter 모듈:이름`, `--config` 또는 `--config-hash` 중 하나를 전달한다. 둘을 함께 주면 기록된 해시와 실제 실행 설정이 어긋날 수 있어 실행 전에 거부하며, 설정 파일이 있으면 `--config`를 쓴다. `--ids`로 먼저 한 문항을 고른다. `--references`의 기본값은 질문 파일이므로 제공 자료처럼 파일이 분리되면 둘 다 지정한다.
 - 일반 평가의 `--k`는 채점용 상위 청크 수이며 실제 검색 k와 같아야 한다. `--config`가 있으면 그 `retrieval.k`를 쓰고, `--k`를 함께 주면 같은 값일 때만 실행한다. `--config` 없이 `--config-hash`로 실행하면 `--k`를 반드시 지정한다(코드 기본값으로 추정하지 않는다). `--k`만 바꿔도 검색 개수는 바뀌지 않으므로 서비스/어댑터 설정과 맞춰 지정한다. 가상 샘플(`--sample`)만 기본 8을 쓴다. `--dataset-id`를 생략하면 설정 파일의 `dataset`을 기록한다(설정 파일이 없으면 basic).
 - 보안 평가 `run_security`는 `--security-file`, 초기화된 `--retrieve`·`--generate`, `--retrieval-mode`, 설정이나 설정 해시를 받는다. 문항별로 같은 최종 문맥을 기본·방어 프롬프트에 재사용한다. 공격 미노출과 생성 실패를 방어 성공으로 세지 않는다.
 - `--config`는 표준 `app.service.bootstrap`의 실제 실행 설정으로 전달한다. CLI는 모듈의 선택적 `configure_evaluation(config_path)` 훅을 자원 준비 전에 호출한다. 사용자 정의 어댑터는 이 훅을 제공하거나 자체 설정 로더를 같은 파일에 맞춰야 한다. 이미 준비된 표준 자원은 다른 설정 경로나 같은 파일의 내용 변경을 감지하면 거부하므로 다른 설정의 실험은 새 실행으로 시작한다.
