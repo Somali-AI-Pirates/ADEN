@@ -2,26 +2,29 @@
 
 ## 현재 Advanced 구성
 
-개인 Advanced 기본값은 **제목 보너스 검색 + 검증된 명시·간접 HG 사건 조회 + 복원 원본 페이지 문맥**이다. Bigram-ID BM25와 제목 보너스로 후보 20쪽을 정하고 KURE nano로 재정렬한다. 질문에서 검증된 HG 사건을 식별하면 그 사건의 다섯 원본 페이지를 먼저 두고, 남은 자리는 기존 검색 순서로 채운다. 식별되지 않으면 제목 보너스 검색 결과를 그대로 쓴다. 최종 문맥은 기본적으로 복원 원본 최대 8쪽을 토큰 상한 없이 담는다. [선택 근거와 비교 결과](records/decisions.md#2026-11-09--advanced-개인-기준선을-hg-사건-조회와-원본-페이지로-갱신) · [HG 조회와 문맥 비교 기록](advanced-curation-plan.md#현재-개인-기준선)
+개인 Advanced 기본 실행은 제목 보너스를 적용한 Bigram-ID BM25와 Snowflake-ko 벡터 검색에서 각 20쪽을 뽑고, **5:5 RRF(상수 60)**로 합쳐 후보 20쪽을 고른다. KURE nano 상위 3쪽 뒤에는 나머지 후보를 RRF 순으로 잇는다. 명시·간접 HG 조회와 단일 사건, 모호한 두 후보 사건, 두 사건 비교의 대상별 원문 조회를 적용한다. 복원 원본은 기존 선택기로 최대 8쪽·8,000토큰을 담는다. [기준선 결정](records/decisions.md#2026-11-09--55-하이브리드를-개인-advanced-기준선에-채택) · [카테고리 비교](records/advanced-category-comparison-20261109/report.md)
 
-Advanced 복원 페이지 캐시, 로컬 Advanced 정제본 `artifacts/u_10o0o/pattern-curation/advanced`, HG 사건·출처 인덱스 `artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109`, [추가 평가 데이터](evaluation/advanced_holdout/README.md), 공식 평가 파일, KURE nano의 로컬 모델 캐시와 CUDA가 필요하다. 기본 실행은 공식 평가 60문항과 블라인드 holdout 280문항, 총 340문항을 사용한다. 정제본이 없으면 [정제 계획](advanced-curation-plan.md#0-기준선과-로컬-입력-확인)에 따라 준비하고, 사건 인덱스는 [생성 기록](records/advanced-curation/hg-case-sources-20261109/report.md)의 안내대로 새 출력 경로에 만든다. 저장소 루트에서 실행하면 새 `records/advanced-selected-…/`에 실행 로그와 문항별 지표를 저장한다. `--output-dir`로 새 경로를 지정할 수 있다. 정제본과 사건 인덱스 경로를 바꿀 때는 `--curated`와 `--case-index`를 지정한다.
+Advanced 복원 페이지와 Snowflake-ko 페이지 벡터, 정제본, HG 사건·출처 인덱스, 역할별 정규화 필드, Snowflake-ko·KURE nano 로컬 모델 캐시와 CUDA가 필요하다. 기본 실행은 공식 평가 60문항과 블라인드 holdout 280문항을 사용한다. 저장소 루트에서 실행하면 새 `records/advanced-selected-…/`에 실행 로그와 문항별 지표를 저장한다. `--output-dir`로 새 경로를 지정할 수 있다. [원문 조회 입력과 생성 절차](advanced-curation-plan.md#현재-개인-기준선)
 
 ```bash
 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
   uv run --no-sync python -m experimental.u_10o0o.advanced_search
 ```
 
-이전 실행과 비교할 때는 당시 조건에 맞춰 `--context-tokens 4000` 또는 `--context-tokens 5000`을 추가한다. 실행 로그와 `results.json`의 `config.context_tokens`에 상한을 기록한다. 기본 실행은 이 값을 `null`로 기록한다.
+기본 토큰 상한은 8,000이다. 비교 실행에서 다른 한도가 필요하면 `--context-tokens`에 양의 정수를 지정한다. 실제 상한과 원문 조회 경로별 발동 수는 실행 결과에 기록한다.
+
+기준선 채택에 사용한 카테고리별 220문항은 `--suite categories`로 실행한다. 이 실행은 상황별 140문항, 업무 규정 20문항, 일상 표현 40문항, 범위 밖 대조 20문항의 후보 순위와 최종 문맥 지문을 채점 전에 저장한다. 상황별 140문항만 실행하려면 `--suite scenarios`를 사용한다. [카테고리 실행 방법](evaluation/advanced_scenarios/README.md#개인-기준선의-카테고리별-220문항-실행)
 
 사용자 지정 로컬 경로를 쓸 때는 기본 명령에 다음 옵션을 추가한다.
 
 ```bash
 uv run --no-sync python -m experimental.u_10o0o.advanced_search \
   --curated artifacts/my-advanced-curation/advanced \
-  --case-index artifacts/my-advanced-case-index
+  --case-index artifacts/my-advanced-case-index \
+  --role-facts artifacts/my-advanced-role-facts
 ```
 
-기본 결과 키는 `bigram_id_fielded_kure_top3_hg_lookup`이다. `--compare`를 붙이면 **제목 보너스만 적용한 이전 구성**을 비교군으로 남기고, 본문 BM25 기준선, 순수 KURE 재정렬, Bigram-ID BM25 단독, Kiwi·Bigram-ID 각각의 Snowflake 6:4 RRF도 평가한다. 제목 보너스 단독 결과의 기존 키는 `bigram_id_fielded_kure_top3`다. 이 옵션에는 Kiwi와 Snowflake-ko 모델 및 페이지 벡터 캐시가 필요하다.
+기본 결과 키는 `bigram_id_fielded_snowflake_ko_rrf_55_kure_top3_paired_source_lookup`이다. `--compare`를 추가하면 이전 BM25 기준선 `bigram_id_fielded_kure_top3_paired_source_lookup`도 같은 원문 조회와 문맥 선택기로 채점한다. 기존 HG 조회, 제목 보너스 단독, 본문 BM25, 순수 KURE 재정렬, Bigram-ID BM25 단독, Kiwi·Bigram-ID 각각의 Snowflake 6:4 RRF도 이 옵션으로 확인할 수 있다. `--compare`에는 Kiwi가 추가로 필요하다.
 
 ### 동료 Advanced 평가 세트
 

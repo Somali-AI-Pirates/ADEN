@@ -1,0 +1,54 @@
+{
+  "command": "python -m experimental.u_10o0o.advanced_search --suite scenarios",
+  "preset": "bigram_id_fielded_kure_top3_paired_source_lookup",
+  "questions": 140,
+  "all_required_quotes_in_context": 140,
+  "candidate_order_and_packed_context_matches_prior_B": 140,
+  "limits": {
+    "candidate_pages": 20,
+    "final_pages": 8,
+    "context_tokens": 8000
+  },
+  "routes": {
+    "fallback": 88,
+    "unique": 20,
+    "pair": 12,
+    "ambiguous": 20
+  },
+  "inputs": {
+    "scenarios": {
+      "questions": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_questions.json",
+        "sha256": "612cc0422657a1dc4d175165ea850c6635361b6c6f2de867159402a7c928f39b"
+      },
+      "references": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_references.json",
+        "sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309"
+      }
+    }
+  },
+  "artifacts": {
+    "current": {
+      "path": "artifacts/u_10o0o/advanced-selected-pair-source-scenarios-20261109/results.json",
+      "sha256": "d861b9855ecb3ed4c09d737fce65fe047635ba94d6a6a4d12f4a39ef8cf1746f"
+    },
+    "archived_B": {
+      "path": "artifacts/u_10o0o/advanced-pair-source-20261109-verified/rankings.jsonl",
+      "sha256": "a700514f85891780ec183b7666123d39c24473ad7696f5fe73c8e56624ccfb70"
+    }
+  },
+  "code": {
+    "advanced_search.py": {
+      "path": "experimental/u_10o0o/advanced_search.py",
+      "sha256": "456acb1d93ae96e0f282931e76df582302233c34979cda1da7e9e598ef55015a"
+    },
+    "advanced_source_lookup.py": {
+      "path": "experimental/u_10o0o/advanced_source_lookup.py",
+      "sha256": "9ac42d6faec1bad8269b0a5818be8095fa3a7391864ed60e31afdd49ffc23231"
+    },
+    "advanced_pair_source_lookup.py": {
+      "path": "experimental/u_10o0o/advanced_pair_source_lookup.py",
+      "sha256": "f06858f6daba8faf83111a0f1b4429a598c1037ef9937a56385280cdbbf632d4"
+    }
+  }
+}

@@ -111,7 +111,16 @@ def _canonical_date(text: str) -> str | None:
 class TargetLookup:
     """Resolve exact supported identifiers or unique source-field composites."""
 
-    def __init__(self, pages: list[dict], cases: dict[str, list[dict]], profiles: dict):
+    def __init__(
+        self,
+        pages: list[dict],
+        cases: dict[str, list[dict]],
+        profiles: dict,
+        *,
+        curated: Path = CURATED,
+        case_index: Path = CASE_INDEX,
+        facts: Path = FACTS,
+    ):
         self.cases = cases
         self.profiles = profiles
         self.page_roles = {
@@ -125,8 +134,8 @@ class TargetLookup:
             lambda: defaultdict(set)
         )
         self.profile_index = ProfileIndex(profiles)
-        self._index_profiles()
-        self._index_role_facts()
+        self._index_profiles(curated)
+        self._index_role_facts(curated, case_index, facts)
         self.profile_patterns = tuple(self.profile_index.patterns)
         self.text_field_patterns = {
             field: self._alternation_pattern(values)
@@ -142,7 +151,7 @@ class TargetLookup:
         )
         return re.compile(rf"(?<!\w)({alternatives})(?!\w)")
 
-    def _index_profiles(self) -> None:
+    def _index_profiles(self, curated: Path) -> None:
         for case_id, (shipper, cargo, spec) in self.profiles.items():
             for field, value in zip(
                 ("shipper", "cargo", "spec"),
@@ -153,7 +162,7 @@ class TargetLookup:
             self.id_to_cases[case_id].add(case_id)
             self.id_fields[case_id].add("case_id")
         contracts_by_case = defaultdict(set)
-        for path in sorted(CURATED.joinpath("records").glob("*.jsonl")):
+        for path in sorted(curated.joinpath("records").glob("*.jsonl")):
             for row in read_rows(path):
                 if row.get("kind") != "case_context":
                     continue
@@ -178,12 +187,12 @@ class TargetLookup:
                 self.id_fields[value].add("contract_id")
                 self.field_to_cases["contract_id"][value].add(case_id)
 
-    def _index_role_facts(self) -> None:
-        summary_path = FACTS / "summary.json"
-        facts_path = FACTS / "role_facts.jsonl"
+    def _index_role_facts(self, curated: Path, case_index: Path, facts: Path) -> None:
+        summary_path = facts / "summary.json"
+        facts_path = facts / "role_facts.jsonl"
         summary = json.loads(summary_path.read_bytes())
-        manifest_sha = sha256((CURATED / "manifest.json").read_bytes()).hexdigest()
-        links_sha = sha256((CASE_INDEX / "case_sources.jsonl").read_bytes()).hexdigest()
+        manifest_sha = sha256((curated / "manifest.json").read_bytes()).hexdigest()
+        links_sha = sha256((case_index / "case_sources.jsonl").read_bytes()).hexdigest()
         facts_sha = sha256(facts_path.read_bytes()).hexdigest()
         if (
             summary["curation_manifest_sha256"] != manifest_sha
@@ -462,10 +471,18 @@ class TargetLookup:
         return TargetPlan(status="unresolved")
 
 
-def load_target_lookup(pages: list[dict] | None = None) -> TargetLookup:
+def load_target_lookup(
+    pages: list[dict] | None = None,
+    *,
+    curated: Path = CURATED,
+    case_index: Path = CASE_INDEX,
+    facts: Path = FACTS,
+) -> TargetLookup:
     if pages is None:
         pages = json.loads(CACHE_PATH.read_bytes())
-    manifest_sha = sha256((CURATED / "manifest.json").read_bytes()).hexdigest()
-    cases = load_cases(CASE_INDEX, pages, manifest_sha)
-    profiles = load_profiles(CURATED, cases)
-    return TargetLookup(pages, cases, profiles)
+    manifest_sha = sha256((curated / "manifest.json").read_bytes()).hexdigest()
+    cases = load_cases(case_index, pages, manifest_sha)
+    profiles = load_profiles(curated, cases)
+    return TargetLookup(
+        pages, cases, profiles, curated=curated, case_index=case_index, facts=facts
+    )

@@ -17,7 +17,7 @@ from typing import Any
 import tiktoken
 
 from app.generation.context import build_context
-from shared.contracts import Chunk, RetrievedChunk
+from shared.contracts import Chunk, ContextBundle, RetrievedChunk
 
 _CONTEXT_CHUNKS = 3
 _TOKENIZER = "o200k_base"
@@ -152,7 +152,6 @@ def score_context(
     if isinstance(top_k, bool) or not isinstance(top_k, int) or top_k <= 0:
         raise ValueError("top_k must be a positive integer.")
 
-    groups, expected = _quote_groups(evidence_groups)
     candidates = _context_candidates(ranked)
     context = build_context(
         candidates,
@@ -160,7 +159,13 @@ def score_context(
         token_budget=token_budget,
         count_tokens=_count_tokens,
     )
+    return score_packed_context(context, evidence_groups)
 
+
+def score_packed_context(
+    context: ContextBundle, evidence_groups: Sequence[Sequence[Mapping[str, Any]]]
+) -> dict[str, int]:
+    groups, expected = _quote_groups(evidence_groups)
     found: set[tuple[str, int, str]] = set()
     for result in context.final_chunks:
         chunk = result.chunk

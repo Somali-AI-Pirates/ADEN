@@ -1,0 +1,569 @@
+{
+  "selected_preset": "bigram_id_fielded_snowflake_ko_rrf_55_kure_top3_paired_source_lookup",
+  "comparison_preset": "bigram_id_fielded_kure_top3_paired_source_lookup",
+  "external_api_calls": 0,
+  "runner": {
+    "path": "experimental/u_10o0o/advanced_search.py",
+    "sha256": "dff15a0135e65ce27988424f1c26e76a61d7111d1072acc2799650ce29806e0a"
+  },
+  "config": {
+    "run_at": "2026-11-09T17:54:07.474702+09:00",
+    "suite": "categories",
+    "selected_preset": "bigram_id_fielded_snowflake_ko_rrf_55_kure_top3_paired_source_lookup",
+    "inputs": {
+      "scenarios": {
+        "questions": {
+          "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_questions.json",
+          "sha256": "612cc0422657a1dc4d175165ea850c6635361b6c6f2de867159402a7c928f39b"
+        },
+        "references": {
+          "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_references.json",
+          "sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309"
+        }
+      },
+      "negative_control": {
+        "questions": {
+          "path": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_questions.json",
+          "sha256": "f490c928dd3298629229b008b1cade8b166966fb01ccc328c2cff843f6760404"
+        },
+        "references": {
+          "path": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_references.json",
+          "sha256": "100ec141d87ab3dba5878af0ecacecd192f1bb5c3092917f57d0cbe63221d466"
+        }
+      },
+      "work_rules": {
+        "questions": {
+          "path": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/questions.json",
+          "sha256": "b7b569df66a0912ed1c5c6b8e7544cf7ae1bf802e45df3d2bc7e852b98567935"
+        },
+        "references": {
+          "path": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/references.json",
+          "sha256": "2de9b0da7f1f052c912716d3eb5132653a81e44e8288403a329f49a3772fa280"
+        }
+      },
+      "semantic_queries": {
+        "questions": {
+          "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/questions.json",
+          "sha256": "b6347f69fe72b4ead5147aed367f03bf5110286eb52d364df460269421959d82"
+        },
+        "references": {
+          "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+          "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+        }
+      }
+    },
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "bm25": {
+      "tokenizer": "bigram-id",
+      "identifier_pattern": "(?<![A-Za-z0-9])[A-Z][A-Z0-9]{0,6}(?:-[A-Z0-9]{1,8}){1,4}(?![A-Za-z0-9])",
+      "k1": 1.5,
+      "b": 0.75
+    },
+    "fielded": {
+      "fusion": "max_normalized_bm25_heading_bonus",
+      "field_pool": 80,
+      "heading_weight": 0.25,
+      "heading_block_limit": 3,
+      "heading_char_limit": 600
+    },
+    "hybrid": {
+      "model": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+      "revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+      "k": 60,
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "vectors": {
+        "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+        "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+      }
+    },
+    "hg_lookup": {
+      "curated": "artifacts/u_10o0o/pattern-curation/advanced",
+      "curation_manifest_sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+      "case_index": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109",
+      "case_sources_sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326",
+      "indexed_cases": 2730,
+      "context": "restored_full_page",
+      "routes": {
+        "unsupported_constraint": 54,
+        "explicit_hg": 74,
+        "missing_terms": 78,
+        "unverified_hg": 8,
+        "ambiguous_terms": 6
+      }
+    },
+    "source_lookup": {
+      "role_facts": {
+        "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+        "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+      },
+      "routes": {
+        "fallback": 168,
+        "unique": 20,
+        "pair": 12,
+        "ambiguous": 20
+      },
+      "selection_routes": {
+        "no_verified_pair": 212,
+        "covered": 5,
+        "repacked": 3
+      }
+    },
+    "candidate_count": 20,
+    "reranker": {
+      "model": "nlpai-lab/KURE-Reranker-nano",
+      "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "dtype": "float16",
+      "max_tokens": 512,
+      "batch_size": 32
+    },
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "versions": {
+      "torch": "2.15.0",
+      "transformers": "5.22.1",
+      "sentence-transformers": "6.2.0",
+      "numpy": "2.5.4"
+    },
+    "context_tokens": 8000,
+    "reranked_head": 3,
+    "selected_top_k": 8
+  },
+  "archived_rankings": [
+    {
+      "path": "artifacts/u_10o0o/advanced-category-comparison-20261109/rankings.jsonl",
+      "sha256": "72e20884cb8bee13d71d5ef11aad257a1fcc28aaf52660bd8033330dcc966772"
+    },
+    {
+      "path": "artifacts/u_10o0o/advanced-semantic-queries-20261109/rankings.jsonl",
+      "sha256": "0b02ee85ef0688e573d6dd3324500f13e469146842f270d5344dc7a2a53ad99b"
+    }
+  ],
+  "archived_category_scores": {
+    "path": "experimental/u_10o0o/records/advanced-category-comparison-20261109/results.json",
+    "sha256": "9fbd1d9857c3d82c7feed3439800309f518723b5821ba5181ee3c961e640ef1b"
+  },
+  "runs": {
+    "advanced-selected-hybrid-categories-direct-20261109": {
+      "files": [
+        {
+          "path": "artifacts/u_10o0o/advanced-selected-hybrid-categories-direct-20261109/rankings.jsonl",
+          "sha256": "732ef76122479d95ab77142309d7ab8f5db4c87ae6f31ef72537967280af85eb"
+        },
+        {
+          "path": "artifacts/u_10o0o/advanced-selected-hybrid-categories-direct-20261109/results.json",
+          "sha256": "608a507b80d9907b592840ddd06f4a9b9036b8a969da87fb7dcb35cca3404c08"
+        },
+        {
+          "path": "artifacts/u_10o0o/advanced-selected-hybrid-categories-direct-20261109/run.log",
+          "sha256": "958cc13af980b7b6fbdf144a7dc9d07cce91d9e7e743394905b354575ea33d67"
+        }
+      ],
+      "verified": {
+        "rrf_55": {
+          "rankings_match": {
+            "context_sha256": 219,
+            "context_tokens": 220,
+            "expanded": 219,
+            "linked_cases_count": 220,
+            "packed": 219,
+            "pool": 220,
+            "route": 220
+          },
+          "packed_page_sets_match": 220,
+          "changed_fields_by_question": {
+            "AS-S01-02": [
+              "context_sha256",
+              "expanded",
+              "packed"
+            ]
+          },
+          "categories": {
+            "positive": {
+              "S01": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 20,
+                "required_facts": 20
+              },
+              "all_positive": {
+                "count": 200,
+                "candidate_complete": 132,
+                "final_complete": 170,
+                "final_facts": 356,
+                "required_facts": 395
+              },
+              "S02": {
+                "count": 20,
+                "candidate_complete": 10,
+                "final_complete": 20,
+                "final_facts": 30,
+                "required_facts": 30
+              },
+              "S03": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 70,
+                "required_facts": 70
+              },
+              "S04": {
+                "count": 20,
+                "candidate_complete": 10,
+                "final_complete": 20,
+                "final_facts": 66,
+                "required_facts": 66
+              },
+              "S05": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 40,
+                "required_facts": 40
+              },
+              "S06": {
+                "count": 20,
+                "candidate_complete": 0,
+                "final_complete": 20,
+                "final_facts": 40,
+                "required_facts": 40
+              },
+              "S07": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 40,
+                "required_facts": 40
+              },
+              "work_rules/procedure": {
+                "count": 10,
+                "candidate_complete": 9,
+                "final_complete": 9,
+                "final_facts": 11,
+                "required_facts": 12
+              },
+              "work_rules/applicability": {
+                "count": 10,
+                "candidate_complete": 9,
+                "final_complete": 8,
+                "final_facts": 13,
+                "required_facts": 15
+              },
+              "semantic/procedure_paraphrase": {
+                "count": 10,
+                "candidate_complete": 6,
+                "final_complete": 6,
+                "final_facts": 6,
+                "required_facts": 10
+              },
+              "semantic/rule_paraphrase": {
+                "count": 10,
+                "candidate_complete": 5,
+                "final_complete": 4,
+                "final_facts": 4,
+                "required_facts": 11
+              },
+              "semantic/cross_document_workflow": {
+                "count": 10,
+                "candidate_complete": 2,
+                "final_complete": 2,
+                "final_facts": 11,
+                "required_facts": 20
+              },
+              "semantic/cross_document_rule": {
+                "count": 10,
+                "candidate_complete": 1,
+                "final_complete": 1,
+                "final_facts": 5,
+                "required_facts": 21
+              }
+            },
+            "negative_control": {
+              "negative/unrelated": {
+                "count": 10,
+                "returned_pages": 80
+              },
+              "negative/near_domain": {
+                "count": 10,
+                "returned_pages": 80
+              }
+            }
+          }
+        }
+      }
+    },
+    "advanced-selected-hybrid-compare-20261109": {
+      "files": [
+        {
+          "path": "artifacts/u_10o0o/advanced-selected-hybrid-compare-20261109/rankings.jsonl",
+          "sha256": "f366fcf888819d00dd5c40b0b49c2416282db69101ea26928d8e546cf0a504df"
+        },
+        {
+          "path": "artifacts/u_10o0o/advanced-selected-hybrid-compare-20261109/results.json",
+          "sha256": "058e51a91af0f3109da360f74bc9742426091351568f9d4740b2bfa6ae988e41"
+        },
+        {
+          "path": "artifacts/u_10o0o/advanced-selected-hybrid-compare-20261109/run.log",
+          "sha256": "d3c256f13941abea29bf43b157857f1f803e9f89800ffb0a4c82010f76bf4943"
+        }
+      ],
+      "verified": {
+        "rrf_55": {
+          "rankings_match": {
+            "context_sha256": 220,
+            "context_tokens": 220,
+            "expanded": 220,
+            "linked_cases_count": 220,
+            "packed": 220,
+            "pool": 220,
+            "route": 220
+          },
+          "packed_page_sets_match": 220,
+          "changed_fields_by_question": {},
+          "categories": {
+            "positive": {
+              "S01": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 20,
+                "required_facts": 20
+              },
+              "all_positive": {
+                "count": 200,
+                "candidate_complete": 132,
+                "final_complete": 170,
+                "final_facts": 356,
+                "required_facts": 395
+              },
+              "S02": {
+                "count": 20,
+                "candidate_complete": 10,
+                "final_complete": 20,
+                "final_facts": 30,
+                "required_facts": 30
+              },
+              "S03": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 70,
+                "required_facts": 70
+              },
+              "S04": {
+                "count": 20,
+                "candidate_complete": 10,
+                "final_complete": 20,
+                "final_facts": 66,
+                "required_facts": 66
+              },
+              "S05": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 40,
+                "required_facts": 40
+              },
+              "S06": {
+                "count": 20,
+                "candidate_complete": 0,
+                "final_complete": 20,
+                "final_facts": 40,
+                "required_facts": 40
+              },
+              "S07": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 40,
+                "required_facts": 40
+              },
+              "work_rules/procedure": {
+                "count": 10,
+                "candidate_complete": 9,
+                "final_complete": 9,
+                "final_facts": 11,
+                "required_facts": 12
+              },
+              "work_rules/applicability": {
+                "count": 10,
+                "candidate_complete": 9,
+                "final_complete": 8,
+                "final_facts": 13,
+                "required_facts": 15
+              },
+              "semantic/procedure_paraphrase": {
+                "count": 10,
+                "candidate_complete": 6,
+                "final_complete": 6,
+                "final_facts": 6,
+                "required_facts": 10
+              },
+              "semantic/rule_paraphrase": {
+                "count": 10,
+                "candidate_complete": 5,
+                "final_complete": 4,
+                "final_facts": 4,
+                "required_facts": 11
+              },
+              "semantic/cross_document_workflow": {
+                "count": 10,
+                "candidate_complete": 2,
+                "final_complete": 2,
+                "final_facts": 11,
+                "required_facts": 20
+              },
+              "semantic/cross_document_rule": {
+                "count": 10,
+                "candidate_complete": 1,
+                "final_complete": 1,
+                "final_facts": 5,
+                "required_facts": 21
+              }
+            },
+            "negative_control": {
+              "negative/unrelated": {
+                "count": 10,
+                "returned_pages": 80
+              },
+              "negative/near_domain": {
+                "count": 10,
+                "returned_pages": 80
+              }
+            }
+          }
+        },
+        "bm25": {
+          "rankings_match": {
+            "context_sha256": 220,
+            "context_tokens": 220,
+            "expanded": 220,
+            "linked_cases_count": 220,
+            "packed": 220,
+            "pool": 220,
+            "route": 220
+          },
+          "packed_page_sets_match": 220,
+          "changed_fields_by_question": {},
+          "categories": {
+            "positive": {
+              "S01": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 20,
+                "required_facts": 20
+              },
+              "all_positive": {
+                "count": 200,
+                "candidate_complete": 122,
+                "final_complete": 162,
+                "final_facts": 344,
+                "required_facts": 395
+              },
+              "S02": {
+                "count": 20,
+                "candidate_complete": 8,
+                "final_complete": 20,
+                "final_facts": 30,
+                "required_facts": 30
+              },
+              "S03": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 70,
+                "required_facts": 70
+              },
+              "S04": {
+                "count": 20,
+                "candidate_complete": 10,
+                "final_complete": 20,
+                "final_facts": 66,
+                "required_facts": 66
+              },
+              "S05": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 40,
+                "required_facts": 40
+              },
+              "S06": {
+                "count": 20,
+                "candidate_complete": 0,
+                "final_complete": 20,
+                "final_facts": 40,
+                "required_facts": 40
+              },
+              "S07": {
+                "count": 20,
+                "candidate_complete": 20,
+                "final_complete": 20,
+                "final_facts": 40,
+                "required_facts": 40
+              },
+              "work_rules/procedure": {
+                "count": 10,
+                "candidate_complete": 8,
+                "final_complete": 8,
+                "final_facts": 10,
+                "required_facts": 12
+              },
+              "work_rules/applicability": {
+                "count": 10,
+                "candidate_complete": 8,
+                "final_complete": 7,
+                "final_facts": 11,
+                "required_facts": 15
+              },
+              "semantic/procedure_paraphrase": {
+                "count": 10,
+                "candidate_complete": 3,
+                "final_complete": 3,
+                "final_facts": 3,
+                "required_facts": 10
+              },
+              "semantic/rule_paraphrase": {
+                "count": 10,
+                "candidate_complete": 2,
+                "final_complete": 2,
+                "final_facts": 2,
+                "required_facts": 11
+              },
+              "semantic/cross_document_workflow": {
+                "count": 10,
+                "candidate_complete": 2,
+                "final_complete": 2,
+                "final_facts": 7,
+                "required_facts": 20
+              },
+              "semantic/cross_document_rule": {
+                "count": 10,
+                "candidate_complete": 1,
+                "final_complete": 0,
+                "final_facts": 5,
+                "required_facts": 21
+              }
+            },
+            "negative_control": {
+              "negative/unrelated": {
+                "count": 10,
+                "returned_pages": 80
+              },
+              "negative/near_domain": {
+                "count": 10,
+                "returned_pages": 80
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

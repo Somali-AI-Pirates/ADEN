@@ -96,16 +96,16 @@ class StorageCaseLookup:
         )
 
 
-def load_storage_lookup(pages):
-    manifest_sha = sha256((CURATED / "manifest.json").read_bytes()).hexdigest()
-    cases = load_cases(CASE_INDEX, pages, manifest_sha)
-    profiles = load_profiles(CURATED, cases)
-    path = FACTS / "role_facts.jsonl"
-    summary = json.loads((FACTS / "summary.json").read_bytes())
+def load_storage_lookup(pages, *, curated=CURATED, case_index=CASE_INDEX, facts=FACTS):
+    manifest_sha = sha256((curated / "manifest.json").read_bytes()).hexdigest()
+    cases = load_cases(case_index, pages, manifest_sha)
+    profiles = load_profiles(curated, cases)
+    path = facts / "role_facts.jsonl"
+    summary = json.loads((facts / "summary.json").read_bytes())
     if (
         summary["curation_manifest_sha256"] != manifest_sha
         or summary["case_sources_sha256"]
-        != sha256((CASE_INDEX / "case_sources.jsonl").read_bytes()).hexdigest()
+        != sha256((case_index / "case_sources.jsonl").read_bytes()).hexdigest()
         or summary["role_facts_sha256"] != sha256(path.read_bytes()).hexdigest()
     ):
         raise ValueError("반출일 기록의 입력 지문이 다릅니다.")

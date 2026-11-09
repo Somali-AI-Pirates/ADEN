@@ -1,0 +1,58 @@
+{
+  "dataset": "advanced",
+  "scenario": "semantic_queries",
+  "questions": 40,
+  "variants": {
+    "procedure_paraphrase": 10,
+    "rule_paraphrase": 10,
+    "cross_document_workflow": 10,
+    "cross_document_rule": 10
+  },
+  "evaluation_stage": "retrieval",
+  "authored_questions": 40,
+  "required_document_count_distribution": {
+    "1": 20,
+    "2": 19,
+    "3": 1
+  },
+  "source_pdfs": {
+    "AS007": "b7bb6a94cacde000d1d6987d801bdb34d193296d6f84ca2a490a08d77133522d",
+    "AS008": "70950face1dc532dc816e318dec8ff59ff3295a26edd9fcc124dbd2b8ea1cf83",
+    "AS009": "b60551af48e995cd0f131c57136caa714856beabf39659b0da2cb9159090b822",
+    "AS010": "7082e86ec3f0266e64074b5566286d40b6fbbc876110267855918e1e106dd7bb",
+    "AS011": "549bb4d3a9028a79b0871478f67e7ff7eacb2cfa97f2ce0911f34ba7f7ffdacd",
+    "AS012": "2e9464206c48b0804b50e57e5d615c1b4d09193f92db6d35c1977d0fb626809b",
+    "AS013": "464c5362457f564cd4ab317b6310b62779c2705b19249c27597d7210ad8b82d1",
+    "AS014": "93747e344f21afd459cbfcb882498d6345bda391431d1f88beca4f5eb0a5178a",
+    "AS016": "cb8c65876460f60698af7a16eb2db3a1408483c692a5101758867a1d05bbdf35",
+    "AS017": "64a3da6b60280faab522f1903b80b630fcf5de9b62f1f4d90a357dcd466bd8b3",
+    "AS019": "0eef0cc8d012c4d1cd140ce04f72246c105f9242cbded78303701d19da32e166",
+    "AS020": "3b213f23c01ed16f3a39ab70c8c1355dcc3873fd52304cf739b697d0bf6dd1a1",
+    "AS022": "864726dacdfc29b824c13d2230e3d1acd1d7db35d44b1f276f87f5f761cbc9a6",
+    "AS023": "d3826aa866af0c5d5118eee777eb94d08de22455c1c0b74250be56a10ce3ac2e",
+    "AS024": "b93e4b335d241f6092819ece0203b9eee606cf8a08a3d51b0dd97cfd5d7f6662",
+    "AS025": "842f78890036e1c9a85449d7cbc303a8006f22e3cc300e5b4f02faacc361e8cb",
+    "AS036": "d48813e7bc00de4c796fc794f6a8b3ddbd639febf37fcfd839a86fdb0dac34cf",
+    "AS045": "27e46336dbe3162630a5b93e49d23dd82efa3deae84d535dd07a6316e8fe53bd",
+    "AS051": "83adfa581b26a53e58c239d167aab5a6373874bdd71c8576f1f8b4a5802dea73",
+    "AS053": "6db55e9600a76f05efeef5c8fa27d198f11690f039cfefd7758be5973413350a",
+    "AS055": "a961320c6c48219f0f9a6fe85f09829b1b73bc119845826b3e691db558398d07",
+    "AS056": "e1dfd9cc4d6caf21be5a4813bc4c543f4e110bf6bf80da7852f324e01cd81e9b"
+  },
+  "restored_pages_sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d",
+  "source_pages": 40,
+  "source_page_overlap": {
+    "scenarios_140": 0,
+    "work_rules_20": 23,
+    "official_60": 15
+  },
+  "gold_contexts_verified": 40,
+  "max_gold_context_tokens": 2217,
+  "human_review": "pending",
+  "retrieval_benchmark": "pending",
+  "external_api_calls": 0,
+  "files_sha256": {
+    "questions.json": "b6347f69fe72b4ead5147aed367f03bf5110286eb52d364df460269421959d82",
+    "references.json": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+  }
+}

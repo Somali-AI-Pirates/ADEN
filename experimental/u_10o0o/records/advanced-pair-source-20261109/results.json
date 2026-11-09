@@ -1,0 +1,819 @@
+{
+  "limits": {
+    "candidates": 20,
+    "pages": 8,
+    "context_tokens": 8000
+  },
+  "arms": [
+    "A",
+    "B",
+    "peer_v2_no_llm"
+  ],
+  "dataset": {
+    "manifest": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-20261109-v2/manifest.json",
+      "sha256": "0543b5e10f5cccf2a7750694d61e6c6d81885078bcdb88701b39c9b0c0002cd2"
+    },
+    "questions": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-20261109-v2/retrieval_questions.json",
+      "sha256": "612cc0422657a1dc4d175165ea850c6635361b6c6f2de867159402a7c928f39b"
+    },
+    "references": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-20261109-v2/retrieval_references.json",
+      "sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309"
+    },
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    }
+  },
+  "archive": {
+    "results": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-benchmark-20261109-v2/results.json",
+      "sha256": "f475a3d1ee7b4980fe0ee60c527924874360acf896d080151fe82c229918c584"
+    },
+    "rankings": {
+      "path": "artifacts/u_10o0o/advanced-scenarios-benchmark-20261109-v2/rankings.jsonl",
+      "sha256": "53a2766ab9c9c99b64fad57d8318a324a26f6ce4cb5f4e723c8f3fd84f1de191"
+    },
+    "source_lookup_results": {
+      "path": "artifacts/u_10o0o/advanced-source-lookup-20261109-verified/results.json",
+      "sha256": "ecf7ffe56593170218a65509bd1536f0e2f3d2f3471c1a1b4f29a4eae37e1469"
+    },
+    "source_lookup_rankings": {
+      "path": "artifacts/u_10o0o/advanced-source-lookup-20261109-verified/rankings.jsonl",
+      "sha256": "9aa7d1c9914edc673ad2549a947e35b9b47b82a720c6f72890b6db5c4b0b6887"
+    }
+  },
+  "source_index": {
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "case_links": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    },
+    "role_facts": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+      "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+    }
+  },
+  "code": {
+    "runner": {
+      "path": "experimental/u_10o0o/advanced_pair_source_ab.py",
+      "sha256": "5d4c4acd1497e9aacec3e014faeefd29caefe6112f214df031f2ff56c1d9c889"
+    },
+    "source_lookup": {
+      "path": "experimental/u_10o0o/advanced_source_lookup.py",
+      "sha256": "d88b2685855b6d40cb4d5548f9426816595cbbbf3d910a0f80ad388804ec9288"
+    },
+    "pair_lookup": {
+      "path": "experimental/u_10o0o/advanced_pair_source_lookup.py",
+      "sha256": "f06858f6daba8faf83111a0f1b4429a598c1037ef9937a56385280cdbbf632d4"
+    },
+    "selector": {
+      "path": "experimental/u_10o0o/advanced_pair_context.py",
+      "sha256": "2f689e1fbf3deba50c3e810d20c2acc48d8bce0450f697e5a7eac318483c8b37"
+    }
+  },
+  "external_api_calls": 0,
+  "summary": {
+    "all": {
+      "questions": 140,
+      "facts_required": 306,
+      "arms": {
+        "A": {
+          "candidate_complete": 133,
+          "candidate_facts_hit": 293,
+          "candidate_facts_required": 306,
+          "final_complete": 133,
+          "final_facts_hit": 292,
+          "final_facts_required": 306,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 0.9732142857142857,
+          "final_page_recall_at_8": 0.9714285714285714
+        },
+        "B": {
+          "candidate_complete": 140,
+          "candidate_facts_hit": 306,
+          "candidate_facts_required": 306,
+          "final_complete": 140,
+          "final_facts_hit": 306,
+          "final_facts_required": 306,
+          "context_changed_from_A": 7,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 97,
+          "candidate_facts_hit": 224,
+          "candidate_facts_required": 306,
+          "final_complete": 96,
+          "final_facts_hit": 222,
+          "final_facts_required": 306,
+          "context_changed_from_A": 140,
+          "candidate_page_recall_at_20": 0.7267857142857143,
+          "final_page_recall_at_8": 0.7214285714285714
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 7,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 7,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 7,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 14,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.026785714285714284,
+        "final_page_recall_delta": 0.02857142857142857,
+        "pair_lookup_questions": 12,
+        "pair_lookup_cases_exact": 12,
+        "candidate_membership_changed": 7,
+        "routes": {
+          "fallback": 128,
+          "matched": 12
+        },
+        "gained_final_question_ids": [
+          "AS-S04-10",
+          "AS-S04-13",
+          "AS-S04-15",
+          "AS-S04-16",
+          "AS-S04-18",
+          "AS-S04-19",
+          "AS-S04-20"
+        ],
+        "lost_final_question_ids": []
+      }
+    },
+    "S04": {
+      "questions": 20,
+      "facts_required": 66,
+      "arms": {
+        "A": {
+          "candidate_complete": 13,
+          "candidate_facts_hit": 53,
+          "candidate_facts_required": 66,
+          "final_complete": 13,
+          "final_facts_hit": 52,
+          "final_facts_required": 66,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 0.8125,
+          "final_page_recall_at_8": 0.8
+        },
+        "B": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 66,
+          "candidate_facts_required": 66,
+          "final_complete": 20,
+          "final_facts_hit": 66,
+          "final_facts_required": 66,
+          "context_changed_from_A": 7,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 11,
+          "candidate_facts_hit": 42,
+          "candidate_facts_required": 66,
+          "final_complete": 10,
+          "final_facts_hit": 41,
+          "final_facts_required": 66,
+          "context_changed_from_A": 20,
+          "candidate_page_recall_at_20": 0.65,
+          "final_page_recall_at_8": 0.6375
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 7,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 7,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 7,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 14,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.1875,
+        "final_page_recall_delta": 0.2,
+        "pair_lookup_questions": 12,
+        "pair_lookup_cases_exact": 12,
+        "candidate_membership_changed": 7,
+        "routes": {
+          "fallback": 8,
+          "matched": 12
+        },
+        "gained_final_question_ids": [
+          "AS-S04-10",
+          "AS-S04-13",
+          "AS-S04-15",
+          "AS-S04-16",
+          "AS-S04-18",
+          "AS-S04-19",
+          "AS-S04-20"
+        ],
+        "lost_final_question_ids": []
+      }
+    },
+    "other120_regression": {
+      "questions": 120,
+      "facts_required": 240,
+      "arms": {
+        "A": {
+          "candidate_complete": 120,
+          "candidate_facts_hit": 240,
+          "candidate_facts_required": 240,
+          "final_complete": 120,
+          "final_facts_hit": 240,
+          "final_facts_required": 240,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "B": {
+          "candidate_complete": 120,
+          "candidate_facts_hit": 240,
+          "candidate_facts_required": 240,
+          "final_complete": 120,
+          "final_facts_hit": 240,
+          "final_facts_required": 240,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 86,
+          "candidate_facts_hit": 182,
+          "candidate_facts_required": 240,
+          "final_complete": 86,
+          "final_facts_hit": 181,
+          "final_facts_required": 240,
+          "context_changed_from_A": 120,
+          "candidate_page_recall_at_20": 0.7395833333333334,
+          "final_page_recall_at_8": 0.7354166666666667
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 0,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 0,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 0,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 0,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.0,
+        "final_page_recall_delta": 0.0,
+        "pair_lookup_questions": 0,
+        "pair_lookup_cases_exact": 0,
+        "candidate_membership_changed": 0,
+        "routes": {
+          "fallback": 120
+        },
+        "gained_final_question_ids": [],
+        "lost_final_question_ids": []
+      }
+    },
+    "S01": {
+      "questions": 20,
+      "facts_required": 20,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 20,
+          "candidate_facts_required": 20,
+          "final_complete": 20,
+          "final_facts_hit": 20,
+          "final_facts_required": 20,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "B": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 20,
+          "candidate_facts_required": 20,
+          "final_complete": 20,
+          "final_facts_hit": 20,
+          "final_facts_required": 20,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 20,
+          "candidate_facts_required": 20,
+          "final_complete": 20,
+          "final_facts_hit": 20,
+          "final_facts_required": 20,
+          "context_changed_from_A": 20,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 0,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 0,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 0,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 0,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.0,
+        "final_page_recall_delta": 0.0,
+        "pair_lookup_questions": 0,
+        "pair_lookup_cases_exact": 0,
+        "candidate_membership_changed": 0,
+        "routes": {
+          "fallback": 20
+        },
+        "gained_final_question_ids": [],
+        "lost_final_question_ids": []
+      }
+    },
+    "S02": {
+      "questions": 20,
+      "facts_required": 30,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 30,
+          "candidate_facts_required": 30,
+          "final_complete": 20,
+          "final_facts_hit": 30,
+          "final_facts_required": 30,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "B": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 30,
+          "candidate_facts_required": 30,
+          "final_complete": 20,
+          "final_facts_hit": 30,
+          "final_facts_required": 30,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 6,
+          "candidate_facts_hit": 10,
+          "candidate_facts_required": 30,
+          "final_complete": 6,
+          "final_facts_hit": 9,
+          "final_facts_required": 30,
+          "context_changed_from_A": 20,
+          "candidate_page_recall_at_20": 0.375,
+          "final_page_recall_at_8": 0.35
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 0,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 0,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 0,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 0,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.0,
+        "final_page_recall_delta": 0.0,
+        "pair_lookup_questions": 0,
+        "pair_lookup_cases_exact": 0,
+        "candidate_membership_changed": 0,
+        "routes": {
+          "fallback": 20
+        },
+        "gained_final_question_ids": [],
+        "lost_final_question_ids": []
+      }
+    },
+    "S03": {
+      "questions": 20,
+      "facts_required": 70,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 70,
+          "candidate_facts_required": 70,
+          "final_complete": 20,
+          "final_facts_hit": 70,
+          "final_facts_required": 70,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "B": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 70,
+          "candidate_facts_required": 70,
+          "final_complete": 20,
+          "final_facts_hit": 70,
+          "final_facts_required": 70,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 70,
+          "candidate_facts_required": 70,
+          "final_complete": 20,
+          "final_facts_hit": 70,
+          "final_facts_required": 70,
+          "context_changed_from_A": 20,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 0,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 0,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 0,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 0,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.0,
+        "final_page_recall_delta": 0.0,
+        "pair_lookup_questions": 0,
+        "pair_lookup_cases_exact": 0,
+        "candidate_membership_changed": 0,
+        "routes": {
+          "fallback": 20
+        },
+        "gained_final_question_ids": [],
+        "lost_final_question_ids": []
+      }
+    },
+    "S05": {
+      "questions": 20,
+      "facts_required": 40,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "candidate_facts_required": 40,
+          "final_complete": 20,
+          "final_facts_hit": 40,
+          "final_facts_required": 40,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "B": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "candidate_facts_required": 40,
+          "final_complete": 20,
+          "final_facts_hit": 40,
+          "final_facts_required": 40,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "candidate_facts_required": 40,
+          "final_complete": 20,
+          "final_facts_hit": 40,
+          "final_facts_required": 40,
+          "context_changed_from_A": 20,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 0,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 0,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 0,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 0,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.0,
+        "final_page_recall_delta": 0.0,
+        "pair_lookup_questions": 0,
+        "pair_lookup_cases_exact": 0,
+        "candidate_membership_changed": 0,
+        "routes": {
+          "fallback": 20
+        },
+        "gained_final_question_ids": [],
+        "lost_final_question_ids": []
+      }
+    },
+    "S06": {
+      "questions": 20,
+      "facts_required": 40,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "candidate_facts_required": 40,
+          "final_complete": 20,
+          "final_facts_hit": 40,
+          "final_facts_required": 40,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "B": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "candidate_facts_required": 40,
+          "final_complete": 20,
+          "final_facts_hit": 40,
+          "final_facts_required": 40,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 0,
+          "candidate_facts_hit": 2,
+          "candidate_facts_required": 40,
+          "final_complete": 0,
+          "final_facts_hit": 2,
+          "final_facts_required": 40,
+          "context_changed_from_A": 20,
+          "candidate_page_recall_at_20": 0.0625,
+          "final_page_recall_at_8": 0.0625
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 0,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 0,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 0,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 0,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.0,
+        "final_page_recall_delta": 0.0,
+        "pair_lookup_questions": 0,
+        "pair_lookup_cases_exact": 0,
+        "candidate_membership_changed": 0,
+        "routes": {
+          "fallback": 20
+        },
+        "gained_final_question_ids": [],
+        "lost_final_question_ids": []
+      }
+    },
+    "S07": {
+      "questions": 20,
+      "facts_required": 40,
+      "arms": {
+        "A": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "candidate_facts_required": 40,
+          "final_complete": 20,
+          "final_facts_hit": 40,
+          "final_facts_required": 40,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "B": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "candidate_facts_required": 40,
+          "final_complete": 20,
+          "final_facts_hit": 40,
+          "final_facts_required": 40,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 20,
+          "candidate_facts_hit": 40,
+          "candidate_facts_required": 40,
+          "final_complete": 20,
+          "final_facts_hit": 40,
+          "final_facts_required": 40,
+          "context_changed_from_A": 20,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 0,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 0,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 0,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 0,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.0,
+        "final_page_recall_delta": 0.0,
+        "pair_lookup_questions": 0,
+        "pair_lookup_cases_exact": 0,
+        "candidate_membership_changed": 0,
+        "routes": {
+          "fallback": 20
+        },
+        "gained_final_question_ids": [],
+        "lost_final_question_ids": []
+      }
+    },
+    "S04/both_explicit": {
+      "questions": 8,
+      "facts_required": 26,
+      "arms": {
+        "A": {
+          "candidate_complete": 8,
+          "candidate_facts_hit": 26,
+          "candidate_facts_required": 26,
+          "final_complete": 8,
+          "final_facts_hit": 26,
+          "final_facts_required": 26,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "B": {
+          "candidate_complete": 8,
+          "candidate_facts_hit": 26,
+          "candidate_facts_required": 26,
+          "final_complete": 8,
+          "final_facts_hit": 26,
+          "final_facts_required": 26,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 8,
+          "candidate_facts_hit": 26,
+          "candidate_facts_required": 26,
+          "final_complete": 8,
+          "final_facts_hit": 26,
+          "final_facts_required": 26,
+          "context_changed_from_A": 8,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 0,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 0,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 0,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 0,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.0,
+        "final_page_recall_delta": 0.0,
+        "pair_lookup_questions": 0,
+        "pair_lookup_cases_exact": 0,
+        "candidate_membership_changed": 0,
+        "routes": {
+          "fallback": 8
+        },
+        "gained_final_question_ids": [],
+        "lost_final_question_ids": []
+      }
+    },
+    "S04/both_indirect": {
+      "questions": 6,
+      "facts_required": 20,
+      "arms": {
+        "A": {
+          "candidate_complete": 1,
+          "candidate_facts_hit": 11,
+          "candidate_facts_required": 20,
+          "final_complete": 1,
+          "final_facts_hit": 10,
+          "final_facts_required": 20,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 0.5416666666666666,
+          "final_page_recall_at_8": 0.5
+        },
+        "B": {
+          "candidate_complete": 6,
+          "candidate_facts_hit": 20,
+          "candidate_facts_required": 20,
+          "final_complete": 6,
+          "final_facts_hit": 20,
+          "final_facts_required": 20,
+          "context_changed_from_A": 5,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 0,
+          "candidate_facts_hit": 1,
+          "candidate_facts_required": 20,
+          "final_complete": 0,
+          "final_facts_hit": 1,
+          "final_facts_required": 20,
+          "context_changed_from_A": 6,
+          "candidate_page_recall_at_20": 0.041666666666666664,
+          "final_page_recall_at_8": 0.041666666666666664
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 5,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 5,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 5,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 10,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.4583333333333333,
+        "final_page_recall_delta": 0.5,
+        "pair_lookup_questions": 6,
+        "pair_lookup_cases_exact": 6,
+        "candidate_membership_changed": 5,
+        "routes": {
+          "matched": 6
+        },
+        "gained_final_question_ids": [
+          "AS-S04-15",
+          "AS-S04-16",
+          "AS-S04-18",
+          "AS-S04-19",
+          "AS-S04-20"
+        ],
+        "lost_final_question_ids": []
+      }
+    },
+    "S04/mixed": {
+      "questions": 6,
+      "facts_required": 20,
+      "arms": {
+        "A": {
+          "candidate_complete": 4,
+          "candidate_facts_hit": 16,
+          "candidate_facts_required": 20,
+          "final_complete": 4,
+          "final_facts_hit": 16,
+          "final_facts_required": 20,
+          "context_changed_from_A": 0,
+          "candidate_page_recall_at_20": 0.8333333333333334,
+          "final_page_recall_at_8": 0.8333333333333334
+        },
+        "B": {
+          "candidate_complete": 6,
+          "candidate_facts_hit": 20,
+          "candidate_facts_required": 20,
+          "final_complete": 6,
+          "final_facts_hit": 20,
+          "final_facts_required": 20,
+          "context_changed_from_A": 2,
+          "candidate_page_recall_at_20": 1.0,
+          "final_page_recall_at_8": 1.0
+        },
+        "peer_v2_no_llm": {
+          "candidate_complete": 3,
+          "candidate_facts_hit": 15,
+          "candidate_facts_required": 20,
+          "final_complete": 2,
+          "final_facts_hit": 14,
+          "final_facts_required": 20,
+          "context_changed_from_A": 6,
+          "candidate_page_recall_at_20": 0.7916666666666666,
+          "final_page_recall_at_8": 0.75
+        }
+      },
+      "B_vs_A": {
+        "candidate_complete_gained": 2,
+        "candidate_complete_lost": 0,
+        "final_complete_gained": 2,
+        "final_complete_lost": 0,
+        "questions_with_final_facts_gained": 2,
+        "questions_with_final_facts_lost": 0,
+        "final_facts_gained": 4,
+        "final_facts_lost": 0,
+        "candidate_page_recall_delta": 0.16666666666666666,
+        "final_page_recall_delta": 0.16666666666666666,
+        "pair_lookup_questions": 6,
+        "pair_lookup_cases_exact": 6,
+        "candidate_membership_changed": 2,
+        "routes": {
+          "matched": 6
+        },
+        "gained_final_question_ids": [
+          "AS-S04-10",
+          "AS-S04-13"
+        ],
+        "lost_final_question_ids": []
+      }
+    }
+  },
+  "seconds": 4.13
+}

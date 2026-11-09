@@ -2,7 +2,7 @@
 
 실험 결과 요약과 채택 근거를 조회하는 시작점이다. 모델 선택 및 채택 결정은 [선택 기록](decisions.md)에 기록한다.
 
-현재 Advanced 개인 검색 기준선은 **Bigram-ID BM25 + 제목 보너스, 검증된 HG 사건 조회, 복원 원본 페이지 문맥**이다. 제목 보너스만 적용하는 이전 구성을 `--compare`의 대조군으로 유지한다. [기준선 선택 기록](decisions.md#2026-11-09--advanced-개인-기준선을-hg-사건-조회와-원본-페이지로-갱신) · [HG 조회·원본 페이지 실험](../advanced-curation-plan.md#현재-개인-기준선)
+현재 Advanced 개인 기준선은 **제목 보너스 Bigram-ID BM25와 Snowflake-ko의 5:5 RRF, KURE nano 상위 3쪽, HG 및 원문 조회, 복원 원본 최대 8쪽·8,000토큰**이다. 이전 BM25 기준선은 `--compare`로 함께 평가한다. [기준선 선택 기록](decisions.md#2026-11-09--55-하이브리드를-개인-advanced-기준선에-채택) · [현재 실행 방법](../README.md#현재-advanced-구성)
 
 [Advanced 검색 실험 종합 보고서 PDF](advanced-curation/advanced-retrieval-report-20261109.pdf)에서 초기 검색 실험, 명시·간접 HG 조회 예시, 동료 설정 비교와 최종 선정 근거를 볼 수 있다. [추가 실험 후 최종 결정](decisions.md#2026-11-09--추가-실험-후-개인-advanced-기준선-확정)에 기존 검색과 HG 조회를 유지한 근거를 기록했다.
 
@@ -69,6 +69,11 @@ Advanced 원본 PDF 120개에서 복원한 18,000쪽과 일반 평가 60문항�
 - [대상과 요청 기록의 단계별 진단](advanced-target-diagnosis-20261109/report.md)은 보관 두 사건 문항과 독립 에이전트가 작성한 새 업무형 표본에서 대상·역할, 후보 20쪽, 최종 문맥의 실패를 나눠 기록한다.
 - [두 사건 질문의 절별 대상·기록 연결 A/B](advanced-clause-binding-20261109/report.md)는 같은 후보 20쪽과 선택기로 기존 규칙과 절별 규칙을 비교하고, 최종 8쪽·8,000토큰의 문항별 근거 변화를 기록한다.
 - [상황별 140문항의 절별 연결 A/B](advanced-scenarios-clause-ab-20261109/report.md)는 4번 두 사건 비교의 문항별 변화, 나머지 120문항의 회귀, 동료 무 LLM 결과를 함께 기록한다.
+- [단일·모호 사건 원문 조회 연결](advanced-source-lookup-20261109/report.md)은 A를 기준으로 2번 조회와 6번 조회를 각각 켠 설정, 두 조회를 함께 켠 설정을 같은 140문항에서 비교한다.
+- [두 사건 원문 조회 비교](advanced-pair-source-20261109/report.md)는 두 조회를 채택한 기준선에 4번의 간접 대상별 원문 조회를 실험으로 추가해 개선·하락과 다른 유형의 회귀를 기록한다.
+- [Advanced 상황별·업무 규정 180문항 비교](advanced-scenarios-180-20261109/report.md)는 두 사건 조회를 포함한 당시 BM25 기준선과 동료 무 LLM 설정을 비교한다. 근거가 있는 160문항과 범위 밖 대조 20문항을 분리한다.
+- [Advanced 일상 표현 40문항 검색 비교](advanced-semantic-queries-20261109/report.md)는 당시 BM25 기준선과 Snowflake-ko 5:5 후보 추가를 비교하고, 한 문서·여러 문서 유형별 개선과 하락 및 팀원 무 LLM 결과를 기록한다.
+- [Advanced 전체 카테고리 비교](advanced-category-comparison-20261109/report.md)는 이전 BM25·5:5 하이브리드·동료 무 LLM의 유형별 결과와 새 기본 실행으로 재현한 220문항을 기록한다.
 
 - [Advanced 상황별 160문항과 검색 결과](advanced-scenarios-benchmark-20261109-v2/report.md)는 검색 140문항과 범위 밖 대조 20문항을 나눠 개인 기준선과 동료 무 API 설정을 비교한다. [평가 입력](../evaluation/advanced_scenarios/README.md)
 
