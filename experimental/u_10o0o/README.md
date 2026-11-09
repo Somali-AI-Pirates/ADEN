@@ -2,7 +2,7 @@
 
 ## 현재 Advanced 구성
 
-개인 Advanced 기본값은 **제목 보너스 검색 + 검증된 명시·간접 HG 사건 조회 + 복원 원본 페이지 문맥**이다. Bigram-ID BM25와 제목 보너스로 후보 20쪽을 정하고 KURE nano로 재정렬한다. 질문에서 검증된 HG 사건을 식별하면 그 사건의 다섯 원본 페이지를 먼저 두고, 남은 자리는 기존 검색 순서로 채운다. 식별되지 않으면 제목 보너스 검색 결과를 그대로 쓴다. 최종 문맥은 최대 8쪽·4,000토큰이다. 발췌문 대신 복원한 원본 페이지를 쓴다. [선택 근거와 비교 결과](records/decisions.md#2026-11-09--advanced-개인-기준선을-hg-사건-조회와-원본-페이지로-갱신) · [HG 조회와 문맥 비교 기록](advanced-curation-plan.md#현재-개인-기준선)
+개인 Advanced 기본값은 **제목 보너스 검색 + 검증된 명시·간접 HG 사건 조회 + 복원 원본 페이지 문맥**이다. Bigram-ID BM25와 제목 보너스로 후보 20쪽을 정하고 KURE nano로 재정렬한다. 질문에서 검증된 HG 사건을 식별하면 그 사건의 다섯 원본 페이지를 먼저 두고, 남은 자리는 기존 검색 순서로 채운다. 식별되지 않으면 제목 보너스 검색 결과를 그대로 쓴다. 최종 문맥은 기본적으로 복원 원본 최대 8쪽을 토큰 상한 없이 담는다. [선택 근거와 비교 결과](records/decisions.md#2026-11-09--advanced-개인-기준선을-hg-사건-조회와-원본-페이지로-갱신) · [HG 조회와 문맥 비교 기록](advanced-curation-plan.md#현재-개인-기준선)
 
 Advanced 복원 페이지 캐시, 로컬 Advanced 정제본 `artifacts/u_10o0o/pattern-curation/advanced`, HG 사건·출처 인덱스 `artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109`, [추가 평가 데이터](evaluation/advanced_holdout/README.md), 공식 평가 파일, KURE nano의 로컬 모델 캐시와 CUDA가 필요하다. 기본 실행은 공식 평가 60문항과 블라인드 holdout 280문항, 총 340문항을 사용한다. 정제본이 없으면 [정제 계획](advanced-curation-plan.md#0-기준선과-로컬-입력-확인)에 따라 준비하고, 사건 인덱스는 [생성 기록](records/advanced-curation/hg-case-sources-20261109/report.md)의 안내대로 새 출력 경로에 만든다. 저장소 루트에서 실행하면 새 `records/advanced-selected-…/`에 실행 로그와 문항별 지표를 저장한다. `--output-dir`로 새 경로를 지정할 수 있다. 정제본과 사건 인덱스 경로를 바꿀 때는 `--curated`와 `--case-index`를 지정한다.
 
@@ -10,6 +10,8 @@ Advanced 복원 페이지 캐시, 로컬 Advanced 정제본 `artifacts/u_10o0o/p
 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
   uv run --no-sync python -m experimental.u_10o0o.advanced_search
 ```
+
+이전 실행과 비교할 때는 당시 조건에 맞춰 `--context-tokens 4000` 또는 `--context-tokens 5000`을 추가한다. 실행 로그와 `results.json`의 `config.context_tokens`에 상한을 기록한다. 기본 실행은 이 값을 `null`로 기록한다.
 
 사용자 지정 로컬 경로를 쓸 때는 기본 명령에 다음 옵션을 추가한다.
 
@@ -21,9 +23,24 @@ uv run --no-sync python -m experimental.u_10o0o.advanced_search \
 
 기본 결과 키는 `bigram_id_fielded_kure_top3_hg_lookup`이다. `--compare`를 붙이면 **제목 보너스만 적용한 이전 구성**을 비교군으로 남기고, 본문 BM25 기준선, 순수 KURE 재정렬, Bigram-ID BM25 단독, Kiwi·Bigram-ID 각각의 Snowflake 6:4 RRF도 평가한다. 제목 보너스 단독 결과의 기존 키는 `bigram_id_fielded_kure_top3`다. 이 옵션에는 Kiwi와 Snowflake-ko 모델 및 페이지 벡터 캐시가 필요하다.
 
+### 동료 Advanced 평가 세트
+
+`--suite peer`로 동료가 공유한 Advanced 304문항을 실행한다. 거짓 전제 20문항, 2문서 합성 114문항, 3~4문서 합성 170문항이다. [동료 폴더의 질문·참고 파일](../ysl727727/overnight/data/)을 직접 읽는다. `--suite all`로 기존 공식·holdout 340문항과 함께 실행할 수 있고, 옵션을 생략하면 기존 340문항을 실행한다. `--compare`는 어느 세트에나 함께 쓸 수 있다.
+
+```bash
+HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
+  uv run --no-sync python -m experimental.u_10o0o.advanced_search --suite peer
+```
+
+`results.json`의 `peer`는 304문항 전체, `peer_false_premise`·`peer_two_doc`·`peer_multi_doc`는 각 묶음의 집계다. 2문서 질문 중 동료가 사건 식별이 모호하다고 표시한 45문항은 `peer_two_doc_ambiguous`에도 집계하고, 나머지 69문항은 `peer_two_doc_other`에서 볼 수 있다. 모호 여부는 검색 순위를 확정한 뒤 채점에서 읽는다. 점수는 후보 20쪽·최종 최대 8쪽과 실행에 설정한 토큰 한도 기준이며, 실제 답변과 되묻기 품질은 별도 평가 범위다.
+
+### 추가 평가 기록
+
 [Advanced 근거 범위 확장 세트](evaluation/advanced_coverage_v2/README.md)에 파일럿 40문항과 블라인드 벤치 후보 410문항을 보관한다. 본 세트는 원본 120개 PDF 각각의 앞·중간·뒤 구간을 참조하며, 사람 검수 상태와 PDF별 근거 페이지 수를 별도로 기록한다.
 
 [Advanced 전 페이지 근거 세트](evaluation/advanced_full_coverage/README.md)에 신규 6,500문항을 보관한다. 이 묶음의 제목 보너스 결과는 [전 페이지 패턴 비교](records/advanced-industry-patterns-20261108/report.md#전-페이지-증강-6500문항)에, HG 조회의 추가 효과는 [간접 조회 벤치](records/advanced-curation/hg-indirect-lookup-20261109/report.md)에 기록했다. 기존 평가와 합하면 120개 PDF의 18,000쪽 전체를 참조한다. 페이지별 문항 연결과 기존 블라인드 후보의 사건을 공유하는 문항 목록을 함께 제공한다.
+
+[Advanced 실사용 문맥 평가 후보](evaluation/advanced_usage_blind/README.md)는 업무 질문당 필수 사실 1~5개, 사건 추가 확인, 증빙 부족 보류를 분리한다. 후보 300개와 개발용 파일럿 30개를 별도로 관리한다.
 
 [Advanced 데이터 정제와 검색 실험 계획](advanced-curation-plan.md)에 원본 양식 조사, HG 사건 연결, 명시·간접 ID 조회, 필드 정규화와 문맥 비교의 실행 순서와 검증 기준을 정리했다.
 

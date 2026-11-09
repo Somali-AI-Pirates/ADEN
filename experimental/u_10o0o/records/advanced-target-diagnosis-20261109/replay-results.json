@@ -1,0 +1,203 @@
+{
+  "dataset": {
+    "seed": "advanced-pair-holdout-20261109-v1",
+    "scenarios": {
+      "path": "experimental/u_10o0o/records/advanced-pair-holdout-20261109/scenarios.json",
+      "sha256": "f5478ea02efb10a04559665123f57bddc64fadfa004aa594d033b0c83d470638"
+    },
+    "questions": {
+      "path": "artifacts/u_10o0o/advanced-pair-holdout-20261109-data/questions.json",
+      "sha256": "05230a04282315620571c2a6eebfc4e1e7ee7afa72e3eacd311b2a6182c4ee17"
+    },
+    "references": {
+      "path": "artifacts/u_10o0o/advanced-pair-holdout-20261109-data/references.json",
+      "sha256": "77eee4f3961f5c6dde29c10a80deaed5c356dae211db664a050764798bac7dfd"
+    },
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "case_links": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    },
+    "role_facts": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+      "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+    },
+    "builder": {
+      "path": "experimental/u_10o0o/advanced_workflow_eval.py",
+      "sha256": "f45c9a9f54d3b8b725771cfd4a90ede0f3a2c05708807229d41a1ecd786c3436"
+    },
+    "eligible_hg_cases": 1612,
+    "selected_cases": 56,
+    "questions_by_type": {
+      "explicit": 8,
+      "mixed": 8,
+      "indirect": 8,
+      "single": 4,
+      "clarify": 2
+    },
+    "gold_pages": 101,
+    "gold_required_facts": 127,
+    "max_gold_context_tokens": 2371,
+    "excluded_references": [
+      {
+        "path": "artifacts/u_10o0o/advanced-workflow-20261109-data-checked/references.json",
+        "sha256": "19331b9285bc47355ab02fbf0bd284ffda445d1cbf67bab4b63ffc638b19b2db"
+      }
+    ],
+    "packer": {
+      "path": "experimental/u_10o0o/advanced_pair_context.py",
+      "sha256": "2f689e1fbf3deba50c3e810d20c2acc48d8bce0450f697e5a7eac318483c8b37"
+    }
+  },
+  "code": {
+    "path": "experimental/u_10o0o/advanced_target_diagnosis.py",
+    "sha256": "2847c6ea8b9b4913c54a652b7815ba8c5cd97cebb350c96c39a23aa4b5db575f"
+  },
+  "search_code": [
+    {
+      "path": "experimental/u_10o0o/advanced_search.py",
+      "sha256": "5dfcc28e295b4feb275ecf56ac4a6bb12421f0ca2c7eab88f1fab6793c6b814a"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_field_roles.py",
+      "sha256": "68f8fc42e9283db641fa5da0363c517e9ab1dd5890641ea43e980b730bb23ff5"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_hg_lookup.py",
+      "sha256": "5c47e8dfe82587f8ad2cca218aeac28b646ee023291ed4bd05213f0e291e21e9"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_target_lookup.py",
+      "sha256": "ea63976000b1dc1ac7c8bf8ec12e85742f547e64a830b29a80245f6d48fcd71b"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_pair_context.py",
+      "sha256": "2f689e1fbf3deba50c3e810d20c2acc48d8bce0450f697e5a7eac318483c8b37"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_target_benchmark.py",
+      "sha256": "4ddffbbeca7f21d69960d981a49462d7dfb46cd5798c56273ce501607bad6ff2"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_rank_policy.py",
+      "sha256": "fe6aad55a77fe40a4cb49bef94963fab3a2ed209b028139fc7b263bd104bfe4f"
+    }
+  ],
+  "archive": {
+    "path": "artifacts/u_10o0o/advanced-pair-holdout-20261109/rankings.jsonl",
+    "sha256": "70c5844e1ff413d8df9c837fca99e241140dc0edf0adaaec63101bc0ccdd3c51"
+  },
+  "limits": {
+    "candidates": 20,
+    "final_pages": 8,
+    "tokens": 8000
+  },
+  "external_api_calls": 0,
+  "reranker": {
+    "name": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "head": 3,
+    "max_length": 512,
+    "batch_size": 32,
+    "dtype": "float16",
+    "device": "cuda"
+  },
+  "new_retrieval_questions": 0,
+  "summary": {
+    "pair": {
+      "questions": 24,
+      "pair_triggered": 2,
+      "target_exact": 2,
+      "required_slots_covered_by_prediction": 1,
+      "slots_exact": 0,
+      "initial_all": 13,
+      "candidate_all": 16,
+      "candidate_oracle": 16,
+      "final_all": 8,
+      "diagnoses": {
+        "covered": 8,
+        "target_unrecognized": 7,
+        "required_role_missing": 1,
+        "candidate_missing": 8
+      }
+    },
+    "explicit": {
+      "questions": 8,
+      "pair_triggered": 2,
+      "target_exact": 2,
+      "required_slots_covered_by_prediction": 1,
+      "slots_exact": 0,
+      "initial_all": 8,
+      "candidate_all": 8,
+      "candidate_oracle": 8,
+      "final_all": 5,
+      "diagnoses": {
+        "covered": 5,
+        "target_unrecognized": 2,
+        "required_role_missing": 1
+      }
+    },
+    "mixed": {
+      "questions": 8,
+      "pair_triggered": 0,
+      "target_exact": 0,
+      "required_slots_covered_by_prediction": 0,
+      "slots_exact": 0,
+      "initial_all": 3,
+      "candidate_all": 6,
+      "candidate_oracle": 6,
+      "final_all": 3,
+      "diagnoses": {
+        "covered": 3,
+        "target_unrecognized": 3,
+        "candidate_missing": 2
+      }
+    },
+    "indirect": {
+      "questions": 8,
+      "pair_triggered": 0,
+      "target_exact": 0,
+      "required_slots_covered_by_prediction": 0,
+      "slots_exact": 0,
+      "initial_all": 2,
+      "candidate_all": 2,
+      "candidate_oracle": 2,
+      "final_all": 0,
+      "diagnoses": {
+        "candidate_missing": 6,
+        "target_unrecognized": 2
+      }
+    },
+    "single": {
+      "questions": 4,
+      "pair_triggered": 0,
+      "target_exact": 0,
+      "required_slots_covered_by_prediction": 0,
+      "slots_exact": 0,
+      "initial_all": 4,
+      "candidate_all": 4,
+      "candidate_oracle": 4,
+      "final_all": 4,
+      "diagnoses": {
+        "control": 4
+      }
+    },
+    "clarify": {
+      "questions": 2,
+      "pair_triggered": 0,
+      "target_exact": 0,
+      "required_slots_covered_by_prediction": 0,
+      "slots_exact": 0,
+      "initial_all": 0,
+      "candidate_all": 0,
+      "candidate_oracle": 0,
+      "final_all": 0,
+      "diagnoses": {
+        "control": 2
+      }
+    }
+  }
+}

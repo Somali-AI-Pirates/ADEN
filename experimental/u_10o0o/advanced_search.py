@@ -29,13 +29,22 @@ from experimental.u_10o0o.context_evidence import score_context
 from experimental.u_10o0o.embeding import MODEL_ID, MODEL_REVISION, VECTORS_PATH
 from experimental.u_10o0o.evaluate import RECORDS_DIR, fingerprint, score_question
 from experimental.u_10o0o.hybrid import CANDIDATES, RRF_K, weighted_rrf
-from experimental.u_10o0o.prepare import CACHE_PATH, DATA_DIR, DATASET
+from experimental.u_10o0o.prepare import CACHE_PATH, DATA_DIR, DATASET, PROJECT_ROOT
 from experimental.u_10o0o.rerank import KST, MAX_TOKENS, MODELS, WEIGHTS
 from experimental.u_10o0o.search import load_index, search
 
 HOLDOUT = Path(__file__).with_name("evaluation") / "advanced_holdout"
+PEER_DATA = PROJECT_ROOT / "experimental/ysl727727/overnight/data"
+PEER_SPLITS = {
+    "peer_false_premise": "false_premise_adv",
+    "peer_two_doc": "synth_adv",
+    "peer_multi_doc": "synth_multi_adv",
+}
+PEER_AMBIGUOUS = PEER_DATA / "synth_adv_ambiguous.json"
+OFFICIAL_SPLITS = ("development", "additional")
 KURE = "nlpai-lab/KURE-Reranker-nano"
 PREDICT_BATCH_SIZE = 32
+# Fixed budget for the experiment runners that reproduce the 4,000-token results.
 CONTEXT_TOKENS = 4000
 RERANKED_HEAD = 3
 FINAL_K = 8
@@ -45,20 +54,33 @@ TITLE_ONLY = "bigram_id_fielded_kure_top3"
 SELECTED = "bigram_id_fielded_kure_top3_hg_lookup"
 
 
-def evaluation_files():
-    return {
-        "holdout": (
+def evaluation_files(suite="standard"):
+    files = {}
+    if suite in ("standard", "all"):
+        files["holdout"] = (
             HOLDOUT / "advanced_holdout_questions.json",
             HOLDOUT / "advanced_holdout.json",
-        ),
-        **{
-            name: (
-                DATA_DIR / "evaluation" / f"{name}_questions.json",
-                DATA_DIR / "evaluation" / f"{name}.json",
-            )
-            for name in ("development", "additional")
-        },
-    }
+        )
+        files.update(
+            {
+                split: (
+                    DATA_DIR / "evaluation" / f"{split}_questions.json",
+                    DATA_DIR / "evaluation" / f"{split}.json",
+                )
+                for split in OFFICIAL_SPLITS
+            }
+        )
+    if suite in ("peer", "all"):
+        files.update(
+            {
+                split: (
+                    PEER_DATA / f"{name}_questions.json",
+                    PEER_DATA / f"{name}.json",
+                )
+                for split, name in PEER_SPLITS.items()
+            }
+        )
+    return files
 
 
 def evaluation_questions(files):
@@ -69,7 +91,9 @@ def evaluation_questions(files):
     ]
 
 
-def score_rankings(questions, rankings, files):
+def score_rankings(
+    questions, rankings, files, *, context_tokens, peer_ambiguous=frozenset()
+):
     references = {split: load_references(path) for split, (_, path) in files.items()}
     records = []
     groups = defaultdict(list)
@@ -94,7 +118,7 @@ def score_rankings(questions, rankings, files):
             metrics[f"doc_recall@{k}"] = doc["recall_at_k"]["value"]
             if k != CANDIDATES:
                 context = score_context(
-                    ranked[:k], evidence, token_budget=CONTEXT_TOKENS, top_k=k
+                    ranked[:k], evidence, token_budget=context_tokens, top_k=k
                 )
                 metrics[f"quote_recall@{k}"] = (
                     context["found_quotes"] / context["expected_quotes"]
@@ -104,8 +128,17 @@ def score_rankings(questions, rankings, files):
         groups[split].append(metrics)
         if split == "holdout":
             groups[f"holdout_{reference['identifier_mode']}"].append(metrics)
-        else:
+        elif split in OFFICIAL_SPLITS:
             groups["official"].append(metrics)
+        elif split in PEER_SPLITS:
+            groups["peer"].append(metrics)
+            if split == "peer_two_doc":
+                group = (
+                    "peer_two_doc_ambiguous"
+                    if qid in peer_ambiguous
+                    else "peer_two_doc_other"
+                )
+                groups[group].append(metrics)
     summary = {
         name: {
             "scored": len(rows),
@@ -160,14 +193,27 @@ def main() -> None:
         action="store_true",
         help="제목 보너스 단독, 이전 본문 기준선 및 기존 검색 대조군도 비교",
     )
+    parser.add_argument(
+        "--suite",
+        choices=("standard", "peer", "all"),
+        default="standard",
+        help="기존 공식·holdout(standard), 동료 Advanced(peer), 전체(all)",
+    )
     parser.add_argument("--curated", type=Path, default=CURATED)
     parser.add_argument("--case-index", type=Path, default=CASE_INDEX)
     parser.add_argument("--output-dir", type=Path, help="결과를 저장할 새 디렉터리")
+    parser.add_argument(
+        "--context-tokens",
+        type=int,
+        help="최종 문맥 토큰 한도 (생략하면 토큰 상한 없음)",
+    )
     args = parser.parse_args()
+    if args.context_tokens is not None and args.context_tokens <= 0:
+        parser.error("--context-tokens에는 양의 정수를 입력하세요.")
     if DATASET != "advanced" or not torch.cuda.is_available():
         raise SystemExit("Advanced 페이지 캐시와 CUDA가 필요합니다.")
 
-    files = evaluation_files()
+    files = evaluation_files(args.suite)
     questions = evaluation_questions(files)
     pages = load_index()[0] if args.compare else json.loads(CACHE_PATH.read_bytes())
     try:
@@ -193,8 +239,14 @@ def main() -> None:
             stream.write(line + "\n")
 
     started = perf_counter()
+    token_limit = (
+        "토큰 상한 없음"
+        if args.context_tokens is None
+        else f"{args.context_tokens:,}토큰"
+    )
     log(
-        f"Advanced 검색 비교 시작 · {len(questions)}문항 · {torch.cuda.get_device_name()}"
+        f"Advanced 검색 비교 시작 · {len(questions)}문항 · "
+        f"최대 {FINAL_K}쪽 · {token_limit} · {torch.cuda.get_device_name()}"
     )
     log(f"HG 조회 준비 완료 · 검증된 {len(cases):,}사건")
     index = PatternIndex(pages)
@@ -253,12 +305,24 @@ def main() -> None:
         ]
         rankings.update(reranked)
         rankings["bigram_id_bm25"] = sparse
+    peer_ambiguous = (
+        frozenset(json.loads(PEER_AMBIGUOUS.read_bytes()))
+        if "peer_two_doc" in files
+        else frozenset()
+    )
     results = {
-        name: score_rankings(questions, ranks, files)
+        name: score_rankings(
+            questions,
+            ranks,
+            files,
+            context_tokens=args.context_tokens,
+            peer_ambiguous=peer_ambiguous,
+        )
         for name, ranks in rankings.items()
     }
     config = {
         "run_at": now.isoformat(),
+        "suite": args.suite,
         "inputs": {
             split: {"questions": fingerprint(q), "references": fingerprint(r)}
             for split, (q, r) in files.items()
@@ -290,10 +354,12 @@ def main() -> None:
             name: version(name)
             for name in ("torch", "transformers", "sentence-transformers", "numpy")
         },
-        "context_tokens": CONTEXT_TOKENS,
+        "context_tokens": args.context_tokens,
         "reranked_head": RERANKED_HEAD,
         "selected_top_k": FINAL_K,
     }
+    if "peer_two_doc" in files:
+        config["peer_ambiguous"] = fingerprint(PEER_AMBIGUOUS)
     if args.compare:
         config["rrf_controls"] = {
             "model": MODEL_ID,
@@ -309,10 +375,11 @@ def main() -> None:
         encoding="utf-8",
     )
     for name, result in results.items():
-        row = result["summary"]["holdout"]
-        log(
-            f"{name} · 추가 {row['scored']}문항 · 문서 Recall@{FINAL_K} {row[f'doc_recall@{FINAL_K}']:.2%}"
-        )
+        for split, label in (("holdout", "추가"), ("peer", "동료")):
+            if row := result["summary"].get(split):
+                log(
+                    f"{name} · {label} {row['scored']}문항 · 문서 Recall@{FINAL_K} {row[f'doc_recall@{FINAL_K}']:.2%}"
+                )
     log(f"평가 완료 · {perf_counter() - started:.1f}초 · {output}")
 
 

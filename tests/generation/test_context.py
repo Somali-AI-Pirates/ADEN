@@ -56,6 +56,18 @@ class ContextTests(unittest.TestCase):
         self.assertEqual(asdict(context.final_chunks[0].chunk)["heading"], "예약 안내")
         self.assertEqual(context.model_dump()["final_chunks"][1]["chunk"]["page"], 2)
 
+    def test_context_without_token_budget_still_limits_chunk_count(self):
+        first = candidate(1, "가" * 7000)
+        second = candidate(2, "다음 자료")
+        third = candidate(3, "세 번째 자료")
+
+        context = build_context([first, first, second, third], 2, None, len)
+
+        self.assertEqual(context.final_chunks, [first, second])
+        self.assertEqual(context.excluded_chunk_ids, [])
+        self.assertEqual(context.token_count, len(context.text))
+        self.assertGreater(context.token_count, 6000)
+
     def test_budget_counts_each_block_once_including_separator(self):
         first, second = candidate(1, "첫 자료"), candidate(2, "다음 자료")
         both = build_context([first, second], 2, 10000, len)

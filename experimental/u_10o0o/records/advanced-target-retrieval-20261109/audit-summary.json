@@ -1,0 +1,227 @@
+{
+  "input_sha256": {
+    "peer_run": "a2537a0f7bdf319ab289b75c92c6a832fcc3ee1c48bbf26ed5413be65d269405",
+    "restored_pages": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+  },
+  "peer_questions": 304,
+  "peer_quote_totals": {
+    "citations": 886,
+    "restored_matchable": 850,
+    "whole_line_reanchored": 36,
+    "restored_unmatchable": 0,
+    "questions_with_unmatchable_citations": 0
+  },
+  "source_validation_for_restored_mismatches": {
+    "questions_with_mismatches": 16,
+    "mismatch_citations": 36,
+    "new_unscorable_citations": 0,
+    "pypdf_plain_page_exact": 36,
+    "poppler_plain_page_exact": 36,
+    "original_extractors_both_exact": 36,
+    "whole_line_anchors_all_present": 36,
+    "whole_line_anchor_sets_unique": 14,
+    "whole_line_anchors_missing_or_unlocatable": 0
+  },
+  "subsets": {
+    "false_premise_adv": {
+      "questions": 20,
+      "questions_fully_quoteable": 20,
+      "original_quote_recall_macro": 0.8733333333333333,
+      "strict_exact_quote_recall_macro": 0.8733333333333333,
+      "line_reanchored_quote_recall_macro": 0.8933333333333333,
+      "matchable_quote_recall_macro": 0.8933333333333333,
+      "strict_quote_recall_exact_only_macro": 0.9083333333333334,
+      "all_matchable_quotes_present": 16,
+      "documents_recall_at_8": 0.8958333333333334,
+      "pages_recall_at_8": 0.8958333333333334
+    },
+    "synth_adv": {
+      "questions": 114,
+      "questions_fully_quoteable": 114,
+      "original_quote_recall_macro": 0.5833333333333334,
+      "strict_exact_quote_recall_macro": 0.5833333333333334,
+      "line_reanchored_quote_recall_macro": 0.6096491228070176,
+      "matchable_quote_recall_macro": 0.6096491228070176,
+      "strict_quote_recall_exact_only_macro": 0.6026785714285714,
+      "all_matchable_quotes_present": 53,
+      "documents_recall_at_8": 0.6710526315789473,
+      "pages_recall_at_8": 0.6140350877192983
+    },
+    "synth_multi_adv": {
+      "questions": 170,
+      "questions_fully_quoteable": 170,
+      "original_quote_recall_macro": 0.5794117647058824,
+      "strict_exact_quote_recall_macro": 0.5794117647058824,
+      "line_reanchored_quote_recall_macro": 0.5985294117647059,
+      "matchable_quote_recall_macro": 0.5985294117647059,
+      "strict_quote_recall_exact_only_macro": 0.6059236947791165,
+      "all_matchable_quotes_present": 78,
+      "documents_recall_at_8": 0.65,
+      "pages_recall_at_8": 0.6088235294117647
+    }
+  },
+  "peer_ambiguous_2doc_question_count": 45,
+  "page_oracle": {
+    "all_gold_pages_contextualized": true,
+    "questions_with_missing_pages": 0,
+    "missing_page_references": 0,
+    "gold_citations": 886,
+    "strict_exact_citations_found": 850,
+    "whole_line_reanchored_citations_found": 36,
+    "all_auditable_citations_found": 886,
+    "gold_pages_only_auditable_quote_recall_micro": 1.0,
+    "strict_exact_quote_recall_micro": 0.9593679458239278,
+    "unmatchable_gold_citations": 0,
+    "evidence_groups": 867,
+    "max_context_tokens": 2849
+  },
+  "context_token_counts": {
+    "min": 3237,
+    "mean": 3717.253289473684,
+    "median": 3724.0,
+    "max": 4000,
+    "at_4000_limit": 1
+  },
+  "retrieval_config": {
+    "suite": "peer",
+    "bm25": {
+      "tokenizer": "bigram-id",
+      "identifier_pattern": "(?<![A-Za-z0-9])[A-Z][A-Z0-9]{0,6}(?:-[A-Z0-9]{1,8}){1,4}(?![A-Za-z0-9])",
+      "k1": 1.5,
+      "b": 0.75
+    },
+    "fielded": {
+      "fusion": "max_normalized_bm25_heading_bonus",
+      "field_pool": 80,
+      "heading_weight": 0.25,
+      "heading_block_limit": 3,
+      "heading_char_limit": 600
+    },
+    "candidate_count": 20,
+    "reranker": {
+      "model": "nlpai-lab/KURE-Reranker-nano",
+      "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "dtype": "float16",
+      "max_tokens": 512,
+      "batch_size": 32
+    },
+    "context_tokens": 4000,
+    "reranked_head": 3,
+    "selected_top_k": 8,
+    "peer_ambiguous": {
+      "path": "experimental/ysl727727/overnight/data/synth_adv_ambiguous.json",
+      "sha256": "0669ac600025e4725fd5abe2304bb504814029fe044d85db7b2d2d6665967b98"
+    }
+  },
+  "independent_source_bundle_counts": {
+    "false_premise_adv": {
+      "questions": 20,
+      "distinct_evidence_bundles": 20
+    },
+    "synth_adv": {
+      "questions": 114,
+      "distinct_evidence_bundles": 57
+    },
+    "synth_multi_adv": {
+      "questions": 170,
+      "distinct_evidence_bundles": 85
+    }
+  },
+  "normal_vs_false_premise": {
+    "synth_adv": {
+      "pairs": 57,
+      "same_gold_citations": 57,
+      "identifier_count_strata": {
+        "0->0": 18,
+        "2->2": 13,
+        "2->0": 13,
+        "1->1": 8,
+        "3->3": 1,
+        "1->0": 2,
+        "1->2": 1,
+        "2->3": 1
+      },
+      "normal_at_least_two_false_at_most_one_identifier": 13
+    },
+    "synth_multi_adv": {
+      "pairs": 85,
+      "same_gold_citations": 85,
+      "identifier_count_strata": {
+        "3->3": 9,
+        "1->0": 1,
+        "3->0": 14,
+        "0->0": 9,
+        "6->6": 2,
+        "2->2": 2,
+        "3->1": 8,
+        "0->1": 3,
+        "2->0": 1,
+        "3->2": 1,
+        "4->0": 11,
+        "4->1": 15,
+        "4->4": 4,
+        "4->2": 2,
+        "1->2": 1,
+        "5->1": 1,
+        "1->1": 1
+      },
+      "normal_at_least_two_false_at_most_one_identifier": 50
+    }
+  },
+  "human_review_packet": {
+    "blind_question_count": 85,
+    "seed_count": 55,
+    "paired_variant_count": 30,
+    "selected_source_page_count": 1301,
+    "strata": {
+      "4_documents:anchor": 10,
+      "3_documents:anchor": 10,
+      "random": 10,
+      "3_documents:chain": 10,
+      "abstain": 5,
+      "independent": 10,
+      "4_documents:chain": 10,
+      "bm25": 10,
+      "answer": 5,
+      "clarify": 5
+    },
+    "packet_directory": "artifacts/u_10o0o/advanced-evidence-audit-20261109-canonical-pooled/review_packet",
+    "paired_variant_groups_private": 30,
+    "comparison_packed_page_entries_added": 652,
+    "comparison_source_ids_with_packed_pages": 85
+  },
+  "comparison_rankings_input": {
+    "sha256": "cddf27bbe1e016ce3a6210e8e93673d8510d95eeb3ca553c1dee00fe2a3f04a3",
+    "rows": 1902,
+    "ids": 634,
+    "packed_page_entries": 13266
+  },
+  "personal_300_vs_6500_overlap": {
+    "full_coverage_questions": 6500,
+    "personal_blind_questions": 300,
+    "personal_blind_citations": 804,
+    "personal_blind_citation_occurrences": 804,
+    "blind_questions_with_any_exact_citation_in_full_coverage": 206,
+    "blind_questions_with_all_citations_in_full_coverage": 129,
+    "blind_exact_citation_overlap_count": 474,
+    "blind_citation_occurrences_found_in_full_coverage": 474,
+    "blind_unique_case_keys_shared_with_full_coverage": 273,
+    "action_case_overlap": {
+      "clarify": {
+        "questions": 25,
+        "questions_with_case_overlap": 25,
+        "overlapping_case_keys": 50
+      },
+      "abstain": {
+        "questions": 25,
+        "questions_with_case_overlap": 25,
+        "overlapping_case_keys": 25
+      },
+      "answer": {
+        "questions": 250,
+        "questions_with_case_overlap": 198,
+        "overlapping_case_keys": 198
+      }
+    }
+  }
+}

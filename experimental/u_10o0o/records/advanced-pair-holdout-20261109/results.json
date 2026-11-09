@@ -1,0 +1,249 @@
+{
+  "dataset": {
+    "seed": "advanced-pair-holdout-20261109-v1",
+    "scenarios": {
+      "path": "experimental/u_10o0o/records/advanced-pair-holdout-20261109/scenarios.json",
+      "sha256": "f5478ea02efb10a04559665123f57bddc64fadfa004aa594d033b0c83d470638"
+    },
+    "questions": {
+      "path": "artifacts/u_10o0o/advanced-pair-holdout-20261109-data/questions.json",
+      "sha256": "05230a04282315620571c2a6eebfc4e1e7ee7afa72e3eacd311b2a6182c4ee17"
+    },
+    "references": {
+      "path": "artifacts/u_10o0o/advanced-pair-holdout-20261109-data/references.json",
+      "sha256": "77eee4f3961f5c6dde29c10a80deaed5c356dae211db664a050764798bac7dfd"
+    },
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "case_links": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    },
+    "role_facts": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+      "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+    },
+    "builder": {
+      "path": "experimental/u_10o0o/advanced_workflow_eval.py",
+      "sha256": "f45c9a9f54d3b8b725771cfd4a90ede0f3a2c05708807229d41a1ecd786c3436"
+    },
+    "eligible_hg_cases": 1612,
+    "selected_cases": 56,
+    "questions_by_type": {
+      "explicit": 8,
+      "mixed": 8,
+      "indirect": 8,
+      "single": 4,
+      "clarify": 2
+    },
+    "gold_pages": 101,
+    "gold_required_facts": 127,
+    "max_gold_context_tokens": 2371,
+    "excluded_references": [
+      {
+        "path": "artifacts/u_10o0o/advanced-workflow-20261109-data-checked/references.json",
+        "sha256": "19331b9285bc47355ab02fbf0bd284ffda445d1cbf67bab4b63ffc638b19b2db"
+      }
+    ],
+    "packer": {
+      "path": "experimental/u_10o0o/advanced_pair_context.py",
+      "sha256": "2f689e1fbf3deba50c3e810d20c2acc48d8bce0450f697e5a7eac318483c8b37"
+    }
+  },
+  "code": {
+    "path": "experimental/u_10o0o/advanced_pair_holdout.py",
+    "sha256": "929acf1555174ae2216170d15a721ed78f63b8f5af5c77b78b05636467364aae"
+  },
+  "limits": {
+    "candidates": 20,
+    "final_pages": 8,
+    "tokens": 4000
+  },
+  "candidate_membership_changes": 0,
+  "baseline_queries": 30,
+  "reranker": {
+    "name": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "head": 3
+  },
+  "reranked_pairs": 600,
+  "external_api_calls": 0,
+  "summary": {
+    "pair": {
+      "questions": 24,
+      "recognized": 2,
+      "recognized_exactly": 2,
+      "changed": 0,
+      "all_candidate": 16,
+      "all_baseline": 8,
+      "all_packed": 8,
+      "facts_required": 108,
+      "facts_candidate": 96,
+      "facts_baseline": 75,
+      "facts_packed": 75,
+      "facts_dropped": 0,
+      "gained": 0,
+      "lost": 0,
+      "routes": {
+        "no_verified_pair": 22,
+        "covered": 2
+      }
+    },
+    "pair_candidate_complete": {
+      "questions": 16,
+      "recognized": 2,
+      "recognized_exactly": 2,
+      "changed": 0,
+      "all_candidate": 16,
+      "all_baseline": 8,
+      "all_packed": 8,
+      "facts_required": 71,
+      "facts_candidate": 71,
+      "facts_baseline": 59,
+      "facts_packed": 59,
+      "facts_dropped": 0,
+      "gained": 0,
+      "lost": 0,
+      "routes": {
+        "no_verified_pair": 14,
+        "covered": 2
+      }
+    },
+    "pair_candidate_incomplete": {
+      "questions": 8,
+      "recognized": 0,
+      "recognized_exactly": 0,
+      "changed": 0,
+      "all_candidate": 0,
+      "all_baseline": 0,
+      "all_packed": 0,
+      "facts_required": 37,
+      "facts_candidate": 25,
+      "facts_baseline": 16,
+      "facts_packed": 16,
+      "facts_dropped": 0,
+      "gained": 0,
+      "lost": 0,
+      "routes": {
+        "no_verified_pair": 8
+      }
+    },
+    "controls": {
+      "questions": 6,
+      "recognized": 0,
+      "recognized_exactly": 0,
+      "changed": 0,
+      "all_candidate": 4,
+      "all_baseline": 4,
+      "all_packed": 4,
+      "facts_required": 19,
+      "facts_candidate": 11,
+      "facts_baseline": 11,
+      "facts_packed": 11,
+      "facts_dropped": 0,
+      "gained": 0,
+      "lost": 0,
+      "routes": {
+        "no_verified_pair": 6
+      }
+    },
+    "explicit": {
+      "questions": 8,
+      "recognized": 2,
+      "recognized_exactly": 2,
+      "changed": 0,
+      "all_candidate": 8,
+      "all_baseline": 5,
+      "all_packed": 5,
+      "facts_required": 35,
+      "facts_candidate": 35,
+      "facts_baseline": 32,
+      "facts_packed": 32,
+      "facts_dropped": 0,
+      "gained": 0,
+      "lost": 0,
+      "routes": {
+        "no_verified_pair": 6,
+        "covered": 2
+      }
+    },
+    "mixed": {
+      "questions": 8,
+      "recognized": 0,
+      "recognized_exactly": 0,
+      "changed": 0,
+      "all_candidate": 6,
+      "all_baseline": 3,
+      "all_packed": 3,
+      "facts_required": 35,
+      "facts_candidate": 33,
+      "facts_baseline": 27,
+      "facts_packed": 27,
+      "facts_dropped": 0,
+      "gained": 0,
+      "lost": 0,
+      "routes": {
+        "no_verified_pair": 8
+      }
+    },
+    "indirect": {
+      "questions": 8,
+      "recognized": 0,
+      "recognized_exactly": 0,
+      "changed": 0,
+      "all_candidate": 2,
+      "all_baseline": 0,
+      "all_packed": 0,
+      "facts_required": 38,
+      "facts_candidate": 28,
+      "facts_baseline": 16,
+      "facts_packed": 16,
+      "facts_dropped": 0,
+      "gained": 0,
+      "lost": 0,
+      "routes": {
+        "no_verified_pair": 8
+      }
+    },
+    "single": {
+      "questions": 4,
+      "recognized": 0,
+      "recognized_exactly": 0,
+      "changed": 0,
+      "all_candidate": 4,
+      "all_baseline": 4,
+      "all_packed": 4,
+      "facts_required": 11,
+      "facts_candidate": 11,
+      "facts_baseline": 11,
+      "facts_packed": 11,
+      "facts_dropped": 0,
+      "gained": 0,
+      "lost": 0,
+      "routes": {
+        "no_verified_pair": 4
+      }
+    },
+    "clarify": {
+      "questions": 2,
+      "recognized": 0,
+      "recognized_exactly": 0,
+      "changed": 0,
+      "all_candidate": 0,
+      "all_baseline": 0,
+      "all_packed": 0,
+      "facts_required": 8,
+      "facts_candidate": 0,
+      "facts_baseline": 0,
+      "facts_packed": 0,
+      "facts_dropped": 0,
+      "gained": 0,
+      "lost": 0,
+      "routes": {
+        "no_verified_pair": 2
+      }
+    }
+  }
+}
