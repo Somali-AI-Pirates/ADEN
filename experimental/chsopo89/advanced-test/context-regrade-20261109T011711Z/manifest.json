@@ -1,0 +1,80 @@
+{
+  "experiment_id": "context-regrade-20261109T011711Z",
+  "dataset_id": "advanced",
+  "status": "complete",
+  "kind": "stored-answer-regrading-pilot",
+  "created_utc": "20261109T011711Z",
+  "model": "gpt-6-luna",
+  "judge_call_limit": 12,
+  "generation_calls": 0,
+  "reference_policy": "Current reference file unchanged during pilot; historical reference hash not recorded.",
+  "keys": [
+    [
+      "S07",
+      "naive"
+    ],
+    [
+      "S07",
+      "hybrid"
+    ],
+    [
+      "S07",
+      "hybrid_rerank"
+    ],
+    [
+      "S09",
+      "naive"
+    ],
+    [
+      "S09",
+      "hybrid"
+    ],
+    [
+      "S09",
+      "hybrid_rerank"
+    ],
+    [
+      "M01",
+      "naive"
+    ],
+    [
+      "M01",
+      "hybrid"
+    ],
+    [
+      "M01",
+      "hybrid_rerank"
+    ],
+    [
+      "M19",
+      "naive"
+    ],
+    [
+      "M19",
+      "hybrid"
+    ],
+    [
+      "M19",
+      "hybrid_rerank"
+    ]
+  ],
+  "sdk_max_retries": 0,
+  "sdk_timeout_seconds": 60,
+  "sha256": {
+    "artifacts\\experiments\\local-rules2-adv-r1\\runs.jsonl": "7d834f0ae3f60ce1ebf0e1db6a81ddbc68ac7c6ceb08b2b68a0a3f3da7511f50",
+    "artifacts\\experiments\\local-rules2-adv-r1\\scores.jsonl": "80174aeeaa1e01abfefa433ca52e80c7509cbabd95022dc8996c8aeb052c3868",
+    "data\\advanced\\evaluation\\custom.json": "15b5ec501873a7cba37619f3ad750036fb1361db2d32510ce1e7416a9fd33bb5",
+    "app\\evaluation\\graders.py": "53ae3b7699a44613224babfa4ee452497eae0bdf58c67ac0f1c31868a31745cc",
+    "app\\evaluation\\prompts\\judge.txt": "de8f990be8a318a1ec9aa5733c2bc7c09a49e3dafbcd8ab251de6ef4e4263d5f"
+  },
+  "judge_calls": 12,
+  "ragas_version": "0.4.3",
+  "ragas_max_tokens": 8192,
+  "ragas_records": 12,
+  "ragas_claim_gate": "original stored Judge has_factual_claims",
+  "regrade_script_sha256": "e26d207fdf2e34141f87f62bd9764b14af929bf95b9880555f65e9a8060412e5",
+  "ragas_unavailable_records": 0,
+  "observed_runtime_warnings": [
+    "RAGAS/httpx asynchronous client cleanup: Event loop is closed; scored metric rows were returned."
+  ]
+}
