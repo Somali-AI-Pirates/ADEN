@@ -18,7 +18,7 @@ import time
 from collections import Counter
 from pathlib import Path
 
-from shared.settings import load_settings
+from shared.settings import Settings, load_settings
 
 from app.observability.records import RETRIEVAL_MODES
 from app.observability.tracing import Tracer
@@ -28,6 +28,8 @@ from app.evaluation.report import write_artifacts, write_report
 from app.evaluation.runner import grade_all, run_comparison
 from app.evaluation.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
                                       now_id, sha256_file)
+
+SAMPLE_K = 8  # 가상 샘플 전용 기본값. 실제 실행은 설정 파일이나 --k로 정한다.
 
 
 def parse_args() -> argparse.Namespace:
@@ -43,7 +45,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--config", help="설정 파일. 표준 bootstrap의 실행 설정과 config_hash에 적용")
     p.add_argument("--config-hash")
     p.add_argument("--k", type=int,
-                   help="Hit/Recall 평가의 상위 청크 수(기본: 설정 retrieval.k, 설정 없으면 8)")
+                   help="Hit/Recall 평가의 상위 청크 수. --config가 있으면 그 retrieval.k와 같아야 하고"
+                        "(생략 시 그 값), --config 없이 실행하면 반드시 지정")
     p.add_argument("--modes", default=",".join(RETRIEVAL_MODES))
     p.add_argument("--judge-model", help="미지정 시 Judge는 평가 불가로 기록")
     p.add_argument("--ragas-model", help="미지정 시 Faithfulness는 평가 불가로 기록")
@@ -56,6 +59,20 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
+def resolve_k(k: int | None, config: Settings | None) -> int:
+    """채점 k를 실제 검색 설정과 맞춘다. 설정 파일이 없으면 추정하지 않고 명시값을 요구한다."""
+    if k is not None and k <= 0:
+        raise SystemExit(f"--k는 양수여야 한다: {k}")
+    if config is not None:
+        if k is not None and k != config.retrieval.k:
+            raise SystemExit(f"--k {k}가 설정 파일의 retrieval.k {config.retrieval.k}와 다르다. "
+                             "채점 k는 실제 검색 설정과 같아야 하므로 --k를 빼거나 같은 값을 지정한다")
+        return config.retrieval.k
+    if k is None:
+        raise SystemExit("--config 없이 실행하면 --k로 서비스가 실제로 쓰는 retrieval.k를 지정해야 한다")
+    return k
+
+
 def main() -> None:
     args = parse_args()
     if args.verify_langfuse:
@@ -66,8 +83,6 @@ def main() -> None:
 
     config_path = (ROOT / args.config).resolve() if args.config and not args.sample else None
     config = load_settings(config_path) if config_path is not None else None
-    if args.k is None:
-        args.k = config.retrieval.k if config else 8
     if args.dataset_id is None:
         args.dataset_id = config.dataset if config else "basic"
 
@@ -75,6 +90,7 @@ def main() -> None:
     if args.sample:
         from app.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_EVAL, FakeLangfuseClient,
                                         MockJudge, SampleServiceAdapter, mock_faithfulness)
+        args.k = resolve_k(SAMPLE_K if args.k is None else args.k, None)
         experiment_id = args.experiment_id or now_id("sample")
         if not experiment_id.startswith("sample-"):
             raise SystemExit("샘플 실험 ID는 'sample-'로 시작해야 한다")
@@ -90,6 +106,7 @@ def main() -> None:
             raise SystemExit("실제 실행에는 --questions와 --adapter가 필요하다(샘플은 --sample)")
         if not (args.config or args.config_hash):
             raise SystemExit("--config 또는 --config-hash로 실험 설정을 고정해야 한다")
+        args.k = resolve_k(args.k, config)
         experiment_id = args.experiment_id or now_id(args.dataset_id)
         questions_path = references_path = args.questions
         if args.references:
