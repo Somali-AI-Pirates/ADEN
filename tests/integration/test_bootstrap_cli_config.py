@@ -52,7 +52,7 @@ def write_inputs(tmp_path):
     return config, questions
 
 
-@pytest.mark.parametrize("extra, expected_k", [([], 3), (["--k", "5"], 5)])
+@pytest.mark.parametrize("extra, expected_k", [([], 3), (["--k", "3"], 3)])
 def test_benchmark_config_reaches_runtime_context_and_metrics(tmp_path, monkeypatch,
                                                             configured_service, extra, expected_k):
     config, questions = write_inputs(tmp_path)
@@ -77,6 +77,42 @@ def test_benchmark_config_reaches_runtime_context_and_metrics(tmp_path, monkeypa
     assert len(runs) == 1 and runs[0]["status"] == "answered"
     assert runs[0]["dataset_id"] == "advanced" and len(runs[0]["final_context_chunks"]) == 3
     assert scores[0]["retrieval"]["k"] == expected_k
+
+
+def benchmark_argv(tmp_path, questions, *extra):
+    return ["run_benchmark", "--questions", str(questions),
+            "--adapter", "app.service.bootstrap:query_adapter", "--experiment-id", "k-check",
+            "--modes", "naive", "--artifacts-dir", str(tmp_path / "a"),
+            "--reports-dir", str(tmp_path / "r"), *extra]
+
+
+@pytest.mark.parametrize("extra, message", [
+    (["--config", "{config}", "--k", "5"], "retrieval.k 3"),
+    (["--config-hash", "manual-hash"], "--config 없이"),
+    (["--config-hash", "manual-hash", "--k", "0"], "양수"),
+])
+def test_benchmark_rejects_k_not_tied_to_service_config(tmp_path, monkeypatch, configured_service,
+                                                        extra, message):
+    config, questions = write_inputs(tmp_path)
+    extra = [str(config) if item == "{config}" else item for item in extra]
+    monkeypatch.setattr("sys.argv", benchmark_argv(tmp_path, questions, *extra))
+    with pytest.raises(SystemExit, match=message):
+        run_benchmark.main()
+    _, loader, _ = configured_service
+    loader.assert_not_called()
+    assert not (tmp_path / "a" / "k-check").exists()
+
+
+def test_benchmark_without_config_uses_explicit_k(tmp_path, monkeypatch, configured_service):
+    _, questions = write_inputs(tmp_path)
+    monkeypatch.setattr("sys.argv", benchmark_argv(tmp_path, questions,
+                                                   "--config-hash", "manual-hash", "--k", "8"))
+    run_benchmark.main()
+    output = tmp_path / "a" / "k-check"
+    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
+    scores = [json.loads(line) for line in (output / "scores.jsonl").read_text(encoding="utf-8").splitlines()]
+    assert manifest["config_hash"] == "manual-hash" and manifest["benchmark"]["k"] == 8
+    assert scores[0]["retrieval"]["k"] == 8
 
 
 def test_security_config_applies_once_to_both_callables(tmp_path, monkeypatch, configured_service):
