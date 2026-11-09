@@ -34,7 +34,7 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 | --- | --- |
 | Hit@k · Recall@k | `evidence_groups`의 고유 문서와 실제 최종 문맥의 상위 k개 청크 문서를 비교한다. 근거 문서가 없으면 해당 없음, 빈 문맥이면 0, 실행 실패로 문맥을 모르면 평가 불가다 |
 | Faithfulness | 질문, 생성 출력과 실제 최종 청크를 평가한다. 사실 주장이 없으면 해당 없음, 문맥 없이 사실을 주장하면 0, 평가기 오류는 평가 불가다 |
-| Judge | 사실·조건·근거·판단을 각각 0/1과 이유로 기록한다. 서비스 오류는 판단 0, 다른 항목은 평가 불가다 |
+| Judge | 사실·조건·근거·판단을 각각 0/1과 이유로 기록한다. 서비스 오류는 판단 0, 다른 항목은 평가 불가다. 기준 버전과 변경 이력은 [채점 기준 이력](judge-rubric.md)에 남긴다 |
 | 평균·운영 지표 | `scored`만 평균하며 0점은 포함한다. `not_applicable`·`unavailable`은 건수를 따로 센다. 오류율은 `error` 요청만 세며 서비스 시간·토큰과 평가기 사용량은 분리한다 |
 
 ## 재채점
