@@ -15,6 +15,16 @@ def expected_observations(run):
     return names + [f"generation-attempt-{a['attempt']}" for a in run.get("attempts", [])]
 
 
+def score_items(row):
+    """채점 기록 한 건에서 게시 이름 → 점수 항목. 게시와 수신 대조가 같은 이름을 쓴다."""
+    k = row["retrieval"]["k"]
+    return {f"retrieval.hit@{k}": row["retrieval"]["hit_at_k"],
+            f"retrieval.recall@{k}": row["retrieval"]["recall_at_k"],
+            "faithfulness": row["faithfulness"],
+            **{f"judge.{key}": value for key, value in row["judge"].items()},
+            **{f"evidence.{key}": value for key, value in row.get("evidence_diagnostics", {}).items()}}
+
+
 def publish_evaluation_scores(tracer, runs, scores, manifest):
     if tracer is None or not getattr(tracer, "enabled", False):
         return {"status": "disabled", "score_status_counts": {}, "flush": None}
@@ -28,14 +38,8 @@ def publish_evaluation_scores(tracer, runs, scores, manifest):
     counts = Counter()
     for row in scores:
         trace_id = by_request[row["request_id"]].get("langfuse_trace_id")
-        k = row["retrieval"]["k"]
-        items = {f"retrieval.hit@{k}": row["retrieval"]["hit_at_k"],
-                 f"retrieval.recall@{k}": row["retrieval"]["recall_at_k"],
-                 "faithfulness": row["faithfulness"],
-                 **{f"judge.{key}": value for key, value in row["judge"].items()},
-                 **{f"evidence.{key}": value for key, value in row.get("evidence_diagnostics", {}).items()}}
         statuses = Counter()
-        for name, item in items.items():
+        for name, item in score_items(row).items():
             value = item.get("value")
             if (item.get("status") != "scored" or isinstance(value, bool)
                     or not isinstance(value, (int, float)) or not math.isfinite(value)):
@@ -47,8 +51,12 @@ def publish_evaluation_scores(tracer, runs, scores, manifest):
             score_id = str(uuid.uuid5(uuid.NAMESPACE_URL, f"aden:{version}:{trace_id}:{name}"))
             comment = f"{'SAMPLE; ' if manifest.get('sample') else ''}evaluation={manifest['experiment_id']}; {item.get('reason', '')}"
             try:
-                result = tracer.record_score(trace_id, name, value, comment=comment, score_id=score_id)
+                # 같은 trace에 v1·v2·반복 채점이 같은 이름으로 쌓이므로 채점 조건을 metadata로 구분한다
+                result = tracer.record_score(trace_id, name, value, comment=comment, score_id=score_id,
+                                             metadata={**identity, "evaluation_hash": version})
                 statuses[result["status"]] += 1
+                if result["status"] == "recorded_unverified":  # 수신 조회에 쓸 ID
+                    row.setdefault("langfuse_score_ids", {})[name] = score_id
             except Exception as exc:
                 statuses["sdk_error"] += 1
                 row.setdefault("langfuse_score_errors", []).append(type(exc).__name__)

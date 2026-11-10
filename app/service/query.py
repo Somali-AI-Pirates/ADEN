@@ -166,7 +166,9 @@ def prepare_evidence(question, mode, resources, settings, *, trace=None, run_rec
     context = None
     started = perf_counter()
     try:
-        stage = trace.stage("retrieval", as_type="retriever") if trace else nullcontext({})
+        stage = (trace.stage("retrieval", as_type="retriever",
+                             input={"question": question, "retrieval_mode": mode})
+                 if trace else nullcontext({}))
         with stage as observation:
             if supplied:
                 candidates, context = resources.evidence_provider(question, mode)

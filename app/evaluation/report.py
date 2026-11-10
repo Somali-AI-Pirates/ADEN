@@ -167,7 +167,8 @@ def render_readme(report_dir: Path) -> str:
                   f"- Langfuse 전송: `{bench.get('langfuse_flush')}` "
                   "(`flushed_unverified`는 전송 요청만 끝난 상태이며 저장 확인이 아니다)",
                   f"- Langfuse 저장 확인(요청 수): `{bench.get('langfuse_verification')}` "
-                  "(`verified`만 API에서 관측을 조회한 것, `None`은 추적 비활성·어댑터 관리)"]
+                  "(`verified`만 기대한 관측이 모두 조회된 것, `partial`은 일부만 조회, "
+                  "`None`은 추적 비활성·어댑터 관리)"]
     if manifest.get("langfuse_scores"):
         lines += [f"- Langfuse 평가 점수 게시: `{manifest['langfuse_scores']}` (전송과 서버 저장 확인은 별도)"]
     regrade = manifest.get("regrade")

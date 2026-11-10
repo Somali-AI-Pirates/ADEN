@@ -25,6 +25,10 @@ def test_zero_publishes_but_missing_scores_are_skipped_and_ids_are_versioned():
     assert result["score_status_counts"] == {"recorded_unverified": 1, "skipped": 2}
     assert client.scores[0]["value"] == 0
     assert "SAMPLE" in client.scores[0]["comment"]
+    # 수신 조회에 쓸 ID와 채점 조건이 남아야 같은 trace의 다른 채점과 구분된다
+    assert scores[0]["langfuse_score_ids"] == {"retrieval.hit@8": client.scores[0]["score_id"]}
+    assert client.scores[0]["metadata"]["experiment_id"] == "sample-bc"
+    assert client.scores[0]["metadata"]["evaluation_hash"] == result["evaluation_hash"]
     publish_evaluation_scores(tracer, runs, scores, manifest)
     assert client.scores[0]["score_id"] == client.scores[1]["score_id"]
     publish_evaluation_scores(tracer, runs, scores, manifest | {"experiment_id": "sample-regrade"})

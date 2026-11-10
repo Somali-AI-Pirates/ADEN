@@ -284,7 +284,7 @@ class Tracer:
             metadata=metadata,
         )
 
-    def record_score(self, trace_id, name, value, *, comment=None, score_id=None):
+    def record_score(self, trace_id, name, value, *, comment=None, score_id=None, metadata=None):
         """명시적 평가값을 전송하며 수신 확인은 별도로 남긴다."""
         if self._client is None:
             return {"status": "disabled"}
@@ -294,7 +294,8 @@ class Tracer:
             return {"status": "invalid"}
         try:
             self._client.create_score(trace_id=trace_id, name=name, value=float(value),
-                                      data_type="NUMERIC", comment=comment, score_id=score_id)
+                                      data_type="NUMERIC", comment=comment, score_id=score_id,
+                                      metadata=metadata)
         except Exception as exc:
             return {"status": "sdk_error", "error": _error_name(exc)}
         return {"status": "recorded_unverified"}

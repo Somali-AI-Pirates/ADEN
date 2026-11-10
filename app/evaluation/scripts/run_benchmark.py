@@ -163,9 +163,10 @@ def main() -> None:
     # 2) 채점: 저장된 답변·최종 문맥에 정답·채점 기준을 연결
     scores = grade_all(runs, load_references(references_path), k=args.k,
                        judge_fn=judge_fn, faithfulness_fn=faith_fn)
-    if args.publish_langfuse_scores:
-        manifest["langfuse_scores"] = publish_evaluation_scores(tracer, runs, scores, manifest)
     write_artifacts(exp_dir, manifest, scores=scores)
+    if args.publish_langfuse_scores:  # 채점 결과를 먼저 저장해 게시 중 오류가 나도 남긴다
+        manifest["langfuse_scores"] = publish_evaluation_scores(tracer, runs, scores, manifest)
+        write_artifacts(exp_dir, manifest, scores=scores)
     write_report(report_dir, manifest, runs=runs, scores=scores)
     print(f"실행 기록: {exp_dir}\n제출 결과: {report_dir}")
     if args.sample:

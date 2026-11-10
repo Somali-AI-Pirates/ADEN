@@ -122,6 +122,7 @@ def test_candidates_only_provider_uses_common_context_policy(generation_setup):
     assert [c["book_id"] for c in record["final_context_chunks"]] == ["AS001", "AS002"]
     retrieval = next(o for o in client.observations if o["name"] == "retrieval")
     assert retrieval["updates"][-1]["metadata"]["candidate_count"] == 2
+    assert retrieval["input"] == {"question": "SAMPLE", "retrieval_mode": "naive"}
 
 
 def test_preloaded_memory_qdrant_needs_no_cloud_credentials(generation_setup):
