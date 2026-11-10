@@ -1,5 +1,7 @@
 import re
+from contextlib import nullcontext
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 from langchain_core.prompts import ChatPromptTemplate
@@ -60,15 +62,13 @@ def generate_answer(
         ("system", "{instructions}"),
         ("human", "질문\n{question}\n\n검색 자료\n{context}"),
     ])
-    messages = prompt.format_messages(
-        instructions=system_prompt,
-        question=question,
-        context=context.text,
-    )
+    values = {"instructions": system_prompt, "question": question, "context": context.text}
+    messages = prompt.invoke(values).to_messages()
     input_messages = [message.model_dump(mode="json") for message in messages]
     variant = "defense" if defense else "base"
     parameters = {"max_output_tokens": model.max_tokens}
     structured = model.with_structured_output(ModelAnswer, method="json_schema", include_raw=True)
+    chain = prompt | structured
 
     def record(attempt: dict) -> None:
         if trace is not None:
@@ -83,33 +83,40 @@ def generate_answer(
             "attempt": number, "model": model.model_name, "model_input": input_messages,
             "prompt_variant": variant, "model_parameters": parameters,
         }
-        try:
-            result = structured.invoke(messages)
-        except Exception as error:
-            record({
-                **base, "model_output": None, "input_tokens": None, "output_tokens": None,
-                "error": type(error).__name__,
-            })
-            raise
+        stage = trace.stage(f"generation-attempt-{number}", as_type="generation",
+                            model=model.model_name, input=input_messages) if trace else nullcontext({})
+        with stage:
+            started = perf_counter()
+            try:
+                result = chain.invoke(values)
+                latency_ms = round((perf_counter() - started) * 1000)
+            except Exception as error:
+                record({
+                    **base, "latency_ms": round((perf_counter() - started) * 1000),
+                    "model_output": None, "input_tokens": None, "output_tokens": None,
+                    "error": type(error).__name__,
+                })
+                raise
 
-        raw = result["raw"]
-        usage = raw.usage_metadata or {}
-        attempt = {
-            **base, "model_output": raw.model_dump(mode="json"),
-            "input_tokens": usage.get("input_tokens"),
-            "output_tokens": usage.get("output_tokens"),
-            "error": type(result["parsing_error"]).__name__ if result["parsing_error"] else None,
-        }
-        try:
-            answer = _validate(result, context)
-        except ValueError as error:
-            attempt["error"] = attempt["error"] or type(error).__name__
+            raw = result["raw"]
+            usage = raw.usage_metadata or {}
+            attempt = {
+                **base, "latency_ms": latency_ms, "model_output": raw.model_dump(mode="json"),
+                "input_tokens": usage.get("input_tokens"),
+                "output_tokens": usage.get("output_tokens"),
+                "error": type(result["parsing_error"]).__name__ if result["parsing_error"] else None,
+            }
+            try:
+                validation = trace.stage(f"validation-attempt-{number}") if trace else nullcontext({})
+                with validation:
+                    answer = _validate(result, context)
+            except ValueError as error:
+                attempt["error"] = attempt["error"] or type(error).__name__
+                record(attempt)
+                attempts.append(attempt)
+                last_error = error
+                continue
             record(attempt)
             attempts.append(attempt)
-            last_error = error
-            continue
-        record(attempt)
-        attempts.append(attempt)
-        return GenerationResult(model_answer=answer, attempts=attempts, usage=raw.usage_metadata)
-
+            return GenerationResult(model_answer=answer, attempts=attempts, usage=raw.usage_metadata)
     raise last_error

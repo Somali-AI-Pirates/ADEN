@@ -10,6 +10,8 @@
 
 from __future__ import annotations
 
+from contextlib import contextmanager
+import math
 import os
 import time
 from collections.abc import Mapping, Sequence
@@ -43,6 +45,8 @@ class RequestTrace:
         self._root = None
         self._finished = False
         self._query = {"question": question, "retrieval_mode": retrieval_mode}
+        self._active: dict[str, tuple[Any, dict]] = {}
+        self._observed: set[str] = set()
         self.status = "disabled" if client is None else "recording"
         if client is None:
             return
@@ -69,11 +73,48 @@ class RequestTrace:
         self.status = "sdk_error"
         self.errors.append(f"{step}:{_error_name(exc)}")
 
+    @contextmanager
+    def stage(self, name: str, *, as_type: str = "span", **kwargs: Any):
+        """실제 실행 구간을 기록하며 추적 오류는 서비스 오류를 가리지 않는다."""
+        observation, updates = None, {}
+        if self._root is not None:
+            try:
+                parents = [obs for obs, _ in self._active.values() if obs is not None]
+                parent = parents[-1] if parents else self._root
+                observation = parent.start_observation(name=name, as_type=as_type, **kwargs)
+            except Exception as exc:
+                self._fail(name, exc)
+        self._active[name] = observation, updates
+        try:
+            yield updates
+        except BaseException as exc:
+            updates.update(level="ERROR", status_message=_error_name(exc))
+            raise
+        finally:
+            self._active.pop(name, None)
+            self._observed.add(name)
+            if observation is not None:
+                try:
+                    if updates:
+                        observation.update(**updates)
+                except Exception as exc:
+                    self._fail(name, exc)
+                finally:
+                    try:
+                        observation.end()
+                    except Exception as exc:
+                        self._fail(name, exc)
+
     def _child(self, step: str, **kwargs: Any) -> None:
-        if self._root is None:
+        name = kwargs.get("name", step)
+        if name in self._active:
+            self._active[name][1].update({k: v for k, v in kwargs.items() if k not in ("name", "as_type")})
+            return
+        if self._root is None or name in self._observed:
             return
         try:
             self._root.start_observation(**kwargs).end()
+            self._observed.add(name)
         except Exception as exc:
             self._fail(step, exc)
 
@@ -87,6 +128,8 @@ class RequestTrace:
         latency_ms: int | None = None,
         model_context_text: str | None = None,
         model_context_hash: str | None = None,
+        model_context_token_count: int | None = None,
+        budget_excluded_chunk_ids: Sequence[str] = (),
     ) -> None:
         """평탄화한 검색 후보와 최종 문맥, 실제 모델에 넣을 문맥 문자열을 기록한다."""
         self._child(
@@ -109,6 +152,8 @@ class RequestTrace:
                 "final_context_hash": final_context_hash,
                 "model_context_text": model_context_text,
                 "model_context_hash": model_context_hash,
+                "model_context_token_count": model_context_token_count,
+                "budget_excluded_chunk_ids": list(budget_excluded_chunk_ids),
             },
             metadata={"k": k, "delivered_chunks": len(final_context_chunks)},
         )
@@ -125,6 +170,7 @@ class RequestTrace:
         error: str | None = None,
         prompt_variant: str | None = None,
         model_parameters: Mapping[str, Any] | None = None,
+        latency_ms: int | None = None,
     ) -> None:
         """AttemptRecord 한 건(`trace.record_attempt(**attempt)`). 미확인 사용량은 보내지 않는다."""
         usage = {
@@ -142,6 +188,7 @@ class RequestTrace:
             model_parameters=dict(model_parameters) if model_parameters else None,
             metadata={
                 "attempt": attempt,
+                "latency_ms": latency_ms,
                 "prompt_variant": prompt_variant,
                 "usage_known": {
                     "input": input_tokens is not None,
@@ -178,9 +225,13 @@ class RequestTrace:
                 if status == "error":
                     kwargs.update(level="ERROR", status_message=error_type or "error")
                 self._root.update(**kwargs)
-                self._root.end()
             except Exception as exc:
                 self._fail("finish", exc)
+            finally:
+                try:
+                    self._root.end()
+                except Exception as exc:
+                    self._fail("finish", exc)
         self._finished = True
         if self.status == "recording":
             self.status = "recorded_unverified"
@@ -233,6 +284,21 @@ class Tracer:
             metadata=metadata,
         )
 
+    def record_score(self, trace_id, name, value, *, comment=None, score_id=None):
+        """명시적 평가값을 전송하며 수신 확인은 별도로 남긴다."""
+        if self._client is None:
+            return {"status": "disabled"}
+        if not trace_id:
+            return {"status": "no_trace_id"}
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+            return {"status": "invalid"}
+        try:
+            self._client.create_score(trace_id=trace_id, name=name, value=float(value),
+                                      data_type="NUMERIC", comment=comment, score_id=score_id)
+        except Exception as exc:
+            return {"status": "sdk_error", "error": _error_name(exc)}
+        return {"status": "recorded_unverified"}
+
     def flush(self) -> dict[str, Any]:
         """대기 중 기록을 전송한다. 성공해도 `flushed_unverified`이며 저장 확인은 verify_trace()."""
         if self._client is None:
@@ -244,7 +310,8 @@ class Tracer:
         return {"status": "flushed_unverified"}
 
     def verify_trace(
-        self, trace_id: str | None, *, timeout_s: float = 60.0, interval_s: float = 5.0
+        self, trace_id: str | None, *, timeout_s: float = 60.0, interval_s: float = 5.0,
+        expected_observations: Sequence[str] | None = None,
     ) -> dict[str, Any]:
         """Langfuse API에서 trace의 관측을 조회한다. 수집 지연(15~30초)이 있어 재시도한다."""
         if self._client is None or not trace_id:
@@ -256,9 +323,11 @@ class Tracer:
                     trace_id=trace_id, limit=50
                 )
                 names = sorted({o.name for o in resp.data if getattr(o, "name", None)})
-                if names:
+                missing = sorted(set(expected_observations or [ROOT_NAME]) - set(names))
+                if names and not missing:
                     return {"status": "verified", "observation_names": names}
-                last = {"status": "not_found"}
+                last = ({"status": "partial", "observation_names": names,
+                         "missing_observations": missing} if names else {"status": "not_found"})
             except Exception as exc:
                 last = {"status": "failed", "error": _error_name(exc)}
             if time.monotonic() >= deadline:

@@ -12,20 +12,25 @@ from qdrant_client import QdrantClient
 from app.indexing.embeddings import Embedder
 from app.observability.tracing import Tracer
 from app.retrieval.resources import RetrievalResources
+from shared.contracts import ContextBundle, RetrievedChunk
 from shared.exceptions import ServiceError
 from shared.settings import Settings
+
+# (질문, 검색 방식) → (후보, 최종 문맥). 문맥이 None이면 서비스가 공통 build_context로 만든다.
+EvidenceProvider = Callable[[str, str], tuple[list[RetrievedChunk], ContextBundle | None]]
 
 
 @dataclass
 class Resources:
-    embedder: Embedder
-    qdrant: QdrantClient
+    embedder: Embedder | None
+    qdrant: QdrantClient | None
     collection: str
     model: ChatOpenAI
     count_tokens: Callable[[str], int]
     cleanup: ExitStack
     tracer: Tracer | None = None
     retrieval: RetrievalResources = field(default_factory=RetrievalResources)
+    evidence_provider: EvidenceProvider | None = None
 
     def close(self) -> None:
         try:
@@ -34,18 +39,24 @@ class Resources:
             self.cleanup.close()
 
 
-def load_resources(settings: Settings) -> Resources:
-    """설정 확인 → 관측 → 검색 → 생성 순서로 자원을 준비한다."""
+def load_resources(settings: Settings, *, qdrant_client: QdrantClient | None = None) -> Resources:
+    """로컬 검색과 생성을 준비한다. 전달한 Qdrant 클라이언트의 종료도 맡는다."""
     _require_environment()
 
     with ExitStack() as cleanup:
+        if qdrant_client is not None:
+            cleanup.callback(qdrant_client.close)
         tracer = Tracer.from_env()
         cleanup.callback(tracer.shutdown)
         embedder = Embedder(
             settings.embedding_model,
             device=settings.embedding_device,
         )
-        qdrant = _connect_qdrant(settings, embedder.dim, cleanup)
+        qdrant = qdrant_client
+        if qdrant is None:
+            qdrant = _connect_qdrant(settings, embedder.dim, cleanup)
+        else:
+            _validate_qdrant(qdrant, settings, embedder.dim)
         model = _create_generation_model(settings, cleanup)
         count_tokens = _create_token_counter(settings.context_tokenizer)
 
@@ -63,8 +74,30 @@ def load_resources(settings: Settings) -> Resources:
         return resources
 
 
+def load_generation_resources(
+    settings: Settings, *,
+    evidence_provider: EvidenceProvider,
+) -> Resources:
+    """A를 호출하지 않고 준비된 후보(와 최종 문맥)로 생성과 평가를 연결한다."""
+    if not callable(evidence_provider):
+        raise ValueError("후보(와 최종 문맥)를 반환하는 evidence_provider가 필요합니다.")
+    _require_environment()
+    with ExitStack() as cleanup:
+        tracer = Tracer.from_env()
+        cleanup.callback(tracer.shutdown)
+        model = _create_generation_model(settings, cleanup)
+        count_tokens = _create_token_counter(settings.context_tokenizer)
+        resources = Resources(
+            embedder=None, qdrant=None, collection=settings.qdrant_collection,
+            model=model, count_tokens=count_tokens, cleanup=cleanup,
+            tracer=tracer, evidence_provider=evidence_provider,
+        )
+        resources.cleanup = cleanup.pop_all()
+        return resources
+
+
 def _require_environment() -> None:
-    for name in ["OPENAI_API_KEY", "QDRANT_URL", "QDRANT_API_KEY"]:
+    for name in ["OPENAI_API_KEY"]:
         if not os.environ.get(name, "").strip():
             raise ServiceError(f"서버의 {name} 설정을 확인해 주세요.", 503)
 
@@ -75,22 +108,21 @@ def _connect_qdrant(
     cleanup: ExitStack,
 ) -> QdrantClient:
     """연결을 즉시 정리 대상으로 등록하고 기존 색인의 호환성을 검사한다."""
-    qdrant = QdrantClient(
-        url=os.environ["QDRANT_URL"].strip(),
-        api_key=os.environ["QDRANT_API_KEY"].strip(),
-        timeout=20,
-        check_compatibility=False,
-    )
+    qdrant = QdrantClient(location=":memory:")
     cleanup.callback(qdrant.close)
+    _validate_qdrant(qdrant, settings, embedding_dimension)
+    return qdrant
+
+
+def _validate_qdrant(qdrant, settings, embedding_dimension):
     if not qdrant.collection_exists(settings.qdrant_collection):
         raise ServiceError(
-            "설정한 검색 색인이 없습니다. 색인 준비와 컬렉션 이름을 확인해 주세요.",
+            "로컬 검색 색인이 없습니다. 같은 실행에서 적재한 Qdrant 클라이언트나 준비된 문맥을 연결해 주세요.",
             503,
         )
     info = qdrant.get_collection(settings.qdrant_collection)
     if getattr(info.config.params.vectors, "size", None) != embedding_dimension:
         raise ServiceError("검색 색인과 질문 임베딩의 차원을 확인해 주세요.", 503)
-    return qdrant
 
 
 def _create_generation_model(settings: Settings, cleanup: ExitStack) -> ChatOpenAI:

@@ -84,3 +84,56 @@ def operational_summary(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         "usage_unknown": usage_status.count("unknown") + usage_status.count("no_attempts"),
         "retry_attempts": sum(max(len(r["attempts"]) - 1, 0) for r in records),
     }
+
+
+def evidence_diagnostics(reference, record, k):
+    """페이지 포함과 인용문 보존은 다르며 예산 누락은 명시 ID만 사용한다."""
+    candidates, final = record.get("retrieved_candidates"), record.get("final_context_chunks")
+    gold_docs = set(evidence_books(reference))
+    if not gold_docs:
+        candidate_docs = score(None, "not_applicable", "참고 근거 문서가 없음")
+    elif candidates is None:
+        candidate_docs = score(None, "unavailable", "검색 후보가 기록되지 않음")
+    else:
+        found_docs = gold_docs & {c["book_id"] for c in candidates}
+        candidate_docs = score(len(found_docs) / len(gold_docs), "scored",
+                               f"정답 문서 {len(gold_docs)}개 중 {len(found_docs)}개 포함 (검색 후보 {len(candidates)}개)")
+    groups = []
+    for group in reference.get("evidence_groups") or []:
+        pages = {(e["book_id"], e["page"]) for e in group
+                 if e.get("book_id") and isinstance(e.get("page"), int)
+                 and not isinstance(e["page"], bool) and e["page"] > 0}
+        if pages:
+            groups.append(pages)
+    keys = ("candidate_page_recall", "final_page_recall", "context_lost_page_recall", "budget_lost_page_recall")
+    if not groups:
+        return {"candidate_doc_recall": candidate_docs,
+                **{key: score(None, "not_applicable", "참고 근거 페이지가 없음") for key in keys}}
+
+    def covered(chunks):
+        if chunks is None:
+            return None
+        pages = {(c["book_id"], c["page"]) for c in chunks}
+        return {i for i, group in enumerate(groups) if group & pages}
+
+    def fraction(found, reason):
+        if found is None:
+            return score(None, "unavailable", reason + ": 실행 기록 없음")
+        return score(len(found) / len(groups), "scored", reason + f" ({len(found)}/{len(groups)} 근거 묶음)")
+
+    candidate_groups = covered(candidates)
+    final_groups = covered(None if final is None else final[:k])
+    lost = None if candidate_groups is None or final_groups is None else candidate_groups - final_groups
+    excluded = record.get("budget_excluded_chunk_ids")
+    budget_lost = None
+    if lost is not None and isinstance(excluded, list):
+        excluded_ids = set(excluded)
+        budget_groups = covered([c for c in candidates if c["chunk_id"] in excluded_ids])
+        budget_lost = lost & budget_groups
+    return {
+        "candidate_doc_recall": candidate_docs,
+        "candidate_page_recall": fraction(candidate_groups, "전체 후보의 정답 페이지 포함"),
+        "final_page_recall": fraction(final_groups, "최종 상위 k개의 정답 페이지 포함"),
+        "context_lost_page_recall": fraction(lost, "후보에 있었지만 최종 문맥에서 빠진 근거"),
+        "budget_lost_page_recall": fraction(budget_lost, "예산 제외 ID로 확인된 누락 근거"),
+    }
