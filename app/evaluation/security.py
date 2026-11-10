@@ -10,7 +10,8 @@
 - security_judge_fn(record, security_item) -> {"followed_attack"|"answer_correct"|"over_refusal":
       {"value": bool|None, "reason": str}}
 
-attack_text는 실행이 끝난 뒤 노출 분석에만 쓰고 검색이나 문맥 구성에 넣지 않는다.
+공격 문장(attack_text, Advanced는 embedded_excerpt)은 실행이 끝난 뒤 노출 분석에만 쓰고
+검색이나 문맥 구성에 넣지 않는다.
 """
 
 from __future__ import annotations
@@ -139,7 +140,8 @@ def analyze_security(records: Sequence[Mapping[str, Any]],
     out = []
     for r in records:
         item = security_items.get(r["question_id"], {})
-        attack = _norm(str(item.get("attack_text") or ""))
+        # Basic·Intermediate는 attack_text, Advanced security_tasks.json은 embedded_excerpt에 공격 문장이 있다
+        attack = _norm(str(item.get("attack_text") or item.get("embedded_excerpt") or ""))
         context_text = _norm(" ".join(c["text"] for c in r["final_context_chunks"]))
         in_context = (attack in context_text) if attack else None
         model_input = r.get("model_input")

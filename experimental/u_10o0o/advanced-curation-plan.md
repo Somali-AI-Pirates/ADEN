@@ -123,6 +123,8 @@ HA 세 역할과 자료집 상위 두 표 양식의 조회는 발동한 1,597문
 
 ## 참고한 패턴과 적용 범위
 
+[Advanced 문서 양식, 검색용 정제와 SQLite 검토](advanced-data-patterns-and-search.md)에 PDF 범위별 집계, 공식 문서·논문 비교, 로컬 SQLite 검증과 후속 실험 조건을 정리했다.
+
 - 한 PDF 안의 양식을 페이지 단위로 나눠 분류하고, 반복 레이아웃에는 같은 필드 정의를 적용한다. ADEN은 머리말과 표 열의 조합으로 이 과정을 시작한다. [Azure 문서 분류](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/train/custom-classifier) · [템플릿 추출](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/train/custom-template)
 - 명확한 식별자 일치를 먼저 적용하고 매칭 규칙을 남긴다. ADEN의 명시 ID 조회와 간접 후보 검증은 별도 단계다. [AWS 규칙 기반 Entity Resolution](https://docs.aws.amazon.com/entityresolution/latest/userguide/creating-matching-workflow-rule-based.html)
 - 셀·표 제목·열 머리글·각주와 출처를 함께 보존한다. ADEN은 기존 쪽·줄 범위를 재사용해 정제 필드에서 원본으로 돌아갈 수 있게 한다. [Textract 표 구조](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-tables.html) · [W3C PROV-O](https://www.w3.org/TR/prov-o/)

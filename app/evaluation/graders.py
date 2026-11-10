@@ -9,6 +9,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import math
 import os
@@ -36,6 +37,12 @@ def response_text(record: Mapping[str, Any]) -> str:
     return "\n\n".join(p.strip() for p in parts if p and p.strip())
 
 
+def chunk_text(chunk: Mapping[str, Any]) -> str:
+    """생성 모델이 본 문맥처럼 청크 제목을 본문 앞에 붙인다. 고급 자료는 화주·예약번호가 제목에만 있다."""
+    heading = chunk.get("heading")
+    return f"제목: {heading}\n{chunk['text']}" if heading else chunk["text"]
+
+
 def _timed(fn: Callable[[], Mapping[str, Any]]) -> tuple[Mapping[str, Any] | None, dict[str, Any]]:
     start = time.perf_counter()
     try:
@@ -51,7 +58,7 @@ def _timed(fn: Callable[[], Mapping[str, Any]]) -> tuple[Mapping[str, Any] | Non
 
 def build_judge_prompt(template: str, record: Mapping[str, Any],
                        reference: Mapping[str, Any]) -> str:
-    context = "\n\n".join(f"[{c['source_id']}] {c['file_name']} p.{c['page']}\n{c['text']}"
+    context = "\n\n".join(f"[{c['source_id']}] {c['file_name']} p.{c['page']}\n{chunk_text(c)}"
                           for c in record.get("final_context_chunks") or [])
     ref = {k: v for k, v in reference.items() if k != "question"}
     values = {
@@ -121,7 +128,7 @@ def grade_faithfulness(record: Mapping[str, Any], has_claims: bool | None,
     response = response_text(record)
     if not response or has_claims is False:
         return score(None, "not_applicable", "사실 주장 없음(조건 확인·보류만)"), None
-    contexts = [c["text"] for c in record.get("final_context_chunks") or []]
+    contexts = [chunk_text(c) for c in record.get("final_context_chunks") or []]
     if not contexts:
         if has_claims:
             return score(0.0, "scored", "최종 문맥 없이 사실 주장을 함"), None
@@ -178,10 +185,15 @@ def make_ragas_faithfulness(model: str) -> FaithfulnessFn:
     from ragas.llms import llm_factory
     from ragas.metrics.collections import Faithfulness
 
+    async def run(question: str, response: str, contexts: list[str]) -> Any:
+        # 클라이언트를 같은 이벤트 루프 안에서 닫는다. 루프가 닫힌 뒤 정리되면 경고가 남는다.
+        async with AsyncOpenAI() as client:
+            metric = Faithfulness(llm=llm_factory(model, client=client))
+            return await metric.ascore(user_input=question, response=response,
+                                       retrieved_contexts=contexts)
+
     def faithfulness(question: str, response: str, contexts: list[str]) -> dict[str, Any]:
-        # 호출마다 새 비동기 클라이언트: score()가 매번 새 이벤트 루프를 만들기 때문
-        metric = Faithfulness(llm=llm_factory(model, client=AsyncOpenAI()))
-        result = metric.score(user_input=question, response=response, retrieved_contexts=contexts)
+        result = asyncio.run(run(question, response, contexts))
         return {"value": result.value, "input_tokens": None, "output_tokens": None}
 
     return faithfulness
