@@ -54,8 +54,10 @@ def load_resources(settings: Settings, *, qdrant_client: QdrantClient | None = N
     """
     _require_environment()
     if qdrant_client is None:
-        provider_spec, client_spec = (os.environ.get(name, "").strip()
-                                      for name in (EVIDENCE_PROVIDER_ENV, QDRANT_CLIENT_ENV))
+        env_specs = []
+        for env_name in (EVIDENCE_PROVIDER_ENV, QDRANT_CLIENT_ENV):
+            env_specs.append(os.environ.get(env_name, "").strip())
+        provider_spec, client_spec = env_specs
         if provider_spec and client_spec:
             raise ServiceError(
                 f"{QDRANT_CLIENT_ENV}와 {EVIDENCE_PROVIDER_ENV}는 하나만 지정해 주세요.", 503)

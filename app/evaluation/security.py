@@ -52,40 +52,52 @@ def run_security_comparison(questions: Sequence[Mapping[str, str]], retrieve_fn:
                        "error_type": f"generation_exception:{type(exc).__name__}"}
             attempts = list(gen.get("attempts") or [])
             last = attempts[-1] if attempts else {}
-            records.append({
+            record = {
                 "experiment_id": experiment_id, "question_id": q["id"],
                 "question": q["question"], "retrieval_mode": retrieval_mode,
                 "prompt_variant": variant,
                 "retrieved_candidates": list(retrieved.get("retrieved_candidates") or []),
                 "final_context_chunks": chunks, "final_context_hash": context_hash,
                 "context_hash_after_generation": compute_context_hash(passed),
-                **{k: gen.get(k) for k in ("status", "answer", "reason", "citations",
-                                           "latency_ms", "model_context_text",
-                                           "model_context_hash", "error_type", "request_id",
-                                           "langfuse_trace_id")},
-                **{k: gen.get(k, last.get(k)) for k in ("model_input", "model_output", "model",
-                                                        "model_parameters")},
-                "attempts": attempts,
-                "usage": summarize_usage(attempts),
-            })
+            }
+            for key in ("status", "answer", "reason", "citations",
+                        "latency_ms", "model_context_text",
+                        "model_context_hash", "error_type", "request_id",
+                        "langfuse_trace_id"):
+                record[key] = gen.get(key)
+            for key in ("model_input", "model_output", "model", "model_parameters"):
+                record[key] = gen.get(key, last.get(key))
+            record["attempts"] = attempts
+            record["usage"] = summarize_usage(attempts)
+            records.append(record)
     return records
 
 
 def _model_context_identical(rows: Sequence[Mapping[str, Any]]) -> bool | None:
     """B의 문맥 문자열이 두 변형에서 같고 각 해시가 그 문자열의 SHA-256인지. 값이 없으면 None."""
-    pairs = [(r.get("model_context_text"), r.get("model_context_hash")) for r in rows]
-    if any(t is None or h is None for t, h in pairs):
-        return None
-    valid = all(hashlib.sha256(t.encode("utf-8")).hexdigest() == h for t, h in pairs)
+    pairs = []
+    for row in rows:
+        pairs.append((row.get("model_context_text"), row.get("model_context_hash")))
+    for text, digest in pairs:
+        if text is None or digest is None:
+            return None
+    valid = True
+    for text, digest in pairs:
+        if hashlib.sha256(text.encode("utf-8")).hexdigest() != digest:
+            valid = False
+            break
     return valid and len(set(pairs)) == 1
 
 
 def _context_in_model_input(rows: Sequence[Mapping[str, Any]]) -> bool | None:
     """실제 모델 입력에 준비한 문맥 문자열이 그대로 들어갔는지. 값이 없으면 None."""
-    if any(r.get("model_context_text") is None or r.get("model_input") is None for r in rows):
-        return None
-    return all(_norm(r["model_context_text"]) in _norm(_input_text(r["model_input"]))
-               for r in rows)
+    for row in rows:
+        if row.get("model_context_text") is None or row.get("model_input") is None:
+            return None
+    for row in rows:
+        if _norm(row["model_context_text"]) not in _norm(_input_text(row["model_input"])):
+            return False
+    return True
 
 
 def _all(values: Sequence[bool | None]) -> bool | None:
@@ -101,15 +113,28 @@ def check_same_context(records: Sequence[Mapping[str, Any]]) -> dict[str, dict[s
         by_q.setdefault(r["question_id"], []).append(r)
     result = {}
     for qid, rows in by_q.items():
-        hashes = {r["final_context_hash"] for r in rows} | {r["context_hash_after_generation"]
-                                                          for r in rows}
-        orders = {tuple(c["chunk_id"] for c in r["final_context_chunks"]) for r in rows}
-        settings = {json.dumps([r.get("model"), r.get("model_parameters")], sort_keys=True,
-                               ensure_ascii=False) for r in rows}
+        hashes = set()
+        for row in rows:
+            hashes.add(row["final_context_hash"])
+        for row in rows:
+            hashes.add(row["context_hash_after_generation"])
+        orders = set()
+        for row in rows:
+            chunk_ids = []
+            for chunk in row["final_context_chunks"]:
+                chunk_ids.append(chunk["chunk_id"])
+            orders.add(tuple(chunk_ids))
+        settings = set()
+        for row in rows:
+            settings.add(json.dumps([row.get("model"), row.get("model_parameters")], sort_keys=True,
+                                    ensure_ascii=False))
         checks = {"final_context_identical": len(hashes) == 1 and len(orders) == 1,
                   "model_context_identical": _model_context_identical(rows),
                   "context_in_model_input": _context_in_model_input(rows)}
-        result[qid] = {"variants": sorted(r["prompt_variant"] for r in rows), **checks,
+        variants = []
+        for row in rows:
+            variants.append(row["prompt_variant"])
+        result[qid] = {"variants": sorted(variants), **checks,
                        "context_identical": _all(list(checks.values())),
                        "generation_settings_identical": len(settings) == 1}
     return result
@@ -126,10 +151,21 @@ def _input_text(value: Any) -> str:
         return value
     if isinstance(value, Mapping):
         # role·type 같은 메타 값이 문장 사이에 끼지 않게 본문 키만 쓴다
-        keys = [k for k in ("content", "text") if k in value] or list(value)
-        return " ".join(_input_text(value[k]) for k in keys)
+        keys = []
+        for body_key in ("content", "text"):
+            if body_key in value:
+                keys.append(body_key)
+        if not keys:
+            keys = list(value)
+        parts = []
+        for key in keys:
+            parts.append(_input_text(value[key]))
+        return " ".join(parts)
     if isinstance(value, Sequence):
-        return " ".join(_input_text(v) for v in value)
+        parts = []
+        for item in value:
+            parts.append(_input_text(item))
+        return " ".join(parts)
     return ""
 
 
@@ -142,7 +178,10 @@ def analyze_security(records: Sequence[Mapping[str, Any]],
         item = security_items.get(r["question_id"], {})
         # Basic·Intermediate는 attack_text, Advanced security_tasks.json은 embedded_excerpt에 공격 문장이 있다
         attack = _norm(str(item.get("attack_text") or item.get("embedded_excerpt") or ""))
-        context_text = _norm(" ".join(c["text"] for c in r["final_context_chunks"]))
+        chunk_texts = []
+        for chunk in r["final_context_chunks"]:
+            chunk_texts.append(chunk["text"])
+        context_text = _norm(" ".join(chunk_texts))
         in_context = (attack in context_text) if attack else None
         model_input = r.get("model_input")
         if not attack or model_input is None:
@@ -150,7 +189,9 @@ def analyze_security(records: Sequence[Mapping[str, Any]],
         else:
             exposed = attack in _norm(_input_text(model_input))
 
-        judged = {k: {"value": None, "reason": "미평가"} for k in JUDGED}
+        judged = {}
+        for judged_key in JUDGED:
+            judged[judged_key] = {"value": None, "reason": "미평가"}
         if r["status"] != "error" and security_judge_fn is not None:
             try:
                 res = security_judge_fn(r, item)
@@ -160,8 +201,9 @@ def analyze_security(records: Sequence[Mapping[str, Any]],
                     judged[k] = {"value": val if isinstance(val, bool) else None,
                                  "reason": str(v.get("reason") or "")}
             except Exception as exc:
-                judged = {k: {"value": None, "reason": f"보안 평가 호출 실패: {type(exc).__name__}"}
-                          for k in JUDGED}
+                judged = {}
+                for judged_key in JUDGED:
+                    judged[judged_key] = {"value": None, "reason": f"보안 평가 호출 실패: {type(exc).__name__}"}
 
         if r["status"] == "error":
             outcome = "generation_failed"
@@ -184,10 +226,14 @@ def make_openai_security_judge(model: str, template: str) -> SecurityJudgeFn:
     client = OpenAI()
 
     def judge(record: Mapping[str, Any], item: Mapping[str, Any]) -> Mapping[str, Any]:
+        item_without_question = {}
+        for field, field_value in item.items():
+            if field != "question":
+                item_without_question[field] = field_value
         values = {"question": record["question"], "variant": record["prompt_variant"],
                   "status": record["status"], "answer": record.get("answer") or "",
                   "reason": record.get("reason") or "",
-                  "security_item": json.dumps({k: v for k, v in item.items() if k != "question"},
+                  "security_item": json.dumps(item_without_question,
                                               ensure_ascii=False, indent=2)}
         prompt = template
         for key, value in values.items():
