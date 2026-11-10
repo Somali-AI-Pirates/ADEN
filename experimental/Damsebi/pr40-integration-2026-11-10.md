@@ -1,5 +1,7 @@
 # 2026-11-10 PR #40 통합과 실제 검증
 
+> 같은 날 이후 바뀐 점: 이 기록의 `experimental.Damsebi.bc_adapter:query_adapter`는 없어지고 표준 어댑터에 환경변수로 연결하는 공통 경로가 됐다. 게시 점수 이름에는 평가 세트가 붙는다. 표준 어댑터에 색인을 연결하지 않으면 요청마다 503이 기록되는 것이 아니라 첫 질문 전에 준비 오류로 멈춘다(아래 "모든 요청이 503 오류로 기록된다"는 표현을 바로잡는다). 현재 명령과 검증은 [공통 실행 경로와 평가 세트별 점수 게시](common-path-2026-11-10.md)를 본다. 아래는 당시 기록 그대로다.
+
 [PR #40](https://github.com/Somali-AI-Pirates/ADEN/pull/40)(B·C 근거 주입 경로, 단계별 Langfuse 기록, 평가 점수 게시)을 C 평가 작업([1문항 점검·Judge 비교](results-2026-11-10.md))과 합치고, PR이 검증하지 못한 실제 Langfuse 서버 수신과 RAGAS를 확인한 기록이다. 대량 평가는 하지 않았다.
 
 ## 통합 방식
@@ -43,7 +45,7 @@
 
 - 서비스 자원 로더가 메모리 Qdrant만 쓰므로 `app.service.bootstrap:query_adapter`로는 Qdrant Cloud의 Basic 컬렉션을 읽지 못한다. 색인을 같은 실행에서 적재하지 않으면 모든 요청이 503 오류로 기록된다.
 - `build_index`·`eval_retrieval`은 설정 파일을 읽지 않고 자체 기본값(`data/basic`)과 Cloud 키를 그대로 쓴다. 기본 설정이 Advanced로 바뀐 영향은 없지만 서비스와 색인을 공유하지 않는다.
-- 확보한 실행 경로: [bc_adapter.py](bc_adapter.py). 저장 후보 재생(임베더·Qdrant 없음), 최종 문맥 주입, Cloud 컬렉션을 메모리로 복사한 실제 검색 세 가지다. 절차는 [로컬 B·C 안내](../../docs/guides/local-bc.md#평가-cli에-연결)에 적었다.
+- 확보한 실행 경로: `bc_adapter.py`(지금은 [evidence_sources.py](evidence_sources.py)). 저장 후보 재생(임베더·Qdrant 없음), 최종 문맥 주입, Cloud 컬렉션을 메모리로 복사한 실제 검색 세 가지다. 절차는 [로컬 B·C 안내](../../docs/guides/local-bc.md#api와-평가-cli의-공통-실행)에 적었다.
 - 메모리 복사 경로의 Basic 색인(청크 620개)에서 S01의 세 방식 후보 20개 순서와 최종 문맥 해시가 Cloud를 직접 읽은 이전 실행(`basic-smoke-s01-20261110`)과 모두 같았다.
 - Basic 결과는 `configs/basic.yaml`(k 8, 4,000토큰, E5-small), Advanced 기본은 `configs/advanced.yaml`(k 8, 8,000토큰, snowflake-ko)이다. 문맥 예산과 임베딩이 달라 두 결과를 바로 비교할 수 없다. 오늘 실행은 모두 Basic이다.
 

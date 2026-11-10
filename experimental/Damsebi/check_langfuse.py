@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 load_dotenv(ROOT / ".env")
 
-from app.evaluation.publishing import expected_observations, score_items  # noqa: E402
+from app.evaluation.publishing import GROUPS, expected_observations, score_items  # noqa: E402
 from app.observability.tracing import Tracer  # noqa: E402
 
 # 재생성이 없으면 generation-attempt-2 이후는 생기지 않는다. 시도 수는 실행 기록과 대조한다.
@@ -164,11 +164,10 @@ def inspect(client, trace_id, run=None):
     return not problems
 
 
-def remote_scores(client, trace_id):
+def remote_scores(client, **filters):
     rows, cursor = [], None
     while True:
-        page = client.api.scores.get_many(trace_id=trace_id, limit=100, cursor=cursor,
-                                          fields="details,subject")
+        page = client.api.scores.get_many(limit=100, cursor=cursor, fields="details,subject", **filters)
         rows += page.data
         cursor = page.meta.cursor
         if not cursor:
@@ -176,21 +175,25 @@ def remote_scores(client, trace_id):
 
 
 def check_scores(client, exp_dir, runs_path=None, timeout_s=120):
-    """게시한 점수가 서버에 있고 이름·값·trace가 로컬 채점 기록과 같은지 확인한다."""
+    """게시한 점수가 서버에 있고 이름·값·trace·metadata가 로컬 채점 기록과 같으며 중복이 없는지 확인한다."""
     exp_dir = Path(exp_dir)
     manifest = json.loads((exp_dir / "manifest.json").read_text(encoding="utf-8"))
     read = lambda p: [json.loads(line) for line in Path(p).read_text(encoding="utf-8").splitlines() if line.strip()]
     runs = {r["request_id"]: r for r in read(runs_path or exp_dir / "runs.jsonl")}
     published = manifest.get("langfuse_scores") or {}
-    print(f"게시 기록: {published.get('status')} {published.get('score_status_counts')}")
-    ok, totals = True, Counter()
+    # 평가 세트 도입 전 게시는 이름에 세트가 없고 같은 이름이 trace에 쌓여 있다
+    prefix = f"{published['evaluation_set']}." if published.get("evaluation_set") else ""
+    groups = published.get("groups", GROUPS)
+    print(f"게시 기록: {published.get('status')} 세트 {published.get('evaluation_set')} "
+          f"지표군 {groups} {published.get('score_status_counts')}")
+    ok, totals, local = True, Counter(), {}
     for row in read(exp_dir / "scores.jsonl"):
         trace_id = runs[row["request_id"]]["langfuse_trace_id"]
         sent = row.get("langfuse_score_ids") or {}
-        items = score_items(row)
+        items = {prefix + name: item for name, item in score_items(row, groups).items()}
         deadline = time.monotonic() + timeout_s
         while True:
-            remote = {s.id: s for s in remote_scores(client, trace_id)}
+            remote = {s.id: s for s in remote_scores(client, trace_id=trace_id)}
             if all(i in remote for i in sent.values()) or time.monotonic() >= deadline:
                 break
             time.sleep(5)
@@ -205,19 +208,43 @@ def check_scores(client, exp_dir, runs_path=None, timeout_s=120):
             if (got.name != name or (subject.get("kind"), subject.get("id")) != ("trace", trace_id)
                     or abs(got.value - items[name]["value"]) > 1e-9):
                 problems.append(f"{name} 불일치: 서버 {got.name}={got.value} {subject}")
-            if meta.get("experiment_id") != manifest["experiment_id"]:
-                problems.append(f"{name}의 metadata 실험 ID가 다름: {meta.get('experiment_id')}")
+            expected = {"experiment_id": manifest["experiment_id"]}
+            if prefix:
+                expected.update(evaluation_set=published["evaluation_set"],
+                                evaluation_hash=published["evaluation_hash"],
+                                source_experiment_id=(manifest.get("regrade") or {}).get(
+                                    "source_experiment_id") or manifest["experiment_id"],
+                                **{key: (manifest["benchmark"].get(key)) for key in
+                                   ("judge", "judge_prompt", "references_sha256")},
+                                config_hash=manifest["config_hash"])
+            wrong = {k: meta.get(k) for k, v in expected.items() if meta.get(k) != v}
+            if wrong:
+                problems.append(f"{name}의 metadata가 다름: {wrong}")
+            local.setdefault(name, []).append(items[name]["value"])
         # 채점되지 않은 항목(해당 없음·평가 불가)은 보내지 않았어야 한다
         unsent = [n for n, item in items.items() if item["status"] != "scored"]
         if set(unsent) & set(sent):
             problems.append(f"채점되지 않은 항목 게시: {sorted(set(unsent) & set(sent))}")
-        same_name = Counter(s.name for s in remote.values())
+        names = Counter(s.name for s in remote.values())
+        if prefix:  # 이 세트로 이 trace에 온 점수는 보낸 것과 정확히 같아야 한다(중복·고르지 않은 지표군 없음)
+            in_set = sorted(n for n in names.elements() if n.startswith(prefix))
+            if in_set != sorted(sent):
+                problems.append(f"세트의 서버 점수가 보낸 것과 다름: {in_set}")
         totals.update(received=len(sent) - sum("미수신" in p for p in problems), sent=len(sent), unsent=len(unsent))
         print(f"  {row['question_id']} {row['retrieval_mode']:<13} trace {trace_id[:8]}… 게시 {len(sent)} · 미게시 {len(unsent)}"
-              f" · 이 trace의 전체 점수 {len(remote)}개(이름별 최대 {max(same_name.values(), default=0)}개)"
+              f" · 이 trace의 전체 점수 {len(remote)}개(이름별 최대 {max(names.values(), default=0)}개)"
               f" → {'일치' if not problems else problems}")
         ok &= not problems
     print(f"합계: 게시 {totals['sent']} · 수신 확인 {totals['received']} · 미게시(채점 안 됨) {totals['unsent']}")
+    if prefix:  # 이름으로 조회하면 이 세트의 점수만 나오는지: Langfuse의 이름별 선택·집계가 보는 범위
+        for name, values in sorted(local.items()):
+            got = remote_scores(client, name=name)
+            hashes = {(s.dict().get("metadata") or {}).get("evaluation_hash") for s in got}
+            mean = sum(s.value for s in got) / len(got) if got else None
+            fine = len(got) >= len(values) and hashes == {published["evaluation_hash"]}
+            print(f"  이름 조회 {name}: 서버 {len(got)}건 평균 {mean} · 이 실험 {len(values)}건 평균 "
+                  f"{sum(values) / len(values)} · 채점 조건 {len(hashes)}종 → {'일치' if fine else '문제'}")
+            ok &= fine
     return ok
 
 

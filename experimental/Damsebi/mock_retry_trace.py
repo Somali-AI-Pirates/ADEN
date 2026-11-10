@@ -15,7 +15,7 @@ from app.observability.records import normalize_run_record  # noqa: E402
 from app.service.adapters import make_query_adapter  # noqa: E402
 from app.service.bootstrap import load_settings_with_env  # noqa: E402
 from app.service.resources import load_generation_resources  # noqa: E402
-from experimental.Damsebi.bc_adapter import stored_provider  # noqa: E402
+from experimental.Damsebi.evidence_sources import stored_provider  # noqa: E402
 from tests.pipeline_fakes import FakeModel  # noqa: E402
 
 

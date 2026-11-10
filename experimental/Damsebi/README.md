@@ -11,7 +11,7 @@
 | 항목 | 내용 |
 | --- | --- |
 | 서비스 설정 | `configs/basic.yaml` (`retrieval.k`=8, 문맥 4,000토큰). 기본 설정은 PR #40 이후 `configs/advanced.yaml`(8,000토큰)이므로 `--config`를 항상 명시한다 |
-| 어댑터 | PR #40 통합 전 `app.service.bootstrap:query_adapter`(Qdrant Cloud 직접). 통합 후에는 표준 bootstrap이 빈 메모리 색인으로 503이 되므로 `experimental.Damsebi.bc_adapter:query_adapter`(저장 후보 재생 또는 Cloud 컬렉션의 메모리 복사) |
+| 어댑터 | 표준 `app.service.bootstrap:query_adapter`. 색인은 API와 같은 환경변수로 연결한다: `ADEN_QDRANT_CLIENT=experimental.Damsebi.evidence_sources:memory_copy`(Cloud 컬렉션의 메모리 복사, 실제 검색) 또는 `ADEN_EVIDENCE_PROVIDER=experimental.Damsebi.evidence_sources:stored_evidence`(저장 후보 재생). PR #40 통합 전 기록은 Qdrant Cloud 직접, 통합 직후 기록은 개인 어댑터(지금은 없음)로 실행했다 |
 | 검색 방식 | naive, hybrid, hybrid_rerank |
 | Judge | `gpt-6-luna`, 기준은 `judge.txt` 현재 버전(v2) |
 | Faithfulness | RAGAS Faithfulness, 평가 모델 `gpt-6-luna`, 출력 한도 8,192토큰 |
@@ -45,8 +45,8 @@
 - 점검·개발용 비교 보고서: `experimental/Damsebi/reports/<실험 ID>/` (`--reports-dir experimental/Damsebi/reports`)
 - 공식 비교·제출: `reports/<실험 ID>/`
 - 기준 변경과 점수 변화: [채점 기준 이력](../../docs/guides/judge-rubric.md)
-- 날짜별 결과: [2026-11-10 Langfuse 검증·1문항 점검·v1·v2 비교](results-2026-11-10.md), [2026-11-10 PR #40 통합과 실제 검증](pr40-integration-2026-11-10.md)
-- 도구: `check_langfuse.py`(저장된 trace의 관측·구간·내용과 게시 점수의 수신 확인), `compare_scores.py`(재채점 결과 나란히 비교), `bc_adapter.py`(근거 주입·메모리 Qdrant로 평가 CLI 실행)
+- 날짜별 결과: [2026-11-10 Langfuse 검증·1문항 점검·v1·v2 비교](results-2026-11-10.md), [2026-11-10 PR #40 통합과 실제 검증](pr40-integration-2026-11-10.md), [2026-11-10 공통 실행 경로와 평가 세트별 점수 게시](common-path-2026-11-10.md)
+- 도구: `check_langfuse.py`(저장된 trace의 관측·구간·내용과 게시 점수의 수신·중복 확인), `compare_scores.py`(재채점 결과 나란히 비교), `evidence_sources.py`(공통 자원 로더에 연결하는 검증용 색인 복사·저장 후보 재생), `republish_scores.py`(저장된 채점 결과를 다시 채점하지 않고 재게시)
 
 ## 진행 상황
 
@@ -60,6 +60,7 @@
 - [x] 1문항 점검 (2026-11-10, S01): 형식·Judge 파싱·시간·토큰 정상. RAGAS는 기본 출력 한도 1,024에서 세 건 모두 평가 불가였고 8,192로 고정해 해결. 같은 답변 3회 재채점에서 Judge 판정 동일, Faithfulness 0.04 이내 변동
 - [x] 개발용 8문항 세 방식 실행, v1·v2 재채점 (2026-11-10): v2는 묻지 않은 부가 정보로 인한 사실 0점을 없앴고(S01·S09) 부분 답변의 판단을 엄격히 봤다(M01). 조건·근거는 v2 반복 채점 차이(96칸 중 7~12칸)와 구분되지 않는다
 - [x] PR #40(B·C 근거 주입, 단계별 추적, 점수 게시) 통합과 실제 검증 (2026-11-10, S01): 후보 재생·최종 문맥 주입·메모리 Qdrant 실제 검색 세 경로, 관측의 상하 관계와 실제 구간, 점수 185개 수신, 재게시 중복 없음, v1·v2 분리 보존, 평가 불가 미게시 확인. 메모리 복사 색인의 후보가 Cloud 실행과 같음
+- [x] 공통 실행 경로와 평가 세트 (2026-11-10, S01): API와 평가 CLI가 같은 환경변수로 같은 설정·색인을 쓰고 질문·후보·최종 문맥·해시가 일치. 점수 이름을 `<평가 세트>.<지표>`로 나눠 v1·v2·반복 회차의 집계가 섞이지 않음을 서버 조회로 확인. 재채점은 게시 전에 결과를 저장
 - [ ] Advanced 전환: A의 색인 적재 경로 연결 후 Advanced 질문으로 1문항 점검, 세 방식 비교
 - [ ] v2 조건·근거 채점 안정화: 반복 채점 다수결 또는 기준 보완([열린 결정](../../docs/guides/judge-rubric.md#열린-결정))
 - [ ] 기준 확정 후 전체 재채점, 확인용 질문 확인, 대표 사례 사람 검수
@@ -70,4 +71,5 @@
 - Langfuse 프로젝트의 멤버·접근 범위와 실제 보존 기간(프로젝트 키로는 조회 불가, 보존 기간 미설정)
 - `artifacts/basic/index_manifest.json`이 이 PC에 없어 색인의 청크 파일 해시를 대조하지 못함
 - Advanced 질문·정답 파일과 색인(`advanced_snowflake_ko_pages`)의 위치·적재 방식. 이 PC에는 `data/advanced/evaluation/custom*.json`만 있다
-- 재채점 점수를 원본 trace에 계속 쌓을지, 최종 비교용 평가만 게시할지(Langfuse 이름별 집계가 v1·v2를 섞는다)
+- Langfuse 화면에서 평가 세트별 점수 선택·비교가 기대대로 보이는지(API의 이름별 조회와 집계로만 확인했다)
+- 최종 비교에 쓸 평가 세트 이름(기준 확정 후 한 세트로 전체 지표군을 게시)
