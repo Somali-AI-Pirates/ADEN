@@ -18,7 +18,7 @@ Basic은 제공 ZIP 두 개의 PDF를 합치고, 두 ZIP에 공통인 평가 JSO
 
 ## Qdrant 색인
 
-이 절의 색인 생성과 아래 검색 전용 측정은 Qdrant Cloud 컬렉션을 쓴다. 서비스 자원 로더는 메모리 Qdrant만 쓰므로 Cloud 컬렉션을 직접 읽지 않는다. 서비스·평가에서 이 색인으로 검색하려면 같은 실행에서 메모리 Qdrant에 적재해 넘긴다([로컬 B·C 안내](local-bc.md#평가-cli에-연결)). `QDRANT_URL`과 `QDRANT_API_KEY`는 [환경변수 예시](../../.env.example)에 없으며 이 용도로만 로컬 `.env`에 둔다.
+이 절의 색인 생성과 아래 검색 전용 측정은 Qdrant Cloud 컬렉션을 쓴다. 서비스 자원 로더는 메모리 Qdrant만 쓰므로 Cloud 컬렉션을 직접 읽지 않는다. 서비스·평가에서 이 색인으로 검색하려면 같은 실행에서 메모리 Qdrant에 적재해 넘긴다([로컬 B·C 안내](local-bc.md#api와-평가-cli의-공통-실행)). `QDRANT_URL`과 `QDRANT_API_KEY`는 [환경변수 예시](../../.env.example)에 없으며 이 용도로만 로컬 `.env`에 둔다.
 
 [개발 환경](development.md#설치)을 준비하고 로컬 `.env`에 `QDRANT_URL`과 `QDRANT_API_KEY`를 설정한다. 기존 `artifacts/basic/index_manifest.json`과 팀 공용 컬렉션이 있으면 먼저 확인한다. 새 색인이 필요할 때 저장소 루트에서 실행한다. 두 명령은 설정 파일을 읽지 않고 자체 기본값(`data/basic`, E5-small)을 쓰므로 서비스 기본 설정이 Advanced로 바뀐 영향을 받지 않는다.
 

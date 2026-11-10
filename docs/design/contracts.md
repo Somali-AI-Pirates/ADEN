@@ -103,8 +103,8 @@ HTTP 시간은 응답 생성까지이며 본문 전송·백그라운드 작업·
 
 기본 설정은 `configs/advanced.yaml`이다. `Resources.evidence_provider(question, mode)`가 있으면 `(후보 목록, ContextBundle)`을 받아 최종 문맥을 보존하고, `(후보 목록, None)`이면 공통 문맥 구성기로 최종 문맥을 만든다. provider가 없으면 기존 검색과 공통 문맥 구성기를 호출한다. 제공된 문맥도 설정의 k·토큰 한도를 넘을 수 없으며, 넘으면 `503`이다. 이 경로는 내부 실행 코드용이며 HTTP 입력 계약은 바뀌지 않는다.
 
-`load_generation_resources(settings, *, evidence_provider)`는 검색·임베더 없이 생성·추적 자원을 준비한다. `create_app(resources_loader=...)`와 기존 `ServiceBootstrap(resources_loader=...)`로 같은 로더를 사용할 수 있다. 메모리 Qdrant는 같은 실행에서 적재한 클라이언트를 `load_resources(..., qdrant_client=...)`로 넘기며 반환 자원이 종료 책임을 맡는다. 상세 실행 범위는 [로컬 B·C 안내](../guides/local-bc.md)를 따른다.
+`load_generation_resources(settings, *, evidence_provider)`는 검색·임베더 없이 생성·추적 자원을 준비한다. `create_app(resources_loader=...)`와 기존 `ServiceBootstrap(resources_loader=...)`로 같은 로더를 사용할 수 있다. 메모리 Qdrant는 같은 실행에서 적재한 클라이언트를 `load_resources(..., qdrant_client=...)`로 넘기며 반환 자원이 종료 책임을 맡는다. API와 표준 bootstrap의 기본 로더 `load_resources(settings)`는 환경변수 `ADEN_QDRANT_CLIENT`·`ADEN_EVIDENCE_PROVIDER`(`모듈:이름`, `settings`를 받는 팩터리)로 같은 연결을 받고, 설정 파일은 `ADEN_CONFIG`로 고른다. 상세 실행 범위는 [로컬 B·C 안내](../guides/local-bc.md)를 따른다.
 
 모델 시도에는 실제 체인 호출의 `latency_ms`를 추가한다. `provided_context`는 provider(주입한 후보 또는 후보·문맥) 사용 여부다. 최종 문맥의 토큰 수와 예산 제외 ID는 Langfuse에도 기록한다. 평가 진단과 점수 게시는 별도 채점 단계에서만 수행한다.
 
-채점 기록에는 `evidence_diagnostics`를, 점수를 게시한 경우 `langfuse_score_status_counts`와 보낸 점수의 `langfuse_score_ids`(이름 → ID)를 남긴다. 실행 기록의 `langfuse_verification`은 `verified`, `partial`, `not_found`, `failed` 또는 추적 비활성의 `null`이다. 뜻과 게시 규칙은 [평가 가이드](../guides/c-module-guide.md#langfuse)를 따른다.
+채점 기록에는 `evidence_diagnostics`를, 점수를 게시한 경우 `langfuse_score_status_counts`와 보낸 점수의 `langfuse_score_ids`(`<평가 세트>.<지표>` 이름 → ID)를 남긴다. manifest의 `langfuse_scores`에는 `evaluation_set`, 게시한 지표군 `groups`, 채점 조건 해시 `evaluation_hash`와 게시 상태를 남긴다. 실행 기록의 `langfuse_verification`은 `verified`, `partial`, `not_found`, `failed` 또는 추적 비활성의 `null`이다. 뜻과 게시 규칙은 [평가 가이드](../guides/c-module-guide.md#langfuse)를 따른다.

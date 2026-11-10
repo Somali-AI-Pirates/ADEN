@@ -27,7 +27,7 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 - 보안 평가 `run_security`는 `--security-file`, 초기화된 `--retrieve`·`--generate`, `--retrieval-mode`, 설정이나 설정 해시를 받는다. 문항별로 같은 최종 문맥을 기본·방어 프롬프트에 재사용한다. 노출 분석의 공격 문장은 항목의 `attack_text`, 없으면 `embedded_excerpt`(Advanced `security_tasks.json`)에서 읽는다. 공격 미노출과 생성 실패를 방어 성공으로 세지 않는다.
 - `--config`는 표준 `app.service.bootstrap`의 실제 실행 설정으로 전달한다. CLI는 모듈의 선택적 `configure_evaluation(config_path)` 훅을 자원 준비 전에 호출한다. 사용자 정의 어댑터는 이 훅을 제공하거나 자체 설정 로더를 같은 파일에 맞춰야 한다. 이미 준비된 표준 자원은 다른 설정 경로나 같은 파일의 내용 변경을 감지하면 거부하므로 다른 설정의 실험은 새 실행으로 시작한다.
 - 초기화된 함수는 `app.service.bootstrap`이 제공한다. 일반 평가는 `--adapter app.service.bootstrap:query_adapter`, 보안 평가는 `--retrieve app.service.bootstrap:retrieve_context --generate app.service.bootstrap:generate_with_context`를 지정하고 `--config`로 설정 파일(기본 `configs/advanced.yaml`, Basic 재현은 `configs/basic.yaml`)을 함께 준다. 자원은 첫 사용 때 준비되며 계약은 [어댑터 계약](../design/contracts.md#평가-어댑터)을 따른다.
-- 표준 bootstrap의 자원 로더는 빈 메모리 Qdrant로 시작하므로, 색인을 같은 실행에서 적재하기 전에는 모든 요청이 `503` 오류로 기록된다. A의 적재 경로가 연결되기 전에는 [근거 공급 어댑터](local-bc.md#평가-cli에-연결)로 실행한다. 저장된 후보를 주입한 실행은 고정 근거 B·C 검증이며 검색 방식의 성능 비교로 해석하지 않는다. 세 방식 비교는 각 방식이 실제로 검색한 후보가 준비됐을 때 한다.
+- 표준 bootstrap은 API와 같은 자원 준비(`load_resources`)를 쓴다. 색인을 적재한 메모리 Qdrant(`ADEN_QDRANT_CLIENT`)나 준비된 근거(`ADEN_EVIDENCE_PROVIDER`)를 [API와 같은 환경변수로 연결](local-bc.md#api와-평가-cli의-공통-실행)한다. 연결이 없거나 잘못되면 첫 질문 전에 원인(없는 컬렉션, 잘못된 지정)을 알리고 멈춘다. 저장된 후보를 주입한 실행은 고정 근거 B·C 검증이며 검색 방식의 성능 비교로 해석하지 않는다. 세 방식 비교는 각 방식이 실제로 검색한 후보가 준비됐을 때 한다.
 - Judge·Faithfulness는 `--judge-model`·`--ragas-model`을 지정하지 않으면 `unavailable`이다. RAGAS는 공통 설치에 포함되지 않으며 [`eval` 추가 설치](development.md#설치)로 받는다(ragas 0.4.3 고정). RAGAS 평가 모델의 출력 한도는 8,192토큰으로 고정한다. ragas 기본값 1,024에서는 실제 답변의 출력이 잘려 평가 불가가 된다.
 
 ## 평가 규칙
@@ -51,6 +51,7 @@ python -m app.evaluation.scripts.regrade --source <원본 실험 ID> --reference
 
 - 원본 폴더는 수정하지 않고 새 실험 ID(기본 `<원본 ID>-regrade-<시각>`)로 저장한다. manifest의 `regrade`에 원본 ID·원본 Judge와 프롬프트 해시를, `benchmark.judge_prompt`에 새 프롬프트 해시를 남긴다.
 - 검색 지표는 원본 `k`로 다시 계산한다. Faithfulness는 `--ragas-model`이 없으면 원본 점수를 옮긴다. 원본 점수의 적용 여부는 원본 Judge의 `has_factual_claims`로 정해졌으므로, 새 Judge 판단과 맞춰야 하면 `--ragas-model`로 다시 계산한다.
+- 채점이 끝나면 게시 전에 manifest와 `scores.jsonl`을 저장하고, 게시 뒤에 게시 상태와 점수 ID를 다시 저장한다. 게시가 실패하거나 중단돼도 채점 결과가 남는다.
 - 답변 규칙(생성 프롬프트)·검색 설정이 바뀌면 답변이 달라지므로 재채점이 아니라 `run_benchmark`로 새로 실행한다.
 - 가상 샘플 기록은 모의 Judge로만 재채점한다: `python -m app.evaluation.scripts.regrade --source <sample-ID> --references app/evaluation/samples/sample_eval.json`
 - 실제 재채점과 아래 `--verify-langfuse`는 서비스 bootstrap을 거치지 않으므로 저장소 루트 `.env`를 직접 읽는다. 이미 설정된 환경변수가 우선한다.
@@ -75,12 +76,16 @@ python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id>
 
 ### 평가 점수 게시
 
-`run_benchmark`와 `regrade`에 `--publish-langfuse-scores`를 주면 채점값을 해당 trace의 점수로 보낸다. 이름은 `retrieval.hit@k`, `retrieval.recall@k`, `faithfulness`, `judge.<항목>`, `evidence.<진단>`이다.
+`run_benchmark`와 `regrade`에 `--publish-langfuse-scores`를 주면 채점값을 해당 trace의 점수로 보낸다. 점수 이름은 `<평가 세트>.<지표>`다. 지표는 `retrieval.hit@k`, `retrieval.recall@k`, `faithfulness`, `judge.<항목>`, `evidence.<진단>`이고 첫 마디(`retrieval`, `faithfulness`, `judge`, `evidence`)가 지표군이다.
 
+- 평가 세트는 한 번의 채점 결과를 묶는 이름이다. `--evaluation-set`으로 정하며 기본값은 실험 ID다(예: `dev-v1-r1.judge.fact`, `dev-v2-r1.judge.fact`). 같은 trace를 다른 기준이나 반복 회차로 채점해도 이름이 달라 Langfuse의 이름별 집계가 섞이지 않는다.
+- 한 세트에는 같은 채점 조건(데이터셋, 설정 해시, `k`, 평가 모델, Judge 프롬프트 해시, 정답 파일 해시)만 게시한다. 같은 세트 이름을 쓴 다른 실험과 조건이 다르거나 같은 요청을 다시 채점했으면 서비스·평가 호출 전에 거부한다. 그래서 기준 버전(v1·v2)과 반복 회차는 서로 다른 세트가 된다. 이 대조는 `--artifacts-dir`에 저장된 실험만 본다. 다른 PC에서 게시한 점수와 겹치는지는 서버 점수의 metadata(`evaluation_hash`)를 조회해 확인한다.
+- 게시할 지표군은 `--publish-groups`로 고른다. `run_benchmark`의 기본값은 전체다. `regrade`는 새로 계산한 지표군만 기본으로 게시한다: Judge, 그리고 `--ragas-model`로 다시 계산했으면 Faithfulness. 원본에서 옮겨 온 Faithfulness와 그대로인 검색 지표·근거 진단은 정답 파일이 바뀐 경우처럼 필요할 때 `--publish-groups retrieval evidence`나 `all`로 고른다.
+- 최종 비교에는 평가 세트 하나만 쓴다. 기준을 확정한 뒤 `regrade --ragas-model <모델> --publish-groups all --evaluation-set <최종 세트>`처럼 모든 지표군을 한 세트로 게시하고 그 세트 이름을 결과에 적는다. 기준 비교나 반복 회차의 세트는 기록으로 남기되 최종 수치에 섞지 않는다.
 - `scored`인 값만 보낸다. 해당 없음·평가 불가는 0으로 보내지 않는다. 서비스 오류의 판단 0점은 평가 규칙대로 보낸다.
-- 점수 ID는 실험 ID·설정 해시·`k`·평가 모델·Judge 프롬프트 해시·정답 파일 해시(`references_sha256`)와 trace ID·이름으로 만든다. 같은 평가를 다시 보내면 같은 ID라 중복되지 않는다. 채점 기록의 `langfuse_score_ids`에 보낸 ID를 남긴다.
-- 재채점은 새 실험 ID이므로 원본 trace에 같은 이름의 점수가 평가마다 하나씩 쌓이고 이전 점수는 그대로 남는다. v1·v2·반복 채점은 점수 metadata의 `experiment_id`·`judge_prompt`(또는 comment의 `evaluation=`)로 구분한다. Langfuse의 이름별 집계는 이들을 섞으므로 최종 비교에 쓸 평가만 게시하거나 metadata로 걸러 본다.
-- 결과는 `recorded_unverified`(전송 요청까지)다. 서버 수신은 점수 조회로 따로 확인한다. 게시가 실패해도 로컬 답변·점수·보고서는 남는다.
+- 점수 ID는 trace ID와 점수 이름으로 만든다. 같은 결과를 다시 게시하면 같은 ID라 서버 건수가 늘지 않는다. 채점 기록의 `langfuse_score_ids`에 보낸 이름과 ID를, 점수 metadata에 평가 세트, 실험 ID, 원본 실험 ID, 평가 모델, 프롬프트·정답·설정 해시를 남긴다.
+- manifest의 `langfuse_scores.status`는 `recorded_unverified`(전송 요청까지), `partial`(일부 전송 실패), `failed`, `no_scores`, `disabled`, `incomplete`(게시가 끝나기 전에 중단)다. 서버 수신은 점수 조회로 따로 확인한다. 채점 결과를 게시 전에 저장하므로 게시가 실패하거나 중단돼도 로컬 답변·점수는 남는다.
+- 세트 이름은 2026-11-10의 이 변경 이후 게시에 적용된다. 그 전에 게시한 점수(이름에 세트가 없는 `judge.fact` 등)는 지우지 않았다. v1·v2·반복 채점이 같은 이름에 섞여 있으므로 비교에 쓰지 않는다.
 
 ## 공식 비교 재현 증거
 
