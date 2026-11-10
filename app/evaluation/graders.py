@@ -21,6 +21,8 @@ from typing import Any
 from app.evaluation.metrics import retrieval_metrics, score
 
 CRITERIA = ("fact", "condition", "evidence", "decision")  # 사실·조건·근거·판단
+# ragas 기본 1024는 실제 답변(문맥 8청크)의 주장 추출·검증 출력이 잘려 IncompleteOutputException이 난다
+RAGAS_MAX_TOKENS = 8192
 PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 
 JudgeFn = Callable[[str], Mapping[str, Any]]
@@ -188,7 +190,8 @@ def make_ragas_faithfulness(model: str) -> FaithfulnessFn:
     async def run(question: str, response: str, contexts: list[str]) -> Any:
         # 클라이언트를 같은 이벤트 루프 안에서 닫는다. 루프가 닫힌 뒤 정리되면 경고가 남는다.
         async with AsyncOpenAI() as client:
-            metric = Faithfulness(llm=llm_factory(model, client=client))
+            metric = Faithfulness(llm=llm_factory(model, client=client,
+                                                  max_tokens=RAGAS_MAX_TOKENS))
             return await metric.ascore(user_input=question, response=response,
                                        retrieved_contexts=contexts)
 

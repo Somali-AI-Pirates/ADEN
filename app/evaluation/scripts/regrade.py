@@ -26,7 +26,8 @@ from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_fa
 from app.evaluation.metrics import score
 from app.evaluation.report import write_artifacts, write_report
 from app.evaluation.runner import grade_all
-from app.evaluation.scripts._common import ROOT, base_manifest, guard_overwrite, now_id, sha256_file
+from app.evaluation.scripts._common import (ROOT, base_manifest, guard_overwrite, load_env, now_id,
+                                      sha256_file)
 
 
 def parse_args() -> argparse.Namespace:
@@ -84,6 +85,7 @@ def main() -> None:
     else:
         if not args.judge_model:
             raise SystemExit("--judge-model이 필요하다")
+        load_env()
         judge_fn, judge_desc = make_openai_judge(args.judge_model), args.judge_model
         faith_fn = make_ragas_faithfulness(args.ragas_model) if args.ragas_model else None
         reports_dir = args.reports_dir or str(ROOT / "reports")

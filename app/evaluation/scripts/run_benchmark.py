@@ -27,7 +27,7 @@ from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_fa
 from app.evaluation.report import write_artifacts, write_report
 from app.evaluation.runner import grade_all, run_comparison
 from app.evaluation.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
-                                      now_id, sha256_file)
+                                      load_env, now_id, sha256_file)
 
 SAMPLE_K = 8  # 가상 샘플 전용 기본값. 실제 실행은 설정 파일이나 --k로 정한다.
 
@@ -78,6 +78,7 @@ def resolve_k(k: int | None, config: Settings | None) -> int:
 def main() -> None:
     args = parse_args()
     if args.verify_langfuse:
+        load_env()
         tracer = Tracer.from_env()
         for trace_id in args.verify_langfuse:
             print(trace_id, json.dumps(tracer.verify_trace(trace_id), ensure_ascii=False))

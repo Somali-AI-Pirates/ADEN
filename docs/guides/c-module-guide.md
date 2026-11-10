@@ -1,6 +1,6 @@
 # 평가와 실행 기록
 
-현재 가상 샘플과 기존 색인의 [검색 전용 측정](data.md#검색만-확인)이 확인돼 있다. 실제 색인·생성 모델·Langfuse를 연결한 전체 서비스와 실제 Judge·RAGAS 평가, 일반 답변·보안 비교는 검증이 필요하다.
+현재 가상 샘플과 기존 색인의 [검색 전용 측정](data.md#검색만-확인), 그리고 실제 색인·생성 모델·Langfuse·Judge·RAGAS를 연결한 일반 평가가 Basic custom 문항(1문항 점검과 개발용 8문항, 2026-11-10)으로 확인돼 있다. 제공 Basic 평가 파일을 쓴 실행, 전체 문항 비교, 보안 비교의 실제 실행은 검증이 필요하다.
 
 ## 가상 샘플
 
@@ -26,7 +26,7 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 - 일반 평가의 `--k`는 채점용 상위 청크 수이며 실제 검색 k와 같아야 한다. `--config`가 있으면 그 `retrieval.k`를 쓰고, `--k`를 함께 주면 같은 값일 때만 실행한다. `--config` 없이 `--config-hash`로 실행하면 `--k`를 반드시 지정한다(코드 기본값으로 추정하지 않는다). `--k`만 바꿔도 검색 개수는 바뀌지 않으므로 서비스/어댑터 설정과 맞춰 지정한다. 가상 샘플(`--sample`)만 기본 8을 쓴다. `--dataset-id`를 생략하면 설정 파일의 `dataset`을 기록한다(설정 파일이 없으면 basic).
 - 보안 평가 `run_security`는 `--security-file`, 초기화된 `--retrieve`·`--generate`, `--retrieval-mode`, 설정이나 설정 해시를 받는다. 문항별로 같은 최종 문맥을 기본·방어 프롬프트에 재사용한다. 노출 분석의 공격 문장은 항목의 `attack_text`, 없으면 `embedded_excerpt`(Advanced `security_tasks.json`)에서 읽는다. 공격 미노출과 생성 실패를 방어 성공으로 세지 않는다.
 - `--config`는 표준 `app.service.bootstrap`의 실제 실행 설정으로 전달한다. CLI는 모듈의 선택적 `configure_evaluation(config_path)` 훅을 자원 준비 전에 호출한다. 사용자 정의 어댑터는 이 훅을 제공하거나 자체 설정 로더를 같은 파일에 맞춰야 한다. 이미 준비된 표준 자원은 다른 설정 경로나 같은 파일의 내용 변경을 감지하면 거부하므로 다른 설정의 실험은 새 실행으로 시작한다.
-- 초기화된 함수는 `app.service.bootstrap`이 제공한다. 일반 평가는 `--adapter app.service.bootstrap:query_adapter`, 보안 평가는 `--retrieve app.service.bootstrap:retrieve_context --generate app.service.bootstrap:generate_with_context`를 지정하고 `--config configs/basic.yaml`을 함께 준다. 자원은 첫 사용 때 준비되며 계약은 [어댑터 계약](../design/contracts.md#평가-어댑터)을 따른다. Judge·Faithfulness는 `--judge-model`·`--ragas-model`을 지정하지 않으면 `unavailable`이다. RAGAS는 공통 설치에 포함되지 않으며 [`eval` 추가 설치](development.md#설치)로 받는다(ragas 0.4.3 고정).
+- 초기화된 함수는 `app.service.bootstrap`이 제공한다. 일반 평가는 `--adapter app.service.bootstrap:query_adapter`, 보안 평가는 `--retrieve app.service.bootstrap:retrieve_context --generate app.service.bootstrap:generate_with_context`를 지정하고 `--config configs/basic.yaml`을 함께 준다. 자원은 첫 사용 때 준비되며 계약은 [어댑터 계약](../design/contracts.md#평가-어댑터)을 따른다. Judge·Faithfulness는 `--judge-model`·`--ragas-model`을 지정하지 않으면 `unavailable`이다. RAGAS는 공통 설치에 포함되지 않으며 [`eval` 추가 설치](development.md#설치)로 받는다(ragas 0.4.3 고정). RAGAS 평가 모델의 출력 한도는 8,192토큰으로 고정한다. ragas 기본값 1,024에서는 실제 답변의 출력이 잘려 평가 불가가 된다.
 
 ## 평가 규칙
 
@@ -50,6 +50,7 @@ python -m app.evaluation.scripts.regrade --source <원본 실험 ID> --reference
 - 검색 지표는 원본 `k`로 다시 계산한다. Faithfulness는 `--ragas-model`이 없으면 원본 점수를 옮긴다. 원본 점수의 적용 여부는 원본 Judge의 `has_factual_claims`로 정해졌으므로, 새 Judge 판단과 맞춰야 하면 `--ragas-model`로 다시 계산한다.
 - 답변 규칙(생성 프롬프트)·검색 설정이 바뀌면 답변이 달라지므로 재채점이 아니라 `run_benchmark`로 새로 실행한다.
 - 가상 샘플 기록은 모의 Judge로만 재채점한다: `python -m app.evaluation.scripts.regrade --source <sample-ID> --references app/evaluation/samples/sample_eval.json`
+- 실제 재채점과 아래 `--verify-langfuse`는 서비스 bootstrap을 거치지 않으므로 저장소 루트 `.env`를 직접 읽는다. 이미 설정된 환경변수가 우선한다.
 
 ## Langfuse
 
@@ -60,6 +61,8 @@ python -m app.evaluation.scripts.regrade --source <원본 실험 ID> --reference
 ```bash
 python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id>
 ```
+
+`verified`는 그 trace에서 관측이 하나 이상 조회됐다는 뜻이다. 네 관측이 모두 있는지와 입출력·문맥·사용량은 출력의 `observation_names`와 trace 내용으로 확인한다.
 
 ## 공식 비교 재현 증거
 

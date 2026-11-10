@@ -13,9 +13,12 @@
 | 서비스 설정 | `configs/basic.yaml` (`retrieval.k`=8), 어댑터 `app.service.bootstrap:query_adapter` |
 | 검색 방식 | naive, hybrid, hybrid_rerank |
 | Judge | `gpt-6-luna`, 기준은 `judge.txt` 현재 버전(v2) |
-| Faithfulness | RAGAS Faithfulness, 평가 모델 `gpt-6-luna` |
+| Faithfulness | RAGAS Faithfulness, 평가 모델 `gpt-6-luna`, 출력 한도 8,192토큰 |
+| 질문·정답 | `data/basic/evaluation/custom_questions.json`·`custom.json`(40문항). 제공 Basic 평가 파일은 이 PC에 없다 |
+| 색인 | Qdrant `basic_multilingual-e5-small_p800`(청크 620개, SB01~SB15) |
+| Langfuse | `https://cloud.langfuse.com`(EU), 프로젝트 `Somali-AI-Pirates` |
 | 가리기 | Judge 입력에 검색 방식 이름을 넣지 않고 답변 하나씩 따로 채점한다(현재 코드 동작) |
-| 질문 | 1문항 점검 후 개발용·확인용으로 나눈다. 확인용은 기준·프롬프트 조정에 쓰지 않는다 |
+| 질문 구분 | 개발용 8문항: S01, S04, S09, S12, M01, M03, M07, M16. 확인용: 나머지 32문항. 확인용은 기준·프롬프트 조정에 쓰지 않는다 |
 
 생성 모델과 평가 모델이 같아 자기 답변을 후하게 볼 수 있다. 세 방식에 같은 조건이라 방식 간 비교는 유지되지만 절대 점수는 높게 나올 수 있으므로 결과에 함께 적는다.
 
@@ -38,8 +41,11 @@
 ## 결과 위치
 
 - 전체 기록: `artifacts/experiments/<실험 ID>/` (Git에 올리지 않음)
+- 점검·개발용 비교 보고서: `experimental/Damsebi/reports/<실험 ID>/` (`--reports-dir experimental/Damsebi/reports`)
 - 공식 비교·제출: `reports/<실험 ID>/`
 - 기준 변경과 점수 변화: [채점 기준 이력](../../docs/guides/judge-rubric.md)
+- 날짜별 결과: [2026-11-10 Langfuse 검증·1문항 점검·v1·v2 비교](results-2026-11-10.md)
+- 도구: `check_langfuse.py`(저장된 trace의 필수 관측·내용 확인), `compare_scores.py`(재채점 결과 나란히 비교)
 
 ## 진행 상황
 
@@ -49,11 +55,14 @@
   - `eval` 추가 설치: ragas 0.4.3, langchain-community 0.4.1(0.4.2는 ragas가 쓰는 모듈 제거)
   - `gpt-6-luna` 실제 호출: 주장 2개 중 1개만 문맥과 맞는 답변 0.5, 모두 맞는 답변 1.0. 각 5회 반복 시 같은 값, 호출당 약 5초
   - RAGAS는 토큰 사용량을 반환하지 않아 Faithfulness 평가 토큰은 `null`로 남는다
-- [ ] 1문항 점검: 형식·파싱·Langfuse·시간·토큰, 같은 기록 2~3회 재채점으로 점수 변동 확인
-- [ ] 개발용 질문 세 방식 실행, v1·v2 재채점으로 점수 변화 표 첫 줄 기록
+- [x] Langfuse 실제 연결 (2026-11-10): 합성 1건과 실제 27건을 API로 조회해 필수 관측·입출력·문맥·토큰 확인. 독립 `--verify-langfuse`와 `regrade`가 `.env`를 읽지 않던 문제 수정
+- [x] 1문항 점검 (2026-11-10, S01): 형식·Judge 파싱·시간·토큰 정상. RAGAS는 기본 출력 한도 1,024에서 세 건 모두 평가 불가였고 8,192로 고정해 해결. 같은 답변 3회 재채점에서 Judge 판정 동일, Faithfulness 0.04 이내 변동
+- [x] 개발용 8문항 세 방식 실행, v1·v2 재채점 (2026-11-10): v2는 묻지 않은 부가 정보로 인한 사실 0점을 없앴고(S01·S09) 부분 답변의 판단을 엄격히 봤다(M01). 조건·근거는 v2 반복 채점 차이(96칸 중 7~12칸)와 구분되지 않는다
+- [ ] v2 조건·근거 채점 안정화: 반복 채점 다수결 또는 기준 보완([열린 결정](../../docs/guides/judge-rubric.md#열린-결정))
 - [ ] 기준 확정 후 전체 재채점, 확인용 질문 확인, 대표 사례 사람 검수
 
 ## 확인 필요
 
-- 공식 Basic 질문·정답 파일 위치(저장소에는 `data/basic/evaluation/custom.json`만 있음)
-- 공유 색인 준비 상태, OpenAI·Langfuse 키
+- 공식 Basic 질문·정답 파일 위치(저장소에는 `data/basic/evaluation/custom.json`만 있음). 현재는 custom 40문항으로 진행
+- Langfuse 프로젝트의 멤버·접근 범위와 실제 보존 기간(프로젝트 키로는 조회 불가, 보존 기간 미설정)
+- `artifacts/basic/index_manifest.json`이 이 PC에 없어 색인의 청크 파일 해시를 대조하지 못함

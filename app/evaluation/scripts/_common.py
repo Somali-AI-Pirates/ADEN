@@ -11,9 +11,16 @@ from importlib import metadata
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
+
 from shared.settings import PROJECT_ROOT
 
 ROOT = PROJECT_ROOT
+
+
+def load_env() -> None:
+    """서비스 bootstrap을 거치지 않는 경로(저장 확인·재채점)용. 이미 설정된 환경변수를 우선한다."""
+    load_dotenv(ROOT / ".env")
 
 
 def git_info() -> dict[str, Any]:
