@@ -1,0 +1,41 @@
+{
+  "experiment_id": "basic-dev-20261110",
+  "dataset_id": "basic",
+  "config_hash": "sha256:9f802f7c4882277341f09502642d7bc89ae5c8b968614ba89dd970013557d4aa",
+  "sample": false,
+  "git_commit": "8434792dc2dd05375694ac793511ab0c2b840a31",
+  "git_dirty": true,
+  "versions": {
+    "python": "3.13.15",
+    "langfuse": "5.2.0",
+    "ragas": "0.4.3",
+    "openai": "2.54.0"
+  },
+  "benchmark": {
+    "k": 8,
+    "modes": [
+      "naive",
+      "hybrid",
+      "hybrid_rerank"
+    ],
+    "question_ids": [
+      "S01",
+      "S04",
+      "S09",
+      "S12",
+      "M01",
+      "M03",
+      "M07",
+      "M16"
+    ],
+    "selection_reason": "개발용 8문항(기준 조정용). 2026-11-07 v1 결과에서 사실 0점 반복(S04·S09·M07), 보류·판단 엇갈림(S12·M03), 검색 누락(M01), 전 항목 충족 대조(S01·M16)를 S·M에서 고름. 나머지 32문항은 확인용으로 남김",
+    "questions_file": "custom_questions.json",
+    "judge": "gpt-6-luna",
+    "faithfulness": "gpt-6-luna",
+    "judge_prompt": "sha256:4079487d93c1620c5a7871a6374fd5aec21b9083e27f5a27152118519172936e",
+    "langfuse_flush": "flushed_unverified",
+    "langfuse_verification": {
+      "verified": 24
+    }
+  }
+}

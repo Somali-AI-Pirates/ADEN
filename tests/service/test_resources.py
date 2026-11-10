@@ -16,6 +16,18 @@ from shared.settings import load_settings
 from tests.pipeline_fakes import FakeModel
 
 
+def broken_factory(settings):
+    raise RuntimeError("private path detail")
+
+
+def empty_factory(settings):
+    return None
+
+
+def not_a_provider(settings):
+    return "not callable"
+
+
 class ResourceTests(unittest.TestCase):
     def setUp(self):
         stack = ExitStack()
@@ -25,8 +37,6 @@ class ResourceTests(unittest.TestCase):
                 os.environ,
                 {
                     "OPENAI_API_KEY": "test-key",
-                    "QDRANT_URL": " https://example.test ",
-                    "QDRANT_API_KEY": " test-qdrant-key ",
                 },
                 clear=True,
             )
@@ -89,12 +99,7 @@ class ResourceTests(unittest.TestCase):
             record["final_context_hash"],
             compute_context_hash(record["final_context_chunks"]),
         )
-        self.factory.assert_called_once_with(
-            url="https://example.test",
-            api_key="test-qdrant-key",
-            timeout=20,
-            check_compatibility=False,
-        )
+        self.factory.assert_called_once_with(location=":memory:")
         self.openai.assert_called_once()
         self.client.close.assert_called_once()
         self.openai.return_value.close.assert_called_once()
@@ -114,9 +119,39 @@ class ResourceTests(unittest.TestCase):
         with self.assertRaises(ServiceError) as caught:
             load_resources(self.settings)
         self.assertEqual(caught.exception.status_code, 503)
+        for expected in (self.settings.qdrant_collection, "ADEN_QDRANT_CLIENT", "ADEN_EVIDENCE_PROVIDER"):
+            self.assertIn(expected, str(caught.exception))  # 무엇이 없고 어떻게 연결하는지 알린다
         self.client.close.assert_called_once()
         self.openai.assert_not_called()
         self.tracer_factory.from_env.return_value.shutdown.assert_called_once()
+
+    def test_misconfigured_connection_names_the_setting_without_private_details(self):
+        here = "tests.service.test_resources"
+        cases = [
+            ({"ADEN_QDRANT_CLIENT": f"{here}:empty_factory",
+              "ADEN_EVIDENCE_PROVIDER": f"{here}:not_a_provider"}, "하나만"),
+            ({"ADEN_QDRANT_CLIENT": "no_such_module:factory"}, "ModuleNotFoundError"),
+            ({"ADEN_QDRANT_CLIENT": f"{here}:missing"}, "AttributeError"),
+            ({"ADEN_QDRANT_CLIENT": f"{here}:broken_factory"}, "RuntimeError"),
+            ({"ADEN_QDRANT_CLIENT": f"{here}:empty_factory"}, "반환하지 않았습니다"),
+            ({"ADEN_EVIDENCE_PROVIDER": f"{here}:not_a_provider"}, "근거 공급 함수"),
+        ]
+        for env, expected in cases:
+            with self.subTest(env=env), patch.dict(os.environ, env):
+                with self.assertRaises(ServiceError) as caught:
+                    load_resources(self.settings)
+                message = str(caught.exception)
+                self.assertEqual(caught.exception.status_code, 503)
+                self.assertIn(expected, message)
+                self.assertIn(next(iter(env)), message)
+                self.assertNotIn("private path detail", message)
+                with TestClient(app) as client:  # API도 같은 원인을 알린다
+                    self.assertFalse(client.get("/health").json()["query_ready"])
+                    response = client.post("/query", json={"question": "예약 문의"})
+                self.assertEqual(response.status_code, 503)
+                self.assertEqual(response.json()["reason"], message)
+        self.factory.assert_not_called()
+        self.openai.assert_not_called()
 
     def test_failed_index_lookup_closes_created_clients(self):
         self.client.collection_exists.side_effect = RuntimeError("lookup failed")

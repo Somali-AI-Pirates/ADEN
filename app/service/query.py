@@ -1,4 +1,4 @@
-from dataclasses import asdict
+from contextlib import nullcontext
 from hashlib import sha256
 from time import perf_counter
 from typing import Any
@@ -12,6 +12,7 @@ from app.retrieval.service import retrieve
 from app.service.resources import Resources
 from app.service.records import (
     attach_last_model_messages,
+    candidate_records,
     context_record,
     create_run_record,
 )
@@ -111,52 +112,11 @@ def answer_query(
 def _answer_query(
     request, resources, request_id, settings, trace: Any | None, run_record
 ):
-    mode = request.retrieval_mode
-    retrieval_started = perf_counter()
     try:
-        candidates = retrieve(
-            request.question, mode, resources, top_n=settings.retrieval.candidate_count
+        candidates, context = prepare_evidence(
+            request.question, request.retrieval_mode, resources, settings,
+            trace=trace, run_record=run_record,
         )
-    except NotImplementedError as error:
-        raise ServiceError(
-            "이 검색 방식은 준비 중입니다. 현재는 naive를 선택해 주세요.", 501
-        ) from error
-    except Exception as error:
-        raise ServiceError(
-            "검색 서비스에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.", 503
-        ) from error
-    retrieval_ms = round((perf_counter() - retrieval_started) * 1000)
-    if run_record is not None:
-        run_record["retrieved_candidates"] = [
-            {
-                **asdict(item.chunk),
-                "rank": item.rank,
-                "score": item.score,
-                "retriever": item.retriever,
-            }
-            for item in candidates
-        ]
-    try:
-        context = build_context(
-            candidates,
-            settings.retrieval.k,
-            settings.retrieval.context_token_budget,
-            resources.count_tokens,
-        )
-        if run_record is not None or trace is not None:
-            data = context_record(candidates, context)
-            if run_record is not None:
-                run_record.update(data)
-            if trace is not None:
-                trace.record_retrieval(
-                    retrieved_candidates=data["retrieved_candidates"],
-                    final_context_chunks=data["final_context_chunks"],
-                    final_context_hash=data["final_context_hash"],
-                    model_context_text=context.text,
-                    model_context_hash=context.context_hash,
-                    k=settings.retrieval.k,
-                    latency_ms=retrieval_ms,
-                )
         if not context.final_chunks:
             return QueryResponse(
                 request_id=request_id,
@@ -194,3 +154,57 @@ def _answer_query(
         reason=answer.reason,
         citations=citations,
     )
+
+
+def prepare_evidence(question, mode, resources, settings, *, trace=None, run_record=None):
+    """A 결과를 받아 생성에 넣을 최종 문맥을 확정한다.
+
+    provider가 (후보, 최종 문맥)을 주면 문맥을 그대로 쓴다. (후보, None)을 주거나 provider 없이
+    retrieve()를 쓰면 공통 build_context로 만든다. 어느 쪽이든 설정의 k·토큰 한도를 넘을 수 없다.
+    """
+    supplied = resources.evidence_provider is not None
+    context = None
+    started = perf_counter()
+    try:
+        stage = (trace.stage("retrieval", as_type="retriever",
+                             input={"question": question, "retrieval_mode": mode})
+                 if trace else nullcontext({}))
+        with stage as observation:
+            if supplied:
+                candidates, context = resources.evidence_provider(question, mode)
+            else:
+                candidates = retrieve(question, mode, resources,
+                                      top_n=settings.retrieval.candidate_count)
+            flat = candidate_records(candidates)
+            observation.update(output={"candidates": flat}, metadata={
+                "provided_context": supplied, "candidate_count": len(flat),
+                "latency_ms": round((perf_counter() - started) * 1000)})
+            if run_record is not None:
+                run_record.update(retrieved_candidates=flat, provided_context=supplied)
+    except NotImplementedError as error:
+        raise ServiceError("이 검색 방식은 준비 중입니다.", 501) from error
+    except Exception as error:
+        raise ServiceError("검색 자료를 준비하지 못했습니다. 연결 설정을 확인해 주세요.", 503) from error
+    stage = trace.stage("final-context") if trace else nullcontext({})
+    with stage:
+        if context is None:
+            context = build_context(candidates, settings.retrieval.k,
+                                    settings.retrieval.context_token_budget, resources.count_tokens)
+        if (len(context.final_chunks) > settings.retrieval.k
+                or resources.count_tokens(context.text) > settings.retrieval.context_token_budget):
+            raise ServiceError(
+                "검색 문맥이 설정한 개수·토큰 한도를 넘었습니다. 문맥 제공 설정을 확인해 주세요.", 503)
+        data = context_record(candidates, context)
+        if run_record is not None:
+            run_record.update(data)
+        if trace is not None:
+            trace.record_retrieval(
+                retrieved_candidates=data["retrieved_candidates"],
+                final_context_chunks=data["final_context_chunks"],
+                final_context_hash=data["final_context_hash"],
+                model_context_text=context.text, model_context_hash=context.context_hash,
+                k=settings.retrieval.k,
+                model_context_token_count=context.token_count,
+                budget_excluded_chunk_ids=context.excluded_chunk_ids,
+            )
+    return candidates, context

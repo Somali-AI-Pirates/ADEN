@@ -36,11 +36,11 @@
 
 ## 설정과 함수
 
-[Basic 설정](../../configs/basic.yaml)은 [Settings](../../shared/settings.py)로 검증한다. 검색 기본값·후보 수·최종 `k`·문맥 예산, 모델·호출 한도, 색인·임베딩 설정을 관리한다. `Resources`는 클라이언트, 토큰 계산기, 추적기, 검색 상태와 정리 콜백을 소유한다.
+[Advanced 설정](../../configs/advanced.yaml)은 [Settings](../../shared/settings.py)로 검증한다. 검색 기본값·후보 수·최종 `k`·문맥 예산, 모델·호출 한도, 색인·임베딩 설정을 관리한다. `Resources`는 클라이언트, 토큰 계산기, 추적기, 검색 상태와 정리 콜백을 소유한다.
 
 | 진입점 | 호출과 반환 |
 | --- | --- |
-| `load_resources` | `(settings) → Resources`. `close()`로 정리 |
+| `load_resources` | `(settings, *, qdrant_client=None) → Resources`. `close()`로 정리 |
 | `retrieve` | `(question, mode, resources, top_n=20) → list[RetrievedChunk]` |
 | `build_context` | `(candidates, k, token_budget, count_tokens) → ContextBundle` |
 | `generate_answer` | `(question, context, model, *, prompt_path=..., defense="", trace=None, attempt_log=None, max_attempts=1) → GenerationResult` |
@@ -59,7 +59,7 @@
 - `make_security_adapters(resources, settings, *, defense)`는 `retrieve_fn(question, mode)`과 `generate_fn(question, final_context_chunks, prompt_variant)`를 반환한다. 검색과 문맥 구성은 한 번 하고 `base`와 `defense`에 같은 문맥을 전달한다. 반환 기록에는 실제 문맥·모델 입출력·해시·시도·요청 ID를 담는다.
 - 평가 모듈이 `configure_evaluation(config_path: Path)`를 제공하면 CLI의 `--config` 경로를 자원 준비 전에 전달한다. 표준 bootstrap은 지정 설정을 일반·보안 어댑터가 공유하고, 활성 자원의 다른 설정 경로나 같은 설정 파일의 내용 변경을 거부한다. 훅이 없는 사용자 정의 모듈은 자체 설정을 사용한다.
 - 평가 CLI의 `모듈:이름`은 초기화된 callable이다. 실제 실행 준비 절차는 [평가 가이드](../guides/c-module-guide.md#실제-연결)를 따른다.
-- `app.service.bootstrap`이 그 callable을 제공한다. `query_adapter`(`--adapter`), `retrieve_context`(`--retrieve`), `generate_with_context`(`--generate`)이며, import 때가 아니라 첫 사용 때 프로젝트 루트 `.env`(기존 환경변수 우선)·선택 설정 파일(미지정 시 `configs/basic.yaml`)·`load_resources()`를 한 번 준비하고 프로세스 종료 때 `Resources.close()`로 해제한다. `query_adapter`는 실행기의 flush·저장 확인용 `tracer` 속성을 노출하고, 보안 두 callable은 같은 어댑터 쌍과 `app/generation/prompts/defense.txt`를 사용한다.
+- `app.service.bootstrap`이 그 callable을 제공한다. `query_adapter`(`--adapter`), `retrieve_context`(`--retrieve`), `generate_with_context`(`--generate`)이며, import 때가 아니라 첫 사용 때 프로젝트 루트 `.env`(기존 환경변수 우선)·선택 설정 파일(미지정 시 `configs/advanced.yaml`)·`load_resources()`를 한 번 준비하고 프로세스 종료 때 `Resources.close()`로 해제한다. `query_adapter`는 실행기의 flush·저장 확인용 `tracer` 속성을 노출하고, 보안 두 callable은 같은 어댑터 쌍과 `app/generation/prompts/defense.txt`를 사용한다.
 
 ## 기록 형식과 측정 범위
 
@@ -98,3 +98,13 @@ HTTP 시간은 응답 생성까지이며 본문 전송·백그라운드 작업·
 `attempts`에 각 모델 시도의 `attempt`(1부터 증가), `model`, `model_input`, `model_output`, `input_tokens`, `output_tokens`, `error`를 남긴다. 출력 전 실패나 확인되지 않은 사용량은 `null`로 기록한다. 프롬프트 변형·모델 설정은 실제 적용값을 보존한다.
 
 `usage`는 시도별 확인 토큰만 합산한다. 상태는 `complete`, `partial`, `unknown`, `no_attempts`다. 확인값이 하나도 없으면 합계는 `null`이다. 평가기 호출은 이 서비스 사용량에 합산하지 않는다.
+
+### 로컬 B·C 연결
+
+기본 설정은 `configs/advanced.yaml`이다. `Resources.evidence_provider(question, mode)`가 있으면 `(후보 목록, ContextBundle)`을 받아 최종 문맥을 보존하고, `(후보 목록, None)`이면 공통 문맥 구성기로 최종 문맥을 만든다. provider가 없으면 기존 검색과 공통 문맥 구성기를 호출한다. 제공된 문맥도 설정의 k·토큰 한도를 넘을 수 없으며, 넘으면 `503`이다. 이 경로는 내부 실행 코드용이며 HTTP 입력 계약은 바뀌지 않는다.
+
+`load_generation_resources(settings, *, evidence_provider)`는 검색·임베더 없이 생성·추적 자원을 준비한다. `create_app(resources_loader=...)`와 기존 `ServiceBootstrap(resources_loader=...)`로 같은 로더를 사용할 수 있다. 메모리 Qdrant는 같은 실행에서 적재한 클라이언트를 `load_resources(..., qdrant_client=...)`로 넘기며 반환 자원이 종료 책임을 맡는다. API와 표준 bootstrap의 기본 로더 `load_resources(settings)`는 환경변수 `ADEN_QDRANT_CLIENT`·`ADEN_EVIDENCE_PROVIDER`(`모듈:이름`, `settings`를 받는 팩터리)로 같은 연결을 받고, 설정 파일은 `ADEN_CONFIG`로 고른다. 상세 실행 범위는 [로컬 B·C 안내](../guides/local-bc.md)를 따른다.
+
+모델 시도에는 실제 체인 호출의 `latency_ms`를 추가한다. `provided_context`는 provider(주입한 후보 또는 후보·문맥) 사용 여부다. 최종 문맥의 토큰 수와 예산 제외 ID는 Langfuse에도 기록한다. 평가 진단과 점수 게시는 별도 채점 단계에서만 수행한다.
+
+채점 기록에는 `evidence_diagnostics`를, 점수를 게시한 경우 `langfuse_score_status_counts`와 보낸 점수의 `langfuse_score_ids`(`<평가 세트>.<지표>` 이름 → ID)를 남긴다. manifest의 `langfuse_scores`에는 `evaluation_set`, 게시한 지표군 `groups`, 채점 조건 해시 `evaluation_hash`와 게시 상태를 남긴다. 실행 기록의 `langfuse_verification`은 `verified`, `partial`, `not_found`, `failed` 또는 추적 비활성의 `null`이다. 뜻과 게시 규칙은 [평가 가이드](../guides/c-module-guide.md#langfuse)를 따른다.

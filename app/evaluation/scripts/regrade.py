@@ -5,6 +5,8 @@
 - 검색 지표는 원본 k로 다시 계산한다(평가 호출 없음).
 - Faithfulness는 --ragas-model이 없으면 원본 점수를 그대로 옮긴다(답변·문맥이 같으므로).
 - 원본 폴더는 수정하지 않고 새 실험 ID로 저장한다.
+- --publish-langfuse-scores는 새로 계산한 지표군만 게시한다(Judge, --ragas-model이 있으면 Faithfulness도).
+  다른 지표군은 --publish-groups로 고른다. 점수 이름은 `<평가 세트>.<지표>`이고 세트 기본값은 실험 ID다.
 
 샘플(가상, 모의 Judge):
     python -m app.evaluation.scripts.regrade --source sample-demo \
@@ -25,12 +27,16 @@ from app.evaluation.dataset import load_references
 from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
 from app.evaluation.metrics import score
 from app.evaluation.report import write_artifacts, write_report
+from app.evaluation.publishing import publish_evaluation_scores
 from app.evaluation.runner import grade_all
-from app.evaluation.scripts._common import ROOT, base_manifest, guard_overwrite, now_id, sha256_file
+from app.evaluation.scripts._common import (ROOT, add_publish_options, base_manifest, guard_overwrite,
+                                      load_env, now_id, publication_plan, sha256_file)
 
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
+    p.add_argument("--publish-langfuse-scores", action="store_true", help="재채점 점수를 원본 trace에 게시")
+    add_publish_options(p)
     p.add_argument("--source", required=True, help="원본 실험 ID(--artifacts-dir 아래 폴더 이름)")
     p.add_argument("--references", required=True, help="참고 정답 파일")
     p.add_argument("--judge-model", help="실제 기록에서 필수. 샘플 기록은 모의 Judge를 쓴다")
@@ -84,6 +90,7 @@ def main() -> None:
     else:
         if not args.judge_model:
             raise SystemExit("--judge-model이 필요하다")
+        load_env()  # Judge·Langfuse 키. 셸에 이미 있는 값이 우선
         judge_fn, judge_desc = make_openai_judge(args.judge_model), args.judge_model
         faith_fn = make_ragas_faithfulness(args.ragas_model) if args.ragas_model else None
         reports_dir = args.reports_dir or str(ROOT / "reports")
@@ -93,6 +100,21 @@ def main() -> None:
 
     prompt_path = Path(args.judge_prompt)
     runs = _read_jsonl(src_dir / "runs.jsonl")
+    faith_desc = args.ragas_model if faith_fn else f"원본 재사용({bench.get('faithfulness')})"
+    manifest = base_manifest(experiment_id=experiment_id, dataset_id=src_manifest["dataset_id"],
+                             config_hash=src_manifest["config_hash"], sample=sample)
+    manifest["benchmark"] = {**bench, "judge": judge_desc, "faithfulness": faith_desc,
+                             "judge_prompt": sha256_file(prompt_path),
+                             "references_sha256": sha256_file(Path(args.references))}
+    manifest["regrade"] = {
+        "source_experiment_id": args.source, "source_git_commit": src_manifest.get("git_commit"),
+        "source_judge": bench.get("judge"), "source_judge_prompt": bench.get("judge_prompt"),
+        "judge_prompt_file": prompt_path.name, "references_file": Path(args.references).name,
+        "faithfulness": "recomputed" if faith_fn else "reused",
+    }
+    # 채점 호출 전에 평가 세트 충돌을 확인한다. 옮겨 온 Faithfulness와 그대로인 검색 지표는 기본 게시에서 뺀다
+    publication = publication_plan(args, manifest, request_ids=[r["request_id"] for r in runs],
+                                   default_groups=["judge", "faithfulness"] if faith_fn else ["judge"])
     # k는 원본 실행의 검색 설정에 묶여 있으므로 바꾸지 않는다
     scores = grade_all(runs, load_references(args.references), k=bench["k"], judge_fn=judge_fn,
                        faithfulness_fn=faith_fn,
@@ -100,22 +122,30 @@ def main() -> None:
     if faith_fn is None:
         src_scores = src_dir / "scores.jsonl"
         reuse_faithfulness(scores, _read_jsonl(src_scores) if src_scores.exists() else [])
-        faith_desc = f"원본 재사용({bench.get('faithfulness')})"
-    else:
-        faith_desc = args.ragas_model
 
-    manifest = base_manifest(experiment_id=experiment_id, dataset_id=src_manifest["dataset_id"],
-                             config_hash=src_manifest["config_hash"], sample=sample)
-    manifest["benchmark"] = {**bench, "judge": judge_desc, "faithfulness": faith_desc,
-                             "judge_prompt": sha256_file(prompt_path)}
-    manifest["regrade"] = {
-        "source_experiment_id": args.source, "source_git_commit": src_manifest.get("git_commit"),
-        "source_judge": bench.get("judge"), "source_judge_prompt": bench.get("judge_prompt"),
-        "judge_prompt_file": prompt_path.name, "references_file": Path(args.references).name,
-        "faithfulness": "recomputed" if faith_fn else "reused",
-    }
     exp_dir = Path(args.artifacts_dir) / experiment_id
-    write_artifacts(exp_dir, manifest, scores=scores)  # 답변·문맥은 원본 runs.jsonl에만 둔다
+    if publication:
+        manifest["langfuse_scores"] = publication
+    # 게시 전에 저장해 게시가 실패하거나 중단돼도 채점 결과가 남는다. 답변·문맥은 원본 runs.jsonl에만 둔다
+    write_artifacts(exp_dir, manifest, scores=scores)
+    if publication:
+        from app.observability.tracing import Tracer
+        tracer = None
+        try:
+            if sample:
+                from app.evaluation.samples import FakeLangfuseClient
+                tracer = Tracer(FakeLangfuseClient())
+            else:
+                tracer = Tracer.from_env()
+            manifest["langfuse_scores"] = publish_evaluation_scores(tracer, runs, scores, manifest)
+        except Exception as exc:
+            manifest["langfuse_scores"] = {**publication, "status": "failed", "error": type(exc).__name__}
+        finally:
+            try:
+                if tracer is not None:
+                    tracer.shutdown()
+            finally:  # 게시 상태와 보낸 점수 ID. 중단되면 그때까지 보낸 ID와 incomplete가 남는다
+                write_artifacts(exp_dir, manifest, scores=scores)
     write_report(report_dir, manifest, runs=runs, scores=scores)
     print(f"원본: {src_dir}\n재채점 기록: {exp_dir}\n제출 결과: {report_dir}")
     if sample:

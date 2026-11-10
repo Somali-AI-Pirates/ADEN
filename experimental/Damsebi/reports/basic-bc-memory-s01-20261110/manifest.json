@@ -1,0 +1,46 @@
+{
+  "experiment_id": "basic-bc-memory-s01-20261110",
+  "dataset_id": "basic",
+  "config_hash": "sha256:9f802f7c4882277341f09502642d7bc89ae5c8b968614ba89dd970013557d4aa",
+  "sample": false,
+  "git_commit": "81446b07bc14b8a0778287624b06c407b061671d",
+  "git_dirty": true,
+  "versions": {
+    "python": "3.13.15",
+    "langfuse": "5.2.0",
+    "ragas": "0.4.3",
+    "openai": "2.54.0"
+  },
+  "benchmark": {
+    "k": 8,
+    "modes": [
+      "naive",
+      "hybrid",
+      "hybrid_rerank"
+    ],
+    "question_ids": [
+      "S01"
+    ],
+    "selection_reason": "실제 검색 1문항 점검: Qdrant Cloud의 Basic 컬렉션을 메모리 Qdrant로 복사해 세 방식 실행",
+    "references_sha256": "sha256:3b36be5a8b9c62fd5fc51a204cd1e754c9269676528193ff5a183da0e2a3213e",
+    "questions_file": "custom_questions.json",
+    "judge": "gpt-6-luna",
+    "faithfulness": "gpt-6-luna",
+    "judge_prompt": "sha256:4079487d93c1620c5a7871a6374fd5aec21b9083e27f5a27152118519172936e",
+    "langfuse_flush": "flushed_unverified",
+    "langfuse_verification": {
+      "verified": 3
+    }
+  },
+  "langfuse_scores": {
+    "status": "recorded_unverified",
+    "score_status_counts": {
+      "recorded_unverified": 36
+    },
+    "flush": {
+      "status": "flushed_unverified"
+    },
+    "evaluation_hash": "9d83490f6d2a80d954fad6338eec3ce491b8b2e3e555f3c75206ba9c492fbef9",
+    "sample": false
+  }
+}

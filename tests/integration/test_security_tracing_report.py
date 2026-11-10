@@ -134,6 +134,8 @@ def test_tracer_records_full_flow_by_request_id():
     assert done["langfuse_status"] == "recorded_unverified"
     names = [o["name"] for o in client.observations]
     assert names == ["rag-query", "retrieval", "final-context", "generation-attempt-1"]
+    # 검색 관측만 열어도 무엇을 검색했는지 보이도록 질문과 방식을 입력으로 남긴다
+    assert client.observations[1]["input"] == {"question": "q", "retrieval_mode": "hybrid"}
     gen = client.observations[-1]
     assert gen["usage_details"] == {"input": 10} and gen["level"] == "ERROR"
     assert all(o["ended"] for o in client.observations)

@@ -6,7 +6,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from threading import Barrier
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 import httpx
 import yaml
@@ -172,7 +172,7 @@ class ApiTests(unittest.TestCase):
         self.resources.model.invoke.assert_not_called()
 
     def test_request_id_connects_trace_retrieval_and_response(self):
-        self.resources.tracer = Mock()
+        self.resources.tracer = MagicMock()
         trace = self.resources.tracer.start_request.return_value
         with self.client() as client:
             response = client.post("/query", json={"question": "예약 문의"})
@@ -212,7 +212,7 @@ class ApiTests(unittest.TestCase):
         config["retrieval"]["default_mode"] = "hybrid"
         point = self.resources.qdrant.query_points.return_value.points[0]
         self.resources.retrieval.keyword_index = KeywordIndex([Chunk(**point.payload)])
-        self.resources.tracer = Mock()
+        self.resources.tracer = MagicMock()
         with TemporaryDirectory() as temporary:
             path = Path(temporary) / "custom.yaml"
             path.write_text(yaml.safe_dump(config), encoding="utf-8")

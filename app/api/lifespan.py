@@ -9,7 +9,7 @@ from fastapi import FastAPI
 
 from app.service.resources import load_resources
 from shared.exceptions import ServiceError
-from shared.settings import DEFAULT_CONFIG, PROJECT_ROOT, load_settings
+from shared.settings import DEFAULT_CONFIG, PROJECT_ROOT, configured_path, load_settings
 
 logger = logging.getLogger(__name__)
 
@@ -25,14 +25,15 @@ async def lifespan(app: FastAPI):
     logging.getLogger("uvicorn.access").disabled = True
 
     load_dotenv(PROJECT_ROOT / ".env")
-    settings = load_settings(DEFAULT_CONFIG)
+    settings = load_settings(configured_path(DEFAULT_CONFIG))  # 평가 CLI와 같은 ADEN_CONFIG
     app.state.settings = settings
     app.state.resources = None
     app.state.readiness_reason = "검색과 답변 생성 기능을 준비하고 있습니다."
 
     resources = None
     try:
-        resources = await asyncio.to_thread(load_resources, settings)
+        loader = getattr(app.state, "resources_loader", None) or load_resources
+        resources = await asyncio.to_thread(loader, settings)
     except ServiceError as error:
         app.state.readiness_reason = str(error)
     except Exception as error:

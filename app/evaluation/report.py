@@ -11,7 +11,7 @@ from typing import Any
 
 from app.observability.records import RETRIEVAL_MODES
 from app.evaluation.graders import CRITERIA
-from app.evaluation.metrics import aggregate, operational_summary
+from app.evaluation.metrics import aggregate, operational_summary, score
 
 SAMPLE_BANNER = ("> **가상 샘플 결과** — 모의 서비스·모의 평가기로 만든 검증용 파일이다. "
                  "실제 Basic 데이터셋 성능이 아니며 발표·비교에 사용하지 않는다.")
@@ -59,6 +59,13 @@ def summarize(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[str, A
                         "output_tokens": sum(u["output_tokens"] or 0 for u in grading)
                         if any(u["output_tokens"] is not None for u in grading) else None},
         }
+    for mode, stats in summary.items():
+        diagnostics = [s.get("evidence_diagnostics", {}) for s in scores if s["retrieval_mode"] == mode]
+        keys = sorted({key for d in diagnostics for key in d})
+        stats["evidence_diagnostics"] = {
+            key: aggregate(d.get(key) or score(None, "unavailable", "기록 없음") for d in diagnostics)
+            for key in keys
+        }
     return summary
 
 
@@ -81,6 +88,11 @@ def comparison_rows(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[
                "faithfulness": s["faithfulness"]["value"],
                "faithfulness_status": s["faithfulness"]["status"],
                "faithfulness_reason": s["faithfulness"]["reason"]}
+        for key, item in s.get("evidence_diagnostics", {}).items():
+            row[key] = item["value"]
+            row[f"{key}_status"] = item["status"]
+            row[f"{key}_reason"] = item["reason"]
+        row["langfuse_score_status_counts"] = json.dumps(s.get("langfuse_score_status_counts", {}))
         for c in CRITERIA:
             row[f"judge_{c}"] = s["judge"][c]["value"]
             row[f"judge_{c}_status"] = s["judge"][c]["status"]
@@ -155,7 +167,10 @@ def render_readme(report_dir: Path) -> str:
                   f"- Langfuse 전송: `{bench.get('langfuse_flush')}` "
                   "(`flushed_unverified`는 전송 요청만 끝난 상태이며 저장 확인이 아니다)",
                   f"- Langfuse 저장 확인(요청 수): `{bench.get('langfuse_verification')}` "
-                  "(`verified`만 API에서 관측을 조회한 것, `None`은 추적 비활성·어댑터 관리)"]
+                  "(`verified`만 기대한 관측이 모두 조회된 것, `partial`은 일부만 조회, "
+                  "`None`은 추적 비활성·어댑터 관리)"]
+    if manifest.get("langfuse_scores"):
+        lines += [f"- Langfuse 평가 점수 게시: `{manifest['langfuse_scores']}` (전송과 서버 저장 확인은 별도)"]
     regrade = manifest.get("regrade")
     if regrade:
         lines += [f"- 재채점: 원본 `{regrade['source_experiment_id']}`의 저장 답변을 다시 채점했다"
@@ -172,6 +187,13 @@ def render_readme(report_dir: Path) -> str:
             (f"Judge {JUDGE_LABELS[c]}", f"judge_{c}") for c in CRITERIA]
         for label, key in metrics:
             lines.append(f"| {label} | " + " | ".join(_fmt(summary[m][key]) for m in summary) + " |")
+        diagnostic_keys = sorted({key for mode in summary.values() for key in mode.get("evidence_diagnostics", {})})
+        if diagnostic_keys:
+            lines += ["", "## 검색·문맥 누락 진단", "",
+                      "페이지 포함은 인용문 전체 보존을 뜻하지 않는다. 예산 제외 ID로 확인된 누락만 예산 누락으로 센다.", "",
+                      "| 지표 | " + " | ".join(summary) + " |", "| --- |" + " --- |" * len(summary)]
+            for key in diagnostic_keys:
+                lines.append(f"| {key} | " + " | ".join(_fmt(summary[m].get("evidence_diagnostics", {}).get(key, aggregate([]))) for m in summary) + " |")
         lines += ["", "## 운영 지표 (서비스 요청만, 평가 호출 제외)", "",
                   "| 방식 | 요청 | 오류율 | 평균 시간(정상) | 입력 토큰 | 출력 토큰 | 사용량 확인(완전/부분/미확인) | 재시도 |",
                   "| --- | --- | --- | --- | --- | --- | --- | --- |"]
