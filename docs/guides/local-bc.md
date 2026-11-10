@@ -28,7 +28,38 @@ app = create_app(resources_loader=lambda settings: load_generation_resources(
 
 이미 같은 실행에서 적재한 클라이언트는 `load_resources(settings, qdrant_client=client)`로 전달한다. 이 경우 자원 로더가 색인 이름·임베딩 차원을 확인하고 클라이언트 종료도 맡는다. A를 연결할 때 기존 벡터와 payload를 이 클라이언트에 적재해야 한다. 색인 생성 CLI를 별도 프로세스로 실행해 만든 메모리 컬렉션은 API에서 공유되지 않는다.
 
-메모리 색인은 프로세스가 끝나면 사라진다. 로컬 실행은 worker 1개로 시작하고, 재시작 시 보관한 벡터·메타데이터를 재적재한다. 이번 작업에서 기존 Cloud 색인 생성 CLI나 실제 문서 임베딩은 실행하지 않았다.
+메모리 색인은 프로세스가 끝나면 사라진다. 로컬 실행은 worker 1개로 시작하고, 재시작 시 보관한 벡터·메타데이터를 재적재한다. 색인 생성 CLI(`build_index`)와 검색 전용 측정(`eval_retrieval`)은 아직 Qdrant Cloud 키를 쓰며 서비스 자원 로더와 색인을 공유하지 않는다. A를 이식할 때 적재 경로와 함께 맞춘다.
+
+## 평가 CLI에 연결
+
+평가 CLI는 `--adapter 모듈:이름`을 import해 호출한다. 표준 `app.service.bootstrap:query_adapter`는 빈 메모리 색인으로 시작해 모든 요청이 503이 되므로, 근거를 공급하는 로더로 `ServiceBootstrap`을 만든 모듈을 지정한다.
+
+```python
+from app.service.bootstrap import ServiceBootstrap, _QueryAdapter
+from app.service.resources import load_generation_resources
+
+_bootstrap = ServiceBootstrap(resources_loader=lambda settings: load_generation_resources(
+    settings, evidence_provider=provider))
+query_adapter = _QueryAdapter(_bootstrap)        # --adapter 대상
+configure_evaluation = _bootstrap.configure      # --config 전달 훅
+```
+
+동작하는 예는 [experimental/Damsebi/bc_adapter.py](../../experimental/Damsebi/bc_adapter.py)다. 공통 코드가 아니라 개인 도구이며 A의 적재 경로가 연결되면 필요 없어진다.
+
+| 근거 공급 | 지정 | 용도 |
+| --- | --- | --- |
+| 저장 후보 재생 | `ADEN_EVIDENCE_RUNS=<runs.jsonl>` | 이전 실행의 (질문, 검색 방식)별 후보를 그대로 넘긴다. 임베더·Qdrant 없이 B·C를 검증한다. 검색 성능 비교가 아니다 |
+| 최종 문맥까지 주입 | 위에 `ADEN_EVIDENCE_CONTEXT=1` 추가 | 서비스가 문맥을 다시 고르지 않는 경로를 확인한다 |
+| 메모리 색인 실제 검색 | 둘 다 없음 | Qdrant Cloud의 기존 컬렉션(벡터·payload)을 메모리 Qdrant로 복사해 `load_resources(settings, qdrant_client=...)`로 넘긴다. `.env`에 `QDRANT_URL`·`QDRANT_API_KEY`가 필요하다 |
+
+```bash
+ADEN_EVIDENCE_RUNS=artifacts/experiments/<원본 ID>/runs.jsonl \
+python -m app.evaluation.scripts.run_benchmark --adapter experimental.Damsebi.bc_adapter:query_adapter \
+    --config configs/basic.yaml --questions <질문 파일> --references <정답 파일> --ids <ID> \
+    --judge-model <모델> --ragas-model <모델> --publish-langfuse-scores
+```
+
+저장되지 않은 검색 방식은 `NotImplementedError`로 거부해 501 오류로 기록되고, 저장되지 않은 질문은 503 오류로 기록된다.
 
 ## 로컬 확인
 
@@ -53,4 +84,4 @@ python -m app.evaluation.scripts.run_benchmark --sample --publish-langfuse-score
 
 평가에서는 정답을 실행 후에만 읽어 후보/최종 문맥의 근거 보존을 계산한다. Judge·RAGAS·검색 진단 점수는 `--publish-langfuse-scores`를 명시했을 때만 trace에 게시한다. 미평가·해당 없음은 0점으로 보내지 않는다. 게시 실패도 보고서에 남기며 기존 답변·점수 파일을 버리지 않는다.
 
-실제 모델·Langfuse 연결과 공식 세 방식 비교, 대표 trace 링크는 아직 별도 실행·검증이 필요하다.
+실제 모델·Langfuse 서버·RAGAS 연결은 2026-11-10에 Basic 1문항으로 확인했다. 관측의 상하 관계와 실제 구간, 점수 수신, 재게시 중복 여부, 대표 trace 링크는 [통합 검증 기록](../../experimental/Damsebi/pr40-integration-2026-11-10.md)에 있다. Advanced 색인을 쓴 실행과 공식 세 방식 비교는 아직 별도 실행·검증이 필요하다.
