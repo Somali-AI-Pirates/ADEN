@@ -13,6 +13,7 @@ from typing import Any
 
 from dotenv import load_dotenv
 
+from app.evaluation.publishing import GROUPS, plan_publication
 from shared.settings import PROJECT_ROOT
 
 ROOT = PROJECT_ROOT
@@ -71,6 +72,28 @@ def load_callable(spec: str, *, config_path: Path | None = None) -> Any:
     if config_path is not None and callable(configure):
         configure(config_path)
     return function
+
+
+def add_publish_options(parser: Any) -> None:
+    parser.add_argument("--evaluation-set",
+                        help="게시 점수 이름 `<세트>.<지표>`의 세트(기본: 실험 ID). v1·v2와 반복 회차는 "
+                             "서로 다른 세트로 두고, 같은 세트에는 같은 채점 조건만 게시한다")
+    parser.add_argument("--publish-groups", nargs="+", choices=[*GROUPS, "all"], metavar="지표군",
+                        help=f"게시할 지표군: {' '.join(GROUPS)} 또는 all")
+
+
+def publication_plan(args: Any, manifest: dict[str, Any], *, default_groups: Any = GROUPS,
+                     request_ids: Any = ()) -> dict[str, Any] | None:
+    """점수를 게시할 실행이면 유료 호출 전에 평가 세트와 지표군을 확정한다."""
+    if not args.publish_langfuse_scores:
+        return None
+    chosen = args.publish_groups or default_groups
+    try:
+        return plan_publication(manifest, evaluation_set=args.evaluation_set,
+                                groups=GROUPS if "all" in chosen else chosen,
+                                artifacts_dir=args.artifacts_dir, request_ids=request_ids)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
 
 
 def guard_overwrite(path: Path, overwrite: bool) -> None:

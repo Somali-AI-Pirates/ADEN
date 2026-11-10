@@ -27,8 +27,8 @@ from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_fa
 from app.evaluation.report import write_artifacts, write_report
 from app.evaluation.publishing import expected_observations, publish_evaluation_scores
 from app.evaluation.runner import grade_all, run_comparison
-from app.evaluation.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
-                                      load_env, now_id, sha256_file)
+from app.evaluation.scripts._common import (ROOT, add_publish_options, base_manifest, guard_overwrite,
+                                      load_callable, load_env, now_id, publication_plan, sha256_file)
 
 SAMPLE_K = 8  # 가상 샘플 전용 기본값. 실제 실행은 설정 파일이나 --k로 정한다.
 
@@ -36,6 +36,7 @@ SAMPLE_K = 8  # 가상 샘플 전용 기본값. 실제 실행은 설정 파일�
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     p.add_argument("--publish-langfuse-scores", action="store_true", help="채점 후 trace에 수치 점수 게시")
+    add_publish_options(p)
     p.add_argument("--sample", action="store_true", help="가상 샘플·모의 평가기로 실행")
     p.add_argument("--questions", help="제공 질문 파일(id·question만 실행에 사용)")
     p.add_argument("--references", help="참고 정답 파일(기본: --questions와 같은 파일)")
@@ -132,6 +133,17 @@ def main() -> None:
     ids = [i.strip() for i in args.ids.split(",")] if args.ids else None
     questions = load_questions(questions_path, ids)  # id·question만
 
+    manifest = base_manifest(experiment_id=experiment_id, dataset_id=dataset_id,
+                             config_hash=config_hash, sample=args.sample)
+    manifest["benchmark"] = {
+        "k": args.k, "modes": modes, "question_ids": [q["id"] for q in questions],
+        "selection_reason": args.selection_reason or ("가상 샘플 시나리오" if args.sample else ""),
+        "references_sha256": sha256_file(Path(references_path)),
+        "questions_file": Path(questions_path).name, "judge": judge_desc,
+        "faithfulness": faith_desc, "judge_prompt": sha256_file(PROMPTS_DIR / "judge.txt"),
+    }
+    publication = publication_plan(args, manifest)  # 서비스·평가 호출 전에 평가 세트 충돌을 확인한다
+
     # 1) 실행·저장: 정답 파일은 아직 읽지 않는다
     runs = run_comparison(questions, adapter, experiment_id=experiment_id,
                           dataset_id=dataset_id, config_hash=config_hash, modes=modes)
@@ -147,24 +159,17 @@ def main() -> None:
             if isinstance(tracer, Tracer) and tracer.enabled else None)
     verified = Counter(("mock:" if args.sample else "") + str(r["langfuse_verification"])
                        for r in runs)
-    manifest = base_manifest(experiment_id=experiment_id, dataset_id=dataset_id,
-                             config_hash=config_hash, sample=args.sample)
-    manifest["benchmark"] = {
-        "k": args.k, "modes": modes, "question_ids": [q["id"] for q in questions],
-        "selection_reason": args.selection_reason or ("가상 샘플 시나리오" if args.sample else ""),
-        "references_sha256": sha256_file(Path(references_path)),
-        "questions_file": Path(questions_path).name, "judge": judge_desc,
-        "faithfulness": faith_desc, "judge_prompt": sha256_file(PROMPTS_DIR / "judge.txt"),
-        "langfuse_flush": ("mock:" if args.sample else "") + flush["status"],
-        "langfuse_verification": dict(verified),
-    }
+    manifest["benchmark"].update(langfuse_flush=("mock:" if args.sample else "") + flush["status"],
+                                 langfuse_verification=dict(verified))
     write_artifacts(exp_dir, manifest, runs=runs)
 
     # 2) 채점: 저장된 답변·최종 문맥에 정답·채점 기준을 연결
     scores = grade_all(runs, load_references(references_path), k=args.k,
                        judge_fn=judge_fn, faithfulness_fn=faith_fn)
-    write_artifacts(exp_dir, manifest, scores=scores)
-    if args.publish_langfuse_scores:  # 채점 결과를 먼저 저장해 게시 중 오류가 나도 남긴다
+    if publication:
+        manifest["langfuse_scores"] = publication
+    write_artifacts(exp_dir, manifest, scores=scores)  # 게시 전에 저장해 게시 중 오류·중단에도 남긴다
+    if publication:
         manifest["langfuse_scores"] = publish_evaluation_scores(tracer, runs, scores, manifest)
         write_artifacts(exp_dir, manifest, scores=scores)
     write_report(report_dir, manifest, runs=runs, scores=scores)
