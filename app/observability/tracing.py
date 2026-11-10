@@ -42,6 +42,7 @@ class RequestTrace:
         self._client = client
         self._root = None
         self._finished = False
+        self._query = {"question": question, "retrieval_mode": retrieval_mode}
         self.status = "disabled" if client is None else "recording"
         if client is None:
             return
@@ -58,7 +59,7 @@ class RequestTrace:
                 trace_context={"trace_id": self.trace_id},
                 name=ROOT_NAME,
                 as_type="span",
-                input={"question": question, "retrieval_mode": retrieval_mode},
+                input=self._query,
                 metadata=meta,
             )
         except Exception as exc:  # SDK 오류를 성공처럼 숨기지 않는다
@@ -92,6 +93,7 @@ class RequestTrace:
             "retrieval",
             name="retrieval",
             as_type="retriever",
+            input=self._query,
             output={"candidates": list(retrieved_candidates)},
             metadata={
                 "candidate_count": len(retrieved_candidates),
