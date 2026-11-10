@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 from shared.contracts import RetrievalMode
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = PROJECT_ROOT / "configs" / "basic.yaml"
+DEFAULT_CONFIG = PROJECT_ROOT / "configs" / "advanced.yaml"
 
 
 class RetrievalSettings(BaseModel):
@@ -21,7 +21,7 @@ class Settings(BaseModel):
     documents_dir: Path
     generation_model: str
     retrieval: RetrievalSettings
-    qdrant_collection: str = "basic_multilingual-e5-small_p800"
+    qdrant_collection: str = "advanced_snowflake_ko_pages"
     embedding_model: str = "intfloat/multilingual-e5-small"
     embedding_device: str = "cpu"
     model_timeout_seconds: float = Field(default=60, gt=0)

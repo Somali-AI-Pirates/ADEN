@@ -32,7 +32,8 @@ async def lifespan(app: FastAPI):
 
     resources = None
     try:
-        resources = await asyncio.to_thread(load_resources, settings)
+        loader = getattr(app.state, "resources_loader", None) or load_resources
+        resources = await asyncio.to_thread(loader, settings)
     except ServiceError as error:
         app.state.readiness_reason = str(error)
     except Exception as error:

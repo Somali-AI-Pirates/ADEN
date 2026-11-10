@@ -21,16 +21,20 @@ import json
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
+
 from app.evaluation.dataset import load_references
 from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
 from app.evaluation.metrics import score
 from app.evaluation.report import write_artifacts, write_report
+from app.evaluation.publishing import publish_evaluation_scores
 from app.evaluation.runner import grade_all
 from app.evaluation.scripts._common import ROOT, base_manifest, guard_overwrite, now_id, sha256_file
 
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
+    p.add_argument("--publish-langfuse-scores", action="store_true", help="재채점 점수를 원본 trace에 게시")
     p.add_argument("--source", required=True, help="원본 실험 ID(--artifacts-dir 아래 폴더 이름)")
     p.add_argument("--references", required=True, help="참고 정답 파일")
     p.add_argument("--judge-model", help="실제 기록에서 필수. 샘플 기록은 모의 Judge를 쓴다")
@@ -84,6 +88,7 @@ def main() -> None:
     else:
         if not args.judge_model:
             raise SystemExit("--judge-model이 필요하다")
+        load_dotenv(ROOT / ".env")  # Judge·Langfuse 키. 셸에 이미 있는 값이 우선
         judge_fn, judge_desc = make_openai_judge(args.judge_model), args.judge_model
         faith_fn = make_ragas_faithfulness(args.ragas_model) if args.ragas_model else None
         reports_dir = args.reports_dir or str(ROOT / "reports")
@@ -107,7 +112,8 @@ def main() -> None:
     manifest = base_manifest(experiment_id=experiment_id, dataset_id=src_manifest["dataset_id"],
                              config_hash=src_manifest["config_hash"], sample=sample)
     manifest["benchmark"] = {**bench, "judge": judge_desc, "faithfulness": faith_desc,
-                             "judge_prompt": sha256_file(prompt_path)}
+                             "judge_prompt": sha256_file(prompt_path),
+                             "references_sha256": sha256_file(Path(args.references))}
     manifest["regrade"] = {
         "source_experiment_id": args.source, "source_git_commit": src_manifest.get("git_commit"),
         "source_judge": bench.get("judge"), "source_judge_prompt": bench.get("judge_prompt"),
@@ -115,6 +121,21 @@ def main() -> None:
         "faithfulness": "recomputed" if faith_fn else "reused",
     }
     exp_dir = Path(args.artifacts_dir) / experiment_id
+    if args.publish_langfuse_scores:
+        from app.observability.tracing import Tracer
+        tracer = None
+        try:
+            if sample:
+                from app.evaluation.samples import FakeLangfuseClient
+                tracer = Tracer(FakeLangfuseClient())
+            else:
+                tracer = Tracer.from_env()
+            manifest["langfuse_scores"] = publish_evaluation_scores(tracer, runs, scores, manifest)
+        except Exception as exc:
+            manifest["langfuse_scores"] = {"status": "failed", "error": type(exc).__name__}
+        finally:
+            if tracer is not None:
+                tracer.shutdown()
     write_artifacts(exp_dir, manifest, scores=scores)  # 답변·문맥은 원본 runs.jsonl에만 둔다
     write_report(report_dir, manifest, runs=runs, scores=scores)
     print(f"원본: {src_dir}\n재채점 기록: {exp_dir}\n제출 결과: {report_dir}")

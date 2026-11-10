@@ -7,16 +7,21 @@ from app.api.lifespan import lifespan
 from app.api.middleware import track_request
 from app.api.routes import router
 
-app = FastAPI(
-    title="ADEN 해운 문서 질의응답",
-    description=(
-        "해운 문서에서 근거를 찾아 답하는 서비스입니다. "
-        "‘해운 문서에 질문하기’를 펼친 뒤 질문과 검색 방식을 입력해 주세요. "
-        "응답의 처리 상태와 판단 이유, 출처 문서와 페이지를 함께 확인할 수 있습니다."
-    ),
-    lifespan=lifespan,
-)
+def create_app(*, resources_loader=None) -> FastAPI:
+    """로컬 B/C 실행은 검색 대신 준비된 문맥을 공급하는 자원 로더를 받는다."""
+    app = FastAPI(
+        title="ADEN 해운 문서 질의응답",
+        description=(
+            "Advanced 해운 문서의 근거로 답변과 출처를 반환합니다. "
+            "질문과 검색 방식을 입력하고 처리 상태·판단 이유를 확인하세요."
+        ),
+        lifespan=lifespan,
+    )
+    app.state.resources_loader = resources_loader
+    app.middleware("http")(track_request)
+    register_error_handlers(app)
+    app.include_router(router)
+    return app
 
-app.middleware("http")(track_request)
-register_error_handlers(app)
-app.include_router(router)
+
+app = create_app()

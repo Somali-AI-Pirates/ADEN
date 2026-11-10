@@ -18,7 +18,7 @@ from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any
 
-from app.evaluation.metrics import retrieval_metrics, score
+from app.evaluation.metrics import evidence_diagnostics, retrieval_metrics, score
 
 CRITERIA = ("fact", "condition", "evidence", "decision")  # 사실·조건·근거·판단
 PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
@@ -155,6 +155,7 @@ def grade_record(record: Mapping[str, Any], reference: Mapping[str, Any], *, k: 
         "request_id": record["request_id"], "retrieval_mode": record["retrieval_mode"],
         "status": record["status"],
         "retrieval": retrieval_metrics(reference, record.get("final_context_chunks"), k),
+        "evidence_diagnostics": evidence_diagnostics(reference, record, k),
         "faithfulness": faith, "judge": judge, "has_factual_claims": claims,
         "grading_usage": {"judge": judge_usage, "faithfulness": faith_usage},
     }

@@ -256,6 +256,7 @@ class FakeLangfuseClient:
         self.observations: list[dict[str, Any]] = []
         self.fail_on = fail_on
         self.flushed = 0
+        self.scores: list[dict[str, Any]] = []
         self.api = SimpleNamespace(observations=SimpleNamespace(get_many=self._get_many))
 
     @staticmethod
@@ -271,6 +272,11 @@ class FakeLangfuseClient:
 
     def start_observation(self, *, trace_context: Mapping[str, str], **kwargs: Any):
         return self._record(trace_context["trace_id"], kwargs)
+
+    def create_score(self, **kwargs):
+        if self.fail_on == "score":
+            raise ConnectionError("mock score failure")
+        self.scores.append(kwargs)
 
     def flush(self) -> None:
         if self.fail_on == "flush":

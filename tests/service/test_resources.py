@@ -25,8 +25,6 @@ class ResourceTests(unittest.TestCase):
                 os.environ,
                 {
                     "OPENAI_API_KEY": "test-key",
-                    "QDRANT_URL": " https://example.test ",
-                    "QDRANT_API_KEY": " test-qdrant-key ",
                 },
                 clear=True,
             )
@@ -89,12 +87,7 @@ class ResourceTests(unittest.TestCase):
             record["final_context_hash"],
             compute_context_hash(record["final_context_chunks"]),
         )
-        self.factory.assert_called_once_with(
-            url="https://example.test",
-            api_key="test-qdrant-key",
-            timeout=20,
-            check_compatibility=False,
-        )
+        self.factory.assert_called_once_with(location=":memory:")
         self.openai.assert_called_once()
         self.client.close.assert_called_once()
         self.openai.return_value.close.assert_called_once()

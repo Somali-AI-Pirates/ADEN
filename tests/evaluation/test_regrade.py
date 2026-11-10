@@ -75,3 +75,25 @@ def test_regrade_requires_judge_model_for_real_records(tmp_path, monkeypatch, so
     (source / "manifest.json").write_text(json.dumps({**manifest, "sample": False}), encoding="utf-8")
     with pytest.raises(SystemExit, match="--judge-model"):
         run_regrade(monkeypatch, tmp_path, "--experiment-id", "basic-re")
+
+
+def test_score_client_initialization_failure_still_saves_report(tmp_path, monkeypatch, source):
+    def fail():
+        raise RuntimeError("private initialization detail")
+    monkeypatch.setattr("app.evaluation.samples.FakeLangfuseClient", fail)
+    run_regrade(monkeypatch, tmp_path, "--experiment-id", "sample-score-failure", "--publish-langfuse-scores")
+    output = tmp_path / "a" / "sample-score-failure"
+    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["langfuse_scores"] == {"status": "failed", "error": "RuntimeError"}
+    assert (output / "scores.jsonl").is_file()
+    assert (tmp_path / "r" / "sample-score-failure" / "README.md").is_file()
+
+
+def test_sample_score_publication_never_loads_real_tracer(tmp_path, monkeypatch, source):
+    def fail():
+        pytest.fail("real Langfuse initialization in sample")
+    monkeypatch.setattr("app.observability.tracing.Tracer.from_env", fail)
+    run_regrade(monkeypatch, tmp_path, "--experiment-id", "sample-posted", "--publish-langfuse-scores")
+    manifest = json.loads((tmp_path / "a" / "sample-posted" / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["langfuse_scores"]["sample"] is True
+    assert manifest["langfuse_scores"]["score_status_counts"]["recorded_unverified"] > 0
