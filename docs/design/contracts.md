@@ -51,7 +51,9 @@
 | `grade_all` | `(records, references, *, k, judge_fn, faithfulness_fn) → list[dict]` |
 | `run_security_comparison` | `(questions, retrieve_fn, generate_fn, *, experiment_id, retrieval_mode) → list[dict]` |
 
-기능 함수는 동기 호출이다. 모델 클라이언트의 자동 재시도는 끈다. 서비스는 출력 형식·출처 검증에 실패했을 때만 같은 문맥으로 `generation_max_attempts`까지 다시 생성한다. 모델 호출 자체의 API 오류와 시간 초과는 바로 반환한다.
+기능 함수는 동기 호출이다. 모델 클라이언트의 자동 재시도는 끈다. 서비스는 출력 형식·출처·지원 날짜 검증에 실패했을 때만 같은 문맥으로 `generation_max_attempts`까지 다시 생성한다. 재시도 시스템 메시지에는 허용 자료 ID와 안전한 검증 피드백을 추가하며, 모델 출력이나 오류 원문을 지시문으로 복사하지 않는다. 질문·원문 문맥은 유지하고 각 시도의 실제 입력을 기록한다. 모델 호출 자체의 API 오류와 시간 초과는 바로 반환한다.
+
+출처 검증은 `answer`와 `reason`의 `[S#]` 표시를 모두 확인한다. `[S1, S2]`, `[S1-S2]`, `[s1]`, 닫히지 않은 `[S1`처럼 자료 ID로 보이는 잘못된 대괄호 표기는 검증 실패다. `answered`는 `source_ids`나 `reason`의 인용만으로 통과할 수 없으며 `answer` 본문에 유효한 `[S#]` 인용이 하나 이상 있어야 한다. 추가 확인·보류 응답에는 근거 없는 인용을 강제하지 않는다. 최종 문맥에 없는 ID가 있으면 검증 실패이며, 문맥에 있는 ID가 `source_ids`에서 빠졌으면 중복 없이 보충해 응답의 파일명·쪽수와 연결한다. 이 검사는 출처의 존재 여부를 확인하며, 해당 문서가 주장을 뒷받침하는지 채점하는 평가를 대신하지 않는다.
 
 ### 평가 어댑터
 
@@ -97,11 +99,13 @@ HTTP 시간은 응답 생성까지이며 본문 전송·백그라운드 작업·
 
 `attempts`에 각 모델 시도의 `attempt`(1부터 증가), `model`, `model_input`, `model_output`, `input_tokens`, `output_tokens`, `error`를 남긴다. 출력 전 실패나 확인되지 않은 사용량은 `null`로 기록한다. 프롬프트 변형·모델 설정은 실제 적용값을 보존한다.
 
+`calendar_reference`는 원문으로 계산한 로컬 산입 날짜 보조표이며 적용하지 않으면 빈 문자열이다. 시스템 메시지에만 추가하고, `model_context_text`·`model_context_hash`는 사용자 메시지로 전달한 원문 문맥을 계속 나타낸다. 조회 시각(KST 분 단위)과 대상 계약이 하나로 일치하고, 해당 시각의 승인 대조에 `추가 변경 없음; 최초 계약 적용`이 명시되며 최초 계약표의 기본 무료일수가 비용별로 유일할 때는 무료·유료 날짜도 계산한다. 이 경우 answered 본문의 `비용명 무료 날짜: ...`·`비용명 유료 날짜: ...` 행을 필수로 검사한다. 날짜·요일·순서·중복·누락·무료/유료 배정이 다르면 재시도하고 한도 소진 시 502로 중단한다. 확인 질문·보류는 없는 날짜 행을 강제하지 않지만 표시한 행은 검사한다. 그 밖의 승인 변경·금액 검산 결과나 별도의 PDF 출처를 뜻하지 않는다. 이 검사는 정해진 날짜 행을 확인하며 다른 자유 서술 전체의 의미를 판정하지 않는다. 보조표 생성 자체에는 외부 호출이 없다.
+
 `usage`는 시도별 확인 토큰만 합산한다. 상태는 `complete`, `partial`, `unknown`, `no_attempts`다. 확인값이 하나도 없으면 합계는 `null`이다. 평가기 호출은 이 서비스 사용량에 합산하지 않는다.
 
 ### 로컬 B·C 연결
 
-기본 설정은 `configs/advanced.yaml`이다. `Resources.evidence_provider(question, mode)`가 있으면 `(후보 목록, ContextBundle)`을 받아 최종 문맥을 보존하고, `(후보 목록, None)`이면 공통 문맥 구성기로 최종 문맥을 만든다. provider가 없으면 기존 검색과 공통 문맥 구성기를 호출한다. 제공된 문맥도 설정의 k·토큰 한도를 넘을 수 없으며, 넘으면 `503`이다. 이 경로는 내부 실행 코드용이며 HTTP 입력 계약은 바뀌지 않는다.
+기본 설정은 `configs/advanced.yaml`이다. `Resources.evidence_provider(question, mode)`가 있으면 `(후보 목록, ContextBundle)`을 받아 최종 문맥을 보존하고, `(후보 목록, None)`이면 공통 문맥 구성기로 최종 문맥을 만든다. provider가 없으면 기존 검색과 공통 문맥 구성기를 호출한다. 제공된 문맥도 설정의 k·토큰 한도를 넘을 수 없으며, 넘으면 `503`이다. 최종 문맥은 `build_context`의 자료 블록 형식과 같은 본문을 사용한다. 모델 호출 전에 최종 청크 순서의 자료 ID·문서·페이지와 `source_map`, 청크로 구성한 본문, 본문의 UTF-8 SHA-256, 현재 토큰 계산기로 센 `token_count`를 대조한다. 하나라도 다르면 문맥을 고치거나 재선택하지 않고 `503`으로 중단한다. 제공자는 같은 토큰 계산기를 사용해야 한다. 이 경로는 내부 실행 코드용이며 HTTP 입력 계약은 바뀌지 않는다.
 
 `load_generation_resources(settings, *, evidence_provider)`는 검색·임베더 없이 생성·추적 자원을 준비한다. `create_app(resources_loader=...)`와 기존 `ServiceBootstrap(resources_loader=...)`로 같은 로더를 사용할 수 있다. 메모리 Qdrant는 같은 실행에서 적재한 클라이언트를 `load_resources(..., qdrant_client=...)`로 넘기며 반환 자원이 종료 책임을 맡는다. API와 표준 bootstrap의 기본 로더 `load_resources(settings)`는 환경변수 `ADEN_QDRANT_CLIENT`·`ADEN_EVIDENCE_PROVIDER`(`모듈:이름`, `settings`를 받는 팩터리)로 같은 연결을 받고, 설정 파일은 `ADEN_CONFIG`로 고른다. 상세 실행 범위는 [로컬 B·C 안내](../guides/local-bc.md)를 따른다.
 

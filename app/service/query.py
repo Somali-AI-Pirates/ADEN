@@ -18,7 +18,7 @@ from app.service.records import (
 )
 from app.generation.chain import DEFAULT_PROMPT, generate_answer
 from app.generation.citations import resolve_citations
-from app.generation.context import build_context
+from app.generation.context import build_context, validate_context
 
 
 def prompt_hash() -> str:
@@ -190,6 +190,13 @@ def prepare_evidence(question, mode, resources, settings, *, trace=None, run_rec
         if context is None:
             context = build_context(candidates, settings.retrieval.k,
                                     settings.retrieval.context_token_budget, resources.count_tokens)
+        try:
+            validate_context(context, resources.count_tokens)
+        except ValueError as error:
+            raise ServiceError(
+                "검색 문맥의 본문·출처·해시·토큰 수가 일치하지 않습니다. 문맥 제공 설정을 확인해 주세요.",
+                503,
+            ) from error
         if (len(context.final_chunks) > settings.retrieval.k
                 or resources.count_tokens(context.text) > settings.retrieval.context_token_budget):
             raise ServiceError(

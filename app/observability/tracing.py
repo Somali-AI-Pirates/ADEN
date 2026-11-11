@@ -171,6 +171,7 @@ class RequestTrace:
         prompt_variant: str | None = None,
         model_parameters: Mapping[str, Any] | None = None,
         latency_ms: int | None = None,
+        calendar_reference: str = "",
     ) -> None:
         """AttemptRecord 한 건(`trace.record_attempt(**attempt)`). 미확인 사용량은 보내지 않는다."""
         usage = {
@@ -190,6 +191,7 @@ class RequestTrace:
                 "attempt": attempt,
                 "latency_ms": latency_ms,
                 "prompt_variant": prompt_variant,
+                "calendar_reference": calendar_reference or None,
                 "usage_known": {
                     "input": input_tokens is not None,
                     "output": output_tokens is not None,

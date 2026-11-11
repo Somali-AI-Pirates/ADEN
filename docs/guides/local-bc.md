@@ -106,3 +106,7 @@ python -m app.evaluation.scripts.run_benchmark --sample --publish-langfuse-score
 평가에서는 정답을 실행 후에만 읽어 후보/최종 문맥의 근거 보존을 계산한다. Judge·RAGAS·검색 진단 점수는 `--publish-langfuse-scores`를 명시했을 때만 trace에 게시한다. 미평가·해당 없음은 0점으로 보내지 않는다. 게시 실패도 보고서에 남기며 기존 답변·점수 파일을 버리지 않는다.
 
 실제 모델·Langfuse 서버·RAGAS 연결은 2026-11-10에 Basic 1문항으로 확인했다. 관측의 상하 관계와 실제 구간, 점수 수신, 대표 trace 링크는 [통합 검증 기록](../../experimental/Damsebi/pr40-integration-2026-11-10.md)에, 공통 실행 경로의 API·평가 CLI 대조와 평가 세트별 점수 게시는 [공통 경로 검증 기록](../../experimental/Damsebi/common-path-2026-11-10.md)에 있다. Advanced 색인을 쓴 실행과 공식 세 방식 비교는 아직 별도 실행·검증이 필요하다.
+
+## 제공 문맥의 일치 검사
+
+최종 `ContextBundle`을 직접 반환할 때는 `build_context`로 구성한 자료 블록 형식과 현재 서비스의 토큰 계산기를 사용한다. B는 본문·최종 청크·자료 ID별 문서·페이지·SHA-256·토큰 수가 일치하는지 모델 호출 전에 검사한다. 불일치하면 API와 일반 어댑터는 오류(`503`)로 중단하고 보안 비교의 검색 준비도 실패한다. 자료를 임의로 재정렬하거나 수정해 통과시키지 않는다. 후보만 반환하는 `(candidates, None)` 경로에서는 서비스가 같은 계산기로 문맥을 구성한다.
