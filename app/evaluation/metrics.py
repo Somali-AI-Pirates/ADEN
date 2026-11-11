@@ -33,7 +33,10 @@ def retrieval_metrics(reference: Mapping[str, Any],
     if final_context_chunks is None:
         un = score(None, "unavailable", "서비스 실패로 최종 문맥이 기록되지 않음")
         return {**base, "retrieved_books": None, "hit_at_k": un, "recall_at_k": un}
-    retrieved = sorted({c["book_id"] for c in final_context_chunks[:k]})
+    retrieved_book_ids = set()
+    for chunk in final_context_chunks[:k]:
+        retrieved_book_ids.add(chunk["book_id"])
+    retrieved = sorted(retrieved_book_ids)
     found = set(gold) & set(retrieved)
     reason = f"정답 문서 {len(gold)}개 중 {len(found)}개 포함 (최종 문맥 {delivered}개 청크)"
     return {**base, "retrieved_books": retrieved,
@@ -44,37 +47,74 @@ def retrieval_metrics(reference: Mapping[str, Any],
 def aggregate(scores: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     """평균은 scored만 사용하고 해당 없음·평가 불가는 개수로 표시한다. 0점은 평균에 포함."""
     scores = list(scores)
-    values = [s["value"] for s in scores if s["status"] == "scored"]
+    values = []
+    for item in scores:
+        if item["status"] == "scored":
+            values.append(item["value"])
+    not_applicable = 0
+    for item in scores:
+        if item["status"] == "not_applicable":
+            not_applicable += 1
+    unavailable = 0
+    for item in scores:
+        if item["status"] == "unavailable":
+            unavailable += 1
     return {"mean": statistics.fmean(values) if values else None,
             "scored": len(values),
-            "not_applicable": sum(s["status"] == "not_applicable" for s in scores),
-            "unavailable": sum(s["status"] == "unavailable" for s in scores)}
+            "not_applicable": not_applicable,
+            "unavailable": unavailable}
 
 
 def operational_summary(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     """요청 단위 운영 지표. 정상 추가 확인·보류는 오류가 아니며 재시도는 별도 요청으로 세지 않는다."""
     n = len(records)
-    errors = [r for r in records if r["status"] == "error"]
-    ok = [r for r in records if r["status"] != "error"]
+    errors = []
+    for record in records:
+        if record["status"] == "error":
+            errors.append(record)
+    ok = []
+    for record in records:
+        if record["status"] != "error":
+            ok.append(record)
 
     def latency(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
-        vals = [r["latency_ms"] for r in rows if r.get("latency_ms") is not None]
+        vals = []
+        for row in rows:
+            if row.get("latency_ms") is not None:
+                vals.append(row["latency_ms"])
         return {"mean_ms": statistics.fmean(vals) if vals else None,
                 "p50_ms": statistics.median(vals) if vals else None,
                 "known": len(vals), "count": len(rows)}
 
-    usage_status = [r["usage"]["status"] for r in records]
+    usage_status = []
+    for record in records:
+        usage_status.append(record["usage"]["status"])
     tokens = {}
     for key in ("input_tokens", "output_tokens"):
-        known = [r["usage"][key] for r in records if r["usage"][key] is not None]
+        known = []
+        for record in records:
+            if record["usage"][key] is not None:
+                known.append(record["usage"][key])
         tokens[key] = sum(known) if known else None
+    error_types = set()
+    for record in errors:
+        error_types.add(record.get("error_type") or "unspecified")
+    status_counts = {}
+    for status in ("answered", "needs_clarification", "abstained", "error"):
+        status_count = 0
+        for record in records:
+            if record["status"] == status:
+                status_count += 1
+        status_counts[status] = status_count
+    retry_attempts = 0
+    for record in records:
+        retry_attempts += max(len(record["attempts"]) - 1, 0)
     return {
         "requests": n,
         "errors": len(errors),
         "error_rate": len(errors) / n if n else None,
-        "error_types": sorted({r.get("error_type") or "unspecified" for r in errors}),
-        "status_counts": {s: sum(r["status"] == s for r in records)
-                          for s in ("answered", "needs_clarification", "abstained", "error")},
+        "error_types": sorted(error_types),
+        "status_counts": status_counts,
         "latency_ok": latency(ok),
         "latency_error": latency(errors),
         "latency_all": latency(records),
@@ -82,7 +122,7 @@ def operational_summary(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         "usage_complete": usage_status.count("complete"),
         "usage_partial": usage_status.count("partial"),
         "usage_unknown": usage_status.count("unknown") + usage_status.count("no_attempts"),
-        "retry_attempts": sum(max(len(r["attempts"]) - 1, 0) for r in records),
+        "retry_attempts": retry_attempts,
     }
 
 
