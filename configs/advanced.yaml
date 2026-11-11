@@ -5,7 +5,8 @@ qdrant_collection: advanced_snowflake_ko_pages
 embedding_model: dragonkue/snowflake-arctic-embed-l-v2.0-ko
 embedding_device: cpu
 model_timeout_seconds: 60
-max_output_tokens: 2048
+max_output_tokens: 4096
+reasoning_effort: low
 generation_max_attempts: 2
 context_tokenizer: o200k_base
 

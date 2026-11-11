@@ -180,6 +180,9 @@ def _create_generation_model(settings: Settings, cleanup: ExitStack) -> ChatOpen
 
     cleanup.callback(openai_client.close)
 
+    options = {}
+    if settings.reasoning_effort is not None:
+        options["reasoning_effort"] = settings.reasoning_effort
     return ChatOpenAI(
         model=settings.generation_model,
         api_key=os.environ["OPENAI_API_KEY"],
@@ -188,6 +191,7 @@ def _create_generation_model(settings: Settings, cleanup: ExitStack) -> ChatOpen
         timeout=settings.model_timeout_seconds,
         max_retries=0,
         max_tokens=settings.max_output_tokens,
+        **options,
     )
 
 

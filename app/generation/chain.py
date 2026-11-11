@@ -97,6 +97,9 @@ def generate_answer(
     ])
     variant = "defense" if defense else "base"
     parameters = {"max_output_tokens": model.max_tokens}
+    effort = getattr(model, "reasoning_effort", None)
+    if isinstance(effort, str):
+        parameters["reasoning_effort"] = effort
     structured = model.with_structured_output(ModelAnswer, method="json_schema", include_raw=True)
     chain = prompt | structured
 
