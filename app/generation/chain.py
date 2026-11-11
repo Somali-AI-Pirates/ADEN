@@ -6,6 +6,7 @@ from typing import Any
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
+from openai import LengthFinishReasonError
 
 from shared.contracts import ContextBundle, GenerationResult, ModelAnswer
 from app.generation.calendar import calendar_reference, validate_calendar_dates
@@ -13,6 +14,10 @@ from app.generation.citations import resolve_citations
 
 DEFAULT_PROMPT = Path(__file__).resolve().parent / "prompts" / "shipping_qa.txt"
 CITATION_MARK = re.compile(r"\[(S\d+)\]")
+TRUNCATION_FEEDBACK = (
+    "\n\n재검증 피드백\n이전 응답이 출력 한도에서 잘렸습니다."
+    " 질문에 필요한 사실·조건·출처만 간결하게 쓰고, 지정된 출력 형식의 전체 JSON을 끝까지 반환하세요."
+)
 
 
 def _check_marked_sources(answer: ModelAnswer, context: ContextBundle) -> ModelAnswer:
@@ -78,7 +83,9 @@ def generate_answer(
     """이미 선택한 문맥으로 답변을 생성하고 실제 모델 입력·출력·사용량을 반환한다.
 
     출력 형식·출처·지원 날짜 검증에 실패하면 같은 문맥에 검증 피드백을 더해 max_attempts까지 다시 생성하고
-    모든 시도를 별도 기록으로 남긴다. 모델 호출 자체의 오류는 재시도하지 않고 그대로 올린다.
+    모든 시도를 별도 기록으로 남긴다. 출력 한도에서 잘린 응답(LengthFinishReasonError)도 같은 횟수 안에서
+    간결하게 다시 쓰라는 피드백으로 재생성하고, 모두 잘리면 그 오류를 올린다.
+    그 밖의 모델 호출 오류는 재시도하지 않고 그대로 올린다.
     """
     calendar_notes = calendar_reference(question, context)
     system_prompt = prompt_path.read_text(encoding="utf-8") + calendar_notes
@@ -119,12 +126,22 @@ def generate_answer(
                 result = chain.invoke(values)
                 latency_ms = round((perf_counter() - started) * 1000)
             except Exception as error:
-                record({
+                attempt = {
                     **base, "latency_ms": round((perf_counter() - started) * 1000),
                     "model_output": None, "input_tokens": None, "output_tokens": None,
                     "error": type(error).__name__,
-                })
-                raise
+                }
+                if not isinstance(error, LengthFinishReasonError):
+                    record(attempt)
+                    raise
+                usage = getattr(getattr(error, "completion", None), "usage", None)
+                attempt["input_tokens"] = getattr(usage, "prompt_tokens", None)
+                attempt["output_tokens"] = getattr(usage, "completion_tokens", None)
+                record(attempt)
+                attempts.append(attempt)
+                last_error = error
+                feedback = TRUNCATION_FEEDBACK
+                continue
 
             raw = result["raw"]
             usage = raw.usage_metadata or {}
