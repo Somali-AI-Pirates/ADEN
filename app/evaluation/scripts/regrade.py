@@ -51,14 +51,20 @@ def parse_args() -> argparse.Namespace:
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
-    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    rows = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            rows.append(json.loads(line))
+    return rows
 
 
 def reuse_faithfulness(scores: list[dict[str, Any]], source_scores: list[dict[str, Any]]) -> None:
     """원본 Faithfulness를 request_id로 옮긴다. 새 평가 호출은 없으므로 사용량은 null.
     shortcut: 원본 점수는 원본 Judge의 has_factual_claims로 적용 여부가 정해졌다. 새 Judge 판단과
     달라질 수 있으면 --ragas-model로 다시 계산한다."""
-    old = {s["request_id"]: s["faithfulness"] for s in source_scores}
+    old = {}
+    for source_score in source_scores:
+        old[source_score["request_id"]] = source_score["faithfulness"]
     for s in scores:
         s["faithfulness"] = old.get(s["request_id"]) or score(
             None, "unavailable", "원본 Faithfulness 점수 없음")
@@ -113,7 +119,10 @@ def main() -> None:
         "faithfulness": "recomputed" if faith_fn else "reused",
     }
     # 채점 호출 전에 평가 세트 충돌을 확인한다. 옮겨 온 Faithfulness와 그대로인 검색 지표는 기본 게시에서 뺀다
-    publication = publication_plan(args, manifest, request_ids=[r["request_id"] for r in runs],
+    request_ids = []
+    for run in runs:
+        request_ids.append(run["request_id"])
+    publication = publication_plan(args, manifest, request_ids=request_ids,
                                    default_groups=["judge", "faithfulness"] if faith_fn else ["judge"])
     # k는 원본 실행의 검색 설정에 묶여 있으므로 바꾸지 않는다
     scores = grade_all(runs, load_references(args.references), k=bench["k"], judge_fn=judge_fn,

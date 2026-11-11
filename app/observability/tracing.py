@@ -174,11 +174,10 @@ class RequestTrace:
         calendar_reference: str = "",
     ) -> None:
         """AttemptRecord 한 건(`trace.record_attempt(**attempt)`). 미확인 사용량은 보내지 않는다."""
-        usage = {
-            k: v
-            for k, v in (("input", input_tokens), ("output", output_tokens))
-            if v is not None
-        }
+        usage = {}
+        for usage_key, token_count in (("input", input_tokens), ("output", output_tokens)):
+            if token_count is not None:
+                usage[usage_key] = token_count
         kwargs: dict[str, Any] = dict(
             name=f"generation-attempt-{attempt}",
             as_type="generation",
@@ -325,7 +324,11 @@ class Tracer:
                 resp = self._client.api.observations.get_many(
                     trace_id=trace_id, limit=50
                 )
-                names = sorted({o.name for o in resp.data if getattr(o, "name", None)})
+                observation_names = set()
+                for observation in resp.data:
+                    if getattr(observation, "name", None):
+                        observation_names.add(observation.name)
+                names = sorted(observation_names)
                 missing = sorted(set(expected_observations or [ROOT_NAME]) - set(names))
                 if names and not missing:
                     return {"status": "verified", "observation_names": names}

@@ -92,7 +92,10 @@ def main() -> None:
     if args.dataset_id is None:
         args.dataset_id = config.dataset if config else "advanced"
 
-    modes = [m for m in args.modes.split(",") if m]
+    modes = []
+    for mode in args.modes.split(","):
+        if mode:
+            modes.append(mode)
     if args.sample:
         from app.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_EVAL, FakeLangfuseClient,
                                         MockJudge, SampleServiceAdapter, mock_faithfulness)
@@ -130,13 +133,20 @@ def main() -> None:
     exp_dir = Path(args.artifacts_dir) / experiment_id
     guard_overwrite(report_dir / "comparison.csv", args.overwrite)
 
-    ids = [i.strip() for i in args.ids.split(",")] if args.ids else None
+    ids = None
+    if args.ids:
+        ids = []
+        for requested_id in args.ids.split(","):
+            ids.append(requested_id.strip())
     questions = load_questions(questions_path, ids)  # id·question만
 
     manifest = base_manifest(experiment_id=experiment_id, dataset_id=dataset_id,
                              config_hash=config_hash, sample=args.sample)
+    question_ids = []
+    for question in questions:
+        question_ids.append(question["id"])
     manifest["benchmark"] = {
-        "k": args.k, "modes": modes, "question_ids": [q["id"] for q in questions],
+        "k": args.k, "modes": modes, "question_ids": question_ids,
         "selection_reason": args.selection_reason or ("가상 샘플 시나리오" if args.sample else ""),
         "references_sha256": sha256_file(Path(references_path)),
         "questions_file": Path(questions_path).name, "judge": judge_desc,
@@ -157,8 +167,9 @@ def main() -> None:
                                 timeout_s=max(0.0, deadline - time.monotonic()),
                                 expected_observations=expected_observations(r))["status"]
             if isinstance(tracer, Tracer) and tracer.enabled else None)
-    verified = Counter(("mock:" if args.sample else "") + str(r["langfuse_verification"])
-                       for r in runs)
+    verified = Counter()
+    for run in runs:
+        verified[("mock:" if args.sample else "") + str(run["langfuse_verification"])] += 1
     manifest["benchmark"].update(langfuse_flush=("mock:" if args.sample else "") + flush["status"],
                                  langfuse_verification=dict(verified))
     write_artifacts(exp_dir, manifest, runs=runs)

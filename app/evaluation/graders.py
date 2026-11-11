@@ -36,7 +36,11 @@ def load_prompt(name: str) -> str:
 def response_text(record: Mapping[str, Any]) -> str:
     """사용자에게 보이는 출력 전체(answer + reason). 보류 사유 안의 사실 주장도 평가 대상이다."""
     parts = [record.get("answer") or "", record.get("reason") or ""]
-    return "\n\n".join(p.strip() for p in parts if p and p.strip())
+    texts = []
+    for part in parts:
+        if part and part.strip():
+            texts.append(part.strip())
+    return "\n\n".join(texts)
 
 
 def chunk_text(chunk: Mapping[str, Any]) -> str:
@@ -60,9 +64,14 @@ def _timed(fn: Callable[[], Mapping[str, Any]]) -> tuple[Mapping[str, Any] | Non
 
 def build_judge_prompt(template: str, record: Mapping[str, Any],
                        reference: Mapping[str, Any]) -> str:
-    context = "\n\n".join(f"[{c['source_id']}] {c['file_name']} p.{c['page']}\n{chunk_text(c)}"
-                          for c in record.get("final_context_chunks") or [])
-    ref = {k: v for k, v in reference.items() if k != "question"}
+    context_blocks = []
+    for chunk in record.get("final_context_chunks") or []:
+        context_blocks.append(f"[{chunk['source_id']}] {chunk['file_name']} p.{chunk['page']}\n{chunk_text(chunk)}")
+    context = "\n\n".join(context_blocks)
+    ref = {}
+    for field, field_value in reference.items():
+        if field != "question":
+            ref[field] = field_value
     values = {
         "question": record["question"], "status": record["status"],
         "answer": record.get("answer") or "", "reason": record.get("reason") or "",
@@ -108,17 +117,26 @@ def grade_judge(record: Mapping[str, Any], reference: Mapping[str, Any],
                 None, None)
     if judge_fn is None:
         un = score(None, "unavailable", "Judge 평가기 미설정")
-        return {k: un for k in CRITERIA}, None, None
+        unavailable_criteria = {}
+        for criterion in CRITERIA:
+            unavailable_criteria[criterion] = un
+        return unavailable_criteria, None, None
     prompt = build_judge_prompt(template, record, reference)
     out, usage = _timed(lambda: judge_fn(prompt))
     if out is None:
         un = score(None, "unavailable", f"Judge 호출 실패: {usage['error']}")
-        return {k: un for k in CRITERIA}, None, usage
+        unavailable_criteria = {}
+        for criterion in CRITERIA:
+            unavailable_criteria[criterion] = un
+        return unavailable_criteria, None, usage
     try:
         criteria, claims = parse_judge_output(out["text"])
     except (ValueError, TypeError, KeyError, AttributeError) as exc:
         un = score(None, "unavailable", f"Judge 출력 파싱 실패: {type(exc).__name__}")
-        return {k: un for k in CRITERIA}, None, usage
+        unavailable_criteria = {}
+        for criterion in CRITERIA:
+            unavailable_criteria[criterion] = un
+        return unavailable_criteria, None, usage
     return criteria, claims, usage
 
 
@@ -130,7 +148,9 @@ def grade_faithfulness(record: Mapping[str, Any], has_claims: bool | None,
     response = response_text(record)
     if not response or has_claims is False:
         return score(None, "not_applicable", "사실 주장 없음(조건 확인·보류만)"), None
-    contexts = [chunk_text(c) for c in record.get("final_context_chunks") or []]
+    contexts = []
+    for chunk in record.get("final_context_chunks") or []:
+        contexts.append(chunk_text(chunk))
     if not contexts:
         if has_claims:
             return score(0.0, "scored", "최종 문맥 없이 사실 주장을 함"), None

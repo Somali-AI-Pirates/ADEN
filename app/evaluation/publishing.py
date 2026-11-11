@@ -27,7 +27,11 @@ def score_items(row, groups=GROUPS):
              "faithfulness": row["faithfulness"],
              **{f"judge.{key}": value for key, value in row["judge"].items()},
              **{f"evidence.{key}": value for key, value in row.get("evidence_diagnostics", {}).items()}}
-    return {name: item for name, item in items.items() if name.split(".")[0] in groups}
+    selected = {}
+    for name, item in items.items():
+        if name.split(".")[0] in groups:
+            selected[name] = item
+    return selected
 
 
 def conditions(manifest):
@@ -63,11 +67,19 @@ def plan_publication(manifest, *, evaluation_set=None, groups=None, artifacts_di
                              "채점 조건으로 게시됐다. 조건이 다르면 다른 세트 이름을 쓴다")
         graded = path.with_name("scores.jsonl")
         lines = graded.read_text(encoding="utf-8").splitlines() if graded.exists() else []
-        if {json.loads(line)["request_id"] for line in lines if line.strip()} & set(request_ids):
+        graded_request_ids = set()
+        for line in lines:
+            if line.strip():
+                graded_request_ids.add(json.loads(line)["request_id"])
+        if graded_request_ids & set(request_ids):
             raise ValueError(f"평가 세트 '{evaluation_set}'에 실험 {other.get('experiment_id')}가 같은 요청을 "
                              "이미 채점해 게시했다. 반복 회차는 다른 세트 이름을 쓴다")
+    selected_groups = []
+    for group in GROUPS:
+        if group in (groups or GROUPS):
+            selected_groups.append(group)
     return {"status": "incomplete",  # 게시가 끝나면 실제 상태로 바뀐다. 남아 있으면 게시 중 중단된 것
-            "evaluation_set": evaluation_set, "groups": [g for g in GROUPS if g in (groups or GROUPS)],
+            "evaluation_set": evaluation_set, "groups": selected_groups,
             "evaluation_hash": version, "sample": bool(manifest.get("sample"))}
 
 

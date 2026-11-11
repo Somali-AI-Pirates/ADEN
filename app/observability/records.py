@@ -32,7 +32,9 @@ class RunRecordError(ValueError):
 
 def compute_context_hash(chunks: Sequence[Mapping[str, Any]]) -> str:
     """최종 문맥의 내용·순서 해시. 청크 ID·출처 ID·실제 텍스트를 순서대로 묶는다."""
-    payload = [[c.get("chunk_id"), c.get("source_id"), c.get("text")] for c in chunks]
+    payload = []
+    for chunk in chunks:
+        payload.append([chunk.get("chunk_id"), chunk.get("source_id"), chunk.get("text")])
     raw = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     return "sha256:" + hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
@@ -57,8 +59,13 @@ def summarize_usage(attempts: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     known_all = True
     known_any = False
     for key in ("input_tokens", "output_tokens"):
-        values = [a.get(key) for a in attempts]
-        known = [v for v in values if v is not None]
+        values = []
+        for attempt in attempts:
+            values.append(attempt.get(key))
+        known = []
+        for value in values:
+            if value is not None:
+                known.append(value)
         totals[key] = sum(known) if known else None
         known_all &= len(known) == len(values)
         known_any |= bool(known)
@@ -73,7 +80,10 @@ def _normalize_chunk(raw: Any, where: str, *, need_source_id: bool) -> dict[str,
     if isinstance(chunk.get("chunk"), Mapping) and "chunk_id" not in chunk:
         raise RunRecordError(f"{where}: 중첩 RetrievedChunk는 평탄 로그 청크로 변환해 넘겨야 한다")
     required = FINAL_CHUNK_FIELDS if need_source_id else CANDIDATE_FIELDS
-    missing = [f for f in required if chunk.get(f) in (None, "")]
+    missing = []
+    for field in required:
+        if chunk.get(field) in (None, ""):
+            missing.append(field)
     if missing:
         raise RunRecordError(f"{where}: 필수 필드 누락 {missing}")
     if isinstance(chunk["page"], bool) or not isinstance(chunk["page"], int) or chunk["page"] < 1:
@@ -104,7 +114,10 @@ def normalize_run_record(raw: Mapping[str, Any]) -> dict[str, Any]:
     """
     if not isinstance(raw, Mapping):
         raise RunRecordError("실행 기록은 JSON 객체(Mapping)여야 한다")
-    missing = [f for f in REQUIRED_FIELDS if f not in raw]
+    missing = []
+    for required_field in REQUIRED_FIELDS:
+        if required_field not in raw:
+            missing.append(required_field)
     if missing:
         raise RunRecordError(f"필수 필드 누락: {missing}")
     rec = dict(raw)
@@ -123,8 +136,10 @@ def normalize_run_record(raw: Mapping[str, Any]) -> dict[str, Any]:
             continue
         if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
             raise RunRecordError(f"{field}는 배열이어야 한다")
-        rec[field] = [_normalize_chunk(c, f"{field}[{i}]", need_source_id=need_sid)
-                      for i, c in enumerate(value)]
+        normalized_chunks = []
+        for index, chunk in enumerate(value):
+            normalized_chunks.append(_normalize_chunk(chunk, f"{field}[{index}]", need_source_id=need_sid))
+        rec[field] = normalized_chunks
 
     if rec["final_context_chunks"] is not None:
         expected = compute_context_hash(rec["final_context_chunks"])
