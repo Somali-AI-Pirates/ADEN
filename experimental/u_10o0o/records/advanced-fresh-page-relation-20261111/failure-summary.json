@@ -1,0 +1,38 @@
+[
+  {
+    "split": "dev",
+    "condition": "A",
+    "candidate_shortage": 10,
+    "final_selection_loss": 3
+  },
+  {
+    "split": "dev",
+    "condition": "C",
+    "candidate_shortage": 7,
+    "final_selection_loss": 3
+  },
+  {
+    "split": "dev",
+    "condition": "D",
+    "candidate_shortage": 5,
+    "final_selection_loss": 4
+  },
+  {
+    "split": "validation",
+    "condition": "A",
+    "candidate_shortage": 10,
+    "final_selection_loss": 3
+  },
+  {
+    "split": "validation",
+    "condition": "C",
+    "candidate_shortage": 6,
+    "final_selection_loss": 3
+  },
+  {
+    "split": "validation",
+    "condition": "D",
+    "candidate_shortage": 4,
+    "final_selection_loss": 4
+  }
+]

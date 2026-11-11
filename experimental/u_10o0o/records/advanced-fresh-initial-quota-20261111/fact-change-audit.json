@@ -1,0 +1,47 @@
+{
+  "all": {
+    "facts": 349,
+    "initial": {
+      "recovered": 12,
+      "lost": 2
+    },
+    "candidate": {
+      "recovered": 10,
+      "lost": 2
+    },
+    "final": {
+      "recovered": 7,
+      "lost": 1
+    }
+  },
+  "answerable": {
+    "facts": 343,
+    "initial": {
+      "recovered": 12,
+      "lost": 2
+    },
+    "candidate": {
+      "recovered": 10,
+      "lost": 2
+    },
+    "final": {
+      "recovered": 7,
+      "lost": 1
+    }
+  },
+  "ambiguous": {
+    "facts": 6,
+    "initial": {
+      "recovered": 0,
+      "lost": 0
+    },
+    "candidate": {
+      "recovered": 0,
+      "lost": 0
+    },
+    "final": {
+      "recovered": 0,
+      "lost": 0
+    }
+  }
+}

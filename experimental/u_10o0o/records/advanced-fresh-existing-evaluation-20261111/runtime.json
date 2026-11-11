@@ -1,0 +1,123 @@
+{
+  "conditions": {
+    "E": {
+      "retrieval_attributed": {
+        "p50_ms": 763.677,
+        "p95_ms": 955.536,
+        "mean_ms": 786.035
+      },
+      "with_selection_attributed": {
+        "p50_ms": 806.149,
+        "p95_ms": 1000.846,
+        "mean_ms": 828.659
+      },
+      "added_selection_all": {
+        "p50_ms": 35.308,
+        "p95_ms": 119.71,
+        "mean_ms": 42.624
+      },
+      "added_selection_applied_only": {
+        "p50_ms": 80.713,
+        "p95_ms": 94.753,
+        "mean_ms": 83.057
+      },
+      "statuses": {
+        "rule_or_reason_request": 70,
+        "no_explicit_target": 64,
+        "revision_or_effect_request": 57,
+        "negation_or_uncertainty": 12,
+        "fewer_than_two_requests": 49,
+        "eligible": 20,
+        "uncertain_clause_binding": 8
+      },
+      "applied": 20,
+      "context_changed_ids": [
+        "AS-S05-01",
+        "AS-S05-02",
+        "AS-S05-03",
+        "AS-S05-04",
+        "AS-S05-05",
+        "AS-S05-06",
+        "AS-S05-07",
+        "AS-S05-08"
+      ],
+      "candidate_unchanged": true,
+      "kure_scores_unchanged": true,
+      "unsupported_context_unchanged": true,
+      "reranker_pairs": 5600,
+      "reranker_input_tokens": 3050101,
+      "truncated_pairs": 0,
+      "max_context_tokens": 7680
+    },
+    "F": {
+      "retrieval_attributed": {
+        "p50_ms": 745.846,
+        "p95_ms": 938.379,
+        "mean_ms": 763.554
+      },
+      "with_selection_attributed": {
+        "p50_ms": 785.247,
+        "p95_ms": 973.46,
+        "mean_ms": 806.056
+      },
+      "added_selection_all": {
+        "p50_ms": 35.243,
+        "p95_ms": 119.656,
+        "mean_ms": 42.502
+      },
+      "added_selection_applied_only": {
+        "p50_ms": 79.221,
+        "p95_ms": 93.957,
+        "mean_ms": 82.138
+      },
+      "statuses": {
+        "rule_or_reason_request": 70,
+        "no_explicit_target": 64,
+        "revision_or_effect_request": 57,
+        "negation_or_uncertainty": 12,
+        "fewer_than_two_requests": 49,
+        "eligible": 20,
+        "uncertain_clause_binding": 8
+      },
+      "applied": 20,
+      "context_changed_ids": [
+        "AS-S05-01",
+        "AS-S05-02",
+        "AS-S05-03",
+        "AS-S05-04",
+        "AS-S05-05",
+        "AS-S05-06",
+        "AS-S05-07",
+        "AS-S05-08"
+      ],
+      "candidate_unchanged": true,
+      "kure_scores_unchanged": true,
+      "unsupported_context_unchanged": true,
+      "reranker_pairs": 5600,
+      "reranker_input_tokens": 3052679,
+      "truncated_pairs": 0,
+      "max_context_tokens": 7680
+    }
+  },
+  "physical_counts": {
+    "query_embeddings": 280,
+    "bm25_queries": 280,
+    "dense_queries": 280,
+    "reranker_scoring_calls": 560,
+    "reranker_pairs": 11200,
+    "external_api_calls": 0,
+    "answer_generations": 0
+  },
+  "timing_basis": "GPU local float32; shared search attributed to each arm; first actual question includes cold-first-query cost; model/index startup excluded from per-query. No CPU benchmark in this run.",
+  "startup_and_wall_ms": {
+    "added_selection_wall_ms": 12057.281,
+    "frozen_data_load": 1483.876,
+    "index_startup": 10503.013,
+    "model_startup": 9895.251,
+    "policy_and_source_hash_gate": 193.87,
+    "query_execution_wall": 418172.031,
+    "query_retrieval_wall_ms": 406103.969,
+    "question_input_load": 0.742,
+    "vector_index_load": 121.506
+  }
+}

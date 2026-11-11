@@ -1,0 +1,75 @@
+[
+  {
+    "split": "dev",
+    "condition": "E",
+    "first_missing_stage": {
+      "initial20": [
+        "DEV-126",
+        "FRESH-DEV-030",
+        "FRESH-DEV-033"
+      ],
+      "final8": [
+        "FRESH-DEV-004",
+        "FRESH-DEV-031",
+        "FRESH-DEV-037",
+        "FRESH-DEV-043"
+      ],
+      "retriever_top50": [
+        "FRESH-DEV-026"
+      ]
+    }
+  },
+  {
+    "split": "dev",
+    "condition": "F",
+    "first_missing_stage": {
+      "initial20": [
+        "DEV-126",
+        "FRESH-DEV-030",
+        "FRESH-DEV-033"
+      ],
+      "final8": [
+        "FRESH-DEV-004",
+        "FRESH-DEV-031",
+        "FRESH-DEV-037",
+        "FRESH-DEV-043"
+      ],
+      "retriever_top50": [
+        "FRESH-DEV-026"
+      ]
+    }
+  },
+  {
+    "split": "validation",
+    "condition": "E",
+    "first_missing_stage": {
+      "final8": [
+        "FRESH-VAL-011",
+        "FRESH-VAL-012",
+        "FRESH-VAL-023",
+        "FRESH-VAL-045"
+      ],
+      "initial20": [
+        "FRESH-VAL-013",
+        "FRESH-VAL-025",
+        "FRESH-VAL-061"
+      ]
+    }
+  },
+  {
+    "split": "validation",
+    "condition": "F",
+    "first_missing_stage": {
+      "final8": [
+        "FRESH-VAL-011",
+        "FRESH-VAL-012",
+        "FRESH-VAL-013",
+        "FRESH-VAL-023"
+      ],
+      "initial20": [
+        "FRESH-VAL-029",
+        "FRESH-VAL-045"
+      ]
+    }
+  }
+]

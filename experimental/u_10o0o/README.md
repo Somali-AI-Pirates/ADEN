@@ -145,3 +145,7 @@ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OPENBLAS_NUM_THREADS=1 \
 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OPENBLAS_NUM_THREADS=1 \
   uv run --no-sync python -m experimental.u_10o0o.identifier_compare
 ```
+
+## 원본 기반 반복 패턴 검색 실험 종료
+
+기존 기본 실행을 유지하고 별도 경로에서 원문·기록 단위 하이브리드, 명시 코드 관계, 후보 병합, 최종 기록 선택을 비교했다. [종료 기록](records/advanced-fresh-record-hybrid-20261111/closeout.md)에 시작 이유·결과·공식 평가에서의 한계·레퍼런스를 정리했다. 실행 진입점은 [fresh_record_hybrid](fresh_record_hybrid/README.md)에 있다.

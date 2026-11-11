@@ -1,0 +1,871 @@
+{
+  "frozen_at_utc": "2026-11-11T06:25:02.103308+00:00",
+  "questions": 160,
+  "splits": {
+    "dev": 80,
+    "validation": 80
+  },
+  "categories": [
+    "exact_code",
+    "indirect_identifiable_clues",
+    "no_code_everyday_procedure",
+    "one_event_multistage",
+    "two_events",
+    "record_plus_rule_exception",
+    "correction_status_date_type",
+    "ambiguous_insufficient_conflict"
+  ],
+  "category_counts": {
+    "dev": {
+      "exact_code": 10,
+      "indirect_identifiable_clues": 10,
+      "no_code_everyday_procedure": 10,
+      "one_event_multistage": 10,
+      "two_events": 10,
+      "record_plus_rule_exception": 10,
+      "correction_status_date_type": 10,
+      "ambiguous_insufficient_conflict": 10
+    },
+    "validation": {
+      "exact_code": 10,
+      "indirect_identifiable_clues": 11,
+      "no_code_everyday_procedure": 8,
+      "one_event_multistage": 10,
+      "two_events": 10,
+      "record_plus_rule_exception": 11,
+      "correction_status_date_type": 10,
+      "ambiguous_insufficient_conflict": 10
+    }
+  },
+  "category_revision_before_first_score": "VAL-043 is record_plus_rule_exception; VAL-075 is indirect_identifiable_clues; question text and facts unchanged",
+  "ambiguous": 20,
+  "max_primary_pages": 4,
+  "max_primary_tokens": 1898,
+  "event_overlap_count": 0,
+  "authors": {
+    "dev": {
+      "questions_sha256": "5f7e2521d83fc7d4aaef0e42900921e48cd09ca21e82e407b84f4d86fccbb894",
+      "references_sha256": "8296cd8a76fa289aab313bf26cb516bf3614ce71703a9210ca87127f89c1a942"
+    },
+    "dev-complex": {
+      "questions_sha256": "fd39582af0f34a0e9780fc723907ce71d50cf808fdaa4fd0145143372799060b",
+      "references_sha256": "44ae0c64ade62c95bd29d76e4f383e3cdd9b4215136802b435c86feee6cef0df"
+    },
+    "validation": {
+      "questions_sha256": "b0dced2dd4727d8169f7b8a3c41b521a9d345c1ae4c15a53f5e487dd53e2cc15",
+      "references_sha256": "7f8bc3b1fe93d8ea12a23e43c02bc903529d1cecdbb370070fe331d09f656518"
+    },
+    "validation-tail": {
+      "questions_sha256": "53ce9ac19c0af6edaf777e93b4eadb100ba8efb5dee1b60423ffe801f0eba69b",
+      "references_sha256": "fc39f9656d7784ee35fa03faad5d7656b41d135b3bf8cb8ec1cb40c6d97ac160"
+    }
+  },
+  "questions_sha256": "d8a83000026e1c5729da616ac6f0933984c9e3134ec0d9582c7a550ef5698462",
+  "references_sha256": "164d5e2474193a1cad18bd73570fc3e8dfc19e0c1eeec3139cd7f71ef1d37482",
+  "source_pages_sha256": "bb2fd92104c0983898fb23b3410ed1bdecc0e3c4899f82f4e10027737403d709",
+  "budget_by_id": [
+    {
+      "id": "FRESH-DEV-001",
+      "pages": 1,
+      "tokens": 515
+    },
+    {
+      "id": "FRESH-DEV-002",
+      "pages": 1,
+      "tokens": 487
+    },
+    {
+      "id": "FRESH-DEV-003",
+      "pages": 1,
+      "tokens": 791
+    },
+    {
+      "id": "FRESH-DEV-004",
+      "pages": 3,
+      "tokens": 1369
+    },
+    {
+      "id": "FRESH-DEV-005",
+      "pages": 4,
+      "tokens": 1876
+    },
+    {
+      "id": "FRESH-DEV-006",
+      "pages": 2,
+      "tokens": 935
+    },
+    {
+      "id": "FRESH-DEV-007",
+      "pages": 1,
+      "tokens": 809
+    },
+    {
+      "id": "FRESH-DEV-008",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-DEV-009",
+      "pages": 1,
+      "tokens": 497
+    },
+    {
+      "id": "FRESH-DEV-010",
+      "pages": 1,
+      "tokens": 477
+    },
+    {
+      "id": "FRESH-DEV-011",
+      "pages": 1,
+      "tokens": 402
+    },
+    {
+      "id": "FRESH-DEV-012",
+      "pages": 1,
+      "tokens": 526
+    },
+    {
+      "id": "FRESH-DEV-013",
+      "pages": 1,
+      "tokens": 500
+    },
+    {
+      "id": "FRESH-DEV-014",
+      "pages": 1,
+      "tokens": 498
+    },
+    {
+      "id": "FRESH-DEV-015",
+      "pages": 1,
+      "tokens": 477
+    },
+    {
+      "id": "FRESH-DEV-016",
+      "pages": 1,
+      "tokens": 515
+    },
+    {
+      "id": "FRESH-DEV-017",
+      "pages": 1,
+      "tokens": 487
+    },
+    {
+      "id": "FRESH-DEV-018",
+      "pages": 1,
+      "tokens": 475
+    },
+    {
+      "id": "FRESH-DEV-019",
+      "pages": 2,
+      "tokens": 974
+    },
+    {
+      "id": "FRESH-DEV-020",
+      "pages": 1,
+      "tokens": 477
+    },
+    {
+      "id": "FRESH-DEV-021",
+      "pages": 2,
+      "tokens": 972
+    },
+    {
+      "id": "FRESH-DEV-022",
+      "pages": 2,
+      "tokens": 974
+    },
+    {
+      "id": "FRESH-DEV-023",
+      "pages": 2,
+      "tokens": 905
+    },
+    {
+      "id": "FRESH-DEV-024",
+      "pages": 2,
+      "tokens": 870
+    },
+    {
+      "id": "FRESH-DEV-025",
+      "pages": 1,
+      "tokens": 477
+    },
+    {
+      "id": "FRESH-DEV-026",
+      "pages": 2,
+      "tokens": 1001
+    },
+    {
+      "id": "FRESH-DEV-027",
+      "pages": 1,
+      "tokens": 517
+    },
+    {
+      "id": "FRESH-DEV-028",
+      "pages": 1,
+      "tokens": 969
+    },
+    {
+      "id": "FRESH-DEV-029",
+      "pages": 1,
+      "tokens": 575
+    },
+    {
+      "id": "FRESH-DEV-030",
+      "pages": 1,
+      "tokens": 584
+    },
+    {
+      "id": "FRESH-DEV-031",
+      "pages": 1,
+      "tokens": 569
+    },
+    {
+      "id": "FRESH-DEV-032",
+      "pages": 1,
+      "tokens": 542
+    },
+    {
+      "id": "FRESH-DEV-033",
+      "pages": 1,
+      "tokens": 545
+    },
+    {
+      "id": "FRESH-DEV-034",
+      "pages": 1,
+      "tokens": 530
+    },
+    {
+      "id": "FRESH-DEV-035",
+      "pages": 1,
+      "tokens": 719
+    },
+    {
+      "id": "FRESH-DEV-036",
+      "pages": 3,
+      "tokens": 1366
+    },
+    {
+      "id": "FRESH-DEV-037",
+      "pages": 3,
+      "tokens": 1369
+    },
+    {
+      "id": "FRESH-DEV-038",
+      "pages": 2,
+      "tokens": 1009
+    },
+    {
+      "id": "FRESH-DEV-039",
+      "pages": 2,
+      "tokens": 945
+    },
+    {
+      "id": "FRESH-DEV-040",
+      "pages": 3,
+      "tokens": 1372
+    },
+    {
+      "id": "FRESH-DEV-041",
+      "pages": 3,
+      "tokens": 1376
+    },
+    {
+      "id": "FRESH-DEV-042",
+      "pages": 2,
+      "tokens": 976
+    },
+    {
+      "id": "FRESH-DEV-043",
+      "pages": 2,
+      "tokens": 889
+    },
+    {
+      "id": "FRESH-DEV-044",
+      "pages": 3,
+      "tokens": 1363
+    },
+    {
+      "id": "DEV-105",
+      "pages": 2,
+      "tokens": 993
+    },
+    {
+      "id": "DEV-106",
+      "pages": 2,
+      "tokens": 994
+    },
+    {
+      "id": "DEV-107",
+      "pages": 2,
+      "tokens": 994
+    },
+    {
+      "id": "DEV-114",
+      "pages": 2,
+      "tokens": 934
+    },
+    {
+      "id": "DEV-115",
+      "pages": 2,
+      "tokens": 935
+    },
+    {
+      "id": "DEV-116",
+      "pages": 2,
+      "tokens": 940
+    },
+    {
+      "id": "DEV-123",
+      "pages": 1,
+      "tokens": 962
+    },
+    {
+      "id": "DEV-124",
+      "pages": 1,
+      "tokens": 611
+    },
+    {
+      "id": "DEV-125",
+      "pages": 1,
+      "tokens": 583
+    },
+    {
+      "id": "DEV-132",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "DEV-133",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "DEV-134",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "DEV-108",
+      "pages": 2,
+      "tokens": 997
+    },
+    {
+      "id": "DEV-109",
+      "pages": 2,
+      "tokens": 994
+    },
+    {
+      "id": "DEV-110",
+      "pages": 2,
+      "tokens": 994
+    },
+    {
+      "id": "DEV-111",
+      "pages": 2,
+      "tokens": 994
+    },
+    {
+      "id": "DEV-112",
+      "pages": 2,
+      "tokens": 993
+    },
+    {
+      "id": "DEV-113",
+      "pages": 2,
+      "tokens": 994
+    },
+    {
+      "id": "DEV-117",
+      "pages": 2,
+      "tokens": 935
+    },
+    {
+      "id": "DEV-118",
+      "pages": 2,
+      "tokens": 939
+    },
+    {
+      "id": "DEV-119",
+      "pages": 2,
+      "tokens": 934
+    },
+    {
+      "id": "DEV-120",
+      "pages": 2,
+      "tokens": 936
+    },
+    {
+      "id": "DEV-121",
+      "pages": 2,
+      "tokens": 936
+    },
+    {
+      "id": "DEV-122",
+      "pages": 2,
+      "tokens": 934
+    },
+    {
+      "id": "DEV-126",
+      "pages": 2,
+      "tokens": 1374
+    },
+    {
+      "id": "DEV-127",
+      "pages": 2,
+      "tokens": 1682
+    },
+    {
+      "id": "DEV-128",
+      "pages": 1,
+      "tokens": 666
+    },
+    {
+      "id": "DEV-129",
+      "pages": 1,
+      "tokens": 610
+    },
+    {
+      "id": "DEV-130",
+      "pages": 1,
+      "tokens": 540
+    },
+    {
+      "id": "DEV-131",
+      "pages": 1,
+      "tokens": 955
+    },
+    {
+      "id": "DEV-135",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "DEV-136",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "DEV-137",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "DEV-138",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "DEV-139",
+      "pages": 1,
+      "tokens": 515
+    },
+    {
+      "id": "DEV-140",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-VAL-001",
+      "pages": 1,
+      "tokens": 488
+    },
+    {
+      "id": "FRESH-VAL-002",
+      "pages": 1,
+      "tokens": 478
+    },
+    {
+      "id": "FRESH-VAL-003",
+      "pages": 1,
+      "tokens": 865
+    },
+    {
+      "id": "FRESH-VAL-004",
+      "pages": 4,
+      "tokens": 1831
+    },
+    {
+      "id": "FRESH-VAL-005",
+      "pages": 2,
+      "tokens": 995
+    },
+    {
+      "id": "FRESH-VAL-006",
+      "pages": 3,
+      "tokens": 1365
+    },
+    {
+      "id": "FRESH-VAL-007",
+      "pages": 1,
+      "tokens": 528
+    },
+    {
+      "id": "FRESH-VAL-008",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-VAL-009",
+      "pages": 1,
+      "tokens": 496
+    },
+    {
+      "id": "FRESH-VAL-010",
+      "pages": 1,
+      "tokens": 490
+    },
+    {
+      "id": "FRESH-VAL-011",
+      "pages": 1,
+      "tokens": 616
+    },
+    {
+      "id": "FRESH-VAL-012",
+      "pages": 4,
+      "tokens": 1856
+    },
+    {
+      "id": "FRESH-VAL-013",
+      "pages": 4,
+      "tokens": 1863
+    },
+    {
+      "id": "FRESH-VAL-014",
+      "pages": 2,
+      "tokens": 931
+    },
+    {
+      "id": "FRESH-VAL-015",
+      "pages": 1,
+      "tokens": 544
+    },
+    {
+      "id": "FRESH-VAL-016",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-VAL-017",
+      "pages": 1,
+      "tokens": 496
+    },
+    {
+      "id": "FRESH-VAL-018",
+      "pages": 2,
+      "tokens": 929
+    },
+    {
+      "id": "FRESH-VAL-019",
+      "pages": 1,
+      "tokens": 476
+    },
+    {
+      "id": "FRESH-VAL-020",
+      "pages": 1,
+      "tokens": 477
+    },
+    {
+      "id": "FRESH-VAL-021",
+      "pages": 1,
+      "tokens": 604
+    },
+    {
+      "id": "FRESH-VAL-022",
+      "pages": 1,
+      "tokens": 698
+    },
+    {
+      "id": "FRESH-VAL-023",
+      "pages": 4,
+      "tokens": 1812
+    },
+    {
+      "id": "FRESH-VAL-024",
+      "pages": 3,
+      "tokens": 1444
+    },
+    {
+      "id": "FRESH-VAL-025",
+      "pages": 2,
+      "tokens": 953
+    },
+    {
+      "id": "FRESH-VAL-026",
+      "pages": 2,
+      "tokens": 1015
+    },
+    {
+      "id": "FRESH-VAL-027",
+      "pages": 2,
+      "tokens": 933
+    },
+    {
+      "id": "FRESH-VAL-028",
+      "pages": 2,
+      "tokens": 937
+    },
+    {
+      "id": "FRESH-VAL-029",
+      "pages": 1,
+      "tokens": 605
+    },
+    {
+      "id": "FRESH-VAL-030",
+      "pages": 1,
+      "tokens": 516
+    },
+    {
+      "id": "FRESH-VAL-031",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-VAL-032",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-VAL-033",
+      "pages": 1,
+      "tokens": 393
+    },
+    {
+      "id": "FRESH-VAL-034",
+      "pages": 1,
+      "tokens": 490
+    },
+    {
+      "id": "FRESH-VAL-035",
+      "pages": 1,
+      "tokens": 676
+    },
+    {
+      "id": "FRESH-VAL-036",
+      "pages": 2,
+      "tokens": 906
+    },
+    {
+      "id": "FRESH-VAL-037",
+      "pages": 2,
+      "tokens": 807
+    },
+    {
+      "id": "FRESH-VAL-038",
+      "pages": 1,
+      "tokens": 451
+    },
+    {
+      "id": "FRESH-VAL-039",
+      "pages": 1,
+      "tokens": 658
+    },
+    {
+      "id": "FRESH-VAL-040",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-VAL-041",
+      "pages": 1,
+      "tokens": 497
+    },
+    {
+      "id": "FRESH-VAL-042",
+      "pages": 1,
+      "tokens": 477
+    },
+    {
+      "id": "FRESH-VAL-043",
+      "pages": 1,
+      "tokens": 685
+    },
+    {
+      "id": "FRESH-VAL-044",
+      "pages": 4,
+      "tokens": 1898
+    },
+    {
+      "id": "FRESH-VAL-045",
+      "pages": 2,
+      "tokens": 967
+    },
+    {
+      "id": "FRESH-VAL-046",
+      "pages": 1,
+      "tokens": 433
+    },
+    {
+      "id": "FRESH-VAL-047",
+      "pages": 1,
+      "tokens": 601
+    },
+    {
+      "id": "FRESH-VAL-048",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-VAL-049",
+      "pages": 1,
+      "tokens": 497
+    },
+    {
+      "id": "FRESH-VAL-050",
+      "pages": 1,
+      "tokens": 478
+    },
+    {
+      "id": "FRESH-VAL-051",
+      "pages": 1,
+      "tokens": 687
+    },
+    {
+      "id": "FRESH-VAL-052",
+      "pages": 3,
+      "tokens": 1504
+    },
+    {
+      "id": "FRESH-VAL-053",
+      "pages": 2,
+      "tokens": 785
+    },
+    {
+      "id": "FRESH-VAL-054",
+      "pages": 1,
+      "tokens": 458
+    },
+    {
+      "id": "FRESH-VAL-055",
+      "pages": 1,
+      "tokens": 548
+    },
+    {
+      "id": "FRESH-VAL-056",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-VAL-057",
+      "pages": 1,
+      "tokens": 496
+    },
+    {
+      "id": "FRESH-VAL-058",
+      "pages": 1,
+      "tokens": 488
+    },
+    {
+      "id": "FRESH-VAL-059",
+      "pages": 1,
+      "tokens": 685
+    },
+    {
+      "id": "FRESH-VAL-060",
+      "pages": 3,
+      "tokens": 1372
+    },
+    {
+      "id": "FRESH-VAL-061",
+      "pages": 2,
+      "tokens": 793
+    },
+    {
+      "id": "FRESH-VAL-062",
+      "pages": 1,
+      "tokens": 442
+    },
+    {
+      "id": "FRESH-VAL-063",
+      "pages": 1,
+      "tokens": 574
+    },
+    {
+      "id": "FRESH-VAL-064",
+      "pages": 0,
+      "tokens": 0
+    },
+    {
+      "id": "FRESH-VAL-065",
+      "pages": 1,
+      "tokens": 393
+    },
+    {
+      "id": "FRESH-VAL-066",
+      "pages": 1,
+      "tokens": 477
+    },
+    {
+      "id": "FRESH-VAL-067",
+      "pages": 1,
+      "tokens": 576
+    },
+    {
+      "id": "FRESH-VAL-068",
+      "pages": 3,
+      "tokens": 1439
+    },
+    {
+      "id": "FRESH-VAL-069",
+      "pages": 2,
+      "tokens": 996
+    },
+    {
+      "id": "FRESH-VAL-070",
+      "pages": 1,
+      "tokens": 541
+    },
+    {
+      "id": "FRESH-VAL-071",
+      "pages": 1,
+      "tokens": 509
+    },
+    {
+      "id": "FRESH-VAL-072",
+      "pages": 1,
+      "tokens": 573
+    },
+    {
+      "id": "FRESH-VAL-073",
+      "pages": 1,
+      "tokens": 402
+    },
+    {
+      "id": "FRESH-VAL-074",
+      "pages": 1,
+      "tokens": 478
+    },
+    {
+      "id": "FRESH-VAL-075",
+      "pages": 1,
+      "tokens": 608
+    },
+    {
+      "id": "FRESH-VAL-076",
+      "pages": 3,
+      "tokens": 1444
+    },
+    {
+      "id": "FRESH-VAL-077",
+      "pages": 2,
+      "tokens": 800
+    },
+    {
+      "id": "FRESH-VAL-078",
+      "pages": 1,
+      "tokens": 648
+    },
+    {
+      "id": "FRESH-VAL-079",
+      "pages": 1,
+      "tokens": 496
+    },
+    {
+      "id": "FRESH-VAL-080",
+      "pages": 1,
+      "tokens": 648
+    }
+  ],
+  "human_review": false,
+  "previous_results_used": false,
+  "meaning_equivalent_alternatives_exhaustive": false
+}

@@ -1,0 +1,34 @@
+{
+  "results_sha256": "d7464997ae4305ad8b925ded3452d0f54b43ac3150dc3c94f39ceeeeff8f7a04",
+  "questions_sha256": "d8a83000026e1c5729da616ac6f0933984c9e3134ec0d9582c7a550ef5698462",
+  "references_sha256": "164d5e2474193a1cad18bd73570fc3e8dfc19e0c1eeec3139cd7f71ef1d37482",
+  "pages_sha256": "bb2fd92104c0983898fb23b3410ed1bdecc0e3c4899f82f4e10027737403d709",
+  "units_sha256": "beb5c9d081ff1a8fe79427a786d7086da4545fa23c69b66bd275bba4d3a1477b",
+  "conditions": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "questions": 160,
+  "results": 640,
+  "categories": {
+    "dev|two_events": 10,
+    "dev|record_plus_rule_exception": 10,
+    "dev|correction_status_date_type": 10,
+    "dev|ambiguous_insufficient_conflict": 10,
+    "dev|exact_code": 10,
+    "dev|indirect_identifiable_clues": 10,
+    "dev|no_code_everyday_procedure": 10,
+    "dev|one_event_multistage": 10,
+    "validation|exact_code": 10,
+    "validation|indirect_identifiable_clues": 11,
+    "validation|no_code_everyday_procedure": 8,
+    "validation|one_event_multistage": 10,
+    "validation|two_events": 10,
+    "validation|record_plus_rule_exception": 11,
+    "validation|correction_status_date_type": 10,
+    "validation|ambiguous_insufficient_conflict": 10
+  },
+  "policy": "References opened only after complete result ID gate; candidate covers original pages accessible from selected units; final quotes must occur in actual saved context."
+}

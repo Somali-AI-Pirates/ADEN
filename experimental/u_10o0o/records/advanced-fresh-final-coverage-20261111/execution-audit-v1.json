@@ -1,0 +1,92 @@
+{
+  "rows": 640,
+  "upstream_differences": [],
+  "code_hash_drift": [],
+  "changed_contexts": {
+    "E": 15,
+    "F": 15
+  },
+  "status_counts": [
+    {
+      "condition": "E",
+      "status": "eligible",
+      "count": 25
+    },
+    {
+      "condition": "E",
+      "status": "fewer_than_two_requests",
+      "count": 29
+    },
+    {
+      "condition": "E",
+      "status": "negation_or_uncertainty",
+      "count": 20
+    },
+    {
+      "condition": "E",
+      "status": "no_explicit_target",
+      "count": 43
+    },
+    {
+      "condition": "E",
+      "status": "revision_or_effect_request",
+      "count": 34
+    },
+    {
+      "condition": "E",
+      "status": "rule_or_reason_request",
+      "count": 2
+    },
+    {
+      "condition": "E",
+      "status": "unbound_prefix_roles",
+      "count": 3
+    },
+    {
+      "condition": "E",
+      "status": "uncertain_clause_binding",
+      "count": 4
+    },
+    {
+      "condition": "F",
+      "status": "eligible",
+      "count": 25
+    },
+    {
+      "condition": "F",
+      "status": "fewer_than_two_requests",
+      "count": 29
+    },
+    {
+      "condition": "F",
+      "status": "negation_or_uncertainty",
+      "count": 20
+    },
+    {
+      "condition": "F",
+      "status": "no_explicit_target",
+      "count": 43
+    },
+    {
+      "condition": "F",
+      "status": "revision_or_effect_request",
+      "count": 34
+    },
+    {
+      "condition": "F",
+      "status": "rule_or_reason_request",
+      "count": 2
+    },
+    {
+      "condition": "F",
+      "status": "unbound_prefix_roles",
+      "count": 3
+    },
+    {
+      "condition": "F",
+      "status": "uncertain_clause_binding",
+      "count": 4
+    }
+  ],
+  "scoring_references_read": false
+}

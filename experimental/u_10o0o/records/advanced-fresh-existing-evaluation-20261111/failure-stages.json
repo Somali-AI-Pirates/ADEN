@@ -1,0 +1,2856 @@
+[
+  {
+    "id": "AS-DEV02",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      5
+    ],
+    "final_missing": [
+      2,
+      5
+    ]
+  },
+  {
+    "id": "AS-DEV02",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      5
+    ],
+    "final_missing": [
+      2,
+      5
+    ]
+  },
+  {
+    "id": "AS-DEV03",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-DEV03",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-DEV04",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV04",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV05",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-DEV06",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2,
+      3
+    ],
+    "final_missing": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "AS-DEV06",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2,
+      3
+    ],
+    "final_missing": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "AS-DEV08",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV08",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV09",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-DEV09",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-DEV16",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-DEV16",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-DEV17",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV17",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV19",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV19",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV20",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-DEV20",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      3
+    ]
+  },
+  {
+    "id": "AS-DEV21",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV21",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV22",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV22",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV23",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV23",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV24",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV24",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV25",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV25",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV26",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV26",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV27",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV27",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-DEV29",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-DEV29",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-DEV30",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-DEV30",
+    "suite": "official/development",
+    "category": "official/development",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD01",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD01",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD02",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD02",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD03",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD03",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD05",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      3
+    ],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-ADD05",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      3
+    ],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-ADD06",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2,
+      3
+    ],
+    "final_missing": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "id": "AS-ADD06",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2,
+      3
+    ],
+    "final_missing": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "id": "AS-ADD07",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD07",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD09",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD09",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD10",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD10",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD13",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "AS-ADD13",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "AS-ADD14",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD14",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD17",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD17",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD19",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD19",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-ADD20",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD20",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD21",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD21",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD23",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD23",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD24",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD24",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD25",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD25",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD26",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD26",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD27",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD27",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD28",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD28",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD29",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-ADD29",
+    "suite": "official/additional",
+    "category": "official/additional",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-11",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-11",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-12",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-12",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-13",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-13",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-14",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-14",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-15",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-15",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-17",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-17",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-18",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-S02-19",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-19",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-20",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S02-20",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S04-02",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-02",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-05",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-05",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-08",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-08",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-10",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-10",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      3,
+      4
+    ],
+    "final_missing": [
+      3,
+      4
+    ]
+  },
+  {
+    "id": "AS-S04-13",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-13",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      3
+    ],
+    "final_missing": [
+      1,
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-15",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-S04-16",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      3,
+      4
+    ],
+    "final_missing": [
+      1,
+      3,
+      4
+    ]
+  },
+  {
+    "id": "AS-S04-16",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "final_missing": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": "AS-S04-17",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S04-17",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "final_missing": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "id": "AS-S04-19",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      3
+    ],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-S04-19",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      3
+    ],
+    "final_missing": [
+      3
+    ]
+  },
+  {
+    "id": "AS-S06-01",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-01",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-02",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-02",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-03",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-03",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-04",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-04",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-05",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-05",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-06",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-06",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-07",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-07",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-08",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-08",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-09",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-09",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-10",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-10",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-11",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-11",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-12",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-12",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-13",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-13",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-14",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-14",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-15",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-15",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-16",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-16",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-17",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-17",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-18",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-18",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-19",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-19",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-20",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-S06-20",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-WR-12",
+    "suite": "categories/work_rules",
+    "category": "work_rules/applicability",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-WR-12",
+    "suite": "categories/work_rules",
+    "category": "work_rules/applicability",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-WR-18",
+    "suite": "categories/work_rules",
+    "category": "work_rules/applicability",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-WR-20",
+    "suite": "categories/work_rules",
+    "category": "work_rules/applicability",
+    "condition": "E",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-WR-20",
+    "suite": "categories/work_rules",
+    "category": "work_rules/applicability",
+    "condition": "F",
+    "stage": "final_selection_loss",
+    "candidate_missing": [],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-01",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/procedure_paraphrase",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-01",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/procedure_paraphrase",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-06",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/procedure_paraphrase",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-06",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/procedure_paraphrase",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-08",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/procedure_paraphrase",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-08",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/procedure_paraphrase",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-10",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/procedure_paraphrase",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-10",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/procedure_paraphrase",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-14",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-14",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-15",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-15",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-16",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-16",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-18",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-18",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-20",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-20",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/rule_paraphrase",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-21",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-21",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-22",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-22",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-23",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-23",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-24",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-24",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-26",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-26",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-28",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-28",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-29",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-29",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-30",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-30",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_workflow",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-31",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2,
+      3
+    ],
+    "final_missing": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "AS-SEM-31",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2,
+      3
+    ],
+    "final_missing": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": "AS-SEM-32",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-32",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-33",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-33",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-34",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-34",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-35",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-35",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-36",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-36",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1,
+      2
+    ],
+    "final_missing": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-37",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-37",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-38",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-38",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-39",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-39",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      2
+    ],
+    "final_missing": [
+      2
+    ]
+  },
+  {
+    "id": "AS-SEM-40",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "E",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  },
+  {
+    "id": "AS-SEM-40",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "condition": "F",
+    "stage": "candidate_incomplete",
+    "candidate_missing": [
+      1
+    ],
+    "final_missing": [
+      1
+    ]
+  }
+]
