@@ -1,4 +1,4 @@
-"""B·C 연결 검증용 자원 공급 함수. 개인 검증 도구이며 공통 코드는 이 모듈에 의존하지 않는다.
+"""B·C 연결 검증용 자원 공급 함수. 기존 고정 근거 import는 공통 공급기로 연결하며, 메모리 복사는 개인 검증 도구다.
 
 공통 자원 로더(app.service.resources.load_resources)가 환경변수의 '모듈:이름'으로 불러 쓴다.
 API와 평가 CLI에 같은 값을 주면 둘이 같은 자원으로 실행된다.
@@ -11,56 +11,12 @@ API와 평가 CLI에 같은 값을 주면 둘이 같은 자원으로 실행된�
   만들지 않는다. ADEN_EVIDENCE_CONTEXT=1이면 최종 문맥까지 넘긴다(서비스가 문맥을 다시 고르지 않는 경로).
   고정 근거 B·C 검증이며 검색 방식의 성능 비교가 아니다.
 """
-import json
 import os
-from dataclasses import fields
-from pathlib import Path
 
-import tiktoken
 from qdrant_client import QdrantClient, models
 
-from app.generation.context import build_context
-from shared.contracts import Chunk, RetrievedChunk
+from app.service.evidence import stored_evidence, stored_provider  # noqa: F401 - 기존 호출 경로 호환
 from shared.exceptions import ServiceError
-
-CHUNK_FIELDS = [f.name for f in fields(Chunk)]
-
-
-def stored_provider(runs_path, settings, *, with_context=False):
-    """저장된 실행 기록의 후보를 그대로 돌려주는 evidence_provider."""
-    lines = Path(runs_path).read_text(encoding="utf-8").splitlines()
-    stored = {}
-    for run in (json.loads(line) for line in lines if line.strip()):
-        stored.setdefault(run["question"], {})[run["retrieval_mode"]] = run
-    encoding = tiktoken.get_encoding(settings.context_tokenizer)
-
-    def provider(question, mode):
-        run = stored[question].get(mode)  # 저장되지 않은 질문은 KeyError → 서비스가 503으로 알린다
-        if run is None or run.get("retrieved_candidates") is None:
-            raise NotImplementedError(f"저장된 후보가 없는 검색 방식: {mode}")
-        candidates = [
-            RetrievedChunk(Chunk(**{k: c[k] for k in CHUNK_FIELDS if k in c}),
-                           c["rank"], c["score"], c["retriever"])
-            for c in run["retrieved_candidates"]
-        ]
-        if not with_context:
-            return candidates, None
-        by_id = {c.chunk.chunk_id: c for c in candidates}
-        final = [by_id[c["chunk_id"]] for c in run["final_context_chunks"]]
-        return candidates, build_context(final, settings.retrieval.k,
-                                         settings.retrieval.context_token_budget,
-                                         lambda text: len(encoding.encode(text)))
-
-    return provider
-
-
-def stored_evidence(settings):
-    """ADEN_EVIDENCE_PROVIDER 대상. 재생할 기록은 ADEN_EVIDENCE_RUNS로 고른다."""
-    runs_path = os.environ.get("ADEN_EVIDENCE_RUNS", "").strip()
-    if not runs_path or not Path(runs_path).is_file():
-        raise ServiceError("ADEN_EVIDENCE_RUNS에 재생할 실행 기록(runs.jsonl) 경로를 지정해 주세요.", 503)
-    return stored_provider(runs_path, settings,
-                           with_context=bool(os.environ.get("ADEN_EVIDENCE_CONTEXT")))
 
 
 def memory_copy(settings):

@@ -22,6 +22,111 @@ app = create_app(resources_loader=lambda settings: load_generation_resources(
 
 일반·보안 평가에는 기존 `ServiceBootstrap(resources_loader=...)`에 같은 로더를 전달한다. 보안 비교는 문맥을 한 번 준비하고 base/defense에 같은 본문·출처를 사용한다. 정답 파일은 provider나 생성 입력에 넣지 않는다.
 
+
+## B/C 고정 근거 API 실행
+
+A 색인이 준비되기 전에는 공통 공급기 `app.service.evidence:stored_evidence`를 사용한다. 이 경로는 저장된 후보와 최종 청크를 입력받으며 임베더·Qdrant를 만들지 않는다. 실제 모델 호출과 외부 추적에는 [공식 실행 기준](c-module-guide.md#팀-공식-실행)을 적용한다.
+
+### 근거 JSONL 준비
+
+`ADEN_EVIDENCE_RUNS`는 UTF-8 JSONL 파일 경로다(BOM도 허용). 한 줄에 질문·방식별 레코드 하나를 둔다. 생성 입력에 정답·채점 규칙은 넣지 않는다. 실제 근거와 실행 결과는 승인된 로컬 경로에 두며 개인 실험·PDF·.env를 제품 코드에 복사하지 않는다.
+
+```json
+{"question":"예약 DEMO의 접수 상태는 무엇인가요?","retrieval_mode":"naive","retrieved_candidates":[{"chunk_id":"DEMO-p1-c1","book_id":"DEMO","file_name":"DEMO.pdf","page":1,"heading":"예약 DEMO","text":"예약 DEMO는 접수 상태입니다. 운송 확정 기록은 없습니다.","rank":1,"score":1.0,"retriever":"fixed"}],"final_context_chunks":[{"chunk_id":"DEMO-p1-c1","book_id":"DEMO","file_name":"DEMO.pdf","page":1,"heading":"예약 DEMO","text":"예약 DEMO는 접수 상태입니다. 운송 확정 기록은 없습니다.","source_id":"S1"}]}
+```
+
+위 내용은 형식 설명용 가상 자료이며 실제 업무 질문의 근거가 아니다.
+
+- `retrieved_candidates`에는 `Chunk` 필드와 `rank`·`score`·`retriever`를 넣는다. `heading`은 생략할 수 있다.
+- 후보만 제공하면 `ADEN_EVIDENCE_CONTEXT`를 비운다. 서비스가 설정의 k·토큰 예산으로 문맥을 선택한다.
+- `ADEN_EVIDENCE_CONTEXT=1`이면 `final_context_chunks`의 청크 ID 순서대로 후보에서 찾아 공통 문맥 형식으로 재구성한다. 자료 ID는 이 순서에 따라 S1부터 다시 부여한다.
+- 고정 모드에서는 후보와 최종 청크의 본문·문서·쪽·제목이 같아야 한다. 누락된 후보 ID, 중복 최종 청크, k·토큰 한도로 저장 순서를 온전히 재현할 수 없는 자료는 503으로 거부하며 모델을 호출하지 않는다.
+- 이 변수는 기존 호환성을 위해 비어 있지 않은 문자열이면 고정 모드다. `0`으로 끄지 말고 빈 문자열을 쓴다.
+- 파일에 저장된 질문 문자열과 요청 질문이 같아야 한다. 미등록 질문은 503, 미등록 방식은 501이다. 다른 자료나 방식으로 임의 대체하지 않는다.
+
+### 서버 기동과 HTTP 요청
+
+저장소 루트의 PowerShell에서 실행한다. `.venv`와 의존성 설치는 [개발 가이드](development.md#설치)를 따른다. `OPENAI_API_KEY`는 `.env` 또는 환경변수로 제공하며 명령·문서에 키 값을 적지 않는다.
+
+```powershell
+$env:ADEN_CONFIG = 'configs/advanced.yaml'
+$env:ADEN_QDRANT_CLIENT = ''
+$env:ADEN_EVIDENCE_PROVIDER = 'app.service.evidence:stored_evidence'
+$env:ADEN_EVIDENCE_RUNS = 'C:\bc-inputs\runs.jsonl' # 준비한 파일의 실제 경로
+$env:ADEN_EVIDENCE_CONTEXT = '1'
+.\.venv\Scripts\python.exe -B -m uvicorn app.api.main:app --host 127.0.0.1 --port 8000 --workers 1
+```
+
+다른 터미널에서 상태를 확인한 뒤 질문한다. `/health`는 모델을 호출하지 않고 `/query`는 실제 생성 요청이다.
+
+```powershell
+Invoke-RestMethod -Uri 'http://127.0.0.1:8000/health'
+$payload = @{ question = '예약 DEMO의 접수 상태는 무엇인가요?'; retrieval_mode = 'naive' } | ConvertTo-Json
+$response = Invoke-WebRequest -Uri 'http://127.0.0.1:8000/query' -Method Post `
+    -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($payload))
+$body = $response.Content | ConvertFrom-Json
+$body.request_id
+$response.Headers['X-Request-ID']
+```
+
+`/health`의 `dataset=advanced`, `query_ready=true`를 확인한다. 준비에 실패하면 `/query`의 503 `reason`과 연결 변수·파일 형식을 확인한다. API 본문은 기존 `question`·`retrieval_mode`를 유지하며, 문맥을 직접 받는 필드는 추가하지 않는다.
+
+PR #49의 생성 경로는 `app.service.query.answer_query` → `app.generation.chain.generate_answer`이며 `app/generation/prompts/shipping_qa.txt`를 읽는다. 현재 Advanced 설정은 gpt-6-luna, low, 출력 한도 4096, 최대 생성 시도 2회, 모델 호출 제한 60초다. 클라이언트 제한 시간은 재시도도 고려한다. 실행 버전은 `git rev-parse HEAD`, 생성 설정은 설정 파일, 실제 전송 값은 trace로 확인한다.
+
+### 요청 ID와 실행 기록 조회
+
+응답 JSON의 `request_id`와 `X-Request-ID`는 같다. 서버의 `http_request request_id=...` 요약 로그에는 method·path·status_code·latency_ms가 있고, 상세 문맥·시도·출력의 RunRecord 파일은 API가 자동 생성하지 않는다.
+
+상세 연결에는 Langfuse의 `LANGFUSE_PUBLIC_KEY`·`LANGFUSE_SECRET_KEY`·`LANGFUSE_BASE_URL`과 프로젝트 조회 권한이 필요하다. 추적을 사용할 때는 `LANGFUSE_TRACING_ENABLED=false` 또는 `OTEL_SDK_DISABLED=true`가 남아 있지 않은지 확인한다. 요청 ID로 trace ID를 계산해 기존 SDK로 조회한다.
+
+```python
+from dotenv import load_dotenv
+from langfuse import Langfuse
+
+load_dotenv()  # 저장소 루트에서 실행하며 키 값은 출력하지 않는다.
+client = Langfuse()
+try:
+    trace_id = client.create_trace_id(seed="<응답 request_id>")
+    observations = client.api.observations.get_many(
+        trace_id=trace_id, limit=50,
+        fields="core,basic,time,io,metadata,model,usage",
+    ).data
+finally:
+    client.shutdown()
+```
+
+`io`·`metadata`·`model`·`usage`를 포함해야 실제 입력·출력·설정·사용량을 읽을 수 있다. 수집 지연 시 재조회하며, flush 성공만으로 저장됐다고 판단하지 않는다.
+
+| 관측 | 확인할 내용 |
+| --- | --- |
+| `rag-query` | 질문·방식, request_id·dataset_id·config_hash·prompt_hash, 최종 상태·답변·reason·출처·서비스 시간 |
+| `retrieval` | 공급된 후보와 `provided_context=true` |
+| `final-context` | 최종 청크·순서·본문·해시·토큰 수·예산 제외 청크 |
+| `generation-attempt-N` | 실제 모델 입력·원시 출력·모델·출력 한도·추론 수준·사용량·시도별 시간·오류 |
+| `validation-attempt-N` | 출력 형식·출처·지원 날짜 검증 구간 |
+
+PR49 프롬프트 적용은 로컬 프롬프트 SHA-256와 root의 `prompt_hash`를 비교하고 실제 생성 입력의 system 본문까지 대조한다. `config_hash`는 설정 JSON과 프롬프트 해시를 결합하므로 프롬프트가 바뀌면 달라진다.
+
+서버는 Ctrl+C로 정상 종료해 자원 정리와 추적 전송을 마친다. Windows에서 강제 종료하면 마지막 관측이 유실될 수 있다. 추적 비활성화·전송 실패로 저장되지 않은 세부 기록은 API 응답과 요약 로그만으로 복구할 수 없다. 이 경우 로컬 상세 기록 저장이 필요한지는 별도 협의한다.
+
+### B/C 확인 범위
+
+B는 실행·고정 근거 연결·프롬프트 적용·요청/trace 연결을 확인하고 재현 방법을 전달한다. 생성 문제가 공유되면 그 입력 문맥·출력으로 재현해 보완한다. C는 근거 충분/필수 규칙 누락/대체 근거 등의 평가, Judge 구조·기준, RAGAS, HTTP 클라이언트와 응답 시간 측정을 맡는다.
+
+HTTP 시간은 C가 실제 요청 시작부터 응답 수신까지 측정하고 같은 request_id의 품질 결과에 연결한다. 서비스·생성 시도·Judge·RAGAS 시간은 별도로 남긴다. 고정 근거 연결 검증을 Advanced 실제 검색 방식 비교나 답변 품질 통과로 해석하지 않는다. 최종 검색 방식 비교는 A 색인 준비 후 진행한다.
+
+### B 작업 확인 순서
+
+1. 실행 버전과 Advanced 설정을 고정한다.
+2. 공통 저장 근거 공급기의 후보/고정 문맥 경로를 확인한다.
+3. 실제 HTTP /query로 생성되는지 확인한다.
+4. trace의 실제 모델 입력과 프롬프트·설정 해시를 대조한다.
+5. 응답 request_id·요약 로그·trace와 원격 문맥·출력·사용량을 대조한다.
+6. 위 실행 안내와 JSONL 형식·기록 조회 방법을 C에 전달한다.
+7. C가 생성 문제를 공유하면 해당 문맥·출력으로 재현하고 보완한다.
+
+2026-11-11에 이 공통 경로로 고정 근거 Advanced 1문항을 실제 생성해 HTTP 200 응답과 Langfuse 원격 문맥·생성 입력·출력·사용량의 일치를 확인했다. 근거 충분/부족 비교와 Judge·RAGAS 품질 평가는 수행하지 않았다. 실제 원문·답변·로그·개인 실험 결과는 저장소 밖에 보관한다.
+
 ## 메모리 Qdrant 연결
 
 기본 검색 자원 로더는 `QdrantClient(location=":memory:")`를 사용하며 Cloud URL·키를 요구하지 않는다. 빈 메모리 클라이언트는 색인이 준비된 상태가 아니므로 API는 503을 반환한다.
@@ -77,10 +182,10 @@ python -m app.evaluation.scripts.run_benchmark --adapter app.service.bootstrap:q
 | 지정 | 용도 |
 | --- | --- |
 | `ADEN_QDRANT_CLIENT=experimental.Damsebi.evidence_sources:memory_copy` | Qdrant Cloud의 기존 컬렉션(벡터·payload) 전체를 메모리 Qdrant로 복사해 실제 검색을 실행한다. `.env`에 `QDRANT_URL`·`QDRANT_API_KEY`가 필요하다 |
-| `ADEN_EVIDENCE_PROVIDER=experimental.Damsebi.evidence_sources:stored_evidence`와 `ADEN_EVIDENCE_RUNS=<runs.jsonl>` | 이전 실행의 (질문, 검색 방식)별 후보를 그대로 넘긴다. 임베더·Qdrant 없이 B·C를 검증한다. 고정 근거 검증이며 검색 성능 비교가 아니다 |
+| `ADEN_EVIDENCE_PROVIDER=app.service.evidence:stored_evidence`와 `ADEN_EVIDENCE_RUNS=<runs.jsonl>` | 이전 실행의 (질문, 검색 방식)별 후보를 그대로 넘긴다. 임베더·Qdrant 없이 B·C를 검증한다. 고정 근거 검증이며 검색 성능 비교가 아니다 |
 | 위에 `ADEN_EVIDENCE_CONTEXT=1` 추가 | 최종 문맥까지 넘겨 서비스가 문맥을 다시 고르지 않는 경로를 확인한다 |
 
-저장되지 않은 검색 방식은 `NotImplementedError`로 거부해 501 오류로 기록되고, 저장되지 않은 질문은 503 오류로 기록된다.
+저장되지 않은 검색 방식은 `NotImplementedError`로 거부해 501 오류로 기록되고, 저장되지 않은 질문은 503 오류로 기록된다. 고정 근거 공급기는 `app/service/evidence.py`의 공통 코드이며, `experimental.Damsebi.evidence_sources`의 기존 import는 호환용으로 유지한다.
 
 ## 로컬 확인
 
