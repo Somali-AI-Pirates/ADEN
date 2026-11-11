@@ -1,4 +1,4 @@
-from unittest.mock import Mock
+from unittest.mock import MagicMock
 
 from app.indexing.keyword_store import KeywordIndex
 from app.observability.records import normalize_run_record
@@ -12,7 +12,7 @@ def test_service_resolves_default_once_without_mutating_the_callers_request():
     settings = load_settings()
     settings.retrieval.default_mode = "hybrid"
     resources = make_query_resources()
-    resources.tracer = Mock()
+    resources.tracer = MagicMock()
     point = resources.qdrant.query_points.return_value.points[0]
     resources.retrieval.keyword_index = KeywordIndex([Chunk(**point.payload)])
     request = QueryRequest(question="예약 문의")

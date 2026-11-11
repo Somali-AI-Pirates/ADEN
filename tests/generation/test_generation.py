@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import MagicMock, Mock
 
 from app.generation.chain import generate_answer
 from app.generation.context import build_context
@@ -49,7 +49,7 @@ class GenerationTests(unittest.TestCase):
         self.assertEqual(result.model_answer.source_ids, ["S1"])
 
     def test_records_actual_messages_output_and_usage(self):
-        trace = Mock()
+        trace = MagicMock()
         generate_answer("예약이 확정됐나요?", self.context, FakeModel(["S1"]), trace=trace)
         record = trace.record_attempt.call_args.kwargs
         self.assertEqual(record["model"], "test-model")
@@ -77,7 +77,7 @@ class GenerationTests(unittest.TestCase):
         self.assertEqual([item["attempt"] for item in attempts], [1, 2, 3])
 
     def test_failed_model_call_records_input_and_error_type(self):
-        trace = Mock()
+        trace = MagicMock()
         model = FakeModel(["S1"])
         model.invoke = Mock(side_effect=RuntimeError("private internal detail"))
         with self.assertRaises(RuntimeError):

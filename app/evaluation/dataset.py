@@ -18,15 +18,27 @@ from typing import Any
 def _items(path: Path) -> list[Mapping[str, Any]]:
     text = path.read_text(encoding="utf-8")
     if path.suffix == ".jsonl":
-        data: Any = [json.loads(line) for line in text.splitlines() if line.strip()]
+        data: Any = []
+        for line in text.splitlines():
+            if line.strip():
+                data.append(json.loads(line))
     else:
         data = json.loads(text)
     if isinstance(data, Mapping):
-        lists = [v for k, v in data.items() if isinstance(v, list) and not k.startswith("_")]
+        lists = []
+        for key, value in data.items():
+            if isinstance(value, list) and not key.startswith("_"):
+                lists.append(value)
         if len(lists) != 1:
             raise ValueError(f"{path}: 문항 목록을 찾을 수 없다(최상위 목록 키가 1개여야 함)")
         data = lists[0]
-    if not isinstance(data, list) or not all(isinstance(x, Mapping) for x in data):
+    is_object_list = isinstance(data, list)
+    if is_object_list:
+        for item in data:
+            if not isinstance(item, Mapping):
+                is_object_list = False
+                break
+    if not is_object_list:
         raise ValueError(f"{path}: 문항은 객체 목록이어야 한다")
     return data
 
@@ -45,15 +57,24 @@ def load_questions(path: str | Path, ids: Iterable[str] | None = None) -> list[d
     if ids is None:
         return list(questions.values())
     ids = list(ids)
-    unknown = [i for i in ids if i not in questions]
+    unknown = []
+    for requested_id in ids:
+        if requested_id not in questions:
+            unknown.append(requested_id)
     if unknown:
         raise ValueError(f"질문 파일에 없는 ID: {unknown}")
-    return [questions[i] for i in ids]
+    selected = []
+    for requested_id in ids:
+        selected.append(questions[requested_id])
+    return selected
 
 
 def load_references(path: str | Path) -> dict[str, dict[str, Any]]:
     """평가 전용. id → 참고 항목 전체(정답·근거·채점 기준·expected_action 등)."""
-    return {str(item["id"]): dict(item) for item in _items(Path(path))}
+    references = {}
+    for item in _items(Path(path)):
+        references[str(item["id"])] = dict(item)
+    return references
 
 
 def evidence_books(reference: Mapping[str, Any]) -> list[str]:

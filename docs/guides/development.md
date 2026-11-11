@@ -10,13 +10,15 @@ uv sync --extra test --locked
 
 pip를 쓰는 경우 Python 3.13 가상환경을 활성화하고 `python -m pip install -e '.[test]'`로 설치한다. 각 가이드의 `python` 명령은 가상환경을 활성화한 뒤 실행하거나 앞에 `uv run`을 붙인다.
 
+실제 RAGAS 평가를 실행할 때는 `eval` 추가 설치를 함께 받는다: `uv sync --extra test --extra eval --locked` (pip: `python -m pip install -e '.[test,eval]'`). RAGAS 버전은 점수 재현을 위해 고정돼 있다.
+
 VS Code에서 저장소 루트를 열고 [권장 확장](../../.vscode/extensions.json)을 설치한다. Python 확장은 루트의 `.venv`를 자동으로 찾는다. 다른 환경이 선택돼 있으면 `Python: Select Interpreter`에서 프로젝트 가상환경을 선택한다. [저장소 설정](../../.vscode/settings.json)은 테스트 탐색기에 pytest를 켜고 Python 기본 포매터를 Ruff로 지정한다. 테스트 검색 범위와 Ruff 규칙은 [pyproject.toml](../../pyproject.toml)에서 관리한다.
 
 의존성은 [pyproject.toml](../../pyproject.toml)에서 수정하고 `uv lock`으로 [잠금 파일](../../uv.lock)을 갱신한다. `uv lock --check`로 일치를 확인한다. CI는 [워크플로](../../.github/workflows/ci.yml)의 pip 설치 경로를 사용한다.
 
 ## 서버 실행
 
-[설치](#설치) 후 [환경변수 예시](../../.env.example)를 참고해 로컬 `.env`를 준비하고 [데이터 가이드](data.md#qdrant-색인)에 따라 기존 Basic 색인을 확인한다. 서버 시작 시 질의 자원을 준비한다.
+[설치](#설치) 후 [환경변수 예시](../../.env.example)를 참고해 로컬 `.env`와 Advanced 설정을 준비한다. A 없이 B·C를 먼저 확인하는 방법과 메모리 색인의 같은 프로세스 적재 조건은 [로컬 B·C 안내](local-bc.md)를 따른다. 기본 앱은 색인 미준비 시 503과 원인을 반환하며 임의의 가상 근거로 답변하지 않는다. 다른 설정 파일과 색인·근거 연결은 `ADEN_CONFIG`, `ADEN_QDRANT_CLIENT`, `ADEN_EVIDENCE_PROVIDER`로 지정한다.
 
 ```bash
 uv run fastapi dev

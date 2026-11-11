@@ -11,7 +11,7 @@ from typing import Any
 
 from app.observability.records import RETRIEVAL_MODES
 from app.evaluation.graders import CRITERIA
-from app.evaluation.metrics import aggregate, operational_summary
+from app.evaluation.metrics import aggregate, operational_summary, score
 
 SAMPLE_BANNER = ("> **가상 샘플 결과** — 모의 서비스·모의 평가기로 만든 검증용 파일이다. "
                  "실제 Basic 데이터셋 성능이 아니며 발표·비교에 사용하지 않는다.")
@@ -42,29 +42,99 @@ def _write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
 def summarize(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[str, Any]]) -> dict:
     """방식별 평가 요약·운영 지표. 평가 호출 사용량은 grading으로 분리한다."""
     summary = {}
-    for mode in [m for m in RETRIEVAL_MODES if any(r["retrieval_mode"] == m for r in runs)]:
-        s = [x for x in scores if x["retrieval_mode"] == mode]
-        grading = [u for x in s for u in x["grading_usage"].values() if u]
-        summary[mode] = {
-            "hit_at_k": aggregate(x["retrieval"]["hit_at_k"] for x in s),
-            "recall_at_k": aggregate(x["retrieval"]["recall_at_k"] for x in s),
-            "faithfulness": aggregate(x["faithfulness"] for x in s),
-            **{f"judge_{c}": aggregate(x["judge"][c] for x in s) for c in CRITERIA},
-            "operations": operational_summary([r for r in runs if r["retrieval_mode"] == mode]),
-            "grading": {"calls": len(grading),
-                        "failed_calls": sum(bool(u["error"]) for u in grading),
-                        "latency_ms": sum(u["latency_ms"] for u in grading),
-                        "input_tokens": sum(u["input_tokens"] or 0 for u in grading)
-                        if any(u["input_tokens"] is not None for u in grading) else None,
-                        "output_tokens": sum(u["output_tokens"] or 0 for u in grading)
-                        if any(u["output_tokens"] is not None for u in grading) else None},
+    modes_with_runs = []
+    for retrieval_mode in RETRIEVAL_MODES:
+        has_runs = False
+        for run in runs:
+            if run["retrieval_mode"] == retrieval_mode:
+                has_runs = True
+                break
+        if has_runs:
+            modes_with_runs.append(retrieval_mode)
+    for mode in modes_with_runs:
+        s = []
+        for score_row in scores:
+            if score_row["retrieval_mode"] == mode:
+                s.append(score_row)
+        grading = []
+        for score_row in s:
+            for usage in score_row["grading_usage"].values():
+                if usage:
+                    grading.append(usage)
+
+        hit_scores = []
+        for score_row in s:
+            hit_scores.append(score_row["retrieval"]["hit_at_k"])
+        recall_scores = []
+        for score_row in s:
+            recall_scores.append(score_row["retrieval"]["recall_at_k"])
+        faithfulness_scores = []
+        for score_row in s:
+            faithfulness_scores.append(score_row["faithfulness"])
+        mode_summary = {
+            "hit_at_k": aggregate(hit_scores),
+            "recall_at_k": aggregate(recall_scores),
+            "faithfulness": aggregate(faithfulness_scores),
+        }
+        for criterion in CRITERIA:
+            judge_scores = []
+            for score_row in s:
+                judge_scores.append(score_row["judge"][criterion])
+            mode_summary[f"judge_{criterion}"] = aggregate(judge_scores)
+        mode_runs = []
+        for run in runs:
+            if run["retrieval_mode"] == mode:
+                mode_runs.append(run)
+        mode_summary["operations"] = operational_summary(mode_runs)
+
+        failed_calls = 0
+        for usage in grading:
+            if usage["error"]:
+                failed_calls += 1
+        grading_latency_ms = 0
+        for usage in grading:
+            grading_latency_ms += usage["latency_ms"]
+        has_input_tokens = False
+        for usage in grading:
+            if usage["input_tokens"] is not None:
+                has_input_tokens = True
+                break
+        grading_input_tokens = None
+        if has_input_tokens:
+            grading_input_tokens = 0
+            for usage in grading:
+                grading_input_tokens += usage["input_tokens"] or 0
+        has_output_tokens = False
+        for usage in grading:
+            if usage["output_tokens"] is not None:
+                has_output_tokens = True
+                break
+        grading_output_tokens = None
+        if has_output_tokens:
+            grading_output_tokens = 0
+            for usage in grading:
+                grading_output_tokens += usage["output_tokens"] or 0
+        mode_summary["grading"] = {"calls": len(grading),
+                                   "failed_calls": failed_calls,
+                                   "latency_ms": grading_latency_ms,
+                                   "input_tokens": grading_input_tokens,
+                                   "output_tokens": grading_output_tokens}
+        summary[mode] = mode_summary
+    for mode, stats in summary.items():
+        diagnostics = [s.get("evidence_diagnostics", {}) for s in scores if s["retrieval_mode"] == mode]
+        keys = sorted({key for d in diagnostics for key in d})
+        stats["evidence_diagnostics"] = {
+            key: aggregate(d.get(key) or score(None, "unavailable", "기록 없음") for d in diagnostics)
+            for key in keys
         }
     return summary
 
 
 def comparison_rows(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[str, Any]],
                     data_kind: str) -> list[dict[str, Any]]:
-    by_req = {s["request_id"]: s for s in scores}
+    by_req = {}
+    for score_row in scores:
+        by_req[score_row["request_id"]] = score_row
     rows = []
     for r in runs:
         s = by_req[r["request_id"]]
@@ -81,6 +151,11 @@ def comparison_rows(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[
                "faithfulness": s["faithfulness"]["value"],
                "faithfulness_status": s["faithfulness"]["status"],
                "faithfulness_reason": s["faithfulness"]["reason"]}
+        for key, item in s.get("evidence_diagnostics", {}).items():
+            row[key] = item["value"]
+            row[f"{key}_status"] = item["status"]
+            row[f"{key}_reason"] = item["reason"]
+        row["langfuse_score_status_counts"] = json.dumps(s.get("langfuse_score_status_counts", {}))
         for c in CRITERIA:
             row[f"judge_{c}"] = s["judge"][c]["value"]
             row[f"judge_{c}_status"] = s["judge"][c]["status"]
@@ -98,29 +173,44 @@ def answer_rows(runs: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
             "reason", "citations", "error_type", "latency_ms", "usage", "final_context_hash",
             "model_context_hash", "langfuse_trace_id", "langfuse_status",
             "langfuse_verification")
-    return [{**{k: r.get(k) for k in keys},
-             "final_context_chunk_ids": [c["chunk_id"] for c in r["final_context_chunks"] or []]}
-            for r in runs]
+    answers = []
+    for r in runs:
+        answer = {}
+        for key in keys:
+            answer[key] = r.get(key)
+        chunk_ids = []
+        for chunk in r["final_context_chunks"] or []:
+            chunk_ids.append(chunk["chunk_id"])
+        answer["final_context_chunk_ids"] = chunk_ids
+        answers.append(answer)
+    return answers
 
 
 def security_rows(rows: Sequence[Mapping[str, Any]], data_kind: str) -> list[dict[str, Any]]:
-    return [{"data_kind": data_kind, "question_id": r["question_id"],
-             "prompt_variant": r["prompt_variant"], "retrieval_mode": r["retrieval_mode"],
-             "request_id": r.get("request_id"), "final_context_hash": r["final_context_hash"],
-             "model_context_hash": r.get("model_context_hash"),
-             "final_context_chunk_ids": ";".join(c["chunk_id"] for c in r["final_context_chunks"]),
-             "status": r["status"], "error_type": r.get("error_type"),
-             "attack_in_context": r["attack_in_context"],
-             "attack_in_model_input": r["attack_in_model_input"],
-             "followed_attack": r["followed_attack"]["value"],
-             "answer_correct": r["answer_correct"]["value"],
-             "over_refusal": r["over_refusal"]["value"], "outcome": r["outcome"],
-             "defense_success": r["defense_success"], "answer": r.get("answer"),
-             "judge_reasons": " | ".join(f"{k}: {r[k]['reason']}" for k in
-                                         ("followed_attack", "answer_correct", "over_refusal")),
-             "latency_ms": r.get("latency_ms"), "input_tokens": r["usage"]["input_tokens"],
-             "output_tokens": r["usage"]["output_tokens"]}
-            for r in rows]
+    table = []
+    for r in rows:
+        chunk_ids = []
+        for chunk in r["final_context_chunks"]:
+            chunk_ids.append(chunk["chunk_id"])
+        judge_reasons = []
+        for judged_key in ("followed_attack", "answer_correct", "over_refusal"):
+            judge_reasons.append(f"{judged_key}: {r[judged_key]['reason']}")
+        table.append({"data_kind": data_kind, "question_id": r["question_id"],
+                      "prompt_variant": r["prompt_variant"], "retrieval_mode": r["retrieval_mode"],
+                      "request_id": r.get("request_id"), "final_context_hash": r["final_context_hash"],
+                      "model_context_hash": r.get("model_context_hash"),
+                      "final_context_chunk_ids": ";".join(chunk_ids),
+                      "status": r["status"], "error_type": r.get("error_type"),
+                      "attack_in_context": r["attack_in_context"],
+                      "attack_in_model_input": r["attack_in_model_input"],
+                      "followed_attack": r["followed_attack"]["value"],
+                      "answer_correct": r["answer_correct"]["value"],
+                      "over_refusal": r["over_refusal"]["value"], "outcome": r["outcome"],
+                      "defense_success": r["defense_success"], "answer": r.get("answer"),
+                      "judge_reasons": " | ".join(judge_reasons),
+                      "latency_ms": r.get("latency_ms"), "input_tokens": r["usage"]["input_tokens"],
+                      "output_tokens": r["usage"]["output_tokens"]})
+    return table
 
 
 def _fmt(agg: Mapping[str, Any]) -> str:
@@ -147,15 +237,21 @@ def render_readme(report_dir: Path) -> str:
               f"- 실행 코드: `{manifest.get('git_commit')}` (미커밋 변경: {manifest.get('git_dirty')})"]
     bench = manifest.get("benchmark")
     if bench:
+        question_labels = []
+        for question_id in bench["question_ids"]:
+            question_labels.append(f"`{question_id}`")
         lines += [f"- 일반 평가 k={bench['k']}, 방식: {', '.join(bench['modes'])}",
                   f"- 선택 질문({len(bench['question_ids'])}개): "
-                  + ", ".join(f"`{q}`" for q in bench["question_ids"]),
+                  + ", ".join(question_labels),
                   f"- 선택 이유: {bench.get('selection_reason') or '(미기재)'}",
                   f"- 평가기: Judge={bench.get('judge')}, Faithfulness={bench.get('faithfulness')}",
                   f"- Langfuse 전송: `{bench.get('langfuse_flush')}` "
                   "(`flushed_unverified`는 전송 요청만 끝난 상태이며 저장 확인이 아니다)",
                   f"- Langfuse 저장 확인(요청 수): `{bench.get('langfuse_verification')}` "
-                  "(`verified`만 API에서 관측을 조회한 것, `None`은 추적 비활성·어댑터 관리)"]
+                  "(`verified`만 기대한 관측이 모두 조회된 것, `partial`은 일부만 조회, "
+                  "`None`은 추적 비활성·어댑터 관리)"]
+    if manifest.get("langfuse_scores"):
+        lines += [f"- Langfuse 평가 점수 게시: `{manifest['langfuse_scores']}` (전송과 서버 저장 확인은 별도)"]
     regrade = manifest.get("regrade")
     if regrade:
         lines += [f"- 재채점: 원본 `{regrade['source_experiment_id']}`의 저장 답변을 다시 채점했다"
@@ -168,10 +264,21 @@ def render_readme(report_dir: Path) -> str:
                   "| 지표 | " + " | ".join(summary) + " |",
                   "| --- |" + " --- |" * len(summary)]
         metrics = [("Hit@k", "hit_at_k"), ("Recall@k", "recall_at_k"),
-                   ("Faithfulness", "faithfulness")] + [
-            (f"Judge {JUDGE_LABELS[c]}", f"judge_{c}") for c in CRITERIA]
+                   ("Faithfulness", "faithfulness")]
+        for criterion in CRITERIA:
+            metrics.append((f"Judge {JUDGE_LABELS[criterion]}", f"judge_{criterion}"))
         for label, key in metrics:
-            lines.append(f"| {label} | " + " | ".join(_fmt(summary[m][key]) for m in summary) + " |")
+            cells = []
+            for mode_name in summary:
+                cells.append(_fmt(summary[mode_name][key]))
+            lines.append(f"| {label} | " + " | ".join(cells) + " |")
+        diagnostic_keys = sorted({key for mode in summary.values() for key in mode.get("evidence_diagnostics", {})})
+        if diagnostic_keys:
+            lines += ["", "## 검색·문맥 누락 진단", "",
+                      "페이지 포함은 인용문 전체 보존을 뜻하지 않는다. 예산 제외 ID로 확인된 누락만 예산 누락으로 센다.", "",
+                      "| 지표 | " + " | ".join(summary) + " |", "| --- |" + " --- |" * len(summary)]
+            for key in diagnostic_keys:
+                lines.append(f"| {key} | " + " | ".join(_fmt(summary[m].get("evidence_diagnostics", {}).get(key, aggregate([]))) for m in summary) + " |")
         lines += ["", "## 운영 지표 (서비스 요청만, 평가 호출 제외)", "",
                   "| 방식 | 요청 | 오류율 | 평균 시간(정상) | 입력 토큰 | 출력 토큰 | 사용량 확인(완전/부분/미확인) | 재시도 |",
                   "| --- | --- | --- | --- | --- | --- | --- | --- |"]
@@ -200,10 +307,12 @@ def render_readme(report_dir: Path) -> str:
                 f"{r['attack_in_model_input'] or '-'} | {r['followed_attack'] or '-'} | "
                 f"{r['answer_correct'] or '-'} | {r['over_refusal'] or '-'} | {r['outcome']} |")
         if checks:
-            lines += ["", "동일 문맥 확인(True 확인 / False 불일치 / None 확인 불가):", ""] + [
-                f"- {q}: 로그 청크 {c['final_context_identical']}, 모델 문맥 문자열 "
-                f"{c['model_context_identical']}, 모델 입력에 문맥 포함 {c['context_in_model_input']}, "
-                f"생성 설정 {c['generation_settings_identical']}" for q, c in checks.items()]
+            lines += ["", "동일 문맥 확인(True 확인 / False 불일치 / None 확인 불가):", ""]
+            for checked_id, check in checks.items():
+                lines.append(
+                    f"- {checked_id}: 로그 청크 {check['final_context_identical']}, 모델 문맥 문자열 "
+                    f"{check['model_context_identical']}, 모델 입력에 문맥 포함 {check['context_in_model_input']}, "
+                    f"생성 설정 {check['generation_settings_identical']}")
         lines += ["", "공격 미노출(`not_exposed`)·생성 실패(`generation_failed`)·미평가는 방어 성공으로 세지 않는다."]
 
     lines += ["", "## Langfuse 기록 확인", "",

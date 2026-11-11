@@ -25,15 +25,18 @@ from app.observability.tracing import Tracer
 from app.evaluation.dataset import load_questions, load_references
 from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
 from app.evaluation.report import write_artifacts, write_report
+from app.evaluation.publishing import expected_observations, publish_evaluation_scores
 from app.evaluation.runner import grade_all, run_comparison
-from app.evaluation.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
-                                      now_id, sha256_file)
+from app.evaluation.scripts._common import (ROOT, add_publish_options, base_manifest, guard_overwrite,
+                                      load_callable, load_env, now_id, publication_plan, sha256_file)
 
 SAMPLE_K = 8  # 가상 샘플 전용 기본값. 실제 실행은 설정 파일이나 --k로 정한다.
 
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
+    p.add_argument("--publish-langfuse-scores", action="store_true", help="채점 후 trace에 수치 점수 게시")
+    add_publish_options(p)
     p.add_argument("--sample", action="store_true", help="가상 샘플·모의 평가기로 실행")
     p.add_argument("--questions", help="제공 질문 파일(id·question만 실행에 사용)")
     p.add_argument("--references", help="참고 정답 파일(기본: --questions와 같은 파일)")
@@ -41,7 +44,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--ids", help="선택 질문 ID, 쉼표 구분(기본: 전체)")
     p.add_argument("--selection-reason", default="")
     p.add_argument("--experiment-id")
-    p.add_argument("--dataset-id", help="데이터셋 이름(기본: 설정 파일, 미지정 시 basic)")
+    p.add_argument("--dataset-id", help="데이터셋 이름(기본: 설정 파일, 미지정 시 advanced)")
     # 둘을 함께 주면 기록(해시)과 실제 실행(파일)이 다른 설정을 가리킬 수 있어 하나만 받는다
     config_group = p.add_mutually_exclusive_group()
     config_group.add_argument("--config", help="설정 파일. 표준 bootstrap의 실행 설정과 config_hash에 적용")
@@ -78,6 +81,7 @@ def resolve_k(k: int | None, config: Settings | None) -> int:
 def main() -> None:
     args = parse_args()
     if args.verify_langfuse:
+        load_env()
         tracer = Tracer.from_env()
         for trace_id in args.verify_langfuse:
             print(trace_id, json.dumps(tracer.verify_trace(trace_id), ensure_ascii=False))
@@ -86,9 +90,12 @@ def main() -> None:
     config_path = (ROOT / args.config).resolve() if args.config and not args.sample else None
     config = load_settings(config_path) if config_path is not None else None
     if args.dataset_id is None:
-        args.dataset_id = config.dataset if config else "basic"
+        args.dataset_id = config.dataset if config else "advanced"
 
-    modes = [m for m in args.modes.split(",") if m]
+    modes = []
+    for mode in args.modes.split(","):
+        if mode:
+            modes.append(mode)
     if args.sample:
         from app.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_EVAL, FakeLangfuseClient,
                                         MockJudge, SampleServiceAdapter, mock_faithfulness)
@@ -126,8 +133,26 @@ def main() -> None:
     exp_dir = Path(args.artifacts_dir) / experiment_id
     guard_overwrite(report_dir / "comparison.csv", args.overwrite)
 
-    ids = [i.strip() for i in args.ids.split(",")] if args.ids else None
+    ids = None
+    if args.ids:
+        ids = []
+        for requested_id in args.ids.split(","):
+            ids.append(requested_id.strip())
     questions = load_questions(questions_path, ids)  # id·question만
+
+    manifest = base_manifest(experiment_id=experiment_id, dataset_id=dataset_id,
+                             config_hash=config_hash, sample=args.sample)
+    question_ids = []
+    for question in questions:
+        question_ids.append(question["id"])
+    manifest["benchmark"] = {
+        "k": args.k, "modes": modes, "question_ids": question_ids,
+        "selection_reason": args.selection_reason or ("가상 샘플 시나리오" if args.sample else ""),
+        "references_sha256": sha256_file(Path(references_path)),
+        "questions_file": Path(questions_path).name, "judge": judge_desc,
+        "faithfulness": faith_desc, "judge_prompt": sha256_file(PROMPTS_DIR / "judge.txt"),
+    }
+    publication = publication_plan(args, manifest)  # 서비스·평가 호출 전에 평가 세트 충돌을 확인한다
 
     # 1) 실행·저장: 정답 파일은 아직 읽지 않는다
     runs = run_comparison(questions, adapter, experiment_id=experiment_id,
@@ -139,26 +164,25 @@ def main() -> None:
         r.setdefault("langfuse_status", None)
         r["langfuse_verification"] = (
             tracer.verify_trace(r.get("langfuse_trace_id"),
-                                timeout_s=max(0.0, deadline - time.monotonic()))["status"]
+                                timeout_s=max(0.0, deadline - time.monotonic()),
+                                expected_observations=expected_observations(r))["status"]
             if isinstance(tracer, Tracer) and tracer.enabled else None)
-    verified = Counter(("mock:" if args.sample else "") + str(r["langfuse_verification"])
-                       for r in runs)
-    manifest = base_manifest(experiment_id=experiment_id, dataset_id=dataset_id,
-                             config_hash=config_hash, sample=args.sample)
-    manifest["benchmark"] = {
-        "k": args.k, "modes": modes, "question_ids": [q["id"] for q in questions],
-        "selection_reason": args.selection_reason or ("가상 샘플 시나리오" if args.sample else ""),
-        "questions_file": Path(questions_path).name, "judge": judge_desc,
-        "faithfulness": faith_desc, "judge_prompt": sha256_file(PROMPTS_DIR / "judge.txt"),
-        "langfuse_flush": ("mock:" if args.sample else "") + flush["status"],
-        "langfuse_verification": dict(verified),
-    }
+    verified = Counter()
+    for run in runs:
+        verified[("mock:" if args.sample else "") + str(run["langfuse_verification"])] += 1
+    manifest["benchmark"].update(langfuse_flush=("mock:" if args.sample else "") + flush["status"],
+                                 langfuse_verification=dict(verified))
     write_artifacts(exp_dir, manifest, runs=runs)
 
     # 2) 채점: 저장된 답변·최종 문맥에 정답·채점 기준을 연결
     scores = grade_all(runs, load_references(references_path), k=args.k,
                        judge_fn=judge_fn, faithfulness_fn=faith_fn)
-    write_artifacts(exp_dir, manifest, scores=scores)
+    if publication:
+        manifest["langfuse_scores"] = publication
+    write_artifacts(exp_dir, manifest, scores=scores)  # 게시 전에 저장해 게시 중 오류·중단에도 남긴다
+    if publication:
+        manifest["langfuse_scores"] = publish_evaluation_scores(tracer, runs, scores, manifest)
+        write_artifacts(exp_dir, manifest, scores=scores)
     write_report(report_dir, manifest, runs=runs, scores=scores)
     print(f"실행 기록: {exp_dir}\n제출 결과: {report_dir}")
     if args.sample:

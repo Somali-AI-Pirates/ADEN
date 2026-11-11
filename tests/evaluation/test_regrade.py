@@ -75,3 +75,87 @@ def test_regrade_requires_judge_model_for_real_records(tmp_path, monkeypatch, so
     (source / "manifest.json").write_text(json.dumps({**manifest, "sample": False}), encoding="utf-8")
     with pytest.raises(SystemExit, match="--judge-model"):
         run_regrade(monkeypatch, tmp_path, "--experiment-id", "basic-re")
+
+
+def test_score_client_initialization_failure_still_saves_report(tmp_path, monkeypatch, source):
+    def fail():
+        raise RuntimeError("private initialization detail")
+    monkeypatch.setattr("app.evaluation.samples.FakeLangfuseClient", fail)
+    run_regrade(monkeypatch, tmp_path, "--experiment-id", "sample-score-failure", "--publish-langfuse-scores")
+    output = tmp_path / "a" / "sample-score-failure"
+    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["langfuse_scores"]["status"] == "failed"
+    assert manifest["langfuse_scores"]["error"] == "RuntimeError"
+    assert (output / "scores.jsonl").is_file()
+    assert (tmp_path / "r" / "sample-score-failure" / "README.md").is_file()
+
+
+def test_sample_score_publication_never_loads_real_tracer(tmp_path, monkeypatch, source):
+    def fail():
+        pytest.fail("real Langfuse initialization in sample")
+    monkeypatch.setattr("app.observability.tracing.Tracer.from_env", fail)
+    run_regrade(monkeypatch, tmp_path, "--experiment-id", "sample-posted", "--publish-langfuse-scores")
+    manifest = json.loads((tmp_path / "a" / "sample-posted" / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["langfuse_scores"]["sample"] is True
+    assert manifest["langfuse_scores"]["score_status_counts"]["recorded_unverified"] > 0
+    # Judge만 바꾼 재채점은 Judge만 게시하고, 이름은 평가 세트(기본: 실험 ID)로 시작한다
+    assert manifest["langfuse_scores"]["groups"] == ["judge"]
+    names = [name for row in jsonl(tmp_path / "a" / "sample-posted" / "scores.jsonl")
+             for name in row.get("langfuse_score_ids", {})]
+    assert names and all(name.startswith("sample-posted.judge.") for name in names)
+
+
+def test_scores_are_saved_before_publication_and_survive_interruption(tmp_path, monkeypatch, source):
+    output = tmp_path / "a" / "sample-interrupted"
+    runs_before = (source / "runs.jsonl").read_bytes()
+
+    def interrupted(tracer, runs, scores, manifest):
+        saved = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
+        assert saved["langfuse_scores"]["status"] == "incomplete"  # 게시 전에 이미 저장됐다
+        assert len(jsonl(output / "scores.jsonl")) == len(scores)
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr(regrade, "publish_evaluation_scores", interrupted)
+    with pytest.raises(KeyboardInterrupt):
+        run_regrade(monkeypatch, tmp_path, "--experiment-id", "sample-interrupted",
+                    "--publish-langfuse-scores", "--evaluation-set", "sample-set-r1")
+    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["langfuse_scores"]["status"] == "incomplete"
+    assert manifest["langfuse_scores"]["evaluation_set"] == "sample-set-r1"
+    assert all(row["judge"] for row in jsonl(output / "scores.jsonl"))
+    assert (source / "runs.jsonl").read_bytes() == runs_before
+
+
+def test_publication_failing_midway_keeps_scores_and_sent_ids(tmp_path, monkeypatch, source):
+    from app.evaluation.samples import FakeLangfuseClient
+    sent = []
+
+    def create_score(self, **kwargs):
+        if len(sent) >= 2:
+            raise ConnectionError("mock score failure")
+        sent.append(kwargs["name"])
+
+    monkeypatch.setattr(FakeLangfuseClient, "create_score", create_score)
+    run_regrade(monkeypatch, tmp_path, "--experiment-id", "sample-midway", "--publish-langfuse-scores")
+    output = tmp_path / "a" / "sample-midway"
+    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["langfuse_scores"]["status"] == "partial"
+    assert manifest["langfuse_scores"]["score_status_counts"]["recorded_unverified"] == 2
+    rows = jsonl(output / "scores.jsonl")
+    assert all(row["judge"] for row in rows)
+    assert sorted(name for row in rows for name in row.get("langfuse_score_ids", {})) == sorted(sent)
+
+
+def test_regrade_refuses_a_set_used_with_other_conditions_before_grading(tmp_path, monkeypatch, source):
+    run_regrade(monkeypatch, tmp_path, "--experiment-id", "sample-v1", "--publish-langfuse-scores",
+                "--evaluation-set", "sample-set")
+    prompt = tmp_path / "judge_v2.txt"
+    prompt.write_text("다른 기준\n", encoding="utf-8")
+    monkeypatch.setattr(regrade, "grade_all", lambda *a, **k: pytest.fail("세트 충돌인데 채점을 시작했다"))
+    with pytest.raises(SystemExit, match="다른 채점 조건"):
+        run_regrade(monkeypatch, tmp_path, "--experiment-id", "sample-v2", "--publish-langfuse-scores",
+                    "--evaluation-set", "sample-set", "--judge-prompt", str(prompt))
+    with pytest.raises(SystemExit, match="반복 회차"):  # 같은 조건의 반복 채점도 세트를 나눈다
+        run_regrade(monkeypatch, tmp_path, "--experiment-id", "sample-v1-r2", "--publish-langfuse-scores",
+                    "--evaluation-set", "sample-set")
+    assert not (tmp_path / "a" / "sample-v2").exists() and not (tmp_path / "a" / "sample-v1-r2").exists()

@@ -1,0 +1,43 @@
+{
+  "experiment_id": "basic-smoke-s01-20261110-regrade-v2-r2",
+  "dataset_id": "basic",
+  "config_hash": "sha256:9f802f7c4882277341f09502642d7bc89ae5c8b968614ba89dd970013557d4aa",
+  "sample": false,
+  "git_commit": "8434792dc2dd05375694ac793511ab0c2b840a31",
+  "git_dirty": true,
+  "versions": {
+    "python": "3.13.15",
+    "langfuse": "5.2.0",
+    "ragas": "0.4.3",
+    "openai": "2.54.0"
+  },
+  "benchmark": {
+    "k": 8,
+    "modes": [
+      "naive",
+      "hybrid",
+      "hybrid_rerank"
+    ],
+    "question_ids": [
+      "S01"
+    ],
+    "selection_reason": "1문항 점검: 형식·Judge 파싱·RAGAS·Langfuse·시간·토큰 확인",
+    "questions_file": "custom_questions.json",
+    "judge": "gpt-6-luna",
+    "faithfulness": "gpt-6-luna",
+    "judge_prompt": "sha256:4079487d93c1620c5a7871a6374fd5aec21b9083e27f5a27152118519172936e",
+    "langfuse_flush": "flushed_unverified",
+    "langfuse_verification": {
+      "verified": 3
+    }
+  },
+  "regrade": {
+    "source_experiment_id": "basic-smoke-s01-20261110",
+    "source_git_commit": "8434792dc2dd05375694ac793511ab0c2b840a31",
+    "source_judge": "gpt-6-luna",
+    "source_judge_prompt": "sha256:4079487d93c1620c5a7871a6374fd5aec21b9083e27f5a27152118519172936e",
+    "judge_prompt_file": "judge.txt",
+    "references_file": "custom.json",
+    "faithfulness": "recomputed"
+  }
+}

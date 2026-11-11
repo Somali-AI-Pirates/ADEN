@@ -9,9 +9,10 @@
         --retrieve app.service.bootstrap:retrieve_context \
         --generate app.service.bootstrap:generate_with_context ...
 
-설정은 기본적으로 ``configs/basic.yaml``을 읽는다. 평가 CLI의 ``--config``가
-있으면 ``configure_evaluation()``을 통해 지정 파일을 실제 자원 초기화에 적용한다. 접속 정보는 앱과
-같이 저장소 루트의 ``.env``를 읽으며 이미 설정된 환경변수를 우선한다.
+설정은 API와 같이 ``ADEN_CONFIG``, 없으면 기본 설정(``configs/advanced.yaml``)을 읽는다. 평가 CLI의
+``--config``가 있으면 ``configure_evaluation()``을 통해 지정 파일을 실제 자원 초기화에 적용한다. 접속
+정보는 앱과 같이 저장소 루트의 ``.env``를 읽으며 이미 설정된 환경변수를 우선한다. 자원은 API와 같은
+``load_resources``로 준비하므로 ``ADEN_QDRANT_CLIENT``·``ADEN_EVIDENCE_PROVIDER`` 연결도 같이 적용된다.
 """
 
 import atexit
@@ -23,15 +24,15 @@ from dotenv import load_dotenv
 from app.generation.chain import DEFAULT_PROMPT
 from app.service.adapters import make_query_adapter, make_security_adapters
 from app.service.resources import Resources, load_resources
-from shared.settings import DEFAULT_CONFIG, PROJECT_ROOT, Settings, load_settings
+from shared.settings import PROJECT_ROOT, Settings, configured_path, load_settings
 
 DEFENSE_PROMPT = DEFAULT_PROMPT.parent / "defense.txt"
 
 
-def load_settings_with_env(config_path: Path = DEFAULT_CONFIG) -> Settings:
-    """``create_app()``과 같은 순서로 ``.env``를 읽은 뒤 지정 설정을 검증한다."""
+def load_settings_with_env(config_path: Path | None = None) -> Settings:
+    """``create_app()``과 같은 순서로 ``.env``를 읽은 뒤 지정 설정(없으면 API와 같은 선택)을 검증한다."""
     load_dotenv(PROJECT_ROOT / ".env")
-    return load_settings(config_path)
+    return load_settings(config_path or configured_path())
 
 
 class ServiceBootstrap:
@@ -49,8 +50,8 @@ class ServiceBootstrap:
     def configure(self, config_path: Path) -> None:
         """자원 준비 전에 평가 설정을 선택한다. 실행 중 설정 교체는 거부한다."""
         config_path = Path(config_path).resolve()
-        active_path = self._config_path or DEFAULT_CONFIG.resolve()
         if self._resources is not None:
+            active_path = self._config_path or configured_path().resolve()
             if config_path == active_path and load_settings(config_path) == self._settings:
                 return
             raise ValueError("이미 준비된 평가 자원의 설정을 바꿀 수 없습니다. 먼저 close()하거나 새 실행을 사용하세요.")

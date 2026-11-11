@@ -1,7 +1,40 @@
 from collections.abc import Callable, Sequence
 from hashlib import sha256
 
-from shared.contracts import Citation, ContextBundle, RetrievedChunk
+from shared.contracts import Chunk, Citation, ContextBundle, RetrievedChunk
+
+
+def _context_block(chunk: Chunk, source_id: str) -> str:
+    heading = f"제목: {chunk.heading}\n" if chunk.heading else ""
+    return (
+        f"[{source_id}]\n"
+        f"문서 ID: {chunk.book_id}\n"
+        f"문서명: {chunk.file_name}\n"
+        f"PDF 페이지: {chunk.page}\n"
+        f"{heading}내용: {chunk.text}"
+    )
+
+
+def validate_context(context: ContextBundle, count_tokens: Callable[[str], int]) -> None:
+    """선택 순서·본문·출처·해시·토큰 수의 일치를 검사하며 문맥은 변경하지 않는다."""
+    if not isinstance(context, ContextBundle):
+        raise ValueError("최종 문맥 형식이 올바르지 않습니다.")
+    expected_sources = {
+        f"S{i}": Citation(source_id=f"S{i}", book_id=item.chunk.book_id,
+                          file_name=item.chunk.file_name, page=item.chunk.page)
+        for i, item in enumerate(context.final_chunks, 1)
+    }
+    if context.source_map != expected_sources:
+        raise ValueError("최종 청크와 출처 목록이 일치하지 않습니다.")
+    expected_text = "\n\n".join(
+        _context_block(item.chunk, f"S{i}") for i, item in enumerate(context.final_chunks, 1)
+    )
+    if context.text != expected_text:
+        raise ValueError("최종 청크와 문맥 본문이 일치하지 않습니다.")
+    if context.context_hash != sha256(context.text.encode("utf-8")).hexdigest():
+        raise ValueError("문맥 본문과 해시가 일치하지 않습니다.")
+    if context.token_count != count_tokens(context.text):
+        raise ValueError("문맥 본문과 토큰 수가 일치하지 않습니다.")
 
 
 def build_context(
@@ -27,14 +60,7 @@ def build_context(
             continue
         seen.add(chunk.chunk_id)
         source_id = f"S{len(selected) + 1}"
-        heading = f"제목: {chunk.heading}\n" if chunk.heading else ""
-        block = (
-            f"[{source_id}]\n"
-            f"문서 ID: {chunk.book_id}\n"
-            f"문서명: {chunk.file_name}\n"
-            f"PDF 페이지: {chunk.page}\n"
-            f"{heading}내용: {chunk.text}"
-        )
+        block = _context_block(chunk, source_id)
         if token_budget is not None:
             added_tokens = count_tokens(block) + (separator_tokens if blocks else 0)
             if total_tokens + added_tokens > token_budget:

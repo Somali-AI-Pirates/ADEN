@@ -6,12 +6,13 @@ from types import SimpleNamespace
 from unittest.mock import Mock
 
 from langchain_core.messages import AIMessage
+from langchain_core.runnables import Runnable
 
 from app.service.resources import Resources
 from shared.contracts import Chunk, ModelAnswer
 
 
-class FakeModel:
+class FakeModel(Runnable):
     model_name = "test-model"
     max_tokens = 2048
 
@@ -25,7 +26,9 @@ class FakeModel:
         assert options == {"method": "json_schema", "include_raw": True}
         return self
 
-    def invoke(self, messages):
+    def invoke(self, messages, config=None, **kwargs):
+        if hasattr(messages, "to_messages"):
+            messages = messages.to_messages()
         self.messages = messages
         return {
             "parsed": ModelAnswer(

@@ -9,6 +9,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import math
 import os
@@ -17,9 +18,11 @@ from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any
 
-from app.evaluation.metrics import retrieval_metrics, score
+from app.evaluation.metrics import evidence_diagnostics, retrieval_metrics, score
 
 CRITERIA = ("fact", "condition", "evidence", "decision")  # 사실·조건·근거·판단
+# ragas 기본 1024는 실제 답변(문맥 8청크)의 주장 추출·검증 출력이 잘려 IncompleteOutputException이 난다
+RAGAS_MAX_TOKENS = 8192
 PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 
 JudgeFn = Callable[[str], Mapping[str, Any]]
@@ -33,7 +36,17 @@ def load_prompt(name: str) -> str:
 def response_text(record: Mapping[str, Any]) -> str:
     """사용자에게 보이는 출력 전체(answer + reason). 보류 사유 안의 사실 주장도 평가 대상이다."""
     parts = [record.get("answer") or "", record.get("reason") or ""]
-    return "\n\n".join(p.strip() for p in parts if p and p.strip())
+    texts = []
+    for part in parts:
+        if part and part.strip():
+            texts.append(part.strip())
+    return "\n\n".join(texts)
+
+
+def chunk_text(chunk: Mapping[str, Any]) -> str:
+    """생성 모델이 본 문맥처럼 청크 제목을 본문 앞에 붙인다. 고급 자료는 화주·예약번호가 제목에만 있다."""
+    heading = chunk.get("heading")
+    return f"제목: {heading}\n{chunk['text']}" if heading else chunk["text"]
 
 
 def _timed(fn: Callable[[], Mapping[str, Any]]) -> tuple[Mapping[str, Any] | None, dict[str, Any]]:
@@ -51,9 +64,14 @@ def _timed(fn: Callable[[], Mapping[str, Any]]) -> tuple[Mapping[str, Any] | Non
 
 def build_judge_prompt(template: str, record: Mapping[str, Any],
                        reference: Mapping[str, Any]) -> str:
-    context = "\n\n".join(f"[{c['source_id']}] {c['file_name']} p.{c['page']}\n{c['text']}"
-                          for c in record.get("final_context_chunks") or [])
-    ref = {k: v for k, v in reference.items() if k != "question"}
+    context_blocks = []
+    for chunk in record.get("final_context_chunks") or []:
+        context_blocks.append(f"[{chunk['source_id']}] {chunk['file_name']} p.{chunk['page']}\n{chunk_text(chunk)}")
+    context = "\n\n".join(context_blocks)
+    ref = {}
+    for field, field_value in reference.items():
+        if field != "question":
+            ref[field] = field_value
     values = {
         "question": record["question"], "status": record["status"],
         "answer": record.get("answer") or "", "reason": record.get("reason") or "",
@@ -99,17 +117,26 @@ def grade_judge(record: Mapping[str, Any], reference: Mapping[str, Any],
                 None, None)
     if judge_fn is None:
         un = score(None, "unavailable", "Judge 평가기 미설정")
-        return {k: un for k in CRITERIA}, None, None
+        unavailable_criteria = {}
+        for criterion in CRITERIA:
+            unavailable_criteria[criterion] = un
+        return unavailable_criteria, None, None
     prompt = build_judge_prompt(template, record, reference)
     out, usage = _timed(lambda: judge_fn(prompt))
     if out is None:
         un = score(None, "unavailable", f"Judge 호출 실패: {usage['error']}")
-        return {k: un for k in CRITERIA}, None, usage
+        unavailable_criteria = {}
+        for criterion in CRITERIA:
+            unavailable_criteria[criterion] = un
+        return unavailable_criteria, None, usage
     try:
         criteria, claims = parse_judge_output(out["text"])
     except (ValueError, TypeError, KeyError, AttributeError) as exc:
         un = score(None, "unavailable", f"Judge 출력 파싱 실패: {type(exc).__name__}")
-        return {k: un for k in CRITERIA}, None, usage
+        unavailable_criteria = {}
+        for criterion in CRITERIA:
+            unavailable_criteria[criterion] = un
+        return unavailable_criteria, None, usage
     return criteria, claims, usage
 
 
@@ -121,7 +148,9 @@ def grade_faithfulness(record: Mapping[str, Any], has_claims: bool | None,
     response = response_text(record)
     if not response or has_claims is False:
         return score(None, "not_applicable", "사실 주장 없음(조건 확인·보류만)"), None
-    contexts = [c["text"] for c in record.get("final_context_chunks") or []]
+    contexts = []
+    for chunk in record.get("final_context_chunks") or []:
+        contexts.append(chunk_text(chunk))
     if not contexts:
         if has_claims:
             return score(0.0, "scored", "최종 문맥 없이 사실 주장을 함"), None
@@ -148,6 +177,7 @@ def grade_record(record: Mapping[str, Any], reference: Mapping[str, Any], *, k: 
         "request_id": record["request_id"], "retrieval_mode": record["retrieval_mode"],
         "status": record["status"],
         "retrieval": retrieval_metrics(reference, record.get("final_context_chunks"), k),
+        "evidence_diagnostics": evidence_diagnostics(reference, record, k),
         "faithfulness": faith, "judge": judge, "has_factual_claims": claims,
         "grading_usage": {"judge": judge_usage, "faithfulness": faith_usage},
     }
@@ -178,10 +208,16 @@ def make_ragas_faithfulness(model: str) -> FaithfulnessFn:
     from ragas.llms import llm_factory
     from ragas.metrics.collections import Faithfulness
 
+    async def run(question: str, response: str, contexts: list[str]) -> Any:
+        # 클라이언트를 같은 이벤트 루프 안에서 닫는다. 루프가 닫힌 뒤 정리되면 경고가 남는다.
+        async with AsyncOpenAI() as client:
+            metric = Faithfulness(llm=llm_factory(model, client=client,
+                                                  max_tokens=RAGAS_MAX_TOKENS))
+            return await metric.ascore(user_input=question, response=response,
+                                       retrieved_contexts=contexts)
+
     def faithfulness(question: str, response: str, contexts: list[str]) -> dict[str, Any]:
-        # 호출마다 새 비동기 클라이언트: score()가 매번 새 이벤트 루프를 만들기 때문
-        metric = Faithfulness(llm=llm_factory(model, client=AsyncOpenAI()))
-        result = metric.score(user_input=question, response=response, retrieved_contexts=contexts)
+        result = asyncio.run(run(question, response, contexts))
         return {"value": result.value, "input_tokens": None, "output_tokens": None}
 
     return faithfulness

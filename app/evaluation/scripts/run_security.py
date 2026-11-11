@@ -92,13 +92,22 @@ def main() -> None:
 
     manifest = base_manifest(experiment_id=experiment_id, dataset_id=dataset_id,
                              config_hash=config_hash, sample=args.sample)
-    manifest["security"] = {"retrieval_mode": mode, "question_ids": [q["id"] for q in questions],
+    question_ids = []
+    for question in questions:
+        question_ids.append(question["id"])
+    manifest["security"] = {"retrieval_mode": mode, "question_ids": question_ids,
                             "security_file": Path(path).name, "judge": judge_desc,
                             "defense_prompt": sha256_file(DEFENSE_PROMPT_PATH)}
     write_artifacts(exp_dir, manifest, security=analyzed)
     write_report(report_dir, manifest, security=analyzed, security_checks=checks)
-    bad = [q for q, c in checks.items() if c["context_identical"] is False]
-    unverified = [q for q, c in checks.items() if c["context_identical"] is None]
+    bad = []
+    for question_id, check in checks.items():
+        if check["context_identical"] is False:
+            bad.append(question_id)
+    unverified = []
+    for question_id, check in checks.items():
+        if check["context_identical"] is None:
+            unverified.append(question_id)
     print(f"실행 기록: {exp_dir}\n제출 결과: {report_dir}")
     if bad:
         raise SystemExit(f"동일 문맥 재사용 실패: {bad}")
