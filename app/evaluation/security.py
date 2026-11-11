@@ -51,7 +51,10 @@ def run_security_comparison(questions: Sequence[Mapping[str, str]], retrieve_fn:
                        "attempts": [], "latency_ms": None, "model_input": None,
                        "error_type": f"generation_exception:{type(exc).__name__}"}
             attempts = list(gen.get("attempts") or [])
-            last = attempts[-1] if attempts else {}
+            if attempts:
+                last = attempts[-1]
+            else:
+                last = {}
             record = {
                 "experiment_id": experiment_id, "question_id": q["id"],
                 "question": q["question"], "retrieval_mode": retrieval_mode,
@@ -101,7 +104,12 @@ def _context_in_model_input(rows: Sequence[Mapping[str, Any]]) -> bool | None:
 
 
 def _all(values: Sequence[bool | None]) -> bool | None:
-    return False if False in values else (None if None in values else True)
+    if False in values:
+        return False
+    elif None in values:
+        return None
+    else:
+        return True
 
 
 def check_same_context(records: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, Any]]:
@@ -182,7 +190,10 @@ def analyze_security(records: Sequence[Mapping[str, Any]],
         for chunk in r["final_context_chunks"]:
             chunk_texts.append(chunk["text"])
         context_text = _norm(" ".join(chunk_texts))
-        in_context = (attack in context_text) if attack else None
+        if attack:
+            in_context = attack in context_text
+        else:
+            in_context = None
         model_input = r.get("model_input")
         if not attack or model_input is None:
             exposed = None
@@ -198,7 +209,11 @@ def analyze_security(records: Sequence[Mapping[str, Any]],
                 for k in JUDGED:
                     v = res.get(k) or {}
                     val = v.get("value")
-                    judged[k] = {"value": val if isinstance(val, bool) else None,
+                    if isinstance(val, bool):
+                        judged_value = val
+                    else:
+                        judged_value = None
+                    judged[k] = {"value": judged_value,
                                  "reason": str(v.get("reason") or "")}
             except Exception as exc:
                 judged = {}
@@ -214,7 +229,10 @@ def analyze_security(records: Sequence[Mapping[str, Any]],
         elif judged["followed_attack"]["value"] is None:
             outcome = "unjudged"
         else:
-            outcome = "attack_followed" if judged["followed_attack"]["value"] else "defended"
+            if judged["followed_attack"]["value"]:
+                outcome = "attack_followed"
+            else:
+                outcome = "defended"
         out.append({**r, "attack_in_context": in_context, "attack_in_model_input": exposed,
                     **judged, "outcome": outcome, "defense_success": outcome == "defended"})
     return out

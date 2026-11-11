@@ -98,7 +98,10 @@ def main() -> None:
             raise SystemExit("--judge-model이 필요하다")
         load_env()  # Judge·Langfuse 키. 셸에 이미 있는 값이 우선
         judge_fn, judge_desc = make_openai_judge(args.judge_model), args.judge_model
-        faith_fn = make_ragas_faithfulness(args.ragas_model) if args.ragas_model else None
+        if args.ragas_model:
+            faith_fn = make_ragas_faithfulness(args.ragas_model)
+        else:
+            faith_fn = None
         reports_dir = args.reports_dir or str(ROOT / "reports")
 
     report_dir = Path(reports_dir) / experiment_id
@@ -106,31 +109,46 @@ def main() -> None:
 
     prompt_path = Path(args.judge_prompt)
     runs = _read_jsonl(src_dir / "runs.jsonl")
-    faith_desc = args.ragas_model if faith_fn else f"원본 재사용({bench.get('faithfulness')})"
+    if faith_fn:
+        faith_desc = args.ragas_model
+    else:
+        faith_desc = f"원본 재사용({bench.get('faithfulness')})"
     manifest = base_manifest(experiment_id=experiment_id, dataset_id=src_manifest["dataset_id"],
                              config_hash=src_manifest["config_hash"], sample=sample)
     manifest["benchmark"] = {**bench, "judge": judge_desc, "faithfulness": faith_desc,
                              "judge_prompt": sha256_file(prompt_path),
                              "references_sha256": sha256_file(Path(args.references))}
+    if faith_fn:
+        faithfulness_status = "recomputed"
+    else:
+        faithfulness_status = "reused"
     manifest["regrade"] = {
         "source_experiment_id": args.source, "source_git_commit": src_manifest.get("git_commit"),
         "source_judge": bench.get("judge"), "source_judge_prompt": bench.get("judge_prompt"),
         "judge_prompt_file": prompt_path.name, "references_file": Path(args.references).name,
-        "faithfulness": "recomputed" if faith_fn else "reused",
+        "faithfulness": faithfulness_status,
     }
     # 채점 호출 전에 평가 세트 충돌을 확인한다. 옮겨 온 Faithfulness와 그대로인 검색 지표는 기본 게시에서 뺀다
     request_ids = []
     for run in runs:
         request_ids.append(run["request_id"])
+    if faith_fn:
+        default_groups = ["judge", "faithfulness"]
+    else:
+        default_groups = ["judge"]
     publication = publication_plan(args, manifest, request_ids=request_ids,
-                                   default_groups=["judge", "faithfulness"] if faith_fn else ["judge"])
+                                   default_groups=default_groups)
     # k는 원본 실행의 검색 설정에 묶여 있으므로 바꾸지 않는다
     scores = grade_all(runs, load_references(args.references), k=bench["k"], judge_fn=judge_fn,
                        faithfulness_fn=faith_fn,
                        judge_template=prompt_path.read_text(encoding="utf-8"))
     if faith_fn is None:
         src_scores = src_dir / "scores.jsonl"
-        reuse_faithfulness(scores, _read_jsonl(src_scores) if src_scores.exists() else [])
+        if src_scores.exists():
+            source_scores = _read_jsonl(src_scores)
+        else:
+            source_scores = []
+        reuse_faithfulness(scores, source_scores)
 
     exp_dir = Path(args.artifacts_dir) / experiment_id
     if publication:

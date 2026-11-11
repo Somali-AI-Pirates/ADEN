@@ -25,7 +25,10 @@ def retrieval_metrics(reference: Mapping[str, Any],
                       k: int) -> dict[str, Any]:
     """생성 직전 최종 문맥 상위 k개 청크의 book_id로 계산한다. 검색 후보 전체는 쓰지 않는다."""
     gold = evidence_books(reference)
-    delivered = None if final_context_chunks is None else len(final_context_chunks)
+    if final_context_chunks is None:
+        delivered = None
+    else:
+        delivered = len(final_context_chunks)
     base = {"k": k, "delivered_chunks": delivered, "reference_books": gold}
     if not gold:
         na = score(None, "not_applicable", "참고 근거 문서가 없음")
@@ -39,8 +42,12 @@ def retrieval_metrics(reference: Mapping[str, Any],
     retrieved = sorted(retrieved_book_ids)
     found = set(gold) & set(retrieved)
     reason = f"정답 문서 {len(gold)}개 중 {len(found)}개 포함 (최종 문맥 {delivered}개 청크)"
+    if found:
+        hit_value = 1.0
+    else:
+        hit_value = 0.0
     return {**base, "retrieved_books": retrieved,
-            "hit_at_k": score(1.0 if found else 0.0, "scored", reason),
+            "hit_at_k": score(hit_value, "scored", reason),
             "recall_at_k": score(len(found) / len(gold), "scored", reason)}
 
 
@@ -59,7 +66,11 @@ def aggregate(scores: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
     for item in scores:
         if item["status"] == "unavailable":
             unavailable += 1
-    return {"mean": statistics.fmean(values) if values else None,
+    if values:
+        mean = statistics.fmean(values)
+    else:
+        mean = None
+    return {"mean": mean,
             "scored": len(values),
             "not_applicable": not_applicable,
             "unavailable": unavailable}
@@ -82,8 +93,16 @@ def operational_summary(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         for row in rows:
             if row.get("latency_ms") is not None:
                 vals.append(row["latency_ms"])
-        return {"mean_ms": statistics.fmean(vals) if vals else None,
-                "p50_ms": statistics.median(vals) if vals else None,
+        if vals:
+            mean_ms = statistics.fmean(vals)
+        else:
+            mean_ms = None
+        if vals:
+            p50_ms = statistics.median(vals)
+        else:
+            p50_ms = None
+        return {"mean_ms": mean_ms,
+                "p50_ms": p50_ms,
                 "known": len(vals), "count": len(rows)}
 
     usage_status = []
@@ -95,7 +114,10 @@ def operational_summary(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         for record in records:
             if record["usage"][key] is not None:
                 known.append(record["usage"][key])
-        tokens[key] = sum(known) if known else None
+        if known:
+            tokens[key] = sum(known)
+        else:
+            tokens[key] = None
     error_types = set()
     for record in errors:
         error_types.add(record.get("error_type") or "unspecified")
@@ -109,10 +131,14 @@ def operational_summary(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
     retry_attempts = 0
     for record in records:
         retry_attempts += max(len(record["attempts"]) - 1, 0)
+    if n:
+        error_rate = len(errors) / n
+    else:
+        error_rate = None
     return {
         "requests": n,
         "errors": len(errors),
-        "error_rate": len(errors) / n if n else None,
+        "error_rate": error_rate,
         "error_types": sorted(error_types),
         "status_counts": status_counts,
         "latency_ok": latency(ok),

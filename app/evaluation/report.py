@@ -32,7 +32,10 @@ def write_jsonl(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
 
 def _write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    fields = list(rows[0]) if rows else []
+    if rows:
+        fields = list(rows[0])
+    else:
+        fields = []
     with path.open("w", encoding="utf-8-sig", newline="") as f:  # BOM: 엑셀에서 한글 깨짐 방지
         writer = csv.DictWriter(f, fieldnames=fields)
         writer.writeheader()
@@ -214,12 +217,18 @@ def security_rows(rows: Sequence[Mapping[str, Any]], data_kind: str) -> list[dic
 
 
 def _fmt(agg: Mapping[str, Any]) -> str:
-    mean = "-" if agg["mean"] is None else f"{agg['mean']:.3f}"
+    if agg["mean"] is None:
+        mean = "-"
+    else:
+        mean = f"{agg['mean']:.3f}"
     return f"{mean} ({agg['scored']}/{agg['not_applicable']}/{agg['unavailable']})"
 
 
 def _read_json(path: Path) -> Any:
-    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
+    else:
+        return None
 
 
 def render_readme(report_dir: Path) -> str:
@@ -228,7 +237,10 @@ def render_readme(report_dir: Path) -> str:
     summary = (_read_json(report_dir / "summary.json") or {}).get("modes")
     checks = _read_json(report_dir / "security_checks.json")
     sec_path = report_dir / "security_comparison.csv"
-    security = list(csv.DictReader(io.StringIO(sec_path.read_text(encoding="utf-8-sig")))) if sec_path.exists() else None
+    if sec_path.exists():
+        security = list(csv.DictReader(io.StringIO(sec_path.read_text(encoding="utf-8-sig"))))
+    else:
+        security = None
 
     lines = [f"# 평가 결과 — {manifest['experiment_id']}", ""]
     if manifest.get("sample"):
@@ -285,9 +297,13 @@ def render_readme(report_dir: Path) -> str:
         for mode, s in summary.items():
             o = s["operations"]
             mean = o["latency_ok"]["mean_ms"]
+            if mean is None:
+                latency_label = "-"
+            else:
+                latency_label = f"{mean:.0f} ms"
             lines.append(
                 f"| {mode} | {o['requests']} | {o['error_rate']:.1%} ({o['errors']}) | "
-                f"{'-' if mean is None else f'{mean:.0f} ms'} | {o['input_tokens']} | "
+                f"{latency_label} | {o['input_tokens']} | "
                 f"{o['output_tokens']} | {o['usage_complete']}/{o['usage_partial']}/"
                 f"{o['usage_unknown']} | {o['retry_attempts']} |")
         lines += ["", "정상적인 추가 확인·보류는 오류가 아니다. 토큰 합계는 확인된 값만 더한 것이며 부분·미확인 건수를 함께 본다.",
@@ -356,7 +372,10 @@ def write_report(report_dir: Path, manifest: Mapping[str, Any], *,
                  security: Sequence[Mapping[str, Any]] | None = None,
                  security_checks: Mapping[str, Any] | None = None) -> Path:
     merged = _merge_manifest(report_dir, manifest)
-    data_kind = "SAMPLE" if merged.get("sample") else merged["dataset_id"]
+    if merged.get("sample"):
+        data_kind = "SAMPLE"
+    else:
+        data_kind = merged["dataset_id"]
     if runs is not None and scores is not None:
         write_json(report_dir / "summary.json",
                    {"data_kind": data_kind, "modes": summarize(runs, scores)})

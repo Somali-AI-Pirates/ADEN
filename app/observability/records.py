@@ -66,10 +66,18 @@ def summarize_usage(attempts: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
         for value in values:
             if value is not None:
                 known.append(value)
-        totals[key] = sum(known) if known else None
+        if known:
+            totals[key] = sum(known)
+        else:
+            totals[key] = None
         known_all &= len(known) == len(values)
         known_any |= bool(known)
-    totals["status"] = "complete" if known_all else ("partial" if known_any else "unknown")
+    if known_all:
+        totals["status"] = "complete"
+    elif known_any:
+        totals["status"] = "partial"
+    else:
+        totals["status"] = "unknown"
     return totals
 
 
@@ -79,7 +87,10 @@ def _normalize_chunk(raw: Any, where: str, *, need_source_id: bool) -> dict[str,
     chunk = dict(raw)
     if isinstance(chunk.get("chunk"), Mapping) and "chunk_id" not in chunk:
         raise RunRecordError(f"{where}: 중첩 RetrievedChunk는 평탄 로그 청크로 변환해 넘겨야 한다")
-    required = FINAL_CHUNK_FIELDS if need_source_id else CANDIDATE_FIELDS
+    if need_source_id:
+        required = FINAL_CHUNK_FIELDS
+    else:
+        required = CANDIDATE_FIELDS
     missing = []
     for field in required:
         if chunk.get(field) in (None, ""):
@@ -172,8 +183,16 @@ def normalize_run_record(raw: Mapping[str, Any]) -> dict[str, Any]:
             a.setdefault(key, None)
         attempts.append(a)
     rec["attempts"] = attempts
-    rec.setdefault("model_input", attempts[-1]["model_input"] if attempts else None)
-    rec.setdefault("model_output", attempts[-1]["model_output"] if attempts else None)
+    if attempts:
+        last_model_input = attempts[-1]["model_input"]
+    else:
+        last_model_input = None
+    rec.setdefault("model_input", last_model_input)
+    if attempts:
+        last_model_output = attempts[-1]["model_output"]
+    else:
+        last_model_output = None
+    rec.setdefault("model_output", last_model_output)
     _check_model_context(rec, called_model=bool(attempts))
     rec["usage"] = summarize_usage(attempts)
     rec.setdefault("error_type", None)
