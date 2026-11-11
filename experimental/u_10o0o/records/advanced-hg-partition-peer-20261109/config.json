@@ -1,0 +1,99 @@
+{
+  "corpus_pages": {
+    "baseline": 18000,
+    "general": 8400,
+    "hg": 13650
+  },
+  "evidence_group_policy": "any_citation_per_group",
+  "excluded_general_books": [
+    "AS057",
+    "AS120"
+  ],
+  "external_api_calls": 304,
+  "inputs": {
+    "cases": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    },
+    "curated": {
+      "path": "artifacts/u_10o0o/pattern-curation/advanced/manifest.json",
+      "sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf"
+    },
+    "facts": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+      "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+    },
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "vectors": {
+      "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+      "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+    }
+  },
+  "limits": {
+    "candidates": 20,
+    "context_pages": 8,
+    "context_tokens": 8000
+  },
+  "luna": {
+    "max_attempts": 304,
+    "model": "gpt-6-luna",
+    "prompt_sha256": "0f2c07cf6600911f3e681fcc90e2c0ac8a1f4df82d86dfeca9c54c943b53de1e",
+    "reasoning_effort": "low",
+    "retries": 0,
+    "schema_sha256": "12e3f4d3bcb0b59bdcba851b99aa0e216bfbea67db25a5727a46440a3c77fa54",
+    "timeout_seconds": 10,
+    "workers": 8
+  },
+  "model": {
+    "embedding": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+    "embedding_revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+    "reranked_head": 3,
+    "reranker": "nlpai-lab/KURE-Reranker-nano",
+    "reranker_revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "rrf_k": 60,
+    "rrf_weights": [
+      0.5,
+      0.5
+    ]
+  },
+  "peer_ambiguous": {
+    "path": "experimental/ysl727727/overnight/data/synth_adv_ambiguous.json",
+    "sha256": "0669ac600025e4725fd5abe2304bb504814029fe044d85db7b2d2d6665967b98"
+  },
+  "question_inputs": {
+    "peer_false_premise": {
+      "path": "experimental/ysl727727/overnight/data/false_premise_adv_questions.json",
+      "sha256": "7814eea24550882be81471e73be625859ad77bc9b308df9c7d16a1eb246f3ab9"
+    },
+    "peer_multi_doc": {
+      "path": "experimental/ysl727727/overnight/data/synth_multi_adv_questions.json",
+      "sha256": "ed7a6b2448a732448dea3ad9c772ddd0ff5cdfa983843cc5aa32022fcda07388"
+    },
+    "peer_two_doc": {
+      "path": "experimental/ysl727727/overnight/data/synth_adv_questions.json",
+      "sha256": "886028ade17c18a5b8820319f29b5cd2f1716093802b6afb44a9a1c10254e9c0"
+    }
+  },
+  "references": {
+    "peer_false_premise": {
+      "path": "experimental/ysl727727/overnight/data/false_premise_adv.json",
+      "sha256": "d8a21e14c50af0add036672b0c072c53b955a8de8087126000a819f34fb38322"
+    },
+    "peer_multi_doc": {
+      "path": "experimental/ysl727727/overnight/data/synth_multi_adv.json",
+      "sha256": "7ead57097e66d072e0b5f2253220bc65bbcc8193b0926e2f174beb286ba67c9d"
+    },
+    "peer_two_doc": {
+      "path": "experimental/ysl727727/overnight/data/synth_adv.json",
+      "sha256": "94ac5d2e7906841675691b0511a8515efd11b3e03ceafda2d2527e6705bc4bd4"
+    }
+  },
+  "relation_snapshot": {
+    "path": "artifacts/u_10o0o/advanced-snapshots/hg-code-relations-v1/manifest.json",
+    "sha256": "d4f639bd6ce27c4bd39dd97b3e72d914811cc2f51e1ca24d7c6a7316d460879a"
+  },
+  "suite": "peer"
+}

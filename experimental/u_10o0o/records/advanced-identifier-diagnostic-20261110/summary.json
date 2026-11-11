@@ -1,0 +1,489 @@
+{
+  "full_identifier": {
+    "any_confirmation": {
+      "hits": 6,
+      "total": 24
+    },
+    "candidate_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "confirmation_outside_possible_cases": {
+      "hits": 0,
+      "total": 24
+    },
+    "confirmed_target_with_role_cue": {
+      "hits": 6,
+      "total": 24
+    },
+    "count": 24,
+    "expanded_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "final_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "latency": {
+      "count": 24,
+      "p50_ms": 266.5194054989115,
+      "p95_ms": 298.5016147982605
+    },
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0,
+    "role_cue_contains_expected": {
+      "hits": 24,
+      "total": 24
+    },
+    "role_cue_exact": {
+      "hits": 24,
+      "total": 24
+    },
+    "routes": {
+      "explicit_hg/fallback/no_verified_pair": 6,
+      "unsupported_constraint/fallback/no_verified_pair": 18
+    },
+    "target_confirmed_correct": {
+      "hits": 6,
+      "total": 24
+    },
+    "unsupported_multiple_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "wrong_confirmation": {
+      "hits": 0,
+      "total": 24
+    }
+  },
+  "identifier_variant": {
+    "any_confirmation": {
+      "hits": 0,
+      "total": 72
+    },
+    "candidate_complete": {
+      "hits": 72,
+      "total": 72
+    },
+    "confirmation_outside_possible_cases": {
+      "hits": 0,
+      "total": 72
+    },
+    "confirmed_target_with_role_cue": {
+      "hits": 0,
+      "total": 72
+    },
+    "count": 72,
+    "expanded_complete": {
+      "hits": 72,
+      "total": 72
+    },
+    "final_complete": {
+      "hits": 72,
+      "total": 72
+    },
+    "latency": {
+      "count": 72,
+      "p50_ms": 258.74781499805977,
+      "p95_ms": 274.3591671489412
+    },
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0,
+    "role_cue_contains_expected": {
+      "hits": 72,
+      "total": 72
+    },
+    "role_cue_exact": {
+      "hits": 72,
+      "total": 72
+    },
+    "routes": {
+      "missing_terms/fallback/no_verified_pair": 66,
+      "unsupported_constraint/fallback/no_verified_pair": 6
+    },
+    "target_confirmed_correct": {
+      "hits": 0,
+      "total": 72
+    },
+    "unsupported_multiple_confirmation": {
+      "hits": 0,
+      "total": 72
+    },
+    "wrong_confirmation": {
+      "hits": 0,
+      "total": 72
+    }
+  },
+  "identifier_variant/lowercase": {
+    "any_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "candidate_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "confirmation_outside_possible_cases": {
+      "hits": 0,
+      "total": 24
+    },
+    "confirmed_target_with_role_cue": {
+      "hits": 0,
+      "total": 24
+    },
+    "count": 24,
+    "expanded_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "final_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "latency": {
+      "count": 24,
+      "p50_ms": 258.2251184994675,
+      "p95_ms": 269.7790384010659
+    },
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0,
+    "role_cue_contains_expected": {
+      "hits": 24,
+      "total": 24
+    },
+    "role_cue_exact": {
+      "hits": 24,
+      "total": 24
+    },
+    "routes": {
+      "missing_terms/fallback/no_verified_pair": 18,
+      "unsupported_constraint/fallback/no_verified_pair": 6
+    },
+    "target_confirmed_correct": {
+      "hits": 0,
+      "total": 24
+    },
+    "unsupported_multiple_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "wrong_confirmation": {
+      "hits": 0,
+      "total": 24
+    }
+  },
+  "identifier_variant/separator_spaces": {
+    "any_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "candidate_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "confirmation_outside_possible_cases": {
+      "hits": 0,
+      "total": 24
+    },
+    "confirmed_target_with_role_cue": {
+      "hits": 0,
+      "total": 24
+    },
+    "count": 24,
+    "expanded_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "final_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "latency": {
+      "count": 24,
+      "p50_ms": 258.61043099939707,
+      "p95_ms": 267.63570319944847
+    },
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0,
+    "role_cue_contains_expected": {
+      "hits": 24,
+      "total": 24
+    },
+    "role_cue_exact": {
+      "hits": 24,
+      "total": 24
+    },
+    "routes": {
+      "missing_terms/fallback/no_verified_pair": 24
+    },
+    "target_confirmed_correct": {
+      "hits": 0,
+      "total": 24
+    },
+    "unsupported_multiple_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "wrong_confirmation": {
+      "hits": 0,
+      "total": 24
+    }
+  },
+  "identifier_variant/unicode_dash": {
+    "any_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "candidate_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "confirmation_outside_possible_cases": {
+      "hits": 0,
+      "total": 24
+    },
+    "confirmed_target_with_role_cue": {
+      "hits": 0,
+      "total": 24
+    },
+    "count": 24,
+    "expanded_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "final_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "latency": {
+      "count": 24,
+      "p50_ms": 260.332133000702,
+      "p95_ms": 275.4249139485182
+    },
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0,
+    "role_cue_contains_expected": {
+      "hits": 24,
+      "total": 24
+    },
+    "role_cue_exact": {
+      "hits": 24,
+      "total": 24
+    },
+    "routes": {
+      "missing_terms/fallback/no_verified_pair": 24
+    },
+    "target_confirmed_correct": {
+      "hits": 0,
+      "total": 24
+    },
+    "unsupported_multiple_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "wrong_confirmation": {
+      "hits": 0,
+      "total": 24
+    }
+  },
+  "indirect": {
+    "any_confirmation": {
+      "hits": 24,
+      "total": 24
+    },
+    "candidate_complete": {
+      "hits": 23,
+      "total": 24
+    },
+    "confirmation_outside_possible_cases": {
+      "hits": 0,
+      "total": 24
+    },
+    "confirmed_target_with_role_cue": {
+      "hits": 24,
+      "total": 24
+    },
+    "count": 24,
+    "expanded_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "final_complete": {
+      "hits": 24,
+      "total": 24
+    },
+    "latency": {
+      "count": 24,
+      "p50_ms": 277.1021504995588,
+      "p95_ms": 314.8812044513761
+    },
+    "page_recall_at_20": 0.9583333333333334,
+    "page_recall_at_8": 1.0,
+    "role_cue_contains_expected": {
+      "hits": 24,
+      "total": 24
+    },
+    "role_cue_exact": {
+      "hits": 12,
+      "total": 24
+    },
+    "routes": {
+      "indirect_hg/unique/no_verified_pair": 12,
+      "unsupported_constraint/unique/no_verified_pair": 12
+    },
+    "target_confirmed_correct": {
+      "hits": 24,
+      "total": 24
+    },
+    "unsupported_multiple_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "wrong_confirmation": {
+      "hits": 0,
+      "total": 24
+    }
+  },
+  "indirect/exact_profile": {
+    "any_confirmation": {
+      "hits": 12,
+      "total": 12
+    },
+    "candidate_complete": {
+      "hits": 12,
+      "total": 12
+    },
+    "confirmation_outside_possible_cases": {
+      "hits": 0,
+      "total": 12
+    },
+    "confirmed_target_with_role_cue": {
+      "hits": 12,
+      "total": 12
+    },
+    "count": 12,
+    "expanded_complete": {
+      "hits": 12,
+      "total": 12
+    },
+    "final_complete": {
+      "hits": 12,
+      "total": 12
+    },
+    "latency": {
+      "count": 12,
+      "p50_ms": 275.45601450037793,
+      "p95_ms": 302.72370935126673
+    },
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0,
+    "role_cue_contains_expected": {
+      "hits": 12,
+      "total": 12
+    },
+    "role_cue_exact": {
+      "hits": 12,
+      "total": 12
+    },
+    "routes": {
+      "indirect_hg/unique/no_verified_pair": 12
+    },
+    "target_confirmed_correct": {
+      "hits": 12,
+      "total": 12
+    },
+    "unsupported_multiple_confirmation": {
+      "hits": 0,
+      "total": 12
+    },
+    "wrong_confirmation": {
+      "hits": 0,
+      "total": 12
+    }
+  },
+  "indirect/shipper_spec_gate_date": {
+    "any_confirmation": {
+      "hits": 12,
+      "total": 12
+    },
+    "candidate_complete": {
+      "hits": 11,
+      "total": 12
+    },
+    "confirmation_outside_possible_cases": {
+      "hits": 0,
+      "total": 12
+    },
+    "confirmed_target_with_role_cue": {
+      "hits": 12,
+      "total": 12
+    },
+    "count": 12,
+    "expanded_complete": {
+      "hits": 12,
+      "total": 12
+    },
+    "final_complete": {
+      "hits": 12,
+      "total": 12
+    },
+    "latency": {
+      "count": 12,
+      "p50_ms": 284.4545539974206,
+      "p95_ms": 333.0695156504589
+    },
+    "page_recall_at_20": 0.9166666666666666,
+    "page_recall_at_8": 1.0,
+    "role_cue_contains_expected": {
+      "hits": 12,
+      "total": 12
+    },
+    "role_cue_exact": {
+      "hits": 0,
+      "total": 12
+    },
+    "routes": {
+      "unsupported_constraint/unique/no_verified_pair": 12
+    },
+    "target_confirmed_correct": {
+      "hits": 12,
+      "total": 12
+    },
+    "unsupported_multiple_confirmation": {
+      "hits": 0,
+      "total": 12
+    },
+    "wrong_confirmation": {
+      "hits": 0,
+      "total": 12
+    }
+  },
+  "insufficient": {
+    "any_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "confirmation_outside_possible_cases": {
+      "hits": 0,
+      "total": 24
+    },
+    "count": 24,
+    "latency": {
+      "count": 24,
+      "p50_ms": 260.13425800010737,
+      "p95_ms": 280.55601400046726
+    },
+    "routes": {
+      "missing_terms/fallback/no_verified_pair": 24
+    },
+    "unsupported_multiple_confirmation": {
+      "hits": 0,
+      "total": 24
+    },
+    "wrong_confirmation": {
+      "hits": 0,
+      "total": 24
+    }
+  }
+}

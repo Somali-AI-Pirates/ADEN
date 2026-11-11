@@ -1,0 +1,110 @@
+{
+  "category_context_changes": {
+    "baseline": 0,
+    "both": 0,
+    "lookup": 0,
+    "roles": 0
+  },
+  "lookup_and_both_contexts_identical": 280,
+  "rows": [
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-DEV16",
+      "reference_case_count": 1,
+      "suite": "official_development",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-DEV18",
+      "reference_case_count": 1,
+      "suite": "official_development",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-DEV20",
+      "reference_case_count": 1,
+      "suite": "official_development",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-DEV22",
+      "reference_case_count": 1,
+      "suite": "official_development",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-DEV24",
+      "reference_case_count": 1,
+      "suite": "official_development",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-DEV26",
+      "reference_case_count": 1,
+      "suite": "official_development",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-DEV30",
+      "reference_case_count": 1,
+      "suite": "official_development",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-ADD17",
+      "reference_case_count": 1,
+      "suite": "official_additional",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-ADD19",
+      "reference_case_count": 1,
+      "suite": "official_additional",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-ADD21",
+      "reference_case_count": 1,
+      "suite": "official_additional",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-ADD23",
+      "reference_case_count": 1,
+      "suite": "official_additional",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-ADD25",
+      "reference_case_count": 1,
+      "suite": "official_additional",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-ADD27",
+      "reference_case_count": 1,
+      "suite": "official_additional",
+      "verified_date_field": "actual_discharge_date"
+    },
+    {
+      "matches_single_reference_case": true,
+      "question_id": "AS-ADD29",
+      "reference_case_count": 1,
+      "suite": "official_additional",
+      "verified_date_field": "actual_discharge_date"
+    }
+  ],
+  "runner_sha256": "8569fcb37eecc8f8fb6ccf283db9bd68d236d896e1f11f539dd1b49f8f9b692a"
+}

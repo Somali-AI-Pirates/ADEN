@@ -1,0 +1,50 @@
+{
+  "fresh_is/baseline": {
+    "candidate_complete": 6,
+    "count": 6,
+    "expanded_complete": 6,
+    "final_complete": 6,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  },
+  "fresh_is/requests40": {
+    "candidate_complete": 6,
+    "count": 6,
+    "expanded_complete": 6,
+    "final_complete": 6,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  },
+  "fresh_mixed/baseline": {
+    "candidate_complete": 4,
+    "count": 12,
+    "expanded_complete": 5,
+    "final_complete": 2,
+    "page_recall_at_20": 0.625,
+    "page_recall_at_8": 0.5833333333333334
+  },
+  "fresh_mixed/requests40": {
+    "candidate_complete": 12,
+    "count": 12,
+    "expanded_complete": 11,
+    "final_complete": 9,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 0.875
+  },
+  "fresh_two_hg/baseline": {
+    "candidate_complete": 6,
+    "count": 6,
+    "expanded_complete": 6,
+    "final_complete": 6,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  },
+  "fresh_two_hg/requests40": {
+    "candidate_complete": 6,
+    "count": 6,
+    "expanded_complete": 6,
+    "final_complete": 6,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  }
+}

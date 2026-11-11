@@ -1,0 +1,6089 @@
+{
+  "analysis": {
+    "all": {
+      "luna": {
+        "api_calls": 250,
+        "clarify_overconfirmation": {
+          "denominator": 22,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "decision_and_pack_latency": {
+          "count": 250,
+          "p50_ms": 4079.7372675006045,
+          "p95_ms": 8253.895829797326
+        },
+        "final_complete": {
+          "denominator": 230,
+          "numerator": 178,
+          "value": 0.7739130434782608
+        },
+        "final_fact_recall": {
+          "denominator": 522,
+          "numerator": 436,
+          "value": 0.8352490421455939
+        },
+        "no_target_overconfirmation": {
+          "denominator": 80,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "role": {
+          "exact_on_labelled": {
+            "denominator": 136,
+            "numerator": 71,
+            "value": 0.5220588235294118
+          },
+          "precision": {
+            "denominator": 228,
+            "numerator": 215,
+            "value": 0.9429824561403509
+          },
+          "recall": {
+            "denominator": 327,
+            "numerator": 215,
+            "value": 0.6574923547400612
+          }
+        },
+        "target": {
+          "exact_on_labelled": {
+            "denominator": 148,
+            "numerator": 113,
+            "value": 0.7635135135135135
+          },
+          "precision": {
+            "denominator": 146,
+            "numerator": 146,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 192,
+            "numerator": 146,
+            "value": 0.7604166666666666
+          }
+        },
+        "wrong_confirmation": {
+          "denominator": 124,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "luna_applied_only": {
+        "applied_questions": 32,
+        "clarify_overconfirmation": {
+          "denominator": 22,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "no_target_overconfirmation": {
+          "denominator": 80,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "role": {
+          "exact_on_labelled": {
+            "denominator": 136,
+            "numerator": 29,
+            "value": 0.21323529411764705
+          },
+          "precision": {
+            "denominator": 54,
+            "numerator": 54,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 327,
+            "numerator": 54,
+            "value": 0.1651376146788991
+          }
+        },
+        "target": {
+          "exact_on_labelled": {
+            "denominator": 148,
+            "numerator": 29,
+            "value": 0.19594594594594594
+          },
+          "precision": {
+            "denominator": 33,
+            "numerator": 33,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 192,
+            "numerator": 33,
+            "value": 0.171875
+          }
+        },
+        "wrong_confirmation": {
+          "denominator": 32,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "rules": {
+        "api_calls": 0,
+        "clarify_overconfirmation": {
+          "denominator": 22,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "decision_and_pack_latency": {
+          "count": 250,
+          "p50_ms": 1.521588499599602,
+          "p95_ms": 2.7732090013159905
+        },
+        "final_complete": {
+          "denominator": 230,
+          "numerator": 177,
+          "value": 0.7695652173913043
+        },
+        "final_fact_recall": {
+          "denominator": 522,
+          "numerator": 433,
+          "value": 0.8295019157088123
+        },
+        "no_target_overconfirmation": {
+          "denominator": 80,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "role": {
+          "exact_on_labelled": {
+            "denominator": 136,
+            "numerator": 66,
+            "value": 0.4852941176470588
+          },
+          "precision": {
+            "denominator": 234,
+            "numerator": 212,
+            "value": 0.905982905982906
+          },
+          "recall": {
+            "denominator": 327,
+            "numerator": 212,
+            "value": 0.6483180428134556
+          }
+        },
+        "target": {
+          "exact_on_labelled": {
+            "denominator": 148,
+            "numerator": 113,
+            "value": 0.7635135135135135
+          },
+          "precision": {
+            "denominator": 145,
+            "numerator": 145,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 192,
+            "numerator": 145,
+            "value": 0.7552083333333334
+          }
+        },
+        "wrong_confirmation": {
+          "denominator": 123,
+          "numerator": 0,
+          "value": 0.0
+        }
+      }
+    },
+    "categories": {
+      "luna": {
+        "api_calls": 220,
+        "clarify_overconfirmation": {
+          "denominator": 20,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "decision_and_pack_latency": {
+          "count": 220,
+          "p50_ms": 3836.5333220026514,
+          "p95_ms": 7525.726815699086
+        },
+        "final_complete": {
+          "denominator": 200,
+          "numerator": 170,
+          "value": 0.85
+        },
+        "final_fact_recall": {
+          "denominator": 395,
+          "numerator": 356,
+          "value": 0.9012658227848102
+        },
+        "no_target_overconfirmation": {
+          "denominator": 80,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "role": {
+          "exact_on_labelled": {
+            "denominator": 108,
+            "numerator": 69,
+            "value": 0.6388888888888888
+          },
+          "precision": {
+            "denominator": 198,
+            "numerator": 194,
+            "value": 0.9797979797979798
+          },
+          "recall": {
+            "denominator": 234,
+            "numerator": 194,
+            "value": 0.8290598290598291
+          }
+        },
+        "target": {
+          "exact_on_labelled": {
+            "denominator": 120,
+            "numerator": 108,
+            "value": 0.9
+          },
+          "precision": {
+            "denominator": 128,
+            "numerator": 128,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 140,
+            "numerator": 128,
+            "value": 0.9142857142857143
+          }
+        },
+        "wrong_confirmation": {
+          "denominator": 108,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "luna_applied_only": {
+        "applied_questions": 28,
+        "clarify_overconfirmation": {
+          "denominator": 20,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "no_target_overconfirmation": {
+          "denominator": 80,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "role": {
+          "exact_on_labelled": {
+            "denominator": 108,
+            "numerator": 28,
+            "value": 0.25925925925925924
+          },
+          "precision": {
+            "denominator": 45,
+            "numerator": 45,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 234,
+            "numerator": 45,
+            "value": 0.19230769230769232
+          }
+        },
+        "target": {
+          "exact_on_labelled": {
+            "denominator": 120,
+            "numerator": 28,
+            "value": 0.23333333333333334
+          },
+          "precision": {
+            "denominator": 28,
+            "numerator": 28,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 140,
+            "numerator": 28,
+            "value": 0.2
+          }
+        },
+        "wrong_confirmation": {
+          "denominator": 28,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "rules": {
+        "api_calls": 0,
+        "clarify_overconfirmation": {
+          "denominator": 20,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "decision_and_pack_latency": {
+          "count": 220,
+          "p50_ms": 1.5681580007367302,
+          "p95_ms": 2.77650315183564
+        },
+        "final_complete": {
+          "denominator": 200,
+          "numerator": 170,
+          "value": 0.85
+        },
+        "final_fact_recall": {
+          "denominator": 395,
+          "numerator": 356,
+          "value": 0.9012658227848102
+        },
+        "no_target_overconfirmation": {
+          "denominator": 80,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "role": {
+          "exact_on_labelled": {
+            "denominator": 108,
+            "numerator": 65,
+            "value": 0.6018518518518519
+          },
+          "precision": {
+            "denominator": 202,
+            "numerator": 194,
+            "value": 0.9603960396039604
+          },
+          "recall": {
+            "denominator": 234,
+            "numerator": 194,
+            "value": 0.8290598290598291
+          }
+        },
+        "target": {
+          "exact_on_labelled": {
+            "denominator": 120,
+            "numerator": 108,
+            "value": 0.9
+          },
+          "precision": {
+            "denominator": 128,
+            "numerator": 128,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 140,
+            "numerator": 128,
+            "value": 0.9142857142857143
+          }
+        },
+        "wrong_confirmation": {
+          "denominator": 108,
+          "numerator": 0,
+          "value": 0.0
+        }
+      }
+    },
+    "pair_holdout": {
+      "luna": {
+        "api_calls": 30,
+        "clarify_overconfirmation": {
+          "denominator": 2,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "decision_and_pack_latency": {
+          "count": 30,
+          "p50_ms": 6141.759301001002,
+          "p95_ms": 9243.40064565149
+        },
+        "final_complete": {
+          "denominator": 30,
+          "numerator": 8,
+          "value": 0.26666666666666666
+        },
+        "final_fact_recall": {
+          "denominator": 127,
+          "numerator": 80,
+          "value": 0.6299212598425197
+        },
+        "no_target_overconfirmation": {
+          "denominator": 0,
+          "numerator": 0,
+          "value": null
+        },
+        "role": {
+          "exact_on_labelled": {
+            "denominator": 28,
+            "numerator": 2,
+            "value": 0.07142857142857142
+          },
+          "precision": {
+            "denominator": 30,
+            "numerator": 21,
+            "value": 0.7
+          },
+          "recall": {
+            "denominator": 93,
+            "numerator": 21,
+            "value": 0.22580645161290322
+          }
+        },
+        "target": {
+          "exact_on_labelled": {
+            "denominator": 28,
+            "numerator": 5,
+            "value": 0.17857142857142858
+          },
+          "precision": {
+            "denominator": 18,
+            "numerator": 18,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 52,
+            "numerator": 18,
+            "value": 0.34615384615384615
+          }
+        },
+        "wrong_confirmation": {
+          "denominator": 16,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "luna_applied_only": {
+        "applied_questions": 4,
+        "clarify_overconfirmation": {
+          "denominator": 2,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "no_target_overconfirmation": {
+          "denominator": 0,
+          "numerator": 0,
+          "value": null
+        },
+        "role": {
+          "exact_on_labelled": {
+            "denominator": 28,
+            "numerator": 1,
+            "value": 0.03571428571428571
+          },
+          "precision": {
+            "denominator": 9,
+            "numerator": 9,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 93,
+            "numerator": 9,
+            "value": 0.0967741935483871
+          }
+        },
+        "target": {
+          "exact_on_labelled": {
+            "denominator": 28,
+            "numerator": 1,
+            "value": 0.03571428571428571
+          },
+          "precision": {
+            "denominator": 5,
+            "numerator": 5,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 52,
+            "numerator": 5,
+            "value": 0.09615384615384616
+          }
+        },
+        "wrong_confirmation": {
+          "denominator": 4,
+          "numerator": 0,
+          "value": 0.0
+        }
+      },
+      "rules": {
+        "api_calls": 0,
+        "clarify_overconfirmation": {
+          "denominator": 2,
+          "numerator": 0,
+          "value": 0.0
+        },
+        "decision_and_pack_latency": {
+          "count": 30,
+          "p50_ms": 1.4610470025218092,
+          "p95_ms": 1.6236901501542886
+        },
+        "final_complete": {
+          "denominator": 30,
+          "numerator": 7,
+          "value": 0.23333333333333334
+        },
+        "final_fact_recall": {
+          "denominator": 127,
+          "numerator": 77,
+          "value": 0.6062992125984252
+        },
+        "no_target_overconfirmation": {
+          "denominator": 0,
+          "numerator": 0,
+          "value": null
+        },
+        "role": {
+          "exact_on_labelled": {
+            "denominator": 28,
+            "numerator": 1,
+            "value": 0.03571428571428571
+          },
+          "precision": {
+            "denominator": 32,
+            "numerator": 18,
+            "value": 0.5625
+          },
+          "recall": {
+            "denominator": 93,
+            "numerator": 18,
+            "value": 0.1935483870967742
+          }
+        },
+        "target": {
+          "exact_on_labelled": {
+            "denominator": 28,
+            "numerator": 5,
+            "value": 0.17857142857142858
+          },
+          "precision": {
+            "denominator": 17,
+            "numerator": 17,
+            "value": 1.0
+          },
+          "recall": {
+            "denominator": 52,
+            "numerator": 17,
+            "value": 0.3269230769230769
+          }
+        },
+        "wrong_confirmation": {
+          "denominator": 15,
+          "numerator": 0,
+          "value": 0.0
+        }
+      }
+    }
+  },
+  "config": {
+    "external_api_calls": 250,
+    "holdout_manifest": {
+      "path": "artifacts/u_10o0o/advanced-pair-holdout-20261109-data/manifest.json",
+      "sha256": "8b0359752b063de67005a21c95ea50818f5376ea1943c848380bd9598b5753df"
+    },
+    "inputs": {
+      "cases": {
+        "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+        "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+      },
+      "curated": {
+        "path": "artifacts/u_10o0o/pattern-curation/advanced/manifest.json",
+        "sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf"
+      },
+      "facts": {
+        "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+        "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+      },
+      "pages": {
+        "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+        "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+      },
+      "vectors": {
+        "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+        "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+      }
+    },
+    "interpreter": {
+      "budget_usd": null,
+      "max_output_tokens": 1600,
+      "maximum_calls": 250,
+      "model": "gpt-6-luna",
+      "prompt_sha256": "6c30882002de1f00d88ca766167612b3a6ae7e8b631d4a1dc86e2b5d95f33f26",
+      "reasoning_effort": "low",
+      "retries": 0,
+      "timeout_seconds": 10.0,
+      "workers": 6
+    },
+    "limits": {
+      "candidates": 20,
+      "context_pages": 8,
+      "context_tokens": 8000
+    },
+    "model": {
+      "embedding": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+      "embedding_revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+      "reranked_head": 3,
+      "reranker": "nlpai-lab/KURE-Reranker-nano",
+      "reranker_revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "rrf_k": 60,
+      "rrf_weights": [
+        0.5,
+        0.5
+      ]
+    },
+    "question_inputs": {
+      "negative_control": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_questions.json",
+        "sha256": "f490c928dd3298629229b008b1cade8b166966fb01ccc328c2cff843f6760404"
+      },
+      "pair_holdout": {
+        "path": "artifacts/u_10o0o/advanced-pair-holdout-20261109-data/questions.json",
+        "sha256": "05230a04282315620571c2a6eebfc4e1e7ee7afa72e3eacd311b2a6182c4ee17"
+      },
+      "scenarios": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_questions.json",
+        "sha256": "612cc0422657a1dc4d175165ea850c6635361b6c6f2de867159402a7c928f39b"
+      },
+      "semantic_queries": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/questions.json",
+        "sha256": "b6347f69fe72b4ead5147aed367f03bf5110286eb52d364df460269421959d82"
+      },
+      "work_rules": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/questions.json",
+        "sha256": "b7b569df66a0912ed1c5c6b8e7544cf7ae1bf802e45df3d2bc7e852b98567935"
+      }
+    },
+    "references": {
+      "negative_control": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_references.json",
+        "sha256": "100ec141d87ab3dba5878af0ecacecd192f1bb5c3092917f57d0cbe63221d466"
+      },
+      "pair_holdout": {
+        "path": "artifacts/u_10o0o/advanced-pair-holdout-20261109-data/references.json",
+        "sha256": "77eee4f3961f5c6dde29c10a80deaed5c356dae211db664a050764798bac7dfd"
+      },
+      "scenarios": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_references.json",
+        "sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309"
+      },
+      "semantic_queries": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+        "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+      },
+      "work_rules": {
+        "path": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/references.json",
+        "sha256": "2de9b0da7f1f052c912716d3eb5132653a81e44e8288403a329f49a3772fa280"
+      }
+    },
+    "rules": {
+      "sha256": "77e56d31d28f88a2dd730d586c210b99302820c5028c84b1c3cb907f96ba4842",
+      "version": "aec25ae69e1c4a729709ec1e49d5c14c"
+    }
+  },
+  "luna_statuses": {
+    "conflict": 14,
+    "partial": 3,
+    "timeout": 1,
+    "unresolved": 148,
+    "verified": 84
+  },
+  "provider": {
+    "calls": 250,
+    "latency": {
+      "count": 250,
+      "p50_ms": 4077.8035,
+      "p95_ms": 8250.632849999998
+    },
+    "models": {
+      "gpt-6-luna": 250
+    },
+    "statuses": {
+      "completed": 249,
+      "timeout": 1
+    },
+    "tokens": {
+      "cached_input_tokens": 0,
+      "input_tokens": 212603,
+      "output_tokens": 85785,
+      "reasoning_tokens": 61450
+    }
+  },
+  "scores": {
+    "category": {
+      "S01": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "facts_hit": 20,
+              "question_denominator": 20,
+              "required_facts": 20
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "facts_hit": 20,
+              "question_denominator": 20,
+              "required_facts": 20
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 20,
+            "input_tokens": 16654,
+            "latency_ms": {
+              "count": 20,
+              "p50": 3069.2135,
+              "p95": 5992.805850000004
+            },
+            "output_tokens": 5192,
+            "reasoning_tokens": 3815
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 8,
+              "numerator": 8,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 8,
+              "numerator": 8,
+              "value": 1.0
+            },
+            "true_positive": 8
+          },
+          "rules_fallback_count": 13,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 8,
+              "value": 0.4
+            },
+            "false_negative": 12,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 8,
+              "numerator": 8,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 8,
+              "value": 0.4
+            },
+            "true_positive": 8
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 7,
+            "targets": 7
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 8,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 8,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "facts_hit": 20,
+              "question_denominator": 20,
+              "required_facts": 20
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "facts_hit": 20,
+              "question_denominator": 20,
+              "required_facts": 20
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 8,
+              "numerator": 8,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 8,
+              "numerator": 8,
+              "value": 1.0
+            },
+            "true_positive": 8
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 8,
+              "value": 0.4
+            },
+            "false_negative": 12,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 8,
+              "numerator": 8,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 8,
+              "value": 0.4
+            },
+            "true_positive": 8
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 8,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 8,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      },
+      "S02": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 10,
+                "value": 0.5
+              },
+              "fact_recall": {
+                "denominator": 30,
+                "numerator": 14,
+                "value": 0.4666666666666667
+              },
+              "facts_hit": 14,
+              "question_denominator": 20,
+              "required_facts": 30
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 30,
+                "numerator": 30,
+                "value": 1.0
+              },
+              "facts_hit": 30,
+              "question_denominator": 20,
+              "required_facts": 30
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 20,
+            "input_tokens": 17094,
+            "latency_ms": {
+              "count": 20,
+              "p50": 4156.4375,
+              "p95": 5107.253050000001
+            },
+            "output_tokens": 8232,
+            "reasoning_tokens": 5452
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 30,
+              "numerator": 30,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 30,
+              "numerator": 30,
+              "value": 1.0
+            },
+            "true_positive": 30
+          },
+          "rules_fallback_count": 20,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "true_positive": 20
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 10,
+                "value": 0.5
+              },
+              "fact_recall": {
+                "denominator": 30,
+                "numerator": 14,
+                "value": 0.4666666666666667
+              },
+              "facts_hit": 14,
+              "question_denominator": 20,
+              "required_facts": 30
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 30,
+                "numerator": 30,
+                "value": 1.0
+              },
+              "facts_hit": 30,
+              "question_denominator": 20,
+              "required_facts": 30
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 30,
+              "numerator": 30,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 30,
+              "numerator": 30,
+              "value": 1.0
+            },
+            "true_positive": 30
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "true_positive": 20
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      },
+      "S03": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 70,
+                "numerator": 70,
+                "value": 1.0
+              },
+              "facts_hit": 70,
+              "question_denominator": 20,
+              "required_facts": 70
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 70,
+                "numerator": 70,
+                "value": 1.0
+              },
+              "facts_hit": 70,
+              "question_denominator": 20,
+              "required_facts": 70
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 20,
+            "input_tokens": 16970,
+            "latency_ms": {
+              "count": 20,
+              "p50": 4589.795,
+              "p95": 6691.21705
+            },
+            "output_tokens": 7166,
+            "reasoning_tokens": 4772
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 5,
+              "value": 0.25
+            },
+            "false_negative": 20,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 50,
+              "numerator": 50,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 70,
+              "numerator": 50,
+              "value": 0.7142857142857143
+            },
+            "true_positive": 50
+          },
+          "rules_fallback_count": 15,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "true_positive": 20
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 10,
+            "targets": 5
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 70,
+                "numerator": 70,
+                "value": 1.0
+              },
+              "facts_hit": 70,
+              "question_denominator": 20,
+              "required_facts": 70
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 70,
+                "numerator": 70,
+                "value": 1.0
+              },
+              "facts_hit": 70,
+              "question_denominator": 20,
+              "required_facts": 70
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 5,
+              "value": 0.25
+            },
+            "false_negative": 20,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 50,
+              "numerator": 50,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 70,
+              "numerator": 50,
+              "value": 0.7142857142857143
+            },
+            "true_positive": 50
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "true_positive": 20
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      },
+      "S04": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 10,
+                "value": 0.5
+              },
+              "fact_recall": {
+                "denominator": 66,
+                "numerator": 49,
+                "value": 0.7424242424242424
+              },
+              "facts_hit": 49,
+              "question_denominator": 20,
+              "required_facts": 66
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 66,
+                "numerator": 66,
+                "value": 1.0
+              },
+              "facts_hit": 66,
+              "question_denominator": 20,
+              "required_facts": 66
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 20,
+            "input_tokens": 16578,
+            "latency_ms": {
+              "count": 20,
+              "p50": 7452.6720000000005,
+              "p95": 9354.93315
+            },
+            "output_tokens": 13194,
+            "reasoning_tokens": 9897
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 54,
+              "numerator": 54,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 54,
+              "numerator": 54,
+              "value": 1.0
+            },
+            "true_positive": 54
+          },
+          "rules_fallback_count": 20,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 40,
+              "numerator": 40,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 40,
+              "numerator": 40,
+              "value": 1.0
+            },
+            "true_positive": 40
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 40,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 10,
+                "value": 0.5
+              },
+              "fact_recall": {
+                "denominator": 66,
+                "numerator": 49,
+                "value": 0.7424242424242424
+              },
+              "facts_hit": 49,
+              "question_denominator": 20,
+              "required_facts": 66
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 66,
+                "numerator": 66,
+                "value": 1.0
+              },
+              "facts_hit": 66,
+              "question_denominator": 20,
+              "required_facts": 66
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 54,
+              "numerator": 54,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 54,
+              "numerator": 54,
+              "value": 1.0
+            },
+            "true_positive": 54
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 40,
+              "numerator": 40,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 40,
+              "numerator": 40,
+              "value": 1.0
+            },
+            "true_positive": 40
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 40,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      },
+      "S05": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 20,
+            "input_tokens": 16954,
+            "latency_ms": {
+              "count": 20,
+              "p50": 4555.816000000001,
+              "p95": 7825.5285
+            },
+            "output_tokens": 8958,
+            "reasoning_tokens": 6878
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 16,
+              "value": 0.8
+            },
+            "false_negative": 0,
+            "false_positive": 4,
+            "precision": {
+              "denominator": 36,
+              "numerator": 32,
+              "value": 0.8888888888888888
+            },
+            "recall": {
+              "denominator": 32,
+              "numerator": 32,
+              "value": 1.0
+            },
+            "true_positive": 32
+          },
+          "rules_fallback_count": 4,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "true_positive": 20
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 28,
+            "targets": 16
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 12,
+              "value": 0.6
+            },
+            "false_negative": 0,
+            "false_positive": 8,
+            "precision": {
+              "denominator": 40,
+              "numerator": 32,
+              "value": 0.8
+            },
+            "recall": {
+              "denominator": 32,
+              "numerator": 32,
+              "value": 1.0
+            },
+            "true_positive": 32
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "true_positive": 20
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      },
+      "S06": {
+        "luna": {
+          "clarify_questions": 20,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 0,
+                "value": 0.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 0,
+                "value": 0.0
+              },
+              "facts_hit": 0,
+              "question_denominator": 20,
+              "required_facts": 40
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 20,
+            "input_tokens": 16980,
+            "latency_ms": {
+              "count": 20,
+              "p50": 4934.705,
+              "p95": 6092.205550000001
+            },
+            "output_tokens": 8858,
+            "reasoning_tokens": 6655
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 20,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 20,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 0,
+                "value": 0.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 0,
+                "value": 0.0
+              },
+              "facts_hit": 0,
+              "question_denominator": 20,
+              "required_facts": 40
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "S07": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 20,
+            "input_tokens": 16900,
+            "latency_ms": {
+              "count": 20,
+              "p50": 4308.2855,
+              "p95": 5432.631850000001
+            },
+            "output_tokens": 7414,
+            "reasoning_tokens": 5092
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "false_negative": 20,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 40,
+              "numerator": 20,
+              "value": 0.5
+            },
+            "true_positive": 20
+          },
+          "rules_fallback_count": 20,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "true_positive": 20
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 20,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 40,
+                "numerator": 40,
+                "value": 1.0
+              },
+              "facts_hit": 40,
+              "question_denominator": 20,
+              "required_facts": 40
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "false_negative": 20,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 40,
+              "numerator": 20,
+              "value": 0.5
+            },
+            "true_positive": 20
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "true_positive": 20
+          },
+          "target_labeled_questions": 20,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      },
+      "negative_control/near_domain": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 10,
+            "input_tokens": 8285,
+            "latency_ms": {
+              "count": 10,
+              "p50": 1833.25,
+              "p95": 2819.9441999999995
+            },
+            "output_tokens": 804,
+            "reasoning_tokens": 606
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 10,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "negative_control/unrelated": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 10,
+            "input_tokens": 8273,
+            "latency_ms": {
+              "count": 10,
+              "p50": 1781.597,
+              "p95": 2176.4873
+            },
+            "output_tokens": 560,
+            "reasoning_tokens": 372
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 10,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "pair_holdout": {
+        "luna": {
+          "clarify_questions": 2,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 30,
+                "numerator": 13,
+                "value": 0.43333333333333335
+              },
+              "fact_recall": {
+                "denominator": 127,
+                "numerator": 90,
+                "value": 0.7086614173228346
+              },
+              "facts_hit": 90,
+              "question_denominator": 30,
+              "required_facts": 127
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 30,
+                "numerator": 8,
+                "value": 0.26666666666666666
+              },
+              "fact_recall": {
+                "denominator": 127,
+                "numerator": 80,
+                "value": 0.6299212598425197
+              },
+              "facts_hit": 80,
+              "question_denominator": 30,
+              "required_facts": 127
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 3,
+            "denominator": 30
+          },
+          "provider": {
+            "calls": 30,
+            "input_tokens": 26315,
+            "latency_ms": {
+              "count": 30,
+              "p50": 6139.8355,
+              "p95": 9241.713049999998
+            },
+            "output_tokens": 17129,
+            "reasoning_tokens": 11023
+          },
+          "questions": 30,
+          "role": {
+            "exact": {
+              "denominator": 30,
+              "numerator": 4,
+              "value": 0.13333333333333333
+            },
+            "false_negative": 72,
+            "false_positive": 9,
+            "precision": {
+              "denominator": 30,
+              "numerator": 21,
+              "value": 0.7
+            },
+            "recall": {
+              "denominator": 93,
+              "numerator": 21,
+              "value": 0.22580645161290322
+            },
+            "true_positive": 21
+          },
+          "rules_fallback_count": 26,
+          "target": {
+            "exact": {
+              "denominator": 30,
+              "numerator": 7,
+              "value": 0.23333333333333334
+            },
+            "false_negative": 34,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 18,
+              "numerator": 18,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 52,
+              "numerator": 18,
+              "value": 0.34615384615384615
+            },
+            "true_positive": 18
+          },
+          "target_labeled_questions": 28,
+          "validated_model_suggestions": {
+            "roles": 9,
+            "targets": 5
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 2,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 16,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 18,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 2,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 30,
+                "numerator": 13,
+                "value": 0.43333333333333335
+              },
+              "fact_recall": {
+                "denominator": 127,
+                "numerator": 90,
+                "value": 0.7086614173228346
+              },
+              "facts_hit": 90,
+              "question_denominator": 30,
+              "required_facts": 127
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 30,
+                "numerator": 7,
+                "value": 0.23333333333333334
+              },
+              "fact_recall": {
+                "denominator": 127,
+                "numerator": 77,
+                "value": 0.6062992125984252
+              },
+              "facts_hit": 77,
+              "question_denominator": 30,
+              "required_facts": 127
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 30
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 30,
+          "role": {
+            "exact": {
+              "denominator": 30,
+              "numerator": 3,
+              "value": 0.1
+            },
+            "false_negative": 75,
+            "false_positive": 14,
+            "precision": {
+              "denominator": 32,
+              "numerator": 18,
+              "value": 0.5625
+            },
+            "recall": {
+              "denominator": 93,
+              "numerator": 18,
+              "value": 0.1935483870967742
+            },
+            "true_positive": 18
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 30,
+              "numerator": 7,
+              "value": 0.23333333333333334
+            },
+            "false_negative": 35,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 17,
+              "numerator": 17,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 52,
+              "numerator": 17,
+              "value": 0.3269230769230769
+            },
+            "true_positive": 17
+          },
+          "target_labeled_questions": 28,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 2,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 15,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 17,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      },
+      "semantic_queries/cross_document_rule": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 1,
+                "value": 0.1
+              },
+              "fact_recall": {
+                "denominator": 21,
+                "numerator": 7,
+                "value": 0.3333333333333333
+              },
+              "facts_hit": 7,
+              "question_denominator": 10,
+              "required_facts": 21
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 1,
+                "value": 0.1
+              },
+              "fact_recall": {
+                "denominator": 21,
+                "numerator": 5,
+                "value": 0.23809523809523808
+              },
+              "facts_hit": 5,
+              "question_denominator": 10,
+              "required_facts": 21
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 10,
+            "input_tokens": 8735,
+            "latency_ms": {
+              "count": 10,
+              "p50": 2886.329,
+              "p95": 5335.3116999999975
+            },
+            "output_tokens": 1765,
+            "reasoning_tokens": 1448
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 10,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 1,
+                "value": 0.1
+              },
+              "fact_recall": {
+                "denominator": 21,
+                "numerator": 7,
+                "value": 0.3333333333333333
+              },
+              "facts_hit": 7,
+              "question_denominator": 10,
+              "required_facts": 21
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 1,
+                "value": 0.1
+              },
+              "fact_recall": {
+                "denominator": 21,
+                "numerator": 5,
+                "value": 0.23809523809523808
+              },
+              "facts_hit": 5,
+              "question_denominator": 10,
+              "required_facts": 21
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "semantic_queries/cross_document_workflow": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 2,
+                "value": 0.2
+              },
+              "fact_recall": {
+                "denominator": 20,
+                "numerator": 11,
+                "value": 0.55
+              },
+              "facts_hit": 11,
+              "question_denominator": 10,
+              "required_facts": 20
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 2,
+                "value": 0.2
+              },
+              "fact_recall": {
+                "denominator": 20,
+                "numerator": 11,
+                "value": 0.55
+              },
+              "facts_hit": 11,
+              "question_denominator": 10,
+              "required_facts": 20
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 10,
+            "input_tokens": 8656,
+            "latency_ms": {
+              "count": 10,
+              "p50": 2217.6205,
+              "p95": 3813.8995999999997
+            },
+            "output_tokens": 1322,
+            "reasoning_tokens": 1133
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 10,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 2,
+                "value": 0.2
+              },
+              "fact_recall": {
+                "denominator": 20,
+                "numerator": 11,
+                "value": 0.55
+              },
+              "facts_hit": 11,
+              "question_denominator": 10,
+              "required_facts": 20
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 2,
+                "value": 0.2
+              },
+              "fact_recall": {
+                "denominator": 20,
+                "numerator": 11,
+                "value": 0.55
+              },
+              "facts_hit": 11,
+              "question_denominator": 10,
+              "required_facts": 20
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "semantic_queries/procedure_paraphrase": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 6,
+                "value": 0.6
+              },
+              "fact_recall": {
+                "denominator": 10,
+                "numerator": 6,
+                "value": 0.6
+              },
+              "facts_hit": 6,
+              "question_denominator": 10,
+              "required_facts": 10
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 6,
+                "value": 0.6
+              },
+              "fact_recall": {
+                "denominator": 10,
+                "numerator": 6,
+                "value": 0.6
+              },
+              "facts_hit": 6,
+              "question_denominator": 10,
+              "required_facts": 10
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 10,
+            "input_tokens": 8501,
+            "latency_ms": {
+              "count": 10,
+              "p50": 2179.0829999999996,
+              "p95": 3116.4906999999994
+            },
+            "output_tokens": 1078,
+            "reasoning_tokens": 886
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 10,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 6,
+                "value": 0.6
+              },
+              "fact_recall": {
+                "denominator": 10,
+                "numerator": 6,
+                "value": 0.6
+              },
+              "facts_hit": 6,
+              "question_denominator": 10,
+              "required_facts": 10
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 6,
+                "value": 0.6
+              },
+              "fact_recall": {
+                "denominator": 10,
+                "numerator": 6,
+                "value": 0.6
+              },
+              "facts_hit": 6,
+              "question_denominator": 10,
+              "required_facts": 10
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "semantic_queries/rule_paraphrase": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 5,
+                "value": 0.5
+              },
+              "fact_recall": {
+                "denominator": 11,
+                "numerator": 5,
+                "value": 0.45454545454545453
+              },
+              "facts_hit": 5,
+              "question_denominator": 10,
+              "required_facts": 11
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 4,
+                "value": 0.4
+              },
+              "fact_recall": {
+                "denominator": 11,
+                "numerator": 4,
+                "value": 0.36363636363636365
+              },
+              "facts_hit": 4,
+              "question_denominator": 10,
+              "required_facts": 11
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 10,
+            "input_tokens": 8526,
+            "latency_ms": {
+              "count": 10,
+              "p50": 2313.1710000000003,
+              "p95": 5215.646949999997
+            },
+            "output_tokens": 1522,
+            "reasoning_tokens": 1333
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 10,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 5,
+                "value": 0.5
+              },
+              "fact_recall": {
+                "denominator": 11,
+                "numerator": 5,
+                "value": 0.45454545454545453
+              },
+              "facts_hit": 5,
+              "question_denominator": 10,
+              "required_facts": 11
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 4,
+                "value": 0.4
+              },
+              "fact_recall": {
+                "denominator": 11,
+                "numerator": 4,
+                "value": 0.36363636363636365
+              },
+              "facts_hit": 4,
+              "question_denominator": 10,
+              "required_facts": 11
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "work_rules/applicability": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 9,
+                "value": 0.9
+              },
+              "fact_recall": {
+                "denominator": 15,
+                "numerator": 14,
+                "value": 0.9333333333333333
+              },
+              "facts_hit": 14,
+              "question_denominator": 10,
+              "required_facts": 15
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 8,
+                "value": 0.8
+              },
+              "fact_recall": {
+                "denominator": 15,
+                "numerator": 13,
+                "value": 0.8666666666666667
+              },
+              "facts_hit": 13,
+              "question_denominator": 10,
+              "required_facts": 15
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 10,
+            "input_tokens": 8629,
+            "latency_ms": {
+              "count": 10,
+              "p50": 2338.536,
+              "p95": 5566.593849999999
+            },
+            "output_tokens": 1993,
+            "reasoning_tokens": 1677
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 10,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 9,
+                "value": 0.9
+              },
+              "fact_recall": {
+                "denominator": 15,
+                "numerator": 14,
+                "value": 0.9333333333333333
+              },
+              "facts_hit": 14,
+              "question_denominator": 10,
+              "required_facts": 15
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 8,
+                "value": 0.8
+              },
+              "fact_recall": {
+                "denominator": 15,
+                "numerator": 13,
+                "value": 0.8666666666666667
+              },
+              "facts_hit": 13,
+              "question_denominator": 10,
+              "required_facts": 15
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "work_rules/procedure": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 9,
+                "value": 0.9
+              },
+              "fact_recall": {
+                "denominator": 12,
+                "numerator": 11,
+                "value": 0.9166666666666666
+              },
+              "facts_hit": 11,
+              "question_denominator": 10,
+              "required_facts": 12
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 9,
+                "value": 0.9
+              },
+              "fact_recall": {
+                "denominator": 12,
+                "numerator": 11,
+                "value": 0.9166666666666666
+              },
+              "facts_hit": 11,
+              "question_denominator": 10,
+              "required_facts": 12
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 10,
+            "input_tokens": 8553,
+            "latency_ms": {
+              "count": 10,
+              "p50": 1579.1275,
+              "p95": 1942.4994499999998
+            },
+            "output_tokens": 598,
+            "reasoning_tokens": 411
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 10,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 9,
+                "value": 0.9
+              },
+              "fact_recall": {
+                "denominator": 12,
+                "numerator": 11,
+                "value": 0.9166666666666666
+              },
+              "facts_hit": 11,
+              "question_denominator": 10,
+              "required_facts": 12
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 10,
+                "numerator": 9,
+                "value": 0.9
+              },
+              "fact_recall": {
+                "denominator": 12,
+                "numerator": 11,
+                "value": 0.9166666666666666
+              },
+              "facts_hit": 11,
+              "question_denominator": 10,
+              "required_facts": 12
+            }
+          },
+          "no_target_questions": 10,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 10
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 10,
+          "role": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 10,
+              "numerator": 10,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 10,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      }
+    },
+    "overall": {
+      "all": {
+        "luna": {
+          "clarify_questions": 22,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 230,
+                "numerator": 145,
+                "value": 0.6304347826086957
+              },
+              "fact_recall": {
+                "denominator": 522,
+                "numerator": 377,
+                "value": 0.7222222222222222
+              },
+              "facts_hit": 377,
+              "question_denominator": 230,
+              "required_facts": 522
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 230,
+                "numerator": 178,
+                "value": 0.7739130434782608
+              },
+              "fact_recall": {
+                "denominator": 522,
+                "numerator": 436,
+                "value": 0.8352490421455939
+              },
+              "facts_hit": 436,
+              "question_denominator": 230,
+              "required_facts": 522
+            }
+          },
+          "no_target_questions": 80,
+          "partial_unresolved": {
+            "count": 3,
+            "denominator": 250
+          },
+          "provider": {
+            "calls": 250,
+            "input_tokens": 212603,
+            "latency_ms": {
+              "count": 250,
+              "p50": 4077.8035,
+              "p95": 8250.632849999998
+            },
+            "output_tokens": 85785,
+            "reasoning_tokens": 61450
+          },
+          "questions": 250,
+          "role": {
+            "exact": {
+              "denominator": 250,
+              "numerator": 185,
+              "value": 0.74
+            },
+            "false_negative": 112,
+            "false_positive": 13,
+            "precision": {
+              "denominator": 228,
+              "numerator": 215,
+              "value": 0.9429824561403509
+            },
+            "recall": {
+              "denominator": 327,
+              "numerator": 215,
+              "value": 0.6574923547400612
+            },
+            "true_positive": 215
+          },
+          "rules_fallback_count": 218,
+          "target": {
+            "exact": {
+              "denominator": 250,
+              "numerator": 215,
+              "value": 0.86
+            },
+            "false_negative": 46,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 146,
+              "numerator": 146,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 192,
+              "numerator": 146,
+              "value": 0.7604166666666666
+            },
+            "true_positive": 146
+          },
+          "target_labeled_questions": 148,
+          "validated_model_suggestions": {
+            "roles": 54,
+            "targets": 33
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 22,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 80,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 124,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 146,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 22,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 230,
+                "numerator": 145,
+                "value": 0.6304347826086957
+              },
+              "fact_recall": {
+                "denominator": 522,
+                "numerator": 377,
+                "value": 0.7222222222222222
+              },
+              "facts_hit": 377,
+              "question_denominator": 230,
+              "required_facts": 522
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 230,
+                "numerator": 177,
+                "value": 0.7695652173913043
+              },
+              "fact_recall": {
+                "denominator": 522,
+                "numerator": 433,
+                "value": 0.8295019157088123
+              },
+              "facts_hit": 433,
+              "question_denominator": 230,
+              "required_facts": 522
+            }
+          },
+          "no_target_questions": 80,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 250
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 250,
+          "role": {
+            "exact": {
+              "denominator": 250,
+              "numerator": 180,
+              "value": 0.72
+            },
+            "false_negative": 115,
+            "false_positive": 22,
+            "precision": {
+              "denominator": 234,
+              "numerator": 212,
+              "value": 0.905982905982906
+            },
+            "recall": {
+              "denominator": 327,
+              "numerator": 212,
+              "value": 0.6483180428134556
+            },
+            "true_positive": 212
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 250,
+              "numerator": 215,
+              "value": 0.86
+            },
+            "false_negative": 47,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 145,
+              "numerator": 145,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 192,
+              "numerator": 145,
+              "value": 0.7552083333333334
+            },
+            "true_positive": 145
+          },
+          "target_labeled_questions": 148,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 22,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 80,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 123,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 145,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      }
+    },
+    "paired_final_facts": {
+      "denominator": 230,
+      "fact_hit_delta": 3,
+      "gains": 1,
+      "losses": 0,
+      "unchanged": 229
+    },
+    "split": {
+      "negative_control": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            }
+          },
+          "no_target_questions": 20,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 20,
+            "input_tokens": 16558,
+            "latency_ms": {
+              "count": 20,
+              "p50": 1822.7615,
+              "p95": 2536.3822
+            },
+            "output_tokens": 1364,
+            "reasoning_tokens": 978
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 20,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "fact_recall": {
+                "denominator": 0,
+                "numerator": 0,
+                "value": null
+              },
+              "facts_hit": 0,
+              "question_denominator": 0,
+              "required_facts": 0
+            }
+          },
+          "no_target_questions": 20,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "pair_holdout": {
+        "luna": {
+          "clarify_questions": 2,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 30,
+                "numerator": 13,
+                "value": 0.43333333333333335
+              },
+              "fact_recall": {
+                "denominator": 127,
+                "numerator": 90,
+                "value": 0.7086614173228346
+              },
+              "facts_hit": 90,
+              "question_denominator": 30,
+              "required_facts": 127
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 30,
+                "numerator": 8,
+                "value": 0.26666666666666666
+              },
+              "fact_recall": {
+                "denominator": 127,
+                "numerator": 80,
+                "value": 0.6299212598425197
+              },
+              "facts_hit": 80,
+              "question_denominator": 30,
+              "required_facts": 127
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 3,
+            "denominator": 30
+          },
+          "provider": {
+            "calls": 30,
+            "input_tokens": 26315,
+            "latency_ms": {
+              "count": 30,
+              "p50": 6139.8355,
+              "p95": 9241.713049999998
+            },
+            "output_tokens": 17129,
+            "reasoning_tokens": 11023
+          },
+          "questions": 30,
+          "role": {
+            "exact": {
+              "denominator": 30,
+              "numerator": 4,
+              "value": 0.13333333333333333
+            },
+            "false_negative": 72,
+            "false_positive": 9,
+            "precision": {
+              "denominator": 30,
+              "numerator": 21,
+              "value": 0.7
+            },
+            "recall": {
+              "denominator": 93,
+              "numerator": 21,
+              "value": 0.22580645161290322
+            },
+            "true_positive": 21
+          },
+          "rules_fallback_count": 26,
+          "target": {
+            "exact": {
+              "denominator": 30,
+              "numerator": 7,
+              "value": 0.23333333333333334
+            },
+            "false_negative": 34,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 18,
+              "numerator": 18,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 52,
+              "numerator": 18,
+              "value": 0.34615384615384615
+            },
+            "true_positive": 18
+          },
+          "target_labeled_questions": 28,
+          "validated_model_suggestions": {
+            "roles": 9,
+            "targets": 5
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 2,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 16,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 18,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 2,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 30,
+                "numerator": 13,
+                "value": 0.43333333333333335
+              },
+              "fact_recall": {
+                "denominator": 127,
+                "numerator": 90,
+                "value": 0.7086614173228346
+              },
+              "facts_hit": 90,
+              "question_denominator": 30,
+              "required_facts": 127
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 30,
+                "numerator": 7,
+                "value": 0.23333333333333334
+              },
+              "fact_recall": {
+                "denominator": 127,
+                "numerator": 77,
+                "value": 0.6062992125984252
+              },
+              "facts_hit": 77,
+              "question_denominator": 30,
+              "required_facts": 127
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 30
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 30,
+          "role": {
+            "exact": {
+              "denominator": 30,
+              "numerator": 3,
+              "value": 0.1
+            },
+            "false_negative": 75,
+            "false_positive": 14,
+            "precision": {
+              "denominator": 32,
+              "numerator": 18,
+              "value": 0.5625
+            },
+            "recall": {
+              "denominator": 93,
+              "numerator": 18,
+              "value": 0.1935483870967742
+            },
+            "true_positive": 18
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 30,
+              "numerator": 7,
+              "value": 0.23333333333333334
+            },
+            "false_negative": 35,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 17,
+              "numerator": 17,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 52,
+              "numerator": 17,
+              "value": 0.3269230769230769
+            },
+            "true_positive": 17
+          },
+          "target_labeled_questions": 28,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 2,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 15,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 17,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      },
+      "scenarios": {
+        "luna": {
+          "clarify_questions": 20,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 140,
+                "numerator": 100,
+                "value": 0.7142857142857143
+              },
+              "fact_recall": {
+                "denominator": 306,
+                "numerator": 233,
+                "value": 0.761437908496732
+              },
+              "facts_hit": 233,
+              "question_denominator": 140,
+              "required_facts": 306
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 140,
+                "numerator": 140,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 306,
+                "numerator": 306,
+                "value": 1.0
+              },
+              "facts_hit": 306,
+              "question_denominator": 140,
+              "required_facts": 306
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 140
+          },
+          "provider": {
+            "calls": 140,
+            "input_tokens": 118130,
+            "latency_ms": {
+              "count": 140,
+              "p50": 4486.7365,
+              "p95": 8468.864699999998
+            },
+            "output_tokens": 59014,
+            "reasoning_tokens": 42561
+          },
+          "questions": 140,
+          "role": {
+            "exact": {
+              "denominator": 140,
+              "numerator": 101,
+              "value": 0.7214285714285714
+            },
+            "false_negative": 40,
+            "false_positive": 4,
+            "precision": {
+              "denominator": 198,
+              "numerator": 194,
+              "value": 0.9797979797979798
+            },
+            "recall": {
+              "denominator": 234,
+              "numerator": 194,
+              "value": 0.8290598290598291
+            },
+            "true_positive": 194
+          },
+          "rules_fallback_count": 112,
+          "target": {
+            "exact": {
+              "denominator": 140,
+              "numerator": 128,
+              "value": 0.9142857142857143
+            },
+            "false_negative": 12,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 128,
+              "numerator": 128,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 140,
+              "numerator": 128,
+              "value": 0.9142857142857143
+            },
+            "true_positive": 128
+          },
+          "target_labeled_questions": 120,
+          "validated_model_suggestions": {
+            "roles": 45,
+            "targets": 28
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 108,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 128,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 20,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 140,
+                "numerator": 100,
+                "value": 0.7142857142857143
+              },
+              "fact_recall": {
+                "denominator": 306,
+                "numerator": 233,
+                "value": 0.761437908496732
+              },
+              "facts_hit": 233,
+              "question_denominator": 140,
+              "required_facts": 306
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 140,
+                "numerator": 140,
+                "value": 1.0
+              },
+              "fact_recall": {
+                "denominator": 306,
+                "numerator": 306,
+                "value": 1.0
+              },
+              "facts_hit": 306,
+              "question_denominator": 140,
+              "required_facts": 306
+            }
+          },
+          "no_target_questions": 0,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 140
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 140,
+          "role": {
+            "exact": {
+              "denominator": 140,
+              "numerator": 97,
+              "value": 0.6928571428571428
+            },
+            "false_negative": 40,
+            "false_positive": 8,
+            "precision": {
+              "denominator": 202,
+              "numerator": 194,
+              "value": 0.9603960396039604
+            },
+            "recall": {
+              "denominator": 234,
+              "numerator": 194,
+              "value": 0.8290598290598291
+            },
+            "true_positive": 194
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 140,
+              "numerator": 128,
+              "value": 0.9142857142857143
+            },
+            "false_negative": 12,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 128,
+              "numerator": 128,
+              "value": 1.0
+            },
+            "recall": {
+              "denominator": 140,
+              "numerator": 128,
+              "value": 0.9142857142857143
+            },
+            "true_positive": 128
+          },
+          "target_labeled_questions": 120,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "no_target": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "questions_with_wrong_case": {
+              "denominator": 108,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "wrong_case_predictions": {
+              "denominator": 128,
+              "numerator": 0,
+              "value": 0.0
+            }
+          }
+        }
+      },
+      "semantic_queries": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 40,
+                "numerator": 14,
+                "value": 0.35
+              },
+              "fact_recall": {
+                "denominator": 62,
+                "numerator": 29,
+                "value": 0.46774193548387094
+              },
+              "facts_hit": 29,
+              "question_denominator": 40,
+              "required_facts": 62
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 40,
+                "numerator": 13,
+                "value": 0.325
+              },
+              "fact_recall": {
+                "denominator": 62,
+                "numerator": 26,
+                "value": 0.41935483870967744
+              },
+              "facts_hit": 26,
+              "question_denominator": 40,
+              "required_facts": 62
+            }
+          },
+          "no_target_questions": 40,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 40
+          },
+          "provider": {
+            "calls": 40,
+            "input_tokens": 34418,
+            "latency_ms": {
+              "count": 40,
+              "p50": 2382.7169999999996,
+              "p95": 4146.8546999999935
+            },
+            "output_tokens": 5687,
+            "reasoning_tokens": 4800
+          },
+          "questions": 40,
+          "role": {
+            "exact": {
+              "denominator": 40,
+              "numerator": 40,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 40,
+          "target": {
+            "exact": {
+              "denominator": 40,
+              "numerator": 40,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 40,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 40,
+                "numerator": 14,
+                "value": 0.35
+              },
+              "fact_recall": {
+                "denominator": 62,
+                "numerator": 29,
+                "value": 0.46774193548387094
+              },
+              "facts_hit": 29,
+              "question_denominator": 40,
+              "required_facts": 62
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 40,
+                "numerator": 13,
+                "value": 0.325
+              },
+              "fact_recall": {
+                "denominator": 62,
+                "numerator": 26,
+                "value": 0.41935483870967744
+              },
+              "facts_hit": 26,
+              "question_denominator": 40,
+              "required_facts": 62
+            }
+          },
+          "no_target_questions": 40,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 40
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 40,
+          "role": {
+            "exact": {
+              "denominator": 40,
+              "numerator": 40,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 40,
+              "numerator": 40,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 40,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      },
+      "work_rules": {
+        "luna": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 18,
+                "value": 0.9
+              },
+              "fact_recall": {
+                "denominator": 27,
+                "numerator": 25,
+                "value": 0.9259259259259259
+              },
+              "facts_hit": 25,
+              "question_denominator": 20,
+              "required_facts": 27
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 17,
+                "value": 0.85
+              },
+              "fact_recall": {
+                "denominator": 27,
+                "numerator": 24,
+                "value": 0.8888888888888888
+              },
+              "facts_hit": 24,
+              "question_denominator": 20,
+              "required_facts": 27
+            }
+          },
+          "no_target_questions": 20,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 20,
+            "input_tokens": 17182,
+            "latency_ms": {
+              "count": 20,
+              "p50": 1665.0805,
+              "p95": 5116.560350000001
+            },
+            "output_tokens": 2591,
+            "reasoning_tokens": 2088
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 20,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        },
+        "rules": {
+          "clarify_questions": 0,
+          "facts": {
+            "candidate": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 18,
+                "value": 0.9
+              },
+              "fact_recall": {
+                "denominator": 27,
+                "numerator": 25,
+                "value": 0.9259259259259259
+              },
+              "facts_hit": 25,
+              "question_denominator": 20,
+              "required_facts": 27
+            },
+            "final": {
+              "all_facts_complete": {
+                "denominator": 20,
+                "numerator": 17,
+                "value": 0.85
+              },
+              "fact_recall": {
+                "denominator": 27,
+                "numerator": 24,
+                "value": 0.8888888888888888
+              },
+              "facts_hit": 24,
+              "question_denominator": 20,
+              "required_facts": 27
+            }
+          },
+          "no_target_questions": 20,
+          "partial_unresolved": {
+            "count": 0,
+            "denominator": 20
+          },
+          "provider": {
+            "calls": 0,
+            "input_tokens": 0,
+            "latency_ms": {
+              "count": 0,
+              "p50": null,
+              "p95": null
+            },
+            "output_tokens": 0,
+            "reasoning_tokens": 0
+          },
+          "questions": 20,
+          "role": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "rules_fallback_count": 0,
+          "target": {
+            "exact": {
+              "denominator": 20,
+              "numerator": 20,
+              "value": 1.0
+            },
+            "false_negative": 0,
+            "false_positive": 0,
+            "precision": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "recall": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "true_positive": 0
+          },
+          "target_labeled_questions": 0,
+          "validated_model_suggestions": {
+            "roles": 0,
+            "targets": 0
+          },
+          "wrong_confirmation": {
+            "clarify": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "no_target": {
+              "denominator": 20,
+              "numerator": 0,
+              "value": 0.0
+            },
+            "questions_with_wrong_case": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            },
+            "wrong_case_predictions": {
+              "denominator": 0,
+              "numerator": 0,
+              "value": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "shared_search": {
+    "batch_wall_seconds": 71.20162171401171,
+    "queries": 250,
+    "reranked_queries": 250
+  },
+  "total_wall_seconds": 190.6984745439986,
+  "verification": {
+    "artifacts": {
+      "api-traces.jsonl": {
+        "path": "artifacts/u_10o0o/advanced-luna-routing-20261109/api-traces.jsonl",
+        "sha256": "9b83829d627a28cf3cc75976f054af36db0ec15fbe4de66393dafc543324334c"
+      },
+      "config.json": {
+        "path": "artifacts/u_10o0o/advanced-luna-routing-20261109/config.json",
+        "sha256": "3b74637546af1fc317751a5c62bcf909b349503b3af762d5d71db0463aaa01d4"
+      },
+      "luna-scores.jsonl": {
+        "path": "artifacts/u_10o0o/advanced-luna-routing-20261109/luna-scores.jsonl",
+        "sha256": "3b1a3ef20d35ef1b61aa7b18c715bd107d4d3569e54d68d473c18270234b29bf"
+      },
+      "prompt.txt": {
+        "path": "artifacts/u_10o0o/advanced-luna-routing-20261109/prompt.txt",
+        "sha256": "6c30882002de1f00d88ca766167612b3a6ae7e8b631d4a1dc86e2b5d95f33f26"
+      },
+      "rankings.jsonl": {
+        "path": "artifacts/u_10o0o/advanced-luna-routing-20261109/rankings.jsonl",
+        "sha256": "948a88f449d0bee230aea23aa56182b58328b41c7edd25aa3b33c1d118a29566"
+      },
+      "results.json": {
+        "path": "artifacts/u_10o0o/advanced-luna-routing-20261109/results.json",
+        "sha256": "40fef3102136aad080919c6c89709731882f8a5ed8ba342849ae0ac602c37fce"
+      },
+      "run.log": {
+        "path": "artifacts/u_10o0o/advanced-luna-routing-20261109/run.log",
+        "sha256": "4ca1d8ca2cfd9fbf247b20388943f68a6599a976bc1c484b65856e0fcc440a44"
+      },
+      "traces.jsonl": {
+        "path": "artifacts/u_10o0o/advanced-luna-routing-20261109/traces.jsonl",
+        "sha256": "5daf95e4696442aa1bba3122dcb014fc41211d922d9556146e48fab41a7d8be7"
+      }
+    },
+    "baseline_archive_matches": 220,
+    "gained_final_complete_ids": [
+      "P11"
+    ],
+    "lost_final_complete_ids": [],
+    "reference_cases_overlap": 0,
+    "shared_candidate_pool_matches": 250
+  }
+}

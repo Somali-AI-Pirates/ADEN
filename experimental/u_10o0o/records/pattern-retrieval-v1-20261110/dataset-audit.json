@@ -1,0 +1,28 @@
+{
+  "questions": 120,
+  "development": 60,
+  "validation": 60,
+  "per_split_category": 10,
+  "timing_questions": 30,
+  "timing_policy": "validation first five IDs per category, fixed before retrieval",
+  "ambiguity_subtypes": {
+    "insufficient_identification": 16,
+    "conflicting_conditions": 4
+  },
+  "review_kind": "independent_agent_author_and_reviewer_not_human_review",
+  "review_complete": true,
+  "direct_original_pdf_citations_checked": 220,
+  "source_pdf_count": 120,
+  "cross_split_expected_and_witness_case_overlap": 0,
+  "frozen_at_utc": "2026-11-10T13:38:46.545466+00:00",
+  "questions_sha256": "2868c21af9846f4034013d762811c1fd93d5c6e00ca4d01306ebe76de0f08b83",
+  "references_sha256": "4129388c451336a1ab8da4fb5f8861db68ab737c4fef03c9f93009f34c217141",
+  "evaluation_manifest_sha256": "468da0a194aba26c718170e3af69646295427e1605bca2e9da238048a27d8ef1",
+  "review_sha256": "849dbe0b762e3ea50f76e9c89a1d8335dd67dff34d90cbb05df0f85e4fc55285",
+  "limitations": [
+    "AI agents wrote and independently reviewed the set; no human business review.",
+    "The sample is diagnostic and is not a production traffic distribution.",
+    "Ambiguous cases use at least two source witnesses, not exhaustive candidate enumeration.",
+    "Shared document forms and general rules remain; source patterns are not unseen document families."
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "corpus": {
+    "pages": 18000,
+    "units_by_corpus": {
+      "A": 18000,
+      "B": 49548
+    },
+    "families": {
+      "HG": {
+        "pages": 13650,
+        "structured_pages": 13650,
+        "record_units": 13650
+      },
+      "IS": {
+        "pages": 3750,
+        "structured_pages": 3569,
+        "row_units": 26746,
+        "narrative_units": 8371,
+        "fallback_pages": 181
+      },
+      "core": {
+        "pages": 600,
+        "structured_pages": 600,
+        "record_units": 600
+      }
+    },
+    "relation_edges": 109321,
+    "events": 10513,
+    "linked_codes": 54171
+  },
+  "source_pages_sha256": "bb2fd92104c0983898fb23b3410ed1bdecc0e3c4899f82f4e10027737403d709",
+  "units_sha256": "beb5c9d081ff1a8fe79427a786d7086da4545fa23c69b66bd275bba4d3a1477b",
+  "relations_sha256": "889ef98646579e05284edce8486b353b4911b9ffa45ca0339f28e61ad9c0a691",
+  "storage_bytes": {
+    "pages.jsonl": 77313016,
+    "units.jsonl": 114891231,
+    "relation_index.json": 37136591
+  },
+  "A_successful_resume_seconds": 1042.736,
+  "A_interrupted_attempt_seconds_approx": 61.2,
+  "A_interrupted_computed_rows": 1300,
+  "A_recovered_rows": 100,
+  "B_incremental_seconds": 525.236,
+  "vectors": {
+    "A": {
+      "unit_count": 18000,
+      "vector_file_size_bytes": 73728128,
+      "vectors_sha256": "0de9f08be8265a731eeb9f867663a80da78f51cf3c176d1128b36fc152ce5dfa",
+      "unique_text_count": 18000,
+      "input_tokens": 7727520,
+      "used_tokens": 7727520,
+      "truncated_units": 0,
+      "max_input_tokens": 903
+    },
+    "B": {
+      "unit_count": 49548,
+      "vector_file_size_bytes": 202948736,
+      "vectors_sha256": "ab608cfc1a76b41cc9ad392dbbb8aff736edc37851710281f20a98d47388a20d",
+      "unique_text_count": 49548,
+      "input_tokens": 10111315,
+      "used_tokens": 10111315,
+      "truncated_units": 0,
+      "max_input_tokens": 766
+    }
+  },
+  "hardware": "NVIDIA GeForce RTX 5060 Laptop GPU 8GB; float32; encoder batch4; reranker batch8; CPU threads4",
+  "private_raw_data_in_shared_record": false
+}

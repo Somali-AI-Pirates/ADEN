@@ -1,0 +1,292 @@
+{
+  "format": "fresh-record-hybrid-merged-disjoint-batches-v1",
+  "created_utc": "2026-11-11T06:28:51.451410+00:00",
+  "questions": 160,
+  "result_rows": 480,
+  "questions_sha256": "d8a83000026e1c5729da616ac6f0933984c9e3134ec0d9582c7a550ef5698462",
+  "results_sha256": "d993ada82ec93c39ec5dc03d654dbe63ff0f67e2609ee6bb4986653be178292c",
+  "same_configuration_verified": true,
+  "gold_opened_by_merger": false,
+  "quality_scores_read_before_all_results": false,
+  "invariants": {
+    "code_sha256": {
+      "models.py": "ab78e6b646af62c68b3de6d002d5bf04b6425056c80b8d44ec19cd85b58db198",
+      "retrieval.py": "d313c00c40563b2224b4b172f3ab93ebb5fa24eaf0b998e3488363b05e72dc55"
+    },
+    "device": "cuda",
+    "threads": 4,
+    "bm25": {
+      "b": 0.75,
+      "k1": 1.5,
+      "tokenizer": "Korean words+bigram+complete code"
+    },
+    "dense": {
+      "metric": "exact cosine",
+      "top_k": 50
+    },
+    "conditions": [
+      "A",
+      "B",
+      "C"
+    ],
+    "candidate_limit": 20,
+    "context": {
+      "max_sources": 8,
+      "max_tokens": 8000,
+      "tokenizer": "o200k_base"
+    },
+    "rrf_k": 60,
+    "max_model_tokens": 2048,
+    "sparse_top_k": 50,
+    "max_related_events": 2,
+    "max_related_units": 8,
+    "c_relation_order": "matched events in query order; within event sort unit.kind, source order, unit_id; round-robin events; edge role is proof metadata only",
+    "embedding_model": {
+      "device": "cuda",
+      "dimension": 1024,
+      "dtype": "torch.float32",
+      "max_tokens": 2048,
+      "model_id": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+      "normalize_embeddings": true,
+      "query_prefix": "query: ",
+      "revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+      "snapshot_path": "/home/jake/.cache/huggingface/hub/models--dragonkue--snowflake-arctic-embed-l-v2.0-ko/snapshots/55ec6e9358a56d56af759bc8372e970caf8c305f"
+    },
+    "reranker_model": {
+      "device": "cuda",
+      "dtype": "torch.float32",
+      "max_pair_tokens": 2048,
+      "model_id": "nlpai-lab/KURE-Reranker-nano",
+      "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "scoring": "raw single-logit",
+      "snapshot_path": "/home/jake/.cache/huggingface/hub/models--nlpai-lab--KURE-Reranker-nano/snapshots/8514b9e113f3b27c441ed9c2b50f81d80388b2fd"
+    },
+    "vector_fingerprints": {
+      "A": "5a9e6c863a6d80988a0ff4bc9782b4be1fe7d9bb53e031c69647dfbfea74ad62",
+      "B": "604d2b8de3141e66e27b6c1c7bb5c2f577d7736d38f373d393ee991ec73f80b2"
+    },
+    "source_inputs": {
+      "pages_file_sha256": "bb2fd92104c0983898fb23b3410ed1bdecc0e3c4899f82f4e10027737403d709",
+      "relations_file_sha256": "889ef98646579e05284edce8486b353b4911b9ffa45ca0339f28e61ad9c0a691",
+      "units_file_sha256": "beb5c9d081ff1a8fe79427a786d7086da4545fa23c69b66bd275bba4d3a1477b"
+    }
+  },
+  "stages": [
+    {
+      "stage": "dev",
+      "path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/run-dev-v1/run-manifest.json",
+      "sha256": "e3d21ab8b5d211f95282322e73ac1c36d14bb14de7e862375443be655bfde313",
+      "results_sha256": "f870a9509228044e3eefd3a9ac5518d21d26250ee87d5fd74e24678739289261",
+      "result_rows": 240,
+      "summary": {
+        "elapsed_seconds": 149.85,
+        "measured_elapsed_seconds": 143.668,
+        "measured_query_embedding_count": 240,
+        "measured_rerank_pair_count": 4800,
+        "query_embedding_count": 243,
+        "question_count": 80,
+        "rerank_pair_count": 4860,
+        "result_rows": 240,
+        "results_path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/run-dev-v1/results.jsonl",
+        "rss_peak_kb": 6136104,
+        "threadpool_info": [
+          {
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/torch/lib/libgomp.so.1",
+            "internal_api": "openmp",
+            "num_threads": 4,
+            "prefix": "libgomp",
+            "user_api": "openmp",
+            "version": null
+          },
+          {
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+            "internal_api": "openmp",
+            "num_threads": 4,
+            "prefix": "libgomp",
+            "user_api": "openmp",
+            "version": null
+          },
+          {
+            "architecture": "Haswell",
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+            "internal_api": "openblas",
+            "num_threads": 4,
+            "prefix": "libscipy_openblas",
+            "threading_layer": "pthreads",
+            "user_api": "blas",
+            "version": "0.3.34.106.0"
+          },
+          {
+            "architecture": "Haswell",
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+            "internal_api": "openblas",
+            "num_threads": 4,
+            "prefix": "libscipy_openblas",
+            "threading_layer": "pthreads",
+            "user_api": "blas",
+            "version": "0.3.31.dev"
+          }
+        ],
+        "vector_files": {
+          "A": {
+            "path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/A.vectors.npy",
+            "sha256": "0de9f08be8265a731eeb9f867663a80da78f51cf3c176d1128b36fc152ce5dfa",
+            "size_bytes": 73728128
+          },
+          "B": {
+            "path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/B.vectors.npy",
+            "sha256": "ab608cfc1a76b41cc9ad392dbbb8aff736edc37851710281f20a98d47388a20d",
+            "size_bytes": 202948736
+          }
+        },
+        "warmup_query_embedding_count": 3,
+        "warmup_rerank_pair_count": 60,
+        "warmup_seconds": 6.182
+      }
+    },
+    {
+      "stage": "validation-part1",
+      "path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/run-validation-part1-v1/run-manifest.json",
+      "sha256": "caef85295ced306eb9c1d38d94860ed0feb6d344af7f72786f29d76f40b59ad6",
+      "results_sha256": "fadd2f57c3593a0f84a0377160afaf0d303f2999ef55aa89409b1729a8f1b68e",
+      "result_rows": 168,
+      "summary": {
+        "elapsed_seconds": 121.566,
+        "measured_elapsed_seconds": 116.864,
+        "measured_query_embedding_count": 168,
+        "measured_rerank_pair_count": 3360,
+        "query_embedding_count": 171,
+        "question_count": 56,
+        "rerank_pair_count": 3420,
+        "result_rows": 168,
+        "results_path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/run-validation-part1-v1/results.jsonl",
+        "rss_peak_kb": 6136320,
+        "threadpool_info": [
+          {
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+            "internal_api": "openmp",
+            "num_threads": 4,
+            "prefix": "libgomp",
+            "user_api": "openmp",
+            "version": null
+          },
+          {
+            "architecture": "Haswell",
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+            "internal_api": "openblas",
+            "num_threads": 4,
+            "prefix": "libscipy_openblas",
+            "threading_layer": "pthreads",
+            "user_api": "blas",
+            "version": "0.3.31.dev"
+          },
+          {
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/torch/lib/libgomp.so.1",
+            "internal_api": "openmp",
+            "num_threads": 4,
+            "prefix": "libgomp",
+            "user_api": "openmp",
+            "version": null
+          },
+          {
+            "architecture": "Haswell",
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+            "internal_api": "openblas",
+            "num_threads": 4,
+            "prefix": "libscipy_openblas",
+            "threading_layer": "pthreads",
+            "user_api": "blas",
+            "version": "0.3.34.106.0"
+          }
+        ],
+        "vector_files": {
+          "A": {
+            "path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/A.vectors.npy",
+            "sha256": "0de9f08be8265a731eeb9f867663a80da78f51cf3c176d1128b36fc152ce5dfa",
+            "size_bytes": 73728128
+          },
+          "B": {
+            "path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/B.vectors.npy",
+            "sha256": "ab608cfc1a76b41cc9ad392dbbb8aff736edc37851710281f20a98d47388a20d",
+            "size_bytes": 202948736
+          }
+        },
+        "warmup_query_embedding_count": 3,
+        "warmup_rerank_pair_count": 60,
+        "warmup_seconds": 4.703
+      }
+    },
+    {
+      "stage": "validation-part2",
+      "path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/run-validation-part2-v1/run-manifest.json",
+      "sha256": "d1b7a36f1296dbedfdab03a2c28660bf79433cdff7d4725f28edd50143f68c16",
+      "results_sha256": "b5e868c44ca1f4b48a70e60a7ae5bbab2aef30178aa1de41e936235a8261b8f7",
+      "result_rows": 72,
+      "summary": {
+        "elapsed_seconds": 53.547,
+        "measured_elapsed_seconds": 47.399,
+        "measured_query_embedding_count": 72,
+        "measured_rerank_pair_count": 1440,
+        "query_embedding_count": 75,
+        "question_count": 24,
+        "rerank_pair_count": 1500,
+        "result_rows": 72,
+        "results_path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/run-validation-part2-v1/results.jsonl",
+        "rss_peak_kb": 6133536,
+        "threadpool_info": [
+          {
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/torch/lib/libgomp.so.1",
+            "internal_api": "openmp",
+            "num_threads": 4,
+            "prefix": "libgomp",
+            "user_api": "openmp",
+            "version": null
+          },
+          {
+            "architecture": "Haswell",
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+            "internal_api": "openblas",
+            "num_threads": 4,
+            "prefix": "libscipy_openblas",
+            "threading_layer": "pthreads",
+            "user_api": "blas",
+            "version": "0.3.34.106.0"
+          },
+          {
+            "architecture": "Haswell",
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/scipy.libs/libscipy_openblas-5f890258.so",
+            "internal_api": "openblas",
+            "num_threads": 4,
+            "prefix": "libscipy_openblas",
+            "threading_layer": "pthreads",
+            "user_api": "blas",
+            "version": "0.3.31.dev"
+          },
+          {
+            "filepath": "/home/jake/workspace/projects/kant/ADEN/.venv/lib/python3.13/site-packages/scikit_learn.libs/libgomp-e985bcbb.so.1.0.0",
+            "internal_api": "openmp",
+            "num_threads": 4,
+            "prefix": "libgomp",
+            "user_api": "openmp",
+            "version": null
+          }
+        ],
+        "vector_files": {
+          "A": {
+            "path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/A.vectors.npy",
+            "sha256": "0de9f08be8265a731eeb9f867663a80da78f51cf3c176d1128b36fc152ce5dfa",
+            "size_bytes": 73728128
+          },
+          "B": {
+            "path": "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/B.vectors.npy",
+            "sha256": "ab608cfc1a76b41cc9ad392dbbb8aff736edc37851710281f20a98d47388a20d",
+            "size_bytes": 202948736
+          }
+        },
+        "warmup_query_embedding_count": 3,
+        "warmup_rerank_pair_count": 60,
+        "warmup_seconds": 6.148
+      }
+    }
+  ]
+}

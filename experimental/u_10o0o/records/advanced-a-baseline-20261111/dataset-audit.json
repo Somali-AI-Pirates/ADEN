@@ -1,0 +1,4126 @@
+{
+  "audit_scope": "official development+additional 60 and advanced category evaluation 220",
+  "corpus_fingerprints": [
+    {
+      "name": "pattern_retrieval_A_index_v4",
+      "pages": 18000,
+      "path": "artifacts/u_10o0o/pattern-retrieval-v1-20261110/index-v4/corpus.sqlite3",
+      "sha256": "b81069da64bd28dce91619880c18b262a40ae35abb4edaffe12fae96a0e5b648"
+    },
+    {
+      "name": "advanced_search_baseline_restored_pages",
+      "pages": 18000,
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    }
+  ],
+  "id_join": {
+    "all_question_reference_ids_match": true,
+    "cross_set_id_collision_count": 0
+  },
+  "per_item_validity_flags": [
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV01",
+      "item_key": "official/development:AS-DEV01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV02",
+      "item_key": "official/development:AS-DEV02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": false,
+      "quote_valid_pattern": false,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV03",
+      "item_key": "official/development:AS-DEV03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV04",
+      "item_key": "official/development:AS-DEV04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV05",
+      "item_key": "official/development:AS-DEV05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV06",
+      "item_key": "official/development:AS-DEV06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": false,
+      "quote_valid_pattern": false,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV07",
+      "item_key": "official/development:AS-DEV07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV08",
+      "item_key": "official/development:AS-DEV08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV09",
+      "item_key": "official/development:AS-DEV09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV10",
+      "item_key": "official/development:AS-DEV10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV11",
+      "item_key": "official/development:AS-DEV11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": false,
+      "full_group_sources_valid_advanced": null,
+      "full_group_sources_valid_pattern": null,
+      "id": "AS-DEV12",
+      "item_key": "official/development:AS-DEV12",
+      "page_valid_advanced": null,
+      "page_valid_pattern": null,
+      "quote_valid_advanced": null,
+      "quote_valid_pattern": null,
+      "reference_status": "no_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV13",
+      "item_key": "official/development:AS-DEV13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV14",
+      "item_key": "official/development:AS-DEV14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV15",
+      "item_key": "official/development:AS-DEV15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV16",
+      "item_key": "official/development:AS-DEV16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV17",
+      "item_key": "official/development:AS-DEV17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV18",
+      "item_key": "official/development:AS-DEV18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV19",
+      "item_key": "official/development:AS-DEV19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV20",
+      "item_key": "official/development:AS-DEV20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV21",
+      "item_key": "official/development:AS-DEV21",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV22",
+      "item_key": "official/development:AS-DEV22",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV23",
+      "item_key": "official/development:AS-DEV23",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV24",
+      "item_key": "official/development:AS-DEV24",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV25",
+      "item_key": "official/development:AS-DEV25",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV26",
+      "item_key": "official/development:AS-DEV26",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV27",
+      "item_key": "official/development:AS-DEV27",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV28",
+      "item_key": "official/development:AS-DEV28",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV29",
+      "item_key": "official/development:AS-DEV29",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-DEV30",
+      "item_key": "official/development:AS-DEV30",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/development"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD01",
+      "item_key": "official/additional:AS-ADD01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD02",
+      "item_key": "official/additional:AS-ADD02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD03",
+      "item_key": "official/additional:AS-ADD03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD04",
+      "item_key": "official/additional:AS-ADD04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD05",
+      "item_key": "official/additional:AS-ADD05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD06",
+      "item_key": "official/additional:AS-ADD06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD07",
+      "item_key": "official/additional:AS-ADD07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD08",
+      "item_key": "official/additional:AS-ADD08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD09",
+      "item_key": "official/additional:AS-ADD09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD10",
+      "item_key": "official/additional:AS-ADD10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD11",
+      "item_key": "official/additional:AS-ADD11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": false,
+      "full_group_sources_valid_advanced": null,
+      "full_group_sources_valid_pattern": null,
+      "id": "AS-ADD12",
+      "item_key": "official/additional:AS-ADD12",
+      "page_valid_advanced": null,
+      "page_valid_pattern": null,
+      "quote_valid_advanced": null,
+      "quote_valid_pattern": null,
+      "reference_status": "no_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD13",
+      "item_key": "official/additional:AS-ADD13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD14",
+      "item_key": "official/additional:AS-ADD14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD15",
+      "item_key": "official/additional:AS-ADD15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD16",
+      "item_key": "official/additional:AS-ADD16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD17",
+      "item_key": "official/additional:AS-ADD17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD18",
+      "item_key": "official/additional:AS-ADD18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD19",
+      "item_key": "official/additional:AS-ADD19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD20",
+      "item_key": "official/additional:AS-ADD20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD21",
+      "item_key": "official/additional:AS-ADD21",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD22",
+      "item_key": "official/additional:AS-ADD22",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD23",
+      "item_key": "official/additional:AS-ADD23",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD24",
+      "item_key": "official/additional:AS-ADD24",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD25",
+      "item_key": "official/additional:AS-ADD25",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD26",
+      "item_key": "official/additional:AS-ADD26",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD27",
+      "item_key": "official/additional:AS-ADD27",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD28",
+      "item_key": "official/additional:AS-ADD28",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD29",
+      "item_key": "official/additional:AS-ADD29",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_page_scoreable": true,
+      "full_group_sources_valid_advanced": true,
+      "full_group_sources_valid_pattern": true,
+      "id": "AS-ADD30",
+      "item_key": "official/additional:AS-ADD30",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_reference",
+      "suite": "official/additional"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-01",
+      "item_key": "category/scenarios:AS-S01-01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-02",
+      "item_key": "category/scenarios:AS-S01-02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-03",
+      "item_key": "category/scenarios:AS-S01-03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-04",
+      "item_key": "category/scenarios:AS-S01-04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-05",
+      "item_key": "category/scenarios:AS-S01-05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-06",
+      "item_key": "category/scenarios:AS-S01-06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-07",
+      "item_key": "category/scenarios:AS-S01-07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-08",
+      "item_key": "category/scenarios:AS-S01-08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-09",
+      "item_key": "category/scenarios:AS-S01-09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-10",
+      "item_key": "category/scenarios:AS-S01-10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-11",
+      "item_key": "category/scenarios:AS-S01-11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-12",
+      "item_key": "category/scenarios:AS-S01-12",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-13",
+      "item_key": "category/scenarios:AS-S01-13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-14",
+      "item_key": "category/scenarios:AS-S01-14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-15",
+      "item_key": "category/scenarios:AS-S01-15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-16",
+      "item_key": "category/scenarios:AS-S01-16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-17",
+      "item_key": "category/scenarios:AS-S01-17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-18",
+      "item_key": "category/scenarios:AS-S01-18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-19",
+      "item_key": "category/scenarios:AS-S01-19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S01-20",
+      "item_key": "category/scenarios:AS-S01-20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-01",
+      "item_key": "category/scenarios:AS-S02-01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-02",
+      "item_key": "category/scenarios:AS-S02-02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-03",
+      "item_key": "category/scenarios:AS-S02-03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-04",
+      "item_key": "category/scenarios:AS-S02-04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-05",
+      "item_key": "category/scenarios:AS-S02-05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-06",
+      "item_key": "category/scenarios:AS-S02-06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-07",
+      "item_key": "category/scenarios:AS-S02-07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-08",
+      "item_key": "category/scenarios:AS-S02-08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-09",
+      "item_key": "category/scenarios:AS-S02-09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-10",
+      "item_key": "category/scenarios:AS-S02-10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-11",
+      "item_key": "category/scenarios:AS-S02-11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-12",
+      "item_key": "category/scenarios:AS-S02-12",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-13",
+      "item_key": "category/scenarios:AS-S02-13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-14",
+      "item_key": "category/scenarios:AS-S02-14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-15",
+      "item_key": "category/scenarios:AS-S02-15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-16",
+      "item_key": "category/scenarios:AS-S02-16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-17",
+      "item_key": "category/scenarios:AS-S02-17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-18",
+      "item_key": "category/scenarios:AS-S02-18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-19",
+      "item_key": "category/scenarios:AS-S02-19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S02-20",
+      "item_key": "category/scenarios:AS-S02-20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-01",
+      "item_key": "category/scenarios:AS-S03-01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-02",
+      "item_key": "category/scenarios:AS-S03-02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-03",
+      "item_key": "category/scenarios:AS-S03-03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-04",
+      "item_key": "category/scenarios:AS-S03-04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-05",
+      "item_key": "category/scenarios:AS-S03-05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-06",
+      "item_key": "category/scenarios:AS-S03-06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 3,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-07",
+      "item_key": "category/scenarios:AS-S03-07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 3,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-08",
+      "item_key": "category/scenarios:AS-S03-08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 3,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-09",
+      "item_key": "category/scenarios:AS-S03-09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 3,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-10",
+      "item_key": "category/scenarios:AS-S03-10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 3,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-11",
+      "item_key": "category/scenarios:AS-S03-11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-12",
+      "item_key": "category/scenarios:AS-S03-12",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-13",
+      "item_key": "category/scenarios:AS-S03-13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-14",
+      "item_key": "category/scenarios:AS-S03-14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-15",
+      "item_key": "category/scenarios:AS-S03-15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-16",
+      "item_key": "category/scenarios:AS-S03-16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 5,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-17",
+      "item_key": "category/scenarios:AS-S03-17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 5,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-18",
+      "item_key": "category/scenarios:AS-S03-18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 5,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-19",
+      "item_key": "category/scenarios:AS-S03-19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 5,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S03-20",
+      "item_key": "category/scenarios:AS-S03-20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 5,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-01",
+      "item_key": "category/scenarios:AS-S04-01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-02",
+      "item_key": "category/scenarios:AS-S04-02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-03",
+      "item_key": "category/scenarios:AS-S04-03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-04",
+      "item_key": "category/scenarios:AS-S04-04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-05",
+      "item_key": "category/scenarios:AS-S04-05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-06",
+      "item_key": "category/scenarios:AS-S04-06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-07",
+      "item_key": "category/scenarios:AS-S04-07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-08",
+      "item_key": "category/scenarios:AS-S04-08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-09",
+      "item_key": "category/scenarios:AS-S04-09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-10",
+      "item_key": "category/scenarios:AS-S04-10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-11",
+      "item_key": "category/scenarios:AS-S04-11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-12",
+      "item_key": "category/scenarios:AS-S04-12",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-13",
+      "item_key": "category/scenarios:AS-S04-13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-14",
+      "item_key": "category/scenarios:AS-S04-14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-15",
+      "item_key": "category/scenarios:AS-S04-15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-16",
+      "item_key": "category/scenarios:AS-S04-16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-17",
+      "item_key": "category/scenarios:AS-S04-17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-18",
+      "item_key": "category/scenarios:AS-S04-18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-19",
+      "item_key": "category/scenarios:AS-S04-19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S04-20",
+      "item_key": "category/scenarios:AS-S04-20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 4,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-01",
+      "item_key": "category/scenarios:AS-S05-01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-02",
+      "item_key": "category/scenarios:AS-S05-02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-03",
+      "item_key": "category/scenarios:AS-S05-03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-04",
+      "item_key": "category/scenarios:AS-S05-04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-05",
+      "item_key": "category/scenarios:AS-S05-05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-06",
+      "item_key": "category/scenarios:AS-S05-06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-07",
+      "item_key": "category/scenarios:AS-S05-07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-08",
+      "item_key": "category/scenarios:AS-S05-08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-09",
+      "item_key": "category/scenarios:AS-S05-09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-10",
+      "item_key": "category/scenarios:AS-S05-10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-11",
+      "item_key": "category/scenarios:AS-S05-11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-12",
+      "item_key": "category/scenarios:AS-S05-12",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-13",
+      "item_key": "category/scenarios:AS-S05-13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-14",
+      "item_key": "category/scenarios:AS-S05-14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-15",
+      "item_key": "category/scenarios:AS-S05-15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-16",
+      "item_key": "category/scenarios:AS-S05-16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-17",
+      "item_key": "category/scenarios:AS-S05-17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-18",
+      "item_key": "category/scenarios:AS-S05-18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-19",
+      "item_key": "category/scenarios:AS-S05-19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S05-20",
+      "item_key": "category/scenarios:AS-S05-20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-01",
+      "item_key": "category/scenarios:AS-S06-01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-02",
+      "item_key": "category/scenarios:AS-S06-02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-03",
+      "item_key": "category/scenarios:AS-S06-03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-04",
+      "item_key": "category/scenarios:AS-S06-04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-05",
+      "item_key": "category/scenarios:AS-S06-05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-06",
+      "item_key": "category/scenarios:AS-S06-06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-07",
+      "item_key": "category/scenarios:AS-S06-07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-08",
+      "item_key": "category/scenarios:AS-S06-08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-09",
+      "item_key": "category/scenarios:AS-S06-09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-10",
+      "item_key": "category/scenarios:AS-S06-10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-11",
+      "item_key": "category/scenarios:AS-S06-11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-12",
+      "item_key": "category/scenarios:AS-S06-12",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-13",
+      "item_key": "category/scenarios:AS-S06-13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-14",
+      "item_key": "category/scenarios:AS-S06-14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-15",
+      "item_key": "category/scenarios:AS-S06-15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-16",
+      "item_key": "category/scenarios:AS-S06-16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-17",
+      "item_key": "category/scenarios:AS-S06-17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-18",
+      "item_key": "category/scenarios:AS-S06-18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-19",
+      "item_key": "category/scenarios:AS-S06-19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S06-20",
+      "item_key": "category/scenarios:AS-S06-20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-01",
+      "item_key": "category/scenarios:AS-S07-01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-02",
+      "item_key": "category/scenarios:AS-S07-02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-03",
+      "item_key": "category/scenarios:AS-S07-03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-04",
+      "item_key": "category/scenarios:AS-S07-04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-05",
+      "item_key": "category/scenarios:AS-S07-05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-06",
+      "item_key": "category/scenarios:AS-S07-06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-07",
+      "item_key": "category/scenarios:AS-S07-07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-08",
+      "item_key": "category/scenarios:AS-S07-08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-09",
+      "item_key": "category/scenarios:AS-S07-09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-10",
+      "item_key": "category/scenarios:AS-S07-10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-11",
+      "item_key": "category/scenarios:AS-S07-11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-12",
+      "item_key": "category/scenarios:AS-S07-12",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-13",
+      "item_key": "category/scenarios:AS-S07-13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-14",
+      "item_key": "category/scenarios:AS-S07-14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-15",
+      "item_key": "category/scenarios:AS-S07-15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-16",
+      "item_key": "category/scenarios:AS-S07-16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-17",
+      "item_key": "category/scenarios:AS-S07-17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-18",
+      "item_key": "category/scenarios:AS-S07-18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-19",
+      "item_key": "category/scenarios:AS-S07-19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-S07-20",
+      "item_key": "category/scenarios:AS-S07-20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/scenarios"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-01",
+      "item_key": "category/negative_control:AS-S08-01",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-02",
+      "item_key": "category/negative_control:AS-S08-02",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-03",
+      "item_key": "category/negative_control:AS-S08-03",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-04",
+      "item_key": "category/negative_control:AS-S08-04",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-05",
+      "item_key": "category/negative_control:AS-S08-05",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-06",
+      "item_key": "category/negative_control:AS-S08-06",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-07",
+      "item_key": "category/negative_control:AS-S08-07",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-08",
+      "item_key": "category/negative_control:AS-S08-08",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-09",
+      "item_key": "category/negative_control:AS-S08-09",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-10",
+      "item_key": "category/negative_control:AS-S08-10",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-11",
+      "item_key": "category/negative_control:AS-S08-11",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-12",
+      "item_key": "category/negative_control:AS-S08-12",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-13",
+      "item_key": "category/negative_control:AS-S08-13",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-14",
+      "item_key": "category/negative_control:AS-S08-14",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-15",
+      "item_key": "category/negative_control:AS-S08-15",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-16",
+      "item_key": "category/negative_control:AS-S08-16",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-17",
+      "item_key": "category/negative_control:AS-S08-17",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-18",
+      "item_key": "category/negative_control:AS-S08-18",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-19",
+      "item_key": "category/negative_control:AS-S08-19",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "exclusion_reason": "negative_control",
+      "id": "AS-S08-20",
+      "item_key": "category/negative_control:AS-S08-20",
+      "negative_control": true,
+      "positive_scoreable": false,
+      "reference_status": "no_reference",
+      "suite": "category/negative_control"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-01",
+      "item_key": "category/work_rules:AS-WR-01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-02",
+      "item_key": "category/work_rules:AS-WR-02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-03",
+      "item_key": "category/work_rules:AS-WR-03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-04",
+      "item_key": "category/work_rules:AS-WR-04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-05",
+      "item_key": "category/work_rules:AS-WR-05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-06",
+      "item_key": "category/work_rules:AS-WR-06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-07",
+      "item_key": "category/work_rules:AS-WR-07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-08",
+      "item_key": "category/work_rules:AS-WR-08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-09",
+      "item_key": "category/work_rules:AS-WR-09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-10",
+      "item_key": "category/work_rules:AS-WR-10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-11",
+      "item_key": "category/work_rules:AS-WR-11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-12",
+      "item_key": "category/work_rules:AS-WR-12",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-13",
+      "item_key": "category/work_rules:AS-WR-13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-14",
+      "item_key": "category/work_rules:AS-WR-14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-15",
+      "item_key": "category/work_rules:AS-WR-15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-16",
+      "item_key": "category/work_rules:AS-WR-16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-17",
+      "item_key": "category/work_rules:AS-WR-17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-18",
+      "item_key": "category/work_rules:AS-WR-18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-19",
+      "item_key": "category/work_rules:AS-WR-19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-WR-20",
+      "item_key": "category/work_rules:AS-WR-20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/work_rules"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-01",
+      "item_key": "category/semantic_queries:AS-SEM-01",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-02",
+      "item_key": "category/semantic_queries:AS-SEM-02",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-03",
+      "item_key": "category/semantic_queries:AS-SEM-03",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-04",
+      "item_key": "category/semantic_queries:AS-SEM-04",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-05",
+      "item_key": "category/semantic_queries:AS-SEM-05",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-06",
+      "item_key": "category/semantic_queries:AS-SEM-06",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-07",
+      "item_key": "category/semantic_queries:AS-SEM-07",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-08",
+      "item_key": "category/semantic_queries:AS-SEM-08",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-09",
+      "item_key": "category/semantic_queries:AS-SEM-09",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-10",
+      "item_key": "category/semantic_queries:AS-SEM-10",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-11",
+      "item_key": "category/semantic_queries:AS-SEM-11",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-12",
+      "item_key": "category/semantic_queries:AS-SEM-12",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-13",
+      "item_key": "category/semantic_queries:AS-SEM-13",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-14",
+      "item_key": "category/semantic_queries:AS-SEM-14",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-15",
+      "item_key": "category/semantic_queries:AS-SEM-15",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-16",
+      "item_key": "category/semantic_queries:AS-SEM-16",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-17",
+      "item_key": "category/semantic_queries:AS-SEM-17",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-18",
+      "item_key": "category/semantic_queries:AS-SEM-18",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-19",
+      "item_key": "category/semantic_queries:AS-SEM-19",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 1,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-20",
+      "item_key": "category/semantic_queries:AS-SEM-20",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-21",
+      "item_key": "category/semantic_queries:AS-SEM-21",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-22",
+      "item_key": "category/semantic_queries:AS-SEM-22",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-23",
+      "item_key": "category/semantic_queries:AS-SEM-23",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-24",
+      "item_key": "category/semantic_queries:AS-SEM-24",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-25",
+      "item_key": "category/semantic_queries:AS-SEM-25",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-26",
+      "item_key": "category/semantic_queries:AS-SEM-26",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-27",
+      "item_key": "category/semantic_queries:AS-SEM-27",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-28",
+      "item_key": "category/semantic_queries:AS-SEM-28",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-29",
+      "item_key": "category/semantic_queries:AS-SEM-29",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-30",
+      "item_key": "category/semantic_queries:AS-SEM-30",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-31",
+      "item_key": "category/semantic_queries:AS-SEM-31",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 3,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-32",
+      "item_key": "category/semantic_queries:AS-SEM-32",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-33",
+      "item_key": "category/semantic_queries:AS-SEM-33",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-34",
+      "item_key": "category/semantic_queries:AS-SEM-34",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-35",
+      "item_key": "category/semantic_queries:AS-SEM-35",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-36",
+      "item_key": "category/semantic_queries:AS-SEM-36",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-37",
+      "item_key": "category/semantic_queries:AS-SEM-37",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-38",
+      "item_key": "category/semantic_queries:AS-SEM-38",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-39",
+      "item_key": "category/semantic_queries:AS-SEM-39",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    },
+    {
+      "common_fact_scoreable": true,
+      "id": "AS-SEM-40",
+      "item_key": "category/semantic_queries:AS-SEM-40",
+      "page_valid_advanced": true,
+      "page_valid_pattern": true,
+      "quote_valid_advanced": true,
+      "quote_valid_pattern": true,
+      "reference_status": "has_evidence_requirements",
+      "requirement_count": 2,
+      "suite": "category/semantic_queries"
+    }
+  ],
+  "read_only_evaluation": "No model was invoked and no prior score/result files were read.",
+  "reference_file_fingerprints": [
+    {
+      "path": "data/advanced/evaluation/additional.json",
+      "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+    },
+    {
+      "path": "data/advanced/evaluation/development.json",
+      "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_references.json",
+      "sha256": "100ec141d87ab3dba5878af0ecacecd192f1bb5c3092917f57d0cbe63221d466"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_references.json",
+      "sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/references.json",
+      "sha256": "2de9b0da7f1f052c912716d3eb5132653a81e44e8288403a329f49a3772fa280"
+    }
+  ],
+  "schemas": {
+    "categories": {
+      "citation": {
+        "book_id": "string",
+        "page": "integer",
+        "quote": "string"
+      },
+      "scoring_field": "evidence_requirements",
+      "shape": "list of requirements; each primary and optional alternative bundle is an AND-set of citations"
+    },
+    "negative_control": {
+      "evidence_groups": [],
+      "evidence_requirements": [],
+      "scoring": "separate no-reference behavior; excluded from positive retrieval denominators"
+    },
+    "official": {
+      "citation": {
+        "book_id": "string",
+        "page": "integer",
+        "quote": "string"
+      },
+      "scoring_field": "evidence_groups",
+      "shape": "list of citation groups"
+    },
+    "questions": {
+      "fields": {
+        "id": "string",
+        "question": "string"
+      },
+      "retrieval_input_fields": [
+        "id",
+        "question"
+      ]
+    }
+  },
+  "scoring_contract": {
+    "aggregation": "Macro-average across scoreable positive questions within each named set. Keep no-reference questions N/A and negative controls in separate counts; never add either to the positive recall/full-evidence denominator.",
+    "official_group_completion": "app/evaluation/scripts/eval_retrieval.py:10-11 defines supplementary group coverage as at least one exact (book_id,page) from each nonempty group; use AND across groups and OR within a group.",
+    "official_required_guide": "docs/guides/c-module-guide.md:35 and docs/project-brief.md:58-62 define official Hit/Recall over unique book_id values unioned from evidence_groups; this audit adds strict page-level recall over unique (book_id,page) union.",
+    "reusable_functions": {
+      "category_requirement_coverage": "experimental/u_10o0o/advanced_search.py:174-204 score_categories + experimental/u_10o0o/advanced_full_metrics.py:48-95 fact_coverage",
+      "official_full_group": "Use direct page-key check matching app/evaluation/scripts/eval_retrieval.py group_cov; do not pass official groups unchanged to advanced_experiment_eval.score_one(peer=False), which treats each group's entire citation array as a single AND primary bundle.",
+      "official_page_recall": "experimental/u_10o0o/evaluate.py:20-40 score_question (unique page union and exact page intersection)"
+    }
+  },
+  "sets": [
+    {
+      "advanced_page_invalid_count": 0,
+      "common_page_valid_count": 29,
+      "evidence_schema": {
+        "citation_fields": {
+          "book_id": "string",
+          "page": "integer",
+          "quote": "string"
+        },
+        "evidence_groups": "array of citation arrays"
+      },
+      "group_count_distribution": {
+        "0": 1,
+        "1": 3,
+        "2": 6,
+        "3": 4,
+        "4": 14,
+        "5": 2
+      },
+      "id_format_counts": {
+        "AS-DEV<n>": 30
+      },
+      "id_match": true,
+      "id_type": "string",
+      "no_reference_count": 1,
+      "pattern_page_invalid_count": 0,
+      "question_count": 30,
+      "question_schema": {
+        "id": [
+          "str"
+        ],
+        "question": [
+          "str"
+        ]
+      },
+      "quote_citations": 93,
+      "quote_matches_advanced": 91,
+      "quote_matches_pattern": 91,
+      "reference_count": 30,
+      "reference_path": "data/advanced/evaluation/development.json",
+      "reference_schema": {
+        "acceptable_variants": [
+          "array"
+        ],
+        "accepted_action_labels": [
+          "array"
+        ],
+        "case_id": [
+          "str"
+        ],
+        "evidence_groups": [
+          "array"
+        ],
+        "evidence_required": [
+          "bool"
+        ],
+        "expected_action": [
+          "str"
+        ],
+        "expected_behavior": [
+          "str"
+        ],
+        "forbidden_claims": [
+          "array"
+        ],
+        "grading_notes": [
+          "str"
+        ],
+        "id": [
+          "str"
+        ],
+        "optional_notes": [
+          "array"
+        ],
+        "question": [
+          "str"
+        ],
+        "reference_answer": [
+          "str"
+        ],
+        "required_facts": [
+          "array"
+        ]
+      },
+      "set": "official_development",
+      "suite": "official/development",
+      "unique_gold_pages_per_question_distribution": {
+        "0": 1,
+        "1": 3,
+        "2": 8,
+        "3": 5,
+        "4": 13
+      }
+    },
+    {
+      "advanced_page_invalid_count": 0,
+      "common_page_valid_count": 29,
+      "evidence_schema": {
+        "citation_fields": {
+          "book_id": "string",
+          "page": "integer",
+          "quote": "string"
+        },
+        "evidence_groups": "array of citation arrays"
+      },
+      "group_count_distribution": {
+        "0": 1,
+        "1": 4,
+        "2": 5,
+        "3": 5,
+        "4": 14,
+        "6": 1
+      },
+      "id_format_counts": {
+        "AS-ADD<n>": 30
+      },
+      "id_match": true,
+      "id_type": "string",
+      "no_reference_count": 1,
+      "pattern_page_invalid_count": 0,
+      "question_count": 30,
+      "question_schema": {
+        "id": [
+          "str"
+        ],
+        "question": [
+          "str"
+        ]
+      },
+      "quote_citations": 91,
+      "quote_matches_advanced": 91,
+      "quote_matches_pattern": 91,
+      "reference_count": 30,
+      "reference_path": "data/advanced/evaluation/additional.json",
+      "reference_schema": {
+        "acceptable_variants": [
+          "array"
+        ],
+        "accepted_action_labels": [
+          "array"
+        ],
+        "case_id": [
+          "str"
+        ],
+        "evidence_groups": [
+          "array"
+        ],
+        "evidence_required": [
+          "bool"
+        ],
+        "expected_action": [
+          "str"
+        ],
+        "expected_behavior": [
+          "str"
+        ],
+        "forbidden_claims": [
+          "array"
+        ],
+        "grading_notes": [
+          "str"
+        ],
+        "id": [
+          "str"
+        ],
+        "optional_notes": [
+          "array"
+        ],
+        "question": [
+          "str"
+        ],
+        "reference_answer": [
+          "str"
+        ],
+        "required_facts": [
+          "array"
+        ]
+      },
+      "set": "official_additional",
+      "suite": "official/additional",
+      "unique_gold_pages_per_question_distribution": {
+        "0": 1,
+        "1": 4,
+        "2": 7,
+        "3": 6,
+        "4": 12
+      }
+    },
+    {
+      "common_fact_valid_count": 140,
+      "evidence_schema": {
+        "citation_fields": {
+          "book_id": "string",
+          "page": "integer",
+          "quote": "string"
+        },
+        "evidence_requirements": "array of requirements",
+        "requirement": {
+          "alternatives": "array of citation arrays; optional when empty",
+          "primary": "citation array"
+        }
+      },
+      "fact_valid_advanced": 140,
+      "fact_valid_pattern": 140,
+      "id_format_counts": {
+        "AS-S<n>-<n>": 140
+      },
+      "id_match": true,
+      "id_type": "string",
+      "invalid_ids_and_reasons": {},
+      "question_count": 140,
+      "question_schema": {
+        "id": [
+          "str"
+        ],
+        "question": [
+          "str"
+        ]
+      },
+      "reference_count": 140,
+      "reference_path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_references.json",
+      "reference_schema": {
+        "accepted_action_labels": [
+          "array"
+        ],
+        "answer_evaluation_stage": [
+          "str"
+        ],
+        "case_count": [
+          "int"
+        ],
+        "case_keys": [
+          "array"
+        ],
+        "evaluation_stage": [
+          "str"
+        ],
+        "evidence_groups": [
+          "array"
+        ],
+        "evidence_required": [
+          "bool"
+        ],
+        "evidence_requirements": [
+          "array"
+        ],
+        "expected_action": [
+          "str"
+        ],
+        "expected_behavior": [
+          "str"
+        ],
+        "gold_context_tokens": [
+          "int"
+        ],
+        "id": [
+          "str"
+        ],
+        "identifier_count": [
+          "int"
+        ],
+        "identifier_mode": [
+          "str"
+        ],
+        "question_type": [
+          "str"
+        ],
+        "reference_answer": [
+          "str"
+        ],
+        "required_document_count": [
+          "int"
+        ],
+        "required_facts": [
+          "array"
+        ],
+        "required_page_count": [
+          "int"
+        ],
+        "scenario": [
+          "int"
+        ],
+        "scenario_name": [
+          "str"
+        ],
+        "source_family": [
+          "str"
+        ],
+        "variant": [
+          "str"
+        ]
+      },
+      "requirement_count_distribution": {
+        "1": 30,
+        "2": 82,
+        "3": 5,
+        "4": 18,
+        "5": 5
+      },
+      "scenario_counts": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20,
+        "5": 20,
+        "6": 20,
+        "7": 20
+      },
+      "set": "scenarios_140",
+      "suite": "category/scenarios",
+      "variant_counts": {
+        "2개 PDF": 5,
+        "3개 PDF": 5,
+        "4개 PDF": 5,
+        "5개 PDF": 5,
+        "both_explicit": 8,
+        "both_indirect": 6,
+        "charged": 2,
+        "gate": 2,
+        "ha": 6,
+        "handbook": 6,
+        "mixed": 6,
+        "non_designated_yard_only": 10,
+        "receipt_missing": 10,
+        "received": 2,
+        "returned": 2,
+        "두 사건이 같은 화주·규격·실제 반출일 공유": 20,
+        "예정일을 실제일로 오인": 8,
+        "요청과 승인 구분": 6,
+        "청구액과 수납액 구분": 6,
+        "화주·규격·실제 반출일": 10,
+        "화주·화물·규격 / charged": 5,
+        "화주·화물·규격 / gate": 5
+      }
+    },
+    {
+      "evidence_schema": {
+        "evidence_groups": "empty array",
+        "evidence_requirements": "empty array"
+      },
+      "id_format_counts": {
+        "AS-S<n>-<n>": 20
+      },
+      "id_match": true,
+      "id_type": "string",
+      "positive_scoreable_count": 0,
+      "question_count": 20,
+      "question_schema": {
+        "id": [
+          "str"
+        ],
+        "question": [
+          "str"
+        ]
+      },
+      "reference_count": 20,
+      "reference_path": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_references.json",
+      "reference_schema": {
+        "accepted_action_labels": [
+          "array"
+        ],
+        "case_count": [
+          "int"
+        ],
+        "case_keys": [
+          "array"
+        ],
+        "evaluation_stage": [
+          "str"
+        ],
+        "evidence_groups": [
+          "array"
+        ],
+        "evidence_required": [
+          "bool"
+        ],
+        "evidence_requirements": [
+          "array"
+        ],
+        "expected_action": [
+          "str"
+        ],
+        "expected_behavior": [
+          "str"
+        ],
+        "id": [
+          "str"
+        ],
+        "identifier_count": [
+          "int"
+        ],
+        "reference_answer": [
+          "str"
+        ],
+        "required_document_count": [
+          "int"
+        ],
+        "required_page_count": [
+          "int"
+        ],
+        "scenario": [
+          "int"
+        ],
+        "scenario_name": [
+          "str"
+        ],
+        "variant": [
+          "str"
+        ]
+      },
+      "set": "negative_20",
+      "suite": "category/negative_control",
+      "variant_counts": {
+        "near_domain": 10,
+        "unrelated": 10
+      }
+    },
+    {
+      "common_fact_valid_count": 20,
+      "evidence_schema": {
+        "citation_fields": {
+          "book_id": "string",
+          "page": "integer",
+          "quote": "string"
+        },
+        "evidence_requirements": "array of requirements",
+        "requirement": {
+          "alternatives": "array of citation arrays; optional when empty",
+          "primary": "citation array"
+        }
+      },
+      "fact_valid_advanced": 20,
+      "fact_valid_pattern": 20,
+      "id_format_counts": {
+        "AS-WR-<n>": 20
+      },
+      "id_match": true,
+      "id_type": "string",
+      "invalid_ids_and_reasons": {},
+      "question_count": 20,
+      "question_schema": {
+        "id": [
+          "str"
+        ],
+        "question": [
+          "str"
+        ]
+      },
+      "reference_count": 20,
+      "reference_path": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/references.json",
+      "reference_schema": {
+        "accepted_action_labels": [
+          "array"
+        ],
+        "evaluation_stage": [
+          "str"
+        ],
+        "evidence_groups": [
+          "array"
+        ],
+        "evidence_required": [
+          "bool"
+        ],
+        "evidence_requirements": [
+          "array"
+        ],
+        "expected_action": [
+          "str"
+        ],
+        "gold_context_tokens": [
+          "int"
+        ],
+        "id": [
+          "str"
+        ],
+        "identifier_count": [
+          "int"
+        ],
+        "reference_answer": [
+          "str"
+        ],
+        "required_document_count": [
+          "int"
+        ],
+        "required_facts": [
+          "array"
+        ],
+        "required_page_count": [
+          "int"
+        ],
+        "scenario": [
+          "str"
+        ],
+        "source_family": [
+          "str"
+        ],
+        "topic": [
+          "str"
+        ],
+        "variant": [
+          "str"
+        ]
+      },
+      "requirement_count_distribution": {
+        "1": 13,
+        "2": 7
+      },
+      "scenario_counts": {
+        "work_rules": 20
+      },
+      "set": "work_rules_20",
+      "suite": "category/work_rules",
+      "variant_counts": {
+        "applicability": 10,
+        "procedure": 10
+      }
+    },
+    {
+      "common_fact_valid_count": 40,
+      "evidence_schema": {
+        "citation_fields": {
+          "book_id": "string",
+          "page": "integer",
+          "quote": "string"
+        },
+        "evidence_requirements": "array of requirements",
+        "requirement": {
+          "alternatives": "array of citation arrays; optional when empty",
+          "primary": "citation array"
+        }
+      },
+      "fact_valid_advanced": 40,
+      "fact_valid_pattern": 40,
+      "id_format_counts": {
+        "AS-SEM-<n>": 40
+      },
+      "id_match": true,
+      "id_type": "string",
+      "invalid_ids_and_reasons": {},
+      "question_count": 40,
+      "question_schema": {
+        "id": [
+          "str"
+        ],
+        "question": [
+          "str"
+        ]
+      },
+      "reference_count": 40,
+      "reference_path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "reference_schema": {
+        "accepted_action_labels": [
+          "array"
+        ],
+        "evaluation_stage": [
+          "str"
+        ],
+        "evidence_groups": [
+          "array"
+        ],
+        "evidence_required": [
+          "bool"
+        ],
+        "evidence_requirements": [
+          "array"
+        ],
+        "expected_action": [
+          "str"
+        ],
+        "gold_context_tokens": [
+          "int"
+        ],
+        "id": [
+          "str"
+        ],
+        "identifier_count": [
+          "int"
+        ],
+        "reference_answer": [
+          "str"
+        ],
+        "required_document_count": [
+          "int"
+        ],
+        "required_facts": [
+          "array"
+        ],
+        "required_page_count": [
+          "int"
+        ],
+        "scenario": [
+          "str"
+        ],
+        "topic": [
+          "str"
+        ],
+        "variant": [
+          "str"
+        ]
+      },
+      "requirement_count_distribution": {
+        "1": 19,
+        "2": 20,
+        "3": 1
+      },
+      "scenario_counts": {
+        "semantic_queries": 40
+      },
+      "set": "semantic_40",
+      "suite": "category/semantic_queries",
+      "variant_counts": {
+        "cross_document_rule": 10,
+        "cross_document_workflow": 10,
+        "procedure_paraphrase": 10,
+        "rule_paraphrase": 10
+      }
+    }
+  ],
+  "validity": {
+    "category_positive": {
+      "common_valid_denominator": 200,
+      "fact_valid_advanced": 200,
+      "fact_valid_pattern": 200,
+      "invalid_ids_and_reasons": {},
+      "question_count": 200,
+      "requirements": 395
+    },
+    "negative_controls": {
+      "question_count": 20,
+      "variant_counts": {
+        "near_domain": 10,
+        "unrelated": 10
+      }
+    },
+    "official": {
+      "group_count_distribution": {
+        "0": 2,
+        "1": 7,
+        "2": 11,
+        "3": 9,
+        "4": 28,
+        "5": 2,
+        "6": 1
+      },
+      "no_reference_count": 2,
+      "page_invalid_advanced_ids": [],
+      "page_invalid_pattern_ids": [],
+      "page_recall_denominator": 58,
+      "question_count": 60,
+      "quote_citations": 184,
+      "quote_matches_advanced": 182,
+      "quote_matches_pattern": 182,
+      "quote_mismatch_advanced_ids": [
+        "official/development:AS-DEV02",
+        "official/development:AS-DEV06"
+      ],
+      "quote_mismatch_pattern_ids": [
+        "official/development:AS-DEV02",
+        "official/development:AS-DEV06"
+      ],
+      "reference_count": 60,
+      "unique_gold_pages_per_question_distribution": {
+        "0": 2,
+        "1": 7,
+        "2": 15,
+        "3": 11,
+        "4": 25
+      }
+    }
+  }
+}

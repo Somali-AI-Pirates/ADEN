@@ -1,0 +1,30 @@
+{
+  "api_calls": 24,
+  "api_statuses": {
+    "completed": 24
+  },
+  "validated_plans": {
+    "supported": 21,
+    "invalid_anchor": 2,
+    "unsupported_dependency_or_set": 1
+  },
+  "usage": {
+    "input_tokens": 17852,
+    "output_tokens": 6898,
+    "total_tokens": 24750
+  },
+  "counts": {
+    "baseline": {
+      "searches": 24,
+      "kure_pairs": 480,
+      "kure_calls": 24
+    },
+    "requests40": {
+      "searches": 43,
+      "kure_pairs": 1348,
+      "kure_calls": 81
+    }
+  },
+  "final_improved": 7,
+  "final_declined": 0
+}

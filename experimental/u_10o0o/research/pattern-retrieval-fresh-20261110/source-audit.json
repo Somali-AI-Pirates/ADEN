@@ -1,0 +1,847 @@
+{
+  "status": "source-only reconnaissance; no retrieval benchmark executed",
+  "source_selection": "12 fixed PDF names spanning file range; pages first, second, midpoint. Convenience sample, not random or corpus-wide.",
+  "excluded_inputs": [
+    "past experiment records",
+    "previous retrieval outputs",
+    "evaluation questions",
+    "reference answers"
+  ],
+  "extractor": "pypdf layout",
+  "pdf_files_in_directory": 120,
+  "sample_documents": 12,
+  "sample_pages": 36,
+  "pages_with_field_terms": {
+    "계약": 23,
+    "약정": 7,
+    "청구": 9,
+    "수납": 8,
+    "미결": 6,
+    "화주": 22,
+    "화물": 26,
+    "장비": 34,
+    "예약": 24,
+    "금액": 19,
+    "예정": 13,
+    "실제": 23,
+    "규정": 0,
+    "예외": 0,
+    "기록번호": 9,
+    "증빙": 10
+  },
+  "id_prefix_counts": {
+    "SW": 5,
+    "HA": 10,
+    "HL": 45,
+    "DL": 9,
+    "IS": 135,
+    "HS": 16,
+    "HG": 16,
+    "CT": 19,
+    "SH": 12,
+    "GR": 52,
+    "AP": 6,
+    "RCPT": 3
+  },
+  "exact_nonempty_line_hashes_seen_on_multiple_sample_pages": 88,
+  "limits": "Repeated exact lines include headers and labels; no semantic duplicate or equivalence conclusion. No number masking used.",
+  "documents": [
+    {
+      "path": "data/advanced/documents/AS001.pdf",
+      "sha256": "22b0dfd5d52ad1d5da9dadfdcd055b8502b258aa4ab9f9fefd7b919e1bedd234",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS006.pdf",
+      "sha256": "40b4f13b6055598fdf5a431bfc27b2ab8151b86e08152ac36796b8d188a888c8",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS007.pdf",
+      "sha256": "b7bb6a94cacde000d1d6987d801bdb34d193296d6f84ca2a490a08d77133522d",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS016.pdf",
+      "sha256": "cb8c65876460f60698af7a16eb2db3a1408483c692a5101758867a1d05bbdf35",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS026.pdf",
+      "sha256": "5fcbf6a2bdf2df9bd601ed08a1f724418b24a578a5e1f36716c9181dc95d4085",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS036.pdf",
+      "sha256": "d48813e7bc00de4c796fc794f6a8b3ddbd639febf37fcfd839a86fdb0dac34cf",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS046.pdf",
+      "sha256": "6f8f0cc10e787adb1fb75ad38e9025fd7b46239948bfdce3ed1e5f0d0cdef160",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS056.pdf",
+      "sha256": "e1dfd9cc4d6caf21be5a4813bc4c543f4e110bf6bf80da7852f324e01cd81e9b",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS057.pdf",
+      "sha256": "0097a8afc65974b060456784f34ed45f4fde87de3d98db012594b5da15db3929",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS078.pdf",
+      "sha256": "944a6df6a325a181d5b9e0137a1694389dff7350da04de223944069c3ba480c6",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS099.pdf",
+      "sha256": "0bc71b276c45d6bf15b803ddeac05d9b446ce81ffe2af98564c8e2c961fb9e65",
+      "pages": 150
+    },
+    {
+      "path": "data/advanced/documents/AS120.pdf",
+      "sha256": "b5d8cb51370769df92fdf948092bbeefb89badf30cd9b55a951a7c5777a20efe",
+      "pages": 150
+    }
+  ],
+  "page_metadata": [
+    {
+      "book_id": "AS001",
+      "page": 1,
+      "text_sha256": "8d1bc23b71a1a299b143c0aa0c37b0cf6bd3b858b8d1c44be83ec1d54a80476d",
+      "characters": 1362,
+      "nonempty_lines": 24,
+      "present_field_terms": [
+        "계약",
+        "화물",
+        "장비",
+        "예약",
+        "예정",
+        "실제"
+      ],
+      "id_prefix_counts": {
+        "SW": 5
+      }
+    },
+    {
+      "book_id": "AS001",
+      "page": 2,
+      "text_sha256": "eb4eb86e371e66d7ea9ac0746e5ee3a40b63c160d116db7eaa2b0c27ca2d3a05",
+      "characters": 1544,
+      "nonempty_lines": 28,
+      "present_field_terms": [
+        "계약",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "실제"
+      ],
+      "id_prefix_counts": {
+        "HA": 3,
+        "HL": 3
+      }
+    },
+    {
+      "book_id": "AS001",
+      "page": 76,
+      "text_sha256": "3a0f141526df254cd77e3480c5858d23e56e89b53f2fb10d98305d72c3152559",
+      "characters": 1544,
+      "nonempty_lines": 28,
+      "present_field_terms": [
+        "계약",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "실제"
+      ],
+      "id_prefix_counts": {
+        "HA": 3,
+        "HL": 2
+      }
+    },
+    {
+      "book_id": "AS006",
+      "page": 1,
+      "text_sha256": "8d571f2fdb85c38742f2a122e5aa33830570a49913c4af5a851f484cabfe6f41",
+      "characters": 1415,
+      "nonempty_lines": 24,
+      "present_field_terms": [
+        "계약",
+        "청구",
+        "미결",
+        "화주",
+        "장비",
+        "금액",
+        "실제",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "DL": 9
+      }
+    },
+    {
+      "book_id": "AS006",
+      "page": 2,
+      "text_sha256": "06b2b5665d2a699e328a45294eee0e5314c176e2b5f8cc4a0685f936f0e4e823",
+      "characters": 1385,
+      "nonempty_lines": 23,
+      "present_field_terms": [
+        "계약",
+        "수납",
+        "미결",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "예정",
+        "실제",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "HA": 2,
+        "HL": 1
+      }
+    },
+    {
+      "book_id": "AS006",
+      "page": 76,
+      "text_sha256": "b6f9ab98f2ed82ff5f5620a2dfb996bed14ca7a81492e3e0465301ba9a26a090",
+      "characters": 1385,
+      "nonempty_lines": 23,
+      "present_field_terms": [
+        "계약",
+        "수납",
+        "미결",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "예정",
+        "실제",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "HA": 2,
+        "HL": 1
+      }
+    },
+    {
+      "book_id": "AS007",
+      "page": 1,
+      "text_sha256": "20923dcd83cfa8a66c5278e36ebfab0de06daf6ad34caf44892ad38d4c11f84d",
+      "characters": 1498,
+      "nonempty_lines": 30,
+      "present_field_terms": [
+        "화물",
+        "장비",
+        "예약"
+      ],
+      "id_prefix_counts": {
+        "IS": 8
+      }
+    },
+    {
+      "book_id": "AS007",
+      "page": 2,
+      "text_sha256": "42f2cb823b9d4d8f290ec3013e0f522bb6b156215d0958648617f7f6a30efec1",
+      "characters": 1475,
+      "nonempty_lines": 29,
+      "present_field_terms": [
+        "화물",
+        "장비"
+      ],
+      "id_prefix_counts": {
+        "IS": 9
+      }
+    },
+    {
+      "book_id": "AS007",
+      "page": 76,
+      "text_sha256": "baacc64e8643e588e11e9142eebc00908b90fe5bda63491e53f3f0ba15906976",
+      "characters": 1184,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "약정",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "예정",
+        "실제",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 3,
+        "CT": 1,
+        "SH": 3
+      }
+    },
+    {
+      "book_id": "AS016",
+      "page": 1,
+      "text_sha256": "887e8a730009129ba05e5e0bfb531964641221c3db73ae72c73189c6863eed92",
+      "characters": 1698,
+      "nonempty_lines": 31,
+      "present_field_terms": [
+        "계약",
+        "화주",
+        "장비",
+        "예약",
+        "기록번호"
+      ],
+      "id_prefix_counts": {
+        "IS": 8,
+        "GR": 14
+      }
+    },
+    {
+      "book_id": "AS016",
+      "page": 2,
+      "text_sha256": "3998065910c7a1cb2039b10bcbadf93d38d3ed067cbcfb8089d185c2e5a0a5b8",
+      "characters": 1599,
+      "nonempty_lines": 27,
+      "present_field_terms": [
+        "장비",
+        "예약",
+        "기록번호"
+      ],
+      "id_prefix_counts": {
+        "IS": 9,
+        "GR": 8
+      }
+    },
+    {
+      "book_id": "AS016",
+      "page": 76,
+      "text_sha256": "cac78be6b60e7cf78827a05ab94dd0e4b07eb74bc95b32c1e253ec0f72eff4cf",
+      "characters": 1114,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "약정",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "예정",
+        "실제"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "CT": 1
+      }
+    },
+    {
+      "book_id": "AS026",
+      "page": 1,
+      "text_sha256": "27f5ee91affdcba217abb3607e94db6c41cf74692b39d1f0787b2917ef1cb678",
+      "characters": 1443,
+      "nonempty_lines": 28,
+      "present_field_terms": [
+        "청구",
+        "화물",
+        "장비"
+      ],
+      "id_prefix_counts": {
+        "IS": 8
+      }
+    },
+    {
+      "book_id": "AS026",
+      "page": 2,
+      "text_sha256": "f5d5299f049cbd24587794d9e6b977908cb256dcbf4e559f32950c576036d31c",
+      "characters": 1429,
+      "nonempty_lines": 28,
+      "present_field_terms": [
+        "청구",
+        "화주",
+        "화물",
+        "장비"
+      ],
+      "id_prefix_counts": {
+        "IS": 9
+      }
+    },
+    {
+      "book_id": "AS026",
+      "page": 76,
+      "text_sha256": "c420e5c2e29b72608f1f5f1971c743f6ffd90ef77881be31cf49beb5c18263c4",
+      "characters": 1115,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "약정",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "예정",
+        "실제"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "CT": 1
+      }
+    },
+    {
+      "book_id": "AS036",
+      "page": 1,
+      "text_sha256": "b29b2223d360661ae5e27f0e23dce07677e9e7b9645ef178835d211871fdcf2c",
+      "characters": 1375,
+      "nonempty_lines": 22,
+      "present_field_terms": [
+        "장비",
+        "예정",
+        "실제",
+        "기록번호"
+      ],
+      "id_prefix_counts": {
+        "IS": 9
+      }
+    },
+    {
+      "book_id": "AS036",
+      "page": 2,
+      "text_sha256": "0fc956f4879428931c19b7c32e3f5dad2443375f8ae0b4ac34c993b07b76d3bd",
+      "characters": 1367,
+      "nonempty_lines": 22,
+      "present_field_terms": [
+        "장비",
+        "예정",
+        "실제",
+        "기록번호"
+      ],
+      "id_prefix_counts": {
+        "IS": 9
+      }
+    },
+    {
+      "book_id": "AS036",
+      "page": 76,
+      "text_sha256": "f617ce21e58f68061ec82b0982541b8b55be09e8172398c66cdc33912d849542",
+      "characters": 1391,
+      "nonempty_lines": 22,
+      "present_field_terms": [
+        "장비",
+        "예정",
+        "실제",
+        "기록번호"
+      ],
+      "id_prefix_counts": {
+        "IS": 9
+      }
+    },
+    {
+      "book_id": "AS046",
+      "page": 1,
+      "text_sha256": "023f0081eaeb6c0f5cf58662c0d121ac48a1216d433b7c043f395ad8897ad7af",
+      "characters": 1791,
+      "nonempty_lines": 26,
+      "present_field_terms": [
+        "장비",
+        "실제",
+        "기록번호"
+      ],
+      "id_prefix_counts": {
+        "IS": 8,
+        "GR": 7
+      }
+    },
+    {
+      "book_id": "AS046",
+      "page": 2,
+      "text_sha256": "aa7c817a0efd2929313c4be86aab26b3ba8a245f42b4720232f265593a6dd65a",
+      "characters": 1997,
+      "nonempty_lines": 28,
+      "present_field_terms": [
+        "화주",
+        "장비",
+        "기록번호"
+      ],
+      "id_prefix_counts": {
+        "IS": 9,
+        "GR": 8
+      }
+    },
+    {
+      "book_id": "AS046",
+      "page": 76,
+      "text_sha256": "551a49063f71fc5d473bbfc7825ec5c823752dcd2636da479440cd7796d6189a",
+      "characters": 1444,
+      "nonempty_lines": 27,
+      "present_field_terms": [
+        "화물",
+        "장비"
+      ],
+      "id_prefix_counts": {
+        "IS": 8
+      }
+    },
+    {
+      "book_id": "AS056",
+      "page": 1,
+      "text_sha256": "e8ac91f6278fe2d2fac40dc6bd80c31bcdcb8bffb1c676d62c88bb7a2cc24217",
+      "characters": 1713,
+      "nonempty_lines": 30,
+      "present_field_terms": [
+        "실제",
+        "기록번호"
+      ],
+      "id_prefix_counts": {
+        "IS": 15,
+        "GR": 7
+      }
+    },
+    {
+      "book_id": "AS056",
+      "page": 2,
+      "text_sha256": "681615810f4b601cb03c1279f280d9229b53fb67ea2003590eac58422ad41286",
+      "characters": 1779,
+      "nonempty_lines": 29,
+      "present_field_terms": [
+        "기록번호"
+      ],
+      "id_prefix_counts": {
+        "IS": 17,
+        "GR": 8
+      }
+    },
+    {
+      "book_id": "AS056",
+      "page": 76,
+      "text_sha256": "85ce5936518845aad600434a2c4ed5ab1795ce4692281b84be2811cfb58298e6",
+      "characters": 1104,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "약정",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "예정",
+        "실제"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "CT": 1
+      }
+    },
+    {
+      "book_id": "AS057",
+      "page": 1,
+      "text_sha256": "aa8add96795fc3a6bded3f4bd4444c1775498169e28df0ec2863c41d1bba70ba",
+      "characters": 1184,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "약정",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "예정",
+        "실제",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 3,
+        "CT": 1,
+        "SH": 3
+      }
+    },
+    {
+      "book_id": "AS057",
+      "page": 2,
+      "text_sha256": "da5ddc0aa2ea55e28cd1f277ec58297624e0cbd91f0afffecdb0bb3c089916cd",
+      "characters": 1185,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "약정",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "예정",
+        "실제",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 3,
+        "CT": 1,
+        "SH": 3
+      }
+    },
+    {
+      "book_id": "AS057",
+      "page": 76,
+      "text_sha256": "ca6a5d63eed2b566a31e18f7bf110adf58f4e605793eebc4a7a73d3080dba521",
+      "characters": 1194,
+      "nonempty_lines": 21,
+      "present_field_terms": [
+        "계약",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 3,
+        "CT": 2,
+        "AP": 2
+      }
+    },
+    {
+      "book_id": "AS078",
+      "page": 1,
+      "text_sha256": "0db1b12215339b0f737bd31609e4ac22fd4bf4803e64a5389e7f873579cc9d61",
+      "characters": 1193,
+      "nonempty_lines": 21,
+      "present_field_terms": [
+        "계약",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 3,
+        "CT": 2,
+        "AP": 2
+      }
+    },
+    {
+      "book_id": "AS078",
+      "page": 2,
+      "text_sha256": "2d0e1d3b23c4e96eb032971eb4d67eef86b8b4971ce32b9a09f6f5834c1a677b",
+      "characters": 1151,
+      "nonempty_lines": 21,
+      "present_field_terms": [
+        "계약",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 3,
+        "CT": 2,
+        "AP": 2
+      }
+    },
+    {
+      "book_id": "AS078",
+      "page": 76,
+      "text_sha256": "73315037df63c0059804b2120ec8123c65e85535ed8cb89b54558609d1a5c6d2",
+      "characters": 1308,
+      "nonempty_lines": 22,
+      "present_field_terms": [
+        "계약",
+        "청구",
+        "수납",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "실제"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "SH": 1,
+        "CT": 1
+      }
+    },
+    {
+      "book_id": "AS099",
+      "page": 1,
+      "text_sha256": "135dafb087e5641ab6da8a935eda8a6ce6df0fd237a0d2fe32e0f589528ad608",
+      "characters": 1286,
+      "nonempty_lines": 22,
+      "present_field_terms": [
+        "계약",
+        "청구",
+        "수납",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "실제"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "SH": 1,
+        "CT": 1
+      }
+    },
+    {
+      "book_id": "AS099",
+      "page": 2,
+      "text_sha256": "dba5b628d7bbadb4dbe88f9442a207bf5f2643df4bd21221ec3943cc1997a9b9",
+      "characters": 1302,
+      "nonempty_lines": 23,
+      "present_field_terms": [
+        "계약",
+        "청구",
+        "수납",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "실제",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "SH": 1,
+        "CT": 1
+      }
+    },
+    {
+      "book_id": "AS099",
+      "page": 76,
+      "text_sha256": "a8a892bf743a798fa14f8638f35425f0a157212f37862d4ff9f34ea4c78daf04",
+      "characters": 1154,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "청구",
+        "수납",
+        "미결",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "실제",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "CT": 1,
+        "RCPT": 1
+      }
+    },
+    {
+      "book_id": "AS120",
+      "page": 1,
+      "text_sha256": "84d643aeff82b92488162f8d2fe43c785bd151d9702ad6c7786ce86b770da0f3",
+      "characters": 1063,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "청구",
+        "수납",
+        "미결",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "실제",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "CT": 1,
+        "RCPT": 1
+      }
+    },
+    {
+      "book_id": "AS120",
+      "page": 2,
+      "text_sha256": "e252b0006464275834e999b7bf0906b52aca69649db4f03672ef2e982c7b9252",
+      "characters": 1074,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "청구",
+        "수납",
+        "미결",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "증빙"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "CT": 1,
+        "RCPT": 1
+      }
+    },
+    {
+      "book_id": "AS120",
+      "page": 76,
+      "text_sha256": "d4da8ce1cdbb1b8527efb4a9a016cd6302279446d92bf0d169a3bcb47e9a49a4",
+      "characters": 1144,
+      "nonempty_lines": 20,
+      "present_field_terms": [
+        "계약",
+        "약정",
+        "화주",
+        "화물",
+        "장비",
+        "예약",
+        "금액",
+        "예정",
+        "실제"
+      ],
+      "id_prefix_counts": {
+        "HS": 1,
+        "HG": 1,
+        "HL": 2,
+        "CT": 1
+      }
+    }
+  ]
+}

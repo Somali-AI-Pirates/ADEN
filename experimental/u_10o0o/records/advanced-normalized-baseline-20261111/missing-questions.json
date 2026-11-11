@@ -1,0 +1,559 @@
+[
+  {
+    "branch_failures": {
+      "final_selection": 2,
+      "outside_both_branches": 1
+    },
+    "category": "both",
+    "context_tokens": 5359,
+    "final_pages": 8,
+    "late_positions": [
+      15,
+      18
+    ],
+    "missing_candidate_pages": 1,
+    "missing_pages": 3,
+    "missing_roles": [],
+    "question_id": "AS-DEV02",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "신규 예약의 접수 정보·창구·확정·제출 마감"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1
+    },
+    "category": "candidate",
+    "context_tokens": 4824,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-DEV03",
+    "routes": {
+      "hg": "missing_terms",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "예약 검토 상태와 확정 상태의 구분"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1
+    },
+    "category": "candidate",
+    "context_tokens": 6159,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-DEV04",
+    "routes": {
+      "hg": "missing_terms",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "서류에 적힌 화물 중량 항목의 차이"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1
+    },
+    "category": "selection",
+    "context_tokens": 5599,
+    "final_pages": 8,
+    "late_positions": [
+      11
+    ],
+    "missing_candidate_pages": 0,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-DEV06",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "처음 제출할 자료와 서류별 중량 구분"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1
+    },
+    "category": "candidate",
+    "context_tokens": 4789,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-DEV08",
+    "routes": {
+      "hg": "missing_terms",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "초안 승인과 실제 적재 완료의 구분"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1
+    },
+    "category": "selection",
+    "context_tokens": 5905,
+    "final_pages": 8,
+    "late_positions": [
+      9
+    ],
+    "missing_candidate_pages": 0,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-DEV09",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "출항 전 중량 정정 마감과 변경 절차"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1
+    },
+    "category": "candidate",
+    "context_tokens": 3766,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [
+      "비용 조건 약정"
+    ],
+    "question_id": "AS-DEV16",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "반출 정정 후 비용 재산정"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 2
+    },
+    "category": "selection",
+    "context_tokens": 4025,
+    "final_pages": 8,
+    "late_positions": [
+      10,
+      12
+    ],
+    "missing_candidate_pages": 0,
+    "missing_pages": 2,
+    "missing_roles": [
+      "계약 조건 대조 회신",
+      "현장 사건 수신대장"
+    ],
+    "question_id": "AS-DEV20",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "실제 반납 기준 유료 일수와 합계"
+  },
+  {
+    "branch_failures": {
+      "rrf_cutoff": 1
+    },
+    "category": "candidate",
+    "context_tokens": 3644,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [
+      "비용 조건 약정"
+    ],
+    "question_id": "AS-DEV22",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "무료 기간 연장의 적용 범위"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1,
+      "outside_both_branches": 1
+    },
+    "category": "both",
+    "context_tokens": 3843,
+    "final_pages": 8,
+    "late_positions": [
+      12
+    ],
+    "missing_candidate_pages": 1,
+    "missing_pages": 2,
+    "missing_roles": [
+      "비용 조건 약정",
+      "현장 사건 수신대장"
+    ],
+    "question_id": "AS-DEV24",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "반납 지연료 면제와 보관료 합산"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1,
+      "outside_both_branches": 1
+    },
+    "category": "both",
+    "context_tokens": 3969,
+    "final_pages": 8,
+    "late_positions": [
+      14
+    ],
+    "missing_candidate_pages": 1,
+    "missing_pages": 2,
+    "missing_roles": [
+      "비용 조건 약정",
+      "현장 사건 수신대장"
+    ],
+    "question_id": "AS-DEV26",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "보관료 정액 감액의 적용 단계"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1
+    },
+    "category": "candidate",
+    "context_tokens": 4106,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-ADD01",
+    "routes": {
+      "hg": "missing_terms",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "항로·화물·장비의 적용 범위"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1
+    },
+    "category": "candidate",
+    "context_tokens": 5410,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-ADD02",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "예정 출항 변경 후 확정과 제출 마감"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1
+    },
+    "category": "candidate",
+    "context_tokens": 4418,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-ADD03",
+    "routes": {
+      "hg": "missing_terms",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "예약 취소 요청과 취소 완료의 구분"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1
+    },
+    "category": "candidate",
+    "context_tokens": 5425,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-ADD05",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "출항 일정에 따른 제출 마감과 도착 통지"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 2
+    },
+    "category": "candidate",
+    "context_tokens": 6214,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 2,
+    "missing_pages": 2,
+    "missing_roles": [],
+    "question_id": "AS-ADD06",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "최초 제출 중량과 포장·화물 서류의 구분"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1
+    },
+    "category": "selection",
+    "context_tokens": 4866,
+    "final_pages": 8,
+    "late_positions": [
+      18
+    ],
+    "missing_candidate_pages": 0,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-ADD07",
+    "routes": {
+      "hg": "missing_terms",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "예약 확정과 반입 허가·배차의 구분"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1,
+      "rrf_cutoff": 1
+    },
+    "category": "candidate",
+    "context_tokens": 5771,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 2,
+    "missing_pages": 2,
+    "missing_roles": [],
+    "question_id": "AS-ADD09",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "봉인 번호 변경과 반입 예약 처리"
+  },
+  {
+    "branch_failures": {
+      "outside_both_branches": 1
+    },
+    "category": "candidate",
+    "context_tokens": 5700,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-ADD10",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "이메일 정정과 신규 포털 접수의 구분"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1
+    },
+    "category": "selection",
+    "context_tokens": 4838,
+    "final_pages": 8,
+    "late_positions": [
+      9
+    ],
+    "missing_candidate_pages": 0,
+    "missing_pages": 1,
+    "missing_roles": [],
+    "question_id": "AS-ADD13",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "비용 중 확정할 항목과 보류할 항목"
+  },
+  {
+    "branch_failures": {
+      "rrf_cutoff": 1
+    },
+    "category": "candidate",
+    "context_tokens": 3922,
+    "final_pages": 8,
+    "late_positions": [],
+    "missing_candidate_pages": 1,
+    "missing_pages": 1,
+    "missing_roles": [
+      "비용 조건 약정"
+    ],
+    "question_id": "AS-ADD17",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "규격별 요율 선택과 보관료 계산"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1,
+      "outside_both_branches": 1
+    },
+    "category": "both",
+    "context_tokens": 3877,
+    "final_pages": 8,
+    "late_positions": [
+      14
+    ],
+    "missing_candidate_pages": 1,
+    "missing_pages": 2,
+    "missing_roles": [
+      "비용 조건 약정",
+      "현장 사건 수신대장"
+    ],
+    "question_id": "AS-ADD19",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "전체 비용과 지급 주체의 구분"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1,
+      "outside_both_branches": 1
+    },
+    "category": "both",
+    "context_tokens": 3854,
+    "final_pages": 8,
+    "late_positions": [
+      15
+    ],
+    "missing_candidate_pages": 1,
+    "missing_pages": 2,
+    "missing_roles": [
+      "비용 조건 약정",
+      "현장 사건 수신대장"
+    ],
+    "question_id": "AS-ADD21",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "반납 지연료 상한과 보관료 합산"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1
+    },
+    "category": "selection",
+    "context_tokens": 3909,
+    "final_pages": 8,
+    "late_positions": [
+      10
+    ],
+    "missing_candidate_pages": 0,
+    "missing_pages": 1,
+    "missing_roles": [
+      "현장 사건 수신대장"
+    ],
+    "question_id": "AS-ADD23",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "기사 유예일과 무료 기간의 계산"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1,
+      "outside_both_branches": 1
+    },
+    "category": "both",
+    "context_tokens": 3716,
+    "final_pages": 8,
+    "late_positions": [
+      12
+    ],
+    "missing_candidate_pages": 1,
+    "missing_pages": 2,
+    "missing_roles": [
+      "비용 조건 약정",
+      "현장 사건 수신대장"
+    ],
+    "question_id": "AS-ADD25",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "연장 승인 적용 시점과 비용 합산"
+  },
+  {
+    "branch_failures": {
+      "final_selection": 1
+    },
+    "category": "selection",
+    "context_tokens": 3971,
+    "final_pages": 8,
+    "late_positions": [
+      10
+    ],
+    "missing_candidate_pages": 0,
+    "missing_pages": 1,
+    "missing_roles": [
+      "현장 사건 수신대장"
+    ],
+    "question_id": "AS-ADD29",
+    "routes": {
+      "hg": "unsupported_constraint",
+      "selection": "no_verified_pair",
+      "source": "fallback"
+    },
+    "topic": "일부 요율 개정의 적용 범위"
+  }
+]

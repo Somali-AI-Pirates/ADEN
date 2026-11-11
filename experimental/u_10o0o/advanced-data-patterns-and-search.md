@@ -19,7 +19,7 @@
 ### 현재 검색에서 어디가 중요한가
 
 - 일상 표현 40문항의 지정 근거 40쪽과 업무 규정 20문항의 지정 근거 27쪽은 모두 **AS007–056의 IS**였다. 일상 표현 실험에서 5:5 하이브리드 후보 800쪽 중 IS가 683쪽, HG가 51쪽(AS057–120은 30쪽), HA·기타가 66쪽이었다. 이 표본에서는 IS 안에서 맞는 쪽을 찾는 성능이 중요하다. HG 정제는 일부 후보 경쟁을 줄일 수 있다는 가설로 다룬다. [일상 표현 데이터](evaluation/advanced_scenarios/semantic_queries/README.md) · [저장된 비교](records/advanced-semantic-queries-20261109/report.md)
-- 공식 60문항에서 근거가 있는 58문항의 고유 참고 쪽 146개는 HG 112쪽, IS 28쪽, 기타 6쪽이다. 일상 표현 점수와 공식 점수를 따로 보고, HG 정제의 영향은 공식 평가와 HG 사건 묶음에서 확인한다. 이 수치는 Development와 Additional 참고 파일의 지정 쪽을 두 세트 전체에서 중복 제거한 집계다. [공식 세트와 페이지 채점 기준](records/advanced-rank-policy-8000-20261109/official-page-diagnosis.md)
+- 공식 60문항에서 근거가 있는 58문항의 고유 참고 쪽 146개는 HG 112쪽, IS 28쪽, 기타 6쪽이다. 일상 표현 점수와 공식 점수를 따로 보고, HG 정제의 영향은 공식 평가와 HG 사건 묶음에서 확인한다. 이 수치는 지정 근거의 분포다. [공식 Development](../../data/advanced/evaluation/development.json) · [공식 Additional](../../data/advanced/evaluation/additional.json)
 - 현재 제목 보너스는 복원 페이지의 앞 최대 세 블록을 쓰고, Snowflake-ko는 복원 페이지 전문을 임베딩한다. 기존 실험에서 표 행 위주로 최종 문맥을 바꿨을 때 근거가 줄었던 이력이 있다. 첫 비교에서는 검색용 본문을 바꾸고 최종 문맥에는 복원 원본을 전달한다. [제목 보너스](advanced_field_roles.py#L200) · [페이지 임베딩](main.py#L26) · [최종 문맥 실험](advanced-curation-plan.md#5-출처를-보존하는-문맥-렌더링-비교)
 
 ## 2. 정제에서 보존할 단위

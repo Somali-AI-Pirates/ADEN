@@ -1,0 +1,12 @@
+{
+  "query_max_tokens": 128,
+  "query_expansion_floor": 64,
+  "reranker_max_tokens": 1024,
+  "retriever_top_k": 20,
+  "expanded_retriever_top_k": 50,
+  "final_pages": 8,
+  "context_tokens": 8000,
+  "cpu_threads": 8,
+  "query_batch_size": 4,
+  "rerank_batch_size": 16
+}

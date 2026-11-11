@@ -1,0 +1,41 @@
+{
+  "at_utc": "2026-11-11T05:24:04.061261+00:00",
+  "stage": "before_evaluation_retrieval",
+  "code": {
+    "experimental/u_10o0o/fresh_record_hybrid/__init__.py": "c2fa8e3aefd3c3d246e95241c9fa228b210d151bbc6863484c1df940ddb1ad28",
+    "experimental/u_10o0o/fresh_record_hybrid/extract.py": "893ffc0ff1e74fdd641ded826558149534accaecfcf41751f5aafa45e711b6fa",
+    "experimental/u_10o0o/fresh_record_hybrid/models.py": "ab78e6b646af62c68b3de6d002d5bf04b6425056c80b8d44ec19cd85b58db198",
+    "experimental/u_10o0o/fresh_record_hybrid/reporting.py": "96cbb2dd4b02f9b0a8f64671229920ba8c15f39eb32c5811dfdec5e35a9782af",
+    "experimental/u_10o0o/fresh_record_hybrid/retrieval.py": "d313c00c40563b2224b4b172f3ab93ebb5fa24eaf0b998e3488363b05e72dc55",
+    "experimental/u_10o0o/fresh_record_hybrid/scoring.py": "2149338f3307b7e52977f00e27fb3abdb5eb7e6ce08414e47cb30b24220aeb52",
+    "experimental/u_10o0o/fresh_record_hybrid/tests/test_retrieval.py": "53ac0ec8fec8c90e5db2c338e044f749eae98aac7b677f52e27c7723bc76895e",
+    "experimental/u_10o0o/fresh_record_hybrid/tests/test_scoring.py": "02b74e4d692356a674c61c072e41f5b0e3ddc2d869ab196456397928b354147d",
+    "experimental/u_10o0o/fresh_record_hybrid/tests/test_units.py": "1ad86170e9b2d4a0622ba8e4f31e5d864f4e9e4b9be5bbbfb1474708b6f18f9c",
+    "experimental/u_10o0o/fresh_record_hybrid/units.py": "88271608f984631ee4f78fc1ec326af484b171d486a52b136e2e9c74441cf252"
+  },
+  "verification": {
+    "ruff_common": "passed",
+    "ruff_experiment": "passed",
+    "ruff_format_experiment": "passed (11 files)",
+    "pytest": "310 passed, 15 subtests passed",
+    "build": "sdist and wheel built with --no-isolation"
+  },
+  "independent_reviews": [
+    "runtime, selection chain, checkpoints and model inputs",
+    "raw parsing, source integrity, record/code relation evidence"
+  ],
+  "report_label_revision": {
+    "at_utc": "2026-11-11T05:53:16.204408+00:00",
+    "previous_reporting_sha256": "8fc9f16dccf49df7961a278b976a506321ab915e26cc283054c25dd89c0804ab",
+    "reason": "Label target proposals as target links; actual new-unit expansion is a separate measure. Retrieval and scoring logic unchanged; no evaluation retrieval/results yet."
+  },
+  "display_only_revision": {
+    "at_utc": "2026-11-11T06:24:43.666434+00:00",
+    "reason": "Korean display labels and category order only; retrieval/scoring logic unchanged"
+  },
+  "post_score_report_note": {
+    "at_utc": "2026-11-11T06:56:33.313909+00:00",
+    "change": "Korean labels/order, unknown category display fallback, source-alias interpretation note and links only. Retrieval and scorer hashes unchanged.",
+    "verification": "310 passed, 15 subtests passed; Ruff and format passed; actual report CLI passed."
+  }
+}

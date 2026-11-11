@@ -1,0 +1,46 @@
+[
+  {
+    "id": "FRESH-DEV-005",
+    "condition": "D",
+    "source_id": "AS108:001",
+    "hybrid_rank": 16,
+    "relation_rank": null,
+    "rrf_score": 0.013157894736842105,
+    "uncapped_merge_rank": 24,
+    "rerank_rank": null,
+    "final_rank": null
+  },
+  {
+    "id": "FRESH-DEV-005",
+    "condition": "E",
+    "source_id": "AS108:001",
+    "hybrid_rank": 16,
+    "relation_rank": 2,
+    "rrf_score": 0.02928692699490662,
+    "uncapped_merge_rank": 1,
+    "rerank_rank": 4,
+    "final_rank": 4
+  },
+  {
+    "id": "FRESH-VAL-005",
+    "condition": "D",
+    "source_id": "AS104:001",
+    "hybrid_rank": 17,
+    "relation_rank": null,
+    "rrf_score": 0.012987012987012988,
+    "uncapped_merge_rank": 21,
+    "rerank_rank": null,
+    "final_rank": null
+  },
+  {
+    "id": "FRESH-VAL-005",
+    "condition": "E",
+    "source_id": "AS104:001",
+    "hybrid_rank": 17,
+    "relation_rank": 5,
+    "rrf_score": 0.028371628371628373,
+    "uncapped_merge_rank": 5,
+    "rerank_rank": 1,
+    "final_rank": 1
+  }
+]

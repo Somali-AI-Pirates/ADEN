@@ -1,0 +1,61 @@
+{
+  "candidate_limit": 20,
+  "code_sha256": "4d6167b4bd7430a935a77643ac302863d746797a806c65c33e85e875c20b13db",
+  "conditions": [
+    "E",
+    "E_coverage",
+    "F",
+    "F_coverage"
+  ],
+  "context": {
+    "max_sources": 8,
+    "max_tokens": 8000
+  },
+  "created_utc": "2026-11-11T09:41:41.035416+00:00",
+  "elapsed_seconds": 14.048579358997813,
+  "format": "fresh-final-coverage-v1",
+  "gold_read": false,
+  "index_build_ms": 3943.495081999572,
+  "inputs": {
+    "id_question_sha256": "ea7269370088c086e706d6dc51eb3361b9db8cd92ded9cefb03ece08405d551a",
+    "pages_file_sha256": "bb2fd92104c0983898fb23b3410ed1bdecc0e3c4899f82f4e10027737403d709",
+    "relations_file_sha256": "889ef98646579e05284edce8486b353b4911b9ffa45ca0339f28e61ad9c0a691",
+    "units_file_sha256": "beb5c9d081ff1a8fe79427a786d7086da4545fa23c69b66bd275bba4d3a1477b"
+  },
+  "new_api_calls": 0,
+  "new_model_calls": 0,
+  "new_search_calls": 0,
+  "policy": "exact-HG-role-coverage-v1",
+  "questions": 160,
+  "results_sha256": "6300cbf8124a52c4e5a5b10e58e57ee11e8f28fd600fead3e302d4f0b597117f",
+  "rows": 640,
+  "source_manifests_sha256": {
+    "E": "b7f215325e6902ed9b8c4fb44958c837488d21a71bd4910a2dbc12ff3e766a59",
+    "F": "8465431112de067295cd25e0f9dc01f7d8956639a51d43bef8e9f86fba96b938"
+  },
+  "source_reranker_models": {
+    "E": {
+      "device": "cuda",
+      "dtype": "torch.float32",
+      "max_pair_tokens": 2048,
+      "model_id": "nlpai-lab/KURE-Reranker-nano",
+      "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "scoring": "raw single-logit",
+      "snapshot_path": "/home/jake/.cache/huggingface/hub/models--nlpai-lab--KURE-Reranker-nano/snapshots/8514b9e113f3b27c441ed9c2b50f81d80388b2fd"
+    },
+    "F": {
+      "device": "cuda",
+      "dtype": "torch.float32",
+      "max_pair_tokens": 2048,
+      "model_id": "nlpai-lab/KURE-Reranker-nano",
+      "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "scoring": "raw single-logit",
+      "snapshot_path": "/home/jake/.cache/huggingface/hub/models--nlpai-lab--KURE-Reranker-nano/snapshots/8514b9e113f3b27c441ed9c2b50f81d80388b2fd"
+    }
+  },
+  "source_results_sha256": {
+    "E": "13cc7c1579b8d218fbbd9b73e08a05167a267d29448749910e1eb0da22b5f762",
+    "F": "36fdbf675beb5cc998adfc81faf7fddd62d4e880fea95f3dc8ae97198328b123"
+  },
+  "timing_boundary": "CPU query plan and final selection/restore only; shared index load separate. Frozen BM25/vector/KURE timings are not new measurements."
+}

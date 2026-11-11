@@ -1,0 +1,122 @@
+{
+  "comparison_to": {
+    "snowflake": {
+      "counts": {
+        "unchanged": 241,
+        "improved": 13,
+        "regressed": 4
+      },
+      "by_suite": [
+        {
+          "suite": "official_development",
+          "status": "improved",
+          "count": 1
+        },
+        {
+          "suite": "official_development",
+          "status": "regressed",
+          "count": 1
+        },
+        {
+          "suite": "official_additional",
+          "status": "improved",
+          "count": 2
+        },
+        {
+          "suite": "work_rules",
+          "status": "improved",
+          "count": 1
+        },
+        {
+          "suite": "semantic_queries",
+          "status": "improved",
+          "count": 9
+        },
+        {
+          "suite": "semantic_queries",
+          "status": "regressed",
+          "count": 3
+        }
+      ]
+    },
+    "kure_v3": {
+      "counts": {
+        "unchanged": 245,
+        "regressed": 4,
+        "improved": 9
+      },
+      "by_suite": [
+        {
+          "suite": "official_additional",
+          "status": "regressed",
+          "count": 1
+        },
+        {
+          "suite": "official_additional",
+          "status": "improved",
+          "count": 2
+        },
+        {
+          "suite": "semantic_queries",
+          "status": "improved",
+          "count": 7
+        },
+        {
+          "suite": "semantic_queries",
+          "status": "regressed",
+          "count": 3
+        }
+      ]
+    }
+  },
+  "regressions": [
+    {
+      "id": "official_development:AS-DEV30",
+      "stage": "selection_or_budget"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-09",
+      "stage": "initial_retrieval_or_lookup"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-25",
+      "stage": "initial_retrieval_or_lookup"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-37",
+      "stage": "initial_retrieval_or_lookup"
+    }
+  ],
+  "selection_regressions": [
+    {
+      "id": "official_development:AS-DEV30",
+      "context_tokens": 3693,
+      "final_pages": 8,
+      "missing_group_rank_positions": [
+        [
+          11
+        ]
+      ]
+    }
+  ],
+  "semantic_failure_stages": {
+    "kure_v3": {
+      "success": 15,
+      "initial_retrieval_or_lookup": 23,
+      "selection_or_budget": 2
+    },
+    "nemotron": {
+      "success": 19,
+      "initial_retrieval_or_lookup": 19,
+      "selection_or_budget": 2
+    },
+    "snowflake": {
+      "initial_retrieval_or_lookup": 26,
+      "success": 13,
+      "selection_or_budget": 1
+    }
+  },
+  "first_two_aggregate_scores_identical": true,
+  "nemotron_improvements_from_candidate_gain": 12,
+  "nemotron_improvements_with_already_complete_candidates": 1
+}

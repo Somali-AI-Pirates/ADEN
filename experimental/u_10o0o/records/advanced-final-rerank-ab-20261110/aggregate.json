@@ -1,0 +1,117 @@
+{
+  "peer304": {
+    "rerank_on": {
+      "n": 304,
+      "candidate_complete": 169,
+      "expanded_complete": 170,
+      "final_complete": 145,
+      "mean_page_recall_at_8": 0.6356907894736842
+    },
+    "rerank_off": {
+      "n": 304,
+      "candidate_complete": 169,
+      "expanded_complete": 170,
+      "final_complete": 142,
+      "mean_page_recall_at_8": 0.6197916666666666
+    },
+    "off_improved_ids": [
+      "SYF4-adv-028"
+    ],
+    "off_regressed_ids": [
+      "SYF-adv-042",
+      "SY3-adv-006",
+      "SY3-adv-033",
+      "SY3-adv-037"
+    ]
+  },
+  "everyday40": {
+    "rerank_on": {
+      "n": 40,
+      "candidate_complete": 21,
+      "expanded_complete": 21,
+      "final_complete": 19,
+      "mean_page_recall_at_8": 0.5958333333333333
+    },
+    "rerank_off": {
+      "n": 40,
+      "candidate_complete": 21,
+      "expanded_complete": 21,
+      "final_complete": 19,
+      "mean_page_recall_at_8": 0.5958333333333333
+    },
+    "off_improved_ids": [],
+    "off_regressed_ids": []
+  },
+  "reused24": {
+    "rerank_on": {
+      "n": 24,
+      "candidate_complete": 24,
+      "expanded_complete": 23,
+      "final_complete": 21,
+      "mean_page_recall_at_8": 0.9375
+    },
+    "rerank_off": {
+      "n": 24,
+      "candidate_complete": 24,
+      "expanded_complete": 23,
+      "final_complete": 22,
+      "mean_page_recall_at_8": 0.9583333333333334
+    },
+    "off_improved_ids": [
+      "FV-002"
+    ],
+    "off_regressed_ids": []
+  },
+  "active246": {
+    "rerank_on": {
+      "n": 246,
+      "candidate_complete": 164,
+      "expanded_complete": 164,
+      "final_complete": 142,
+      "mean_page_recall_at_8": 0.7327235772357723
+    },
+    "rerank_off": {
+      "n": 246,
+      "candidate_complete": 164,
+      "expanded_complete": 164,
+      "final_complete": 140,
+      "mean_page_recall_at_8": 0.7151084010840107
+    },
+    "off_improved_ids": [
+      "SYF4-adv-028",
+      "FV-002"
+    ],
+    "off_regressed_ids": [
+      "SYF-adv-042",
+      "SY3-adv-006",
+      "SY3-adv-033",
+      "SY3-adv-037"
+    ]
+  },
+  "all368": {
+    "rerank_on": {
+      "n": 368,
+      "candidate_complete": 214,
+      "expanded_complete": 214,
+      "final_complete": 185,
+      "mean_page_recall_at_8": 0.6510416666666667
+    },
+    "rerank_off": {
+      "n": 368,
+      "candidate_complete": 214,
+      "expanded_complete": 214,
+      "final_complete": 183,
+      "mean_page_recall_at_8": 0.639266304347826
+    },
+    "off_improved_ids": [
+      "SYF4-adv-028",
+      "FV-002"
+    ],
+    "off_regressed_ids": [
+      "SYF-adv-042",
+      "SY3-adv-006",
+      "SY3-adv-033",
+      "SY3-adv-037"
+    ]
+  }
+}

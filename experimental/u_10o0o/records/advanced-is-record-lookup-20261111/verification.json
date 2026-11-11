@@ -1,0 +1,45 @@
+{
+  "commands": [
+    {
+      "command": ".venv/bin/ruff check --no-cache .",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/ruff check --no-cache --isolated --select E4,E7,E9,F,I experimental/u_10o0o/advanced_is_record_lookup.py experimental/u_10o0o/advanced_is_lookup_ab.py experimental/u_10o0o/tests/test_advanced_is_record_lookup.py",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/ruff format --check --isolated experimental/u_10o0o/advanced_is_record_lookup.py experimental/u_10o0o/advanced_is_lookup_ab.py experimental/u_10o0o/tests/test_advanced_is_record_lookup.py",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/python -B -m pytest -q -p no:cacheprovider tests experimental/u_10o0o/tests/test_advanced_is_record_lookup.py experimental/u_10o0o/tests/test_advanced_structured_store.py experimental/u_10o0o/tests/test_advanced_structured_route.py",
+      "exit_code": 0,
+      "tests": 321,
+      "subtests": 15
+    },
+    {
+      "command": ".venv/bin/python -B -m experimental.u_10o0o.advanced_is_lookup_ab --help",
+      "exit_code": 0
+    }
+  ],
+  "review": "self-review; independent delegation prohibited by side-conversation instructions",
+  "reviewed_files": [
+    {
+      "path": "experimental/u_10o0o/advanced_is_record_lookup.py",
+      "sha256": "edf2b41b61b1fe3659090615962dacdd7d20ee52d6efa987d4ea7025099c0f11"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_is_lookup_ab.py",
+      "sha256": "cb5d4bbf2fc2e1b20cf82900bb7b9f3e12cb18203e5fcb734a2b6c2e51fed8e2"
+    },
+    {
+      "path": "experimental/u_10o0o/tests/test_advanced_is_record_lookup.py",
+      "sha256": "b56bf79f877d3e42921d176a1fa3b599f31c6fc85461a3781e2c66bfa4e34d81"
+    }
+  ],
+  "scope": "Experimental exact IS record lookup, existing read-only SQLite and source/context assembly; no baseline promotion",
+  "not_run": [
+    "common package build (experimental excluded; no packaging change)"
+  ]
+}

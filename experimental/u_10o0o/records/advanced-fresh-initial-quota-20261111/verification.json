@@ -1,0 +1,100 @@
+{
+  "completed_utc": "2026-11-11T09:00:58.654505+00:00",
+  "checks": [
+    {
+      "name": "ruff-common",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.011,
+      "log": "artifacts/u_10o0o/advanced-fresh-initial-quota-20261111/checks/ruff-common.log"
+    },
+    {
+      "name": "ruff-experiment",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "--isolated",
+        "--select",
+        "E4,E7,E9,F,I",
+        "experimental/u_10o0o/fresh_record_hybrid"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007,
+      "log": "artifacts/u_10o0o/advanced-fresh-initial-quota-20261111/checks/ruff-experiment.log"
+    },
+    {
+      "name": "format-experiment",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "--isolated",
+        "experimental/u_10o0o/fresh_record_hybrid"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007,
+      "log": "artifacts/u_10o0o/advanced-fresh-initial-quota-20261111/checks/format-experiment.log"
+    },
+    {
+      "name": "pytest",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests",
+        "experimental/u_10o0o/fresh_record_hybrid/tests"
+      ],
+      "exit_code": 0,
+      "seconds": 7.493,
+      "log": "artifacts/u_10o0o/advanced-fresh-initial-quota-20261111/checks/pytest.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "build",
+        "--no-isolation"
+      ],
+      "exit_code": 0,
+      "seconds": 0.726,
+      "log": "artifacts/u_10o0o/advanced-fresh-initial-quota-20261111/checks/build.log"
+    },
+    {
+      "name": "replay-help",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "experimental.u_10o0o.fresh_record_hybrid.relation_overlap",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.075,
+      "log": "artifacts/u_10o0o/advanced-fresh-initial-quota-20261111/checks/replay-help.log"
+    },
+    {
+      "name": "scoring-help",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "experimental.u_10o0o.fresh_record_hybrid.scoring",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.125,
+      "log": "artifacts/u_10o0o/advanced-fresh-initial-quota-20261111/checks/scoring-help.log"
+    }
+  ],
+  "pytest_passed": 338,
+  "subtests_passed": 15,
+  "preserved_files": 17,
+  "preservation_changed": [],
+  "runtime_review": "independent read-only code review completed; no blocking findings",
+  "evaluation_review": "Independent read-only comparison completed against raw E/F rows and original/expanded scores; no material discrepancies in counts, per-fact changes, first-miss stages, page/text evidence or fixed-input claims.",
+  "post_review_changes": "Only documentation clarification and review completion records; runtime and test hashes unchanged."
+}

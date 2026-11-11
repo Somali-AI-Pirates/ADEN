@@ -1,0 +1,3080 @@
+{
+  "failure_counts": [
+    {
+      "split": "dev",
+      "condition": "A",
+      "complete": 52,
+      "candidate_missing": 15,
+      "final_selection_loss": 3
+    },
+    {
+      "split": "dev",
+      "condition": "B",
+      "complete": 48,
+      "candidate_missing": 21,
+      "final_selection_loss": 1
+    },
+    {
+      "split": "dev",
+      "condition": "C",
+      "complete": 55,
+      "candidate_missing": 12,
+      "final_selection_loss": 3
+    },
+    {
+      "split": "validation",
+      "condition": "A",
+      "complete": 57,
+      "candidate_missing": 10,
+      "final_selection_loss": 3
+    },
+    {
+      "split": "validation",
+      "condition": "B",
+      "complete": 55,
+      "candidate_missing": 13,
+      "final_selection_loss": 2
+    },
+    {
+      "split": "validation",
+      "condition": "C",
+      "complete": 61,
+      "candidate_missing": 6,
+      "final_selection_loss": 3
+    }
+  ],
+  "relation_activity": {
+    "dev": {
+      "questions": 80,
+      "target_linked": 54,
+      "nonempty_relation_list": 43,
+      "candidate_order_changed": 43,
+      "new_candidate_source_total": 169,
+      "related_unit_total": 174
+    },
+    "validation": {
+      "questions": 80,
+      "target_linked": 41,
+      "nonempty_relation_list": 33,
+      "candidate_order_changed": 33,
+      "new_candidate_source_total": 102,
+      "related_unit_total": 106
+    }
+  },
+  "changed_question_flows": [
+    {
+      "id": "DEV-106",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 0,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS019:082"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS019:083"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-110",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 1,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS059:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS059:008"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-114",
+      "split": "dev",
+      "category": "record_plus_rule_exception",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 1,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS068:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS069:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "DEV-118",
+      "split": "dev",
+      "category": "record_plus_rule_exception",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 1,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS088:007"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS089:007"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "DEV-122",
+      "split": "dev",
+      "category": "record_plus_rule_exception",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 1,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS088:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS089:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "DEV-124",
+      "split": "dev",
+      "category": "correction_status_date_type",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 0,
+      "final_fact_hits_after": 2,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS022:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS022:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "DEV-130",
+      "split": "dev",
+      "category": "correction_status_date_type",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 0,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS030:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS030:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-030",
+      "split": "dev",
+      "category": "no_code_everyday_procedure",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 0,
+      "final_fact_hits_after": 1,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS011:003"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-011",
+      "split": "validation",
+      "category": "no_code_everyday_procedure",
+      "candidate_before": true,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 0,
+      "final_fact_hits_after": 2,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS004:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS004:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-024",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 3,
+      "final_fact_hits_after": 2,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS092:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS093:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS094:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-025",
+      "split": "validation",
+      "category": "two_events",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 3,
+      "final_fact_hits_after": 6,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS112:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS112:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS112:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS002:105"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 5,
+          "allowed_sources": [
+            "AS002:105"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 6,
+          "allowed_sources": [
+            "AS002:105"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-026",
+      "split": "validation",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 4,
+      "final_fact_hits_after": 2,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS044:085"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS044:085"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS064:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS064:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-029",
+      "split": "validation",
+      "category": "correction_status_date_type",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 1,
+      "final_fact_hits_after": 0,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS036:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-051",
+      "split": "validation",
+      "category": "no_code_everyday_procedure",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 1,
+      "pair": "A_B",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS004:004",
+            "AS004:047",
+            "AS004:054",
+            "AS004:060",
+            "AS004:080"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS004:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-106",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 0,
+      "final_fact_hits_after": 2,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS019:082"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS019:083"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-109",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 0,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS049:081"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS049:082"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-113",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 0,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS089:006"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS109:006"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-114",
+      "split": "dev",
+      "category": "record_plus_rule_exception",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 1,
+      "final_fact_hits_after": 2,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS068:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS069:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "DEV-118",
+      "split": "dev",
+      "category": "record_plus_rule_exception",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 1,
+      "final_fact_hits_after": 2,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS088:007"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS089:007"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "DEV-122",
+      "split": "dev",
+      "category": "record_plus_rule_exception",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 1,
+      "final_fact_hits_after": 2,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS088:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS089:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "DEV-130",
+      "split": "dev",
+      "category": "correction_status_date_type",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 0,
+      "final_fact_hits_after": 2,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS030:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS030:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-005",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 0,
+      "final_fact_hits_after": 4,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS098:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS099:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS108:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS109:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-041",
+      "split": "dev",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 3,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS037:079"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS039:069"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS040:084"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-042",
+      "split": "dev",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 3,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS047:079"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS047:079"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS049:079"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-044",
+      "split": "dev",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 3,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS067:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS069:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS070:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-004",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 4,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS092:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS093:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS094:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS095:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-005",
+      "split": "validation",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 1,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS104:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS114:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-006",
+      "split": "validation",
+      "category": "record_plus_rule_exception",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 3,
+      "final_fact_hits_after": 4,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS063:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS064:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS065:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS065:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-018",
+      "split": "validation",
+      "category": "exact_code",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 1,
+      "final_fact_hits_after": 2,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS043:089"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS044:084"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-024",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 3,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS092:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS093:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS094:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-036",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 3,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS004:124"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": true,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS005:124"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS005:124"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-044",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 5,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS002:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS004:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS005:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS001:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 5,
+          "allowed_sources": [
+            "AS001:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-052",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 4,
+      "final_fact_hits_after": 5,
+      "pair": "B_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS002:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS002:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS001:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS001:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 5,
+          "allowed_sources": [
+            "AS004:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-109",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 0,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS049:081"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS049:082"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-110",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 1,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS059:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS059:008"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-113",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 0,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS089:006"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS109:006"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "DEV-124",
+      "split": "dev",
+      "category": "correction_status_date_type",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 0,
+      "final_fact_hits_after": 2,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS022:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS022:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-005",
+      "split": "dev",
+      "category": "two_events",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 1,
+      "final_fact_hits_after": 4,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS098:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS099:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS108:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS109:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-030",
+      "split": "dev",
+      "category": "no_code_everyday_procedure",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 0,
+      "final_fact_hits_after": 1,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS011:003"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-041",
+      "split": "dev",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 3,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS037:079"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS039:069"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS040:084"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-042",
+      "split": "dev",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 3,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS047:079"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS047:079"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS049:079"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-DEV-044",
+      "split": "dev",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 3,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS067:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS069:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS070:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-004",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 3,
+      "final_fact_hits_after": 4,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS092:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS093:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS094:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS095:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-005",
+      "split": "validation",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 1,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS104:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "relation_rrf_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS114:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-006",
+      "split": "validation",
+      "category": "record_plus_rule_exception",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 3,
+      "final_fact_hits_after": 4,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS063:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS064:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS065:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS065:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-011",
+      "split": "validation",
+      "category": "no_code_everyday_procedure",
+      "candidate_before": true,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 0,
+      "final_fact_hits_after": 2,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS004:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS004:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-018",
+      "split": "validation",
+      "category": "exact_code",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 1,
+      "final_fact_hits_after": 2,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS043:089"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS044:084"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-025",
+      "split": "validation",
+      "category": "two_events",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 3,
+      "final_fact_hits_after": 6,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS112:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS112:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS112:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS002:105"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 5,
+          "allowed_sources": [
+            "AS002:105"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 6,
+          "allowed_sources": [
+            "AS002:105"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-026",
+      "split": "validation",
+      "category": "two_events",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 4,
+      "final_fact_hits_after": 2,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS044:085"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS044:085"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS064:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS064:005"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-029",
+      "split": "validation",
+      "category": "correction_status_date_type",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 1,
+      "final_fact_hits_after": 0,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS036:001"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-036",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 3,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS004:124"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": true,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS005:124"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS005:124"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-044",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 5,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS002:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS004:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS005:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS001:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        },
+        {
+          "fact_number": 5,
+          "allowed_sources": [
+            "AS001:103"
+          ],
+          "stage_hits": {
+            "bm25_top50": false,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "two_retrievers_missing"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-051",
+      "split": "validation",
+      "category": "no_code_everyday_procedure",
+      "candidate_before": true,
+      "candidate_after": false,
+      "final_before": true,
+      "final_after": false,
+      "final_fact_hits_before": 2,
+      "final_fact_hits_after": 1,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS004:004",
+            "AS004:047",
+            "AS004:054",
+            "AS004:060",
+            "AS004:080"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": true,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS004:004"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": false,
+            "related_unit_ids": false,
+            "final": false
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    },
+    {
+      "id": "FRESH-VAL-052",
+      "split": "validation",
+      "category": "one_event_multistage",
+      "candidate_before": false,
+      "candidate_after": true,
+      "final_before": false,
+      "final_after": true,
+      "final_fact_hits_before": 4,
+      "final_fact_hits_after": 5,
+      "pair": "A_C",
+      "after_fact_flow": [
+        {
+          "fact_number": 1,
+          "allowed_sources": [
+            "AS002:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 2,
+          "allowed_sources": [
+            "AS002:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 3,
+          "allowed_sources": [
+            "AS001:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 4,
+          "allowed_sources": [
+            "AS001:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": true,
+            "candidate_unit_ids": true,
+            "related_unit_ids": false,
+            "final": true
+          },
+          "first_absence_in_after_condition": "covered"
+        },
+        {
+          "fact_number": 5,
+          "allowed_sources": [
+            "AS004:107"
+          ],
+          "stage_hits": {
+            "bm25_top50": true,
+            "dense_top50": false,
+            "hybrid_unit_ids": false,
+            "candidate_unit_ids": true,
+            "related_unit_ids": true,
+            "final": true
+          },
+          "first_absence_in_after_condition": "hybrid_top20_drop"
+        }
+      ]
+    }
+  ]
+}

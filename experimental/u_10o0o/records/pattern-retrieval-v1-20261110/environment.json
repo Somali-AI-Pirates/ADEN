@@ -1,0 +1,18 @@
+{
+  "python": "3.13.15",
+  "system": "Linux",
+  "machine": "x86_64",
+  "cpu": "Intel(R) Core(TM) Ultra 9 275HX",
+  "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "gpu_memory_bytes": 8546484224,
+  "packages": {
+    "torch": "2.15.0",
+    "transformers": "5.22.1",
+    "sentence-transformers": "6.2.0",
+    "numpy": "2.5.4",
+    "tiktoken": "0.14.0",
+    "threadpoolctl": "3.8.0"
+  },
+  "cuda_runtime": "13.2",
+  "poppler": "pdftotext version 26.01.0"
+}

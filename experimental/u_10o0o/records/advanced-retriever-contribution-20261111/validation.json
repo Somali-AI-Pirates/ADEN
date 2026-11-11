@@ -1,0 +1,23 @@
+{
+  "archived_original_question_rrf_order_matches": "100/100",
+  "path_comparisons": 140,
+  "unique_question_ids": 100,
+  "scored_path_comparisons": 138,
+  "raw_query_replay_count": 100,
+  "cached_planned_query_count": 86,
+  "external_api_calls": 0,
+  "new_kure_calls": 0,
+  "gpu_used": false,
+  "runtime_edits": false,
+  "baseline_changed": false,
+  "checks": [
+    "isolated Ruff E4/E7/E9/F/I",
+    "Ruff format",
+    "actual replay and score CLI",
+    "all per-question archived stage scores reproduced",
+    "four-way class and survival conservation",
+    "shared artifact privacy and local links"
+  ],
+  "independent_agent_review": "not performed: side-conversation boundary",
+  "application_test_build": "not rerun; no application/shared retrieval code changed"
+}

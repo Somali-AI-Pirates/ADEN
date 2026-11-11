@@ -1,0 +1,98 @@
+{
+  "categories_positive": {
+    "kure_v3": {
+      "dense_top20": {
+        "complete": 111,
+        "page_recall": 0.71675,
+        "scored": 200
+      },
+      "dense_top50": {
+        "complete": 123,
+        "page_recall": 0.7775833333333334,
+        "scored": 200
+      },
+      "final_top8": 173,
+      "hybrid_top20": 137,
+      "scored": 200
+    },
+    "snowflake": {
+      "dense_top20": {
+        "complete": 53,
+        "page_recall": 0.37083333333333335,
+        "scored": 200
+      },
+      "dense_top50": {
+        "complete": 65,
+        "page_recall": 0.4608333333333334,
+        "scored": 200
+      },
+      "final_top8": 170,
+      "hybrid_top20": 132,
+      "scored": 200
+    }
+  },
+  "official_all": {
+    "kure_v3": {
+      "dense_top20": {
+        "complete": 13,
+        "page_recall": 0.646551724137931,
+        "scored": 58
+      },
+      "dense_top50": {
+        "complete": 23,
+        "page_recall": 0.7370689655172413,
+        "scored": 58
+      },
+      "final_top8": 33,
+      "hybrid_top20": 41,
+      "scored": 58
+    },
+    "snowflake": {
+      "dense_top20": {
+        "complete": 10,
+        "page_recall": 0.4755747126436781,
+        "scored": 58
+      },
+      "dense_top50": {
+        "complete": 17,
+        "page_recall": 0.5933908045977011,
+        "scored": 58
+      },
+      "final_top8": 32,
+      "hybrid_top20": 39,
+      "scored": 58
+    }
+  },
+  "semantic_all": {
+    "kure_v3": {
+      "dense_top20": {
+        "complete": 17,
+        "page_recall": 0.5208333333333333,
+        "scored": 40
+      },
+      "dense_top50": {
+        "complete": 19,
+        "page_recall": 0.6208333333333333,
+        "scored": 40
+      },
+      "final_top8": 15,
+      "hybrid_top20": 17,
+      "scored": 40
+    },
+    "snowflake": {
+      "dense_top20": {
+        "complete": 12,
+        "page_recall": 0.4458333333333333,
+        "scored": 40
+      },
+      "dense_top50": {
+        "complete": 14,
+        "page_recall": 0.5083333333333333,
+        "scored": 40
+      },
+      "final_top8": 13,
+      "hybrid_top20": 14,
+      "scored": 40
+    }
+  }
+}

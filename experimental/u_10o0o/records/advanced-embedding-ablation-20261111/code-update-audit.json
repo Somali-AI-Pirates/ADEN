@@ -1,0 +1,25 @@
+{
+  "baseline_config_identical": true,
+  "changes": [
+    {
+      "after": "40badadc10b3888aae459addce2d67555a2597c779ef96b7643d35fbc1126778",
+      "before": "848de118bedd43d8ba752cb97c75cbba9921c754f64b7e84d9818c83a12cf0a4",
+      "path": "app/evaluation/dataset.py"
+    },
+    {
+      "after": "d091b297d32bf836882b9a1186923cf0178006cf7cd271367781425916939864",
+      "before": "5dbf7dae190d125c091a0ea34fa8ec8d0a89621a53f2cf27d3c13c98bf88b533",
+      "path": "app/evaluation/metrics.py"
+    },
+    {
+      "after": "28fc992c1246e27eb675ec7050ff05b6de4d11dbc4801c1baed0b1ace23748aa",
+      "before": "ca6c52449dfdd1136a1d0b5ca18f3d4829dcfda9c1fc238c6cb911ed04fcf403",
+      "path": "app/generation/context.py"
+    }
+  ],
+  "document_and_query_vectors_unchanged": true,
+  "new_frozen_sha256": "9d51dccf1ac79affd8b865085ad6ec5fb13b31695f4ef539e0f1ceec77024592",
+  "old_frozen_sha256": "c8c08569291c1a3f61c7e81a56cbf1071d796d7a80bd6c94d1b1b3d5f849ac12",
+  "questions_bytes_identical": true,
+  "reason": "Main sync changed comprehension syntax, added diagnostics, and extracted the same context formatting function. All retrievals run after this sync; native control reproduction is mandatory."
+}

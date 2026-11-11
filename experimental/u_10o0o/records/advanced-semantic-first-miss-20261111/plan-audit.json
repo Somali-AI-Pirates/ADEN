@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "audit_type": "semantic_plan_fidelity",
+  "stage_independent": true,
+  "review": {
+    "reviewer_type": "AI",
+    "independent_assessment": true,
+    "human_reviewed": false
+  },
+  "inputs": {
+    "questions": {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/questions.json",
+      "sha256": "b6347f69fe72b4ead5147aed367f03bf5110286eb52d364df460269421959d82"
+    },
+    "required_requests": {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+    },
+    "cached_plans": {
+      "path": "artifacts/u_10o0o/advanced-plan-ab-20261110/luna_plans.jsonl",
+      "sha256": "bb03526f7976fc0df47341112b208d4adafb291add0309fe29fd9592b61bdc99"
+    }
+  },
+  "verdicts": [
+    {"id": "AS-SEM-01", "verdict": "faithful", "reason": "Preserves the status-confirmation request and the needed proof type."},
+    {"id": "AS-SEM-08", "verdict": "faithful", "reason": "Preserves the distinction between a registration date and the current approved value."},
+    {"id": "AS-SEM-10", "verdict": "faithful", "reason": "Captures conflicting records and asks which signal governs the current state."},
+    {"id": "AS-SEM-18", "verdict": "faithful", "reason": "Preserves the fee-floor and scope question for a fixed reduction."},
+    {"id": "AS-SEM-20", "verdict": "faithful", "reason": "Preserves the distinction between an existing booking and the trigger for renewal terms."},
+    {"id": "AS-SEM-21", "verdict": "faithful", "reason": "Separates booking-confirmation proof from downstream handoff information."},
+    {"id": "AS-SEM-22", "verdict": "faithful", "reason": "Represents the equipment-allocation change and weight correction as distinct actions."},
+    {"id": "AS-SEM-23", "verdict": "faithful", "reason": "Covers both weight definitions and the submission route for the initial report."},
+    {"id": "AS-SEM-26", "verdict": "faithful", "reason": "Preserves the distinctions between file receipt, content approval, and actual loading."},
+    {"id": "AS-SEM-28", "verdict": "faithful", "reason": "Separates communicating a schedule change from replacing a current value based on a registration date."},
+    {"id": "AS-SEM-30", "verdict": "error", "reason": "Omits the month-end stage-by-stage handoff request while covering discharge and fee-adjustment evidence."},
+    {"id": "AS-SEM-31", "verdict": "faithful", "reason": "Includes the deadline, correction route, and separate inbound-approval check."},
+    {"id": "AS-SEM-33", "verdict": "faithful", "reason": "Preserves the distinct effective-date bases for a daily rate and contract free time."},
+    {"id": "AS-SEM-34", "verdict": "faithful", "reason": "Covers the excluded-terminal exception and equipment-specific base conditions."},
+    {"id": "AS-SEM-35", "verdict": "faithful", "reason": "Preserves the contract free-time override and fixed-adjustment order."},
+    {"id": "AS-SEM-36", "verdict": "faithful", "reason": "Keeps one equipment's additional free time separate from another's fixed-amount adjustment."},
+    {"id": "AS-SEM-38", "verdict": "faithful", "reason": "Distinguishes vehicle arrival from completed release and uses actual release for the final billed day."},
+    {"id": "AS-SEM-39", "verdict": "uncertain", "reason": "Covers the prior consultation and rate timing, but does not clearly encode the consultation's authority or validity distinction."},
+    {"id": "AS-SEM-40", "verdict": "faithful", "reason": "Separates temperature-controlled service terms from year-boundary applicability."}
+  ],
+  "summary": {
+    "total": 19,
+    "faithful": 17,
+    "error": 1,
+    "uncertain": 1
+  }
+}

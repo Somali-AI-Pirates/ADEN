@@ -1,0 +1,14 @@
+{
+  "v1_rows": 640,
+  "v2_rows": 640,
+  "compared_fields": [
+    "candidate_unit_ids",
+    "rerank_order",
+    "final_sources",
+    "context_tokens",
+    "context_sha256"
+  ],
+  "differences": [],
+  "primary_run": "run-v2",
+  "v1_quality_scored": false
+}

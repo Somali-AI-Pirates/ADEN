@@ -1,0 +1,983 @@
+{
+  "boundary": "post-retrieval diagnosis; no new search/API; requirements opened after all 640 saved outputs",
+  "records": [
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-01",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-01",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-02",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-02",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-03",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-03",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-04",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-04",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-05",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-05",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-06",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-06",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-07",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-07",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-08",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-08",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-09",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-09",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-10",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-10",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 1,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-11",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-11",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-12",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-12",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-13",
+      "stages": {
+        "expanded20": 1,
+        "final8": 0,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-13",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-14",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-14",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-15",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-15",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-16",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-16",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-17",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-17",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-18",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-18",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-19",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-19",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-20",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-20",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-21",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-21",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-22",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-22",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-23",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-23",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-24",
+      "stages": {
+        "expanded20": 1,
+        "final8": 0,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-24",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-25",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-25",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-26",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-26",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-27",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-27",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-28",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-28",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-29",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-29",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-30",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-30",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-31",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-31",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-32",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-32",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-33",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-33",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-34",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-34",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-35",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-35",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-36",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-36",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-37",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-37",
+      "stages": {
+        "expanded20": 1,
+        "final8": 1,
+        "merged20": 1,
+        "request_nomination_union": 1,
+        "retriever_union": 1,
+        "rrf20_union": 1
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-38",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-38",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-39",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-39",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 0,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "control",
+      "id": "semantic_queries:AS-SEM-40",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 1,
+        "rrf20_union": 0
+      }
+    },
+    {
+      "arm": "is_windows",
+      "id": "semantic_queries:AS-SEM-40",
+      "stages": {
+        "expanded20": 0,
+        "final8": 0,
+        "merged20": 0,
+        "request_nomination_union": 0,
+        "retriever_union": 1,
+        "rrf20_union": 0
+      }
+    }
+  ],
+  "summary": {
+    "control": {
+      "expanded20": 21,
+      "final8": 19,
+      "merged20": 21,
+      "request_nomination_union": 22,
+      "retriever_union": 23,
+      "rrf20_union": 21
+    },
+    "is_windows": {
+      "expanded20": 21,
+      "final8": 21,
+      "merged20": 21,
+      "request_nomination_union": 23,
+      "retriever_union": 25,
+      "rrf20_union": 22
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "dataset_version": "advanced-structured-gold-v1",
+  "seed": "sha256:advanced-structured-gold-v1",
+  "selection": {
+    "input": "data/advanced/documents/*.pdf",
+    "extraction": "pdftotext -layout; app.ingestion.curation.split_page; no curated JSONL or SQLite input",
+    "question_count": 30,
+    "families": ["HG", "HA", "IS"],
+    "per_family": {
+      "direct": 6,
+      "mixed": 2,
+      "fallback": 2
+    },
+    "direct_templates": {
+      "HG": [
+        "actual_discharge_date",
+        "actual_gate_out_date",
+        "scheduled_return_date",
+        "system_entry_date",
+        "billed_amount:storage",
+        "received_amount:none"
+      ],
+      "HA": [
+        "계약 조건 확인:무료기간",
+        "계약 조건 확인:첫 유료구간",
+        "사건·증빙 접수 대조:날짜·접수값(actual,confirmed)",
+        "사건·증빙 접수 대조:날짜·접수값(actual,confirmed)",
+        "비용별 정산 확인:금액(explicit_currency)",
+        "계약 조건 확인:다음 구간"
+      ],
+      "IS": [
+        "처리 기록:상태·기록일",
+        "처리 기록:요청·회신 내용",
+        "처리 기록:기존·요청 근거",
+        "기록번호:범위·상태",
+        "기록번호:업무·의제",
+        "기록번호:확인·회신 내용"
+      ]
+    },
+    "mixed_selection": "one source-verified typed fact plus a distinct, adjacent or same-case narrative source containing a review/condition cue",
+    "fallback_selection": "narrative evidence only; no typed fact prediction; HG/HA case-specific rationale or IS document-topic lookup",
+    "distinctness": "stable SHA-256 ordering, distinct case/key per route family where possible",
+    "gold_types": ["text", "date", "integer", "decimal"],
+    "source_pointer": ["file_name", "pdf_sha256", "page", "line_start", "line_end", "record_id"],
+    "private_outputs": ["questions.json", "references.json", "manifest.json", "validation.json"],
+    "api_calls": 0
+  }
+}

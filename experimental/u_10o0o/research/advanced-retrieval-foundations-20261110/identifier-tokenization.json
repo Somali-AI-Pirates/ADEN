@@ -1,0 +1,70 @@
+{
+  "scope": "Existing tokenizer only; not a search accuracy benchmark",
+  "source": "experimental/u_10o0o/bm25.py",
+  "source_sha256": "ad487dac19bda350ae1686bb5d197ee7075f2271dce7d602896e61840867a929",
+  "examples": [
+    {
+      "input": "HL-20GP-0066",
+      "tokens": [
+        "hl",
+        "20gp",
+        "0066",
+        "hl-20gp-0066"
+      ]
+    },
+    {
+      "input": "hl-20gp-0066",
+      "tokens": [
+        "hl",
+        "20gp",
+        "0066"
+      ]
+    },
+    {
+      "input": "HL–20GP–0066",
+      "tokens": [
+        "hl",
+        "20gp",
+        "0066"
+      ]
+    },
+    {
+      "input": "HL 20GP 0066",
+      "tokens": [
+        "hl",
+        "20gp",
+        "0066"
+      ]
+    },
+    {
+      "input": "20GP",
+      "tokens": [
+        "20gp"
+      ]
+    },
+    {
+      "input": "20 GP",
+      "tokens": [
+        "20",
+        "gp"
+      ]
+    },
+    {
+      "input": "HG2029-00660",
+      "tokens": [
+        "hg2029",
+        "00660",
+        "hg2029-00660"
+      ]
+    },
+    {
+      "input": "CT-006",
+      "tokens": [
+        "ct",
+        "006",
+        "ct-006"
+      ]
+    }
+  ],
+  "limitation": "No retrieval, routing, or final context outcome was measured. Other layers may normalize differently."
+}

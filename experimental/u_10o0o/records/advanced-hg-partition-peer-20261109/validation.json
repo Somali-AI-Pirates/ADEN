@@ -1,0 +1,19 @@
+{
+  "additional_api_calls": 0,
+  "loss_diagnostics": {
+    "general_loss_with_deferred_gold_missing_before_final_pack": 7,
+    "hg_search_loss_with_non_hg_gold_missing_before_final_pack": 14,
+    "loss_route:general": 7,
+    "loss_route:hg_search": 17,
+    "loss_with_all_missing_baseline_gold_still_in_expanded": 3,
+    "loss_with_deferred_gold_missing_before_final_pack": 7,
+    "loss_with_previous_gold_missing_before_final_pack": 21,
+    "losses": 24
+  },
+  "matching_context_hashes": 608,
+  "max_final_pages": 8,
+  "max_final_tokens": 7067,
+  "questions_with_changed_complete_from_alternative_citations": {
+    "baseline": 1
+  }
+}
