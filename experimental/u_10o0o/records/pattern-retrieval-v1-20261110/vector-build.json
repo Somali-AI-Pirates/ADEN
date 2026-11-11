@@ -1,0 +1,71 @@
+{
+  "status": "complete",
+  "vectors_sha256": "00c6b362d512ae9ea5be7b11f9a7e6912dd7144b471e06e621eaa8cb38047649",
+  "dimension": 1024,
+  "device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "torch_version": "2.15.0+cu132",
+  "identity": {
+    "config_sha256": "870d402b1f24c7ddd49d67fccf6f36e98254a50b42d47cd3f716711c2d57f0a2",
+    "corpus_sha256": "b81069da64bd28dce91619880c18b262a40ae35abb4edaffe12fae96a0e5b648",
+    "embedding_assets": [
+      {
+        "path": "1_Pooling/config.json",
+        "sha256": "13e69897522ee8255104483ed9f219465d1be3936654a54a318758738052789e"
+      },
+      {
+        "path": "README.md",
+        "sha256": "1a51bc9a06a063c574ffd3ac5eeb9f9cfc55f667536ecb352ec03d4e85a28c2c"
+      },
+      {
+        "path": "config.json",
+        "sha256": "02324b2f2d08f317099e7b26321ce3e1aa6082dc7ed77d0c965e12d794fcbdc4"
+      },
+      {
+        "path": "config_sentence_transformers.json",
+        "sha256": "a27a41a05c4a3daa08b69cba4ffce3aeea99017e2d3b55cff40e84852ed6cb33"
+      },
+      {
+        "path": "model.safetensors",
+        "sha256": "0b874517f0fd02dd9510fa2733aacaad1def6086387c88d1a21f4041351e15b0"
+      },
+      {
+        "path": "modules.json",
+        "sha256": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf"
+      },
+      {
+        "path": "sentence_bert_config.json",
+        "sha256": "eb9b44b13c0f52a3b3685c3b1cbdea1ba8b04bea123b98f61610048940776eb1"
+      },
+      {
+        "path": "special_tokens_map.json",
+        "sha256": "8c785abebea9ae3257b61681b4e6fd8365ceafde980c21970d001e834cf10835"
+      },
+      {
+        "path": "tokenizer.json",
+        "sha256": "4ef9c709965de0840efe65586a59cca46029c7a3c04a67b7c418566cf48ddf38"
+      },
+      {
+        "path": "tokenizer_config.json",
+        "sha256": "ad77dbe2f667c93c523fa3d886c47888cbd79ec1e7c6d320c9d53860f2252c07"
+      }
+    ],
+    "embedding_runtime": {
+      "common.py": "867e658e7c34d43fa50ea770f21331788b6900e7d67116ab61cf69f82b31b81a",
+      "models.py": "5306687e53cf2e9503f443891ef3db78dc5add35fc8d6fb49093848b9ad9443f"
+    },
+    "unit_count": 78844,
+    "unit_ids_sha256": "f047028c9e06e86c5c7371c8a3e10c41675c084c84ef4d5738ba8872b4b50805"
+  },
+  "statistics": {
+    "completed": 78844,
+    "embedding_seconds": 1816.8158954839892,
+    "encoded_input_tokens": 18369856,
+    "encoded_raw_tokens": 18369856,
+    "encoded_units": 73063,
+    "input_tokens": 18714089,
+    "raw_tokens": 18714089,
+    "reused_identical_texts": 5781,
+    "truncated_units": 0
+  },
+  "build_command_wall_seconds": 1845.26
+}

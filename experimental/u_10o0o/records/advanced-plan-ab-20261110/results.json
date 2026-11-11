@@ -1,0 +1,1291 @@
+{
+  "cohorts": {
+    "cross_document_rule": {
+      "baseline": {
+        "candidate_complete": 1,
+        "candidate_facts": 7,
+        "expanded_complete": 1,
+        "expanded_facts": 7,
+        "final_complete": 1,
+        "final_facts": 5,
+        "page_recall_at_20": 0.33333333333333337,
+        "page_recall_at_8": 0.23333333333333334,
+        "questions": 10,
+        "required_facts": 21,
+        "scored": 10
+      },
+      "changes": {
+        "candidate": {
+          "0": 9,
+          "1": 1
+        },
+        "expanded": {
+          "0": 9,
+          "1": 1
+        },
+        "final": {
+          "0": 9,
+          "1": 1
+        }
+      },
+      "parallel": {
+        "candidate_complete": 2,
+        "candidate_facts": 10,
+        "expanded_complete": 2,
+        "expanded_facts": 10,
+        "final_complete": 2,
+        "final_facts": 8,
+        "page_recall_at_20": 0.4833333333333333,
+        "page_recall_at_8": 0.38333333333333336,
+        "questions": 10,
+        "required_facts": 21,
+        "scored": 10
+      },
+      "recognition": {
+        "baseline": {},
+        "parallel": {}
+      }
+    },
+    "cross_document_workflow": {
+      "baseline": {
+        "candidate_complete": 2,
+        "candidate_facts": 11,
+        "expanded_complete": 2,
+        "expanded_facts": 11,
+        "final_complete": 2,
+        "final_facts": 11,
+        "page_recall_at_20": 0.55,
+        "page_recall_at_8": 0.55,
+        "questions": 10,
+        "required_facts": 20,
+        "scored": 10
+      },
+      "changes": {
+        "candidate": {
+          "0": 9,
+          "1": 1
+        },
+        "expanded": {
+          "0": 9,
+          "1": 1
+        },
+        "final": {
+          "0": 10
+        }
+      },
+      "parallel": {
+        "candidate_complete": 3,
+        "candidate_facts": 12,
+        "expanded_complete": 3,
+        "expanded_facts": 12,
+        "final_complete": 2,
+        "final_facts": 11,
+        "page_recall_at_20": 0.6,
+        "page_recall_at_8": 0.55,
+        "questions": 10,
+        "required_facts": 20,
+        "scored": 10
+      },
+      "recognition": {
+        "baseline": {},
+        "parallel": {}
+      }
+    },
+    "peer": {
+      "baseline": {
+        "candidate_complete": 152,
+        "candidate_facts": 516,
+        "doc_complete_at_8": 143,
+        "doc_recall_at_8": 0.6540570175438597,
+        "expanded_complete": 157,
+        "expanded_facts": 543,
+        "final_complete": 126,
+        "final_facts": 493,
+        "page_recall_at_20": 0.6260964912280702,
+        "page_recall_at_8": 0.5973135964912281,
+        "questions": 304,
+        "required_facts": 867,
+        "scored": 304
+      },
+      "changes": {
+        "candidate": {
+          "0": 291,
+          "1": 13
+        },
+        "expanded": {
+          "0": 291,
+          "1": 13
+        },
+        "final": {
+          "-1": 6,
+          "0": 267,
+          "1": 31
+        }
+      },
+      "parallel": {
+        "candidate_complete": 165,
+        "candidate_facts": 539,
+        "doc_complete_at_8": 170,
+        "doc_recall_at_8": 0.6949013157894737,
+        "expanded_complete": 170,
+        "expanded_facts": 566,
+        "final_complete": 151,
+        "final_facts": 534,
+        "page_recall_at_20": 0.6587171052631579,
+        "page_recall_at_8": 0.6461074561403508,
+        "questions": 304,
+        "required_facts": 867,
+        "scored": 304
+      },
+      "recognition": {
+        "baseline": {
+          "questions": 247,
+          "roles_exact": 3,
+          "roles_expected": 687,
+          "roles_extra": 16,
+          "roles_found": 29,
+          "targets_exact": 16,
+          "targets_expected": 658,
+          "targets_found": 41
+        },
+        "parallel": {
+          "questions": 247,
+          "roles_exact": 19,
+          "roles_expected": 687,
+          "roles_extra": 278,
+          "roles_found": 208,
+          "targets_exact": 67,
+          "targets_expected": 658,
+          "targets_extra": 1,
+          "targets_found": 219
+        }
+      }
+    },
+    "peer_false_premise": {
+      "baseline": {
+        "candidate_complete": 15,
+        "candidate_facts": 40,
+        "doc_complete_at_8": 17,
+        "doc_recall_at_8": 0.9125,
+        "expanded_complete": 18,
+        "expanded_facts": 48,
+        "final_complete": 18,
+        "final_facts": 48,
+        "page_recall_at_20": 0.7625,
+        "page_recall_at_8": 0.9125,
+        "questions": 20,
+        "required_facts": 51,
+        "scored": 20
+      },
+      "changes": {
+        "candidate": {
+          "0": 20
+        },
+        "expanded": {
+          "0": 20
+        },
+        "final": {
+          "0": 20
+        }
+      },
+      "parallel": {
+        "candidate_complete": 15,
+        "candidate_facts": 40,
+        "doc_complete_at_8": 18,
+        "doc_recall_at_8": 0.925,
+        "expanded_complete": 18,
+        "expanded_facts": 48,
+        "final_complete": 18,
+        "final_facts": 48,
+        "page_recall_at_20": 0.7625,
+        "page_recall_at_8": 0.9,
+        "questions": 20,
+        "required_facts": 51,
+        "scored": 20
+      },
+      "recognition": {
+        "baseline": {
+          "questions": 12,
+          "roles_exact": 3,
+          "roles_expected": 25,
+          "roles_extra": 3,
+          "roles_found": 14,
+          "targets_exact": 11,
+          "targets_expected": 13,
+          "targets_found": 12
+        },
+        "parallel": {
+          "questions": 12,
+          "roles_exact": 3,
+          "roles_expected": 25,
+          "roles_extra": 8,
+          "roles_found": 18,
+          "targets_exact": 11,
+          "targets_expected": 13,
+          "targets_found": 12
+        }
+      }
+    },
+    "peer_four_doc": {
+      "baseline": {
+        "candidate_complete": 33,
+        "candidate_facts": 164,
+        "doc_complete_at_8": 19,
+        "doc_recall_at_8": 0.5480769230769231,
+        "expanded_complete": 33,
+        "expanded_facts": 175,
+        "final_complete": 18,
+        "final_facts": 152,
+        "page_recall_at_20": 0.5416666666666666,
+        "page_recall_at_8": 0.5,
+        "questions": 78,
+        "required_facts": 312,
+        "scored": 78
+      },
+      "changes": {
+        "candidate": {
+          "0": 74,
+          "1": 4
+        },
+        "expanded": {
+          "0": 74,
+          "1": 4
+        },
+        "final": {
+          "-1": 3,
+          "0": 60,
+          "1": 15
+        }
+      },
+      "parallel": {
+        "candidate_complete": 37,
+        "candidate_facts": 172,
+        "doc_complete_at_8": 31,
+        "doc_recall_at_8": 0.6057692307692307,
+        "expanded_complete": 37,
+        "expanded_facts": 183,
+        "final_complete": 30,
+        "final_facts": 170,
+        "page_recall_at_20": 0.5705128205128205,
+        "page_recall_at_8": 0.5608974358974359,
+        "questions": 78,
+        "required_facts": 312,
+        "scored": 78
+      },
+      "recognition": {
+        "baseline": {
+          "questions": 68,
+          "roles_expected": 272,
+          "roles_extra": 7,
+          "roles_found": 11,
+          "targets_expected": 268,
+          "targets_found": 17
+        },
+        "parallel": {
+          "questions": 68,
+          "roles_exact": 5,
+          "roles_expected": 272,
+          "roles_extra": 103,
+          "roles_found": 79,
+          "targets_exact": 14,
+          "targets_expected": 268,
+          "targets_found": 84
+        }
+      }
+    },
+    "peer_multi_doc": {
+      "baseline": {
+        "candidate_complete": 81,
+        "candidate_facts": 337,
+        "doc_complete_at_8": 64,
+        "doc_recall_at_8": 0.6181372549019608,
+        "expanded_complete": 82,
+        "expanded_facts": 354,
+        "final_complete": 57,
+        "final_facts": 315,
+        "page_recall_at_20": 0.6034313725490196,
+        "page_recall_at_8": 0.5607843137254902,
+        "questions": 170,
+        "required_facts": 588,
+        "scored": 170
+      },
+      "changes": {
+        "candidate": {
+          "0": 163,
+          "1": 7
+        },
+        "expanded": {
+          "0": 163,
+          "1": 7
+        },
+        "final": {
+          "-1": 4,
+          "0": 143,
+          "1": 23
+        }
+      },
+      "parallel": {
+        "candidate_complete": 88,
+        "candidate_facts": 348,
+        "doc_complete_at_8": 85,
+        "doc_recall_at_8": 0.6602941176470588,
+        "expanded_complete": 89,
+        "expanded_facts": 365,
+        "final_complete": 76,
+        "final_facts": 342,
+        "page_recall_at_20": 0.6264705882352941,
+        "page_recall_at_8": 0.6083333333333334,
+        "questions": 170,
+        "required_facts": 588,
+        "scored": 170
+      },
+      "recognition": {
+        "baseline": {
+          "questions": 140,
+          "roles_expected": 488,
+          "roles_extra": 9,
+          "roles_found": 13,
+          "targets_exact": 1,
+          "targets_expected": 472,
+          "targets_found": 24
+        },
+        "parallel": {
+          "questions": 140,
+          "roles_exact": 10,
+          "roles_expected": 488,
+          "roles_extra": 202,
+          "roles_found": 141,
+          "targets_exact": 34,
+          "targets_expected": 472,
+          "targets_found": 152
+        }
+      }
+    },
+    "peer_plan_live": {
+      "baseline": {
+        "candidate_complete": 128,
+        "candidate_facts": 437,
+        "doc_complete_at_8": 120,
+        "doc_recall_at_8": 0.6572265625,
+        "expanded_complete": 132,
+        "expanded_facts": 462,
+        "final_complete": 105,
+        "final_facts": 417,
+        "page_recall_at_20": 0.6305338541666666,
+        "page_recall_at_8": 0.6005859375,
+        "questions": 256,
+        "required_facts": 733,
+        "scored": 256
+      },
+      "changes": {
+        "candidate": {
+          "0": 246,
+          "1": 10
+        },
+        "expanded": {
+          "0": 246,
+          "1": 10
+        },
+        "final": {
+          "-1": 6,
+          "0": 223,
+          "1": 27
+        }
+      },
+      "parallel": {
+        "candidate_complete": 138,
+        "candidate_facts": 455,
+        "doc_complete_at_8": 143,
+        "doc_recall_at_8": 0.6988932291666666,
+        "expanded_complete": 142,
+        "expanded_facts": 480,
+        "final_complete": 126,
+        "final_facts": 452,
+        "page_recall_at_20": 0.6630859375,
+        "page_recall_at_8": 0.6516927083333334,
+        "questions": 256,
+        "required_facts": 733,
+        "scored": 256
+      },
+      "recognition": {
+        "baseline": {
+          "questions": 208,
+          "roles_exact": 3,
+          "roles_expected": 579,
+          "roles_extra": 13,
+          "roles_found": 20,
+          "targets_exact": 11,
+          "targets_expected": 559,
+          "targets_found": 32
+        },
+        "parallel": {
+          "questions": 208,
+          "roles_exact": 17,
+          "roles_expected": 579,
+          "roles_extra": 246,
+          "roles_found": 175,
+          "targets_exact": 58,
+          "targets_expected": 559,
+          "targets_extra": 1,
+          "targets_found": 187
+        }
+      }
+    },
+    "peer_plan_reused": {
+      "baseline": {
+        "candidate_complete": 24,
+        "candidate_facts": 79,
+        "doc_complete_at_8": 23,
+        "doc_recall_at_8": 0.6371527777777778,
+        "expanded_complete": 25,
+        "expanded_facts": 81,
+        "final_complete": 21,
+        "final_facts": 76,
+        "page_recall_at_20": 0.6024305555555556,
+        "page_recall_at_8": 0.579861111111111,
+        "questions": 48,
+        "required_facts": 134,
+        "scored": 48
+      },
+      "changes": {
+        "candidate": {
+          "0": 45,
+          "1": 3
+        },
+        "expanded": {
+          "0": 45,
+          "1": 3
+        },
+        "final": {
+          "0": 44,
+          "1": 4
+        }
+      },
+      "parallel": {
+        "candidate_complete": 27,
+        "candidate_facts": 84,
+        "doc_complete_at_8": 27,
+        "doc_recall_at_8": 0.6736111111111112,
+        "expanded_complete": 28,
+        "expanded_facts": 86,
+        "final_complete": 25,
+        "final_facts": 82,
+        "page_recall_at_20": 0.6354166666666666,
+        "page_recall_at_8": 0.6163194444444444,
+        "questions": 48,
+        "required_facts": 134,
+        "scored": 48
+      },
+      "recognition": {
+        "baseline": {
+          "questions": 39,
+          "roles_expected": 108,
+          "roles_extra": 3,
+          "roles_found": 9,
+          "targets_exact": 5,
+          "targets_expected": 99,
+          "targets_found": 9
+        },
+        "parallel": {
+          "questions": 39,
+          "roles_exact": 2,
+          "roles_expected": 108,
+          "roles_extra": 32,
+          "roles_found": 33,
+          "targets_exact": 9,
+          "targets_expected": 99,
+          "targets_found": 32
+        }
+      }
+    },
+    "peer_two_doc": {
+      "baseline": {
+        "candidate_complete": 56,
+        "candidate_facts": 139,
+        "doc_complete_at_8": 62,
+        "doc_recall_at_8": 0.6622807017543859,
+        "expanded_complete": 57,
+        "expanded_facts": 141,
+        "final_complete": 51,
+        "final_facts": 130,
+        "page_recall_at_20": 0.6359649122807017,
+        "page_recall_at_8": 0.5964912280701754,
+        "questions": 114,
+        "required_facts": 228,
+        "scored": 114
+      },
+      "changes": {
+        "candidate": {
+          "0": 108,
+          "1": 6
+        },
+        "expanded": {
+          "0": 108,
+          "1": 6
+        },
+        "final": {
+          "-1": 2,
+          "0": 104,
+          "1": 8
+        }
+      },
+      "parallel": {
+        "candidate_complete": 62,
+        "candidate_facts": 151,
+        "doc_complete_at_8": 67,
+        "doc_recall_at_8": 0.706140350877193,
+        "expanded_complete": 63,
+        "expanded_facts": 153,
+        "final_complete": 57,
+        "final_facts": 144,
+        "page_recall_at_20": 0.6885964912280702,
+        "page_recall_at_8": 0.6578947368421053,
+        "questions": 114,
+        "required_facts": 228,
+        "scored": 114
+      },
+      "recognition": {
+        "baseline": {
+          "questions": 95,
+          "roles_expected": 174,
+          "roles_extra": 4,
+          "roles_found": 2,
+          "targets_exact": 4,
+          "targets_expected": 173,
+          "targets_found": 5
+        },
+        "parallel": {
+          "questions": 95,
+          "roles_exact": 6,
+          "roles_expected": 174,
+          "roles_extra": 68,
+          "roles_found": 49,
+          "targets_exact": 22,
+          "targets_expected": 173,
+          "targets_extra": 1,
+          "targets_found": 55
+        }
+      }
+    },
+    "procedure_paraphrase": {
+      "baseline": {
+        "candidate_complete": 6,
+        "candidate_facts": 6,
+        "expanded_complete": 6,
+        "expanded_facts": 6,
+        "final_complete": 6,
+        "final_facts": 6,
+        "page_recall_at_20": 0.6,
+        "page_recall_at_8": 0.6,
+        "questions": 10,
+        "required_facts": 10,
+        "scored": 10
+      },
+      "changes": {
+        "candidate": {
+          "0": 9,
+          "1": 1
+        },
+        "expanded": {
+          "0": 9,
+          "1": 1
+        },
+        "final": {
+          "0": 9,
+          "1": 1
+        }
+      },
+      "parallel": {
+        "candidate_complete": 7,
+        "candidate_facts": 7,
+        "expanded_complete": 7,
+        "expanded_facts": 7,
+        "final_complete": 7,
+        "final_facts": 7,
+        "page_recall_at_20": 0.7,
+        "page_recall_at_8": 0.7,
+        "questions": 10,
+        "required_facts": 10,
+        "scored": 10
+      },
+      "recognition": {
+        "baseline": {},
+        "parallel": {}
+      }
+    },
+    "rule_paraphrase": {
+      "baseline": {
+        "candidate_complete": 5,
+        "candidate_facts": 5,
+        "expanded_complete": 5,
+        "expanded_facts": 5,
+        "final_complete": 4,
+        "final_facts": 4,
+        "page_recall_at_20": 0.5,
+        "page_recall_at_8": 0.4,
+        "questions": 10,
+        "required_facts": 11,
+        "scored": 10
+      },
+      "changes": {
+        "candidate": {
+          "0": 7,
+          "1": 3
+        },
+        "expanded": {
+          "0": 7,
+          "1": 3
+        },
+        "final": {
+          "0": 7,
+          "1": 3
+        }
+      },
+      "parallel": {
+        "candidate_complete": 8,
+        "candidate_facts": 8,
+        "expanded_complete": 8,
+        "expanded_facts": 8,
+        "final_complete": 7,
+        "final_facts": 7,
+        "page_recall_at_20": 0.8,
+        "page_recall_at_8": 0.7,
+        "questions": 10,
+        "required_facts": 11,
+        "scored": 10
+      },
+      "recognition": {
+        "baseline": {},
+        "parallel": {}
+      }
+    },
+    "semantic": {
+      "baseline": {
+        "candidate_complete": 14,
+        "candidate_facts": 29,
+        "expanded_complete": 14,
+        "expanded_facts": 29,
+        "final_complete": 13,
+        "final_facts": 26,
+        "page_recall_at_20": 0.4958333333333333,
+        "page_recall_at_8": 0.4458333333333333,
+        "questions": 40,
+        "required_facts": 62,
+        "scored": 40
+      },
+      "changes": {
+        "candidate": {
+          "0": 34,
+          "1": 6
+        },
+        "expanded": {
+          "0": 34,
+          "1": 6
+        },
+        "final": {
+          "0": 35,
+          "1": 5
+        }
+      },
+      "parallel": {
+        "candidate_complete": 20,
+        "candidate_facts": 37,
+        "expanded_complete": 20,
+        "expanded_facts": 37,
+        "final_complete": 18,
+        "final_facts": 33,
+        "page_recall_at_20": 0.6458333333333333,
+        "page_recall_at_8": 0.5833333333333333,
+        "questions": 40,
+        "required_facts": 62,
+        "scored": 40
+      },
+      "recognition": {
+        "baseline": {},
+        "parallel": {}
+      }
+    }
+  },
+  "timing": {
+    "cross_document_rule": {
+      "baseline_combined": {
+        "count": 10,
+        "p50_ms": 331.1281405003683,
+        "p95_ms": 357.77633190036795
+      },
+      "baseline_local": {
+        "count": 10,
+        "p50_ms": 331.1281405003683,
+        "p95_ms": 357.77633190036795
+      },
+      "calls": {
+        "baseline_queries": 10,
+        "baseline_rerank_pairs": 200,
+        "executed_tasks": 18,
+        "parallel_added_queries": 18,
+        "parallel_added_rerank_groups": 28,
+        "parallel_added_rerank_pairs": 344,
+        "plan_anchors_in_question": 18,
+        "planned_tasks": 18,
+        "planner_live": 10,
+        "planner_reused": 0,
+        "planner_status": {
+          "completed": 10
+        },
+        "shared_router_archived": 0
+      },
+      "parallel_combined": {
+        "count": 10,
+        "p50_ms": 5752.463142500346,
+        "p95_ms": 7822.7816973011595
+      },
+      "parallel_local": {
+        "count": 10,
+        "p50_ms": 832.0404925016192,
+        "p95_ms": 1072.800336599994
+      },
+      "planner_api": {
+        "count": 10,
+        "p50_ms": 4830.293905999497,
+        "p95_ms": 7015.164003850257
+      },
+      "root_candidates_reproduced": 10,
+      "root_context_reproduced": 10,
+      "router_api": null
+    },
+    "cross_document_workflow": {
+      "baseline_combined": {
+        "count": 10,
+        "p50_ms": 327.42170599976816,
+        "p95_ms": 347.78029749959387
+      },
+      "baseline_local": {
+        "count": 10,
+        "p50_ms": 327.42170599976816,
+        "p95_ms": 347.78029749959387
+      },
+      "calls": {
+        "baseline_queries": 10,
+        "baseline_rerank_pairs": 200,
+        "executed_tasks": 13,
+        "parallel_added_queries": 13,
+        "parallel_added_rerank_groups": 23,
+        "parallel_added_rerank_pairs": 304,
+        "plan_anchors_in_question": 13,
+        "planned_tasks": 13,
+        "planner_live": 10,
+        "planner_reused": 0,
+        "planner_status": {
+          "completed": 10
+        },
+        "shared_router_archived": 0
+      },
+      "parallel_combined": {
+        "count": 10,
+        "p50_ms": 4380.416351499662,
+        "p95_ms": 5655.62971770023
+      },
+      "parallel_local": {
+        "count": 10,
+        "p50_ms": 745.6399274997239,
+        "p95_ms": 867.8408951500387
+      },
+      "planner_api": {
+        "count": 10,
+        "p50_ms": 3662.5415629996496,
+        "p95_ms": 4803.577928750745
+      },
+      "root_candidates_reproduced": 10,
+      "root_context_reproduced": 10,
+      "router_api": null
+    },
+    "peer": {
+      "baseline_combined": {
+        "count": 304,
+        "p50_ms": 2671.296262499911,
+        "p95_ms": 3868.359447649978
+      },
+      "baseline_local": {
+        "count": 304,
+        "p50_ms": 381.2530284994864,
+        "p95_ms": 498.4402294504433
+      },
+      "calls": {
+        "baseline_queries": 288,
+        "baseline_rerank_pairs": 5760,
+        "executed_tasks": 630,
+        "parallel_added_queries": 623,
+        "parallel_added_rerank_groups": 905,
+        "parallel_added_rerank_pairs": 10624,
+        "plan_anchors_in_question": 632,
+        "planned_tasks": 653,
+        "planner_live": 256,
+        "planner_reused": 48,
+        "planner_status": {
+          "completed": 304
+        },
+        "shared_router_archived": 304
+      },
+      "parallel_combined": {
+        "count": 304,
+        "p50_ms": 8048.413531499346,
+        "p95_ms": 11045.181406648233
+      },
+      "parallel_local": {
+        "count": 304,
+        "p50_ms": 984.1563319996567,
+        "p95_ms": 1563.846792247659
+      },
+      "planner_api": {
+        "count": 304,
+        "p50_ms": 4681.949060000079,
+        "p95_ms": 7049.384482096048
+      },
+      "root_candidates_reproduced": 304,
+      "root_context_reproduced": 301,
+      "router_api": {
+        "count": 304,
+        "p50_ms": 2294.1565,
+        "p95_ms": 3463.6069999999995
+      }
+    },
+    "peer_false_premise": {
+      "baseline_combined": {
+        "count": 20,
+        "p50_ms": 3247.109432999615,
+        "p95_ms": 3907.6554258995156
+      },
+      "baseline_local": {
+        "count": 20,
+        "p50_ms": 419.5182499988732,
+        "p95_ms": 496.4344238499507
+      },
+      "calls": {
+        "baseline_queries": 17,
+        "baseline_rerank_pairs": 340,
+        "executed_tasks": 21,
+        "parallel_added_queries": 21,
+        "parallel_added_rerank_groups": 38,
+        "parallel_added_rerank_pairs": 508,
+        "plan_anchors_in_question": 24,
+        "planned_tasks": 24,
+        "planner_live": 12,
+        "planner_reused": 8,
+        "planner_status": {
+          "completed": 20
+        },
+        "shared_router_archived": 20
+      },
+      "parallel_combined": {
+        "count": 20,
+        "p50_ms": 8570.502956997527,
+        "p95_ms": 10577.35996039976
+      },
+      "parallel_local": {
+        "count": 20,
+        "p50_ms": 926.1156040001879,
+        "p95_ms": 1149.6740013007184
+      },
+      "planner_api": {
+        "count": 20,
+        "p50_ms": 4697.378341499643,
+        "p95_ms": 6434.626807053247
+      },
+      "root_candidates_reproduced": 20,
+      "root_context_reproduced": 19,
+      "router_api": {
+        "count": 20,
+        "p50_ms": 2854.8165,
+        "p95_ms": 3479.1768
+      }
+    },
+    "peer_four_doc": {
+      "baseline_combined": {
+        "count": 78,
+        "p50_ms": 2753.6854014989694,
+        "p95_ms": 3808.2952902009956
+      },
+      "baseline_local": {
+        "count": 78,
+        "p50_ms": 404.60827450078796,
+        "p95_ms": 518.845870799305
+      },
+      "calls": {
+        "baseline_queries": 70,
+        "baseline_rerank_pairs": 1400,
+        "executed_tasks": 176,
+        "parallel_added_queries": 175,
+        "parallel_added_rerank_groups": 242,
+        "parallel_added_rerank_pairs": 2740,
+        "plan_anchors_in_question": 186,
+        "planned_tasks": 189,
+        "planner_live": 68,
+        "planner_reused": 10,
+        "planner_status": {
+          "completed": 78
+        },
+        "shared_router_archived": 78
+      },
+      "parallel_combined": {
+        "count": 78,
+        "p50_ms": 8387.149381999356,
+        "p95_ms": 11517.938056602397
+      },
+      "parallel_local": {
+        "count": 78,
+        "p50_ms": 1078.316194000763,
+        "p95_ms": 1637.4928792510218
+      },
+      "planner_api": {
+        "count": 78,
+        "p50_ms": 4904.465161000189,
+        "p95_ms": 7234.722803900238
+      },
+      "root_candidates_reproduced": 78,
+      "root_context_reproduced": 76,
+      "router_api": {
+        "count": 78,
+        "p50_ms": 2414.0209999999997,
+        "p95_ms": 3340.247149999999
+      }
+    },
+    "peer_multi_doc": {
+      "baseline_combined": {
+        "count": 170,
+        "p50_ms": 2745.6382739993123,
+        "p95_ms": 4008.3772733497353
+      },
+      "baseline_local": {
+        "count": 170,
+        "p50_ms": 398.2246245004717,
+        "p95_ms": 517.902436348777
+      },
+      "calls": {
+        "baseline_queries": 158,
+        "baseline_rerank_pairs": 3160,
+        "executed_tasks": 391,
+        "parallel_added_queries": 388,
+        "parallel_added_rerank_groups": 540,
+        "parallel_added_rerank_pairs": 6144,
+        "plan_anchors_in_question": 401,
+        "planned_tasks": 409,
+        "planner_live": 146,
+        "planner_reused": 24,
+        "planner_status": {
+          "completed": 170
+        },
+        "shared_router_archived": 170
+      },
+      "parallel_combined": {
+        "count": 170,
+        "p50_ms": 8383.07501849833,
+        "p95_ms": 11579.805762203421
+      },
+      "parallel_local": {
+        "count": 170,
+        "p50_ms": 1078.8133140003993,
+        "p95_ms": 1622.2905957492
+      },
+      "planner_api": {
+        "count": 170,
+        "p50_ms": 4866.948486000183,
+        "p95_ms": 7201.106033899941
+      },
+      "root_candidates_reproduced": 170,
+      "root_context_reproduced": 168,
+      "router_api": {
+        "count": 170,
+        "p50_ms": 2378.8625,
+        "p95_ms": 3502.891599999999
+      }
+    },
+    "peer_plan_live": {
+      "baseline_combined": {
+        "count": 256,
+        "p50_ms": 2695.0636214999677,
+        "p95_ms": 3811.3184739990024
+      },
+      "baseline_local": {
+        "count": 256,
+        "p50_ms": 376.91444950087316,
+        "p95_ms": 498.02388800026165
+      },
+      "calls": {
+        "baseline_queries": 241,
+        "baseline_rerank_pairs": 4820,
+        "executed_tasks": 535,
+        "parallel_added_queries": 528,
+        "parallel_added_rerank_groups": 765,
+        "parallel_added_rerank_pairs": 8964,
+        "plan_anchors_in_question": 536,
+        "planned_tasks": 556,
+        "planner_live": 256,
+        "planner_reused": 0,
+        "planner_status": {
+          "completed": 256
+        },
+        "shared_router_archived": 256
+      },
+      "parallel_combined": {
+        "count": 256,
+        "p50_ms": 8004.346914499824,
+        "p95_ms": 11007.604769250473
+      },
+      "parallel_local": {
+        "count": 256,
+        "p50_ms": 984.1563319996567,
+        "p95_ms": 1566.443008997794
+      },
+      "planner_api": {
+        "count": 256,
+        "p50_ms": 4595.382017500015,
+        "p95_ms": 6848.178769250353
+      },
+      "root_candidates_reproduced": 256,
+      "root_context_reproduced": 254,
+      "router_api": {
+        "count": 256,
+        "p50_ms": 2330.057,
+        "p95_ms": 3443.84875
+      }
+    },
+    "peer_plan_reused": {
+      "baseline_combined": {
+        "count": 48,
+        "p50_ms": 2565.6468400002486,
+        "p95_ms": 4160.09154720025
+      },
+      "baseline_local": {
+        "count": 48,
+        "p50_ms": 395.6683645001249,
+        "p95_ms": 497.6355355999658
+      },
+      "calls": {
+        "baseline_queries": 47,
+        "baseline_rerank_pairs": 940,
+        "executed_tasks": 95,
+        "parallel_added_queries": 95,
+        "parallel_added_rerank_groups": 140,
+        "parallel_added_rerank_pairs": 1660,
+        "plan_anchors_in_question": 96,
+        "planned_tasks": 97,
+        "planner_live": 0,
+        "planner_reused": 48,
+        "planner_status": {
+          "completed": 48
+        },
+        "shared_router_archived": 48
+      },
+      "parallel_combined": {
+        "count": 48,
+        "p50_ms": 8847.609993498441,
+        "p95_ms": 11312.209518003725
+      },
+      "parallel_local": {
+        "count": 48,
+        "p50_ms": 987.466729499829,
+        "p95_ms": 1455.6248206509736
+      },
+      "planner_api": {
+        "count": 48,
+        "p50_ms": 5118.396842502989,
+        "p95_ms": 8041.849877052298
+      },
+      "root_candidates_reproduced": 48,
+      "root_context_reproduced": 47,
+      "router_api": {
+        "count": 48,
+        "p50_ms": 2171.7815,
+        "p95_ms": 3740.3796499999994
+      }
+    },
+    "peer_two_doc": {
+      "baseline_combined": {
+        "count": 114,
+        "p50_ms": 2505.492525499069,
+        "p95_ms": 3385.586112849571
+      },
+      "baseline_local": {
+        "count": 114,
+        "p50_ms": 365.61210050058435,
+        "p95_ms": 419.12545585000765
+      },
+      "calls": {
+        "baseline_queries": 113,
+        "baseline_rerank_pairs": 2260,
+        "executed_tasks": 218,
+        "parallel_added_queries": 214,
+        "parallel_added_rerank_groups": 327,
+        "parallel_added_rerank_pairs": 3972,
+        "plan_anchors_in_question": 207,
+        "planned_tasks": 220,
+        "planner_live": 98,
+        "planner_reused": 16,
+        "planner_status": {
+          "completed": 114
+        },
+        "shared_router_archived": 114
+      },
+      "parallel_combined": {
+        "count": 114,
+        "p50_ms": 7497.020212999565,
+        "p95_ms": 9960.24012344664
+      },
+      "parallel_local": {
+        "count": 114,
+        "p50_ms": 952.084187500077,
+        "p95_ms": 1212.8830544995253
+      },
+      "planner_api": {
+        "count": 114,
+        "p50_ms": 4552.605588000006,
+        "p95_ms": 6656.229069402798
+      },
+      "root_candidates_reproduced": 114,
+      "root_context_reproduced": 114,
+      "router_api": {
+        "count": 114,
+        "p50_ms": 2138.846,
+        "p95_ms": 3069.9082999999996
+      }
+    },
+    "procedure_paraphrase": {
+      "baseline_combined": {
+        "count": 10,
+        "p50_ms": 273.374877500828,
+        "p95_ms": 314.2574669514943
+      },
+      "baseline_local": {
+        "count": 10,
+        "p50_ms": 273.374877500828,
+        "p95_ms": 314.2574669514943
+      },
+      "calls": {
+        "baseline_queries": 10,
+        "baseline_rerank_pairs": 200,
+        "executed_tasks": 10,
+        "parallel_added_queries": 10,
+        "parallel_added_rerank_groups": 20,
+        "parallel_added_rerank_pairs": 280,
+        "plan_anchors_in_question": 10,
+        "planned_tasks": 10,
+        "planner_live": 10,
+        "planner_reused": 0,
+        "planner_status": {
+          "completed": 10
+        },
+        "shared_router_archived": 0
+      },
+      "parallel_combined": {
+        "count": 10,
+        "p50_ms": 4362.767015501049,
+        "p95_ms": 5643.727077401218
+      },
+      "parallel_local": {
+        "count": 10,
+        "p50_ms": 663.1407570002921,
+        "p95_ms": 705.2225724508389
+      },
+      "planner_api": {
+        "count": 10,
+        "p50_ms": 3681.639888499376,
+        "p95_ms": 4965.4410226507025
+      },
+      "root_candidates_reproduced": 10,
+      "root_context_reproduced": 10,
+      "router_api": null
+    },
+    "rule_paraphrase": {
+      "baseline_combined": {
+        "count": 10,
+        "p50_ms": 295.2102080007535,
+        "p95_ms": 325.6291050497566
+      },
+      "baseline_local": {
+        "count": 10,
+        "p50_ms": 295.2102080007535,
+        "p95_ms": 325.6291050497566
+      },
+      "calls": {
+        "baseline_queries": 10,
+        "baseline_rerank_pairs": 200,
+        "executed_tasks": 11,
+        "parallel_added_queries": 11,
+        "parallel_added_rerank_groups": 21,
+        "parallel_added_rerank_pairs": 288,
+        "plan_anchors_in_question": 11,
+        "planned_tasks": 11,
+        "planner_live": 10,
+        "planner_reused": 0,
+        "planner_status": {
+          "completed": 10
+        },
+        "shared_router_archived": 0
+      },
+      "parallel_combined": {
+        "count": 10,
+        "p50_ms": 3944.200396499582,
+        "p95_ms": 7692.846797949185
+      },
+      "parallel_local": {
+        "count": 10,
+        "p50_ms": 698.9019309985451,
+        "p95_ms": 808.8537318998532
+      },
+      "planner_api": {
+        "count": 10,
+        "p50_ms": 3248.970267499317,
+        "p95_ms": 6921.06371730042
+      },
+      "root_candidates_reproduced": 10,
+      "root_context_reproduced": 10,
+      "router_api": null
+    },
+    "semantic": {
+      "baseline_combined": {
+        "count": 40,
+        "p50_ms": 303.47004150007706,
+        "p95_ms": 347.28758270011895
+      },
+      "baseline_local": {
+        "count": 40,
+        "p50_ms": 303.47004150007706,
+        "p95_ms": 347.28758270011895
+      },
+      "calls": {
+        "baseline_queries": 40,
+        "baseline_rerank_pairs": 800,
+        "executed_tasks": 52,
+        "parallel_added_queries": 52,
+        "parallel_added_rerank_groups": 92,
+        "parallel_added_rerank_pairs": 1216,
+        "plan_anchors_in_question": 52,
+        "planned_tasks": 52,
+        "planner_live": 40,
+        "planner_reused": 0,
+        "planner_status": {
+          "completed": 40
+        },
+        "shared_router_archived": 0
+      },
+      "parallel_combined": {
+        "count": 40,
+        "p50_ms": 4362.767015501049,
+        "p95_ms": 6792.575013450454
+      },
+      "parallel_local": {
+        "count": 40,
+        "p50_ms": 703.9307755003392,
+        "p95_ms": 1010.632044849899
+      },
+      "planner_api": {
+        "count": 40,
+        "p50_ms": 3680.374003999532,
+        "p95_ms": 5974.549539749472
+      },
+      "root_candidates_reproduced": 40,
+      "root_context_reproduced": 40,
+      "router_api": null
+    }
+  }
+}

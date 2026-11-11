@@ -11,6 +11,7 @@ from collections.abc import Iterable, Sequence
 
 from experimental.u_10o0o.bm25 import BM25Index, load_tokenizer
 
+TOKENIZER_NAME = "bigram-id-normalized"
 FIELD_POOL = 80
 HEADING_WEIGHT = 0.25
 HEADING_BLOCK_LIMIT = 3
@@ -252,7 +253,7 @@ class PatternIndex:
         if not pages:
             raise ValueError("페이지 목록이 비어 있습니다.")
         self.pages = list(pages)
-        self.tokenizer, self.tokenizer_config = load_tokenizer("bigram-id")
+        self.tokenizer, self.tokenizer_config = load_tokenizer(TOKENIZER_NAME)
         self.base_index = BM25Index(self.pages, tokenizer=self.tokenizer)
         self._page_index_by_id = {
             id(page): index for index, page in enumerate(self.pages)

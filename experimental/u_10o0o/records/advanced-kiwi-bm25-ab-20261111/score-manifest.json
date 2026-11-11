@@ -1,0 +1,30 @@
+{
+  "references": [
+    {
+      "path": "data/advanced/evaluation/development.json",
+      "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+    },
+    {
+      "path": "data/advanced/evaluation/additional.json",
+      "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_references.json",
+      "sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_references.json",
+      "sha256": "100ec141d87ab3dba5878af0ecacecd192f1bb5c3092917f57d0cbe63221d466"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/references.json",
+      "sha256": "2de9b0da7f1f052c912716d3eb5132653a81e44e8288403a329f49a3772fa280"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+    }
+  ],
+  "references_read_after_retrieval": true,
+  "retrieval_manifest_sha256": "07ec31cc68a56c09215ca75084d4adae06306cba7561052c41fdd1d6a35c31b8"
+}

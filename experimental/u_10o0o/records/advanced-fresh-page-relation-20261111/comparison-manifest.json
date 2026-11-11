@@ -1,0 +1,63 @@
+{
+  "format": "fresh-page-relation-comparison-v1",
+  "conditions": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "questions": 160,
+  "rows": 640,
+  "results_sha256": "d7464997ae4305ad8b925ded3452d0f54b43ac3150dc3c94f39ceeeeff8f7a04",
+  "source_results": {
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/run-v1/results.jsonl": "d993ada82ec93c39ec5dc03d654dbe63ff0f67e2609ee6bb4986653be178292c",
+    "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/run-D-v1/results.jsonl": "df1970791bff1fe6edb99568d0795b92250bc4345076770eaf2973f6d9d7fad8"
+  },
+  "verified_same_fields": [
+    "device",
+    "threads",
+    "bm25",
+    "dense",
+    "candidate_limit",
+    "context",
+    "rrf_k",
+    "max_model_tokens",
+    "sparse_top_k",
+    "max_related_events",
+    "max_related_units",
+    "c_relation_order",
+    "embedding_model",
+    "reranker_model"
+  ],
+  "source_fingerprints_equal": true,
+  "A_vector_and_model_fingerprints_equal": true,
+  "A_D_pre_relation_ranking_drift": {
+    "question_sha256": [],
+    "bm25_top50": [
+      "DEV-109"
+    ],
+    "dense_top50": [],
+    "hybrid_unit_ids": []
+  },
+  "BM25_rank_differences": [
+    {
+      "id": "DEV-109",
+      "positions": [
+        {
+          "rank": 33,
+          "A": "A:AS047:082:raw",
+          "D": "A:AS047:081:raw"
+        },
+        {
+          "rank": 34,
+          "A": "A:AS047:081:raw",
+          "D": "A:AS047:082:raw"
+        }
+      ]
+    }
+  ],
+  "BM25_top50_membership_equal": true,
+  "references_opened_before_merge": false,
+  "ABC_reused_D_executed": true,
+  "D_mapping": "same B proof/order; project edge to A page before exclusion/dedup/8 cap; keep new-only RRF policy"
+}

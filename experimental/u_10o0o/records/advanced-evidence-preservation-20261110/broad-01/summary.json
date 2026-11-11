@@ -1,0 +1,162 @@
+{
+  "peer_false_premise/baseline": {
+    "candidate_complete": 18,
+    "count": 20,
+    "expanded_complete": 18,
+    "final_complete": 18,
+    "page_recall_at_20": 0.9125,
+    "page_recall_at_8": 0.9
+  },
+  "peer_false_premise/requests20": {
+    "candidate_complete": 19,
+    "count": 20,
+    "expanded_complete": 20,
+    "final_complete": 18,
+    "page_recall_at_20": 0.9625,
+    "page_recall_at_8": 0.9
+  },
+  "peer_false_premise/requests20_pack": {
+    "candidate_complete": 19,
+    "count": 20,
+    "expanded_complete": 20,
+    "final_complete": 17,
+    "page_recall_at_20": 0.9625,
+    "page_recall_at_8": 0.875
+  },
+  "peer_false_premise/requests40": {
+    "candidate_complete": 19,
+    "count": 20,
+    "expanded_complete": 20,
+    "final_complete": 18,
+    "page_recall_at_20": 0.9625,
+    "page_recall_at_8": 0.9
+  },
+  "peer_false_premise/requests40_pack": {
+    "candidate_complete": 19,
+    "count": 20,
+    "expanded_complete": 20,
+    "final_complete": 17,
+    "page_recall_at_20": 0.9625,
+    "page_recall_at_8": 0.875
+  },
+  "peer_multi_doc/baseline": {
+    "candidate_complete": 82,
+    "count": 170,
+    "expanded_complete": 82,
+    "final_complete": 57,
+    "page_recall_at_20": 0.6343137254901962,
+    "page_recall_at_8": 0.5593137254901961
+  },
+  "peer_multi_doc/requests20": {
+    "candidate_complete": 83,
+    "count": 170,
+    "expanded_complete": 83,
+    "final_complete": 67,
+    "page_recall_at_20": 0.6392156862745099,
+    "page_recall_at_8": 0.5833333333333335
+  },
+  "peer_multi_doc/requests20_pack": {
+    "candidate_complete": 83,
+    "count": 170,
+    "expanded_complete": 83,
+    "final_complete": 65,
+    "page_recall_at_20": 0.6392156862745099,
+    "page_recall_at_8": 0.5544117647058824
+  },
+  "peer_multi_doc/requests40": {
+    "candidate_complete": 85,
+    "count": 170,
+    "expanded_complete": 85,
+    "final_complete": 68,
+    "page_recall_at_20": 0.6446078431372549,
+    "page_recall_at_8": 0.586764705882353
+  },
+  "peer_multi_doc/requests40_pack": {
+    "candidate_complete": 85,
+    "count": 170,
+    "expanded_complete": 85,
+    "final_complete": 66,
+    "page_recall_at_20": 0.6446078431372549,
+    "page_recall_at_8": 0.5598039215686275
+  },
+  "peer_two_doc/baseline": {
+    "candidate_complete": 57,
+    "count": 114,
+    "expanded_complete": 57,
+    "final_complete": 51,
+    "page_recall_at_20": 0.6447368421052632,
+    "page_recall_at_8": 0.5964912280701754
+  },
+  "peer_two_doc/requests20": {
+    "candidate_complete": 64,
+    "count": 114,
+    "expanded_complete": 64,
+    "final_complete": 59,
+    "page_recall_at_20": 0.7017543859649122,
+    "page_recall_at_8": 0.6578947368421053
+  },
+  "peer_two_doc/requests20_pack": {
+    "candidate_complete": 64,
+    "count": 114,
+    "expanded_complete": 64,
+    "final_complete": 59,
+    "page_recall_at_20": 0.7017543859649122,
+    "page_recall_at_8": 0.6666666666666666
+  },
+  "peer_two_doc/requests40": {
+    "candidate_complete": 65,
+    "count": 114,
+    "expanded_complete": 65,
+    "final_complete": 59,
+    "page_recall_at_20": 0.7105263157894737,
+    "page_recall_at_8": 0.6622807017543859
+  },
+  "peer_two_doc/requests40_pack": {
+    "candidate_complete": 65,
+    "count": 114,
+    "expanded_complete": 65,
+    "final_complete": 59,
+    "page_recall_at_20": 0.7105263157894737,
+    "page_recall_at_8": 0.6710526315789473
+  },
+  "semantic_queries/baseline": {
+    "candidate_complete": 14,
+    "count": 40,
+    "expanded_complete": 14,
+    "final_complete": 13,
+    "page_recall_at_20": 0.4958333333333333,
+    "page_recall_at_8": 0.4458333333333334
+  },
+  "semantic_queries/requests20": {
+    "candidate_complete": 20,
+    "count": 40,
+    "expanded_complete": 20,
+    "final_complete": 18,
+    "page_recall_at_20": 0.5958333333333333,
+    "page_recall_at_8": 0.5583333333333333
+  },
+  "semantic_queries/requests20_pack": {
+    "candidate_complete": 20,
+    "count": 40,
+    "expanded_complete": 20,
+    "final_complete": 18,
+    "page_recall_at_20": 0.5958333333333333,
+    "page_recall_at_8": 0.5583333333333333
+  },
+  "semantic_queries/requests40": {
+    "candidate_complete": 21,
+    "count": 40,
+    "expanded_complete": 21,
+    "final_complete": 19,
+    "page_recall_at_20": 0.6333333333333333,
+    "page_recall_at_8": 0.5958333333333333
+  },
+  "semantic_queries/requests40_pack": {
+    "candidate_complete": 21,
+    "count": 40,
+    "expanded_complete": 21,
+    "final_complete": 19,
+    "page_recall_at_20": 0.6333333333333333,
+    "page_recall_at_8": 0.5958333333333333
+  }
+}

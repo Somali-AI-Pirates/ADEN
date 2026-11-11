@@ -1,0 +1,55 @@
+{
+  "built_at": "2026-11-09T12:32:55+00:00",
+  "config": {
+    "case_id_prefix": "HG20xx-",
+    "code_prefix_types": {
+      "AP": "approval_id",
+      "CT": "contract_id",
+      "EV": "evidence_id",
+      "HL": "equipment_id",
+      "HS": "source_bundle",
+      "INV": "invoice_id",
+      "RCPT": "receipt_id"
+    },
+    "equipment_class_source": "parsed profile co-occurrence on exact source page",
+    "page_text_persisted": false,
+    "prefix_matching": false
+  },
+  "counts": {
+    "case_pages": 13650,
+    "code_relations": 81718,
+    "code_types": {
+      "approval_id": 2730,
+      "contract_id": 2730,
+      "equipment_class": 2,
+      "equipment_id": 2821,
+      "evidence_id": 7917,
+      "invoice_id": 2730,
+      "receipt_id": 2730,
+      "reservation_id": 2730,
+      "source_bundle": 120
+    },
+    "relation_kinds": {
+      "class_group": 10920,
+      "exact": 57148,
+      "source_group": 13650
+    }
+  },
+  "inputs": {
+    "case_sources_sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326",
+    "code_extraction_version": 1,
+    "curated_sources_sha256": "03e79cfa70ee4f26a33f842b31553554974017b4bc92ea9fd0036b262f4d7688",
+    "curation_manifest_sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf",
+    "hg_snapshot_manifest_sha256": "56db4b0b3fd4ea6b4022fe79613f4e8fd5b6ddde5307671b9ab92c848d0f47c5",
+    "page_snapshot_sha256": "b4e2c95fa29c3e451788a55c4022fb26af266b899463d16bf42fcea07e27d01a",
+    "structured_database_sha256": "c407a061514e86736e0804759e55d01db9d0b28f69ef88777d3d9b7d4fe22616",
+    "structured_manifest_sha256": "73c1605d999afcc741e377fe59efc59d3cad850018dd904d6321dad0b745b175",
+    "structured_snapshot_id": "5b82e69dee8916d9ecbfebd005cd3c3c5540e0932db9abb29ec7ca1b9e5dd0fa"
+  },
+  "outputs": {
+    "advanced.sqlite3": "991e386b2901f83305b022228b597effd1d9439447acb6bd290a955c447593d5"
+  },
+  "schema_version": 1,
+  "snapshot_id": "db8a07dbe40b469cda5385c151437f162e75ee9f4395edc3efa5bd8aaf362c87",
+  "snapshot_type": "advanced-hg-code-relations-sqlite"
+}

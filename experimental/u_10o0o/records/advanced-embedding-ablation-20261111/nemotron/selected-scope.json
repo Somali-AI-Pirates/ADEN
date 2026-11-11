@@ -1,0 +1,21 @@
+{
+  "completed_models": [
+    "snowflake",
+    "kure_v3",
+    "nemotron"
+  ],
+  "executed_questions_per_model": 280,
+  "scored_official": 58,
+  "scored_category": 200,
+  "qwen3": {
+    "weights_downloaded": true,
+    "document_embeddings": 0,
+    "cancelled_by_user": true,
+    "scheduled": false
+  },
+  "active_jobs": 0,
+  "baseline_changed": false,
+  "committed_or_pushed": false,
+  "latest_report": "nemotron/report.md",
+  "completed_at_kst": "2026-11-11T14:58:54.046007+09:00"
+}

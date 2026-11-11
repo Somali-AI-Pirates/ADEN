@@ -1,0 +1,49 @@
+{
+  "final_at_utc": "2026-11-11T07:21:11.228612+00:00",
+  "common_ruff": "passed",
+  "experimental_ruff": "passed",
+  "experimental_format": "11 files passed",
+  "pytest": {
+    "passed": 310,
+    "subtests_passed": 15,
+    "command": ".venv/bin/python -m pytest -q tests experimental/u_10o0o/fresh_record_hybrid/tests"
+  },
+  "package_build": {
+    "status": "passed",
+    "command": ".venv/bin/python -m build --no-isolation",
+    "outputs": [
+      "sdist",
+      "wheel"
+    ]
+  },
+  "cli": {
+    "original_pages": 18000,
+    "units_A": 18000,
+    "units_B": 49548,
+    "retrieval_questions": 160,
+    "retrieval_rows": 480,
+    "same_runtime_configuration_across_batches": true,
+    "measured_rerank_pairs": 9600,
+    "measured_query_embeddings": 480,
+    "warmup_rerank_pairs": 180,
+    "warmup_query_embeddings": 9,
+    "all_final_outputs_eight_pages": true,
+    "partial_source_texts": 0,
+    "max_final_context_tokens": 7423
+  },
+  "baseline_related_hashes_unchanged": true,
+  "runtime_and_scoring_hashes_unchanged_during_evaluation": true,
+  "frozen_questions_and_references_unchanged": true,
+  "human_review_claimed": false,
+  "external_model_api_calls": 0,
+  "gpu_calculation_complete": true,
+  "source_sensitivity": {
+    "generic_facts": 3,
+    "generic_sources": 25,
+    "identity_facts": 32,
+    "identity_sources": 128,
+    "questions_or_retrieval_changed": false,
+    "frozen_references_overwritten": false,
+    "validation_completeness_changed": false
+  }
+}

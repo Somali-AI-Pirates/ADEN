@@ -1,0 +1,18 @@
+{
+  "automatic_embedding_queue_running": false,
+  "baseline_changed": false,
+  "committed_or_pushed": false,
+  "completed_models": [
+    "snowflake",
+    "kure_v3"
+  ],
+  "downloaded_only": [
+    "qwen3"
+  ],
+  "historical": true,
+  "later_phase": "Nemotron and Qwen resumed; see process.md and all-models/",
+  "partially_embedded": {
+    "nemotron": 512
+  },
+  "stage": "first_two_model_comparison_before_user_requested_resume"
+}

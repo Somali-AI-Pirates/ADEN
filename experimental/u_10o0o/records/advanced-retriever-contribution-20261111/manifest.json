@@ -1,0 +1,723 @@
+{
+  "status": "complete",
+  "questions": 100,
+  "archived_pool_orders_matched": 100,
+  "frozen_bm25_tokenizer": "bigram-id",
+  "top_k_each_retriever": 20,
+  "embedding_model": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+  "embedding_revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+  "device": "cpu",
+  "threads": 4,
+  "dtype": "float32",
+  "external_api_calls": 0,
+  "new_kure_calls": 0,
+  "references_read_before_ranks_saved": false,
+  "archive_manifest_sha256": "137c7437a82baf4216d483ba20c4ef073c9ba6b1d912e40705dd19a237c3297e",
+  "archive_request_ranks_sha256": "b89619c6257ab790a1edd0fd2477b68b97df835b2ce4f3f50689367bd8b6b822",
+  "ranks_sha256": "c25f9b52e7e735bfe5828bf5d8ac2b279bf96dbb6e0eeeaa904900d21a561864",
+  "inputs": [
+    {
+      "path": "data/advanced/evaluation/development_questions.json",
+      "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c"
+    },
+    {
+      "path": "data/advanced/evaluation/additional_questions.json",
+      "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/questions.json",
+      "sha256": "b6347f69fe72b4ead5147aed367f03bf5110286eb52d364df460269421959d82"
+    },
+    {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    {
+      "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+      "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+    }
+  ],
+  "runtime": [
+    {
+      "path": "app/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "app/evaluation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "app/evaluation/dataset.py",
+      "sha256": "40badadc10b3888aae459addce2d67555a2597c779ef96b7643d35fbc1126778"
+    },
+    {
+      "path": "app/evaluation/metrics.py",
+      "sha256": "d091b297d32bf836882b9a1186923cf0178006cf7cd271367781425916939864"
+    },
+    {
+      "path": "app/generation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "app/generation/context.py",
+      "sha256": "28fc992c1246e27eb675ec7050ff05b6de4d11dbc4801c1baed0b1ace23748aa"
+    },
+    {
+      "path": "app/ingestion/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "app/ingestion/chunker.py",
+      "sha256": "ffee817fa7b5ff305b5a5ec4bc03708bbc5ee629b55b98357b72f235a5040995"
+    },
+    {
+      "path": "app/ingestion/common_rules.py",
+      "sha256": "aeb5aef94608f3cad19fa4806f0711b9c4dff7bce8c42b71698586d6008171f1"
+    },
+    {
+      "path": "app/ingestion/curated_schema.py",
+      "sha256": "2a49e91e901405a2741d5d9f59b66a742e2e05a719e74f4a76d800c72823dd91"
+    },
+    {
+      "path": "app/ingestion/curation.py",
+      "sha256": "57d69571045e1f51ad94a29d5d522cc1edecbd723b75abd2890841198699dda4"
+    },
+    {
+      "path": "app/ingestion/knowledge.py",
+      "sha256": "783b66de73e5419c6ad4028a28e9a833cd0b037b8cb049d787adcc54e0016904"
+    },
+    {
+      "path": "app/ingestion/knowledge_schema.py",
+      "sha256": "a071e8f169c762b1681191dbcd942aa4eacb812e0f9c922ce301685746e8fd5c"
+    },
+    {
+      "path": "app/ingestion/layout.py",
+      "sha256": "2d9a9af01a9982e7c958dc1e49767bbdd69cf50a3d808d5c28ded2b48e5aff7c"
+    },
+    {
+      "path": "app/ingestion/loader.py",
+      "sha256": "d073c1bc6dd72517175df1b8dc7dec77f3f120bfad46093b27be3ea18a22c8a3"
+    },
+    {
+      "path": "experimental/u_10o0o/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_case_sources.py",
+      "sha256": "59b54af436e2a84a7b4b5788c7628cc836914dd3e13bee1c9bc7491714e404eb"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_field_roles.py",
+      "sha256": "a324ad508102659ea31cbe55d27c0dd6c0e82b9f7928e0fb1e172d2ee61804cf"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_full_metrics.py",
+      "sha256": "6d43e8321663af7e26acf725a24dd621e8380131eb6a8531126bb41f60210ac8"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_hg_lookup.py",
+      "sha256": "759daeb89f0b2c9ec5d108746febf426a9d1c7b8a490aa504e3975de541c0067"
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_search.py",
+      "sha256": "44623acd460df4bd0a3c25229d8e2089fde9596a7d8dc93af66b03678b3ccd60"
+    },
+    {
+      "path": "experimental/u_10o0o/bm25.py",
+      "sha256": "271d4c0cdda721d91185bccabd15f7e8110ca4a40e07862a5b65699c56085d94"
+    },
+    {
+      "path": "experimental/u_10o0o/context_evidence.py",
+      "sha256": "3bbacbfbee9b196ae82389dc0a79163c1c633ce56674b91547059e1563baf365"
+    },
+    {
+      "path": "experimental/u_10o0o/embeding.py",
+      "sha256": "94ffa7f3eb39cb16c71abb0aa331ecf3df9e02ea4a0544ff2dfae287cb3ece92"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluate.py",
+      "sha256": "e31a10cfb537077fb06ad1bcdaa51e43d5a7498fdc5b4266a6b2b47603bdc6eb"
+    },
+    {
+      "path": "experimental/u_10o0o/hybrid.py",
+      "sha256": "b2f3f483ecd3db6c3ce853e12446224f2a05558934a6dc49bc7d0aa967592181"
+    },
+    {
+      "path": "experimental/u_10o0o/pattern_retrieval/__init__.py",
+      "sha256": "9d1057b69f577e114d8ed40701fa09e092f7c56eb7c14ed56ee13eb42734564c"
+    },
+    {
+      "path": "experimental/u_10o0o/pattern_retrieval/common.py",
+      "sha256": "867e658e7c34d43fa50ea770f21331788b6900e7d67116ab61cf69f82b31b81a"
+    },
+    {
+      "path": "experimental/u_10o0o/pattern_retrieval/established_retrieve.py",
+      "sha256": "cdbe3a379dc767ad948a5bf4452d41b7b8719587188150b14b701ad4ea5e37c1"
+    },
+    {
+      "path": "experimental/u_10o0o/prepare.py",
+      "sha256": "04fdc28ef6a5039f75a8c2a88aa422c14799e69e2f37bb66eac288f7161455c4"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-retriever-contribution-20261111/analyze.py",
+      "sha256": "0e03b10f0f2fa1fb1afe8e9ea16b0d8b1ec78ca8b1fccbe202da72c17b8c4761"
+    },
+    {
+      "path": "experimental/u_10o0o/rerank.py",
+      "sha256": "423208e08d018a0abfcf9df096e7b7d2df3abfd4e57e9dfb6c6e34d49a6e0727"
+    },
+    {
+      "path": "experimental/u_10o0o/search.py",
+      "sha256": "4d6546d272444d9b09262b718e1d42393d540eb6d087555a56a88acab7ffe4c5"
+    },
+    {
+      "path": "shared/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "shared/contracts.py",
+      "sha256": "c6f0211e33ec8dbed16619e414745c5e2e703a994f085edd32a1df9406028938"
+    }
+  ],
+  "script_sha256": "0e03b10f0f2fa1fb1afe8e9ea16b0d8b1ec78ca8b1fccbe202da72c17b8c4761",
+  "items": [
+    {
+      "id": "official_development:AS-DEV01",
+      "suite": "official_development",
+      "question_id": "AS-DEV01"
+    },
+    {
+      "id": "official_development:AS-DEV02",
+      "suite": "official_development",
+      "question_id": "AS-DEV02"
+    },
+    {
+      "id": "official_development:AS-DEV03",
+      "suite": "official_development",
+      "question_id": "AS-DEV03"
+    },
+    {
+      "id": "official_development:AS-DEV04",
+      "suite": "official_development",
+      "question_id": "AS-DEV04"
+    },
+    {
+      "id": "official_development:AS-DEV05",
+      "suite": "official_development",
+      "question_id": "AS-DEV05"
+    },
+    {
+      "id": "official_development:AS-DEV06",
+      "suite": "official_development",
+      "question_id": "AS-DEV06"
+    },
+    {
+      "id": "official_development:AS-DEV07",
+      "suite": "official_development",
+      "question_id": "AS-DEV07"
+    },
+    {
+      "id": "official_development:AS-DEV08",
+      "suite": "official_development",
+      "question_id": "AS-DEV08"
+    },
+    {
+      "id": "official_development:AS-DEV09",
+      "suite": "official_development",
+      "question_id": "AS-DEV09"
+    },
+    {
+      "id": "official_development:AS-DEV10",
+      "suite": "official_development",
+      "question_id": "AS-DEV10"
+    },
+    {
+      "id": "official_development:AS-DEV11",
+      "suite": "official_development",
+      "question_id": "AS-DEV11"
+    },
+    {
+      "id": "official_development:AS-DEV12",
+      "suite": "official_development",
+      "question_id": "AS-DEV12"
+    },
+    {
+      "id": "official_development:AS-DEV13",
+      "suite": "official_development",
+      "question_id": "AS-DEV13"
+    },
+    {
+      "id": "official_development:AS-DEV14",
+      "suite": "official_development",
+      "question_id": "AS-DEV14"
+    },
+    {
+      "id": "official_development:AS-DEV15",
+      "suite": "official_development",
+      "question_id": "AS-DEV15"
+    },
+    {
+      "id": "official_development:AS-DEV16",
+      "suite": "official_development",
+      "question_id": "AS-DEV16"
+    },
+    {
+      "id": "official_development:AS-DEV17",
+      "suite": "official_development",
+      "question_id": "AS-DEV17"
+    },
+    {
+      "id": "official_development:AS-DEV18",
+      "suite": "official_development",
+      "question_id": "AS-DEV18"
+    },
+    {
+      "id": "official_development:AS-DEV19",
+      "suite": "official_development",
+      "question_id": "AS-DEV19"
+    },
+    {
+      "id": "official_development:AS-DEV20",
+      "suite": "official_development",
+      "question_id": "AS-DEV20"
+    },
+    {
+      "id": "official_development:AS-DEV21",
+      "suite": "official_development",
+      "question_id": "AS-DEV21"
+    },
+    {
+      "id": "official_development:AS-DEV22",
+      "suite": "official_development",
+      "question_id": "AS-DEV22"
+    },
+    {
+      "id": "official_development:AS-DEV23",
+      "suite": "official_development",
+      "question_id": "AS-DEV23"
+    },
+    {
+      "id": "official_development:AS-DEV24",
+      "suite": "official_development",
+      "question_id": "AS-DEV24"
+    },
+    {
+      "id": "official_development:AS-DEV25",
+      "suite": "official_development",
+      "question_id": "AS-DEV25"
+    },
+    {
+      "id": "official_development:AS-DEV26",
+      "suite": "official_development",
+      "question_id": "AS-DEV26"
+    },
+    {
+      "id": "official_development:AS-DEV27",
+      "suite": "official_development",
+      "question_id": "AS-DEV27"
+    },
+    {
+      "id": "official_development:AS-DEV28",
+      "suite": "official_development",
+      "question_id": "AS-DEV28"
+    },
+    {
+      "id": "official_development:AS-DEV29",
+      "suite": "official_development",
+      "question_id": "AS-DEV29"
+    },
+    {
+      "id": "official_development:AS-DEV30",
+      "suite": "official_development",
+      "question_id": "AS-DEV30"
+    },
+    {
+      "id": "official_additional:AS-ADD01",
+      "suite": "official_additional",
+      "question_id": "AS-ADD01"
+    },
+    {
+      "id": "official_additional:AS-ADD02",
+      "suite": "official_additional",
+      "question_id": "AS-ADD02"
+    },
+    {
+      "id": "official_additional:AS-ADD03",
+      "suite": "official_additional",
+      "question_id": "AS-ADD03"
+    },
+    {
+      "id": "official_additional:AS-ADD04",
+      "suite": "official_additional",
+      "question_id": "AS-ADD04"
+    },
+    {
+      "id": "official_additional:AS-ADD05",
+      "suite": "official_additional",
+      "question_id": "AS-ADD05"
+    },
+    {
+      "id": "official_additional:AS-ADD06",
+      "suite": "official_additional",
+      "question_id": "AS-ADD06"
+    },
+    {
+      "id": "official_additional:AS-ADD07",
+      "suite": "official_additional",
+      "question_id": "AS-ADD07"
+    },
+    {
+      "id": "official_additional:AS-ADD08",
+      "suite": "official_additional",
+      "question_id": "AS-ADD08"
+    },
+    {
+      "id": "official_additional:AS-ADD09",
+      "suite": "official_additional",
+      "question_id": "AS-ADD09"
+    },
+    {
+      "id": "official_additional:AS-ADD10",
+      "suite": "official_additional",
+      "question_id": "AS-ADD10"
+    },
+    {
+      "id": "official_additional:AS-ADD11",
+      "suite": "official_additional",
+      "question_id": "AS-ADD11"
+    },
+    {
+      "id": "official_additional:AS-ADD12",
+      "suite": "official_additional",
+      "question_id": "AS-ADD12"
+    },
+    {
+      "id": "official_additional:AS-ADD13",
+      "suite": "official_additional",
+      "question_id": "AS-ADD13"
+    },
+    {
+      "id": "official_additional:AS-ADD14",
+      "suite": "official_additional",
+      "question_id": "AS-ADD14"
+    },
+    {
+      "id": "official_additional:AS-ADD15",
+      "suite": "official_additional",
+      "question_id": "AS-ADD15"
+    },
+    {
+      "id": "official_additional:AS-ADD16",
+      "suite": "official_additional",
+      "question_id": "AS-ADD16"
+    },
+    {
+      "id": "official_additional:AS-ADD17",
+      "suite": "official_additional",
+      "question_id": "AS-ADD17"
+    },
+    {
+      "id": "official_additional:AS-ADD18",
+      "suite": "official_additional",
+      "question_id": "AS-ADD18"
+    },
+    {
+      "id": "official_additional:AS-ADD19",
+      "suite": "official_additional",
+      "question_id": "AS-ADD19"
+    },
+    {
+      "id": "official_additional:AS-ADD20",
+      "suite": "official_additional",
+      "question_id": "AS-ADD20"
+    },
+    {
+      "id": "official_additional:AS-ADD21",
+      "suite": "official_additional",
+      "question_id": "AS-ADD21"
+    },
+    {
+      "id": "official_additional:AS-ADD22",
+      "suite": "official_additional",
+      "question_id": "AS-ADD22"
+    },
+    {
+      "id": "official_additional:AS-ADD23",
+      "suite": "official_additional",
+      "question_id": "AS-ADD23"
+    },
+    {
+      "id": "official_additional:AS-ADD24",
+      "suite": "official_additional",
+      "question_id": "AS-ADD24"
+    },
+    {
+      "id": "official_additional:AS-ADD25",
+      "suite": "official_additional",
+      "question_id": "AS-ADD25"
+    },
+    {
+      "id": "official_additional:AS-ADD26",
+      "suite": "official_additional",
+      "question_id": "AS-ADD26"
+    },
+    {
+      "id": "official_additional:AS-ADD27",
+      "suite": "official_additional",
+      "question_id": "AS-ADD27"
+    },
+    {
+      "id": "official_additional:AS-ADD28",
+      "suite": "official_additional",
+      "question_id": "AS-ADD28"
+    },
+    {
+      "id": "official_additional:AS-ADD29",
+      "suite": "official_additional",
+      "question_id": "AS-ADD29"
+    },
+    {
+      "id": "official_additional:AS-ADD30",
+      "suite": "official_additional",
+      "question_id": "AS-ADD30"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-01",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-01"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-02",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-02"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-03",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-03"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-04",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-04"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-05",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-05"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-06",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-06"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-07",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-07"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-08",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-08"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-09",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-09"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-10",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-10"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-11",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-11"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-12",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-12"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-13",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-13"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-14",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-14"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-15",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-15"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-16",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-16"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-17",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-17"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-18",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-18"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-19",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-19"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-20",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-20"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-21",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-21"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-22",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-22"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-23",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-23"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-24",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-24"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-25",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-25"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-26",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-26"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-27",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-27"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-28",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-28"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-29",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-29"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-30",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-30"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-31",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-31"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-32",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-32"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-33",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-33"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-34",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-34"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-35",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-35"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-36",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-36"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-37",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-37"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-38",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-38"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-39",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-39"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-40",
+      "suite": "semantic_queries",
+      "question_id": "AS-SEM-40"
+    }
+  ],
+  "reference_sources": [
+    {
+      "suite": "official_development",
+      "path": "data/advanced/evaluation/development_questions.json",
+      "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c",
+      "references": "data/advanced/evaluation/development.json"
+    },
+    {
+      "suite": "official_additional",
+      "path": "data/advanced/evaluation/additional_questions.json",
+      "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f",
+      "references": "data/advanced/evaluation/additional.json"
+    },
+    {
+      "suite": "semantic_queries",
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/questions.json",
+      "sha256": "b6347f69fe72b4ead5147aed367f03bf5110286eb52d364df460269421959d82",
+      "references": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json"
+    }
+  ],
+  "scored_comparisons": 140,
+  "references_opened_after_saved_ranks": true,
+  "reference_fingerprints": [
+    {
+      "path": "data/advanced/evaluation/development.json",
+      "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+    },
+    {
+      "path": "data/advanced/evaluation/additional.json",
+      "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+    }
+  ],
+  "analysis_script_sha256": "bbc42782de309745980b31bd2b6edbfd59f7d18afa01082688ec1d69b65c7613",
+  "replay_script_snapshot": "artifacts/u_10o0o/advanced-retriever-contribution-20261111/run-v1/replay-script.py"
+}

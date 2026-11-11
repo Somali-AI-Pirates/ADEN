@@ -1,0 +1,509 @@
+{
+  "audit": {
+    "created_at_utc": "2026-11-10T08:15:37+00:00",
+    "kind": "read-only aggregate data audit",
+    "raw_source_or_question_text_exported": false,
+    "runtime_sqlite": "3.53.1",
+    "traffic_logs_available": false
+  },
+  "code_relationships": {
+    "case_level_mapping_histograms": {
+      "contract_to_reservation": {
+        "1": 2730
+      },
+      "equipment_to_reservation": {
+        "1": 2821
+      },
+      "evidence_to_reservation": {
+        "1": 7917
+      },
+      "invoice_to_reservation": {
+        "1": 2730
+      },
+      "receipt_to_reservation": {
+        "1": 2730
+      },
+      "reservation_to_contract": {
+        "1": 2730
+      },
+      "reservation_to_equipment": {
+        "1": 2639,
+        "2": 91
+      },
+      "reservation_to_evidence": {
+        "2": 273,
+        "3": 2457
+      }
+    },
+    "equipment_classes": {
+      "20GP": {
+        "cases": 1350,
+        "full_equipment_ids": 1350
+      },
+      "40GP": {
+        "cases": 1380,
+        "full_equipment_ids": 1380
+      }
+    },
+    "exact_types": {
+      "approval_id": {
+        "cases_with_multiple_values": 0,
+        "max_cases_per_value": 1,
+        "value_to_multiple_case": 0,
+        "values": 2730
+      },
+      "contract_id": {
+        "cases_with_multiple_values": 0,
+        "max_cases_per_value": 1,
+        "value_to_multiple_case": 0,
+        "values": 2730
+      },
+      "equipment_id": {
+        "cases_with_multiple_values": 91,
+        "max_cases_per_value": 1,
+        "per_case_values": {
+          "1": 2639,
+          "2": 91
+        },
+        "value_to_multiple_case": 0,
+        "values": 2821
+      },
+      "evidence_id": {
+        "cases_with_multiple_values": 2730,
+        "max_cases_per_value": 1,
+        "per_case_values": {
+          "2": 273,
+          "3": 2457
+        },
+        "value_to_multiple_case": 0,
+        "values": 7917
+      },
+      "invoice_id": {
+        "cases_with_multiple_values": 0,
+        "max_cases_per_value": 1,
+        "value_to_multiple_case": 0,
+        "values": 2730
+      },
+      "receipt_id": {
+        "cases_with_multiple_values": 0,
+        "max_cases_per_value": 1,
+        "value_to_multiple_case": 0,
+        "values": 2730
+      },
+      "reservation_id": {
+        "cases_with_multiple_values": 0,
+        "max_cases_per_value": 1,
+        "value_to_multiple_case": 0,
+        "values": 2730
+      }
+    },
+    "relation_rows": {
+      "class_group": 10920,
+      "exact": 57148,
+      "source_group": 13650
+    },
+    "source_bundle": {
+      "all_used_by_multiple_cases": true,
+      "cases_per_bundle_histogram": {
+        "150": 64,
+        "50": 6,
+        "55": 3,
+        "60": 5,
+        "65": 6,
+        "70": 4,
+        "75": 10,
+        "80": 7,
+        "85": 9,
+        "90": 6
+      },
+      "distinct_values": 120,
+      "verified_example": {
+        "distinct_HG_cases": 150,
+        "source_reference": "HS-057"
+      }
+    }
+  },
+  "corpus_structure": {
+    "HA_parsed_table_rows": 4356,
+    "HA_role_links": 594,
+    "HG_cross_AS007_056_AS057_120_cases": 108,
+    "HG_distinct_books_per_case_histogram": {
+      "5": 2730
+    },
+    "HG_pages_unique": 13650,
+    "HG_role_links": 13650,
+    "HG_roles": 5,
+    "IS_handbook_keys": 11073,
+    "IS_keys_by_type": {
+      "기록번호": 5321,
+      "처리 기록": 5752
+    },
+    "IS_parsed_table_rows": 27715,
+    "IS_typed_key_duplicates": 0,
+    "cases": {
+      "HA": 198,
+      "HG": 2730
+    },
+    "page_families": {
+      "HA": 594,
+      "HG": 13650,
+      "IS": 3750,
+      "other": 6
+    },
+    "pages": 18000,
+    "pdfs": 120,
+    "record_statuses": {
+      "needs_review": 26635,
+      "parsed": 114539
+    },
+    "structured_HG_role_facts": 107016,
+    "structured_fields": 404369,
+    "structured_records": 141174
+  },
+  "date_relationships": {
+    "actual_designated_return_date": {
+      "distinct_values": 701,
+      "fact_rows": 2730,
+      "max_cases_same_value": 7,
+      "same_case_fact_multiple_values": 0,
+      "states": {
+        "non_designated_yard_only": 91,
+        "receipt_missing": 182,
+        "reported": 2457
+      },
+      "typed_rows": 2457
+    },
+    "actual_discharge_date": {
+      "distinct_values": 700,
+      "max_cases_same_value": 4,
+      "same_case_fact_multiple_values": 0,
+      "typed_rows": 2730,
+      "values_shared_across_cases": 700
+    },
+    "actual_gate_out_date": {
+      "distinct_values": 704,
+      "max_cases_same_value": 8,
+      "same_case_fact_multiple_values": 0,
+      "typed_rows": 2730,
+      "values_shared_across_cases": 673
+    },
+    "comparison_recorded_at": {
+      "distinct_values": 701,
+      "max_cases_same_value": 7,
+      "same_case_fact_multiple_values": 0,
+      "typed_rows": 2730,
+      "values_shared_across_cases": 638
+    },
+    "recorded_amendment_effective_date": {
+      "distinct_values": 175,
+      "max_cases_same_value": 4,
+      "same_case_fact_multiple_values": 0,
+      "typed_rows": 273,
+      "values_shared_across_cases": 77
+    },
+    "scheduled_return_date": {
+      "distinct_values": 683,
+      "max_cases_same_value": 8,
+      "same_case_fact_multiple_values": 0,
+      "typed_rows": 2730,
+      "values_shared_across_cases": 616
+    },
+    "system_entry_date": {
+      "distinct_values": 703,
+      "max_cases_same_value": 8,
+      "same_case_fact_multiple_values": 0,
+      "typed_rows": 2730,
+      "values_shared_across_cases": 674
+    }
+  },
+  "definitions_and_limits": {
+    "case_level_identifier_types": [
+      "reservation_id",
+      "approval_id",
+      "contract_id",
+      "evidence_id",
+      "equipment_id",
+      "invoice_id",
+      "receipt_id"
+    ],
+    "case_level_mapping_scope": "The one-code-to-one-case result excludes HS source_bundle values; all 120 HS values fan out to multiple cases.",
+    "date_limit": "Zero same-case/same-fact typed-date multiplicity applies only to curated role_facts; date fact roles and unverified states must stay distinct.",
+    "full_code_syntax": "Syntactically complete HG20xx or AP/CT/EV/HL/INV/RCPT/HS prefixed code. HS is a complete code form but names a source bundle, not a case.",
+    "numeric_probe_limit": "Digit masking does not tell whether digits encode quantity, variant, or another business attribute.",
+    "policy_proxy": "No recognized full ID or standalone class plus cited non-HG pages; an evaluation/reference proxy, not a human intent label.",
+    "raw_content_policy": "No source quotations, question text, customer/cargo strings, or raw event identifier values are exported; canonical class labels and the cited HS-057 source-bundle reference are included.",
+    "reference_proxy": "HG case counts come from the union of cases attached to cited evidence pages; alternative evidence groups can make this broader than the intended target set.",
+    "standalone_class": "20GP or 40GP token remaining after recognized full-ID spans are removed; avoids counting a code-internal class as a separate class cue.",
+    "unreviewed_scope": "26,635 of 141,174 structured source records remain needs_review; structured coverage is not a complete semantic transcription of all pages.",
+    "usage_limit": "The 60/304/40 proportions describe fixed evaluation sets, not operational query frequency. No live usage logs were available."
+  },
+  "input_fingerprints": [
+    {
+      "bytes": 34766,
+      "path": "data/advanced/dataset-manifest.json",
+      "sha256": "9a0e0d2269a8d01045948cedcfe30d6d946fae66a306733bd5669d21b2b73045"
+    },
+    {
+      "bytes": 30862706,
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    {
+      "bytes": 2721,
+      "path": "artifacts/u_10o0o/advanced-snapshots/structured-v1/manifest.json",
+      "sha256": "73c1605d999afcc741e377fe59efc59d3cad850018dd904d6321dad0b745b175"
+    },
+    {
+      "bytes": 170860544,
+      "path": "artifacts/u_10o0o/advanced-snapshots/structured-v1/advanced.sqlite3",
+      "sha256": "c407a061514e86736e0804759e55d01db9d0b28f69ef88777d3d9b7d4fe22616"
+    },
+    {
+      "bytes": 2045,
+      "path": "artifacts/u_10o0o/advanced-snapshots/hg-code-relations-v1/manifest.json",
+      "sha256": "d4f639bd6ce27c4bd39dd97b3e72d914811cc2f51e1ca24d7c6a7316d460879a"
+    },
+    {
+      "bytes": 29618176,
+      "path": "artifacts/u_10o0o/advanced-snapshots/hg-code-relations-v1/advanced.sqlite3",
+      "sha256": "991e386b2901f83305b022228b597effd1d9439447acb6bd290a955c447593d5"
+    },
+    {
+      "bytes": 18737,
+      "path": "artifacts/u_10o0o/advanced-snapshots/hg-relations-v1/manifest.json",
+      "sha256": "56db4b0b3fd4ea6b4022fe79613f4e8fd5b6ddde5307671b9ab92c848d0f47c5"
+    },
+    {
+      "bytes": 6664192,
+      "path": "artifacts/u_10o0o/advanced-snapshots/hg-relations-v1/advanced.sqlite3",
+      "sha256": "c65913cbaa51ece93cf5bcd23e1d2f194d3c1a92095bd1c30237d531ded7070b"
+    },
+    {
+      "bytes": 31084,
+      "path": "artifacts/u_10o0o/pattern-curation/advanced/manifest.json",
+      "sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf"
+    },
+    {
+      "bytes": 1962948,
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    },
+    {
+      "bytes": 58299518,
+      "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+      "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+    },
+    {
+      "bytes": 2503899,
+      "path": "artifacts/u_10o0o/advanced-curation/format-index-20261109/ha_pages.jsonl",
+      "sha256": "fe1ce165ba6a19708d0825a1d827a19c8ffbc2a9d9ee11313339a272c156111a"
+    },
+    {
+      "bytes": 8779721,
+      "path": "artifacts/u_10o0o/advanced-curation/format-index-20261109/handbook_rows.jsonl",
+      "sha256": "7759d2dc24e47c7e3162113cc94136f0a1d0df6ffa4b867c8f04ae7a511dd80e"
+    },
+    {
+      "bytes": 27359,
+      "path": "experimental/u_10o0o/advanced_hg_relations.py",
+      "sha256": "84c9c7617915d97ddbef057c9237baae6d655d4d2f1590f89d8904af2cb0a6c1"
+    },
+    {
+      "bytes": 61682,
+      "path": "experimental/u_10o0o/advanced_structured_store.py",
+      "sha256": "c2f364bc2f84f83fa5cdcc2d23c90d58785adc2dc41aa697d8075655a4f1ba4d"
+    },
+    {
+      "bytes": 7878,
+      "path": "data/advanced/evaluation/development_questions.json",
+      "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c"
+    },
+    {
+      "bytes": 84574,
+      "path": "data/advanced/evaluation/development.json",
+      "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+    },
+    {
+      "bytes": 7593,
+      "path": "data/advanced/evaluation/additional_questions.json",
+      "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f"
+    },
+    {
+      "bytes": 83570,
+      "path": "data/advanced/evaluation/additional.json",
+      "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+    },
+    {
+      "bytes": 6479,
+      "path": "experimental/ysl727727/overnight/data/false_premise_adv_questions.json",
+      "sha256": "7814eea24550882be81471e73be625859ad77bc9b308df9c7d16a1eb246f3ab9"
+    },
+    {
+      "bytes": 43397,
+      "path": "experimental/ysl727727/overnight/data/false_premise_adv.json",
+      "sha256": "d8a21e14c50af0add036672b0c072c53b955a8de8087126000a819f34fb38322"
+    },
+    {
+      "bytes": 34663,
+      "path": "experimental/ysl727727/overnight/data/synth_adv_questions.json",
+      "sha256": "886028ade17c18a5b8820319f29b5cd2f1716093802b6afb44a9a1c10254e9c0"
+    },
+    {
+      "bytes": 182497,
+      "path": "experimental/ysl727727/overnight/data/synth_adv.json",
+      "sha256": "94ac5d2e7906841675691b0511a8515efd11b3e03ceafda2d2527e6705bc4bd4"
+    },
+    {
+      "bytes": 65234,
+      "path": "experimental/ysl727727/overnight/data/synth_multi_adv_questions.json",
+      "sha256": "ed7a6b2448a732448dea3ad9c772ddd0ff5cdfa983843cc5aa32022fcda07388"
+    },
+    {
+      "bytes": 415545,
+      "path": "experimental/ysl727727/overnight/data/synth_multi_adv.json",
+      "sha256": "7ead57097e66d072e0b5f2253220bc65bbcc8193b0926e2f174beb286ba67c9d"
+    },
+    {
+      "bytes": 10330,
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/questions.json",
+      "sha256": "b6347f69fe72b4ead5147aed367f03bf5110286eb52d364df460269421959d82"
+    },
+    {
+      "bytes": 104247,
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+    }
+  ],
+  "pdf_cache_validation": {
+    "advanced_pdf_count": 120,
+    "cache_document_page_count_mismatches": 0,
+    "cache_sqlite_key_mismatches": {
+      "cache_only": 0,
+      "sqlite_only": 0
+    },
+    "fresh_pdf_sample": {
+      "NFKC_whitespace_compact_equal": 24,
+      "books": [
+        "AS001",
+        "AS006",
+        "AS007",
+        "AS016",
+        "AS056",
+        "AS057",
+        "AS088",
+        "AS120"
+      ],
+      "method": "PyPDF layout extraction; NFKC then remove whitespace",
+      "pages": 24,
+      "pages_per_book": [
+        1,
+        75,
+        150
+      ],
+      "pypdf_layout_raw_equal": 0
+    },
+    "nonempty_pages": 18000,
+    "pdf_bytes_verified": 91513450,
+    "pdf_sha256_matches_dataset_manifest": 120,
+    "restored_pages": 18000,
+    "sqlite_document_hashes_matching_manifest": 120,
+    "unique_book_page_keys": 18000
+  },
+  "profile_cardinality": {
+    "HG_cases": 2730,
+    "cargo_digit_probe": {
+      "cases_ending_in_digit": 0,
+      "cases_with_one_ascii_digit_run": 2730,
+      "distinct_after_masking_digit_runs": 15,
+      "distinct_after_removing_digits": 15,
+      "interpretation": "digit mask measures sensitivity only; business meaning is unknown",
+      "masked_group_sizes": {
+        "182": 15
+      },
+      "max_cases_per_masked_pair": 31,
+      "max_cases_per_masked_triple": 16,
+      "shipper_cargo_spec_after_masking_combinations": 180,
+      "shipper_plus_masked_cargo_combinations": 90
+    },
+    "cargo_exact_values": 2730,
+    "cases_per_shipper": 91,
+    "contract_values": 2730,
+    "shipper_cargo_exact_combinations": 2730,
+    "shipper_cargo_spec_exact_combinations": 2730,
+    "shipper_values": 30,
+    "spec_values": {
+      "20GP": 1350,
+      "40GP": 1380
+    }
+  },
+  "query_sets": {
+    "daily_semantic40": {
+      "IS_reference_citation_occurrences": 62,
+      "full_identifier": 0,
+      "neither": 40,
+      "neither_all_IS_reference_proxy": 40,
+      "questions": 40,
+      "standalone_class_outside_full_id": 0
+    },
+    "official60": {
+      "code_free_non_HG_reference_proxy": 19,
+      "code_free_ref_multiple_HG_cases": 0,
+      "code_free_ref_one_HG_case": 15,
+      "code_free_unmapped": 2,
+      "full_id_and_standalone_class": 0,
+      "full_identifier": 15,
+      "full_ids_with_embedded_class": 15,
+      "neither": 36,
+      "questions": 60,
+      "standalone_class_outside_full_id": 9
+    },
+    "peer304": {
+      "class_only": 15,
+      "components": {
+        "false_premise": 20,
+        "synth_multi_doc": 170,
+        "synth_two_doc": 114
+      },
+      "full_id_and_standalone_class": 7,
+      "full_identifier": 165,
+      "full_ids_with_embedded_class": 104,
+      "neither": 124,
+      "neither_non_HG_reference_proxy": 41,
+      "neither_ref_multiple_HG_cases": 69,
+      "neither_ref_one_HG_case": 14,
+      "questions": 304,
+      "reference_citations_by_family": {
+        "HA": 12,
+        "HG": 726,
+        "IS": 148
+      },
+      "standalone_class_outside_full_id": 22
+    }
+  },
+  "snapshot_validation": {
+    "hg_code_relations_v1": {
+      "database_matches_manifest": true,
+      "database_sha256": "991e386b2901f83305b022228b597effd1d9439447acb6bd290a955c447593d5",
+      "foreign_key_issues": 0,
+      "integrity_check": "ok",
+      "manifest_sha256": "d4f639bd6ce27c4bd39dd97b3e72d914811cc2f51e1ca24d7c6a7316d460879a",
+      "snapshot_id": "db8a07dbe40b469cda5385c151437f162e75ee9f4395edc3efa5bd8aaf362c87"
+    },
+    "hg_source_relations_v1": {
+      "database_matches_manifest": true,
+      "database_sha256": "c65913cbaa51ece93cf5bcd23e1d2f194d3c1a92095bd1c30237d531ded7070b",
+      "foreign_key_issues": 0,
+      "integrity_check": "ok",
+      "manifest_sha256": "56db4b0b3fd4ea6b4022fe79613f4e8fd5b6ddde5307671b9ab92c848d0f47c5",
+      "snapshot_id": "9fcc8bf5382f67b30d5c76d4674e8126dc1e571b2c705b61f15ec2334e746564"
+    },
+    "structured_v1": {
+      "database_matches_manifest": true,
+      "database_sha256": "c407a061514e86736e0804759e55d01db9d0b28f69ef88777d3d9b7d4fe22616",
+      "foreign_key_issues": 0,
+      "integrity_check": "ok",
+      "manifest_sha256": "73c1605d999afcc741e377fe59efc59d3cad850018dd904d6321dad0b745b175",
+      "snapshot_id": "5b82e69dee8916d9ecbfebd005cd3c3c5540e0932db9abb29ec7ca1b9e5dd0fa"
+    }
+  }
+}

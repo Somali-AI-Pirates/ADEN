@@ -1,0 +1,23 @@
+{
+  "ruff_common": "passed",
+  "ruff_experiment_isolated": "passed",
+  "pytest": {
+    "passed": 291,
+    "subtests_passed": 15
+  },
+  "wheel_sdist_build": "passed",
+  "build_warning": "Existing root README absent in sdist; build succeeded.",
+  "saved_results_revalidated": {
+    "snowflake": 280,
+    "kure_v3": 280,
+    "nemotron": 280
+  },
+  "first_two_summary_and_per_question_and_dense_scores_identical": true,
+  "references_unchanged": true,
+  "private_questions_absent_from_shared_records": true,
+  "local_markdown_links": "passed",
+  "self_review": "performed; no independent agents used per side-conversation constraint",
+  "external_api_calls": 0,
+  "qwen_embeddings_started": false,
+  "baseline_changed": false
+}

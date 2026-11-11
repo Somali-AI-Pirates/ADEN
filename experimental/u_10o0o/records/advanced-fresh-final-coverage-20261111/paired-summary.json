@@ -1,0 +1,48 @@
+[
+  {
+    "baseline": "E",
+    "split": "dev",
+    "gained_questions": [
+      "FRESH-DEV-004",
+      "FRESH-DEV-037",
+      "FRESH-DEV-043"
+    ],
+    "lost_questions": [],
+    "recovered_facts": 3,
+    "lost_facts": 0
+  },
+  {
+    "baseline": "E",
+    "split": "validation",
+    "gained_questions": [
+      "FRESH-VAL-012",
+      "FRESH-VAL-023"
+    ],
+    "lost_questions": [],
+    "recovered_facts": 3,
+    "lost_facts": 0
+  },
+  {
+    "baseline": "F",
+    "split": "dev",
+    "gained_questions": [
+      "FRESH-DEV-004",
+      "FRESH-DEV-037",
+      "FRESH-DEV-043"
+    ],
+    "lost_questions": [],
+    "recovered_facts": 3,
+    "lost_facts": 0
+  },
+  {
+    "baseline": "F",
+    "split": "validation",
+    "gained_questions": [
+      "FRESH-VAL-012",
+      "FRESH-VAL-023"
+    ],
+    "lost_questions": [],
+    "recovered_facts": 3,
+    "lost_facts": 0
+  }
+]

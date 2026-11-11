@@ -1,0 +1,17 @@
+{
+  "broken_links": [],
+  "exact_private_question_leaks": [],
+  "independent_review": false,
+  "native_baseline_reproduction": 280,
+  "nemotron_preserved_pages": 512,
+  "package_build": "wheel and sdist passed",
+  "pytest_passed": 291,
+  "pytest_subtests_passed": 15,
+  "ruff_common": "passed",
+  "ruff_experiment": "passed",
+  "selected_trace_counts": {
+    "kure_v3": 280,
+    "snowflake": 280
+  },
+  "self_review": true
+}

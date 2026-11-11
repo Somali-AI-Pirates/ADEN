@@ -1,0 +1,599 @@
+{
+  "all": {
+    "arms": {
+      "baseline": {
+        "calls": {
+          "plan_calls": 0,
+          "rerank_groups": 13,
+          "rerank_pairs": 260,
+          "router_calls": 24,
+          "searches": 13
+        },
+        "evidence": {
+          "candidate_complete": 7,
+          "candidate_facts": 13,
+          "candidate_requests": 13,
+          "expanded_complete": 20,
+          "expanded_facts": 32,
+          "expanded_requests": 32,
+          "final_complete": 19,
+          "final_facts": 31,
+          "final_requests": 31,
+          "page_recall_at_20": 0.4166666666666667,
+          "page_recall_at_8": 0.8958333333333334,
+          "questions": 24,
+          "requests": 36,
+          "required_facts": 36,
+          "role_exact": 4,
+          "role_expected": 24,
+          "role_extra": 19,
+          "role_found": 21,
+          "scored": 24,
+          "target_exact": 17,
+          "target_expected": 24,
+          "target_extra": 0,
+          "target_found": 23
+        },
+        "latency": {
+          "local_ms": {
+            "count": 24,
+            "p50_ms": 259.41934250113263,
+            "p95_ms": 355.3217570975903
+          },
+          "planner_ms": {
+            "count": 24,
+            "p50_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "router_ms": {
+            "count": 24,
+            "p50_ms": 2034.1221260005113,
+            "p95_ms": 2599.4328502478306
+          },
+          "total_ms": {
+            "count": 24,
+            "p50_ms": 2213.7199799999507,
+            "p95_ms": 2615.6906515470837
+          }
+        },
+        "statuses": {
+          "plan_status": {
+            "none": 24
+          },
+          "route": {
+            "hg_search": 9,
+            "lookup": 11,
+            "mixed": 4
+          },
+          "router_status": {
+            "completed": 24
+          }
+        }
+      },
+      "parallel": {
+        "calls": {
+          "plan_calls": 24,
+          "rerank_groups": 42,
+          "rerank_pairs": 636,
+          "router_calls": 24,
+          "searches": 30
+        },
+        "evidence": {
+          "candidate_complete": 8,
+          "candidate_facts": 14,
+          "candidate_requests": 14,
+          "expanded_complete": 20,
+          "expanded_facts": 32,
+          "expanded_requests": 32,
+          "final_complete": 19,
+          "final_facts": 31,
+          "final_requests": 31,
+          "page_recall_at_20": 0.4375,
+          "page_recall_at_8": 0.8958333333333334,
+          "questions": 24,
+          "requests": 36,
+          "required_facts": 36,
+          "role_exact": 4,
+          "role_expected": 24,
+          "role_extra": 19,
+          "role_found": 21,
+          "scored": 24,
+          "target_exact": 17,
+          "target_expected": 24,
+          "target_extra": 0,
+          "target_found": 23
+        },
+        "latency": {
+          "local_ms": {
+            "count": 24,
+            "p50_ms": 604.6674885019456,
+            "p95_ms": 993.5954251975998
+          },
+          "planner_ms": {
+            "count": 24,
+            "p50_ms": 2785.40695349875,
+            "p95_ms": 3974.0940195024446
+          },
+          "router_ms": {
+            "count": 24,
+            "p50_ms": 2044.4066805011971,
+            "p95_ms": 2742.546817049515
+          },
+          "total_ms": {
+            "count": 24,
+            "p50_ms": 5134.862013001111,
+            "p95_ms": 6625.415650097601
+          }
+        },
+        "statuses": {
+          "plan_status": {
+            "completed": 24
+          },
+          "route": {
+            "general": 1,
+            "hg_search": 8,
+            "lookup": 11,
+            "mixed": 4
+          },
+          "router_status": {
+            "completed": 24
+          }
+        }
+      }
+    },
+    "hg_scored": 18,
+    "paired_exact_p_two_sided": 1.0,
+    "paired_final_ids": {
+      "+1": [],
+      "-1": []
+    },
+    "questions": 24
+  },
+  "holdout_complex": {
+    "arms": {
+      "baseline": {
+        "calls": {
+          "plan_calls": 0,
+          "rerank_groups": 6,
+          "rerank_pairs": 120,
+          "router_calls": 12,
+          "searches": 6
+        },
+        "evidence": {
+          "candidate_complete": 0,
+          "candidate_facts": 6,
+          "candidate_requests": 6,
+          "expanded_complete": 8,
+          "expanded_facts": 20,
+          "expanded_requests": 20,
+          "final_complete": 7,
+          "final_facts": 19,
+          "final_requests": 19,
+          "page_recall_at_20": 0.25,
+          "page_recall_at_8": 0.7916666666666666,
+          "questions": 12,
+          "requests": 24,
+          "required_facts": 24,
+          "role_exact": 3,
+          "role_expected": 18,
+          "role_extra": 14,
+          "role_found": 16,
+          "scored": 12,
+          "target_exact": 12,
+          "target_expected": 18,
+          "target_extra": 0,
+          "target_found": 18
+        },
+        "latency": {
+          "local_ms": {
+            "count": 12,
+            "p50_ms": 160.71688249940053,
+            "p95_ms": 380.40467784830975
+          },
+          "planner_ms": {
+            "count": 12,
+            "p50_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "router_ms": {
+            "count": 12,
+            "p50_ms": 2082.8633135006385,
+            "p95_ms": 2476.4873887492286
+          },
+          "total_ms": {
+            "count": 12,
+            "p50_ms": 2266.749736498241,
+            "p95_ms": 2558.3255201481734
+          }
+        },
+        "statuses": {
+          "plan_status": {
+            "none": 12
+          },
+          "route": {
+            "hg_search": 2,
+            "lookup": 6,
+            "mixed": 4
+          },
+          "router_status": {
+            "completed": 12
+          }
+        }
+      },
+      "parallel": {
+        "calls": {
+          "plan_calls": 12,
+          "rerank_groups": 22,
+          "rerank_pairs": 320,
+          "router_calls": 12,
+          "searches": 16
+        },
+        "evidence": {
+          "candidate_complete": 1,
+          "candidate_facts": 7,
+          "candidate_requests": 7,
+          "expanded_complete": 8,
+          "expanded_facts": 20,
+          "expanded_requests": 20,
+          "final_complete": 7,
+          "final_facts": 19,
+          "final_requests": 19,
+          "page_recall_at_20": 0.2916666666666667,
+          "page_recall_at_8": 0.7916666666666666,
+          "questions": 12,
+          "requests": 24,
+          "required_facts": 24,
+          "role_exact": 3,
+          "role_expected": 18,
+          "role_extra": 14,
+          "role_found": 16,
+          "scored": 12,
+          "target_exact": 12,
+          "target_expected": 18,
+          "target_extra": 0,
+          "target_found": 18
+        },
+        "latency": {
+          "local_ms": {
+            "count": 12,
+            "p50_ms": 357.73788150072505,
+            "p95_ms": 1013.68943419875
+          },
+          "planner_ms": {
+            "count": 12,
+            "p50_ms": 2928.9250775018445,
+            "p95_ms": 3653.161409799213
+          },
+          "router_ms": {
+            "count": 12,
+            "p50_ms": 1868.4848164994037,
+            "p95_ms": 2202.6833792502657
+          },
+          "total_ms": {
+            "count": 12,
+            "p50_ms": 5265.264157500496,
+            "p95_ms": 6223.631030299292
+          }
+        },
+        "statuses": {
+          "plan_status": {
+            "completed": 12
+          },
+          "route": {
+            "hg_search": 2,
+            "lookup": 6,
+            "mixed": 4
+          },
+          "router_status": {
+            "completed": 12
+          }
+        }
+      }
+    },
+    "hg_scored": 12,
+    "paired_exact_p_two_sided": 1.0,
+    "paired_final_ids": {
+      "+1": [],
+      "-1": []
+    },
+    "questions": 12
+  },
+  "holdout_single": {
+    "arms": {
+      "baseline": {
+        "calls": {
+          "plan_calls": 0,
+          "rerank_groups": 7,
+          "rerank_pairs": 140,
+          "router_calls": 12,
+          "searches": 7
+        },
+        "evidence": {
+          "candidate_complete": 7,
+          "candidate_facts": 7,
+          "candidate_requests": 7,
+          "expanded_complete": 12,
+          "expanded_facts": 12,
+          "expanded_requests": 12,
+          "final_complete": 12,
+          "final_facts": 12,
+          "final_requests": 12,
+          "page_recall_at_20": 0.5833333333333334,
+          "page_recall_at_8": 1.0,
+          "questions": 12,
+          "requests": 12,
+          "required_facts": 12,
+          "role_exact": 1,
+          "role_expected": 6,
+          "role_extra": 5,
+          "role_found": 5,
+          "scored": 12,
+          "target_exact": 5,
+          "target_expected": 6,
+          "target_extra": 0,
+          "target_found": 5
+        },
+        "latency": {
+          "local_ms": {
+            "count": 12,
+            "p50_ms": 259.41934250113263,
+            "p95_ms": 344.66861304754275
+          },
+          "planner_ms": {
+            "count": 12,
+            "p50_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "router_ms": {
+            "count": 12,
+            "p50_ms": 1998.561004998919,
+            "p95_ms": 2901.7207904493257
+          },
+          "total_ms": {
+            "count": 12,
+            "p50_ms": 2036.9287589983287,
+            "p95_ms": 3111.175868447571
+          }
+        },
+        "statuses": {
+          "plan_status": {
+            "none": 12
+          },
+          "route": {
+            "hg_search": 7,
+            "lookup": 5
+          },
+          "router_status": {
+            "completed": 12
+          }
+        }
+      },
+      "parallel": {
+        "calls": {
+          "plan_calls": 12,
+          "rerank_groups": 20,
+          "rerank_pairs": 316,
+          "router_calls": 12,
+          "searches": 14
+        },
+        "evidence": {
+          "candidate_complete": 7,
+          "candidate_facts": 7,
+          "candidate_requests": 7,
+          "expanded_complete": 12,
+          "expanded_facts": 12,
+          "expanded_requests": 12,
+          "final_complete": 12,
+          "final_facts": 12,
+          "final_requests": 12,
+          "page_recall_at_20": 0.5833333333333334,
+          "page_recall_at_8": 1.0,
+          "questions": 12,
+          "requests": 12,
+          "required_facts": 12,
+          "role_exact": 1,
+          "role_expected": 6,
+          "role_extra": 5,
+          "role_found": 5,
+          "scored": 12,
+          "target_exact": 5,
+          "target_expected": 6,
+          "target_extra": 0,
+          "target_found": 5
+        },
+        "latency": {
+          "local_ms": {
+            "count": 12,
+            "p50_ms": 604.6674885019456,
+            "p95_ms": 824.7753747473325
+          },
+          "planner_ms": {
+            "count": 12,
+            "p50_ms": 2486.825020001561,
+            "p95_ms": 4040.04001785288
+          },
+          "router_ms": {
+            "count": 12,
+            "p50_ms": 2148.89674150254,
+            "p95_ms": 3064.588820999415
+          },
+          "total_ms": {
+            "count": 12,
+            "p50_ms": 5022.248540999499,
+            "p95_ms": 6595.104216701475
+          }
+        },
+        "statuses": {
+          "plan_status": {
+            "completed": 12
+          },
+          "route": {
+            "general": 1,
+            "hg_search": 6,
+            "lookup": 5
+          },
+          "router_status": {
+            "completed": 12
+          }
+        }
+      }
+    },
+    "hg_scored": 6,
+    "paired_exact_p_two_sided": 1.0,
+    "paired_final_ids": {
+      "+1": [],
+      "-1": []
+    },
+    "questions": 12
+  },
+  "same_route": {
+    "arms": {
+      "baseline": {
+        "calls": {
+          "plan_calls": 0,
+          "rerank_groups": 13,
+          "rerank_pairs": 260,
+          "router_calls": 24,
+          "searches": 13
+        },
+        "evidence": {
+          "candidate_complete": 7,
+          "candidate_facts": 13,
+          "candidate_requests": 13,
+          "expanded_complete": 20,
+          "expanded_facts": 32,
+          "expanded_requests": 32,
+          "final_complete": 19,
+          "final_facts": 31,
+          "final_requests": 31,
+          "page_recall_at_20": 0.4166666666666667,
+          "page_recall_at_8": 0.8958333333333334,
+          "questions": 24,
+          "requests": 36,
+          "required_facts": 36,
+          "role_exact": 4,
+          "role_expected": 24,
+          "role_extra": 19,
+          "role_found": 21,
+          "scored": 24,
+          "target_exact": 17,
+          "target_expected": 24,
+          "target_extra": 0,
+          "target_found": 23
+        },
+        "latency": {
+          "local_ms": {
+            "count": 24,
+            "p50_ms": 259.41934250113263,
+            "p95_ms": 355.3217570975903
+          },
+          "planner_ms": {
+            "count": 24,
+            "p50_ms": 0.0,
+            "p95_ms": 0.0
+          },
+          "router_ms": {
+            "count": 24,
+            "p50_ms": 2034.1221260005113,
+            "p95_ms": 2599.4328502478306
+          },
+          "total_ms": {
+            "count": 24,
+            "p50_ms": 2213.7199799999507,
+            "p95_ms": 2615.6906515470837
+          }
+        },
+        "statuses": {
+          "plan_status": {
+            "none": 24
+          },
+          "route": {
+            "hg_search": 9,
+            "lookup": 11,
+            "mixed": 4
+          },
+          "router_status": {
+            "completed": 24
+          }
+        }
+      },
+      "parallel": {
+        "calls": {
+          "plan_calls": 24,
+          "rerank_groups": 42,
+          "rerank_pairs": 636,
+          "router_calls": 24,
+          "searches": 30
+        },
+        "evidence": {
+          "candidate_complete": 8,
+          "candidate_facts": 14,
+          "candidate_requests": 14,
+          "expanded_complete": 20,
+          "expanded_facts": 32,
+          "expanded_requests": 32,
+          "final_complete": 19,
+          "final_facts": 31,
+          "final_requests": 31,
+          "page_recall_at_20": 0.4375,
+          "page_recall_at_8": 0.8958333333333334,
+          "questions": 24,
+          "requests": 36,
+          "required_facts": 36,
+          "role_exact": 4,
+          "role_expected": 24,
+          "role_extra": 19,
+          "role_found": 21,
+          "scored": 24,
+          "target_exact": 17,
+          "target_expected": 24,
+          "target_extra": 0,
+          "target_found": 23
+        },
+        "latency": {
+          "local_ms": {
+            "count": 24,
+            "p50_ms": 604.6674885019456,
+            "p95_ms": 993.5954251975998
+          },
+          "planner_ms": {
+            "count": 24,
+            "p50_ms": 2785.40695349875,
+            "p95_ms": 3974.0940195024446
+          },
+          "router_ms": {
+            "count": 24,
+            "p50_ms": 2044.4066805011971,
+            "p95_ms": 2742.546817049515
+          },
+          "total_ms": {
+            "count": 24,
+            "p50_ms": 5134.862013001111,
+            "p95_ms": 6625.415650097601
+          }
+        },
+        "statuses": {
+          "plan_status": {
+            "completed": 24
+          },
+          "route": {
+            "general": 1,
+            "hg_search": 8,
+            "lookup": 11,
+            "mixed": 4
+          },
+          "router_status": {
+            "completed": 24
+          }
+        }
+      }
+    },
+    "hg_scored": 18,
+    "paired_exact_p_two_sided": 1.0,
+    "paired_final_ids": {
+      "+1": [],
+      "-1": []
+    },
+    "questions": 24
+  }
+}

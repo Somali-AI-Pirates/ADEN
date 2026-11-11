@@ -1,0 +1,5818 @@
+[
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-01",
+    "initial": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "improved"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-02",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-03",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-06",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-08",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-09",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-10",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-11",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-12",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-13",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "improved"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-14",
+    "initial": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "regressed"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-15",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-16",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-17",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-18",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-19",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-20",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-21",
+    "initial": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "improved"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-22",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-23",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-24",
+    "initial": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-25",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-26",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-27",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-28",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-29",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-30",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-31",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-32",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-33",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-34",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-35",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-36",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-37",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-38",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-39",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "semantic_planned",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-40",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV01",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV02",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV03",
+    "initial": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "improved"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV04",
+    "initial": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV06",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV08",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV09",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV10",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV11",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "category": "official_development",
+    "experiment": "regression",
+    "id": "official_development:AS-DEV12",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV13",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV14",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV15",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV16",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV17",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV18",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV19",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV20",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV21",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV22",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV23",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV24",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV25",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_development:AS-DEV26",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV27",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV28",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV29",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_development",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_development:AS-DEV30",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD01",
+    "initial": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD02",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD03",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD05",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD06",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD08",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD09",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD10",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD11",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "category": "official_additional",
+    "experiment": "regression",
+    "id": "official_additional:AS-ADD12",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD13",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD14",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD15",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD16",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD17",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD18",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD19",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD20",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD21",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD22",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD23",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD24",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD25",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD26",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD27",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD28",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "official_additional:AS-ADD29",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "official_additional",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "official_additional:AS-ADD30",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-01",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-02",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-03",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-06",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-08",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-09",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-10",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-11",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-12",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-13",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-14",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-15",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-16",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-17",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-18",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-19",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S01",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S01-20",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-01",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-02",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-03",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-06",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-08",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-09",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-10",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-11",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-12",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-13",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-14",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-15",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-16",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-17",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-18",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-19",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S02",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S02-20",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-01",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-02",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-03",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-06",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-08",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-09",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-10",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-11",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-12",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-13",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-14",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-15",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-16",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-17",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-18",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-19",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S03",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S03-20",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-01",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-02",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-03",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-06",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-08",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-09",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-10",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-11",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-12",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-13",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-14",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-15",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-16",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-17",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-18",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-19",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S04",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S04-20",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-01",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-02",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-03",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-06",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-08",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-09",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-10",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-11",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-12",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-13",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-14",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-15",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-16",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-17",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-18",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-19",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S05",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S05-20",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-01",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-02",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-03",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-04",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-05",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-06",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-07",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-08",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-09",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-10",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-11",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-12",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-13",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-14",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-15",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-16",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-17",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-18",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-19",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S06",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S06-20",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-01",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-02",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-03",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-06",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-08",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-09",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-10",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-11",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-12",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-13",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-14",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-15",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-16",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-17",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-18",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-19",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "S07",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "scenarios:AS-S07-20",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-01",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-02",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-03",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-04",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-05",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-06",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-07",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-08",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-09",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/unrelated",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-10",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-11",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-12",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-13",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-14",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-15",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-16",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-17",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-18",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-19",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "category": "negative_control/near_domain",
+    "experiment": "regression",
+    "id": "negative_control:AS-S08-20",
+    "scored": false,
+    "status": "not_scored"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-01",
+    "initial": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "improved"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-02",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-03",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-06",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-08",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-09",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/procedure",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-10",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-11",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "work_rules:AS-WR-12",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-13",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-14",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-15",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-16",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-17",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-18",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "work_rules:AS-WR-19",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "work_rules/applicability",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "work_rules:AS-WR-20",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-01",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-02",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-03",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-04",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-05",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-06",
+    "initial": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "improved"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-07",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-08",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-09",
+    "initial": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "regressed"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/procedure_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-10",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-11",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-12",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-13",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-14",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-15",
+    "initial": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "improved"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-16",
+    "initial": {
+      "control": 0,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "improved"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-17",
+    "initial": {
+      "control": 1,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "regressed"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-18",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-19",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-20",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-21",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-22",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-23",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-24",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-25",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-26",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-27",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-28",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-29",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-30",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-31",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-32",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-33",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-34",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-35",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-36",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "id": "semantic_queries:AS-SEM-37",
+    "initial": {
+      "control": 1,
+      "is_windows": 1
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-38",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-39",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  },
+  {
+    "available": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "experiment": "regression",
+    "final": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "id": "semantic_queries:AS-SEM-40",
+    "initial": {
+      "control": 0,
+      "is_windows": 0
+    },
+    "scored": true,
+    "status": "unchanged"
+  }
+]

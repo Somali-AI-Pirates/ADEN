@@ -1,0 +1,17 @@
+{
+  "questions": 280,
+  "initial_pools_identical": 280,
+  "post_lookup_order_identical": 280,
+  "final_contexts_identical": 280,
+  "default_tokenizer": {
+    "base_terms": "unchanged original bigram tokenizer",
+    "identifier_pattern": "(?<![A-Za-z0-9])[A-Za-z][A-Za-z0-9]{0,6}(?:[ \\t]*[-‐‑–—−－][ \\t]*[A-Za-z0-9]{1,8}){1,4}(?![A-Za-z0-9])",
+    "normalization": "lowercase, equivalent dashes, horizontal spaces around dash",
+    "tokenizer": "bigram-id-normalized"
+  },
+  "new_run": "artifacts/u_10o0o/advanced-normalized-baseline-20261111/default-v1",
+  "new_manifest_sha256": "4c8126ec509a0dd85faf8df306d59d7be943390c2c356531da3ad7a188284eb1",
+  "previous_normalized_run": "artifacts/u_10o0o/advanced-bm25-code-normalization-20261111/run-v1",
+  "previous_manifest_sha256": "9d905c46144b25eae3eca09c3738495c1cd9cb91ebbdb204b9eee294045d070e",
+  "question_bytes_identical": true
+}

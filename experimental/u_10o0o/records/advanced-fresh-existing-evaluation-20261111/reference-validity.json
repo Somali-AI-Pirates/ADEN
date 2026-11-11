@@ -1,0 +1,29 @@
+{
+  "scope": "reference source validity only; no score or policy edits",
+  "categories": {
+    "questions": 200,
+    "requirements": 395,
+    "valid_requirements": 395,
+    "invalid_items": []
+  },
+  "official": {
+    "questions_with_sources": 58,
+    "groups": 184,
+    "valid_page_groups": 184,
+    "valid_quote_groups": 182,
+    "quote_mismatch_items": [
+      {
+        "id": "AS-DEV02",
+        "group_indices": [
+          5
+        ]
+      },
+      {
+        "id": "AS-DEV06",
+        "group_indices": [
+          2
+        ]
+      }
+    ]
+  }
+}

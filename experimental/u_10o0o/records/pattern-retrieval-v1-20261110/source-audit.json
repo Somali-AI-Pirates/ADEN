@@ -1,0 +1,43 @@
+{
+  "source": "120 original Advanced PDFs; fresh Poppler layout; no previous curation, results or evaluation",
+  "total_pages": 18000,
+  "page_layout_and_footer_valid": 18000,
+  "typed_record_title_pages": 14250,
+  "unscoped_pipe_heading_pages": 3750,
+  "record_families": {
+    "HG": {
+      "cases": 2730,
+      "pages": 13650,
+      "roles_per_case": 5,
+      "roles": {
+        "현장 사건 수신대장": 2730,
+        "수납 및 미결 인계": 2730,
+        "비용 청구 명세": 2730,
+        "비용 조건 약정": 2730,
+        "계약 조건 대조 회신": 2730
+      }
+    },
+    "HA": {
+      "cases": 198,
+      "pages": 594,
+      "roles_per_case": 3
+    },
+    "SW": {
+      "cases": 1,
+      "pages": 3,
+      "roles_per_case": 3
+    },
+    "DL": {
+      "cases": 1,
+      "pages": 3,
+      "roles_per_case": 3
+    }
+  },
+  "record_pages_with_competing_body_case": 0,
+  "unscoped_pages_containing_case_codes": 3252,
+  "files_mixing_record_and_general_pages": 50,
+  "scope_rule": "Use explicit page title grammar, never file ranges or body-only code co-occurrence.",
+  "secondary_title_code": "Preserve as metadata; co-occurrence alone does not prove an alias or a unique record ID.",
+  "common_rules": "Repeated clauses alone do not establish matching scope, effect and exceptions. No strict global common-rule merge was independently justified.",
+  "author_review": "Independent source audit agent; source PDFs and generic layout helper only."
+}

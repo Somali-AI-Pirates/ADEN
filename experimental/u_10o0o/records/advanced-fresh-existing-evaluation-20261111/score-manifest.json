@@ -1,0 +1,74 @@
+{
+  "format": "existing-advanced-score-v1",
+  "question_sha256": "b9c7486b7949884a43347723034086eace0f21b0217399d128d870d7af8cf791",
+  "results_sha256": "04d6158bef79794c7c44a3f7ac49fbb3cf206aad5eba2defd1000f49f54485f0",
+  "pages_sha256": "bb2fd92104c0983898fb23b3410ed1bdecc0e3c4899f82f4e10027737403d709",
+  "reference_files": [
+    {
+      "suite": "official/development",
+      "path": "data/advanced/evaluation/development.json",
+      "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+    },
+    {
+      "suite": "official/additional",
+      "path": "data/advanced/evaluation/additional.json",
+      "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+    },
+    {
+      "suite": "categories/scenarios",
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_references.json",
+      "sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309"
+    },
+    {
+      "suite": "categories/work_rules",
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/references.json",
+      "sha256": "2de9b0da7f1f052c912716d3eb5132653a81e44e8288403a329f49a3772fa280"
+    },
+    {
+      "suite": "categories/semantic_queries",
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a"
+    },
+    {
+      "suite": "categories/negative_control",
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_references.json",
+      "sha256": "100ec141d87ab3dba5878af0ecacecd192f1bb5c3092917f57d0cbe63221d466"
+    }
+  ],
+  "question_count": 280,
+  "result_rows": 1120,
+  "conditions": [
+    "E",
+    "E_coverage",
+    "F",
+    "F_coverage"
+  ],
+  "summary_groups": [
+    "all_280",
+    "categories_160",
+    "categories_180",
+    "categories_220",
+    "category_positive_200",
+    "negative/near_domain",
+    "negative/unrelated",
+    "negative_controls_20",
+    "official/additional",
+    "official/development",
+    "official_60",
+    "official_scoreable",
+    "scenario/S01",
+    "scenario/S02",
+    "scenario/S03",
+    "scenario/S04",
+    "scenario/S05",
+    "scenario/S06",
+    "scenario/S07",
+    "semantic/cross_document_rule",
+    "semantic/cross_document_workflow",
+    "semantic/procedure_paraphrase",
+    "semantic/rule_paraphrase",
+    "work_rules/applicability",
+    "work_rules/procedure"
+  ],
+  "external_api_calls": 0
+}

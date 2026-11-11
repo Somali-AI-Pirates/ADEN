@@ -1,0 +1,28 @@
+{
+  "ruff": "passed",
+  "format": "passed",
+  "tests": {
+    "passed": 225,
+    "subtests": 9,
+    "scope": [
+      "tests",
+      "pattern_retrieval/tests",
+      "test_advanced_semantic_ab.py",
+      "test_advanced_is_windows.py"
+    ]
+  },
+  "package_build": "sdist and wheel passed",
+  "review": "independent semantic audit and implementation review; identified boundary/integrity issues resolved",
+  "actual_ab": {
+    "status": "passed",
+    "saved_results": 640,
+    "paired_comparisons": 320,
+    "archive_replay": 40,
+    "query_rank_replay": 86,
+    "references_opened_after_all_results": true,
+    "external_api_calls": 0
+  },
+  "report": "passed: generated actual report; independent numeric and privacy review; denominator and cross-query rank scope clarified; source formatting/lint passed",
+  "links_and_json": "passed",
+  "report_code": "isolated Ruff E4/E7/E9/F/I, format and actual CLI passed"
+}

@@ -1,0 +1,690 @@
+[
+  {
+    "id": "AS-S05-01",
+    "condition": "E",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS102:020",
+      "AS067:015",
+      "AS105:020",
+      "AS012:099",
+      "AS120:143",
+      "AS120:138",
+      "AS101:020",
+      "AS077:089"
+    ],
+    "after": [
+      "AS102:020",
+      "AS067:015",
+      "AS105:020",
+      "AS012:099",
+      "AS120:143",
+      "AS120:138",
+      "AS101:020",
+      "AS103:020"
+    ],
+    "added": [
+      "AS103:020"
+    ],
+    "removed": [
+      "AS077:089"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-01",
+    "condition": "F",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS102:020",
+      "AS067:015",
+      "AS105:020",
+      "AS012:099",
+      "AS120:143",
+      "AS120:138",
+      "AS101:020",
+      "AS077:089"
+    ],
+    "after": [
+      "AS102:020",
+      "AS067:015",
+      "AS105:020",
+      "AS012:099",
+      "AS120:143",
+      "AS120:138",
+      "AS101:020",
+      "AS103:020"
+    ],
+    "added": [
+      "AS103:020"
+    ],
+    "removed": [
+      "AS077:089"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-02",
+    "condition": "E",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS108:096",
+      "AS098:116",
+      "AS103:106",
+      "AS039:137",
+      "AS111:096",
+      "AS098:121",
+      "AS032:099",
+      "AS107:096"
+    ],
+    "after": [
+      "AS108:096",
+      "AS098:116",
+      "AS103:106",
+      "AS039:137",
+      "AS111:096",
+      "AS098:121",
+      "AS032:099",
+      "AS109:096"
+    ],
+    "added": [
+      "AS109:096"
+    ],
+    "removed": [
+      "AS107:096"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-02",
+    "condition": "F",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS108:096",
+      "AS098:116",
+      "AS103:106",
+      "AS039:137",
+      "AS111:096",
+      "AS098:121",
+      "AS032:099",
+      "AS107:096"
+    ],
+    "after": [
+      "AS108:096",
+      "AS098:116",
+      "AS103:106",
+      "AS039:137",
+      "AS111:096",
+      "AS098:121",
+      "AS032:099",
+      "AS109:096"
+    ],
+    "added": [
+      "AS109:096"
+    ],
+    "removed": [
+      "AS107:096"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-03",
+    "condition": "E",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS098:126",
+      "AS097:126",
+      "AS101:126",
+      "AS117:068",
+      "AS052:118",
+      "AS119:082",
+      "AS098:116",
+      "AS032:099"
+    ],
+    "after": [
+      "AS098:126",
+      "AS097:126",
+      "AS101:126",
+      "AS117:068",
+      "AS052:118",
+      "AS119:082",
+      "AS098:116",
+      "AS099:126"
+    ],
+    "added": [
+      "AS099:126"
+    ],
+    "removed": [
+      "AS032:099"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-03",
+    "condition": "F",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS098:126",
+      "AS097:126",
+      "AS101:126",
+      "AS117:068",
+      "AS119:082",
+      "AS052:093",
+      "AS072:011",
+      "AS098:121"
+    ],
+    "after": [
+      "AS098:126",
+      "AS097:126",
+      "AS101:126",
+      "AS117:068",
+      "AS119:082",
+      "AS052:093",
+      "AS072:011",
+      "AS099:126"
+    ],
+    "added": [
+      "AS099:126"
+    ],
+    "removed": [
+      "AS098:121"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-04",
+    "condition": "E",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS032:140",
+      "AS021:133",
+      "AS067:028",
+      "AS035:145",
+      "AS080:133",
+      "AS031:150",
+      "AS032:092",
+      "AS100:128"
+    ],
+    "after": [
+      "AS032:140",
+      "AS021:133",
+      "AS067:028",
+      "AS035:145",
+      "AS080:133",
+      "AS031:150",
+      "AS032:092",
+      "AS033:150"
+    ],
+    "added": [
+      "AS033:150"
+    ],
+    "removed": [
+      "AS100:128"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-04",
+    "condition": "F",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS032:140",
+      "AS021:133",
+      "AS067:028",
+      "AS035:145",
+      "AS080:133",
+      "AS031:150",
+      "AS032:092",
+      "AS100:128"
+    ],
+    "after": [
+      "AS032:140",
+      "AS021:133",
+      "AS067:028",
+      "AS035:145",
+      "AS080:133",
+      "AS031:150",
+      "AS032:092",
+      "AS033:150"
+    ],
+    "added": [
+      "AS033:150"
+    ],
+    "removed": [
+      "AS100:128"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-05",
+    "condition": "E",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS097:003",
+      "AS077:043",
+      "AS118:116",
+      "AS064:097",
+      "AS096:003",
+      "AS100:003",
+      "AS099:063",
+      "AS080:133"
+    ],
+    "after": [
+      "AS097:003",
+      "AS077:043",
+      "AS118:116",
+      "AS064:097",
+      "AS096:003",
+      "AS100:003",
+      "AS099:063",
+      "AS098:003"
+    ],
+    "added": [
+      "AS098:003"
+    ],
+    "removed": [
+      "AS080:133"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-05",
+    "condition": "F",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS097:003",
+      "AS007:087",
+      "AS118:116",
+      "AS064:097",
+      "AS096:003",
+      "AS100:003",
+      "AS099:063",
+      "AS080:133"
+    ],
+    "after": [
+      "AS097:003",
+      "AS007:087",
+      "AS118:116",
+      "AS064:097",
+      "AS096:003",
+      "AS100:003",
+      "AS099:063",
+      "AS098:003"
+    ],
+    "added": [
+      "AS098:003"
+    ],
+    "removed": [
+      "AS080:133"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-06",
+    "condition": "E",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS057:040",
+      "AS056:100",
+      "AS042:115",
+      "AS060:040",
+      "AS017:105",
+      "AS058:131",
+      "AS078:096",
+      "AS078:059"
+    ],
+    "after": [
+      "AS057:040",
+      "AS056:100",
+      "AS042:115",
+      "AS060:040",
+      "AS017:105",
+      "AS058:131",
+      "AS078:096",
+      "AS058:040"
+    ],
+    "added": [
+      "AS058:040"
+    ],
+    "removed": [
+      "AS078:059"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-06",
+    "condition": "F",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS057:040",
+      "AS056:100",
+      "AS042:115",
+      "AS060:040",
+      "AS017:105",
+      "AS058:131",
+      "AS078:096",
+      "AS078:059"
+    ],
+    "after": [
+      "AS057:040",
+      "AS056:100",
+      "AS042:115",
+      "AS060:040",
+      "AS017:105",
+      "AS058:131",
+      "AS078:096",
+      "AS058:040"
+    ],
+    "added": [
+      "AS058:040"
+    ],
+    "removed": [
+      "AS078:059"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-07",
+    "condition": "E",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS082:007",
+      "AS071:134",
+      "AS076:119",
+      "AS071:119",
+      "AS007:075",
+      "AS022:102",
+      "AS027:119",
+      "AS081:007"
+    ],
+    "after": [
+      "AS082:007",
+      "AS071:134",
+      "AS076:119",
+      "AS071:119",
+      "AS007:075",
+      "AS022:102",
+      "AS027:119",
+      "AS083:007"
+    ],
+    "added": [
+      "AS083:007"
+    ],
+    "removed": [
+      "AS081:007"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-07",
+    "condition": "F",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS082:007",
+      "AS071:134",
+      "AS076:119",
+      "AS071:139",
+      "AS007:075",
+      "AS022:102",
+      "AS081:007",
+      "AS085:007"
+    ],
+    "after": [
+      "AS082:007",
+      "AS071:134",
+      "AS076:119",
+      "AS071:139",
+      "AS007:075",
+      "AS022:102",
+      "AS081:007",
+      "AS083:007"
+    ],
+    "added": [
+      "AS083:007"
+    ],
+    "removed": [
+      "AS085:007"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-08",
+    "condition": "E",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS112:030",
+      "AS102:066",
+      "AS105:057",
+      "AS075:113",
+      "AS111:030",
+      "AS029:142",
+      "AS037:103",
+      "AS099:063"
+    ],
+    "after": [
+      "AS112:030",
+      "AS102:066",
+      "AS105:057",
+      "AS075:113",
+      "AS111:030",
+      "AS029:142",
+      "AS037:103",
+      "AS113:030"
+    ],
+    "added": [
+      "AS113:030"
+    ],
+    "removed": [
+      "AS099:063"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  },
+  {
+    "id": "AS-S05-08",
+    "condition": "F",
+    "category": "scenario/S05",
+    "roles": [
+      "event",
+      "reconciliation"
+    ],
+    "before": [
+      "AS112:030",
+      "AS102:066",
+      "AS105:057",
+      "AS075:113",
+      "AS111:030",
+      "AS029:142",
+      "AS037:103",
+      "AS099:063"
+    ],
+    "after": [
+      "AS112:030",
+      "AS102:066",
+      "AS105:057",
+      "AS075:113",
+      "AS111:030",
+      "AS029:142",
+      "AS037:103",
+      "AS113:030"
+    ],
+    "added": [
+      "AS113:030"
+    ],
+    "removed": [
+      "AS099:063"
+    ],
+    "facts_before": [
+      true,
+      true
+    ],
+    "facts_after": [
+      true,
+      true
+    ]
+  }
+]

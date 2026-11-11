@@ -1,0 +1,185 @@
+{
+  "explicit_hg": {
+    "total": 15,
+    "scored": 15,
+    "pages": 55,
+    "page_classes": {
+      "bm25_only": 45,
+      "vector_only": 0,
+      "both": 10,
+      "neither": 0
+    },
+    "class_survival": {
+      "bm25_only": {
+        "rrf20": 45,
+        "after_hg": 45,
+        "available": 45,
+        "final": 45
+      },
+      "vector_only": {
+        "rrf20": 0,
+        "after_hg": 0,
+        "available": 0,
+        "final": 0
+      },
+      "both": {
+        "rrf20": 10,
+        "after_hg": 10,
+        "available": 10,
+        "final": 10
+      },
+      "neither": {
+        "rrf20": 0,
+        "after_hg": 0,
+        "available": 0,
+        "final": 0
+      }
+    },
+    "matched_pages": {
+      "bm25": 55,
+      "dense": 10,
+      "union": 55,
+      "rrf20": 55,
+      "after_hg": 55,
+      "available": 55,
+      "final": 55
+    },
+    "page_recall_macro": {
+      "bm25": 1.0,
+      "dense": 0.19444444444444445,
+      "union": 1.0,
+      "rrf20": 1.0,
+      "after_hg": 1.0,
+      "available": 1.0,
+      "final": 1.0
+    },
+    "complete": {
+      "bm25": 15,
+      "dense": 0,
+      "union": 15,
+      "rrf20": 15,
+      "after_hg": 15,
+      "available": 15,
+      "final": 15
+    },
+    "required_units": 55,
+    "matched_units": {
+      "bm25": 55,
+      "dense": 10,
+      "union": 55,
+      "rrf20": 55,
+      "after_hg": 55,
+      "available": 55,
+      "final": 55
+    },
+    "whole_question_classes": {
+      "bm25_only": 15,
+      "vector_only": 0,
+      "both": 0,
+      "neither": 0
+    },
+    "complementary_union_complete": 0,
+    "hg_routes": {
+      "explicit_hg": 15
+    },
+    "hg_added_pages": 0,
+    "hg_dropped_pages": 0,
+    "hg_added_gold": 0,
+    "hg_dropped_gold": 0,
+    "all_lookup_added_gold": 0,
+    "all_lookup_dropped_gold": 0,
+    "query_count": 15
+  },
+  "without_explicit_hg": {
+    "total": 45,
+    "scored": 43,
+    "pages": 115,
+    "page_classes": {
+      "bm25_only": 33,
+      "vector_only": 7,
+      "both": 57,
+      "neither": 18
+    },
+    "class_survival": {
+      "bm25_only": {
+        "rrf20": 30,
+        "after_hg": 30,
+        "available": 30,
+        "final": 18
+      },
+      "vector_only": {
+        "rrf20": 7,
+        "after_hg": 7,
+        "available": 7,
+        "final": 4
+      },
+      "both": {
+        "rrf20": 57,
+        "after_hg": 57,
+        "available": 57,
+        "final": 57
+      },
+      "neither": {
+        "rrf20": 0,
+        "after_hg": 0,
+        "available": 0,
+        "final": 0
+      }
+    },
+    "matched_pages": {
+      "bm25": 90,
+      "dense": 64,
+      "union": 97,
+      "rrf20": 94,
+      "after_hg": 94,
+      "available": 94,
+      "final": 79
+    },
+    "page_recall_macro": {
+      "bm25": 0.746124031007752,
+      "dense": 0.5736434108527132,
+      "union": 0.8081395348837209,
+      "rrf20": 0.7887596899224806,
+      "after_hg": 0.7887596899224806,
+      "available": 0.7887596899224806,
+      "final": 0.689922480620155
+    },
+    "complete": {
+      "bm25": 21,
+      "dense": 10,
+      "union": 26,
+      "rrf20": 24,
+      "after_hg": 24,
+      "available": 24,
+      "final": 17
+    },
+    "required_units": 129,
+    "matched_units": {
+      "bm25": 102,
+      "dense": 77,
+      "union": 110,
+      "rrf20": 107,
+      "after_hg": 107,
+      "available": 107,
+      "final": 92
+    },
+    "whole_question_classes": {
+      "bm25_only": 14,
+      "vector_only": 3,
+      "both": 7,
+      "neither": 19
+    },
+    "complementary_union_complete": 2,
+    "hg_routes": {
+      "missing_terms": 15,
+      "unsupported_constraint": 30
+    },
+    "hg_added_pages": 0,
+    "hg_dropped_pages": 0,
+    "hg_added_gold": 0,
+    "hg_dropped_gold": 0,
+    "all_lookup_added_gold": 0,
+    "all_lookup_dropped_gold": 0,
+    "query_count": 45
+  }
+}

@@ -1,0 +1,1203 @@
+{
+  "regression": {
+    "official_development": {
+      "total": 30,
+      "scored": 29,
+      "pages": 86,
+      "page_classes": {
+        "bm25_only": 41,
+        "vector_only": 6,
+        "both": 32,
+        "neither": 7
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 40,
+          "after_hg": 40,
+          "available": 40,
+          "final": 35
+        },
+        "vector_only": {
+          "rrf20": 6,
+          "after_hg": 6,
+          "available": 6,
+          "final": 3
+        },
+        "both": {
+          "rrf20": 32,
+          "after_hg": 32,
+          "available": 32,
+          "final": 32
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 73,
+        "dense": 38,
+        "union": 79,
+        "rrf20": 78,
+        "after_hg": 78,
+        "available": 78,
+        "final": 70
+      },
+      "page_recall_macro": {
+        "bm25": 0.82183908045977,
+        "dense": 0.49712643678160917,
+        "union": 0.896551724137931,
+        "rrf20": 0.8879310344827587,
+        "after_hg": 0.8879310344827587,
+        "available": 0.8879310344827587,
+        "final": 0.8132183908045977
+      },
+      "complete": {
+        "bm25": 18,
+        "dense": 6,
+        "union": 22,
+        "rrf20": 21,
+        "after_hg": 21,
+        "available": 21,
+        "final": 18
+      },
+      "required_units": 93,
+      "matched_units": {
+        "bm25": 79,
+        "dense": 45,
+        "union": 86,
+        "rrf20": 85,
+        "after_hg": 85,
+        "available": 85,
+        "final": 77
+      },
+      "whole_question_classes": {
+        "bm25_only": 14,
+        "vector_only": 2,
+        "both": 4,
+        "neither": 9
+      },
+      "complementary_union_complete": 2,
+      "hg_routes": {
+        "missing_terms": 8,
+        "unsupported_constraint": 15,
+        "explicit_hg": 7
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 30
+    },
+    "official_all": {
+      "total": 60,
+      "scored": 58,
+      "pages": 170,
+      "page_classes": {
+        "bm25_only": 78,
+        "vector_only": 7,
+        "both": 67,
+        "neither": 18
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 75,
+          "after_hg": 75,
+          "available": 75,
+          "final": 63
+        },
+        "vector_only": {
+          "rrf20": 7,
+          "after_hg": 7,
+          "available": 7,
+          "final": 4
+        },
+        "both": {
+          "rrf20": 67,
+          "after_hg": 67,
+          "available": 67,
+          "final": 67
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 145,
+        "dense": 74,
+        "union": 152,
+        "rrf20": 149,
+        "after_hg": 149,
+        "available": 149,
+        "final": 134
+      },
+      "page_recall_macro": {
+        "bm25": 0.8117816091954023,
+        "dense": 0.4755747126436781,
+        "union": 0.8577586206896551,
+        "rrf20": 0.8433908045977011,
+        "after_hg": 0.8433908045977011,
+        "available": 0.8433908045977011,
+        "final": 0.7701149425287356
+      },
+      "complete": {
+        "bm25": 36,
+        "dense": 10,
+        "union": 41,
+        "rrf20": 39,
+        "after_hg": 39,
+        "available": 39,
+        "final": 32
+      },
+      "required_units": 184,
+      "matched_units": {
+        "bm25": 157,
+        "dense": 87,
+        "union": 165,
+        "rrf20": 162,
+        "after_hg": 162,
+        "available": 162,
+        "final": 147
+      },
+      "whole_question_classes": {
+        "bm25_only": 29,
+        "vector_only": 3,
+        "both": 7,
+        "neither": 19
+      },
+      "complementary_union_complete": 2,
+      "hg_routes": {
+        "missing_terms": 15,
+        "unsupported_constraint": 30,
+        "explicit_hg": 15
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 60
+    },
+    "official_additional": {
+      "total": 30,
+      "scored": 29,
+      "pages": 84,
+      "page_classes": {
+        "bm25_only": 37,
+        "vector_only": 1,
+        "both": 35,
+        "neither": 11
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 35,
+          "after_hg": 35,
+          "available": 35,
+          "final": 28
+        },
+        "vector_only": {
+          "rrf20": 1,
+          "after_hg": 1,
+          "available": 1,
+          "final": 1
+        },
+        "both": {
+          "rrf20": 35,
+          "after_hg": 35,
+          "available": 35,
+          "final": 35
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 72,
+        "dense": 36,
+        "union": 73,
+        "rrf20": 71,
+        "after_hg": 71,
+        "available": 71,
+        "final": 64
+      },
+      "page_recall_macro": {
+        "bm25": 0.8017241379310345,
+        "dense": 0.4540229885057471,
+        "union": 0.8189655172413793,
+        "rrf20": 0.7988505747126438,
+        "after_hg": 0.7988505747126438,
+        "available": 0.7988505747126438,
+        "final": 0.7270114942528735
+      },
+      "complete": {
+        "bm25": 18,
+        "dense": 4,
+        "union": 19,
+        "rrf20": 18,
+        "after_hg": 18,
+        "available": 18,
+        "final": 14
+      },
+      "required_units": 91,
+      "matched_units": {
+        "bm25": 78,
+        "dense": 42,
+        "union": 79,
+        "rrf20": 77,
+        "after_hg": 77,
+        "available": 77,
+        "final": 70
+      },
+      "whole_question_classes": {
+        "bm25_only": 15,
+        "vector_only": 1,
+        "both": 3,
+        "neither": 10
+      },
+      "complementary_union_complete": 0,
+      "hg_routes": {
+        "missing_terms": 7,
+        "unsupported_constraint": 15,
+        "explicit_hg": 8
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 30
+    },
+    "procedure_paraphrase": {
+      "total": 10,
+      "scored": 10,
+      "pages": 10,
+      "page_classes": {
+        "bm25_only": 1,
+        "vector_only": 3,
+        "both": 2,
+        "neither": 4
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 1,
+          "after_hg": 1,
+          "available": 1,
+          "final": 1
+        },
+        "vector_only": {
+          "rrf20": 3,
+          "after_hg": 3,
+          "available": 3,
+          "final": 3
+        },
+        "both": {
+          "rrf20": 2,
+          "after_hg": 2,
+          "available": 2,
+          "final": 2
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 3,
+        "dense": 5,
+        "union": 6,
+        "rrf20": 6,
+        "after_hg": 6,
+        "available": 6,
+        "final": 6
+      },
+      "page_recall_macro": {
+        "bm25": 0.3,
+        "dense": 0.5,
+        "union": 0.6,
+        "rrf20": 0.6,
+        "after_hg": 0.6,
+        "available": 0.6,
+        "final": 0.6
+      },
+      "complete": {
+        "bm25": 3,
+        "dense": 5,
+        "union": 6,
+        "rrf20": 6,
+        "after_hg": 6,
+        "available": 6,
+        "final": 6
+      },
+      "required_units": 10,
+      "matched_units": {
+        "bm25": 3,
+        "dense": 5,
+        "union": 6,
+        "rrf20": 6,
+        "after_hg": 6,
+        "available": 6,
+        "final": 6
+      },
+      "whole_question_classes": {
+        "bm25_only": 1,
+        "vector_only": 3,
+        "both": 2,
+        "neither": 4
+      },
+      "complementary_union_complete": 0,
+      "hg_routes": {
+        "missing_terms": 10
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 10
+    },
+    "semantic_all": {
+      "total": 40,
+      "scored": 40,
+      "pages": 61,
+      "page_classes": {
+        "bm25_only": 8,
+        "vector_only": 16,
+        "both": 10,
+        "neither": 27
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 5,
+          "after_hg": 5,
+          "available": 5,
+          "final": 4
+        },
+        "vector_only": {
+          "rrf20": 14,
+          "after_hg": 14,
+          "available": 14,
+          "final": 12
+        },
+        "both": {
+          "rrf20": 10,
+          "after_hg": 10,
+          "available": 10,
+          "final": 10
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 18,
+        "dense": 26,
+        "union": 34,
+        "rrf20": 29,
+        "after_hg": 29,
+        "available": 29,
+        "final": 26
+      },
+      "page_recall_macro": {
+        "bm25": 0.2833333333333333,
+        "dense": 0.4458333333333333,
+        "union": 0.5583333333333333,
+        "rrf20": 0.4958333333333333,
+        "after_hg": 0.4958333333333333,
+        "available": 0.4958333333333333,
+        "final": 0.4458333333333333
+      },
+      "complete": {
+        "bm25": 8,
+        "dense": 12,
+        "union": 17,
+        "rrf20": 14,
+        "after_hg": 14,
+        "available": 14,
+        "final": 13
+      },
+      "required_units": 62,
+      "matched_units": {
+        "bm25": 18,
+        "dense": 26,
+        "union": 34,
+        "rrf20": 29,
+        "after_hg": 29,
+        "available": 29,
+        "final": 26
+      },
+      "whole_question_classes": {
+        "bm25_only": 4,
+        "vector_only": 8,
+        "both": 4,
+        "neither": 24
+      },
+      "complementary_union_complete": 1,
+      "hg_routes": {
+        "missing_terms": 32,
+        "unsupported_constraint": 8
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 40
+    },
+    "rule_paraphrase": {
+      "total": 10,
+      "scored": 10,
+      "pages": 10,
+      "page_classes": {
+        "bm25_only": 0,
+        "vector_only": 3,
+        "both": 2,
+        "neither": 5
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        },
+        "vector_only": {
+          "rrf20": 3,
+          "after_hg": 3,
+          "available": 3,
+          "final": 2
+        },
+        "both": {
+          "rrf20": 2,
+          "after_hg": 2,
+          "available": 2,
+          "final": 2
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 2,
+        "dense": 5,
+        "union": 5,
+        "rrf20": 5,
+        "after_hg": 5,
+        "available": 5,
+        "final": 4
+      },
+      "page_recall_macro": {
+        "bm25": 0.2,
+        "dense": 0.5,
+        "union": 0.5,
+        "rrf20": 0.5,
+        "after_hg": 0.5,
+        "available": 0.5,
+        "final": 0.4
+      },
+      "complete": {
+        "bm25": 2,
+        "dense": 5,
+        "union": 5,
+        "rrf20": 5,
+        "after_hg": 5,
+        "available": 5,
+        "final": 4
+      },
+      "required_units": 11,
+      "matched_units": {
+        "bm25": 2,
+        "dense": 5,
+        "union": 5,
+        "rrf20": 5,
+        "after_hg": 5,
+        "available": 5,
+        "final": 4
+      },
+      "whole_question_classes": {
+        "bm25_only": 0,
+        "vector_only": 3,
+        "both": 2,
+        "neither": 5
+      },
+      "complementary_union_complete": 0,
+      "hg_routes": {
+        "missing_terms": 8,
+        "unsupported_constraint": 2
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 10
+    },
+    "cross_document_workflow": {
+      "total": 10,
+      "scored": 10,
+      "pages": 20,
+      "page_classes": {
+        "bm25_only": 3,
+        "vector_only": 6,
+        "both": 4,
+        "neither": 7
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 2,
+          "after_hg": 2,
+          "available": 2,
+          "final": 2
+        },
+        "vector_only": {
+          "rrf20": 5,
+          "after_hg": 5,
+          "available": 5,
+          "final": 5
+        },
+        "both": {
+          "rrf20": 4,
+          "after_hg": 4,
+          "available": 4,
+          "final": 4
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 7,
+        "dense": 10,
+        "union": 13,
+        "rrf20": 11,
+        "after_hg": 11,
+        "available": 11,
+        "final": 11
+      },
+      "page_recall_macro": {
+        "bm25": 0.35,
+        "dense": 0.5,
+        "union": 0.65,
+        "rrf20": 0.55,
+        "after_hg": 0.55,
+        "available": 0.55,
+        "final": 0.55
+      },
+      "complete": {
+        "bm25": 2,
+        "dense": 2,
+        "union": 4,
+        "rrf20": 2,
+        "after_hg": 2,
+        "available": 2,
+        "final": 2
+      },
+      "required_units": 20,
+      "matched_units": {
+        "bm25": 7,
+        "dense": 10,
+        "union": 13,
+        "rrf20": 11,
+        "after_hg": 11,
+        "available": 11,
+        "final": 11
+      },
+      "whole_question_classes": {
+        "bm25_only": 2,
+        "vector_only": 2,
+        "both": 0,
+        "neither": 6
+      },
+      "complementary_union_complete": 0,
+      "hg_routes": {
+        "missing_terms": 9,
+        "unsupported_constraint": 1
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 10
+    },
+    "cross_document_rule": {
+      "total": 10,
+      "scored": 10,
+      "pages": 21,
+      "page_classes": {
+        "bm25_only": 4,
+        "vector_only": 4,
+        "both": 2,
+        "neither": 11
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 2,
+          "after_hg": 2,
+          "available": 2,
+          "final": 1
+        },
+        "vector_only": {
+          "rrf20": 3,
+          "after_hg": 3,
+          "available": 3,
+          "final": 2
+        },
+        "both": {
+          "rrf20": 2,
+          "after_hg": 2,
+          "available": 2,
+          "final": 2
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 6,
+        "dense": 6,
+        "union": 10,
+        "rrf20": 7,
+        "after_hg": 7,
+        "available": 7,
+        "final": 5
+      },
+      "page_recall_macro": {
+        "bm25": 0.2833333333333333,
+        "dense": 0.2833333333333333,
+        "union": 0.4833333333333333,
+        "rrf20": 0.33333333333333337,
+        "after_hg": 0.33333333333333337,
+        "available": 0.33333333333333337,
+        "final": 0.23333333333333334
+      },
+      "complete": {
+        "bm25": 1,
+        "dense": 0,
+        "union": 2,
+        "rrf20": 1,
+        "after_hg": 1,
+        "available": 1,
+        "final": 1
+      },
+      "required_units": 21,
+      "matched_units": {
+        "bm25": 6,
+        "dense": 6,
+        "union": 10,
+        "rrf20": 7,
+        "after_hg": 7,
+        "available": 7,
+        "final": 5
+      },
+      "whole_question_classes": {
+        "bm25_only": 1,
+        "vector_only": 0,
+        "both": 0,
+        "neither": 9
+      },
+      "complementary_union_complete": 1,
+      "hg_routes": {
+        "unsupported_constraint": 5,
+        "missing_terms": 5
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 10
+    }
+  },
+  "semantic_planned": {
+    "procedure_paraphrase": {
+      "total": 10,
+      "scored": 10,
+      "pages": 10,
+      "page_classes": {
+        "bm25_only": 1,
+        "vector_only": 2,
+        "both": 4,
+        "neither": 3
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 1,
+          "after_hg": 1,
+          "available": 1,
+          "final": 1
+        },
+        "vector_only": {
+          "rrf20": 2,
+          "after_hg": 2,
+          "available": 2,
+          "final": 2
+        },
+        "both": {
+          "rrf20": 4,
+          "after_hg": 4,
+          "available": 4,
+          "final": 4
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 5,
+        "dense": 6,
+        "union": 7,
+        "rrf20": 7,
+        "after_hg": 7,
+        "available": 7,
+        "final": 7
+      },
+      "page_recall_macro": {
+        "bm25": 0.5,
+        "dense": 0.6,
+        "union": 0.7,
+        "rrf20": 0.7,
+        "after_hg": 0.7,
+        "available": 0.7,
+        "final": 0.7
+      },
+      "complete": {
+        "bm25": 5,
+        "dense": 6,
+        "union": 7,
+        "rrf20": 7,
+        "after_hg": 7,
+        "available": 7,
+        "final": 7
+      },
+      "required_units": 10,
+      "matched_units": {
+        "bm25": 5,
+        "dense": 6,
+        "union": 7,
+        "rrf20": 7,
+        "after_hg": 7,
+        "available": 7,
+        "final": 7
+      },
+      "whole_question_classes": {
+        "bm25_only": 1,
+        "vector_only": 2,
+        "both": 4,
+        "neither": 3
+      },
+      "complementary_union_complete": 0,
+      "hg_routes": {
+        "missing_terms": 10
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 19
+    },
+    "semantic_all": {
+      "total": 40,
+      "scored": 40,
+      "pages": 61,
+      "page_classes": {
+        "bm25_only": 9,
+        "vector_only": 10,
+        "both": 22,
+        "neither": 20
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 6,
+          "after_hg": 6,
+          "available": 6,
+          "final": 6
+        },
+        "vector_only": {
+          "rrf20": 8,
+          "after_hg": 8,
+          "available": 8,
+          "final": 6
+        },
+        "both": {
+          "rrf20": 22,
+          "after_hg": 22,
+          "available": 22,
+          "final": 22
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 31,
+        "dense": 32,
+        "union": 41,
+        "rrf20": 36,
+        "after_hg": 36,
+        "available": 36,
+        "final": 34
+      },
+      "page_recall_macro": {
+        "bm25": 0.5083333333333333,
+        "dense": 0.5708333333333333,
+        "union": 0.6958333333333333,
+        "rrf20": 0.6333333333333333,
+        "after_hg": 0.6333333333333333,
+        "available": 0.6333333333333333,
+        "final": 0.5958333333333333
+      },
+      "complete": {
+        "bm25": 15,
+        "dense": 18,
+        "union": 23,
+        "rrf20": 21,
+        "after_hg": 21,
+        "available": 21,
+        "final": 19
+      },
+      "required_units": 62,
+      "matched_units": {
+        "bm25": 31,
+        "dense": 32,
+        "union": 41,
+        "rrf20": 36,
+        "after_hg": 36,
+        "available": 36,
+        "final": 34
+      },
+      "whole_question_classes": {
+        "bm25_only": 4,
+        "vector_only": 7,
+        "both": 11,
+        "neither": 18
+      },
+      "complementary_union_complete": 1,
+      "hg_routes": {
+        "missing_terms": 32,
+        "unsupported_constraint": 8
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 86
+    },
+    "rule_paraphrase": {
+      "total": 10,
+      "scored": 10,
+      "pages": 10,
+      "page_classes": {
+        "bm25_only": 0,
+        "vector_only": 3,
+        "both": 5,
+        "neither": 2
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        },
+        "vector_only": {
+          "rrf20": 3,
+          "after_hg": 3,
+          "available": 3,
+          "final": 2
+        },
+        "both": {
+          "rrf20": 5,
+          "after_hg": 5,
+          "available": 5,
+          "final": 5
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 5,
+        "dense": 8,
+        "union": 8,
+        "rrf20": 8,
+        "after_hg": 8,
+        "available": 8,
+        "final": 7
+      },
+      "page_recall_macro": {
+        "bm25": 0.5,
+        "dense": 0.8,
+        "union": 0.8,
+        "rrf20": 0.8,
+        "after_hg": 0.8,
+        "available": 0.8,
+        "final": 0.7
+      },
+      "complete": {
+        "bm25": 5,
+        "dense": 8,
+        "union": 8,
+        "rrf20": 8,
+        "after_hg": 8,
+        "available": 8,
+        "final": 7
+      },
+      "required_units": 11,
+      "matched_units": {
+        "bm25": 5,
+        "dense": 8,
+        "union": 8,
+        "rrf20": 8,
+        "after_hg": 8,
+        "available": 8,
+        "final": 7
+      },
+      "whole_question_classes": {
+        "bm25_only": 0,
+        "vector_only": 3,
+        "both": 5,
+        "neither": 2
+      },
+      "complementary_union_complete": 0,
+      "hg_routes": {
+        "missing_terms": 8,
+        "unsupported_constraint": 2
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 21
+    },
+    "cross_document_workflow": {
+      "total": 10,
+      "scored": 10,
+      "pages": 20,
+      "page_classes": {
+        "bm25_only": 3,
+        "vector_only": 3,
+        "both": 8,
+        "neither": 6
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 2,
+          "after_hg": 2,
+          "available": 2,
+          "final": 2
+        },
+        "vector_only": {
+          "rrf20": 2,
+          "after_hg": 2,
+          "available": 2,
+          "final": 1
+        },
+        "both": {
+          "rrf20": 8,
+          "after_hg": 8,
+          "available": 8,
+          "final": 8
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 11,
+        "dense": 11,
+        "union": 14,
+        "rrf20": 12,
+        "after_hg": 12,
+        "available": 12,
+        "final": 11
+      },
+      "page_recall_macro": {
+        "bm25": 0.55,
+        "dense": 0.55,
+        "union": 0.7,
+        "rrf20": 0.6,
+        "after_hg": 0.6,
+        "available": 0.6,
+        "final": 0.55
+      },
+      "complete": {
+        "bm25": 2,
+        "dense": 3,
+        "union": 5,
+        "rrf20": 4,
+        "after_hg": 4,
+        "available": 4,
+        "final": 3
+      },
+      "required_units": 20,
+      "matched_units": {
+        "bm25": 11,
+        "dense": 11,
+        "union": 14,
+        "rrf20": 12,
+        "after_hg": 12,
+        "available": 12,
+        "final": 11
+      },
+      "whole_question_classes": {
+        "bm25_only": 1,
+        "vector_only": 2,
+        "both": 1,
+        "neither": 6
+      },
+      "complementary_union_complete": 1,
+      "hg_routes": {
+        "missing_terms": 9,
+        "unsupported_constraint": 1
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 23
+    },
+    "cross_document_rule": {
+      "total": 10,
+      "scored": 10,
+      "pages": 21,
+      "page_classes": {
+        "bm25_only": 5,
+        "vector_only": 2,
+        "both": 5,
+        "neither": 9
+      },
+      "class_survival": {
+        "bm25_only": {
+          "rrf20": 3,
+          "after_hg": 3,
+          "available": 3,
+          "final": 3
+        },
+        "vector_only": {
+          "rrf20": 1,
+          "after_hg": 1,
+          "available": 1,
+          "final": 1
+        },
+        "both": {
+          "rrf20": 5,
+          "after_hg": 5,
+          "available": 5,
+          "final": 5
+        },
+        "neither": {
+          "rrf20": 0,
+          "after_hg": 0,
+          "available": 0,
+          "final": 0
+        }
+      },
+      "matched_pages": {
+        "bm25": 10,
+        "dense": 7,
+        "union": 12,
+        "rrf20": 9,
+        "after_hg": 9,
+        "available": 9,
+        "final": 9
+      },
+      "page_recall_macro": {
+        "bm25": 0.4833333333333333,
+        "dense": 0.33333333333333337,
+        "union": 0.5833333333333333,
+        "rrf20": 0.4333333333333333,
+        "after_hg": 0.4333333333333333,
+        "available": 0.4333333333333333,
+        "final": 0.4333333333333333
+      },
+      "complete": {
+        "bm25": 3,
+        "dense": 1,
+        "union": 3,
+        "rrf20": 2,
+        "after_hg": 2,
+        "available": 2,
+        "final": 2
+      },
+      "required_units": 21,
+      "matched_units": {
+        "bm25": 10,
+        "dense": 7,
+        "union": 12,
+        "rrf20": 9,
+        "after_hg": 9,
+        "available": 9,
+        "final": 9
+      },
+      "whole_question_classes": {
+        "bm25_only": 2,
+        "vector_only": 0,
+        "both": 1,
+        "neither": 7
+      },
+      "complementary_union_complete": 0,
+      "hg_routes": {
+        "unsupported_constraint": 5,
+        "missing_terms": 5
+      },
+      "hg_added_pages": 0,
+      "hg_dropped_pages": 0,
+      "hg_added_gold": 0,
+      "hg_dropped_gold": 0,
+      "all_lookup_added_gold": 0,
+      "all_lookup_dropped_gold": 0,
+      "query_count": 23
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "scope": "Fresh A/B/C, D/E/F, role coverage, existing regression, closing diagnosis; no baseline adoption.",
+  "publication_branch": "chore/advanced-experiments-closeout-20261111",
+  "base_commit": "d93e3e4e94cc573be01699e1f4952630032bca6d",
+  "checks": [
+    {
+      "command": "python -m ruff check .",
+      "location": "publishing worktree",
+      "result": "passed"
+    },
+    {
+      "command": "python -m ruff check --isolated --select E4,E7,E9,F experimental/u_10o0o/fresh_record_hybrid",
+      "location": "publishing worktree",
+      "result": "passed"
+    },
+    {
+      "command": "python -m pytest -q tests",
+      "location": "publishing worktree",
+      "passed": 291,
+      "subtests_passed": 15
+    },
+    {
+      "command": "python -m pytest -q experimental/u_10o0o/fresh_record_hybrid/tests",
+      "location": "publishing worktree",
+      "passed": 121,
+      "skipped": 2,
+      "skip_reason": "Ignored local raw-manifest.json and pages.jsonl are unavailable in a clean checkout."
+    },
+    {
+      "command": "python -m pytest -q experimental/u_10o0o/fresh_record_hybrid/tests",
+      "location": "original worktree with source PDFs and artifacts",
+      "passed": 123,
+      "source_python_equal_to_publishing_copy": true
+    },
+    {
+      "command": "python -m build --outdir LOCAL_ARTIFACT_DIRECTORY",
+      "location": "publishing worktree",
+      "result": "sdist and wheel built",
+      "warning": "sdist standard root README not found; no packaging files changed by this experiment"
+    },
+    {
+      "command": "CLI --help",
+      "location": "publishing worktree",
+      "passed": 11
+    },
+    {
+      "command": "existing_evaluation prepare",
+      "location": "publishing worktree",
+      "result": "not executable without ignored official source questions",
+      "missing_input": "data/advanced/evaluation/development_questions.json"
+    },
+    {
+      "command": "existing_evaluation prepare",
+      "location": "original worktree with source evaluation data",
+      "result": "passed; all 280 question rows reproduced byte-for-byte",
+      "questions_sha256": "b9c7486b7949884a43347723034086eace0f21b0217399d128d870d7af8cf791"
+    }
+  ],
+  "frozen_policy_hashes_verified": {
+    "experimental/u_10o0o/fresh_record_hybrid/retrieval.py": "33f2905aac49db0dd432e0ad426a6501acf80bc72e400bb0e800217304486cdb",
+    "experimental/u_10o0o/fresh_record_hybrid/relation_overlap.py": "118acb4332d7dbe36124df12095b32bdd45376edf49e99b6cd54b748523296e5",
+    "experimental/u_10o0o/fresh_record_hybrid/final_coverage.py": "4d6167b4bd7430a935a77643ac302863d746797a806c65c33e85e875c20b13db",
+    "experimental/u_10o0o/fresh_record_hybrid/models.py": "ab78e6b646af62c68b3de6d002d5bf04b6425056c80b8d44ec19cd85b58db198",
+    "experimental/u_10o0o/fresh_record_hybrid/scoring.py": "71c863a3b7db96d1f93454a103c6c7809035e5e1310004c2cbe3e75112423f62"
+  },
+  "unrelated_worktree_hashes_preserved": {
+    "experimental/u_10o0o/README.md": "33e01afdfeee2611f6e51b3e1f855876421c0f4fd16a2a725c5aa44543e87599",
+    "experimental/u_10o0o/records/README.md": "df0444005d3a6b56707753491491f4f770c59317df081ab7cb4b9d279a6a9588",
+    "experimental/u_10o0o/advanced_search.py": "44623acd460df4bd0a3c25229d8e2089fde9596a7d8dc93af66b03678b3ccd60",
+    "experimental/u_10o0o/bm25.py": "271d4c0cdda721d91185bccabd15f7e8110ca4a40e07862a5b65699c56085d94",
+    "experimental/u_10o0o/records/decisions.md": "132e2d2ab6d9ecabbffbf39160901ca8429676ca51298a074a79a020202d4a19"
+  },
+  "new_model_or_paid_api_calls_during_closeout": 0,
+  "limitations": [
+    "Full GPU/CPU quality or timing runs were not repeated during closeout.",
+    "The existing fresh/official benchmark results are preserved rather than recomputed.",
+    "A full replay requires ignored PDFs, question/reference files, derived artifacts, and pinned model snapshots."
+  ],
+  "document_audit": {
+    "scoped_files": 207,
+    "valid_json_files": 133,
+    "local_markdown_links_checked": 280,
+    "missing_shared_document_links": 0,
+    "expected_local_private_artifact_links": 1,
+    "numeric_audit": "58 official positive questions x E/F and 184 evidence groups per condition independently summed",
+    "secret_pattern_matches": 0
+  },
+  "git_diff_check": {
+    "warnings": [
+      "advanced-fresh-page-relation-20261111/changes.md:42: new blank line at EOF",
+      "advanced-fresh-record-hybrid-20261111/changes.md:90: new blank line at EOF"
+    ],
+    "disposition": "Preserved historical generated Markdown outputs; no source/data changes made to remove non-semantic trailing blank lines."
+  }
+}

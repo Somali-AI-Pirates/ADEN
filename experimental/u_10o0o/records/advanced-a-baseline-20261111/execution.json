@@ -1,0 +1,45 @@
+{
+  "A": {
+    "run": "artifacts/u_10o0o/advanced-a-baseline-20261111/A-v3",
+    "status": "complete",
+    "results": 280,
+    "external_api_calls": 0,
+    "batch_wall_seconds": 181.28054350399998,
+    "timing_scope": "batched quality run; not comparable online request latency",
+    "work": {
+      "rerank_pairs": 5600,
+      "rerank_raw_tokens": 3109026,
+      "rerank_tokens": 3109026,
+      "rerank_truncated": 0,
+      "query_tokens": 13485,
+      "query_raw_tokens": 13485,
+      "query_truncated": 0
+    },
+    "traces_sha256": "1fa9e44397740db3b30ade0e8e729037d6631b9d3cfb9f3f373ae0beb247cb1f",
+    "contexts_sha256": "bfefab13bc0a6c0711214c279ec85f2c2553ba52d52f3dab42c9984daf639381"
+  },
+  "baseline": {
+    "run": "artifacts/u_10o0o/advanced-a-baseline-20261111/baseline-v2",
+    "status": "complete",
+    "results": 280,
+    "external_api_calls": 0,
+    "batch_wall_seconds": 91.15003013599971,
+    "timing_scope": "batched quality run; not comparable online request latency",
+    "work": {
+      "rerank_pairs": 5600,
+      "rerank_raw_tokens": 3115922,
+      "rerank_tokens": 2733775,
+      "rerank_truncated": 3291
+    },
+    "traces_sha256": "423ae996751c6686161b90f494c576f3fdb71669d7c604618e8dde89d452e5ee",
+    "contexts_sha256": "3de090bccb2de239b5400c669c6408ca7a8b87f982364eafd9f00021c5795610"
+  },
+  "repeat_verification": {
+    "compared_baseline_runs": [
+      "baseline-v1",
+      "baseline-v2"
+    ],
+    "all_280_per_question_metrics_equal": true,
+    "reason": "format-only adapter normalization; final run fingerprints formatted code"
+  }
+}

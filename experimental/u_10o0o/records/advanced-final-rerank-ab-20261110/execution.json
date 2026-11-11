@@ -1,0 +1,31 @@
+{
+  "python": "3.13.15",
+  "packages": {
+    "torch": "2.15.0",
+    "sentence-transformers": "6.2.0",
+    "transformers": "5.22.1"
+  },
+  "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "cuda": "13.2",
+  "kure": {
+    "id": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "dtype": "float16",
+    "max_tokens": 512,
+    "batch_size": 32,
+    "promoted_head": 3
+  },
+  "frozen_source_retrieval": {
+    "embedding_model": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+    "embedding_revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+    "weights": [
+      0.5,
+      0.5
+    ],
+    "rrf_k": 60
+  },
+  "live_api_calls": 0,
+  "answer_generation": false,
+  "candidate_searches": 0,
+  "statement": "Metadata collected after completed run-02; source and input hashes still match."
+}

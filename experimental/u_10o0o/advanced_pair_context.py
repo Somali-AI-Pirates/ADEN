@@ -15,6 +15,7 @@ from app.ingestion.curation import read_rows, write_rows
 from app.ingestion.layout import IDENTIFIER
 from experimental.u_10o0o.advanced_case_sources import ROLES
 from experimental.u_10o0o.advanced_patterns import location, packed_context, write_json
+from experimental.u_10o0o.advanced_routing_rules import RulesSnapshot
 from experimental.u_10o0o.advanced_search import (
     CANDIDATES,
     CONTEXT_TOKENS,
@@ -57,7 +58,9 @@ OTHER_COUNT = re.compile(
 )
 
 
-def requested_roles(text):
+def requested_roles(text, rules: RulesSnapshot | None = None):
+    if rules is not None:
+        return rules.match_target_roles(text)
     return tuple(role for role in ROLES if ROLE_CUES[role].search(text))
 
 
@@ -70,20 +73,20 @@ def unique_case(lookup, values):
     return next(iter(cases)) if len(cases) == 1 else None
 
 
-def explicit_pair(question, anchors, cases, lookup):
+def explicit_pair(question, anchors, cases, lookup, rules=None):
     profile = lookup._matched_profile_values(normalized(question))
     if DATE.search(question) or profile["shipper"] or profile["cargo"]:
         return {}
-    left_roles = requested_roles(question[anchors[0].end() : anchors[1].start()])
+    left_roles = requested_roles(question[anchors[0].end() : anchors[1].start()], rules)
     right_text = question[anchors[1].end() :]
-    right_roles = requested_roles(right_text)
+    right_roles = requested_roles(right_text, rules)
     if left_roles and right_roles and not SHARED.search(right_text):
         return dict(zip(cases, (left_roles, right_roles), strict=True))
-    common = requested_roles(question)
+    common = requested_roles(question, rules)
     return dict.fromkeys(cases, common) if common else {}
 
 
-def mixed_pair(question, anchor, first_case, lookup):
+def mixed_pair(question, anchor, first_case, lookup, rules=None):
     text = normalized(question)
     names = list(lookup.profile_patterns[0].finditer(text))
     id_end = text.index(anchor.group().casefold()) + len(anchor.group())
@@ -106,13 +109,13 @@ def mixed_pair(question, anchor, first_case, lookup):
     other = unique_case(
         lookup, {field: next(iter(values)) for field, values in fields.items()}
     )
-    roles = requested_roles(text[shared[-1].end() :])
+    roles = requested_roles(text[shared[-1].end() :], rules)
     if not other or other == first_case or not roles:
         return {}
     return {first_case: roles, other: tuple(dict.fromkeys((ROLES[1], *roles)))}
 
 
-def indirect_pair(question, lookup):
+def indirect_pair(question, lookup, rules=None):
     text = normalized(question)
     names = list(lookup.profile_patterns[0].finditer(text))
     dates = list(DATE.finditer(text))
@@ -127,7 +130,7 @@ def indirect_pair(question, lookup):
         or not ACTUAL_GATE.match(text[dates[1].end() :])
     ):
         return {}
-    roles = requested_roles(text[dates[1].end() :])
+    roles = requested_roles(text[dates[1].end() :], rules)
     targets = {}
     ends = (names[1].start(), dates[0].start())
     for name, end, day in zip(names, ends, dates, strict=True):
@@ -149,14 +152,16 @@ def indirect_pair(question, lookup):
     return targets
 
 
-def pair_requirements(question, lookup):
+def pair_requirements(question, lookup, rules: RulesSnapshot | None = None):
+    if rules is None:
+        rules = getattr(lookup, "rules", None)
     if EXCLUSION.search(question) or OTHER_COUNT.search(IDENTIFIER.sub("", question)):
         return {}
     if not PAIR_CUE.search(question) and question.count("건은") < 2:
         return {}
     anchors = list(IDENTIFIER.finditer(question))
     if not anchors:
-        return indirect_pair(question, lookup)
+        return indirect_pair(question, lookup, rules)
     if len(anchors) > 2:
         return {}
     cases = []
@@ -167,17 +172,34 @@ def pair_requirements(question, lookup):
             return {}
         cases.append(next(iter(matches)))
     if len(cases) == 1:
-        return mixed_pair(question, anchors[0], cases[0], lookup)
+        return mixed_pair(question, anchors[0], cases[0], lookup, rules)
     if cases[0] == cases[1]:
         return {}
-    return explicit_pair(question, anchors, cases, lookup)
+    return explicit_pair(question, anchors, cases, lookup, rules)
 
 
-def pack_pair_context(question, ranked, lookup, baseline=None):
+def pack_pair_context(
+    question,
+    ranked,
+    lookup,
+    baseline=None,
+    *,
+    targets=None,
+    context_tokens=None,
+    reserve_general: bool = False,
+):
     """Order only existing pages, preserving the old context unless coverage grows."""
+    if context_tokens is None:
+        context_tokens = CONTEXT_TOKENS
     if baseline is None:
-        baseline = packed_context(ranked)
-    targets = pair_requirements(question, lookup)
+        baseline = build_context(
+            _context_candidates(ranked[:FINAL_K]),
+            FINAL_K,
+            context_tokens,
+            _count_tokens,
+        )
+    if targets is None:
+        targets = pair_requirements(question, lookup)
     if not targets:
         return ranked, baseline, "no_verified_pair"
 
@@ -195,7 +217,15 @@ def pack_pair_context(question, ranked, lookup, baseline=None):
         } & requested
 
     current = coverage(baseline)
-    if current == requested:
+
+    def has_general(context):
+        return any(
+            lookup.page_roles.get((item.chunk.book_id, item.chunk.page))
+            not in requested
+            for item in context.final_chunks
+        )
+
+    if current == requested and (not reserve_general or has_general(baseline)):
         return ranked, baseline, "covered"
     priority = [
         [page_by_role[case, role] for role in roles if (case, role) in page_by_role]
@@ -209,13 +239,47 @@ def pack_pair_context(question, ranked, lookup, baseline=None):
     first_pages = {location(row[0]) for row in first}
     ordered = first + [row for row in ranked if location(row[0]) not in first_pages]
     packed = build_context(
-        _context_candidates(ordered), FINAL_K, CONTEXT_TOKENS, _count_tokens
+        _context_candidates(ordered), FINAL_K, context_tokens, _count_tokens
     )
+    if reserve_general:
+        general_rows = [
+            row
+            for row in ranked
+            if lookup.page_roles.get(location(row[0])) not in requested
+            and location(row[0]) not in first_pages
+        ]
+        for general in general_rows:
+            general_location = location(general[0])
+            with_general = (
+                first
+                + [general]
+                + [
+                    row
+                    for row in ranked
+                    if location(row[0]) not in first_pages
+                    and location(row[0]) != general_location
+                ]
+            )
+            general_context = build_context(
+                _context_candidates(with_general),
+                FINAL_K,
+                context_tokens,
+                _count_tokens,
+            )
+            if coverage(general_context) == requested and has_general(general_context):
+                return with_general, general_context, "repacked_with_general"
+
     selected = coverage(packed)
     if current < selected and {case for case, _ in selected} == targets.keys():
         route = "repacked" if selected == requested else "repacked_partial"
-        return ordered, packed, route
-    return ranked, baseline, "no_role_gain"
+        result = (ordered, packed, route)
+    elif current == requested:
+        result = (ranked, baseline, "covered")
+    else:
+        result = (ranked, baseline, "no_role_gain")
+    if reserve_general:
+        return result[0], result[1], f"{result[2]}_missing_general"
+    return result
 
 
 def read_frozen():

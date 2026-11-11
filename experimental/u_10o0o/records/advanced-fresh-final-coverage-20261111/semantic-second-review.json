@@ -1,0 +1,54 @@
+{
+  "reviewer": "independent AI, read-only, separate from first audit",
+  "human_review": false,
+  "primary_gold_changed": false,
+  "decisions": [
+    {
+      "id": "FRESH-VAL-011",
+      "fact_indices": [
+        1,
+        2
+      ],
+      "source_ids": [
+        "AS006:063"
+      ],
+      "decision": "accepted_for_sensitivity",
+      "scope": "General reporting rule for confirmed and unresolved costs, not evidence of the same reservation."
+    },
+    {
+      "id": "FRESH-VAL-013",
+      "fact_indices": [
+        2,
+        3
+      ],
+      "source_ids": [
+        "AS094:003"
+      ],
+      "decision": "accepted_for_sensitivity",
+      "scope": "Same event applied adjustment and amount; does not establish signer or approval provenance."
+    },
+    {
+      "id": "FRESH-VAL-013",
+      "fact_indices": [
+        6
+      ],
+      "source_ids": [
+        "AS104:003"
+      ],
+      "decision": "accepted_for_sensitivity",
+      "scope": "Same event exemption and final amount; does not establish signer or approval provenance."
+    },
+    {
+      "id": "FRESH-DEV-031",
+      "fact_indices": [
+        1
+      ],
+      "source_ids": [
+        "AS012:013"
+      ],
+      "decision": "accepted_for_sensitivity",
+      "scope": "General document handling rule; not evidence of another specific document status."
+    }
+  ],
+  "conclusion": "All missing required facts of these three questions have an accepted alternative within F final context under the requested question scope. Keep separate from unchanged primary scoring."
+}

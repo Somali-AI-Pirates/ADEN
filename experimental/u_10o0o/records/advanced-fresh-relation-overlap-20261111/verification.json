@@ -1,0 +1,77 @@
+{
+  "checks": [
+    {
+      "command": ".venv/bin/ruff check .",
+      "exit_code": 0,
+      "seconds": 0.009,
+      "log": "artifacts/u_10o0o/advanced-fresh-relation-overlap-20261111/check-1.log"
+    },
+    {
+      "command": ".venv/bin/ruff check --isolated --select E4,E7,E9,F,I experimental/u_10o0o/fresh_record_hybrid",
+      "exit_code": 0,
+      "seconds": 0.007,
+      "log": "artifacts/u_10o0o/advanced-fresh-relation-overlap-20261111/check-2.log"
+    },
+    {
+      "command": ".venv/bin/ruff format --check --isolated experimental/u_10o0o/fresh_record_hybrid",
+      "exit_code": 0,
+      "seconds": 0.01,
+      "log": "artifacts/u_10o0o/advanced-fresh-relation-overlap-20261111/check-3.log"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests experimental/u_10o0o/fresh_record_hybrid/tests",
+      "exit_code": 0,
+      "seconds": 7.273,
+      "log": "artifacts/u_10o0o/advanced-fresh-relation-overlap-20261111/check-4.log"
+    },
+    {
+      "command": ".venv/bin/python -m build --no-isolation",
+      "exit_code": 0,
+      "seconds": 0.808,
+      "log": "artifacts/u_10o0o/advanced-fresh-relation-overlap-20261111/check-5.log"
+    },
+    {
+      "command": ".venv/bin/python -m experimental.u_10o0o.fresh_record_hybrid.relation_overlap --help",
+      "exit_code": 0,
+      "seconds": 0.073,
+      "log": "artifacts/u_10o0o/advanced-fresh-relation-overlap-20261111/check-6.log"
+    },
+    {
+      "command": ".venv/bin/python -m experimental.u_10o0o.fresh_record_hybrid.retrieval retrieve --help",
+      "exit_code": 0,
+      "seconds": 0.125,
+      "log": "artifacts/u_10o0o/advanced-fresh-relation-overlap-20261111/check-7.log"
+    },
+    {
+      "command": ".venv/bin/python -m experimental.u_10o0o.fresh_record_hybrid.scoring --help",
+      "exit_code": 0,
+      "seconds": 0.125,
+      "log": "artifacts/u_10o0o/advanced-fresh-relation-overlap-20261111/check-8.log"
+    }
+  ],
+  "review_revision": 2,
+  "independent_reviews": [
+    "runtime/input integrity and result preservation",
+    "E policy/scoring boundaries and numerical audit"
+  ],
+  "review_findings_resolved": true,
+  "code_sha256": {
+    "retrieval.py": "33f2905aac49db0dd432e0ad426a6501acf80bc72e400bb0e800217304486cdb",
+    "relation_overlap.py": "246cffe80804a9fbcf0cbb6bfdf5fa2746e00468143c7f4c140c7f15db220f9d",
+    "scoring.py": "a5ff21abdbe9a5aa082936310ec838e4f69fb5ab9355e9e63419d8ab35af64c9",
+    "tests/test_retrieval.py": "32b67d5aba04f5603b18a01288c07f2d052e67a348956ed628e0903d4fee917f",
+    "tests/test_relation_overlap.py": "7ea8b692aa6b45c0b04478f8dc876f6882c6be216198a176b0d96352e936118c",
+    "tests/test_scoring.py": "7979fddbd5cc1fc7d62ead43f8c70fd83e0d172987ea4906e6576e6578702867"
+  },
+  "reviewed_code_unchanged": true,
+  "quality_results_not_retuned_after_scoring": true,
+  "tests": "333 passed, 15 subtests passed in 6.30s",
+  "package_build": "sdist/wheel succeeded",
+  "local_document_links": {
+    "broken": []
+  },
+  "preserved_files": {
+    "checked": 15,
+    "changed": 0
+  }
+}

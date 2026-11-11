@@ -1,0 +1,873 @@
+{
+  "all_archived_fact_coverages_reproduced": true,
+  "candidate_failure_queries": 19,
+  "rank_depth_observation_totals": {
+    "bm25_required_depth_within80": {
+      "cutoff": 80,
+      "not_observed_within_cutoff": 20,
+      "within_cutoff": 15
+    },
+    "dense_required_depth_within1000": {
+      "cutoff": 1000,
+      "not_observed_within_cutoff": 4,
+      "within_cutoff": 31
+    }
+  },
+  "records": [
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-01",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": 61,
+          "dense_required_depth_within1000": 197,
+          "requirement": 1
+        }
+      ],
+      "requirements_count": 1,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 1
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-08",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 717,
+          "requirement": 1
+        }
+      ],
+      "requirements_count": 1,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 0
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 1
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "plan_fallback",
+      "id": "AS-SEM-10",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 51,
+          "requirement": 1
+        }
+      ],
+      "requirements_count": 1,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 0
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 1
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-18",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 236,
+          "requirement": 1
+        }
+      ],
+      "requirements_count": 1,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 0
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 1
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-20",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 563,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 563,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 2,
+          "within_cutoff": 0
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-21",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 126,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": 5,
+          "dense_required_depth_within1000": 1,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-22",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 32,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": 2,
+          "dense_required_depth_within1000": 1,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-23",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": 35,
+          "dense_required_depth_within1000": 28,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": 59,
+          "dense_required_depth_within1000": null,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-26",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": 1,
+          "dense_required_depth_within1000": 214,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": null,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-28",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": 2,
+          "dense_required_depth_within1000": 3,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 458,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "merged20",
+      "id": "AS-SEM-30",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 2,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": 20,
+          "dense_required_depth_within1000": 45,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-31",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": 3,
+          "dense_required_depth_within1000": 1,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": null,
+          "requirement": 2
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 44,
+          "requirement": 3
+        }
+      ],
+      "requirements_count": 3,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 2,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-33",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 68,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 43,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 2,
+          "within_cutoff": 0
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "plan_fallback",
+      "id": "AS-SEM-34",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 1,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": 75,
+          "dense_required_depth_within1000": 20,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 918,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-35",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": 6,
+          "dense_required_depth_within1000": 605,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 408,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-36",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 112,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": 1,
+          "dense_required_depth_within1000": 300,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-38",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 403,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": 1,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 2,
+          "within_cutoff": 0
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "plan_fallback",
+      "id": "AS-SEM-39",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 1,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": 15,
+          "dense_required_depth_within1000": 404,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": null,
+          "dense_required_depth_within1000": null,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 1,
+          "within_cutoff": 1
+        }
+      }
+    },
+    {
+      "all_query_orders_match": true,
+      "first_miss": "plan_fallback",
+      "id": "AS-SEM-40",
+      "replayed_union_fact_coverage_equal": true,
+      "requirements": [
+        {
+          "archived_stages": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 1,
+            "rrf20_union": 0
+          },
+          "bm25_required_depth_within80": 20,
+          "dense_required_depth_within1000": 107,
+          "requirement": 1
+        },
+        {
+          "archived_stages": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "bm25_required_depth_within80": 13,
+          "dense_required_depth_within1000": 1,
+          "requirement": 2
+        }
+      ],
+      "requirements_count": 2,
+      "retriever_depth_observations": {
+        "bm25_required_depth_within80": {
+          "cutoff": 80,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        },
+        "dense_required_depth_within1000": {
+          "cutoff": 1000,
+          "not_observed_within_cutoff": 0,
+          "within_cutoff": 2
+        }
+      }
+    }
+  ],
+  "scope": "Best required rank across original and executed requests; ranks beyond recorded80/1000 are unknown, not absent from corpus."
+}

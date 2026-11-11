@@ -1,0 +1,22 @@
+[
+  {
+    "condition": "E",
+    "rerank_pairs": 3200,
+    "rerank_input_tokens": 1611642,
+    "truncated_pairs": 0,
+    "max_context_tokens": 7203,
+    "partial_pages": 0,
+    "p50_ms": 678.013,
+    "p95_ms": 932.0216499999993
+  },
+  {
+    "condition": "F",
+    "rerank_pairs": 3200,
+    "rerank_input_tokens": 1614551,
+    "truncated_pairs": 0,
+    "max_context_tokens": 6962,
+    "partial_pages": 0,
+    "p50_ms": 1221.56,
+    "p95_ms": 1717.09645
+  }
+]
