@@ -1,0 +1,16 @@
+dataset: advanced
+documents_dir: data/advanced/documents
+generation_model: gpt-6-luna
+qdrant_collection: advanced_snowflake_ko_pages
+embedding_model: dragonkue/snowflake-arctic-embed-l-v2.0-ko
+embedding_device: cpu
+model_timeout_seconds: 60
+max_output_tokens: 2048
+generation_max_attempts: 2
+context_tokenizer: o200k_base
+
+retrieval:
+  default_mode: naive
+  k: 8
+  context_token_budget: 8000
+  candidate_count: 20

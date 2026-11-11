@@ -1,0 +1,266 @@
+{
+  "data_kind": "basic",
+  "modes": {
+    "naive": {
+      "hit_at_k": {
+        "mean": 1.0,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 0.8125,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.7910415591675266,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_fact": {
+        "mean": 0.625,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_condition": {
+        "mean": 0.875,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_evidence": {
+        "mean": 0.75,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_decision": {
+        "mean": 1.0,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 8,
+        "errors": 0,
+        "error_rate": 0.0,
+        "error_types": [],
+        "status_counts": {
+          "answered": 8,
+          "needs_clarification": 0,
+          "abstained": 0,
+          "error": 0
+        },
+        "latency_ok": {
+          "mean_ms": 9574.25,
+          "p50_ms": 9062.5,
+          "known": 8,
+          "count": 8
+        },
+        "latency_error": {
+          "mean_ms": null,
+          "p50_ms": null,
+          "known": 0,
+          "count": 0
+        },
+        "latency_all": {
+          "mean_ms": 9574.25,
+          "p50_ms": 9062.5,
+          "known": 8,
+          "count": 8
+        },
+        "input_tokens": 39123,
+        "output_tokens": 8190,
+        "usage_complete": 8,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 0
+      },
+      "grading": {
+        "calls": 16,
+        "failed_calls": 0,
+        "latency_ms": 244838,
+        "input_tokens": 40539,
+        "output_tokens": 8545
+      }
+    },
+    "hybrid": {
+      "hit_at_k": {
+        "mean": 1.0,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 0.875,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.8320804195804196,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_fact": {
+        "mean": 0.625,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_condition": {
+        "mean": 0.75,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_evidence": {
+        "mean": 0.875,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_decision": {
+        "mean": 1.0,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 8,
+        "errors": 0,
+        "error_rate": 0.0,
+        "error_types": [],
+        "status_counts": {
+          "answered": 8,
+          "needs_clarification": 0,
+          "abstained": 0,
+          "error": 0
+        },
+        "latency_ok": {
+          "mean_ms": 9765.25,
+          "p50_ms": 9268.0,
+          "known": 8,
+          "count": 8
+        },
+        "latency_error": {
+          "mean_ms": null,
+          "p50_ms": null,
+          "known": 0,
+          "count": 0
+        },
+        "latency_all": {
+          "mean_ms": 9765.25,
+          "p50_ms": 9268.0,
+          "known": 8,
+          "count": 8
+        },
+        "input_tokens": 41306,
+        "output_tokens": 7462,
+        "usage_complete": 8,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 0
+      },
+      "grading": {
+        "calls": 16,
+        "failed_calls": 0,
+        "latency_ms": 256361,
+        "input_tokens": 42644,
+        "output_tokens": 8457
+      }
+    },
+    "hybrid_rerank": {
+      "hit_at_k": {
+        "mean": 1.0,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 0.875,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.8308358308358308,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_fact": {
+        "mean": 0.625,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_condition": {
+        "mean": 0.75,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_evidence": {
+        "mean": 0.625,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_decision": {
+        "mean": 0.875,
+        "scored": 8,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 8,
+        "errors": 0,
+        "error_rate": 0.0,
+        "error_types": [],
+        "status_counts": {
+          "answered": 8,
+          "needs_clarification": 0,
+          "abstained": 0,
+          "error": 0
+        },
+        "latency_ok": {
+          "mean_ms": 15713.0,
+          "p50_ms": 15178.0,
+          "known": 8,
+          "count": 8
+        },
+        "latency_error": {
+          "mean_ms": null,
+          "p50_ms": null,
+          "known": 0,
+          "count": 0
+        },
+        "latency_all": {
+          "mean_ms": 15713.0,
+          "p50_ms": 15178.0,
+          "known": 8,
+          "count": 8
+        },
+        "input_tokens": 41355,
+        "output_tokens": 7305,
+        "usage_complete": 8,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 0
+      },
+      "grading": {
+        "calls": 16,
+        "failed_calls": 0,
+        "latency_ms": 280820,
+        "input_tokens": 42768,
+        "output_tokens": 9774
+      }
+    }
+  }
+}

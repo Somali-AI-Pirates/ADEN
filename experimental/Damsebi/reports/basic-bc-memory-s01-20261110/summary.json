@@ -1,0 +1,362 @@
+{
+  "data_kind": "basic",
+  "modes": {
+    "naive": {
+      "hit_at_k": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.8333333333333334,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_fact": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_condition": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_evidence": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_decision": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 1,
+        "errors": 0,
+        "error_rate": 0.0,
+        "error_types": [],
+        "status_counts": {
+          "answered": 1,
+          "needs_clarification": 0,
+          "abstained": 0,
+          "error": 0
+        },
+        "latency_ok": {
+          "mean_ms": 5013.0,
+          "p50_ms": 5013,
+          "known": 1,
+          "count": 1
+        },
+        "latency_error": {
+          "mean_ms": null,
+          "p50_ms": null,
+          "known": 0,
+          "count": 0
+        },
+        "latency_all": {
+          "mean_ms": 5013.0,
+          "p50_ms": 5013,
+          "known": 1,
+          "count": 1
+        },
+        "input_tokens": 4986,
+        "output_tokens": 556,
+        "usage_complete": 1,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 0
+      },
+      "grading": {
+        "calls": 2,
+        "failed_calls": 0,
+        "latency_ms": 23001,
+        "input_tokens": 5003,
+        "output_tokens": 700
+      },
+      "evidence_diagnostics": {
+        "budget_lost_page_recall": {
+          "mean": 0.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "candidate_doc_recall": {
+          "mean": 1.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "candidate_page_recall": {
+          "mean": 1.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "context_lost_page_recall": {
+          "mean": 0.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "final_page_recall": {
+          "mean": 1.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        }
+      }
+    },
+    "hybrid": {
+      "hit_at_k": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.7692307692307693,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_fact": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_condition": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_evidence": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_decision": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 1,
+        "errors": 0,
+        "error_rate": 0.0,
+        "error_types": [],
+        "status_counts": {
+          "answered": 1,
+          "needs_clarification": 0,
+          "abstained": 0,
+          "error": 0
+        },
+        "latency_ok": {
+          "mean_ms": 6122.0,
+          "p50_ms": 6122,
+          "known": 1,
+          "count": 1
+        },
+        "latency_error": {
+          "mean_ms": null,
+          "p50_ms": null,
+          "known": 0,
+          "count": 0
+        },
+        "latency_all": {
+          "mean_ms": 6122.0,
+          "p50_ms": 6122,
+          "known": 1,
+          "count": 1
+        },
+        "input_tokens": 4986,
+        "output_tokens": 656,
+        "usage_complete": 1,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 0
+      },
+      "grading": {
+        "calls": 2,
+        "failed_calls": 0,
+        "latency_ms": 19859,
+        "input_tokens": 4978,
+        "output_tokens": 414
+      },
+      "evidence_diagnostics": {
+        "budget_lost_page_recall": {
+          "mean": 0.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "candidate_doc_recall": {
+          "mean": 1.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "candidate_page_recall": {
+          "mean": 1.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "context_lost_page_recall": {
+          "mean": 0.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "final_page_recall": {
+          "mean": 1.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        }
+      }
+    },
+    "hybrid_rerank": {
+      "hit_at_k": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.9285714285714286,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_fact": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_condition": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_evidence": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_decision": {
+        "mean": 1.0,
+        "scored": 1,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 1,
+        "errors": 0,
+        "error_rate": 0.0,
+        "error_types": [],
+        "status_counts": {
+          "answered": 1,
+          "needs_clarification": 0,
+          "abstained": 0,
+          "error": 0
+        },
+        "latency_ok": {
+          "mean_ms": 17260.0,
+          "p50_ms": 17260,
+          "known": 1,
+          "count": 1
+        },
+        "latency_error": {
+          "mean_ms": null,
+          "p50_ms": null,
+          "known": 0,
+          "count": 0
+        },
+        "latency_all": {
+          "mean_ms": 17260.0,
+          "p50_ms": 17260,
+          "known": 1,
+          "count": 1
+        },
+        "input_tokens": 5065,
+        "output_tokens": 637,
+        "usage_complete": 1,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 0
+      },
+      "grading": {
+        "calls": 2,
+        "failed_calls": 0,
+        "latency_ms": 23987,
+        "input_tokens": 5091,
+        "output_tokens": 513
+      },
+      "evidence_diagnostics": {
+        "budget_lost_page_recall": {
+          "mean": 0.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "candidate_doc_recall": {
+          "mean": 1.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "candidate_page_recall": {
+          "mean": 1.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "context_lost_page_recall": {
+          "mean": 0.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        },
+        "final_page_recall": {
+          "mean": 1.0,
+          "scored": 1,
+          "not_applicable": 0,
+          "unavailable": 0
+        }
+      }
+    }
+  }
+}

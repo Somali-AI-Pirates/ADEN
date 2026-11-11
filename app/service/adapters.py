@@ -6,11 +6,9 @@ from time import perf_counter
 from uuid import uuid4
 
 from shared.contracts import QueryRequest
-from app.retrieval.service import retrieve
 from app.generation.chain import generate_answer
 from app.generation.citations import resolve_citations
-from app.generation.context import build_context
-from app.service.query import answer_query, experiment_config_hash, start_request_trace
+from app.service.query import answer_query, experiment_config_hash, prepare_evidence, start_request_trace
 from app.service.records import (
     attach_last_model_messages,
     context_record,
@@ -42,15 +40,7 @@ def make_security_adapters(resources, settings, *, defense):
         request = QueryRequest(question=question, retrieval_mode=mode)
         mode = request.retrieval_mode or settings.retrieval.default_mode
         request = request.model_copy(update={"retrieval_mode": mode})
-        candidates = retrieve(
-            request.question, mode, resources, top_n=settings.retrieval.candidate_count
-        )
-        context = build_context(
-            candidates,
-            settings.retrieval.k,
-            settings.retrieval.context_token_budget,
-            resources.count_tokens,
-        )
+        candidates, context = prepare_evidence(request.question, mode, resources, settings)
         cached = (request, candidates, context)
         return context_record(candidates, context)
 
@@ -96,6 +86,8 @@ def make_security_adapters(resources, settings, *, defense):
                     model_context_text=context.text,
                     model_context_hash=context.context_hash,
                     k=settings.retrieval.k,
+                    model_context_token_count=context.token_count,
+                    budget_excluded_chunk_ids=context.excluded_chunk_ids,
                 )
             if not context.final_chunks:
                 record.update(

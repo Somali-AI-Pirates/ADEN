@@ -1,7 +1,7 @@
 import importlib
 import sys
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 from shared.exceptions import ServiceError
 from shared.settings import load_settings
@@ -12,7 +12,7 @@ from tests.pipeline_fakes import make_query_resources
 class BootstrapTests(unittest.TestCase):
     def setUp(self):
         self.resources = make_query_resources()
-        self.resources.tracer = Mock(name="fake-tracer")
+        self.resources.tracer = MagicMock(name="fake-tracer")
         self.resources_loader = Mock(return_value=self.resources)
         self.bootstrap = ServiceBootstrap(
             settings_loader=load_settings, resources_loader=self.resources_loader
