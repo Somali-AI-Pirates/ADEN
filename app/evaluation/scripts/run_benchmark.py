@@ -23,7 +23,8 @@ from shared.settings import Settings, load_settings
 from app.observability.records import RETRIEVAL_MODES
 from app.observability.tracing import Tracer
 from app.evaluation.dataset import load_questions, load_references
-from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
+from app.evaluation.graders import (JUDGE_SCHEMA_VERSION, PROMPTS_DIR, make_openai_judge,
+                                    make_ragas_faithfulness)
 from app.evaluation.report import write_artifacts, write_report
 from app.evaluation.publishing import expected_observations, publish_evaluation_scores
 from app.evaluation.runner import grade_all, run_comparison
@@ -163,6 +164,7 @@ def main() -> None:
         "references_sha256": sha256_file(Path(references_path)),
         "questions_file": Path(questions_path).name, "judge": judge_desc,
         "faithfulness": faith_desc, "judge_prompt": sha256_file(PROMPTS_DIR / "judge.txt"),
+        "judge_schema": JUDGE_SCHEMA_VERSION,
     }
     publication = publication_plan(args, manifest)  # 서비스·평가 호출 전에 평가 세트 충돌을 확인한다
 

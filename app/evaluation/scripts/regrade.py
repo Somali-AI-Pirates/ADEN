@@ -24,7 +24,8 @@ from pathlib import Path
 from typing import Any
 
 from app.evaluation.dataset import load_references
-from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
+from app.evaluation.graders import (JUDGE_SCHEMA_VERSION, PROMPTS_DIR, make_openai_judge,
+                                    make_ragas_faithfulness)
 from app.evaluation.metrics import score
 from app.evaluation.report import write_artifacts, write_report
 from app.evaluation.publishing import publish_evaluation_scores
@@ -116,7 +117,7 @@ def main() -> None:
     manifest = base_manifest(experiment_id=experiment_id, dataset_id=src_manifest["dataset_id"],
                              config_hash=src_manifest["config_hash"], sample=sample)
     manifest["benchmark"] = {**bench, "judge": judge_desc, "faithfulness": faith_desc,
-                             "judge_prompt": sha256_file(prompt_path),
+                             "judge_prompt": sha256_file(prompt_path), "judge_schema": JUDGE_SCHEMA_VERSION,
                              "references_sha256": sha256_file(Path(args.references))}
     if faith_fn:
         faithfulness_status = "recomputed"
@@ -125,6 +126,7 @@ def main() -> None:
     manifest["regrade"] = {
         "source_experiment_id": args.source, "source_git_commit": src_manifest.get("git_commit"),
         "source_judge": bench.get("judge"), "source_judge_prompt": bench.get("judge_prompt"),
+        "source_judge_schema": bench.get("judge_schema"),  # 없으면 v1(항목별 부분 수용)으로 채점한 기록
         "judge_prompt_file": prompt_path.name, "references_file": Path(args.references).name,
         "faithfulness": faithfulness_status,
     }

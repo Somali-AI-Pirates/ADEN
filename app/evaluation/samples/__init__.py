@@ -196,7 +196,8 @@ class MockJudge:
             else item(None, "not_applicable", "인용 요구 없음(모의)"),
             "decision": item(1 if ok else 0),
         }
-        return {"text": json.dumps({"has_factual_claims": has_claims, "criteria": criteria},
+        return {"text": json.dumps({"has_factual_claims": has_claims, "criteria": criteria,
+                                    "calculation_checks": []},  # 가상 질문은 검산을 요구하지 않는다
                                    ensure_ascii=False), "input_tokens": 900, "output_tokens": 120}
 
 
