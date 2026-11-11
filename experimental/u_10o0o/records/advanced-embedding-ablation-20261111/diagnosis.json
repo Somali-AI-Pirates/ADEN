@@ -1,0 +1,41 @@
+{
+  "dense_category_gains": 61,
+  "dense_category_losses": 3,
+  "dense_gain_categories": {
+    "S01": 14,
+    "S02": 1,
+    "S03": 5,
+    "S04": 5,
+    "S05": 8,
+    "S07": 20,
+    "semantic_queries/cross_document_rule": 1,
+    "semantic_queries/procedure_paraphrase": 2,
+    "semantic_queries/rule_paraphrase": 4,
+    "work_rules/applicability": 1
+  },
+  "gains_already_complete_in_old_hybrid": 52,
+  "official_selection_regressions": [
+    {
+      "context_tokens": 3722,
+      "final_pages": 8,
+      "id": "official_development:AS-DEV30",
+      "lost_groups": 1,
+      "remaining_ranks": [
+        [
+          11
+        ]
+      ]
+    },
+    {
+      "context_tokens": 3836,
+      "final_pages": 8,
+      "id": "official_additional:AS-ADD27",
+      "lost_groups": 1,
+      "remaining_ranks": [
+        [
+          9
+        ]
+      ]
+    }
+  ]
+}

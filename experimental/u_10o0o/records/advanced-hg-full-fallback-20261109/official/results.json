@@ -1,0 +1,306 @@
+{
+  "cohorts": {
+    "hg_partition_sources": {
+      "gains": [
+        "AS-DEV22",
+        "AS-DEV24",
+        "AS-DEV26",
+        "AS-ADD19",
+        "AS-ADD21",
+        "AS-ADD23",
+        "AS-ADD25",
+        "AS-ADD29"
+      ],
+      "losses": [],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 15,
+          "candidate_facts": 71,
+          "expanded_complete": 15,
+          "expanded_facts": 71,
+          "final_complete": 13,
+          "final_facts": 64,
+          "page_recall_at_20": 0.9285714285714286,
+          "page_recall_at_8": 0.8452380952380952,
+          "questions": 21,
+          "required_facts": 77,
+          "scored": 21
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 0,
+          "candidate_facts": 3,
+          "expanded_complete": 21,
+          "expanded_facts": 77,
+          "final_complete": 21,
+          "final_facts": 77,
+          "page_recall_at_20": 0.03571428571428571,
+          "page_recall_at_8": 1.0,
+          "questions": 21,
+          "required_facts": 77,
+          "scored": 21
+        },
+        "hg_partition": {
+          "candidate_complete": 0,
+          "candidate_facts": 0,
+          "expanded_complete": 21,
+          "expanded_facts": 77,
+          "final_complete": 21,
+          "final_facts": 77,
+          "page_recall_at_20": 0.0,
+          "page_recall_at_8": 1.0,
+          "questions": 21,
+          "required_facts": 77,
+          "scored": 21
+        }
+      },
+      "routes": {
+        "lookup": 20,
+        "mixed": 1
+      }
+    },
+    "official": {
+      "gains": [
+        "AS-DEV16",
+        "AS-DEV20",
+        "AS-DEV22",
+        "AS-DEV24",
+        "AS-DEV26",
+        "AS-ADD17",
+        "AS-ADD19",
+        "AS-ADD21",
+        "AS-ADD23",
+        "AS-ADD25",
+        "AS-ADD29"
+      ],
+      "losses": [],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 38,
+          "candidate_facts": 161,
+          "expanded_complete": 38,
+          "expanded_facts": 161,
+          "final_complete": 32,
+          "final_facts": 147,
+          "page_recall_at_20": 0.8433908045977011,
+          "page_recall_at_8": 0.7701149425287356,
+          "questions": 60,
+          "required_facts": 184,
+          "returned_pages": 16,
+          "scored": 58
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 19,
+          "candidate_facts": 75,
+          "expanded_complete": 46,
+          "expanded_facts": 169,
+          "final_complete": 43,
+          "final_facts": 164,
+          "page_recall_at_20": 0.43821839080459773,
+          "page_recall_at_8": 0.8433908045977011,
+          "questions": 60,
+          "required_facts": 184,
+          "returned_pages": 16,
+          "scored": 58
+        },
+        "hg_partition": {
+          "candidate_complete": 20,
+          "candidate_facts": 73,
+          "expanded_complete": 46,
+          "expanded_facts": 169,
+          "final_complete": 43,
+          "final_facts": 164,
+          "page_recall_at_20": 0.4295977011494253,
+          "page_recall_at_8": 0.8433908045977011,
+          "questions": 60,
+          "required_facts": 184,
+          "returned_pages": 16,
+          "scored": 58
+        }
+      },
+      "routes": {
+        "general": 30,
+        "lookup": 25,
+        "mixed": 5
+      }
+    },
+    "other_sources": {
+      "gains": [
+        "AS-DEV16",
+        "AS-DEV20",
+        "AS-ADD17"
+      ],
+      "losses": [],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 23,
+          "candidate_facts": 90,
+          "expanded_complete": 23,
+          "expanded_facts": 90,
+          "final_complete": 19,
+          "final_facts": 83,
+          "page_recall_at_20": 0.795045045045045,
+          "page_recall_at_8": 0.7274774774774775,
+          "questions": 37,
+          "required_facts": 107,
+          "scored": 37
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 19,
+          "candidate_facts": 72,
+          "expanded_complete": 25,
+          "expanded_facts": 92,
+          "final_complete": 22,
+          "final_facts": 87,
+          "page_recall_at_20": 0.6666666666666667,
+          "page_recall_at_8": 0.7545045045045046,
+          "questions": 37,
+          "required_facts": 107,
+          "scored": 37
+        },
+        "hg_partition": {
+          "candidate_complete": 20,
+          "candidate_facts": 73,
+          "expanded_complete": 25,
+          "expanded_facts": 92,
+          "final_complete": 22,
+          "final_facts": 87,
+          "page_recall_at_20": 0.6734234234234234,
+          "page_recall_at_8": 0.7545045045045046,
+          "questions": 37,
+          "required_facts": 107,
+          "scored": 37
+        }
+      },
+      "routes": {
+        "general": 28,
+        "lookup": 5,
+        "mixed": 4
+      }
+    }
+  },
+  "config": {
+    "external_api_calls": 0,
+    "inputs": {
+      "cases": {
+        "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+        "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+      },
+      "curated": {
+        "path": "artifacts/u_10o0o/pattern-curation/advanced/manifest.json",
+        "sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf"
+      },
+      "facts": {
+        "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+        "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+      },
+      "pages": {
+        "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+        "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+      },
+      "vectors": {
+        "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+        "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+      }
+    },
+    "limits": {
+      "candidates": 20,
+      "context_pages": 8,
+      "context_tokens": 8000
+    },
+    "model": {
+      "embedding": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+      "embedding_revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+      "reranked_head": 3,
+      "reranker": "nlpai-lab/KURE-Reranker-nano",
+      "reranker_revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "rrf_k": 60,
+      "rrf_weights": [
+        0.5,
+        0.5
+      ]
+    },
+    "question_inputs": {
+      "additional": {
+        "path": "data/advanced/evaluation/additional_questions.json",
+        "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f"
+      },
+      "development": {
+        "path": "data/advanced/evaluation/development_questions.json",
+        "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c"
+      }
+    },
+    "references": {
+      "additional": {
+        "path": "data/advanced/evaluation/additional.json",
+        "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+      },
+      "development": {
+        "path": "data/advanced/evaluation/development.json",
+        "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+      }
+    },
+    "relation_snapshot": {
+      "path": "artifacts/u_10o0o/advanced-snapshots/hg-code-relations-v1/manifest.json",
+      "sha256": "d4f639bd6ce27c4bd39dd97b3e72d914811cc2f51e1ca24d7c6a7316d460879a"
+    },
+    "replay_inputs": {
+      "config.json": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-20261109/config.json",
+        "sha256": "adec492ea8890c839498facb491ba41236198b7eef7284c32b14d05b07ffae73"
+      },
+      "rankings.jsonl": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-20261109/rankings.jsonl",
+        "sha256": "437cdc1775b691a8aa58253c1f5a4bc871d178295245089c42cdc4f8d7bbc156"
+      },
+      "results.json": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-20261109/results.json",
+        "sha256": "8beb47b262c5c1fafdbb0947118750d7e3eab9e1546a72942698af31eaefef71"
+      },
+      "scores.jsonl": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-20261109/scores.jsonl",
+        "sha256": "6f213cabae719322a8da3700ebe1d15be2f4b3c360b3716b323ec8da1e74c1ef"
+      },
+      "traces.jsonl": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-20261109/traces.jsonl",
+        "sha256": "68578421759b954f494f3ec29adef0d2719866a0ffc59d3ab2abe258b9c87c31"
+      }
+    },
+    "reused_luna_calls": 60,
+    "suite": "official"
+  },
+  "full_fallback_routes": {
+    "full_fallback": 30,
+    "lookup": 25,
+    "mixed": 5
+  },
+  "paired_full_fallback": {
+    "baseline": {
+      "gains": [
+        "AS-DEV16",
+        "AS-DEV20",
+        "AS-DEV22",
+        "AS-DEV24",
+        "AS-DEV26",
+        "AS-ADD17",
+        "AS-ADD19",
+        "AS-ADD21",
+        "AS-ADD23",
+        "AS-ADD25",
+        "AS-ADD29"
+      ],
+      "losses": [],
+      "unchanged": 47
+    },
+    "hg_partition": {
+      "gains": [],
+      "losses": [],
+      "unchanged": 58
+    }
+  },
+  "validation": {
+    "max_final_pages": 8,
+    "max_final_tokens": 6214,
+    "restored_context_hashes": 120,
+    "unchanged_prior_scores": 120
+  }
+}

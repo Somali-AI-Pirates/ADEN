@@ -1,14 +1,17 @@
 """Link verified Advanced source pages and use the existing context selector."""
 
 import re
-from unittest.mock import patch
 
 from app.generation.context import build_context
 from app.ingestion.layout import identifiers
 from experimental.u_10o0o import advanced_pair_context
-from experimental.u_10o0o.advanced_case_sources import ROLES
 from experimental.u_10o0o.advanced_clause_binding import gate_descriptor, roles_in
-from experimental.u_10o0o.advanced_hg_lookup import augment, location
+from experimental.u_10o0o.advanced_hg_lookup import (
+    augment,
+    case_role_pages,
+    location,
+    rank_with_hg_lookup,
+)
 from experimental.u_10o0o.advanced_pair_context import CANDIDATES, FINAL_K, unique_case
 from experimental.u_10o0o.advanced_pair_source_lookup import pair_source_lookup
 from experimental.u_10o0o.advanced_target_lookup import (
@@ -49,10 +52,10 @@ def unique_lookup(question, lookup):
     elif "cargo" not in fields:
         return (), ()
     case = unique_case(lookup, fields)
-    roles = roles_in(request)
+    roles = roles_in(request, getattr(lookup, "rules", None))
     if case is None or not roles:
         return (), ()
-    return (case,), tuple(lookup.cases[case][ROLES.index(role)] for role in roles)
+    return (case,), tuple(case_role_pages(lookup.cases, case, roles))
 
 
 def ambiguous_lookup(question, storage):
@@ -78,12 +81,9 @@ def select_context(question, ranked, lookup, context_tokens):
     initial = build_context(
         _context_candidates(ranked[:FINAL_K]), FINAL_K, context_tokens, _count_tokens
     )
-    # This local runner is sequential. The legacy selector source is also
-    # fingerprinted by older replays, so supply the budget for this call only.
-    with patch.object(advanced_pair_context, "CONTEXT_TOKENS", context_tokens):
-        return advanced_pair_context.pack_pair_context(
-            question, ranked, lookup, initial
-        )
+    return advanced_pair_context.pack_pair_context(
+        question, ranked, lookup, initial, context_tokens=context_tokens
+    )
 
 
 def apply_sources(question, ranked, lookup, context_tokens, linked, baseline):
@@ -122,3 +122,15 @@ def selected_context(question, ranked, lookup, storage, context_tokens):
         question, ordered, lookup, context_tokens, linked, (ordered, context, selection)
     )
     return ordered, context, cases, "pair", selection
+
+
+def complete_sources(question, ranked, lookup, storage, context_tokens):
+    linked, route = rank_with_hg_lookup(
+        question, ranked, lookup.cases, lookup.profile_index
+    )
+    linked = linked[:CANDIDATES]
+    return (
+        linked,
+        selected_context(question, linked, lookup, storage, context_tokens),
+        route,
+    )

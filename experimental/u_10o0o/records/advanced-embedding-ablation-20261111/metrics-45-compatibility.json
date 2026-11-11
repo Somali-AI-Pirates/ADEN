@@ -1,0 +1,31 @@
+{
+  "after": "bab74bc09b4e61d95230e61b654d4ba4eaabfb64e35faa1270c8737f9c8c02b0",
+  "before": "d091b297d32bf836882b9a1186923cf0178006cf7cd271367781425916939864",
+  "change_commit": "fc9c221835fc264e62ef1321c65cfd60ccac19c8",
+  "file": "app/evaluation/metrics.py",
+  "new_frozen_sha256": "6175fa988dc06d9e033f23795b985fc1cd3c498d7a9ba145ac68adf0f9faf7bf",
+  "old_frozen_sha256": "9d51dccf1ac79affd8b865085ad6ec5fb13b31695f4ef539e0f1ceec77024592",
+  "original_manifests": "artifacts/u_10o0o/advanced-embedding-ablation-20261111/before-metrics-45",
+  "questions_inputs_references_unchanged": true,
+  "required_followup": "Revalidate saved results and verify first-two aggregate scores identical after scoring.",
+  "review": "Only conditional expressions expanded into equivalent if/else branches. No equations, thresholds, eligibility or retrieval changed.",
+  "stored_snowflake_kure_retrievals_unchanged": true,
+  "time_kst": "2026-11-11T14:53:48.442121+09:00",
+  "vectors_unchanged": [
+    {
+      "document_sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c",
+      "model": "snowflake",
+      "question_sha256": "690db76652e0800bb41fa47937a761a64089e2024246f60302079c4c789c8f9f"
+    },
+    {
+      "document_sha256": "e6170497c46732d285887a0c0a3d6420ce4f9c8d9beeab235916bd28bf199949",
+      "model": "kure_v3",
+      "question_sha256": "52a12faee438d4aa22553f3da06760fdf0202e78eb767503a74b4c9a096a1b33"
+    },
+    {
+      "document_sha256": "90372f3e12184cbe56aa081cf802f7d111282c3278543041cdfcbf4704d99f72",
+      "model": "nemotron",
+      "question_sha256": "559d06a2570321ebb4b8c60609c29ef417811da7acd36d140248b8482e37aaa2"
+    }
+  ]
+}

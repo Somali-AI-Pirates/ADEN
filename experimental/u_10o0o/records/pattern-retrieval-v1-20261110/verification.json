@@ -1,0 +1,125 @@
+{
+  "checked_at_utc": "2026-11-10T15:20:50.821903+00:00",
+  "checks": [
+    {
+      "command": ".venv/bin/ruff check .",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/bin/ruff check --isolated --select E4,E7,E9,F,I experimental/u_10o0o/pattern_retrieval",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/bin/ruff format --isolated --check experimental/u_10o0o/pattern_retrieval",
+      "result": "passed",
+      "files": 13
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests experimental/u_10o0o/pattern_retrieval/tests",
+      "result": "passed",
+      "tests": 203,
+      "subtests": 9
+    },
+    {
+      "command": ".venv/bin/python -m build --outdir artifacts/u_10o0o/pattern-retrieval-v1-20261110/package-check-final-v2",
+      "result": "passed",
+      "artifacts": [
+        "sdist",
+        "wheel"
+      ],
+      "existing_warning": "sdist standard README is absent"
+    },
+    {
+      "command": ".venv/bin/python -m experimental.u_10o0o.pattern_retrieval --help",
+      "result": "passed"
+    }
+  ],
+  "independent_reviews": [
+    "runtime and vector/thread fingerprints",
+    "storage/scoring/source-scope and false-link negative cases",
+    "saved-result diagnosis and MRR N/A branch",
+    "shared-report consistency and privacy"
+  ],
+  "code_sha256": {
+    "experimental/u_10o0o/pattern_retrieval/__init__.py": "9d1057b69f577e114d8ed40701fa09e092f7c56eb7c14ed56ee13eb42734564c",
+    "experimental/u_10o0o/pattern_retrieval/__main__.py": "f5344a189ba810b975761f7740e5e3e1a460e7810d0f13734dac66e92c8bd5e1",
+    "experimental/u_10o0o/pattern_retrieval/common.py": "867e658e7c34d43fa50ea770f21331788b6900e7d67116ab61cf69f82b31b81a",
+    "experimental/u_10o0o/pattern_retrieval/corpus.py": "cb2fbabd8d76eb62106fb894e5d70578384c109d0ed0c0b3bff1b80cb1822d7b",
+    "experimental/u_10o0o/pattern_retrieval/engine.py": "d16b73db5acd7bb71db77ef3f0307bd1587b904da62d13642cc0d733f15820e2",
+    "experimental/u_10o0o/pattern_retrieval/evaluation.py": "964d6597a365866b8335874557d789eef8d457a6e4e1fb8196a8943e58b05a47",
+    "experimental/u_10o0o/pattern_retrieval/models.py": "5306687e53cf2e9503f443891ef3db78dc5add35fc8d6fb49093848b9ad9443f",
+    "experimental/u_10o0o/pattern_retrieval/reporting.py": "0dd0b90dc38b078956a4bd7025c61c3da5eb3f321f68bf9d1b00a57f4f561376",
+    "experimental/u_10o0o/pattern_retrieval/tests/test_corpus.py": "4b150bc661f833b989e97653e30b47ceca2bbd6535baa50f2574f73c72972552",
+    "experimental/u_10o0o/pattern_retrieval/tests/test_engine.py": "b1a8118b504f0e2e325db3f31d8eccbabda8184b0719063fe276350df3bbc073",
+    "experimental/u_10o0o/pattern_retrieval/tests/test_evaluation.py": "585102681e38d8c2a211a618dd750461bbb4c0c335a436cfcca306cc3831774b"
+  },
+  "before_mrr_na_fix": {
+    "checked_at_utc": "2026-11-10T14:15:56.990024+00:00",
+    "checks": [
+      {
+        "command": ".venv/bin/ruff check .",
+        "result": "passed"
+      },
+      {
+        "command": ".venv/bin/ruff check --isolated --select E4,E7,E9,F,I experimental/u_10o0o/pattern_retrieval",
+        "result": "passed"
+      },
+      {
+        "command": ".venv/bin/ruff format --isolated --check experimental/u_10o0o/pattern_retrieval",
+        "result": "passed",
+        "files": 13
+      },
+      {
+        "command": ".venv/bin/python -m pytest -q tests experimental/u_10o0o/pattern_retrieval/tests",
+        "result": "passed",
+        "tests": 203,
+        "subtests": 9
+      },
+      {
+        "command": ".venv/bin/python -m build --outdir artifacts/u_10o0o/pattern-retrieval-v1-20261110/package-check-final-v2",
+        "result": "passed",
+        "artifacts": [
+          "sdist",
+          "wheel"
+        ],
+        "existing_warning": "sdist standard README is absent"
+      },
+      {
+        "command": ".venv/bin/python -m experimental.u_10o0o.pattern_retrieval --help",
+        "result": "passed"
+      }
+    ],
+    "independent_reviews": [
+      "runtime and vector/thread fingerprints",
+      "storage/scoring/source-scope and false-link negative cases",
+      "saved-result diagnosis and MRR N/A branch",
+      "shared-report consistency and privacy"
+    ],
+    "code_sha256": {
+      "experimental/u_10o0o/pattern_retrieval/__init__.py": "9d1057b69f577e114d8ed40701fa09e092f7c56eb7c14ed56ee13eb42734564c",
+      "experimental/u_10o0o/pattern_retrieval/__main__.py": "f5344a189ba810b975761f7740e5e3e1a460e7810d0f13734dac66e92c8bd5e1",
+      "experimental/u_10o0o/pattern_retrieval/common.py": "867e658e7c34d43fa50ea770f21331788b6900e7d67116ab61cf69f82b31b81a",
+      "experimental/u_10o0o/pattern_retrieval/corpus.py": "cb2fbabd8d76eb62106fb894e5d70578384c109d0ed0c0b3bff1b80cb1822d7b",
+      "experimental/u_10o0o/pattern_retrieval/engine.py": "d16b73db5acd7bb71db77ef3f0307bd1587b904da62d13642cc0d733f15820e2",
+      "experimental/u_10o0o/pattern_retrieval/evaluation.py": "eae305731ea7fe0d9d2930f60bc15ec1049b0b05322b0c79daab2ea83fd676b1",
+      "experimental/u_10o0o/pattern_retrieval/models.py": "5306687e53cf2e9503f443891ef3db78dc5add35fc8d6fb49093848b9ad9443f",
+      "experimental/u_10o0o/pattern_retrieval/reporting.py": "0dd0b90dc38b078956a4bd7025c61c3da5eb3f321f68bf9d1b00a57f4f561376",
+      "experimental/u_10o0o/pattern_retrieval/tests/test_corpus.py": "4b150bc661f833b989e97653e30b47ceca2bbd6535baa50f2574f73c72972552",
+      "experimental/u_10o0o/pattern_retrieval/tests/test_engine.py": "b1a8118b504f0e2e325db3f31d8eccbabda8184b0719063fe276350df3bbc073",
+      "experimental/u_10o0o/pattern_retrieval/tests/test_evaluation.py": "eb986bf218e7859a15a8e919a1fb1c5fdb0a3b605732114a29a8036589a6503a"
+    }
+  },
+  "experiment_commands": {
+    "build": "complete: index-v4, 78844 vectors",
+    "retrieve": "complete: retrieval-v1, 360 traces",
+    "score": "complete: score-v2; eligible100 metrics unchanged from score-v1",
+    "timing": "complete: timing-v1, 270 traces",
+    "report": "complete: results/report.md and report.json"
+  },
+  "documentation_checks": {
+    "local_links": "passed",
+    "shared_json_parse": "passed",
+    "independent_privacy_review": "passed",
+    "dataset_alternative_groups": 0
+  }
+}

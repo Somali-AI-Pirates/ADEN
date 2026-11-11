@@ -1,0 +1,114 @@
+{
+  "broad/peer_false_premise/rerank_off": {
+    "candidate_complete": 19,
+    "count": 20,
+    "expanded_complete": 20,
+    "final_complete": 18,
+    "page_recall_at_20": 0.9625,
+    "page_recall_at_8": 0.9125
+  },
+  "broad/peer_false_premise/rerank_on": {
+    "candidate_complete": 19,
+    "count": 20,
+    "expanded_complete": 20,
+    "final_complete": 18,
+    "page_recall_at_20": 0.9625,
+    "page_recall_at_8": 0.9
+  },
+  "broad/peer_multi_doc/rerank_off": {
+    "candidate_complete": 85,
+    "count": 170,
+    "expanded_complete": 85,
+    "final_complete": 66,
+    "page_recall_at_20": 0.6446078431372549,
+    "page_recall_at_8": 0.5598039215686275
+  },
+  "broad/peer_multi_doc/rerank_on": {
+    "candidate_complete": 85,
+    "count": 170,
+    "expanded_complete": 85,
+    "final_complete": 68,
+    "page_recall_at_20": 0.6446078431372549,
+    "page_recall_at_8": 0.586764705882353
+  },
+  "broad/peer_two_doc/rerank_off": {
+    "candidate_complete": 65,
+    "count": 114,
+    "expanded_complete": 65,
+    "final_complete": 58,
+    "page_recall_at_20": 0.7105263157894737,
+    "page_recall_at_8": 0.6578947368421053
+  },
+  "broad/peer_two_doc/rerank_on": {
+    "candidate_complete": 65,
+    "count": 114,
+    "expanded_complete": 65,
+    "final_complete": 59,
+    "page_recall_at_20": 0.7105263157894737,
+    "page_recall_at_8": 0.6622807017543859
+  },
+  "broad/semantic_queries/rerank_off": {
+    "candidate_complete": 21,
+    "count": 40,
+    "expanded_complete": 21,
+    "final_complete": 19,
+    "page_recall_at_20": 0.6333333333333333,
+    "page_recall_at_8": 0.5958333333333333
+  },
+  "broad/semantic_queries/rerank_on": {
+    "candidate_complete": 21,
+    "count": 40,
+    "expanded_complete": 21,
+    "final_complete": 19,
+    "page_recall_at_20": 0.6333333333333333,
+    "page_recall_at_8": 0.5958333333333333
+  },
+  "reused24/fresh_is/rerank_off": {
+    "candidate_complete": 6,
+    "count": 6,
+    "expanded_complete": 6,
+    "final_complete": 6,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  },
+  "reused24/fresh_is/rerank_on": {
+    "candidate_complete": 6,
+    "count": 6,
+    "expanded_complete": 6,
+    "final_complete": 6,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  },
+  "reused24/fresh_mixed/rerank_off": {
+    "candidate_complete": 12,
+    "count": 12,
+    "expanded_complete": 11,
+    "final_complete": 10,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 0.9166666666666666
+  },
+  "reused24/fresh_mixed/rerank_on": {
+    "candidate_complete": 12,
+    "count": 12,
+    "expanded_complete": 11,
+    "final_complete": 9,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 0.875
+  },
+  "reused24/fresh_two_hg/rerank_off": {
+    "candidate_complete": 6,
+    "count": 6,
+    "expanded_complete": 6,
+    "final_complete": 6,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  },
+  "reused24/fresh_two_hg/rerank_on": {
+    "candidate_complete": 6,
+    "count": 6,
+    "expanded_complete": 6,
+    "final_complete": 6,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  }
+}

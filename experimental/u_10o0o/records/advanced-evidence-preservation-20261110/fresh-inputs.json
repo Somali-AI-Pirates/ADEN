@@ -1,0 +1,31 @@
+{
+  "seed": 20261111,
+  "validation": {
+    "questions": 24,
+    "references": 24,
+    "requests": 42,
+    "requirements": 70,
+    "citations_with_alternatives": 98,
+    "restored_checks": 98,
+    "pdf_text_checks": 98,
+    "pdf_hash_checks": 47,
+    "unique_source_pages": 59,
+    "no_excluded_hg": true,
+    "no_excluded_is_sources": true,
+    "no_search_model_api_or_score_access": true
+  },
+  "fresh_question_combination_not_unseen_corpus": true,
+  "independent_semantic_review": "24/24 passed before retrieval; minor particle correction only",
+  "outputs_sha256": {
+    "questions.json": "e306d0a9a6759daf3889d18722dc75820c6a0709562eaa370f8e113436207cdf",
+    "references.json": "1ab7139eb0bd44eccf3ee88382f2e6a39d9d89a9b8c1b6f222eafc8f2aae07be",
+    "author-note.md": "b8ee5159b64048ec685c19a02c0a07b5b39a551723bdd024f679add598fc7bc5"
+  },
+  "manifest_sha256": "95915f738a34efb5d83c38dce0586c306c0dd4c525734283bc01eb1fcb70ece7",
+  "reference_access": "parent did not parse reference content before retrieval",
+  "selection": "baseline vs requests40; fixed before new questions were scored",
+  "independent_review_files": {
+    "fresh-validation/review/review.json": "30fb0842b7f6fad8118e0b268067e7c2b62c713d9d0aa58ec246783de0b3329a",
+    "fresh-validation/review/review.md": "a605c900c3dcaa50124ba548e9393386e5dabc86120545ea6012dbafd0301151"
+  }
+}

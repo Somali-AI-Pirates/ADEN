@@ -1,0 +1,44 @@
+$ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false uv run --no-sync python -m experimental.u_10o0o.advanced_experiment rules validate --version aec25ae69e1c4a729709ec1e49d5c14c --output-dir artifacts/u_10o0o/advanced-curation-routing-20261109/rules-seed
+2026-11-09T19:31:32+09:00 rules 비교 시작 · 220문항 · 18,000쪽
+2026-11-09T19:32:09+09:00 baseline 리랭킹 1600/3600쌍
+2026-11-09T19:32:23+09:00 baseline 리랭킹 3200/3600쌍
+2026-11-09T19:32:26+09:00 baseline 리랭킹 3600/3600쌍
+2026-11-09T19:32:37+09:00 baseline 리랭킹 800/800쌍
+2026-11-09T19:32:38+09:00 rules 채점 완료 · 동일 추적 220/220
+
+$ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false uv run --no-sync python -m experimental.u_10o0o.advanced_experiment compare is --output-dir artifacts/u_10o0o/advanced-curation-routing-20261109/is
+2026-11-09T19:37:59+09:00 is 비교 시작 · 280문항 · 18,000쪽
+2026-11-09T19:38:33+09:00 baseline 리랭킹 1600/3600쌍
+2026-11-09T19:38:46+09:00 baseline 리랭킹 3200/3600쌍
+2026-11-09T19:38:50+09:00 baseline 리랭킹 3600/3600쌍
+2026-11-09T19:38:52+09:00 is 리랭킹 232/232쌍
+2026-11-09T19:39:03+09:00 baseline 리랭킹 800/800쌍
+2026-11-09T19:39:04+09:00 is 리랭킹 151/151쌍
+2026-11-09T19:39:23+09:00 baseline 리랭킹 1200/1200쌍
+2026-11-09T19:39:24+09:00 is 리랭킹 104/104쌍
+2026-11-09T19:39:24+09:00 is 채점 완료 · 동일 추적 158/280
+
+$ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false uv run --no-sync python -m experimental.u_10o0o.advanced_experiment compare hg --output-dir artifacts/u_10o0o/advanced-curation-routing-20261109/hg-final
+2026-11-09T19:43:55+09:00 hg 비교 시작 · 220문항 · 18,000쪽
+2026-11-09T19:43:55+09:00 HG 역할 조회 13,650개 일치
+2026-11-09T19:44:28+09:00 baseline 리랭킹 1600/3600쌍
+2026-11-09T19:44:41+09:00 baseline 리랭킹 3200/3600쌍
+2026-11-09T19:44:45+09:00 baseline 리랭킹 3600/3600쌍
+2026-11-09T19:44:56+09:00 baseline 리랭킹 800/800쌍
+2026-11-09T19:45:00+09:00 hg 채점 완료 · 동일 추적 220/220
+
+$ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false uv run --no-sync python -m experimental.u_10o0o.advanced_experiment compare rules --rule-version aec25ae69e1c4a729709ec1e49d5c14c --output-dir artifacts/u_10o0o/advanced-curation-routing-20261109/rules-final
+2026-11-09T19:47:27+09:00 rules 비교 시작 · 220문항 · 18,000쪽
+2026-11-09T19:48:00+09:00 baseline 리랭킹 1600/3600쌍
+2026-11-09T19:48:13+09:00 baseline 리랭킹 3200/3600쌍
+2026-11-09T19:48:16+09:00 baseline 리랭킹 3600/3600쌍
+2026-11-09T19:48:27+09:00 baseline 리랭킹 800/800쌍
+2026-11-09T19:48:28+09:00 rules 채점 완료 · 동일 추적 220/220
+
+$ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false uv run --no-sync python -m experimental.u_10o0o.advanced_experiment compare interpret --rule-version aec25ae69e1c4a729709ec1e49d5c14c --output-dir artifacts/u_10o0o/advanced-curation-routing-20261109/interpret-verified
+2026-11-09T19:49:56+09:00 interpret 가짜 해석 비교 · 5문항
+2026-11-09T19:49:57+09:00 interpret 가짜 해석 경로 검증 완료
+
+$ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false uv run --no-sync python -m experimental.u_10o0o.advanced_experiment compare lookup-first --rule-version aec25ae69e1c4a729709ec1e49d5c14c --output-dir artifacts/u_10o0o/advanced-curation-routing-20261109/lookup-first-verified
+2026-11-09T19:50:09+09:00 lookup-first 가짜 해석 비교 · 5문항
+2026-11-09T19:50:12+09:00 lookup-first 가짜 해석 경로 검증 완료

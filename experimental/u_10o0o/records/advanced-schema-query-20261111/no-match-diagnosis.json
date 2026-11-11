@@ -1,0 +1,1033 @@
+{
+  "absent_literal_counts": {
+    "literal_not_present_in_any_is_cell": 59,
+    "present_elsewhere": 7
+  },
+  "counts": {
+    "condition_absent_in_same_column_everywhere": 45
+  },
+  "posthoc": true,
+  "queries": [
+    {
+      "id": "official_development:AS-DEV05",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-a2c02a859b84116f",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        },
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": true,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-1a2daae5d3aa3e27",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "official_development"
+    },
+    {
+      "id": "official_development:AS-DEV07",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-0f8acd8639677a66",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "official_development"
+    },
+    {
+      "id": "official_development:AS-DEV11",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-ce76723708950438",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "official_development"
+    },
+    {
+      "id": "official_additional:AS-ADD06",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": true,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-1224ae4b4fd2b0f9",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        },
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": true,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-1a2daae5d3aa3e27",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "official_additional"
+    },
+    {
+      "id": "official_additional:AS-ADD07",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-02a077d7497d9273",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "official_additional"
+    },
+    {
+      "id": "official_additional:AS-ADD10",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-2169046f37e0754b",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "official_additional"
+    },
+    {
+      "id": "official_additional:AS-ADD11",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-bc8f5230d15cfeb3",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "official_additional"
+    },
+    {
+      "id": "scenarios:AS-S01-01",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-faacc69077b6fd02",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S01-02",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-7d9fc433482d9884",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S01-03",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-bcb671c3b59b2678",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S01-04",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-ba02373b72819a62",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S01-05",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-ba02373b72819a62",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S01-06",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-1ba448b478dbc44e",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S01-10",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": true,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-07c4b721f69274f7",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S01-13",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-bcb671c3b59b2678",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S01-14",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-bcb671c3b59b2678",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S01-18",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-3ae37f9e0ef665de",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S02-01",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-bcb671c3b59b2678",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S02-02",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-bcb671c3b59b2678",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S02-03",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-bcb671c3b59b2678",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S02-04",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-bcb671c3b59b2678",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S02-05",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-bcb671c3b59b2678",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S02-06",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-42eead60d0d325b7",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S02-08",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": true,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-42eead60d0d325b7",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S02-09",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-42eead60d0d325b7",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        },
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": true,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-3007c3e0291c5984",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S02-10",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            },
+            {
+              "literal_present_in_another_column": true,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0,
+            0,
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-42eead60d0d325b7",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S05-03",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-d02455a35ac97294",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S05-10",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-f378f5fc05c8a337",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S05-12",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-f378f5fc05c8a337",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S05-13",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-a2b1dd68448ef1a6",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S05-14",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-f378f5fc05c8a337",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S07-01",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-d5884a7a2937fd4e",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S07-03",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-d5884a7a2937fd4e",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S07-05",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-d5884a7a2937fd4e",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S07-18",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-d5884a7a2937fd4e",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S07-19",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-d5884a7a2937fd4e",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "scenarios:AS-S07-20",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-d5884a7a2937fd4e",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "scenarios"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-18",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-896b4b32b309d6dc",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        },
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-27eb301235d32083",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "semantic_queries"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-26",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-02a077d7497d9273",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        },
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-c9d55945ce3c8361",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "semantic_queries"
+    },
+    {
+      "id": "semantic_queries:AS-SEM-33",
+      "requests": [
+        {
+          "absent_condition_literal_checks": [
+            {
+              "literal_present_in_another_column": false,
+              "operator": "text_contains"
+            }
+          ],
+          "individual_match_counts": [
+            0
+          ],
+          "joint_match_count": 0,
+          "schema_id": "table-9f61d0cd49e2f523",
+          "selected_schema_match_count": 0,
+          "status": "condition_absent_in_same_column_everywhere"
+        }
+      ],
+      "suite": "semantic_queries"
+    }
+  ],
+  "retrieval_unchanged": true
+}

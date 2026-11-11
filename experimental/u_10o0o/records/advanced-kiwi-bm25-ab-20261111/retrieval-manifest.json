@@ -1,0 +1,34 @@
+{
+  "candidates": 20,
+  "controls": {
+    "kure_v3": "e78bdeeb7c23c829518a85e74180a024ca38cb7e06721de8230cf57018516966",
+    "snowflake": "f0e26c9d299590f222aee989cb05306bd55e436e389d322b24afcfc8d318ee58"
+  },
+  "frozen_sha256": "9d51dccf1ac79affd8b865085ad6ec5fb13b31695f4ef539e0f1ceec77024592",
+  "hybrid_weights": [
+    0.5,
+    0.5
+  ],
+  "kiwi": {
+    "kiwipiepy_model_version": "0.24.0",
+    "kiwipiepy_version": "0.24.1",
+    "tokenizer": "kiwi"
+  },
+  "kiwi_index_seconds": 69.14675438300037,
+  "kiwi_tokens": "forms containing a Hangul syllable",
+  "lexical_weights": [
+    0.7,
+    0.3
+  ],
+  "model_assets": {
+    "kure_v3": "b5c8bc96997bce91d16cc55732c762e9ed4b89784465b2666a612fd6566f6f5b",
+    "snowflake": "88a9e6712bd45696071681287709b8d07c41eb80f473ad2cac2092bc3d6a984d"
+  },
+  "references_opened": false,
+  "rrf_k": 60,
+  "status": "complete",
+  "treatments": {
+    "kure_v3": "d7d46039e84bf4893ca45946b5f243dd90168552564495a10c88f423921b0cf6",
+    "snowflake": "2bd40db388cc230763c9178705598eab22d29e44fd54554e1935da763cd776d5"
+  }
+}

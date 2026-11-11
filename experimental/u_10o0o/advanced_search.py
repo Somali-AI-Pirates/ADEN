@@ -18,10 +18,7 @@ from app.evaluation.metrics import retrieval_metrics
 from experimental.u_10o0o.advanced_case_sources import CURATED
 from experimental.u_10o0o.advanced_field_roles import PatternIndex
 from experimental.u_10o0o.advanced_full_metrics import fact_coverage
-from experimental.u_10o0o.advanced_hg_lookup import (
-    CASE_INDEX,
-    rank_with_hg_lookup,
-)
+from experimental.u_10o0o.advanced_hg_lookup import CASE_INDEX
 from experimental.u_10o0o.bm25 import K1, B, BM25Index, load_tokenizer
 from experimental.u_10o0o.context_evidence import score_context, score_packed_context
 from experimental.u_10o0o.embeding import (
@@ -229,6 +226,17 @@ def retain_reranked_head(sparse, reranked):
     return head + [(page, score) for page, score in sparse if id(page) not in selected]
 
 
+def hybrid_candidates(pages, vectors, fielded, embeddings):
+    dense = [
+        rank_pages(vector, vectors, pages, top_k=CANDIDATES) for vector in embeddings
+    ]
+    hybrid = [
+        weighted_rrf(sparse, vector, HYBRID_WEIGHTS, top_k=CANDIDATES)
+        for sparse, vector in zip(fielded, dense, strict=True)
+    ]
+    return dense, hybrid
+
+
 def score_categories(questions, files, retrievals, preset):
     references = {split: load_references(path) for split, (_, path) in files.items()}
     categories = defaultdict(Counter)
@@ -264,7 +272,7 @@ def score_categories(questions, files, retrievals, preset):
 def main() -> None:
     from experimental.u_10o0o.advanced_clarify_lookup import load_storage_lookup
     from experimental.u_10o0o.advanced_role_context import FACTS
-    from experimental.u_10o0o.advanced_source_lookup import selected_context
+    from experimental.u_10o0o.advanced_source_lookup import complete_sources
     from experimental.u_10o0o.advanced_target_benchmark import save_rankings
     from experimental.u_10o0o.advanced_target_lookup import load_target_lookup
 
@@ -367,14 +375,7 @@ def main() -> None:
         embeddings = embedder.encode_query(
             queries, normalize_embeddings=True, show_progress_bar=False
         )
-        dense = [
-            rank_pages(vector, vectors, pages, top_k=CANDIDATES)
-            for vector in embeddings
-        ]
-        hybrid = [
-            weighted_rrf(sparse, vector, HYBRID_WEIGHTS, top_k=CANDIDATES)
-            for sparse, vector in zip(fielded, dense, strict=True)
-        ]
+        dense, hybrid = hybrid_candidates(pages, vectors, fielded, embeddings)
         log(f"BM25·Snowflake-ko 후보 준비 · {len(batch)}문항 · {len(pages):,}쪽")
         candidates = {HYBRID_SELECTED: hybrid}
         if args.compare:
@@ -401,15 +402,10 @@ def main() -> None:
             ):
                 query = question["question"]
                 order = retain_reranked_head(pool, head)
-                linked, hg_route = rank_with_hg_lookup(
-                    query, order, lookup.cases, lookup.profile_index
+                linked, selection, hg_route = complete_sources(
+                    query, order, lookup, storage, args.context_tokens
                 )
-                linked = linked[:CANDIDATES]
-                selected, context, cases, source_route, selection_route = (
-                    selected_context(
-                        query, linked, lookup, storage, args.context_tokens
-                    )
-                )
+                selected, context, cases, source_route, selection_route = selection
                 rankings[preset].append(selected)
                 final_contexts[preset].append(context)
                 if args.suite == "categories":

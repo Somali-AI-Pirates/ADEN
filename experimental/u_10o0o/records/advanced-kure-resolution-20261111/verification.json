@@ -1,0 +1,48 @@
+{
+  "all_failure_questions_reviewed": 59,
+  "case_bundles_same_target": 10,
+  "controlled_comparisons": {
+    "A_F_pool": 280,
+    "B_C_reranked_pool": 280,
+    "B_G_pool": 280,
+    "C_D_pool": 280,
+    "D_G_reranked_pool": 280
+  },
+  "external_api_calls": 0,
+  "files": [
+    {
+      "path": "/home/jake/workspace/projects/kant/ADEN/experimental/u_10o0o/embedding_ablation/kure_resolution_settings.json",
+      "sha256": "a6dd36f3cbf0a23eba3dc95d12dc88b371a663526eb4380ddcba987c0f6b50c6"
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/kure_resolution.py",
+      "sha256": "b9f7d7e73cc552a7ede3c72503f8a46d17fa33c1b721afa04cedb329011032d3"
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/kure_resolution_review.py",
+      "sha256": "22fb10b6650ab66c1584cbdf7a69b9301160489ec1542605f183ecb8ee9544c8"
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/kure_resolution_matrix.py",
+      "sha256": "1c540791618de39eb4a080e815ab611d13d97435f146ecfe0c4a25208492b2c1"
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/kure_resolution_matrix_report.py",
+      "sha256": "6353dba68b13ab400c2f0daf2eff65cf6eefa73ac190467a91390dcd2816253e"
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/test_kure_resolution.py",
+      "sha256": "009ca4b7fe92f9da8f894d697c4190132b485a1ba377da54eeebdda0cb390ac5"
+    }
+  ],
+  "independent_review": false,
+  "online_context_differences": 18,
+  "online_context_hashes": 630,
+  "online_pass_fail_differences": 0,
+  "reason": "Side-conversation prohibits sub-agents",
+  "root_and_personal_pytest": "291 passed, 15 subtests passed",
+  "ruff_personal": "5 files passed; format check passed",
+  "ruff_root": "passed",
+  "runtime_and_inputs": "both manifests checked successfully",
+  "self_review": true
+}

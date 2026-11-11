@@ -4,8 +4,8 @@ import re
 from itertools import zip_longest
 
 from app.ingestion.layout import IDENTIFIER
-from experimental.u_10o0o.advanced_case_sources import ROLES
 from experimental.u_10o0o.advanced_clause_binding import roles_in
+from experimental.u_10o0o.advanced_hg_lookup import case_role_pages
 from experimental.u_10o0o.advanced_pair_context import OTHER_COUNT, unique_case
 from experimental.u_10o0o.advanced_target_lookup import (
     DATE,
@@ -38,7 +38,9 @@ def resolve_target(text, lookup):
         cases = lookup.id_to_cases.get(key, ())
         if len(cases) != 1 or not {"case_id", "equipment_id"} & lookup.id_fields[key]:
             return None, ()
-        return next(iter(cases)), roles_in(text[ids[0].end() :])
+        return next(iter(cases)), roles_in(
+            text[ids[0].end() :], getattr(lookup, "rules", None)
+        )
 
     if not all(len(values) == 1 for values in fields.values()):
         return None, ()
@@ -50,7 +52,7 @@ def resolve_target(text, lookup):
         for pattern in (*lookup.profile_patterns, *SPEC_PATTERNS)
         for match in pattern.finditer(text)
     )
-    return case, roles_in(text[end:])
+    return case, roles_in(text[end:], getattr(lookup, "rules", None))
 
 
 def pair_source_lookup(question, lookup):
@@ -83,13 +85,13 @@ def pair_source_lookup(question, lookup):
     if shared:
         if first_roles or second_roles:
             return (), ()
-        first_roles = second_roles = roles_in(parts[1])
+        first_roles = second_roles = roles_in(parts[1], getattr(lookup, "rules", None))
     if not first_roles or not second_roles:
         return (), ()
 
     targets = (first_case, second_case)
     pages = [
-        [lookup.cases[case][ROLES.index(role)] for role in roles]
+        case_role_pages(lookup.cases, case, roles)
         for case, roles in zip(targets, (first_roles, second_roles), strict=True)
     ]
     return targets, tuple(

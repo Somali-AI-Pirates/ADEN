@@ -1,0 +1,40 @@
+{
+  "arms": {
+    "baseline": {
+      "lookup": false,
+      "roles": false
+    },
+    "both": {
+      "lookup": true,
+      "roles": true
+    },
+    "lookup": {
+      "lookup": true,
+      "roles": false
+    },
+    "roles": {
+      "lookup": false,
+      "roles": true
+    }
+  },
+  "audit": {
+    "actual_discharge_date": 14,
+    "complex_target": 2,
+    "date_count": 264
+  },
+  "candidate_limit": 20,
+  "context_tokens": 8000,
+  "final_pages": 8,
+  "frozen_sha256": "9d51dccf1ac79affd8b865085ad6ec5fb13b31695f4ef539e0f1ceec77024592",
+  "kure_source_manifest_sha256": "e78bdeeb7c23c829518a85e74180a024ca38cb7e06721de8230cf57018516966",
+  "question_count": 280,
+  "references_opened": false,
+  "status": "complete",
+  "trace_manifests": {
+    "baseline": "a24251cb28576f985dea87dd54a43a0c49e4e477689845ccc88a012135bd1235",
+    "both": "afce37c317733e268963b03c6133fc9d31cccb33fa491eb419d320faa12ceb94",
+    "lookup": "053664b69e8507c66629203b1183b331cbbdc3ce2c05344eb593cecc535e7231",
+    "roles": "c1b649f2110c2480b244cd6a88d8c7a6163e539ec4014281bf467d2ed5234b99"
+  },
+  "wall_seconds": 1.278577249000591
+}

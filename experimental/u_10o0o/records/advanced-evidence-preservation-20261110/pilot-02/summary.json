@@ -1,0 +1,42 @@
+{
+  "pilot/baseline": {
+    "candidate_complete": 0,
+    "count": 6,
+    "expanded_complete": 2,
+    "final_complete": 1,
+    "page_recall_at_20": 3.0,
+    "page_recall_at_8": 3.5
+  },
+  "pilot/requests20": {
+    "candidate_complete": 3,
+    "count": 6,
+    "expanded_complete": 4,
+    "final_complete": 2,
+    "page_recall_at_20": 4.5,
+    "page_recall_at_8": 4.0
+  },
+  "pilot/requests20_pack": {
+    "candidate_complete": 3,
+    "count": 6,
+    "expanded_complete": 4,
+    "final_complete": 3,
+    "page_recall_at_20": 4.5,
+    "page_recall_at_8": 4.5
+  },
+  "pilot/requests40": {
+    "candidate_complete": 5,
+    "count": 6,
+    "expanded_complete": 5,
+    "final_complete": 3,
+    "page_recall_at_20": 5.5,
+    "page_recall_at_8": 4.5
+  },
+  "pilot/requests40_pack": {
+    "candidate_complete": 5,
+    "count": 6,
+    "expanded_complete": 5,
+    "final_complete": 4,
+    "page_recall_at_20": 5.5,
+    "page_recall_at_8": 5.0
+  }
+}

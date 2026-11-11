@@ -17,13 +17,20 @@ from experimental.u_10o0o.search import TOP_K
 
 K1 = 1.5
 B = 0.75
-TOKENIZERS = ("bigram", "kiwi", "kiwi-id", "bigram-id")
+TOKENIZERS = ("bigram", "kiwi", "kiwi-id", "bigram-id", "bigram-id-normalized")
 IDENTIFIER_PATTERN = re.compile(
     r"(?<![A-Za-z0-9_-])[A-Za-z0-9]{1,12}(?:-[A-Za-z0-9]{1,12}){1,4}(?![A-Za-z0-9_-])"
 )
 BIGRAM_ID_PATTERN = re.compile(
     r"(?<![A-Za-z0-9])[A-Z][A-Z0-9]{0,6}(?:-[A-Z0-9]{1,8}){1,4}(?![A-Za-z0-9])"
 )
+
+
+NORMALIZED_BIGRAM_ID_PATTERN = re.compile(
+    r"(?<![A-Za-z0-9])[A-Za-z][A-Za-z0-9]{0,6}"
+    r"(?:[ \t]*[-‐‑–—−－][ \t]*[A-Za-z0-9]{1,8}){1,4}(?![A-Za-z0-9])"
+)
+CODE_DASHES = str.maketrans({c: "-" for c in "‐‑–—−－"})
 
 
 def identifier_matches(text: str) -> list[re.Match[str]]:
@@ -54,6 +61,15 @@ def tokenize_bigram_id(text: str) -> list[str]:
     return tokenize(text) + [match.lower() for match in BIGRAM_ID_PATTERN.findall(text)]
 
 
+def tokenize_bigram_id_normalized(text: str) -> list[str]:
+    """Keep base terms and canonicalize complete-code spelling variants."""
+    codes = [
+        re.sub(r"[ \t]*-[ \t]*", "-", match.group().translate(CODE_DASHES)).lower()
+        for match in NORMALIZED_BIGRAM_ID_PATTERN.finditer(text)
+    ]
+    return tokenize(text) + codes
+
+
 def load_tokenizer(name: str) -> tuple[Callable[[str], list[str]], dict[str, str]]:
     if name == "bigram":
         return tokenize, {"tokenizer": "korean_bigram_ascii_alphanumeric"}
@@ -61,6 +77,13 @@ def load_tokenizer(name: str) -> tuple[Callable[[str], list[str]], dict[str, str
         return tokenize_bigram_id, {
             "tokenizer": name,
             "identifier_pattern": BIGRAM_ID_PATTERN.pattern,
+        }
+    if name == "bigram-id-normalized":
+        return tokenize_bigram_id_normalized, {
+            "tokenizer": name,
+            "identifier_pattern": NORMALIZED_BIGRAM_ID_PATTERN.pattern,
+            "normalization": "lowercase, equivalent dashes, horizontal spaces around dash",
+            "base_terms": "unchanged original bigram tokenizer",
         }
     if name not in ("kiwi", "kiwi-id"):
         raise ValueError(f"지원하지 않는 BM25 토크나이저 {name!r}")
@@ -160,6 +183,9 @@ def main() -> None:
         tokenizer_description = (
             "Bigram 토큰에 대문자로 시작하는 하이픈 코드를 통째로 추가했다."
         )
+
+    elif args.tokenizer == "bigram-id-normalized":
+        tokenizer_description = "Bigram 토큰을 유지하며 코드의 대소문자·하이픈·주변 공백을 정규화한 전체 토큰을 추가했다."
 
     index = BM25Index(pages, tokenizer=tokenizer)
     index_seconds = perf_counter() - started

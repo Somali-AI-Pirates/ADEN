@@ -1,0 +1,37 @@
+{
+  "ruff_repository": "passed",
+  "ruff_new_experiment_files": "passed",
+  "ruff_format_new_experiment_files": "passed",
+  "pytest_command": "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 .venv/bin/python -m pytest -q tests experimental/u_10o0o/tests",
+  "pytest_passed": 265,
+  "pytest_subtests_passed": 9,
+  "cli_help": "passed",
+  "real_retrieval_executions": 174,
+  "external_api_calls": 0,
+  "unchanged_input_and_code_fingerprints": 215,
+  "frozen_bm25_extended_top20_equality_queries": 18,
+  "max_initial_candidates": 20,
+  "max_post_lookup_candidates": 20,
+  "max_final_pages": 8,
+  "max_final_tokens_observed": 5852,
+  "fixture_review": {
+    "questions": 144,
+    "groups": 24,
+    "pdf_hashes_verified": 50,
+    "citations_verified": 324
+  },
+  "production_baseline_modified_in_this_task": false,
+  "packaging_changed": false,
+  "environment": {
+    "python": "3.13.15",
+    "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "torch": "2.15.0",
+    "numpy": "2.5.4",
+    "sentence-transformers": "6.2.0",
+    "transformers": "5.22.1",
+    "tokenizers": "0.23.3",
+    "pypdf": "6.21.4",
+    "tiktoken": "0.14.0"
+  },
+  "local_links_verified": 40
+}

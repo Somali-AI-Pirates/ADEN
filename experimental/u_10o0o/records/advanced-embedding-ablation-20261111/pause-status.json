@@ -1,0 +1,36 @@
+{
+  "state": "paused_by_user",
+  "updated_at_kst": "2026-11-11T13:22:29.102622+09:00",
+  "nemotron": {
+    "completed_pages": 15104,
+    "total_pages": 18000,
+    "remaining_pages": 2896,
+    "verified_chunks": 59,
+    "document_compute_seconds": 7678.079268937004,
+    "queries_embedded": false,
+    "retrieval_complete": false
+  },
+  "qwen3": {
+    "weights_downloaded": true,
+    "embedding_started": false,
+    "completed_pages": 0
+  },
+  "active_embedding_or_evaluation_jobs": 0,
+  "validation": {
+    "contiguous_checkpoints": true,
+    "all_chunk_sha256": true,
+    "shape_4096": true,
+    "finite_unit_vectors": true,
+    "frozen_inputs_unchanged": true
+  },
+  "resume_preference": [
+    "Resume Nemotron from page offset 15104 with the frozen settings.",
+    "After Nemotron documents and query embeddings finish, run Qwen embedding in the background concurrently with Nemotron retrieval and scoring.",
+    "Preserve the original retrieval conditions; check GPU memory before concurrent GPU work.",
+    "Once Qwen finishes, retrieve and score the combined four-model comparison."
+  ],
+  "requires_user_resume": true,
+  "old_driver_note": "resume_large_models.py was stopped. Its sequential schedule must be updated to the requested parallel schedule before any restart.",
+  "baseline_changed": false,
+  "committed_or_pushed": false
+}

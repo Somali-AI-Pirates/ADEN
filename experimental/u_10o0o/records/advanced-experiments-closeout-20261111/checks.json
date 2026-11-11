@@ -1,0 +1,68 @@
+{
+  "purpose": "Publish existing non-TableRAG experiment code and records; no new benchmark or adoption decision.",
+  "branch": "chore/advanced-experiments-closeout-20261111",
+  "base_main": "d93e3e4",
+  "first_fresh_commit": "c8965ec",
+  "initial_scope": {
+    "candidate_files_including_fresh": 638,
+    "candidate_python_files": 126,
+    "excluded_table_rag_files": 112,
+    "candidate_bytes": 50783487
+  },
+  "excluded_patterns": [
+    "experimental/u_10o0o/table_rag/**",
+    "experimental/u_10o0o/records/advanced-table-rag-*/**",
+    "ignored raw data, question/reference artifacts, databases, models and vectors"
+  ],
+  "tests": {
+    "clean_worktree": {
+      "passed": 656,
+      "subtests_passed": 15,
+      "skipped": 2,
+      "skip_reason": "Fresh source PDFs/ignored extracted corpus unavailable in isolated checkout."
+    },
+    "fresh_original_data_check": {
+      "passed": 123,
+      "copied_python_bytes_match": true
+    },
+    "initial_additional_run": {
+      "passed": 243,
+      "failed": 1,
+      "reason": "Mocked legacy-baseline test required a real local curation manifest."
+    }
+  },
+  "lint": {
+    "project_ruff": "passed",
+    "candidate_python_ruff_E4_E7_E9_F": "passed"
+  },
+  "cli_help": {
+    "additional": 14,
+    "fresh": 11,
+    "result": "passed"
+  },
+  "build": {
+    "result": "sdist and wheel passed in first fresh closeout",
+    "reuse_reason": "No product/package/build configuration changed by additional experimental files.",
+    "warning": "Existing standard root README warning documented in fresh closeout."
+  },
+  "data_audit": {
+    "binary_in_candidate_files": 0,
+    "table_rag_imports_in_candidate_python": 0,
+    "credential_pattern_matches": 0,
+    "json_jsonl_parse_errors": 0,
+    "saved_prompt": "Matches static instruction in advanced_query_plan.py; no question-specific text.",
+    "public_local_link_missing": 0,
+    "local_artifact_links_not_present_in_clean_checkout": 42
+  },
+  "repairs": [
+    "Replace undefined _narrative_rows with existing _narratives_by_page flattening; remove unused names without extending manifest validation.",
+    "Provide temporary Advanced manifest to the mocked legacy-baseline test."
+  ],
+  "model_or_paid_api_calls_in_closeout": 0,
+  "production_files_changed": 0,
+  "caveats": [
+    "Recorded benchmark scores were preserved, not rerun.",
+    "Some historical report links require ignored local artifacts.",
+    "TableRAG work continued independently and was not modified or staged."
+  ]
+}

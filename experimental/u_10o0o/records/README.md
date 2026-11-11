@@ -1,10 +1,35 @@
 # 검색 실험 기록
 
+[BM25 코드 정규화 채택과 공식 누락 분석](advanced-normalized-baseline-20261111/report.md)은 2026-11-11 기준선 업데이트, 기본 실행 재현과 공식 문항의 검색·최종 선택 누락을 기록한다. 정규화 자체의 비교는 [별도 실험](advanced-bm25-code-normalization-20261111/report.md)에 있다.
+
 실험 결과 요약과 채택 근거를 조회하는 시작점이다. 모델 선택 및 채택 결정은 [선택 기록](decisions.md)에 기록한다.
 
 현재 Advanced 개인 기준선은 **제목 보너스 Bigram-ID BM25와 Snowflake-ko의 5:5 RRF, KURE nano 상위 3쪽, HG 및 원문 조회, 복원 원본 최대 8쪽·8,000토큰**이다. 이전 BM25 기준선은 `--compare`로 함께 평가한다. [기준선 선택 기록](decisions.md#2026-11-09--55-하이브리드를-개인-advanced-기준선에-채택) · [현재 실행 방법](../README.md#현재-advanced-구성)
 
+[Advanced 정제·조회·라우팅 비교](advanced-curation-routing-20261109/report.md)에 IS 입력 정제, HG 역할별 SQLite 조회, 규칙 이관과 가짜 해석 분기의 결과를 기록했다.
+
+[Advanced Luna 질문 해석 비교](advanced-luna-routing-20261109/report.md)는 같은 5:5 후보에서 규칙과 GPT-6 Luna `low`의 대상·역할, 최종 근거, 오확정과 지연을 비교한다.
+
+[Advanced HG 원본 조회와 일반 검색 분리](advanced-hg-partition-20261109/report.md)는 AS057~AS120을 일반 검색에서 분리하고 실제 Luna 도구 호출과 SQLite 원본 조회를 연결한 공식 60문항 비교다. 최종 전체 근거 충족이 32/58에서 43/58로 올랐다.
+
+[동료 Advanced 304문항의 HG 분리 비교](advanced-hg-partition-peer-20261109/report.md)는 같은 경로를 동료 문항으로 다시 측정한 기록이다. 2문서 합성과 4문서 합성의 변화, 일반·HG 전용 검색에서 빠진 근거를 나눠 기록했다.
+
+[Advanced HG 조회와 전체 5:5 검색 복귀](advanced-hg-full-fallback-20261109/report.md)는 확정된 HG 조회에 DB 원본을 쓰고, 혼합 질문과 미확정 질문에는 전체 검색을 연결한 경로를 두 기존 설정과 비교한다. 공식은 기존 HG 분리의 43/58을 유지했고, 동료 304문항에서는 112건에서 126건으로 회복했다.
+
+[Advanced 기준선과 요청별 검색 비교](advanced-plan-ab-20261110/report.md)는 같은 후보·문맥 예산에서 동료 304문항과 일상 표현 40문항의 근거, 대상·요청 인식과 지연을 비교한 기록이다.
+
+[Advanced 요청별 검색 후속 검증](advanced-plan-followup-20261110/report.md)은 기존 단계별 점수, 새 질문 24개의 채택 검증, 두 설정의 실제 검색 시간과 호출량을 기록한다.
+
+[Advanced 데이터 패턴과 검색 설계 재검토](../research/advanced-retrieval-foundations-20261110/README.md)는 코드·축약 표현의 실제 유일성, 기본 실행과 실험 경로의 차이, 정확 조회·어휘·의미·그래프 검색의 레퍼런스와 적용 경계를 정리한 조사다.
+
 [Advanced 검색 실험 종합 보고서 PDF](advanced-curation/advanced-retrieval-report-20261109.pdf)에서 초기 검색 실험, 명시·간접 HG 조회 예시, 동료 설정 비교와 최종 선정 근거를 볼 수 있다. [추가 실험 후 최종 결정](decisions.md#2026-11-09--추가-실험-후-개인-advanced-기준선-확정)에 기존 검색과 HG 조회를 유지한 근거를 기록했다.
+
+
+[요청별 후보 보존과 최종 선택 비교](advanced-evidence-preservation-20261110/report.md)는 코드 표현 진단에서 확인한 후보 손실을 두 축으로 나눠 실험하고, 동료304·일상40·동일 대상144문항과 별도 새 질문으로 회귀·재현성을 확인한 기록이다. 기존 기준선은 유지한다.
+
+[요청별 검색 뒤 원질문 재리랭킹 ON/OFF](advanced-final-rerank-ab-20261110/report.md)는 같은 후보20쪽에서 마지막 KURE 승격만 비교했다. OFF는 동료304에서145→142, 일상40에서19→19, 재사용24에서21→22였다. 근거를 밀어내는 사례와 회복시키는 사례를 분리했고 기준선은 유지했다.
+
+[일상 표현 후보 누락 진단과 IS 창 벡터 A/B](advanced-semantic-first-miss-20261111/report.md)는 보관된 실패 19개를 단계별로 추적하고, 같은 요청 계획에서 IS 벡터 표현만 교체한 실험이다. 후보 전체 근거는 21/40으로 같고 최종은 19/40→21/40이다. 기존 기준선은 유지한다. [판정과 한계](advanced-semantic-first-miss-20261111/conclusions.md)
 
 ## 보관 범위
 
@@ -77,10 +102,20 @@ Advanced 원본 PDF 120개에서 복원한 18,000쪽과 일반 평가 60문항�
 
 - [Advanced 상황별 160문항과 검색 결과](advanced-scenarios-benchmark-20261109-v2/report.md)는 검색 140문항과 범위 밖 대조 20문항을 나눠 개인 기준선과 동료 무 API 설정을 비교한다. [평가 입력](../evaluation/advanced_scenarios/README.md)
 
+- [코드 표현과 HG+IS 혼합 질문 진단](advanced-identifier-diagnostic-20261110/report.md)은 기준선을 유지한 채 같은 대상의 완전 코드·표기 변형·간접·불충분 144문항과 혼합 6문항의 검색 흐름을 비교한다. 최초 검색, RRF 후보 축소, 원문 조회, 최종 8쪽에서의 근거 손실을 분리했다.
+
 ## 결과 해석
 
 각 실행 결과에 데이터셋, 검색 단위, 평가 순위 범위와 실행 조건을 기록했다. 수치를 비교할 때는 해당 조건이 일치하는지 확인한다.
 
+[기존 공식·카테고리 세트에서 E/F 기록 선택 재검증](advanced-fresh-existing-evaluation-20261111/report.md)은 공식 60문항과 카테고리 220문항에 동결한 E/F 및 기록 선택을 적용한 결과다. 선택 전후 근거 회복·유실은 없었으며, 전체/유형별 수치와 후보·최종 손실을 분리했다. 기존 세트 재검증으로 기록하고 기본 구성은 유지한다.
+
 ## 원본 기반 반복 패턴 검색 실험
 
 - [종료 기록: A/B/C → 페이지 관계 → 후보 병합 → 최종 기록 선택](advanced-fresh-record-hybrid-20261111/closeout.md) — 기존 기준선은 유지. 공식 60·카테고리 220 재검증과 새 문항의 분포 편향·실패 단계, 관련 레퍼런스를 함께 기록했다.
+
+## 2026-11-11 실험 보존 정리
+
+- [TableRAG 제외 실험별 목록](advanced-experiments-closeout-20261111/catalog.md): 정제·DB·Luna·HG 조회, 질문 계획·근거 보존, 식별자·BM25, 임베딩·리랭커, 원본 패턴 실험의 목적과 결과·한계.
+- [게시 과정 및 검사](advanced-experiments-closeout-20261111/process.md): 커밋 범위, 제외한 진행 중 작업, 재현성 수정과 최종 검증.
+- [fresh 원문·기록·관계 실험 종료](advanced-fresh-record-hybrid-20261111/closeout.md): A~F·기록 선택과 기존 공식·카테고리 평가.
