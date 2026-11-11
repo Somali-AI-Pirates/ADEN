@@ -3,7 +3,7 @@ from hashlib import sha256
 from time import perf_counter
 from typing import Any
 
-from openai import APIError, APITimeoutError
+from openai import APIError, APITimeoutError, LengthFinishReasonError
 
 from shared.contracts import QueryRequest, QueryResponse
 from shared.exceptions import ServiceError
@@ -138,6 +138,10 @@ def _answer_query(
     except APITimeoutError as error:
         raise ServiceError(
             "답변 처리 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.", 504
+        ) from error
+    except LengthFinishReasonError as error:
+        raise ServiceError(
+            "답변이 출력 한도를 넘어 완성되지 않았습니다. 질문 범위를 좁혀 다시 시도해 주세요.", 502
         ) from error
     except APIError as error:
         raise ServiceError(
