@@ -32,8 +32,12 @@ def git_info() -> dict[str, Any]:
         except (OSError, subprocess.CalledProcessError):
             return None
     status = run("status", "--porcelain")
-    return {"git_commit": run("rev-parse", "HEAD"),
-            "git_dirty": None if status is None else bool(status)}
+    commit = run("rev-parse", "HEAD")
+    if status is None:
+        dirty = None
+    else:
+        dirty = bool(status)
+    return {"git_commit": commit, "git_dirty": dirty}
 
 
 def versions() -> dict[str, str | None]:
@@ -89,8 +93,12 @@ def publication_plan(args: Any, manifest: dict[str, Any], *, default_groups: Any
         return None
     chosen = args.publish_groups or default_groups
     try:
+        if "all" in chosen:
+            groups = GROUPS
+        else:
+            groups = chosen
         return plan_publication(manifest, evaluation_set=args.evaluation_set,
-                                groups=GROUPS if "all" in chosen else chosen,
+                                groups=groups,
                                 artifacts_dir=args.artifacts_dir, request_ids=request_ids)
     except ValueError as exc:
         raise SystemExit(str(exc)) from exc

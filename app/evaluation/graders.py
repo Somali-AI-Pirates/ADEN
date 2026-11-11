@@ -46,7 +46,10 @@ def response_text(record: Mapping[str, Any]) -> str:
 def chunk_text(chunk: Mapping[str, Any]) -> str:
     """생성 모델이 본 문맥처럼 청크 제목을 본문 앞에 붙인다. 고급 자료는 화주·예약번호가 제목에만 있다."""
     heading = chunk.get("heading")
-    return f"제목: {heading}\n{chunk['text']}" if heading else chunk["text"]
+    if heading:
+        return f"제목: {heading}\n{chunk['text']}"
+    else:
+        return chunk["text"]
 
 
 def _timed(fn: Callable[[], Mapping[str, Any]]) -> tuple[Mapping[str, Any] | None, dict[str, Any]]:
@@ -104,7 +107,10 @@ def parse_judge_output(text: str) -> tuple[dict[str, dict[str, Any]], bool | Non
         else:
             result[key] = score(None, "unavailable", f"Judge 출력 형식 오류: {item!r}")
     claims = data.get("has_factual_claims")
-    return result, claims if isinstance(claims, bool) else None
+    if isinstance(claims, bool):
+        return result, claims
+    else:
+        return result, None
 
 
 def grade_judge(record: Mapping[str, Any], reference: Mapping[str, Any],
@@ -169,7 +175,10 @@ def grade_faithfulness(record: Mapping[str, Any], has_claims: bool | None,
 def grade_record(record: Mapping[str, Any], reference: Mapping[str, Any], *, k: int,
                  judge_fn: JudgeFn | None, faithfulness_fn: FaithfulnessFn | None,
                  judge_template: str | None = None) -> dict[str, Any]:
-    template = judge_template if judge_template is not None else load_prompt("judge.txt")
+    if judge_template is not None:
+        template = judge_template
+    else:
+        template = load_prompt("judge.txt")
     judge, claims, judge_usage = grade_judge(record, reference, judge_fn, template)
     faith, faith_usage = grade_faithfulness(record, claims, faithfulness_fn)
     return {

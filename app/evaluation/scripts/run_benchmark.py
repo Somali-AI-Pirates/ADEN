@@ -124,8 +124,14 @@ def main() -> None:
         config_hash = args.config_hash or sha256_file(ROOT / args.config)
         adapter = load_callable(args.adapter, config_path=config_path)
         tracer = getattr(adapter, "tracer", None)
-        judge_fn = make_openai_judge(args.judge_model) if args.judge_model else None
-        faith_fn = make_ragas_faithfulness(args.ragas_model) if args.ragas_model else None
+        if args.judge_model:
+            judge_fn = make_openai_judge(args.judge_model)
+        else:
+            judge_fn = None
+        if args.ragas_model:
+            faith_fn = make_ragas_faithfulness(args.ragas_model)
+        else:
+            faith_fn = None
         judge_desc, faith_desc = args.judge_model, args.ragas_model
         reports_dir = args.reports_dir or str(ROOT / "reports")
 
@@ -145,9 +151,15 @@ def main() -> None:
     question_ids = []
     for question in questions:
         question_ids.append(question["id"])
+    selection_reason = args.selection_reason
+    if not selection_reason:
+        if args.sample:
+            selection_reason = "가상 샘플 시나리오"
+        else:
+            selection_reason = ""
     manifest["benchmark"] = {
         "k": args.k, "modes": modes, "question_ids": question_ids,
-        "selection_reason": args.selection_reason or ("가상 샘플 시나리오" if args.sample else ""),
+        "selection_reason": selection_reason,
         "references_sha256": sha256_file(Path(references_path)),
         "questions_file": Path(questions_path).name, "judge": judge_desc,
         "faithfulness": faith_desc, "judge_prompt": sha256_file(PROMPTS_DIR / "judge.txt"),
@@ -157,7 +169,10 @@ def main() -> None:
     # 1) 실행·저장: 정답 파일은 아직 읽지 않는다
     runs = run_comparison(questions, adapter, experiment_id=experiment_id,
                           dataset_id=dataset_id, config_hash=config_hash, modes=modes)
-    flush = tracer.flush() if isinstance(tracer, Tracer) else {"status": "adapter_managed"}
+    if isinstance(tracer, Tracer):
+        flush = tracer.flush()
+    else:
+        flush = {"status": "adapter_managed"}
     # flush·trace ID만으로 저장 완료로 보지 않고 실제 관측을 조회한다(수집 지연은 전체 한도로 기다림)
     deadline = time.monotonic() + args.langfuse_verify_timeout
     for r in runs:
@@ -169,8 +184,16 @@ def main() -> None:
             if isinstance(tracer, Tracer) and tracer.enabled else None)
     verified = Counter()
     for run in runs:
-        verified[("mock:" if args.sample else "") + str(run["langfuse_verification"])] += 1
-    manifest["benchmark"].update(langfuse_flush=("mock:" if args.sample else "") + flush["status"],
+        if args.sample:
+            verification_prefix = "mock:"
+        else:
+            verification_prefix = ""
+        verified[verification_prefix + str(run["langfuse_verification"])] += 1
+    if args.sample:
+        flush_prefix = "mock:"
+    else:
+        flush_prefix = ""
+    manifest["benchmark"].update(langfuse_flush=flush_prefix + flush["status"],
                                  langfuse_verification=dict(verified))
     write_artifacts(exp_dir, manifest, runs=runs)
 

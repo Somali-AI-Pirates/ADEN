@@ -47,7 +47,10 @@ class RequestTrace:
         self._query = {"question": question, "retrieval_mode": retrieval_mode}
         self._active: dict[str, tuple[Any, dict]] = {}
         self._observed: set[str] = set()
-        self.status = "disabled" if client is None else "recording"
+        if client is None:
+            self.status = "disabled"
+        else:
+            self.status = "recording"
         if client is None:
             return
         meta = {
@@ -178,6 +181,10 @@ class RequestTrace:
         for usage_key, token_count in (("input", input_tokens), ("output", output_tokens)):
             if token_count is not None:
                 usage[usage_key] = token_count
+        if model_parameters:
+            recorded_parameters = dict(model_parameters)
+        else:
+            recorded_parameters = None
         kwargs: dict[str, Any] = dict(
             name=f"generation-attempt-{attempt}",
             as_type="generation",
@@ -185,7 +192,7 @@ class RequestTrace:
             input=model_input,
             output=model_output,
             usage_details=usage or None,
-            model_parameters=dict(model_parameters) if model_parameters else None,
+            model_parameters=recorded_parameters,
             metadata={
                 "attempt": attempt,
                 "latency_ms": latency_ms,
@@ -317,7 +324,10 @@ class Tracer:
     ) -> dict[str, Any]:
         """Langfuse API에서 trace의 관측을 조회한다. 수집 지연(15~30초)이 있어 재시도한다."""
         if self._client is None or not trace_id:
-            return {"status": "disabled" if self._client is None else "no_trace_id"}
+            if self._client is None:
+                return {"status": "disabled"}
+            else:
+                return {"status": "no_trace_id"}
         deadline = time.monotonic() + timeout_s
         while True:
             try:

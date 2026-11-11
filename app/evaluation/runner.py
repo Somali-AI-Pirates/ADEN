@@ -68,7 +68,10 @@ def grade_all(records: Sequence[Mapping[str, Any]], references: Mapping[str, Map
     missing = sorted(record_question_ids - set(references))
     if missing:
         raise ValueError(f"참고 정답이 없는 문항: {missing}")
-    template = judge_template if judge_template is not None else load_prompt("judge.txt")
+    if judge_template is not None:
+        template = judge_template
+    else:
+        template = load_prompt("judge.txt")
     graded = []
     for record in records:
         graded.append(grade_record(record, references[record["question_id"]], k=k, judge_fn=judge_fn,

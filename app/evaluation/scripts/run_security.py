@@ -75,8 +75,10 @@ def main() -> None:
         config_hash = args.config_hash or sha256_file(ROOT / args.config)
         retrieve_fn = load_callable(args.retrieve, config_path=config_path)
         generate_fn = load_callable(args.generate, config_path=config_path)
-        judge_fn = (make_openai_security_judge(args.judge_model, load_prompt("security_judge.txt"))
-                    if args.judge_model else None)
+        if args.judge_model:
+            judge_fn = make_openai_security_judge(args.judge_model, load_prompt("security_judge.txt"))
+        else:
+            judge_fn = None
         judge_desc, mode = args.judge_model, args.retrieval_mode
         reports_dir = args.reports_dir or str(ROOT / "reports")
 

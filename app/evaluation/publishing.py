@@ -56,7 +56,11 @@ def plan_publication(manifest, *, evaluation_set=None, groups=None, artifacts_di
     if not re.fullmatch(r"[A-Za-z0-9_-]+", evaluation_set):
         raise ValueError(f"평가 세트 이름은 영문·숫자·'-'·'_'만 쓴다: {evaluation_set}")
     version = hashlib.sha256(json.dumps(conditions(manifest), sort_keys=True).encode()).hexdigest()
-    for path in Path(artifacts_dir).glob("*/manifest.json") if artifacts_dir else ():
+    if artifacts_dir:
+        manifest_paths = Path(artifacts_dir).glob("*/manifest.json")
+    else:
+        manifest_paths = ()
+    for path in manifest_paths:
         other = json.loads(path.read_text(encoding="utf-8"))
         used = other.get("langfuse_scores") or {}
         if (used.get("evaluation_set") != evaluation_set
@@ -66,7 +70,10 @@ def plan_publication(manifest, *, evaluation_set=None, groups=None, artifacts_di
             raise ValueError(f"평가 세트 '{evaluation_set}'는 실험 {other.get('experiment_id')}에서 다른 "
                              "채점 조건으로 게시됐다. 조건이 다르면 다른 세트 이름을 쓴다")
         graded = path.with_name("scores.jsonl")
-        lines = graded.read_text(encoding="utf-8").splitlines() if graded.exists() else []
+        if graded.exists():
+            lines = graded.read_text(encoding="utf-8").splitlines()
+        else:
+            lines = []
         graded_request_ids = set()
         for line in lines:
             if line.strip():
