@@ -1,0 +1,22 @@
+{
+  "api_calls": 0,
+  "cli_snapshot_verified": true,
+  "max_final_pages": 8,
+  "max_final_tokens": 6214,
+  "pytest_passed": 196,
+  "pytest_subtests_passed": 9,
+  "reclassified_ids": [
+    "AS-DEV13",
+    "AS-DEV14",
+    "AS-DEV15",
+    "AS-ADD13",
+    "AS-ADD14",
+    "AS-ADD15"
+  ],
+  "ruff_passed": true,
+  "source_run_parity": {
+    "baseline": 60,
+    "hg_partition": 54
+  },
+  "standalone_spec_general_questions": 9
+}

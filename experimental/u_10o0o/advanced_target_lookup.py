@@ -16,11 +16,13 @@ from experimental.u_10o0o.advanced_case_sources import CURATED, ROLES, hg_ids
 from experimental.u_10o0o.advanced_hg_lookup import (
     CASE_INDEX,
     ProfileIndex,
+    case_role_pages,
     load_cases,
     load_profiles,
     normalized,
 )
 from experimental.u_10o0o.advanced_role_context import FACTS
+from experimental.u_10o0o.advanced_routing_rules import RulesSnapshot
 from experimental.u_10o0o.context_evidence import _source_key
 from experimental.u_10o0o.prepare import CACHE_PATH
 
@@ -120,9 +122,11 @@ class TargetLookup:
         curated: Path = CURATED,
         case_index: Path = CASE_INDEX,
         facts: Path = FACTS,
+        rules: RulesSnapshot | None = None,
     ):
         self.cases = cases
         self.profiles = profiles
+        self.rules = rules
         self.page_roles = {
             _source_key(page): (case_id, role)
             for case_id, linked in cases.items()
@@ -244,7 +248,12 @@ class TargetLookup:
                 self.id_fields[key].add(field)
 
     def _requested_roles(self, question: str) -> tuple[str, ...]:
-        matched = tuple(role for role, cue in ROLE_CUES.items() if cue.search(question))
+        if self.rules is None:
+            matched = tuple(
+                role for role, cue in ROLE_CUES.items() if cue.search(question)
+            )
+        else:
+            matched = self.rules.match_target_roles(question)
         return matched or ROLES
 
     def _pages_for_cases(
@@ -254,7 +263,7 @@ class TargetLookup:
         return tuple(
             CaseTarget(
                 case_id=case_id,
-                pages=tuple(self.cases[case_id][ROLES.index(role)] for role in roles),
+                pages=tuple(case_role_pages(self.cases, case_id, roles)),
                 matched_fields=(),
             )
             for case_id in sorted(set(case_ids))
@@ -286,9 +295,12 @@ class TargetLookup:
             prefix = text[max(0, date_match.start() - 22) : date_match.start()]
             suffix = text[date_match.end() : date_match.end() + 16]
             date_context = prefix + suffix
-            typed_fields = {
-                fact for fact, cue in DATE_CUES.items() if cue.search(date_context)
-            }
+            if self.rules is None:
+                typed_fields = {
+                    fact for fact, cue in DATE_CUES.items() if cue.search(date_context)
+                }
+            else:
+                typed_fields = set(self.rules.match_target_dates(date_context))
             if len(typed_fields) != 1:
                 matched[INVALID_CONSTRAINT] = {"invalid"}
                 continue
@@ -477,6 +489,7 @@ def load_target_lookup(
     curated: Path = CURATED,
     case_index: Path = CASE_INDEX,
     facts: Path = FACTS,
+    rules: RulesSnapshot | None = None,
 ) -> TargetLookup:
     if pages is None:
         pages = json.loads(CACHE_PATH.read_bytes())
@@ -484,5 +497,11 @@ def load_target_lookup(
     cases = load_cases(case_index, pages, manifest_sha)
     profiles = load_profiles(curated, cases)
     return TargetLookup(
-        pages, cases, profiles, curated=curated, case_index=case_index, facts=facts
+        pages,
+        cases,
+        profiles,
+        curated=curated,
+        case_index=case_index,
+        facts=facts,
+        rules=rules,
     )

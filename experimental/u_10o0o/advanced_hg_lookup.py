@@ -197,6 +197,14 @@ def linked_pages(order, pages):
     return pages if any(location(page) in sources for page, _ in order) else None
 
 
+def case_role_pages(cases, case_id, roles):
+    provider = getattr(cases, "pages_for", None)
+    if provider is not None:
+        return provider(case_id, roles)
+    pages = cases[case_id]
+    return [pages[ROLES.index(role)] for role in roles]
+
+
 def rank_with_hg_lookup(question, order, cases, profiles):
     """Prepend the five verified source pages when the question identifies a case."""
     if case := matched_case(question, cases):

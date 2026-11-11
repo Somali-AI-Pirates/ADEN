@@ -1,0 +1,28 @@
+{
+  "audit_sha256": "b98075fe3b5959bc7c2236643393d405c7353a464ca8656cf7c64aefc357c97b",
+  "device": "cpu",
+  "dtype": "bfloat16",
+  "files": {
+    "catalog.json": "f7108d01750999da070e1c76e14e73ed9a76b866c22cdfcbe45560a0840374d4",
+    "schema-vectors.npy": "eb4491d6b8b40c96ec0d85aa46e6dc0bda99c1fd8d0190988c90dc79900bb5cd"
+  },
+  "input_stats": {
+    "count": 190,
+    "max_raw_tokens": 75,
+    "max_seq_length": 8192,
+    "prompt": "passage: ",
+    "raw_tokens": 12195,
+    "truncated_inputs": 0
+  },
+  "model": [
+    "nlpai-lab/KURE-v3",
+    "73d5e710bc0b1f324a60746922cbad6d38f480d4"
+  ],
+  "pre_api_type_validation": "Added source-observed currency prefix; vector inputs/order unchanged",
+  "query_vectors_sha256": "52a12faee438d4aa22553f3da06760fdf0202e78eb767503a74b4c9a096a1b33",
+  "question_path": "/home/jake/workspace/projects/kant/ADEN/artifacts/u_10o0o/advanced-embedding-ablation-20261111/questions.json",
+  "questions_sha256": "238cfac25bc74734409248d295ccc46d5c591cfaefadadad69ca8cbf1685ddbc",
+  "seconds": 105.98073678299988,
+  "status": "complete",
+  "threads": 2
+}

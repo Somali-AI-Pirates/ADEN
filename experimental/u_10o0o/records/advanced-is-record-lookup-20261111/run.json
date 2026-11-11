@@ -1,0 +1,39 @@
+{
+  "arms": [
+    "baseline",
+    "legacy_is",
+    "expanded_is"
+  ],
+  "baseline": "artifacts/u_10o0o/advanced-kure-hg-role-ab-20261111/v1/lookup",
+  "baseline_manifest_sha256": "053664b69e8507c66629203b1183b331cbbdc3ce2c05344eb593cecc535e7231",
+  "baseline_replayed": 280,
+  "candidate_limit": 20,
+  "context_tokens": 8000,
+  "external_api_calls": 0,
+  "final_pages": 8,
+  "method": "Saved KURE-v3 5:5 and HG-date results; only exact IS lookup and existing packing replayed",
+  "question_count": 280,
+  "references_opened": false,
+  "routes": {
+    "baseline": {
+      "disabled": 280
+    },
+    "expanded_is": {
+      "no_supported_key": 274,
+      "resolved": 6
+    },
+    "legacy_is": {
+      "no_supported_key": 274,
+      "not_found": 2,
+      "resolved": 4
+    }
+  },
+  "source_audit": "artifacts/u_10o0o/advanced-is-record-lookup-20261111/audit-v3/audit.json",
+  "source_audit_sha256": "b98075fe3b5959bc7c2236643393d405c7353a464ca8656cf7c64aefc357c97b",
+  "status": "complete",
+  "trace_manifests": {
+    "baseline": "3083fbcd148d2e682dd511b03165be389a83e83527a54a77c094fc502660fd03",
+    "expanded_is": "ae9f97daf5b350f9d64d92a76effefc40def28f0ebaca093207f3062e3012c13",
+    "legacy_is": "a354c9b8bcf780522788bd44c618797be982fe21a55811cb0abc6eb0f3ad0792"
+  }
+}

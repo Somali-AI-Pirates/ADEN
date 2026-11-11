@@ -5,6 +5,7 @@ import re
 from app.ingestion.layout import IDENTIFIER
 from experimental.u_10o0o.advanced_case_sources import ROLES
 from experimental.u_10o0o.advanced_pair_context import OTHER_COUNT, unique_case
+from experimental.u_10o0o.advanced_routing_rules import RulesSnapshot
 from experimental.u_10o0o.advanced_target_lookup import (
     DATE,
     EXCLUSION,
@@ -44,7 +45,9 @@ ROLE_TERMS = tuple(
 )
 
 
-def roles_in(text):
+def roles_in(text, rules: RulesSnapshot | None = None):
+    if rules is not None:
+        return rules.match_clause_roles(text)
     return tuple(
         role for role, cue in zip(ROLES, ROLE_TERMS, strict=True) if cue.search(text)
     )
@@ -97,8 +100,10 @@ def resolve_clause(text, anchor, start, lookup, shared_date=None):
     return unique_case(lookup, fields), text[descriptor_end:]
 
 
-def clause_requirements(question, lookup):
+def clause_requirements(question, lookup, rules: RulesSnapshot | None = None):
     """Return each recognized target and its own roles, possibly no roles yet."""
+    if rules is None:
+        rules = getattr(lookup, "rules", None)
     text = normalized(question)
     ids = list(IDENTIFIER_FOLDED.finditer(text))
     if EXCLUSION.search(text) or OTHER_COUNT.search(IDENTIFIER_FOLDED.sub("", text)):
@@ -129,7 +134,7 @@ def clause_requirements(question, lookup):
             shared_dates = tuple(_canonical_date(day.group()) for day in dates)
             if not all(shared_dates):
                 return {}
-            shared_roles = roles_in(after[end:])
+            shared_roles = roles_in(after[end:], rules)
             after = after[: first.start()]
 
     first, left_request = resolve_clause(
@@ -142,12 +147,13 @@ def clause_requirements(question, lookup):
         return {}
 
     shared = list(SHARED.finditer(right_request))
-    if shared and (common := roles_in(right_request[shared[-1].end() :])):
+    if shared and (common := roles_in(right_request[shared[-1].end() :], rules)):
         shared_roles = common
         right_request = right_request[: shared[-1].start()]
-    left_roles, right_roles = roles_in(left_request), roles_in(right_request)
+    left_roles = roles_in(left_request, rules)
+    right_roles = roles_in(right_request, rules)
     if not left_roles and not shared_roles and COORDINATED.search(between):
-        shared_roles, right_roles = right_roles or roles_in(before), ()
+        shared_roles, right_roles = right_roles or roles_in(before, rules), ()
     return {
         first: tuple(
             role for role in ROLES if role in left_roles or role in shared_roles

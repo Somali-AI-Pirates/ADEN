@@ -1,0 +1,35 @@
+{
+  "all": {
+    "facts": 349,
+    "candidate": {
+      "recovered": 2,
+      "lost": 0
+    },
+    "final": {
+      "recovered": 2,
+      "lost": 0
+    }
+  },
+  "answerable": {
+    "facts": 343,
+    "candidate": {
+      "recovered": 2,
+      "lost": 0
+    },
+    "final": {
+      "recovered": 2,
+      "lost": 0
+    }
+  },
+  "ambiguity": {
+    "facts": 6,
+    "candidate": {
+      "recovered": 0,
+      "lost": 0
+    },
+    "final": {
+      "recovered": 0,
+      "lost": 0
+    }
+  }
+}

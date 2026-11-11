@@ -1,0 +1,30 @@
+{
+  "artifact_path": "artifacts/u_10o0o/advanced-schema-query-20261111/v1",
+  "baseline_contexts_exactly_reproduced": 280,
+  "budget_checks": {
+    "candidate_pages": 20,
+    "final_pages": 8,
+    "queries": 280,
+    "tokens": 8000
+  },
+  "build": "not run: experimental-only modules excluded from distribution; CLI help/build/plan/retrieve/score executed",
+  "common_ruff": "passed",
+  "format": "3 files passed",
+  "implementation_files": {
+    "experimental/u_10o0o/advanced_schema_benchmark.py": "bbda5d6ff795b7c2583e1523352480d1c4981fc2194d69ec386399ffbd3f0820",
+    "experimental/u_10o0o/advanced_schema_query.py": "fc91b466c3e0d5fe518ec5ec94968270e47152dd1bfc1dfa8f7c44348a3ab4c7",
+    "experimental/u_10o0o/tests/test_advanced_schema_query.py": "69875c8c740601f464b9cfbac00c171312bf87bac7a3ddaab4381a1ff2d253fc"
+  },
+  "personal_ruff": "passed with --no-force-exclude",
+  "pytest": {
+    "command": "PYTHONPATH=/tmp/aden-side-test-deps .venv/bin/python -B -m pytest -q -p no:cacheprovider tests experimental/u_10o0o/tests/test_advanced_schema_query.py experimental/u_10o0o/tests/test_advanced_is_record_lookup.py experimental/u_10o0o/tests/test_advanced_structured_store.py experimental/u_10o0o/tests/test_advanced_structured_route.py",
+    "new_experiment_tests": 24,
+    "passed": 345,
+    "subtests_passed": 15
+  },
+  "references_read_after_retrieval": true,
+  "review": "self-review; independent agents prohibited in this side conversation",
+  "run_sha256": "4db1b9126430d8e7f03ef10d57cd4d2e2b40d81f61ac869c99d375e17249f1b6",
+  "score_manifest_sha256": "8c8eaf5ff7ced9017edd5a702f199555c82efa1ade825a89cfce0a1d7188048c",
+  "unchanged_contexts_after_supplement": 280
+}

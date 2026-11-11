@@ -1,0 +1,55 @@
+[
+  {
+    "split": "dev",
+    "scored": 70,
+    "initial_complete_gains": [
+      "DEV-124"
+    ],
+    "initial_complete_losses": [],
+    "initial_recovered_facts": 2,
+    "initial_lost_facts": 0,
+    "candidate_complete_gains": [],
+    "candidate_complete_losses": [],
+    "candidate_recovered_facts": 0,
+    "candidate_lost_facts": 0,
+    "final_complete_gains": [],
+    "final_complete_losses": [],
+    "final_recovered_facts": 0,
+    "final_lost_facts": 0
+  },
+  {
+    "split": "validation",
+    "scored": 70,
+    "initial_complete_gains": [
+      "FRESH-VAL-013",
+      "FRESH-VAL-025",
+      "FRESH-VAL-061"
+    ],
+    "initial_complete_losses": [
+      "FRESH-VAL-029",
+      "FRESH-VAL-045"
+    ],
+    "initial_recovered_facts": 10,
+    "initial_lost_facts": 2,
+    "candidate_complete_gains": [
+      "FRESH-VAL-013",
+      "FRESH-VAL-025",
+      "FRESH-VAL-061"
+    ],
+    "candidate_complete_losses": [
+      "FRESH-VAL-029",
+      "FRESH-VAL-045"
+    ],
+    "candidate_recovered_facts": 10,
+    "candidate_lost_facts": 2,
+    "final_complete_gains": [
+      "FRESH-VAL-025",
+      "FRESH-VAL-061"
+    ],
+    "final_complete_losses": [
+      "FRESH-VAL-029"
+    ],
+    "final_recovered_facts": 7,
+    "final_lost_facts": 1
+  }
+]

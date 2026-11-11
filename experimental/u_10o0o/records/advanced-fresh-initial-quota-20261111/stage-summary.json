@@ -1,0 +1,86 @@
+[
+  {
+    "split": "dev",
+    "condition": "E",
+    "stage": "initial",
+    "scored": 70,
+    "complete": 60
+  },
+  {
+    "split": "dev",
+    "condition": "F",
+    "stage": "initial",
+    "scored": 70,
+    "complete": 61
+  },
+  {
+    "split": "dev",
+    "condition": "E",
+    "stage": "candidate",
+    "scored": 70,
+    "complete": 66
+  },
+  {
+    "split": "dev",
+    "condition": "F",
+    "stage": "candidate",
+    "scored": 70,
+    "complete": 66
+  },
+  {
+    "split": "dev",
+    "condition": "E",
+    "stage": "final",
+    "scored": 70,
+    "complete": 62
+  },
+  {
+    "split": "dev",
+    "condition": "F",
+    "stage": "final",
+    "scored": 70,
+    "complete": 62
+  },
+  {
+    "split": "validation",
+    "condition": "E",
+    "stage": "initial",
+    "scored": 70,
+    "complete": 60
+  },
+  {
+    "split": "validation",
+    "condition": "F",
+    "stage": "initial",
+    "scored": 70,
+    "complete": 61
+  },
+  {
+    "split": "validation",
+    "condition": "E",
+    "stage": "candidate",
+    "scored": 70,
+    "complete": 67
+  },
+  {
+    "split": "validation",
+    "condition": "F",
+    "stage": "candidate",
+    "scored": 70,
+    "complete": 68
+  },
+  {
+    "split": "validation",
+    "condition": "E",
+    "stage": "final",
+    "scored": 70,
+    "complete": 63
+  },
+  {
+    "split": "validation",
+    "condition": "F",
+    "stage": "final",
+    "scored": 70,
+    "complete": 64
+  }
+]

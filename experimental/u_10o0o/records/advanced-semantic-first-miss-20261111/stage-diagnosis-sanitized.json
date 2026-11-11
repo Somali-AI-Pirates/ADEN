@@ -1,0 +1,2971 @@
+{
+  "records": [
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-01",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-02",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-03",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-04",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-05",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-06",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-07",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-08",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-09",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 0,
+      "first_miss": "plan_fallback",
+      "id": "AS-SEM-10",
+      "plan_status": "unsupported_dependency_or_set",
+      "queries": 1,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "plan_fallback",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        }
+      },
+      "variant": "procedure_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-11",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-12",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "final8",
+      "id": "AS-SEM-13",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 0,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "final8",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-14",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-15",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-16",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 2,
+      "first_miss": "complete",
+      "id": "AS-SEM-17",
+      "plan_status": "supported",
+      "queries": 3,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-18",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 1,
+          "required_facts_hit": 0
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-19",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 1,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-20",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        }
+      },
+      "variant": "rule_paraphrase"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 2,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-21",
+      "plan_status": "supported",
+      "queries": 3,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-22",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-23",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 2,
+      "first_miss": "final8",
+      "id": "AS-SEM-24",
+      "plan_status": "supported",
+      "queries": 3,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 0,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "final8",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-25",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-26",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "merged20",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-27",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 2,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-28",
+      "plan_status": "supported",
+      "queries": 3,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 1,
+      "first_miss": "complete",
+      "id": "AS-SEM-29",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "merged20",
+      "id": "AS-SEM-30",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "merged20",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 0
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_workflow"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 3,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-31",
+      "plan_status": "supported",
+      "queries": 4,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 2
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 3
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.3333333333333333,
+          "required_facts": 3,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.3333333333333333,
+          "required_facts": 3,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.3333333333333333,
+          "required_facts": 3,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.3333333333333333,
+          "required_facts": 3,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.3333333333333333,
+          "required_facts": 3,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.3333333333333333,
+          "required_facts": 3,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_rule"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 3,
+      "first_miss": "complete",
+      "id": "AS-SEM-32",
+      "plan_status": "supported",
+      "queries": 4,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        }
+      },
+      "variant": "cross_document_rule"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-33",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        }
+      },
+      "variant": "cross_document_rule"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 0,
+      "first_miss": "plan_fallback",
+      "id": "AS-SEM-34",
+      "plan_status": "unsupported_dependency_or_set",
+      "queries": 1,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 1,
+            "rrf20_union": 0
+          },
+          "first_miss": "plan_fallback",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "plan_fallback",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        }
+      },
+      "variant": "cross_document_rule"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-35",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_rule"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-36",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_rule"
+    },
+    {
+      "candidate_failure": false,
+      "executed_tasks": 3,
+      "first_miss": "complete",
+      "id": "AS-SEM-37",
+      "plan_status": "supported",
+      "queries": 4,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "final8": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "merged20": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "request_nomination_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "rrf20_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        }
+      },
+      "variant": "cross_document_rule"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 1,
+      "first_miss": "retriever_union",
+      "id": "AS-SEM-38",
+      "plan_status": "supported",
+      "queries": 2,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "retriever_union",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_rule"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 0,
+      "first_miss": "plan_fallback",
+      "id": "AS-SEM-39",
+      "plan_status": "unsupported_dependency_or_set",
+      "queries": 1,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 1,
+            "rrf20_union": 0
+          },
+          "first_miss": "plan_fallback",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 0,
+            "rrf20_union": 0
+          },
+          "first_miss": "plan_fallback",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        },
+        "retriever_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.0,
+          "required_facts": 2,
+          "required_facts_hit": 0
+        }
+      },
+      "variant": "cross_document_rule"
+    },
+    {
+      "candidate_failure": true,
+      "executed_tasks": 0,
+      "first_miss": "plan_fallback",
+      "id": "AS-SEM-40",
+      "plan_status": "unsupported_dependency_or_set",
+      "queries": 1,
+      "requirements": [
+        {
+          "covered": {
+            "expanded20": 0,
+            "final8": 0,
+            "merged20": 0,
+            "request_nomination_union": 0,
+            "retriever_union": 1,
+            "rrf20_union": 0
+          },
+          "first_miss": "plan_fallback",
+          "requirement": 1
+        },
+        {
+          "covered": {
+            "expanded20": 1,
+            "final8": 1,
+            "merged20": 1,
+            "request_nomination_union": 1,
+            "retriever_union": 1,
+            "rrf20_union": 1
+          },
+          "first_miss": "complete",
+          "requirement": 2
+        }
+      ],
+      "stages": {
+        "expanded20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "final8": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "merged20": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "request_nomination_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        },
+        "retriever_union": {
+          "all_facts": 1,
+          "alternative_only_hits": 0,
+          "fact_recall": 1.0,
+          "required_facts": 2,
+          "required_facts_hit": 2
+        },
+        "rrf20_union": {
+          "all_facts": 0,
+          "alternative_only_hits": 0,
+          "fact_recall": 0.5,
+          "required_facts": 2,
+          "required_facts_hit": 1
+        }
+      },
+      "variant": "cross_document_rule"
+    }
+  ],
+  "summary": {
+    "candidate_failures": 19,
+    "external_api_calls": 0,
+    "failure_stages": {
+      "merged20": 1,
+      "plan_fallback": 4,
+      "retriever_union": 14
+    },
+    "new_searches": 0,
+    "plan_states": {
+      "supported": 36,
+      "unsupported_dependency_or_set": 4
+    },
+    "questions": 40,
+    "stage_complete": {
+      "expanded20": 21,
+      "final8": 19,
+      "merged20": 21,
+      "request_nomination_union": 22,
+      "retriever_union": 23,
+      "rrf20_union": 21
+    }
+  }
+}

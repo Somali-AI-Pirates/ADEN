@@ -1,0 +1,21 @@
+{
+  "files": 15,
+  "changed": [],
+  "sha256": {
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/pages.jsonl": "bb2fd92104c0983898fb23b3410ed1bdecc0e3c4899f82f4e10027737403d709",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/units.jsonl": "beb5c9d081ff1a8fe79427a786d7086da4545fa23c69b66bd275bba4d3a1477b",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/relation_index.json": "889ef98646579e05284edce8486b353b4911b9ffa45ca0339f28e61ad9c0a691",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/evaluation/questions.jsonl": "d8a83000026e1c5729da616ac6f0933984c9e3134ec0d9582c7a550ef5698462",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/evaluation/references.jsonl": "164d5e2474193a1cad18bd73570fc3e8dfc19e0c1eeec3139cd7f71ef1d37482",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/evaluation/references-expanded-evidence.jsonl": "a74842d4b1fc9c9a3013ec210ca74da92b6dccdd4677fd20177ff9bcc43c71a6",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/run-v1/results.jsonl": "d993ada82ec93c39ec5dc03d654dbe63ff0f67e2609ee6bb4986653be178292c",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/A.vectors.npy": "0de9f08be8265a731eeb9f867663a80da78f51cf3c176d1128b36fc152ce5dfa",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/B.vectors.npy": "ab608cfc1a76b41cc9ad392dbbb8aff736edc37851710281f20a98d47388a20d",
+    "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/run-D-v1/results.jsonl": "df1970791bff1fe6edb99568d0795b92250bc4345076770eaf2973f6d9d7fad8",
+    "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/run-D-v1/run-manifest.json": "82e2997ee5f3bbfddf9133bc0d822b31945ace26bb93f4e40f625eeb0bc1a55a",
+    "experimental/u_10o0o/advanced_search.py": "44623acd460df4bd0a3c25229d8e2089fde9596a7d8dc93af66b03678b3ccd60",
+    "experimental/u_10o0o/bm25.py": "271d4c0cdda721d91185bccabd15f7e8110ca4a40e07862a5b65699c56085d94",
+    "pyproject.toml": "1420d9e4031c556a8fa7f027d35cda8dafc6a97c7f184ea2e8c3cee285ae4531",
+    "uv.lock": "0cfff1c7edf5879ca65d68a2caa03a1313fbdec88edd0b37e8f65e218f27ca57"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "DEV-109",
+  "changed_ranks": [
+    33,
+    34
+  ],
+  "source_ids": [
+    "AS047:081",
+    "AS047:082"
+  ],
+  "scores": {
+    "A:AS047:081:raw": {
+      "forward": 20.021967956787503,
+      "reverse": 20.021967956787503,
+      "fsum": 20.021967956787503
+    },
+    "A:AS047:082:raw": {
+      "forward": 20.021967956787503,
+      "reverse": 20.021967956787503,
+      "fsum": 20.021967956787503
+    }
+  },
+  "sorted_contributions_identical": true,
+  "hybrid20_unchanged": true,
+  "code_changed_for_this_diagnostic": false
+}

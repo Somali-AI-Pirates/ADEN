@@ -1,0 +1,218 @@
+{
+  "scope": "Read-only semantic review using the fresh A/page dataset's raw pages, frozen questions, expanded references, and F result rows only.",
+  "counts": {
+    "strict_gold_final_failures_reviewed": 8,
+    "gold_required_sources_present_in_candidate20": 8,
+    "gold_required_sources_absent_from_final8": 8,
+    "possible_semantic_alternative_cases_for_sensitivity": 3,
+    "likely_genuine_final_context_gaps": 5
+  },
+  "primary8_strict_gold_diagnosis": [
+    {
+      "id": "FRESH-VAL-011",
+      "category": "no_code_everyday_procedure",
+      "gold_source_pages": [
+        "AS004:001"
+      ],
+      "reranker_rank": [
+        9
+      ],
+      "strict_missing_fact_indices": [
+        1,
+        2
+      ],
+      "first_missing_stage": "final8",
+      "selected_alternative_pages": [
+        "AS006:063"
+      ],
+      "semantic_assessment": "possible analogous policy evidence; generic question may be answerable from selected context"
+    },
+    {
+      "id": "FRESH-VAL-012",
+      "category": "one_event_multistage",
+      "gold_source_pages": [
+        "AS042:077"
+      ],
+      "reranker_rank": [
+        12
+      ],
+      "strict_missing_fact_indices": [
+        1,
+        2
+      ],
+      "first_missing_stage": "final8",
+      "selected_alternative_pages": [],
+      "semantic_assessment": "genuine gap: requested actual dates absent from final context"
+    },
+    {
+      "id": "FRESH-VAL-013",
+      "category": "two_events",
+      "gold_source_pages": [
+        "AS093:003",
+        "AS103:003"
+      ],
+      "reranker_rank": [
+        19,
+        16
+      ],
+      "strict_missing_fact_indices": [
+        2,
+        3,
+        6
+      ],
+      "first_missing_stage": "final8",
+      "selected_alternative_pages": [
+        "AS094:003",
+        "AS104:003"
+      ],
+      "semantic_assessment": "likely same-event applied-adjustment alternatives; approval-page provenance is absent, but the requested billed effects and amounts appear selected"
+    },
+    {
+      "id": "FRESH-VAL-023",
+      "category": "one_event_multistage",
+      "gold_source_pages": [
+        "AS072:004"
+      ],
+      "reranker_rank": [
+        11
+      ],
+      "strict_missing_fact_indices": [
+        1
+      ],
+      "first_missing_stage": "final8",
+      "selected_alternative_pages": [],
+      "semantic_assessment": "genuine gap: requested actual date absent from final context"
+    },
+    {
+      "id": "FRESH-DEV-004",
+      "category": "one_event_multistage",
+      "gold_source_pages": [
+        "AS087:001"
+      ],
+      "reranker_rank": [
+        12
+      ],
+      "strict_missing_fact_indices": [
+        1
+      ],
+      "first_missing_stage": "final8",
+      "selected_alternative_pages": [],
+      "semantic_assessment": "genuine gap: requested actual date absent from final context"
+    },
+    {
+      "id": "FRESH-DEV-031",
+      "category": "no_code_everyday_procedure",
+      "gold_source_pages": [
+        "AS012:003"
+      ],
+      "reranker_rank": [
+        14
+      ],
+      "strict_missing_fact_indices": [
+        1
+      ],
+      "first_missing_stage": "final8",
+      "selected_alternative_pages": [
+        "AS012:013",
+        "AS012:010",
+        "AS012:045",
+        "AS012:041",
+        "AS012:018",
+        "AS012:002",
+        "AS012:011",
+        "AS012:001"
+      ],
+      "semantic_assessment": "likely analogous policy evidence; gold examples use identifiers absent from this generic question"
+    },
+    {
+      "id": "FRESH-DEV-037",
+      "category": "one_event_multistage",
+      "gold_source_pages": [
+        "AS117:003"
+      ],
+      "reranker_rank": [
+        10
+      ],
+      "strict_missing_fact_indices": [
+        1
+      ],
+      "first_missing_stage": "final8",
+      "selected_alternative_pages": [
+        "AS118:003"
+      ],
+      "semantic_assessment": "genuine date gap: same-event approval page is selected but does not contain the requested actual return date"
+    },
+    {
+      "id": "FRESH-DEV-043",
+      "category": "one_event_multistage",
+      "gold_source_pages": [
+        "AS060:004"
+      ],
+      "reranker_rank": [
+        9
+      ],
+      "strict_missing_fact_indices": [
+        5
+      ],
+      "first_missing_stage": "final8",
+      "selected_alternative_pages": [
+        "AS059:004"
+      ],
+      "semantic_assessment": "genuine gap: same-event invoice selected, but receipt amount is in a separate absent ledger page"
+    }
+  ],
+  "sensitivity_cases": [
+    {
+      "id": "FRESH-VAL-011",
+      "gold_source_pages": [
+        "AS004:001"
+      ],
+      "candidate_selected_pages": [
+        "AS006:063"
+      ],
+      "classification": "analogous case with the same explicitly stated reporting rule; not the same event",
+      "reason": "The query asks a generic hypothetical, so the selected procedure example may support the answer even though it is not the gold page.",
+      "official_metric_changed": false
+    },
+    {
+      "id": "FRESH-VAL-013",
+      "gold_source_pages": [
+        "AS093:003",
+        "AS103:003"
+      ],
+      "candidate_selected_pages": [
+        "AS094:003",
+        "AS104:003"
+      ],
+      "classification": "same-event invoice records with applied-adjustment tables; not merely analogous cases",
+      "reason": "The selected invoice pages identify the same two events and show the adjusted amounts and totals. They do not reproduce the signatory record, which the generic question does not request.",
+      "official_metric_changed": false
+    },
+    {
+      "id": "FRESH-DEV-031",
+      "gold_source_pages": [
+        "AS012:003"
+      ],
+      "candidate_selected_pages": [
+        "AS012:013",
+        "AS012:010",
+        "AS012:045",
+        "AS012:041",
+        "AS012:018",
+        "AS012:002",
+        "AS012:011",
+        "AS012:001"
+      ],
+      "classification": "analogous document examples repeating the same control rule; not the same B/L records",
+      "reason": "The question asks for the general rule and names no B/L IDs. Selected pages state the same receipt-versus-approval and correction-version distinction using different examples.",
+      "official_metric_changed": false
+    }
+  ],
+  "interpretation": [
+    "All eight strict gold failures occur after candidate20: each required source is present among candidates and ranks 9–19 in the saved KURE order.",
+    "The eight are not eight equivalent retrieval defects. Five have requested date or payment facts absent from the final context; three have plausible selected-page evidence that the strict page-specific reference does not recognize.",
+    "Observed low ranks align with multi-record role splits (event log, amendment, invoice, approval, settlement, payment) and repeated similar records. This is an observable pattern, not a claim about KURE internals.",
+    "Do not amend gold references or count sensitivity cases as recovered without independent review."
+  ],
+  "evidence_text_omitted": true
+}

@@ -1,0 +1,42 @@
+{
+  "identity/baseline": {
+    "candidate_complete": 119,
+    "count": 120,
+    "expanded_complete": 120,
+    "final_complete": 120,
+    "page_recall_at_20": 0.9916666666666667,
+    "page_recall_at_8": 1.0
+  },
+  "identity/requests20": {
+    "candidate_complete": 120,
+    "count": 120,
+    "expanded_complete": 120,
+    "final_complete": 120,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  },
+  "identity/requests20_pack": {
+    "candidate_complete": 120,
+    "count": 120,
+    "expanded_complete": 120,
+    "final_complete": 120,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  },
+  "identity/requests40": {
+    "candidate_complete": 120,
+    "count": 120,
+    "expanded_complete": 120,
+    "final_complete": 120,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  },
+  "identity/requests40_pack": {
+    "candidate_complete": 120,
+    "count": 120,
+    "expanded_complete": 120,
+    "final_complete": 120,
+    "page_recall_at_20": 1.0,
+    "page_recall_at_8": 1.0
+  }
+}

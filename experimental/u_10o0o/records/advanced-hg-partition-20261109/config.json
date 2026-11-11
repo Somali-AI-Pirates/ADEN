@@ -1,0 +1,87 @@
+{
+  "corpus_pages": {
+    "baseline": 18000,
+    "general": 8400,
+    "hg": 13650
+  },
+  "excluded_general_books": [
+    "AS057",
+    "AS120"
+  ],
+  "external_api_calls": 0,
+  "inputs": {
+    "cases": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+      "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+    },
+    "curated": {
+      "path": "artifacts/u_10o0o/pattern-curation/advanced/manifest.json",
+      "sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf"
+    },
+    "facts": {
+      "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+      "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+    },
+    "pages": {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    "vectors": {
+      "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+      "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+    }
+  },
+  "limits": {
+    "candidates": 20,
+    "context_pages": 8,
+    "context_tokens": 8000
+  },
+  "luna": {
+    "max_attempts": 60,
+    "model": "gpt-6-luna",
+    "prompt_sha256": "0f2c07cf6600911f3e681fcc90e2c0ac8a1f4df82d86dfeca9c54c943b53de1e",
+    "reasoning_effort": "low",
+    "retries": 0,
+    "schema_sha256": "12e3f4d3bcb0b59bdcba851b99aa0e216bfbea67db25a5727a46440a3c77fa54",
+    "timeout_seconds": 10,
+    "workers": 8
+  },
+  "model": {
+    "embedding": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+    "embedding_revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+    "reranked_head": 3,
+    "reranker": "nlpai-lab/KURE-Reranker-nano",
+    "reranker_revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "rrf_k": 60,
+    "rrf_weights": [
+      0.5,
+      0.5
+    ]
+  },
+  "question_inputs": {
+    "additional": {
+      "path": "data/advanced/evaluation/additional_questions.json",
+      "sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f"
+    },
+    "development": {
+      "path": "data/advanced/evaluation/development_questions.json",
+      "sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c"
+    }
+  },
+  "references": {
+    "additional": {
+      "path": "data/advanced/evaluation/additional.json",
+      "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+    },
+    "development": {
+      "path": "data/advanced/evaluation/development.json",
+      "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39"
+    }
+  },
+  "relation_snapshot": {
+    "path": "artifacts/u_10o0o/advanced-snapshots/hg-code-relations-v1/manifest.json",
+    "sha256": "d4f639bd6ce27c4bd39dd97b3e72d914811cc2f51e1ca24d7c6a7316d460879a"
+  },
+  "source_live_api_calls": 60,
+  "source_live_run": "artifacts/u_10o0o/advanced-hg-partition-20261109"
+}

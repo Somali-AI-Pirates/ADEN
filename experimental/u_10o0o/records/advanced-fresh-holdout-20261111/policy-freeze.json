@@ -1,0 +1,37 @@
+{
+  "format": "fresh-holdout-policy-v1",
+  "policy_files": {
+    "experimental/u_10o0o/fresh_record_hybrid/retrieval.py": "33f2905aac49db0dd432e0ad426a6501acf80bc72e400bb0e800217304486cdb",
+    "experimental/u_10o0o/fresh_record_hybrid/relation_overlap.py": "118acb4332d7dbe36124df12095b32bdd45376edf49e99b6cd54b748523296e5",
+    "experimental/u_10o0o/fresh_record_hybrid/final_coverage.py": "4d6167b4bd7430a935a77643ac302863d746797a806c65c33e85e875c20b13db",
+    "experimental/u_10o0o/fresh_record_hybrid/models.py": "ab78e6b646af62c68b3de6d002d5bf04b6425056c80b8d44ec19cd85b58db198",
+    "experimental/u_10o0o/fresh_record_hybrid/scoring.py": "71c863a3b7db96d1f93454a103c6c7809035e5e1310004c2cbe3e75112423f62"
+  },
+  "source_files": {
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/pages.jsonl": "bb2fd92104c0983898fb23b3410ed1bdecc0e3c4899f82f4e10027737403d709",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/units.jsonl": "beb5c9d081ff1a8fe79427a786d7086da4545fa23c69b66bd275bba4d3a1477b",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/relation_index.json": "889ef98646579e05284edce8486b353b4911b9ffa45ca0339f28e61ad9c0a691",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/raw-manifest.json": "d9651bece2504a70de577fb082ddf9d605a945c575d04c4a93627ac23c7474a7",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/A.vectors.npy": "0de9f08be8265a731eeb9f867663a80da78f51cf3c176d1128b36fc152ce5dfa",
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/vectors-v1/A.progress.json": "f878c163f6a9c0bb60b3cd0e25894b1f1f3b15482d1f3771ae3a6a289dda30a5"
+  },
+  "conditions": [
+    "E",
+    "E_coverage",
+    "F",
+    "F_coverage"
+  ],
+  "candidate_limit": 20,
+  "max_sources": 8,
+  "max_context_tokens": 8000,
+  "rrf_k": 60,
+  "sparse_top_k": 50,
+  "dense_top_k": 50,
+  "embedding_batch_size": 4,
+  "rerank_batch_size": 8,
+  "dtype": "float32",
+  "embedding_model": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+  "embedding_revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+  "reranker_model": "nlpai-lab/KURE-Reranker-nano",
+  "reranker_revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd"
+}

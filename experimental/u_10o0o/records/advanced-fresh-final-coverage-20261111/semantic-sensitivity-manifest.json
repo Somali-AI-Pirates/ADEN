@@ -1,0 +1,53 @@
+{
+  "parent_sha256": "a74842d4b1fc9c9a3013ec210ca74da92b6dccdd4677fd20177ff9bcc43c71a6",
+  "patch_sha256": "afe775b3ceddc3efe94ae6b51ae27fc2e2b8c8ccfd51a4bf63b808e71cabdec2",
+  "reference_sha256": "80e0441b71859b83424f617feedb118d642f7860eb215060ca969f9a2a62afc7",
+  "changed_facts": [
+    {
+      "id": "FRESH-VAL-011",
+      "fact_index": 1,
+      "source_ids": [
+        "AS006:063"
+      ]
+    },
+    {
+      "id": "FRESH-VAL-011",
+      "fact_index": 2,
+      "source_ids": [
+        "AS006:063"
+      ]
+    },
+    {
+      "id": "FRESH-VAL-013",
+      "fact_index": 2,
+      "source_ids": [
+        "AS094:003"
+      ]
+    },
+    {
+      "id": "FRESH-VAL-013",
+      "fact_index": 3,
+      "source_ids": [
+        "AS094:003"
+      ]
+    },
+    {
+      "id": "FRESH-VAL-013",
+      "fact_index": 6,
+      "source_ids": [
+        "AS104:003"
+      ]
+    },
+    {
+      "id": "FRESH-DEV-031",
+      "fact_index": 1,
+      "source_ids": [
+        "AS012:013"
+      ]
+    }
+  ],
+  "all_conditions_use_same_alternatives": true,
+  "primary_gold_unchanged": true,
+  "human_review": false,
+  "independent_AI_reviews": 2
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "pair": "A_D",
+    "split": "dev",
+    "candidate_gains": 5,
+    "candidate_losses": 0,
+    "final_gains": 4,
+    "final_losses": 0
+  },
+  {
+    "pair": "A_D",
+    "split": "validation",
+    "candidate_gains": 7,
+    "candidate_losses": 1,
+    "final_gains": 6,
+    "final_losses": 1
+  },
+  {
+    "pair": "D_C",
+    "split": "dev",
+    "candidate_gains": 3,
+    "candidate_losses": 5,
+    "final_gains": 2,
+    "final_losses": 3
+  },
+  {
+    "pair": "D_C",
+    "split": "validation",
+    "candidate_gains": 1,
+    "candidate_losses": 3,
+    "final_gains": 2,
+    "final_losses": 3
+  }
+]

@@ -1,0 +1,72 @@
+{
+  "required": {
+    "ruff_repository": {
+      "command": ".venv/bin/ruff check .",
+      "status": "passed"
+    },
+    "ruff_experiment": {
+      "command": ".venv/bin/ruff check --isolated --select E4,E7,E9,F experimental/u_10o0o/fresh_record_hybrid",
+      "status": "passed",
+      "rules": "Matches pyproject.toml project rules; does not alter frozen files."
+    },
+    "changed_files_format": {
+      "status": "passed",
+      "files": 4
+    },
+    "pytest_common": {
+      "status": "passed",
+      "tests": 284,
+      "subtests": 15,
+      "log": "artifacts/u_10o0o/advanced-fresh-existing-evaluation-20261111/check-common-pytest.log"
+    },
+    "pytest_experiment": {
+      "status": "passed",
+      "tests": 123,
+      "log": "artifacts/u_10o0o/advanced-fresh-existing-evaluation-20261111/check-experiment-pytest.log"
+    },
+    "package_build": {
+      "status": "passed",
+      "log": "artifacts/u_10o0o/advanced-fresh-existing-evaluation-20261111/check-build.log"
+    },
+    "cli_help": {
+      "status": "passed",
+      "modules": [
+        "coverage_holdout",
+        "existing_evaluation"
+      ]
+    },
+    "real_retrieval": {
+      "status": "passed",
+      "questions": 280,
+      "rows": 1120,
+      "log": "artifacts/u_10o0o/advanced-fresh-existing-evaluation-20261111/execution.log"
+    },
+    "real_score": {
+      "status": "passed",
+      "log": "artifacts/u_10o0o/advanced-fresh-existing-evaluation-20261111/scoring-retry.log"
+    },
+    "prepare_reproduction": {
+      "status": "passed",
+      "same_question_bytes": true
+    }
+  },
+  "non_required_probe": {
+    "command": ".venv/bin/ruff check --isolated experimental/u_10o0o/fresh_record_hybrid",
+    "status": "39 additional-style findings",
+    "note": "Default isolated rules enabled extra UP/TRY/SIM/C style checks outside the project E4/E7/E9/F contract. Frozen policy files were preserved. The project-matching rule set passes."
+  },
+  "independent_verification": {
+    "scoring_rows": 1032,
+    "stages": [
+      "candidate",
+      "final"
+    ],
+    "status": "all exact masks match"
+  },
+  "changed_code_sha256": {
+    "experimental/u_10o0o/fresh_record_hybrid/coverage_holdout.py": "5577a66e2c9fe64e6363a930a0ec823c4aea6117ad4cedc38c129d1686972ce7",
+    "experimental/u_10o0o/fresh_record_hybrid/existing_evaluation.py": "2c56a5c1bfd50670cb92a3088dda9ae13ed1366b0a8dd141dffde90951a79bfd",
+    "experimental/u_10o0o/fresh_record_hybrid/tests/test_coverage_holdout.py": "bc8f9dab480794d0ed056b6634c2d8173b5d21904fa8e8ce1638cdf5eac0ac2c",
+    "experimental/u_10o0o/fresh_record_hybrid/tests/test_existing_evaluation.py": "9ce418237a64934a17a0c81af1608e359053c5b7ab559c8c9051550af7d91585"
+  }
+}

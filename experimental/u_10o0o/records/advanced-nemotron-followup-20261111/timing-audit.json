@@ -1,0 +1,19 @@
+{
+  "timing_sha256": "d78b38b3770edb98c31e1e9ca0b5395fa9726b34e1a5008cc99e4d1aaa7a6149",
+  "samples": 360,
+  "contexts_rebuilt_and_hash_matched": 360,
+  "scored_samples": 300,
+  "scored_context_changed_runs": 24,
+  "changed_scored_ids": [
+    "scenarios:AS-S01-04",
+    "semantic_queries:AS-SEM-01"
+  ],
+  "complete_differences": [],
+  "page_recall_differences": [],
+  "per_arm_samples": {
+    "base20": 90,
+    "union40": 90,
+    "scope20": 90,
+    "scope40": 90
+  }
+}

@@ -1,0 +1,287 @@
+[
+  {
+    "id": "AS-DEV05",
+    "suite": "official/development",
+    "category": "official/development",
+    "candidate": {
+      "E_complete": true,
+      "F_complete": true,
+      "gained_facts": [],
+      "lost_facts": []
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": true,
+      "gained_facts": [
+        3
+      ],
+      "lost_facts": []
+    }
+  },
+  {
+    "id": "AS-DEV20",
+    "suite": "official/development",
+    "category": "official/development",
+    "candidate": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": []
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        3
+      ]
+    }
+  },
+  {
+    "id": "AS-DEV24",
+    "suite": "official/development",
+    "category": "official/development",
+    "candidate": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [
+        2
+      ],
+      "lost_facts": []
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": []
+    }
+  },
+  {
+    "id": "AS-DEV26",
+    "suite": "official/development",
+    "category": "official/development",
+    "candidate": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [
+        2
+      ],
+      "lost_facts": []
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": []
+    }
+  },
+  {
+    "id": "AS-S02-15",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "candidate": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        1
+      ]
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        1
+      ]
+    }
+  },
+  {
+    "id": "AS-S02-18",
+    "suite": "categories/scenarios",
+    "category": "scenario/S02",
+    "candidate": {
+      "E_complete": true,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        1
+      ]
+    },
+    "final": {
+      "E_complete": true,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        1
+      ]
+    }
+  },
+  {
+    "id": "AS-S04-10",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "candidate": {
+      "E_complete": true,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        3,
+        4
+      ]
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        4
+      ]
+    }
+  },
+  {
+    "id": "AS-S04-13",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "candidate": {
+      "E_complete": true,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        3
+      ]
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": []
+    }
+  },
+  {
+    "id": "AS-S04-15",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "candidate": {
+      "E_complete": true,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        2
+      ]
+    },
+    "final": {
+      "E_complete": true,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        2
+      ]
+    }
+  },
+  {
+    "id": "AS-S04-16",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "candidate": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        2
+      ]
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        2
+      ]
+    }
+  },
+  {
+    "id": "AS-S04-17",
+    "suite": "categories/scenarios",
+    "category": "scenario/S04",
+    "candidate": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        3,
+        4
+      ]
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "id": "AS-S06-12",
+    "suite": "categories/scenarios",
+    "category": "scenario/S06",
+    "candidate": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [
+        1
+      ],
+      "lost_facts": []
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [],
+      "lost_facts": []
+    }
+  },
+  {
+    "id": "AS-WR-18",
+    "suite": "categories/work_rules",
+    "category": "work_rules/applicability",
+    "candidate": {
+      "E_complete": false,
+      "F_complete": true,
+      "gained_facts": [
+        1
+      ],
+      "lost_facts": []
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": true,
+      "gained_facts": [
+        1
+      ],
+      "lost_facts": []
+    }
+  },
+  {
+    "id": "AS-SEM-35",
+    "suite": "categories/semantic_queries",
+    "category": "semantic/cross_document_rule",
+    "candidate": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [
+        1
+      ],
+      "lost_facts": []
+    },
+    "final": {
+      "E_complete": false,
+      "F_complete": false,
+      "gained_facts": [
+        1
+      ],
+      "lost_facts": []
+    }
+  }
+]

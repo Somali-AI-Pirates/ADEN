@@ -13,6 +13,7 @@ from experimental.u_10o0o.advanced_hg_lookup import (
     CASE_INDEX,
     PARTICLE,
     ProfileIndex,
+    case_role_pages,
     load_cases,
     load_profiles,
     normalized,
@@ -83,7 +84,11 @@ class StorageCaseLookup:
         return tuple(candidates)
 
     def evidence_pages(self, candidates):
-        return [self.cases[case][role] for case in candidates for role in (1, 3)]
+        return [
+            page
+            for case in candidates
+            for page in case_role_pages(self.cases, case, (ROLES[1], ROLES[3]))
+        ]
 
     def clarify(self, question):
         if len(self.candidates(question)) < 2:

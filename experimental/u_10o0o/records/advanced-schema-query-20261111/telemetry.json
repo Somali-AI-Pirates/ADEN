@@ -1,0 +1,149 @@
+{
+  "api_latency": {
+    "max_seconds": 10.011831948999316,
+    "p50_seconds": 3.79172277050111,
+    "p95_seconds": 8.36274195759861
+  },
+  "by_suite": {
+    "negative_control": {
+      "queried_reference_pages": 0,
+      "queries": 20,
+      "queries_with_reference_page_containing_is_table": 0,
+      "reference_page_occurrences_containing_is_table": 0,
+      "routes": {
+        "aggregate_unsupported": 2,
+        "documents": 10,
+        "unresolved": 8
+      },
+      "top6_schema_source_coverage": 0,
+      "unreferenced_queried_pages": 0
+    },
+    "official_additional": {
+      "queried_reference_pages": 0,
+      "queries": 30,
+      "queries_with_reference_page_containing_is_table": 11,
+      "reference_page_occurrences_containing_is_table": 20,
+      "routes": {
+        "aggregate_unsupported": 2,
+        "documents": 3,
+        "invalid_anchor": 1,
+        "missing_positive_condition": 2,
+        "no_matching_rows": 4,
+        "overlapping_targets": 2,
+        "unresolved": 16
+      },
+      "top6_schema_source_coverage": 13,
+      "unreferenced_queried_pages": 0
+    },
+    "official_development": {
+      "queried_reference_pages": 0,
+      "queries": 30,
+      "queries_with_reference_page_containing_is_table": 11,
+      "reference_page_occurrences_containing_is_table": 23,
+      "routes": {
+        "aggregate_unsupported": 7,
+        "documents": 3,
+        "invalid_anchor": 2,
+        "missing_positive_condition": 2,
+        "no_matching_rows": 3,
+        "overlapping_targets": 1,
+        "unanchored_value": 1,
+        "unresolved": 11
+      },
+      "top6_schema_source_coverage": 12,
+      "unreferenced_queried_pages": 0
+    },
+    "scenarios": {
+      "queried_reference_pages": 5,
+      "queries": 140,
+      "queries_with_reference_page_containing_is_table": 6,
+      "reference_page_occurrences_containing_is_table": 6,
+      "routes": {
+        "invalid_anchor": 2,
+        "no_matching_rows": 30,
+        "overlapping_targets": 7,
+        "resolved": 5,
+        "timeout": 2,
+        "unanchored_value": 2,
+        "unresolved": 92
+      },
+      "top6_schema_source_coverage": 6,
+      "unreferenced_queried_pages": 0
+    },
+    "semantic_queries": {
+      "queried_reference_pages": 0,
+      "queries": 40,
+      "queries_with_reference_page_containing_is_table": 40,
+      "reference_page_occurrences_containing_is_table": 61,
+      "routes": {
+        "documents": 15,
+        "missing_positive_condition": 4,
+        "no_matching_rows": 3,
+        "unresolved": 18
+      },
+      "top6_schema_source_coverage": 23,
+      "unreferenced_queried_pages": 0
+    },
+    "work_rules": {
+      "queried_reference_pages": 0,
+      "queries": 20,
+      "queries_with_reference_page_containing_is_table": 20,
+      "reference_page_occurrences_containing_is_table": 27,
+      "routes": {
+        "ambiguous_rows": 1,
+        "documents": 14,
+        "missing_positive_condition": 2,
+        "overlapping_targets": 1,
+        "unanchored_value": 1,
+        "unresolved": 1
+      },
+      "top6_schema_source_coverage": 21,
+      "unreferenced_queried_pages": 0
+    }
+  },
+  "calls": 280,
+  "context_changes": 0,
+  "full_search_latency": "not measured: same saved document candidates/ranks and question vectors",
+  "interpretation_accuracy": "not measured without independent intent gold",
+  "queries_executing_sql": 46,
+  "routes": {
+    "aggregate_unsupported": 11,
+    "ambiguous_rows": 1,
+    "documents": 45,
+    "invalid_anchor": 5,
+    "missing_positive_condition": 10,
+    "no_matching_rows": 40,
+    "overlapping_targets": 11,
+    "resolved": 5,
+    "timeout": 2,
+    "unanchored_value": 4,
+    "unresolved": 146
+  },
+  "schema_search_latency_cached_queries": {
+    "max_seconds": 0.0006284749997576,
+    "p50_seconds": 0.0001134429994635866,
+    "p95_seconds": 0.00020718505102195202
+  },
+  "schema_source_coverage_is_proxy": true,
+  "sql_statements": 60,
+  "status": {
+    "parsed": 278,
+    "timeout": 2
+  },
+  "tokens_returned_calls_only": {
+    "cached_input_tokens": 0,
+    "input_tokens": 815795,
+    "output_tokens": 82049,
+    "reasoning_tokens": 63958
+  },
+  "validation_sql_latency_all_queries": {
+    "max_seconds": 0.0021094269995955983,
+    "p50_seconds": 2.4359997041756287e-06,
+    "p95_seconds": 0.0009383786509715726
+  },
+  "validation_sql_latency_executing_queries": {
+    "max_seconds": 0.0021094269995955983,
+    "p50_seconds": 0.000871028999426926,
+    "p95_seconds": 0.001424754749677959
+  }
+}

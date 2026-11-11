@@ -1,0 +1,72 @@
+{
+  "checks": [
+    {
+      "command": ".venv/bin/ruff check .",
+      "exit_code": 0,
+      "seconds": 0.017,
+      "log": "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/check-1.log"
+    },
+    {
+      "command": ".venv/bin/ruff check --isolated --select E4,E7,E9,F,I experimental/u_10o0o/fresh_record_hybrid",
+      "exit_code": 0,
+      "seconds": 0.007,
+      "log": "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/check-2.log"
+    },
+    {
+      "command": ".venv/bin/ruff format --check --isolated experimental/u_10o0o/fresh_record_hybrid",
+      "exit_code": 0,
+      "seconds": 0.008,
+      "log": "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/check-3.log"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests experimental/u_10o0o/fresh_record_hybrid/tests",
+      "exit_code": 0,
+      "seconds": 7.653,
+      "log": "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/check-4.log"
+    },
+    {
+      "command": ".venv/bin/python -m build --no-isolation",
+      "exit_code": 0,
+      "seconds": 0.759,
+      "log": "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/check-5.log"
+    },
+    {
+      "command": ".venv/bin/python -m experimental.u_10o0o.fresh_record_hybrid.retrieval retrieve --help",
+      "exit_code": 0,
+      "seconds": 0.084,
+      "log": "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/check-6.log"
+    },
+    {
+      "command": ".venv/bin/python -m experimental.u_10o0o.fresh_record_hybrid.scoring --help",
+      "exit_code": 0,
+      "seconds": 0.143,
+      "log": "artifacts/u_10o0o/advanced-fresh-page-relation-20261111/check-7.log"
+    }
+  ],
+  "review": "Independent code review: no actionable code findings; report link supplied and local links checked.",
+  "experimental_code_sha256": {
+    "experimental/u_10o0o/fresh_record_hybrid/extract.py": "893ffc0ff1e74fdd641ded826558149534accaecfcf41751f5aafa45e711b6fa",
+    "experimental/u_10o0o/fresh_record_hybrid/scoring.py": "0ae7b7a061b18519fbbc2d10bb0d6b2c6b99dfd64db9cc9e8aa74d59fc90b9e9",
+    "experimental/u_10o0o/fresh_record_hybrid/reporting.py": "96cbb2dd4b02f9b0a8f64671229920ba8c15f39eb32c5811dfdec5e35a9782af",
+    "experimental/u_10o0o/fresh_record_hybrid/models.py": "ab78e6b646af62c68b3de6d002d5bf04b6425056c80b8d44ec19cd85b58db198",
+    "experimental/u_10o0o/fresh_record_hybrid/units.py": "88271608f984631ee4f78fc1ec326af484b171d486a52b136e2e9c74441cf252",
+    "experimental/u_10o0o/fresh_record_hybrid/__init__.py": "c2fa8e3aefd3c3d246e95241c9fa228b210d151bbc6863484c1df940ddb1ad28",
+    "experimental/u_10o0o/fresh_record_hybrid/retrieval.py": "3fc2361a56a24390361eebeba49f36310f08d93aea56421269033da507125ff2",
+    "experimental/u_10o0o/fresh_record_hybrid/tests/test_scoring.py": "514c6f64e3ab1be30ed2d45ee8916c657f91810e7d379796537e455fce9d546b",
+    "experimental/u_10o0o/fresh_record_hybrid/tests/test_units.py": "1ad86170e9b2d4a0622ba8e4f31e5d864f4e9e4b9be5bbbfb1474708b6f18f9c",
+    "experimental/u_10o0o/fresh_record_hybrid/tests/test_retrieval.py": "80514b7a7dd6c662a51d678840fa59aae495f6f1a57fc770d1103d3ad8c7921d"
+  },
+  "tests": "316 passed, 15 subtests passed",
+  "preservation": {
+    "files": 13,
+    "changed": 0
+  },
+  "links": {
+    "broken": []
+  },
+  "reviewed_code_unchanged": true,
+  "build": "sdist and wheel passed",
+  "documentation_review": "Independent recheck confirmed report link resolved, all referenced local pages exist, reproduction matches D behavior; no additional findings.",
+  "numeric_audit": "Independent recomputation matched split/category counts, paired improvements/regressions and FRESH-VAL-005 merge loss.",
+  "record_visibility": "Shared records are not gitignored; private retrieval/source artifacts are gitignored. No commit or push."
+}

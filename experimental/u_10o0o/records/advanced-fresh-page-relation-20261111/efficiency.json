@@ -1,0 +1,58 @@
+[
+  {
+    "condition": "A",
+    "questions": 160,
+    "rerank_pairs": 3200,
+    "rerank_tokens": 1613650,
+    "truncated_pairs": 0,
+    "query_truncated": 0,
+    "max_context_tokens": 7423,
+    "partial_pages": 0,
+    "p50_ms": 596.45,
+    "p95_ms": 1233.1265999999994,
+    "relation_applied": 0,
+    "new_relation_pages": 0
+  },
+  {
+    "condition": "B",
+    "questions": 160,
+    "rerank_pairs": 3200,
+    "rerank_tokens": 1177787,
+    "truncated_pairs": 0,
+    "query_truncated": 0,
+    "max_context_tokens": 7274,
+    "partial_pages": 0,
+    "p50_ms": 532.1715,
+    "p95_ms": 1041.4413999999995,
+    "relation_applied": 0,
+    "new_relation_pages": 0
+  },
+  {
+    "condition": "C",
+    "questions": 160,
+    "rerank_pairs": 3200,
+    "rerank_tokens": 1184791,
+    "truncated_pairs": 0,
+    "query_truncated": 0,
+    "max_context_tokens": 6788,
+    "partial_pages": 0,
+    "p50_ms": 640.3285000000001,
+    "p95_ms": 1133.8567999999996,
+    "relation_applied": 76,
+    "new_relation_pages": 279
+  },
+  {
+    "condition": "D",
+    "questions": 160,
+    "rerank_pairs": 3200,
+    "rerank_tokens": 1612349,
+    "truncated_pairs": 0,
+    "query_truncated": 0,
+    "max_context_tokens": 7203,
+    "partial_pages": 0,
+    "p50_ms": 1207.7914999999998,
+    "p95_ms": 1755.7003499999996,
+    "relation_applied": 69,
+    "new_relation_pages": 217
+  }
+]

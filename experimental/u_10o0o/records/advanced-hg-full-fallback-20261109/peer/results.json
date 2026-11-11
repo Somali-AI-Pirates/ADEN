@@ -1,0 +1,1060 @@
+{
+  "cohorts": {
+    "hg_partition_sources": {
+      "gains": [
+        "SYF-adv-042",
+        "SYF3-adv-001",
+        "SY3-adv-021",
+        "SYF3-adv-024",
+        "SY3-adv-026",
+        "SY3-adv-032",
+        "SY4-adv-001",
+        "SY4-adv-005",
+        "SY4-adv-009",
+        "SY4-adv-018"
+      ],
+      "losses": [
+        "SY-adv-005",
+        "SYF-adv-015",
+        "SY-adv-022",
+        "SYF-adv-022",
+        "SYF-adv-039",
+        "SYF-adv-046",
+        "SY-adv-047",
+        "SYF-adv-047",
+        "SY-adv-053",
+        "SYF-adv-053",
+        "SYF-adv-055",
+        "SYF-adv-056",
+        "SY3-adv-017",
+        "SY3-adv-046",
+        "SY4-adv-006"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 125,
+          "candidate_facts": 431,
+          "doc_complete_at_8": 108,
+          "doc_recall_at_8": 0.6338276836158192,
+          "expanded_complete": 125,
+          "expanded_facts": 431,
+          "final_complete": 101,
+          "final_facts": 390,
+          "page_recall_at_20": 0.6377118644067796,
+          "page_recall_at_8": 0.5819209039548023,
+          "questions": 236,
+          "required_facts": 685,
+          "scored": 236
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 121,
+          "candidate_facts": 405,
+          "doc_complete_at_8": 108,
+          "doc_recall_at_8": 0.6317090395480226,
+          "expanded_complete": 125,
+          "expanded_facts": 429,
+          "final_complete": 101,
+          "final_facts": 391,
+          "page_recall_at_20": 0.6027542372881356,
+          "page_recall_at_8": 0.5829802259887006,
+          "questions": 236,
+          "required_facts": 685,
+          "scored": 236
+        },
+        "hg_partition": {
+          "candidate_complete": 108,
+          "candidate_facts": 375,
+          "doc_complete_at_8": 100,
+          "doc_recall_at_8": 0.5833333333333333,
+          "expanded_complete": 112,
+          "expanded_facts": 403,
+          "final_complete": 96,
+          "final_facts": 377,
+          "page_recall_at_20": 0.5406073446327684,
+          "page_recall_at_8": 0.5480225988700566,
+          "questions": 236,
+          "required_facts": 685,
+          "scored": 236
+        }
+      },
+      "routes": {
+        "clarify": 3,
+        "general": 68,
+        "hg_search": 146,
+        "lookup": 15,
+        "mixed": 4
+      }
+    },
+    "other_sources": {
+      "gains": [],
+      "losses": [
+        "FPA-13",
+        "FPA-15",
+        "FPA-18",
+        "SY-adv-013",
+        "SY-adv-021",
+        "SYF-adv-021",
+        "SYF-adv-057",
+        "SYF3-adv-004",
+        "SY3-adv-009"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 32,
+          "candidate_facts": 114,
+          "doc_complete_at_8": 35,
+          "doc_recall_at_8": 0.7316176470588235,
+          "expanded_complete": 32,
+          "expanded_facts": 114,
+          "final_complete": 25,
+          "final_facts": 102,
+          "page_recall_at_20": 0.7218137254901961,
+          "page_recall_at_8": 0.6470588235294118,
+          "questions": 68,
+          "required_facts": 182,
+          "scored": 68
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 31,
+          "candidate_facts": 111,
+          "doc_complete_at_8": 35,
+          "doc_recall_at_8": 0.7316176470588235,
+          "expanded_complete": 32,
+          "expanded_facts": 114,
+          "final_complete": 25,
+          "final_facts": 102,
+          "page_recall_at_20": 0.7071078431372549,
+          "page_recall_at_8": 0.6470588235294118,
+          "questions": 68,
+          "required_facts": 182,
+          "scored": 68
+        },
+        "hg_partition": {
+          "candidate_complete": 23,
+          "candidate_facts": 81,
+          "doc_complete_at_8": 26,
+          "doc_recall_at_8": 0.5330882352941176,
+          "expanded_complete": 24,
+          "expanded_facts": 84,
+          "final_complete": 16,
+          "final_facts": 71,
+          "page_recall_at_20": 0.5196078431372549,
+          "page_recall_at_8": 0.45465686274509803,
+          "questions": 68,
+          "required_facts": 182,
+          "scored": 68
+        }
+      },
+      "routes": {
+        "clarify": 1,
+        "general": 39,
+        "hg_search": 27,
+        "lookup": 1
+      }
+    },
+    "peer": {
+      "gains": [
+        "SYF-adv-042",
+        "SYF3-adv-001",
+        "SY3-adv-021",
+        "SYF3-adv-024",
+        "SY3-adv-026",
+        "SY3-adv-032",
+        "SY4-adv-001",
+        "SY4-adv-005",
+        "SY4-adv-009",
+        "SY4-adv-018"
+      ],
+      "losses": [
+        "FPA-13",
+        "FPA-15",
+        "FPA-18",
+        "SY-adv-005",
+        "SY-adv-013",
+        "SYF-adv-015",
+        "SY-adv-021",
+        "SYF-adv-021",
+        "SY-adv-022",
+        "SYF-adv-022",
+        "SYF-adv-039",
+        "SYF-adv-046",
+        "SY-adv-047",
+        "SYF-adv-047",
+        "SY-adv-053",
+        "SYF-adv-053",
+        "SYF-adv-055",
+        "SYF-adv-056",
+        "SYF-adv-057",
+        "SYF3-adv-004",
+        "SY3-adv-009",
+        "SY3-adv-017",
+        "SY3-adv-046",
+        "SY4-adv-006"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 157,
+          "candidate_facts": 545,
+          "doc_complete_at_8": 143,
+          "doc_recall_at_8": 0.6557017543859649,
+          "expanded_complete": 157,
+          "expanded_facts": 545,
+          "final_complete": 126,
+          "final_facts": 492,
+          "page_recall_at_20": 0.6565241228070176,
+          "page_recall_at_8": 0.5964912280701755,
+          "questions": 304,
+          "required_facts": 867,
+          "scored": 304
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 152,
+          "candidate_facts": 516,
+          "doc_complete_at_8": 143,
+          "doc_recall_at_8": 0.6540570175438597,
+          "expanded_complete": 157,
+          "expanded_facts": 543,
+          "final_complete": 126,
+          "final_facts": 493,
+          "page_recall_at_20": 0.6260964912280702,
+          "page_recall_at_8": 0.5973135964912281,
+          "questions": 304,
+          "required_facts": 867,
+          "scored": 304
+        },
+        "hg_partition": {
+          "candidate_complete": 131,
+          "candidate_facts": 456,
+          "doc_complete_at_8": 126,
+          "doc_recall_at_8": 0.572094298245614,
+          "expanded_complete": 136,
+          "expanded_facts": 487,
+          "final_complete": 112,
+          "final_facts": 448,
+          "page_recall_at_20": 0.5359100877192983,
+          "page_recall_at_8": 0.5271381578947368,
+          "questions": 304,
+          "required_facts": 867,
+          "scored": 304
+        }
+      },
+      "routes": {
+        "clarify": 4,
+        "general": 107,
+        "hg_search": 173,
+        "lookup": 16,
+        "mixed": 4
+      }
+    },
+    "peer_except_four_doc": {
+      "gains": [
+        "SYF-adv-042",
+        "SYF3-adv-001",
+        "SY3-adv-021",
+        "SYF3-adv-024",
+        "SY3-adv-026",
+        "SY3-adv-032"
+      ],
+      "losses": [
+        "FPA-13",
+        "FPA-15",
+        "FPA-18",
+        "SY-adv-005",
+        "SY-adv-013",
+        "SYF-adv-015",
+        "SY-adv-021",
+        "SYF-adv-021",
+        "SY-adv-022",
+        "SYF-adv-022",
+        "SYF-adv-039",
+        "SYF-adv-046",
+        "SY-adv-047",
+        "SYF-adv-047",
+        "SY-adv-053",
+        "SYF-adv-053",
+        "SYF-adv-055",
+        "SYF-adv-056",
+        "SYF-adv-057",
+        "SYF3-adv-004",
+        "SY3-adv-009",
+        "SY3-adv-017",
+        "SY3-adv-046"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 124,
+          "candidate_facts": 368,
+          "doc_complete_at_8": 124,
+          "doc_recall_at_8": 0.6906342182890856,
+          "expanded_complete": 124,
+          "expanded_facts": 368,
+          "final_complete": 108,
+          "final_facts": 341,
+          "page_recall_at_20": 0.6817846607669616,
+          "page_recall_at_8": 0.6308997050147493,
+          "questions": 226,
+          "required_facts": 555,
+          "scored": 226
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 119,
+          "candidate_facts": 352,
+          "doc_complete_at_8": 124,
+          "doc_recall_at_8": 0.6906342182890856,
+          "expanded_complete": 124,
+          "expanded_facts": 368,
+          "final_complete": 108,
+          "final_facts": 341,
+          "page_recall_at_20": 0.65523598820059,
+          "page_recall_at_8": 0.6308997050147493,
+          "questions": 226,
+          "required_facts": 555,
+          "scored": 226
+        },
+        "hg_partition": {
+          "candidate_complete": 96,
+          "candidate_facts": 292,
+          "doc_complete_at_8": 103,
+          "doc_recall_at_8": 0.5781710914454277,
+          "expanded_complete": 101,
+          "expanded_facts": 312,
+          "final_complete": 91,
+          "final_facts": 295,
+          "page_recall_at_20": 0.5339233038348082,
+          "page_recall_at_8": 0.5353982300884956,
+          "questions": 226,
+          "required_facts": 555,
+          "scored": 226
+        }
+      },
+      "routes": {
+        "clarify": 4,
+        "general": 84,
+        "hg_search": 126,
+        "lookup": 8,
+        "mixed": 4
+      }
+    },
+    "peer_expected_answer": {
+      "gains": [
+        "SYF-adv-042",
+        "SYF3-adv-001",
+        "SY3-adv-021",
+        "SYF3-adv-024",
+        "SY3-adv-026",
+        "SY3-adv-032",
+        "SY4-adv-001",
+        "SY4-adv-005",
+        "SY4-adv-009",
+        "SY4-adv-018"
+      ],
+      "losses": [
+        "FPA-13",
+        "FPA-15",
+        "SY-adv-005",
+        "SY-adv-013",
+        "SYF-adv-015",
+        "SY-adv-021",
+        "SYF-adv-021",
+        "SY-adv-022",
+        "SYF-adv-022",
+        "SYF-adv-039",
+        "SYF-adv-046",
+        "SY-adv-047",
+        "SYF-adv-047",
+        "SY-adv-053",
+        "SYF-adv-053",
+        "SYF-adv-056",
+        "SYF-adv-057",
+        "SYF3-adv-004",
+        "SY3-adv-009",
+        "SY3-adv-017",
+        "SY3-adv-046",
+        "SY4-adv-006"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 151,
+          "candidate_facts": 532,
+          "doc_complete_at_8": 137,
+          "doc_recall_at_8": 0.6558956916099774,
+          "expanded_complete": 151,
+          "expanded_facts": 532,
+          "final_complete": 120,
+          "final_facts": 479,
+          "page_recall_at_20": 0.6567460317460317,
+          "page_recall_at_8": 0.594671201814059,
+          "questions": 294,
+          "required_facts": 847,
+          "scored": 294
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 147,
+          "candidate_facts": 505,
+          "doc_complete_at_8": 137,
+          "doc_recall_at_8": 0.6541950113378685,
+          "expanded_complete": 151,
+          "expanded_facts": 530,
+          "final_complete": 120,
+          "final_facts": 480,
+          "page_recall_at_20": 0.6286848072562359,
+          "page_recall_at_8": 0.5955215419501134,
+          "questions": 294,
+          "required_facts": 847,
+          "scored": 294
+        },
+        "hg_partition": {
+          "candidate_complete": 128,
+          "candidate_facts": 450,
+          "doc_complete_at_8": 122,
+          "doc_recall_at_8": 0.5745464852607709,
+          "expanded_complete": 132,
+          "expanded_facts": 478,
+          "final_complete": 108,
+          "final_facts": 439,
+          "page_recall_at_20": 0.5439342403628118,
+          "page_recall_at_8": 0.5297619047619048,
+          "questions": 294,
+          "required_facts": 847,
+          "scored": 294
+        }
+      },
+      "routes": {
+        "clarify": 4,
+        "general": 103,
+        "hg_search": 169,
+        "lookup": 15,
+        "mixed": 3
+      }
+    },
+    "peer_expected_clarify_or_abstain": {
+      "gains": [],
+      "losses": [
+        "FPA-18",
+        "SYF-adv-055"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 6,
+          "candidate_facts": 13,
+          "doc_complete_at_8": 6,
+          "doc_recall_at_8": 0.65,
+          "expanded_complete": 6,
+          "expanded_facts": 13,
+          "final_complete": 6,
+          "final_facts": 13,
+          "page_recall_at_20": 0.65,
+          "page_recall_at_8": 0.65,
+          "questions": 10,
+          "required_facts": 20,
+          "scored": 10
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 5,
+          "candidate_facts": 11,
+          "doc_complete_at_8": 6,
+          "doc_recall_at_8": 0.65,
+          "expanded_complete": 6,
+          "expanded_facts": 13,
+          "final_complete": 6,
+          "final_facts": 13,
+          "page_recall_at_20": 0.55,
+          "page_recall_at_8": 0.65,
+          "questions": 10,
+          "required_facts": 20,
+          "scored": 10
+        },
+        "hg_partition": {
+          "candidate_complete": 3,
+          "candidate_facts": 6,
+          "doc_complete_at_8": 4,
+          "doc_recall_at_8": 0.5,
+          "expanded_complete": 4,
+          "expanded_facts": 9,
+          "final_complete": 4,
+          "final_facts": 9,
+          "page_recall_at_20": 0.3,
+          "page_recall_at_8": 0.45,
+          "questions": 10,
+          "required_facts": 20,
+          "scored": 10
+        }
+      },
+      "routes": {
+        "general": 4,
+        "hg_search": 4,
+        "lookup": 1,
+        "mixed": 1
+      }
+    },
+    "peer_false_premise": {
+      "gains": [],
+      "losses": [
+        "FPA-13",
+        "FPA-15",
+        "FPA-18"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 18,
+          "candidate_facts": 48,
+          "doc_complete_at_8": 17,
+          "doc_recall_at_8": 0.9125,
+          "expanded_complete": 18,
+          "expanded_facts": 48,
+          "final_complete": 18,
+          "final_facts": 48,
+          "page_recall_at_20": 0.9125,
+          "page_recall_at_8": 0.9125,
+          "questions": 20,
+          "required_facts": 51,
+          "scored": 20
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 15,
+          "candidate_facts": 40,
+          "doc_complete_at_8": 17,
+          "doc_recall_at_8": 0.9125,
+          "expanded_complete": 18,
+          "expanded_facts": 48,
+          "final_complete": 18,
+          "final_facts": 48,
+          "page_recall_at_20": 0.7625,
+          "page_recall_at_8": 0.9125,
+          "questions": 20,
+          "required_facts": 51,
+          "scored": 20
+        },
+        "hg_partition": {
+          "candidate_complete": 12,
+          "candidate_facts": 32,
+          "doc_complete_at_8": 15,
+          "doc_recall_at_8": 0.75,
+          "expanded_complete": 15,
+          "expanded_facts": 40,
+          "final_complete": 15,
+          "final_facts": 40,
+          "page_recall_at_20": 0.6,
+          "page_recall_at_8": 0.75,
+          "questions": 20,
+          "required_facts": 51,
+          "scored": 20
+        }
+      },
+      "routes": {
+        "general": 1,
+        "hg_search": 16,
+        "lookup": 3
+      }
+    },
+    "peer_four_doc": {
+      "gains": [
+        "SY4-adv-001",
+        "SY4-adv-005",
+        "SY4-adv-009",
+        "SY4-adv-018"
+      ],
+      "losses": [
+        "SY4-adv-006"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 33,
+          "candidate_facts": 177,
+          "doc_complete_at_8": 19,
+          "doc_recall_at_8": 0.5544871794871795,
+          "expanded_complete": 33,
+          "expanded_facts": 177,
+          "final_complete": 18,
+          "final_facts": 151,
+          "page_recall_at_20": 0.5833333333333334,
+          "page_recall_at_8": 0.4967948717948718,
+          "questions": 78,
+          "required_facts": 312,
+          "scored": 78
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 33,
+          "candidate_facts": 164,
+          "doc_complete_at_8": 19,
+          "doc_recall_at_8": 0.5480769230769231,
+          "expanded_complete": 33,
+          "expanded_facts": 175,
+          "final_complete": 18,
+          "final_facts": 152,
+          "page_recall_at_20": 0.5416666666666666,
+          "page_recall_at_8": 0.5,
+          "questions": 78,
+          "required_facts": 312,
+          "scored": 78
+        },
+        "hg_partition": {
+          "candidate_complete": 35,
+          "candidate_facts": 164,
+          "doc_complete_at_8": 23,
+          "doc_recall_at_8": 0.5544871794871795,
+          "expanded_complete": 35,
+          "expanded_facts": 175,
+          "final_complete": 21,
+          "final_facts": 153,
+          "page_recall_at_20": 0.5416666666666666,
+          "page_recall_at_8": 0.5032051282051282,
+          "questions": 78,
+          "required_facts": 312,
+          "scored": 78
+        }
+      },
+      "routes": {
+        "general": 23,
+        "hg_search": 47,
+        "lookup": 8
+      }
+    },
+    "peer_multi_doc": {
+      "gains": [
+        "SYF3-adv-001",
+        "SY3-adv-021",
+        "SYF3-adv-024",
+        "SY3-adv-026",
+        "SY3-adv-032",
+        "SY4-adv-001",
+        "SY4-adv-005",
+        "SY4-adv-009",
+        "SY4-adv-018"
+      ],
+      "losses": [
+        "SYF3-adv-004",
+        "SY3-adv-009",
+        "SY3-adv-017",
+        "SY3-adv-046",
+        "SY4-adv-006"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 82,
+          "candidate_facts": 356,
+          "doc_complete_at_8": 64,
+          "doc_recall_at_8": 0.621078431372549,
+          "expanded_complete": 82,
+          "expanded_facts": 356,
+          "final_complete": 57,
+          "final_facts": 314,
+          "page_recall_at_20": 0.634313725490196,
+          "page_recall_at_8": 0.5593137254901961,
+          "questions": 170,
+          "required_facts": 588,
+          "scored": 170
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 81,
+          "candidate_facts": 337,
+          "doc_complete_at_8": 64,
+          "doc_recall_at_8": 0.6181372549019608,
+          "expanded_complete": 82,
+          "expanded_facts": 354,
+          "final_complete": 57,
+          "final_facts": 315,
+          "page_recall_at_20": 0.6034313725490196,
+          "page_recall_at_8": 0.5607843137254902,
+          "questions": 170,
+          "required_facts": 588,
+          "scored": 170
+        },
+        "hg_partition": {
+          "candidate_complete": 79,
+          "candidate_facts": 317,
+          "doc_complete_at_8": 68,
+          "doc_recall_at_8": 0.5877450980392157,
+          "expanded_complete": 80,
+          "expanded_facts": 334,
+          "final_complete": 61,
+          "final_facts": 303,
+          "page_recall_at_20": 0.5642156862745098,
+          "page_recall_at_8": 0.5367647058823529,
+          "questions": 170,
+          "required_facts": 588,
+          "scored": 170
+        }
+      },
+      "routes": {
+        "general": 61,
+        "hg_search": 97,
+        "lookup": 12
+      }
+    },
+    "peer_two_doc": {
+      "gains": [
+        "SYF-adv-042"
+      ],
+      "losses": [
+        "SY-adv-005",
+        "SY-adv-013",
+        "SYF-adv-015",
+        "SY-adv-021",
+        "SYF-adv-021",
+        "SY-adv-022",
+        "SYF-adv-022",
+        "SYF-adv-039",
+        "SYF-adv-046",
+        "SY-adv-047",
+        "SYF-adv-047",
+        "SY-adv-053",
+        "SYF-adv-053",
+        "SYF-adv-055",
+        "SYF-adv-056",
+        "SYF-adv-057"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 57,
+          "candidate_facts": 141,
+          "doc_complete_at_8": 62,
+          "doc_recall_at_8": 0.6622807017543859,
+          "expanded_complete": 57,
+          "expanded_facts": 141,
+          "final_complete": 51,
+          "final_facts": 130,
+          "page_recall_at_20": 0.6447368421052632,
+          "page_recall_at_8": 0.5964912280701754,
+          "questions": 114,
+          "required_facts": 228,
+          "scored": 114
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 56,
+          "candidate_facts": 139,
+          "doc_complete_at_8": 62,
+          "doc_recall_at_8": 0.6622807017543859,
+          "expanded_complete": 57,
+          "expanded_facts": 141,
+          "final_complete": 51,
+          "final_facts": 130,
+          "page_recall_at_20": 0.6359649122807017,
+          "page_recall_at_8": 0.5964912280701754,
+          "questions": 114,
+          "required_facts": 228,
+          "scored": 114
+        },
+        "hg_partition": {
+          "candidate_complete": 40,
+          "candidate_facts": 107,
+          "doc_complete_at_8": 43,
+          "doc_recall_at_8": 0.5175438596491229,
+          "expanded_complete": 41,
+          "expanded_facts": 113,
+          "final_complete": 36,
+          "final_facts": 105,
+          "page_recall_at_20": 0.4824561403508772,
+          "page_recall_at_8": 0.47368421052631576,
+          "questions": 114,
+          "required_facts": 228,
+          "scored": 114
+        }
+      },
+      "routes": {
+        "clarify": 4,
+        "general": 45,
+        "hg_search": 60,
+        "lookup": 1,
+        "mixed": 4
+      }
+    },
+    "peer_two_doc_ambiguous": {
+      "gains": [],
+      "losses": [
+        "SY-adv-005",
+        "SYF-adv-015",
+        "SYF-adv-046",
+        "SY-adv-047",
+        "SYF-adv-047",
+        "SY-adv-053",
+        "SYF-adv-055"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 8,
+          "candidate_facts": 34,
+          "doc_complete_at_8": 12,
+          "doc_recall_at_8": 0.45555555555555555,
+          "expanded_complete": 8,
+          "expanded_facts": 34,
+          "final_complete": 8,
+          "final_facts": 30,
+          "page_recall_at_20": 0.4,
+          "page_recall_at_8": 0.35555555555555557,
+          "questions": 45,
+          "required_facts": 90,
+          "scored": 45
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 8,
+          "candidate_facts": 34,
+          "doc_complete_at_8": 12,
+          "doc_recall_at_8": 0.45555555555555555,
+          "expanded_complete": 8,
+          "expanded_facts": 34,
+          "final_complete": 8,
+          "final_facts": 30,
+          "page_recall_at_20": 0.4,
+          "page_recall_at_8": 0.35555555555555557,
+          "questions": 45,
+          "required_facts": 90,
+          "scored": 45
+        },
+        "hg_partition": {
+          "candidate_complete": 1,
+          "candidate_facts": 20,
+          "doc_complete_at_8": 3,
+          "doc_recall_at_8": 0.2777777777777778,
+          "expanded_complete": 1,
+          "expanded_facts": 22,
+          "final_complete": 1,
+          "final_facts": 20,
+          "page_recall_at_20": 0.2222222222222222,
+          "page_recall_at_8": 0.2222222222222222,
+          "questions": 45,
+          "required_facts": 90,
+          "scored": 45
+        }
+      },
+      "routes": {
+        "clarify": 3,
+        "general": 26,
+        "hg_search": 14,
+        "mixed": 2
+      }
+    },
+    "peer_two_doc_other": {
+      "gains": [
+        "SYF-adv-042"
+      ],
+      "losses": [
+        "SY-adv-013",
+        "SY-adv-021",
+        "SYF-adv-021",
+        "SY-adv-022",
+        "SYF-adv-022",
+        "SYF-adv-039",
+        "SYF-adv-053",
+        "SYF-adv-056",
+        "SYF-adv-057"
+      ],
+      "metrics": {
+        "baseline": {
+          "candidate_complete": 49,
+          "candidate_facts": 107,
+          "doc_complete_at_8": 50,
+          "doc_recall_at_8": 0.7971014492753623,
+          "expanded_complete": 49,
+          "expanded_facts": 107,
+          "final_complete": 43,
+          "final_facts": 100,
+          "page_recall_at_20": 0.8043478260869565,
+          "page_recall_at_8": 0.7536231884057971,
+          "questions": 69,
+          "required_facts": 138,
+          "scored": 69
+        },
+        "hg_full_fallback": {
+          "candidate_complete": 48,
+          "candidate_facts": 105,
+          "doc_complete_at_8": 50,
+          "doc_recall_at_8": 0.7971014492753623,
+          "expanded_complete": 49,
+          "expanded_facts": 107,
+          "final_complete": 43,
+          "final_facts": 100,
+          "page_recall_at_20": 0.7898550724637681,
+          "page_recall_at_8": 0.7536231884057971,
+          "questions": 69,
+          "required_facts": 138,
+          "scored": 69
+        },
+        "hg_partition": {
+          "candidate_complete": 39,
+          "candidate_facts": 87,
+          "doc_complete_at_8": 40,
+          "doc_recall_at_8": 0.6739130434782609,
+          "expanded_complete": 40,
+          "expanded_facts": 91,
+          "final_complete": 35,
+          "final_facts": 85,
+          "page_recall_at_20": 0.6521739130434783,
+          "page_recall_at_8": 0.6376811594202898,
+          "questions": 69,
+          "required_facts": 138,
+          "scored": 69
+        }
+      },
+      "routes": {
+        "clarify": 1,
+        "general": 19,
+        "hg_search": 46,
+        "lookup": 1,
+        "mixed": 2
+      }
+    }
+  },
+  "config": {
+    "evidence_group_policy": "any_citation_per_group",
+    "external_api_calls": 0,
+    "inputs": {
+      "cases": {
+        "path": "artifacts/u_10o0o/advanced-curation/hg-case-sources-20261109/case_sources.jsonl",
+        "sha256": "68f3f7db362c6d7bb8e8b5c73dfe5c983ad2f93debbef9a21c8413c2ab9b4326"
+      },
+      "curated": {
+        "path": "artifacts/u_10o0o/pattern-curation/advanced/manifest.json",
+        "sha256": "0d4b286a6bc6c2d4e5236d3e79f57655d6fd1fdfb74a29f15953c5567a120acf"
+      },
+      "facts": {
+        "path": "artifacts/u_10o0o/advanced-curation/hg-role-facts-20261109/role_facts.jsonl",
+        "sha256": "76c3fd9f4657cbe3552dc72327f3556f8ab1eac40ed10498c44ae265bba30a66"
+      },
+      "pages": {
+        "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+        "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+      },
+      "vectors": {
+        "path": "artifacts/u_10o0o/advanced_snowflake_ko_vectors.npy",
+        "sha256": "c6b26dda3cdf3b31011a5bbf3beaa28d62940a537778e2274ed035e94e4f0d9c"
+      }
+    },
+    "limits": {
+      "candidates": 20,
+      "context_pages": 8,
+      "context_tokens": 8000
+    },
+    "model": {
+      "embedding": "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+      "embedding_revision": "55ec6e9358a56d56af759bc8372e970caf8c305f",
+      "reranked_head": 3,
+      "reranker": "nlpai-lab/KURE-Reranker-nano",
+      "reranker_revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+      "rrf_k": 60,
+      "rrf_weights": [
+        0.5,
+        0.5
+      ]
+    },
+    "peer_ambiguous": {
+      "path": "experimental/ysl727727/overnight/data/synth_adv_ambiguous.json",
+      "sha256": "0669ac600025e4725fd5abe2304bb504814029fe044d85db7b2d2d6665967b98"
+    },
+    "question_inputs": {
+      "peer_false_premise": {
+        "path": "experimental/ysl727727/overnight/data/false_premise_adv_questions.json",
+        "sha256": "7814eea24550882be81471e73be625859ad77bc9b308df9c7d16a1eb246f3ab9"
+      },
+      "peer_multi_doc": {
+        "path": "experimental/ysl727727/overnight/data/synth_multi_adv_questions.json",
+        "sha256": "ed7a6b2448a732448dea3ad9c772ddd0ff5cdfa983843cc5aa32022fcda07388"
+      },
+      "peer_two_doc": {
+        "path": "experimental/ysl727727/overnight/data/synth_adv_questions.json",
+        "sha256": "886028ade17c18a5b8820319f29b5cd2f1716093802b6afb44a9a1c10254e9c0"
+      }
+    },
+    "references": {
+      "peer_false_premise": {
+        "path": "experimental/ysl727727/overnight/data/false_premise_adv.json",
+        "sha256": "d8a21e14c50af0add036672b0c072c53b955a8de8087126000a819f34fb38322"
+      },
+      "peer_multi_doc": {
+        "path": "experimental/ysl727727/overnight/data/synth_multi_adv.json",
+        "sha256": "7ead57097e66d072e0b5f2253220bc65bbcc8193b0926e2f174beb286ba67c9d"
+      },
+      "peer_two_doc": {
+        "path": "experimental/ysl727727/overnight/data/synth_adv.json",
+        "sha256": "94ac5d2e7906841675691b0511a8515efd11b3e03ceafda2d2527e6705bc4bd4"
+      }
+    },
+    "relation_snapshot": {
+      "path": "artifacts/u_10o0o/advanced-snapshots/hg-code-relations-v1/manifest.json",
+      "sha256": "d4f639bd6ce27c4bd39dd97b3e72d914811cc2f51e1ca24d7c6a7316d460879a"
+    },
+    "replay_inputs": {
+      "config.json": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-peer-20261109/config.json",
+        "sha256": "dfd3e01f6efbbe3867e5617d01bcba008ceb8f824108572639d8b0ebd5cc6d1b"
+      },
+      "rankings.jsonl": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-peer-20261109/rankings.jsonl",
+        "sha256": "6904b9c8958a078b210b04b68287ac1309da34c501c41c67d01bd4028f499657"
+      },
+      "results.json": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-peer-20261109/results.json",
+        "sha256": "dd1b4270cc0e9b6d6a0b84af4c84be0f1cbb5247ef5aa91f0d17d974a61c2cbb"
+      },
+      "scores.jsonl": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-peer-20261109/scores.jsonl",
+        "sha256": "dc2ae1745aae0f46c807078d09726f9b44596ea3c4a240b3c04dcbb7e17d868c"
+      },
+      "traces.jsonl": {
+        "path": "experimental/u_10o0o/records/advanced-hg-partition-peer-20261109/traces.jsonl",
+        "sha256": "8a0b73baf7cf36c5c500f2e98720343d059853fca40e08d48f1761863f511623"
+      }
+    },
+    "reused_luna_calls": 304,
+    "suite": "peer"
+  },
+  "full_fallback_routes": {
+    "full_fallback": 284,
+    "lookup": 16,
+    "mixed": 4
+  },
+  "paired_full_fallback": {
+    "baseline": {
+      "gains": [],
+      "losses": [],
+      "unchanged": 304
+    },
+    "hg_partition": {
+      "gains": [
+        "FPA-13",
+        "FPA-15",
+        "FPA-18",
+        "SY-adv-005",
+        "SY-adv-013",
+        "SYF-adv-015",
+        "SY-adv-021",
+        "SYF-adv-021",
+        "SY-adv-022",
+        "SYF-adv-022",
+        "SYF-adv-039",
+        "SYF-adv-046",
+        "SY-adv-047",
+        "SYF-adv-047",
+        "SY-adv-053",
+        "SYF-adv-053",
+        "SYF-adv-055",
+        "SYF-adv-056",
+        "SYF-adv-057",
+        "SYF3-adv-004",
+        "SY3-adv-009",
+        "SY3-adv-017",
+        "SY3-adv-046",
+        "SY4-adv-006"
+      ],
+      "losses": [
+        "SYF-adv-042",
+        "SYF3-adv-001",
+        "SY3-adv-021",
+        "SYF3-adv-024",
+        "SY3-adv-026",
+        "SY3-adv-032",
+        "SY4-adv-001",
+        "SY4-adv-005",
+        "SY4-adv-009",
+        "SY4-adv-018"
+      ],
+      "unchanged": 270
+    }
+  },
+  "validation": {
+    "max_final_pages": 8,
+    "max_final_tokens": 7067,
+    "restored_context_hashes": 608,
+    "unchanged_prior_scores": 608
+  }
+}

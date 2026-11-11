@@ -1,0 +1,5187 @@
+{
+  "method": "Saved rankings only; exact book_id+page groups. No retrieval/model rerun. Question labels and quotes omitted from shared audit.",
+  "input_sha256": {
+    "artifacts/u_10o0o/advanced-fresh-record-hybrid-20261111/evaluation/references.jsonl": "164d5e2474193a1cad18bd73570fc3e8dfc19e0c1eeec3139cd7f71ef1d37482",
+    "artifacts/u_10o0o/advanced-fresh-final-coverage-20261111/run-v2/results.jsonl": "6300cbf8124a52c4e5a5b10e58e57ee11e8f28fd600fead3e302d4f0b597117f",
+    "artifacts/u_10o0o/advanced-fresh-existing-evaluation-20261111/run-v1/results.jsonl": "04d6158bef79794c7c44a3f7ac49fbb3cf206aad5eba2defd1000f49f54485f0",
+    "data/advanced/evaluation/development.json": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39",
+    "data/advanced/evaluation/additional.json": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e"
+  },
+  "fresh_validation": {
+    "scoreable": 70,
+    "primary_page_count_distribution": {
+      "1": 45,
+      "2": 14,
+      "3": 6,
+      "4": 5
+    },
+    "total_primary_pages": 111,
+    "strict_primary_complete": {
+      "E_coverage": 65,
+      "F_coverage": 66
+    }
+  },
+  "official": {
+    "scoreable": 58,
+    "groups": 184,
+    "primary_page_count_distribution": {
+      "1": 7,
+      "2": 15,
+      "3": 11,
+      "4": 25
+    },
+    "total_primary_pages": 170,
+    "question_first_missing_stage": {
+      "E": {
+        "retained": 17,
+        "retriever_top50": 10,
+        "candidate_20": 13,
+        "final_8": 18
+      },
+      "F": {
+        "retained": 18,
+        "retriever_top50": 10,
+        "candidate_20": 13,
+        "final_8": 17
+      }
+    },
+    "group_first_missing_stage": {
+      "E": {
+        "retained": 126,
+        "final_8": 29,
+        "retriever_top50": 10,
+        "initial_20": 19
+      },
+      "F": {
+        "retained": 126,
+        "final_8": 31,
+        "retriever_top50": 10,
+        "initial_20": 17
+      }
+    },
+    "stage_totals": {
+      "E": {
+        "bm25_groups": 168,
+        "bm25_complete_questions": 42,
+        "dense_groups": 105,
+        "dense_complete_questions": 16,
+        "union_groups": 174,
+        "union_complete_questions": 48,
+        "initial20_groups": 151,
+        "initial20_complete_questions": 33,
+        "candidate20_groups": 155,
+        "candidate20_complete_questions": 35,
+        "final8_groups": 126,
+        "final8_complete_questions": 17
+      },
+      "F": {
+        "bm25_groups": 168,
+        "bm25_complete_questions": 42,
+        "dense_groups": 105,
+        "dense_complete_questions": 16,
+        "union_groups": 174,
+        "union_complete_questions": 48,
+        "initial20_groups": 157,
+        "initial20_complete_questions": 35,
+        "candidate20_groups": 157,
+        "candidate20_complete_questions": 35,
+        "final8_groups": 126,
+        "final8_complete_questions": 18
+      }
+    }
+  },
+  "per_question": [
+    {
+      "id": "AS-DEV01",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4561,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS007:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV01",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4478,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS007:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV02",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 6046,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:001",
+          "bm25_rank": 8,
+          "dense_rank": 8,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS008:002",
+          "bm25_rank": 5,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 5,
+          "source_id": "AS009:001",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV02",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 6046,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:001",
+          "bm25_rank": 8,
+          "dense_rank": 8,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS008:002",
+          "bm25_rank": 5,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 5,
+          "source_id": "AS009:001",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV03",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 5008,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:003",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV03",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 5074,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:003",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV04",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 6665,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS009:021",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS016:039",
+          "bm25_rank": null,
+          "dense_rank": 32,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV04",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 6665,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS009:021",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS016:039",
+          "bm25_rank": null,
+          "dense_rank": 32,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV05",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 6008,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:022",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 15,
+          "candidate_rank": 15,
+          "kure_rank": 9,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV05",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 5944,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:022",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 9,
+          "candidate_rank": 9,
+          "kure_rank": 8,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV06",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 6467,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:018",
+          "bm25_rank": 10,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS009:001",
+          "bm25_rank": 45,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:021",
+          "bm25_rank": 12,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV06",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 6560,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:018",
+          "bm25_rank": 10,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS009:001",
+          "bm25_rank": 45,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:021",
+          "bm25_rank": 12,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV07",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 5263,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS011:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS011:002",
+          "bm25_rank": 32,
+          "dense_rank": 4,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV07",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 5150,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS011:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS011:002",
+          "bm25_rank": 32,
+          "dense_rank": 4,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV08",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 4370,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS012:033",
+          "bm25_rank": 10,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 5,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS013:018",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV08",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 4370,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS012:033",
+          "bm25_rank": 10,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 5,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS013:018",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV09",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 6224,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:052",
+          "bm25_rank": null,
+          "dense_rank": 5,
+          "initial_rank": 20,
+          "candidate_rank": 20,
+          "kure_rank": 9,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 4,
+          "source_id": "AS009:023",
+          "bm25_rank": 35,
+          "dense_rank": 1,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV09",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 5926,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:052",
+          "bm25_rank": null,
+          "dense_rank": 5,
+          "initial_rank": 12,
+          "candidate_rank": 12,
+          "kure_rank": 10,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 4,
+          "source_id": "AS009:023",
+          "bm25_rank": 35,
+          "dense_rank": 1,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV10",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 5912,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS009:053",
+          "bm25_rank": null,
+          "dense_rank": 4,
+          "initial_rank": 10,
+          "candidate_rank": 10,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS009:054",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV10",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 5912,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS009:053",
+          "bm25_rank": null,
+          "dense_rank": 4,
+          "initial_rank": 8,
+          "candidate_rank": 8,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS009:054",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV11",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4921,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS012:034",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV11",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4921,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS012:034",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV13",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4888,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS002:001",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 10,
+          "kure_rank": 7,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 5,
+          "source_id": "AS003:001",
+          "bm25_rank": 1,
+          "dense_rank": 6,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV13",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4888,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS002:001",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 10,
+          "kure_rank": 7,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 5,
+          "source_id": "AS003:001",
+          "bm25_rank": 1,
+          "dense_rank": 6,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV14",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4796,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 15,
+          "candidate_rank": 15,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS003:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV14",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4691,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 10,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS003:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV15",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4676,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS002:001",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV15",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4676,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS001:001",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS002:001",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV16",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 3831,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS031:102",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS032:092",
+          "bm25_rank": 1,
+          "dense_rank": 5,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 5,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS033:102",
+          "bm25_rank": 2,
+          "dense_rank": 22,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS034:092",
+          "bm25_rank": 4,
+          "dense_rank": 10,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV16",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 3831,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS031:102",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS032:092",
+          "bm25_rank": 1,
+          "dense_rank": 5,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 5,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS033:102",
+          "bm25_rank": 2,
+          "dense_rank": 22,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS034:092",
+          "bm25_rank": 4,
+          "dense_rank": 10,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV17",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3843,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS006:116",
+          "bm25_rank": 5,
+          "dense_rank": 44,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS007:086",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 14,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS008:076",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS009:086",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 11,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV17",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3863,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS006:116",
+          "bm25_rank": 5,
+          "dense_rank": 44,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS007:086",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 5,
+          "candidate_rank": 4,
+          "kure_rank": 12,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS008:076",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS009:086",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV18",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3862,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS101:024",
+          "bm25_rank": 8,
+          "dense_rank": 6,
+          "initial_rank": 3,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS102:024",
+          "bm25_rank": 2,
+          "dense_rank": 19,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 6,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS103:024",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS104:024",
+          "bm25_rank": 3,
+          "dense_rank": 10,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV18",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3953,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS101:024",
+          "bm25_rank": 8,
+          "dense_rank": 6,
+          "initial_rank": 3,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS102:024",
+          "bm25_rank": 2,
+          "dense_rank": 19,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 6,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS103:024",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS104:024",
+          "bm25_rank": 3,
+          "dense_rank": 10,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV19",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3887,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS076:033",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS077:033",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 7,
+          "candidate_rank": 4,
+          "kure_rank": 20,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS078:033",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 3,
+          "candidate_rank": 1,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS079:033",
+          "bm25_rank": 2,
+          "dense_rank": 20,
+          "initial_rank": 1,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV19",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3887,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS076:033",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS077:033",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 7,
+          "candidate_rank": 4,
+          "kure_rank": 20,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS078:033",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 3,
+          "candidate_rank": 1,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS079:033",
+          "bm25_rank": 2,
+          "dense_rank": 20,
+          "initial_rank": 1,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV20",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 4136,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS051:107",
+          "bm25_rank": 13,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS052:117",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 11,
+          "candidate_rank": 11,
+          "kure_rank": 7,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS053:112",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 14,
+          "candidate_rank": 14,
+          "kure_rank": 8,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS054:107",
+          "bm25_rank": 2,
+          "dense_rank": 21,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV20",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 4256,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS051:107",
+          "bm25_rank": 13,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS052:117",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 7,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS053:112",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 8,
+          "kure_rank": 11,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 4,
+          "source_id": "AS054:107",
+          "bm25_rank": 2,
+          "dense_rank": 21,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV21",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 4292,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS032:136",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS033:146",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 3,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS034:136",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 3,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS035:141",
+          "bm25_rank": 2,
+          "dense_rank": 42,
+          "initial_rank": 1,
+          "candidate_rank": 2,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV21",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 4292,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS032:136",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS033:146",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 3,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS034:136",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 3,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS035:141",
+          "bm25_rank": 2,
+          "dense_rank": 42,
+          "initial_rank": 1,
+          "candidate_rank": 2,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV22",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3636,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS076:060",
+          "bm25_rank": 28,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS077:060",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 18,
+          "candidate_rank": 18,
+          "kure_rank": 20,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS078:060",
+          "bm25_rank": 2,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS079:060",
+          "bm25_rank": 4,
+          "dense_rank": 19,
+          "initial_rank": 3,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV22",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3600,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS076:060",
+          "bm25_rank": 28,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS077:060",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 11,
+          "candidate_rank": 11,
+          "kure_rank": 14,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS078:060",
+          "bm25_rank": 2,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS079:060",
+          "bm25_rank": 4,
+          "dense_rank": 19,
+          "initial_rank": 3,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV23",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3579,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS101:070",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 12,
+          "candidate_rank": 4,
+          "kure_rank": 8,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS102:070",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 7,
+          "candidate_rank": 3,
+          "kure_rank": 13,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS103:070",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS104:070",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 9,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV23",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3579,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS101:070",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 12,
+          "candidate_rank": 4,
+          "kure_rank": 8,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS102:070",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 7,
+          "candidate_rank": 3,
+          "kure_rank": 13,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS103:070",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS104:070",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 9,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV24",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 3918,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS088:082",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS089:082",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 3,
+          "source_id": "AS090:082",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS091:082",
+          "bm25_rank": 2,
+          "dense_rank": 5,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV24",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 3821,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS088:082",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS089:082",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 12,
+          "candidate_rank": 12,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS090:082",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS091:082",
+          "bm25_rank": 2,
+          "dense_rank": 5,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV25",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3826,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS108:097",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 12,
+          "candidate_rank": 4,
+          "kure_rank": 18,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS109:097",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 5,
+          "kure_rank": 19,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS110:097",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 2,
+          "kure_rank": 6,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS111:097",
+          "bm25_rank": 2,
+          "dense_rank": 50,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV25",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3826,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS108:097",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 17,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS109:097",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 5,
+          "kure_rank": 18,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS110:097",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 4,
+          "candidate_rank": 2,
+          "kure_rank": 6,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS111:097",
+          "bm25_rank": 2,
+          "dense_rank": 50,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV26",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 3958,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS075:114",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS076:114",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 3,
+          "source_id": "AS077:114",
+          "bm25_rank": 2,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS078:114",
+          "bm25_rank": 3,
+          "dense_rank": 13,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV26",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 3836,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS075:114",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS076:114",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 12,
+          "candidate_rank": 12,
+          "kure_rank": 17,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS077:114",
+          "bm25_rank": 2,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS078:114",
+          "bm25_rank": 3,
+          "dense_rank": 13,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV27",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3810,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS106:130",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS107:130",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 5,
+          "kure_rank": 19,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS108:130",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS109:130",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 3,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV27",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3810,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS106:130",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS107:130",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 5,
+          "kure_rank": 19,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS108:130",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS109:130",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 3,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV28",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3295,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS076:147",
+          "bm25_rank": 4,
+          "dense_rank": 6,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS077:147",
+          "bm25_rank": 3,
+          "dense_rank": 5,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV28",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3305,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS076:147",
+          "bm25_rank": 4,
+          "dense_rank": 6,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS077:147",
+          "bm25_rank": 3,
+          "dense_rank": 5,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV29",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3886,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS096:007",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 9,
+          "candidate_rank": 4,
+          "kure_rank": 12,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS097:007",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 5,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS099:007",
+          "bm25_rank": 3,
+          "dense_rank": 5,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV29",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3886,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS096:007",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 9,
+          "candidate_rank": 4,
+          "kure_rank": 12,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS097:007",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 5,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS099:007",
+          "bm25_rank": 3,
+          "dense_rank": 5,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV30",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3700,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS071:016",
+          "bm25_rank": 12,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS072:016",
+          "bm25_rank": 1,
+          "dense_rank": 3,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS074:016",
+          "bm25_rank": 3,
+          "dense_rank": 32,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-DEV30",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3787,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS071:016",
+          "bm25_rank": 12,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS072:016",
+          "bm25_rank": 1,
+          "dense_rank": 3,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS074:016",
+          "bm25_rank": 3,
+          "dense_rank": 32,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD01",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 4846,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:007",
+          "bm25_rank": null,
+          "dense_rank": 35,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS007:001",
+          "bm25_rank": 5,
+          "dense_rank": 9,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD01",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 4851,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:007",
+          "bm25_rank": null,
+          "dense_rank": 35,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS007:001",
+          "bm25_rank": 5,
+          "dense_rank": 9,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD02",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 5773,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:008",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD02",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 5700,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:008",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD03",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 4752,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:009",
+          "bm25_rank": 46,
+          "dense_rank": 29,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD03",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 4732,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS008:009",
+          "bm25_rank": 46,
+          "dense_rank": 29,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD04",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 5089,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS009:055",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD04",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 5089,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS009:055",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD05",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 5832,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:055",
+          "bm25_rank": null,
+          "dense_rank": 34,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD05",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 5832,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:055",
+          "bm25_rank": null,
+          "dense_rank": 34,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD06",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 6614,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:019",
+          "bm25_rank": 32,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:019",
+          "bm25_rank": 32,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:052",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 4,
+          "source_id": "AS009:022",
+          "bm25_rank": 1,
+          "dense_rank": 20,
+          "initial_rank": 7,
+          "candidate_rank": 7,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD06",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 6614,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS014:019",
+          "bm25_rank": 32,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS014:019",
+          "bm25_rank": 32,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 3,
+          "source_id": "AS009:052",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 4,
+          "source_id": "AS009:022",
+          "bm25_rank": 1,
+          "dense_rank": 20,
+          "initial_rank": 7,
+          "candidate_rank": 7,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD07",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 5074,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS011:001",
+          "bm25_rank": 22,
+          "dense_rank": 25,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS011:002",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD07",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 4955,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS011:001",
+          "bm25_rank": 22,
+          "dense_rank": 25,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS011:002",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD08",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4619,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS013:019",
+          "bm25_rank": 43,
+          "dense_rank": 2,
+          "initial_rank": 15,
+          "candidate_rank": 15,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS013:020",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD08",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4619,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS013:019",
+          "bm25_rank": 43,
+          "dense_rank": 2,
+          "initial_rank": 15,
+          "candidate_rank": 15,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS013:020",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD09",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 5699,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS009:053",
+          "bm25_rank": null,
+          "dense_rank": 40,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS009:054",
+          "bm25_rank": 18,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 3,
+          "source_id": "AS014:018",
+          "bm25_rank": 2,
+          "dense_rank": 3,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD09",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 5848,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS009:053",
+          "bm25_rank": null,
+          "dense_rank": 40,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS009:054",
+          "bm25_rank": 18,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 3,
+          "source_id": "AS014:018",
+          "bm25_rank": 2,
+          "dense_rank": 3,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD10",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 6125,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS010:001",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD10",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 6125,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS010:001",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD11",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4966,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS012:035",
+          "bm25_rank": 1,
+          "dense_rank": 3,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD11",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4937,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS012:035",
+          "bm25_rank": 1,
+          "dense_rank": 3,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD13",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 4731,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS004:001",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 14,
+          "candidate_rank": 14,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS005:001",
+          "bm25_rank": 2,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 11,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS005:001",
+          "bm25_rank": 2,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 11,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 4,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 5,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 6,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD13",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 4742,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS004:001",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 7,
+          "candidate_rank": 7,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS005:001",
+          "bm25_rank": 2,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 11,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS005:001",
+          "bm25_rank": 2,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 11,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 4,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 5,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 6,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD14",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 4907,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS004:001",
+          "bm25_rank": 3,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS005:001",
+          "bm25_rank": 2,
+          "dense_rank": 13,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 18,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD14",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 5004,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS004:001",
+          "bm25_rank": 3,
+          "dense_rank": 2,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS005:001",
+          "bm25_rank": 2,
+          "dense_rank": 13,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS006:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD15",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 5197,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS004:001",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 14,
+          "candidate_rank": 14,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS005:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD15",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 5156,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS004:001",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 10,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS005:001",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD16",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3966,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS046:115",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 9,
+          "candidate_rank": 5,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS047:100",
+          "bm25_rank": 2,
+          "dense_rank": 41,
+          "initial_rank": 2,
+          "candidate_rank": 3,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS049:100",
+          "bm25_rank": 4,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD16",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3966,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS046:115",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 9,
+          "candidate_rank": 5,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS047:100",
+          "bm25_rank": 2,
+          "dense_rank": 41,
+          "initial_rank": 2,
+          "candidate_rank": 3,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS049:100",
+          "bm25_rank": 4,
+          "dense_rank": 2,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD17",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3756,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS021:109",
+          "bm25_rank": 29,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS022:094",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 7,
+          "candidate_rank": 7,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS023:104",
+          "bm25_rank": 2,
+          "dense_rank": 40,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS024:099",
+          "bm25_rank": 3,
+          "dense_rank": 12,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD17",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3708,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS021:109",
+          "bm25_rank": 29,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS022:094",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 3,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS023:104",
+          "bm25_rank": 2,
+          "dense_rank": 40,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS024:099",
+          "bm25_rank": 3,
+          "dense_rank": 12,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD18",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3790,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS117:042",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 4,
+          "candidate_rank": 3,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS118:042",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS119:042",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD18",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3790,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS117:042",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 4,
+          "candidate_rank": 3,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS118:042",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS119:042",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD19",
+      "condition": "E",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 3786,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS097:051",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS098:051",
+          "bm25_rank": 1,
+          "dense_rank": 35,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 7,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS099:051",
+          "bm25_rank": 2,
+          "dense_rank": 14,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS100:051",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD19",
+      "condition": "F",
+      "question_first_missing_stage": "retriever_top50",
+      "final_pages": 8,
+      "context_tokens": 3786,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS097:051",
+          "bm25_rank": null,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "retriever_top50"
+        },
+        {
+          "group": 2,
+          "source_id": "AS098:051",
+          "bm25_rank": 1,
+          "dense_rank": 35,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 6,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS099:051",
+          "bm25_rank": 2,
+          "dense_rank": 14,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS100:051",
+          "bm25_rank": 3,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD20",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3844,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS027:146",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 4,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS032:146",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 7,
+          "candidate_rank": 5,
+          "kure_rank": 19,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS034:146",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS037:136",
+          "bm25_rank": 2,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD20",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3844,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS027:146",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 4,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS032:146",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 7,
+          "candidate_rank": 5,
+          "kure_rank": 19,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS034:146",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS037:136",
+          "bm25_rank": 2,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD21",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3759,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS070:071",
+          "bm25_rank": 23,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS071:071",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 20,
+          "candidate_rank": 20,
+          "kure_rank": 20,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS072:071",
+          "bm25_rank": 2,
+          "dense_rank": 11,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS073:071",
+          "bm25_rank": 3,
+          "dense_rank": 12,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD21",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3724,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS070:071",
+          "bm25_rank": 23,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS071:071",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 11,
+          "candidate_rank": 11,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS072:071",
+          "bm25_rank": 2,
+          "dense_rank": 11,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS073:071",
+          "bm25_rank": 3,
+          "dense_rank": 12,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD22",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4118,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS074:083",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS075:083",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 3,
+          "kure_rank": 6,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS076:083",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS077:083",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 4,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD22",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 4118,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS074:083",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS075:083",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 3,
+          "kure_rank": 6,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 3,
+          "source_id": "AS076:083",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS077:083",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 4,
+          "candidate_rank": 2,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD23",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 4079,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS109:098",
+          "bm25_rank": 15,
+          "dense_rank": 12,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS110:098",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 15,
+          "candidate_rank": 15,
+          "kure_rank": 9,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS111:098",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS112:098",
+          "bm25_rank": 3,
+          "dense_rank": 13,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD23",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 4148,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS109:098",
+          "bm25_rank": 15,
+          "dense_rank": 12,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS110:098",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 12,
+          "candidate_rank": 12,
+          "kure_rank": 10,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS111:098",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS112:098",
+          "bm25_rank": 3,
+          "dense_rank": 13,
+          "initial_rank": 4,
+          "candidate_rank": 4,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD24",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3705,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS076:115",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 20,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS077:115",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 5,
+          "kure_rank": 19,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS078:115",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS079:115",
+          "bm25_rank": 2,
+          "dense_rank": 8,
+          "initial_rank": 1,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD24",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3705,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS076:115",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 20,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS077:115",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 5,
+          "kure_rank": 19,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS078:115",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 2,
+          "candidate_rank": 1,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS079:115",
+          "bm25_rank": 2,
+          "dense_rank": 8,
+          "initial_rank": 1,
+          "candidate_rank": 2,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD25",
+      "condition": "E",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3762,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS107:131",
+          "bm25_rank": 16,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS108:131",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 17,
+          "candidate_rank": 17,
+          "kure_rank": 17,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS109:131",
+          "bm25_rank": 2,
+          "dense_rank": 3,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS110:131",
+          "bm25_rank": 3,
+          "dense_rank": 28,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD25",
+      "condition": "F",
+      "question_first_missing_stage": "candidate_20",
+      "final_pages": 8,
+      "context_tokens": 3690,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS107:131",
+          "bm25_rank": 16,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": null,
+          "kure_rank": null,
+          "in_final": false,
+          "first_missing_stage": "initial_20"
+        },
+        {
+          "group": 2,
+          "source_id": "AS108:131",
+          "bm25_rank": 1,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 10,
+          "kure_rank": 14,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS109:131",
+          "bm25_rank": 2,
+          "dense_rank": 3,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS110:131",
+          "bm25_rank": 3,
+          "dense_rank": 28,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD26",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3564,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS074:148",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 14,
+          "candidate_rank": 4,
+          "kure_rank": 12,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS075:148",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 8,
+          "candidate_rank": 3,
+          "kure_rank": 20,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS076:148",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS077:148",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 2,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD26",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3609,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS074:148",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 10,
+          "candidate_rank": 4,
+          "kure_rank": 11,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS075:148",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 4,
+          "candidate_rank": 3,
+          "kure_rank": 20,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS076:148",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS077:148",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 6,
+          "candidate_rank": 2,
+          "kure_rank": 5,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD27",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3649,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS041:093",
+          "bm25_rank": 24,
+          "dense_rank": 35,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS042:083",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 9,
+          "candidate_rank": 9,
+          "kure_rank": 10,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS043:093",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS044:088",
+          "bm25_rank": 3,
+          "dense_rank": 31,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD27",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3649,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS041:093",
+          "bm25_rank": 24,
+          "dense_rank": 35,
+          "initial_rank": 6,
+          "candidate_rank": 6,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS042:083",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 9,
+          "candidate_rank": 9,
+          "kure_rank": 10,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS043:093",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS044:088",
+          "bm25_rank": 3,
+          "dense_rank": 31,
+          "initial_rank": 5,
+          "candidate_rank": 5,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD28",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3504,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS016:092",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": 3,
+          "kure_rank": 18,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS017:087",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": 8,
+          "kure_rank": 17,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS018:097",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS019:092",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": 4,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD28",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 3504,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS016:092",
+          "bm25_rank": 5,
+          "dense_rank": null,
+          "initial_rank": 15,
+          "candidate_rank": 3,
+          "kure_rank": 16,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 2,
+          "source_id": "AS017:087",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 13,
+          "candidate_rank": 5,
+          "kure_rank": 15,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS018:097",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS019:092",
+          "bm25_rank": 4,
+          "dense_rank": null,
+          "initial_rank": 14,
+          "candidate_rank": 4,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD29",
+      "condition": "E",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 4212,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS111:025",
+          "bm25_rank": 8,
+          "dense_rank": 2,
+          "initial_rank": 3,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS112:025",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 14,
+          "candidate_rank": 14,
+          "kure_rank": 18,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS113:025",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS114:025",
+          "bm25_rank": 3,
+          "dense_rank": 3,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD29",
+      "condition": "F",
+      "question_first_missing_stage": "final_8",
+      "final_pages": 8,
+      "context_tokens": 4285,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS111:025",
+          "bm25_rank": 8,
+          "dense_rank": 2,
+          "initial_rank": 3,
+          "candidate_rank": 3,
+          "kure_rank": 2,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS112:025",
+          "bm25_rank": 2,
+          "dense_rank": null,
+          "initial_rank": 12,
+          "candidate_rank": 12,
+          "kure_rank": 18,
+          "in_final": false,
+          "first_missing_stage": "final_8"
+        },
+        {
+          "group": 3,
+          "source_id": "AS113:025",
+          "bm25_rank": 1,
+          "dense_rank": 1,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 4,
+          "source_id": "AS114:025",
+          "bm25_rank": 3,
+          "dense_rank": 3,
+          "initial_rank": 2,
+          "candidate_rank": 2,
+          "kure_rank": 3,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD30",
+      "condition": "E",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3515,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS089:034",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": null,
+          "candidate_rank": 6,
+          "kure_rank": 4,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS090:034",
+          "bm25_rank": 2,
+          "dense_rank": 18,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    },
+    {
+      "id": "AS-ADD30",
+      "condition": "F",
+      "question_first_missing_stage": "retained",
+      "final_pages": 8,
+      "context_tokens": 3463,
+      "groups": [
+        {
+          "group": 1,
+          "source_id": "AS089:034",
+          "bm25_rank": 3,
+          "dense_rank": null,
+          "initial_rank": 11,
+          "candidate_rank": 3,
+          "kure_rank": 6,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        },
+        {
+          "group": 2,
+          "source_id": "AS090:034",
+          "bm25_rank": 2,
+          "dense_rank": 18,
+          "initial_rank": 1,
+          "candidate_rank": 1,
+          "kure_rank": 1,
+          "in_final": true,
+          "first_missing_stage": "retained"
+        }
+      ]
+    }
+  ]
+}
