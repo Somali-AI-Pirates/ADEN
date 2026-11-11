@@ -18,4 +18,4 @@ ADEN은 해운 PDF를 검색해 예약·서류·처리 상태·비용 조건에 
 | 일반·보안 평가, 공식 실행과 검증 상태 | [평가 가이드](guides/c-module-guide.md) |
 | Judge 채점 기준 버전과 점수 변화 | [채점 기준 이력](guides/judge-rubric.md) |
 
-로컬 B·C 연결과 메모리 Qdrant 사용은 [Advanced 로컬 B·C 개발](guides/local-bc.md)을 따른다.
+로컬 B·C 연결과 메모리 Qdrant 사용은 [Advanced 로컬 B·C 개발](guides/local-bc.md)을 따른다. A 없는 API 실행·PR49 프롬프트 확인·request_id로 trace 조회는 [B/C 고정 근거 API 실행](guides/local-bc.md#bc-고정-근거-api-실행)을 따른다.
