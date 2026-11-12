@@ -125,7 +125,8 @@ def _test_config(directory: Path, *, listen_port: int, upstream_port: int) -> Pa
                 "events { worker_connections 64; }",
                 "http {",
                 f"  include {LIMITS_CONFIG};",
-                "  include /etc/nginx/mime.types;",
+                # Match hosts without a global .mjs MIME mapping.
+                "  types { text/html html; }",
                 "  default_type application/octet-stream;",
                 app_server,
                 "}",
@@ -136,6 +137,9 @@ def _test_config(directory: Path, *, listen_port: int, upstream_port: int) -> Pa
     )
     (directory / "web").mkdir()
     (directory / "web/index.html").write_text("<!doctype html><title>fixture</title>", encoding="utf-8")
+    worker = directory / "web/pdf-assets/pdf.worker.min.mjs"
+    worker.parent.mkdir()
+    worker.write_text("export {};\n", encoding="utf-8")
     return config
 
 
@@ -243,6 +247,11 @@ def main() -> None:
                 assert ranged[1].get("Content-Range") == "bytes 1-3/6"
                 assert ranged[2] == b"bcd"
 
+                worker = _request(listen_port, "GET", "/pdf-assets/pdf.worker.min.mjs")
+                assert worker[0] == 200
+                assert worker[1].get("Content-Type") == "text/javascript"
+                assert worker[2] == b"export {};\n"
+
                 upstream.shutdown()
                 upstream.server_close()
                 unavailable = _request(listen_port, "GET", "/api/health/live")
@@ -250,7 +259,7 @@ def main() -> None:
                 assert unavailable[1].get("Retry-After") == "3600"
                 assert json.loads(unavailable[2])["status"] == "unavailable"
 
-                print("Nginx API status, SSE, readiness, and PDF Range contracts passed.")
+                print("Nginx API status, SSE, readiness, PDF Range, and PDF worker MIME checks passed.")
             finally:
                 nginx.terminate()
                 try:
