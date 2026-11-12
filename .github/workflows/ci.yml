@@ -11,72 +11,209 @@ permissions:
   contents: read
 
 jobs:
-  checks:
-    name: checks
+  python:
+    name: Python
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
+    timeout-minutes: 30
     steps:
       - name: 코드 가져오기
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Python 준비
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.13"
-          cache: pip
-          cache-dependency-path: pyproject.toml
-
-      - name: CPU용 PyTorch 설치
-        run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
-
-      - name: 공통 앱과 검사 의존성 설치
-        run: python -m pip install -e '.[test]'
-
-      - name: 기본 코드 오류 검사
-        run: python -m ruff check .
-
-      - name: 공통 기능·통합 테스트
-        run: python -m pytest -q tests
-
-      - name: 실행 명령 연결 확인
+      - name: uv 준비
+        uses: astral-sh/setup-uv@0c5e2b8115b80b4c7c5ddf6ffdd634974642d182 # v5.4.1
+        with:
+          version: "0.12.5"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: 잠금 의존성 확인
+        run: uv lock --check
+      - name: CPU 의존성 설치
+        run: uv sync --locked --extra cpu --extra test
+      - name: CPU PyTorch 선택 확인
+        run: uv run --locked --no-sync python -c "import torch; assert torch.version.cuda is None; print(torch.__version__)"
+      - name: Ruff 검사
+        run: uv run --locked --no-sync ruff check .
+      - name: 전체 Python 테스트
+        run: uv run --locked --no-sync pytest -q tests
+      - name: CLI 진입점 확인
         run: |
-          python -m app.ingestion.scripts.curate --help
-          python -m app.ingestion.scripts.prepare_table_rag --help
-          python -m app.rag.cli --help
-          python -m app.evaluation.scripts.run_table_rag --help
-          python -m app.ingestion.scripts.prepare_knowledge --help
-          python -m app.indexing.scripts.build_index --help
-          python -m app.evaluation.scripts.eval_retrieval --help
-          python -m app.evaluation.scripts.run_benchmark --help
-          python -m app.evaluation.scripts.run_security --help
-
-      - name: 가상 일반·보안 평가
+          uv run --locked --no-sync python -m app.ingestion.scripts.curate --help
+          uv run --locked --no-sync python -m app.ingestion.scripts.prepare_table_rag --help
+          uv run --locked --no-sync python -m app.rag.cli --help
+          uv run --locked --no-sync python -m app.evaluation.scripts.run_table_rag --help
+          uv run --locked --no-sync python -m app.ingestion.scripts.prepare_knowledge --help
+          uv run --locked --no-sync python -m app.indexing.scripts.build_index --help
+          uv run --locked --no-sync python -m app.evaluation.scripts.eval_retrieval --help
+          uv run --locked --no-sync python -m app.evaluation.scripts.run_benchmark --help
+          uv run --locked --no-sync python -m app.evaluation.scripts.run_security --help
+      - name: 네트워크 없는 샘플 평가
         run: |
-          python -m app.evaluation.scripts.run_benchmark --sample --experiment-id sample-ci-benchmark
-          python -m app.evaluation.scripts.run_security --sample --experiment-id sample-ci-security
-
-      - name: 배포 파일 빌드와 리소스 확인
+          uv run --locked --no-sync python -m app.evaluation.scripts.run_benchmark --sample --experiment-id sample-ci-benchmark
+          uv run --locked --no-sync python -m app.evaluation.scripts.run_security --sample --experiment-id sample-ci-security
+      - name: 휠 빌드와 리소스 검사
         run: |
-          python -m build
-          python - <<'PY'
+          uv build --wheel
+          uv run --locked --no-sync python - <<'PY'
           from pathlib import Path
           from zipfile import ZipFile
 
-          with ZipFile(next(Path('dist').glob('*.whl'))) as wheel:
-              names = set(wheel.namelist())
+          wheel = next(Path("dist").glob("*.whl"))
+          with ZipFile(wheel) as archive:
+              names = set(archive.namelist())
               required = {
-                  'app/api/main.py',
-                  'app/rag/prompts/plan.txt',
-                  'app/rag/prompts/answer.txt',
-                  'app/ingestion/catalogs/basic.json',
-                  'app/generation/prompts/shipping_qa.txt',
-                  'app/generation/prompts/defense.txt',
-                  'app/evaluation/prompts/judge.txt',
-                  'app/evaluation/prompts/security_judge.txt',
-                  'app/evaluation/samples/sample_eval.json',
-                  'app/evaluation/samples/sample_security.json',
+                  "app/api/main.py",
+                  "app/rag/prompts/plan.txt",
+                  "app/rag/prompts/answer.txt",
+                  "app/ingestion/catalogs/basic.json",
+                  "app/generation/prompts/shipping_qa.txt",
+                  "app/generation/prompts/defense.txt",
+                  "app/evaluation/prompts/judge.txt",
+                  "app/evaluation/prompts/security_judge.txt",
+                  "app/evaluation/samples/sample_eval.json",
+                  "app/evaluation/samples/sample_security.json",
               }
               assert required <= names, required - names
-              assert not any(name.startswith(('experimental/', 'tests/', 'member_')) for name in names)
+              assert not any(
+                  name.startswith(("experimental/", "tests/", "member_"))
+                  for name in names
+              )
           PY
+
+  web:
+    name: Web
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: 코드 가져오기
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Node.js 준비
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: 잠금 의존성 설치
+        run: npm ci
+      - name: 타입 검사
+        run: npm run typecheck
+      - name: 웹 단위 테스트
+        run: npm test
+      - name: Playwright Chromium 준비
+        run: npx playwright install --with-deps chromium
+      - name: 브라우저 회귀 테스트
+        run: npm run test:e2e
+      - name: 정적 웹 빌드
+        run: npm run build
+
+  integration:
+    name: Local integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      qdrant:
+        image: docker.io/qdrant/qdrant:v1.19.0@sha256:057ee3a8da769fe7310dd3537b4dc7583bf87a95ce8ac43c0af5a46bc580d1fc
+        ports:
+          - 6333:6333
+    steps:
+      - name: 코드 가져오기
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Python 준비
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.13"
+      - name: uv 준비
+        uses: astral-sh/setup-uv@0c5e2b8115b80b4c7c5ddf6ffdd634974642d182 # v5.4.1
+        with:
+          version: "0.12.5"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: CPU 의존성 설치
+        run: uv sync --locked --extra cpu --extra test
+      - name: CPU PyTorch 선택 확인
+        run: uv run --locked --no-sync python -c "import torch; assert torch.version.cuda is None; print(torch.__version__)"
+      - name: Qdrant 네트워크와 읽기 전용 SQLite fixture 확인
+        env:
+          QDRANT_URL: http://127.0.0.1:6333
+        run: uv run --locked --no-sync python infra/ci/smoke_local_services.py
+      - name: Nginx 설치
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes nginx
+      - name: Nginx HTTP 계약 확인
+        run: uv run --locked --no-sync python infra/ci/smoke_nginx.py
+
+  images:
+    name: ARM64 image and Compose smoke
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 45
+    steps:
+      - name: 코드 가져오기
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: ARM64 runner 확인
+        run: test "$(uname -m)" = aarch64
+      - name: 운영 API 이미지 빌드
+        env:
+          IMAGE_TAG: aden-api:${{ github.sha }}
+        run: |
+          docker build --platform linux/arm64 \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            --label "org.opencontainers.image.source=https://github.com/Somali-AI-Pirates/ADEN" \
+            --tag "$IMAGE_TAG" --file infra/api.Dockerfile .
+      - name: 정적 웹 이미지 빌드
+        env:
+          IMAGE_TAG: aden-web:${{ github.sha }}
+        run: |
+          docker build --platform linux/arm64 \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            --label "org.opencontainers.image.source=https://github.com/Somali-AI-Pirates/ADEN" \
+            --tag "$IMAGE_TAG" --file infra/web.Dockerfile .
+      - name: Compose 구성 검사
+        run: bash infra/ci/check_compose.sh
+      - name: API와 웹 이미지 실행 검사
+        env:
+          API_IMAGE: aden-api:${{ github.sha }}
+          WEB_IMAGE: aden-web:${{ github.sha }}
+        run: bash infra/ci/smoke_images.sh
+      - name: main 검증 이미지를 P7에 전달
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          docker save --output api.tar "aden-api:${GITHUB_SHA}"
+          docker save --output web.tar "aden-web:${GITHUB_SHA}"
+          test -s api.tar
+          test -s web.tar
+      - name: 검증된 ARM64 이미지 저장
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: aden-release-images
+          path: |
+            api.tar
+            web.tar
+          if-no-files-found: error
+          retention-days: 14
+
+  checks:
+    name: checks
+    runs-on: ubuntu-latest
+    needs: [python, web, integration, images]
+    if: always()
+    steps:
+      - name: 필수 CI 결과 집계
+        env:
+          PYTHON_RESULT: ${{ needs.python.result }}
+          WEB_RESULT: ${{ needs.web.result }}
+          INTEGRATION_RESULT: ${{ needs.integration.result }}
+          IMAGES_RESULT: ${{ needs.images.result }}
+        run: |
+          printf 'Python: %s\nWeb: %s\nIntegration: %s\nImages: %s\n' \
+            "$PYTHON_RESULT" "$WEB_RESULT" "$INTEGRATION_RESULT" "$IMAGES_RESULT"
+          test "$PYTHON_RESULT" = success
+          test "$WEB_RESULT" = success
+          test "$INTEGRATION_RESULT" = success
+          test "$IMAGES_RESULT" = success
