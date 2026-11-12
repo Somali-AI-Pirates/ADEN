@@ -21,6 +21,7 @@ from shared.table_rag_policy import (
     BM25_K1 as _BM25_K1,
     HEADING_POOL as _HEADING_POOL,
     HEADING_WEIGHT as _HEADING_WEIGHT,
+    QUERY_EMBEDDING_DTYPE_BY_DEVICE as _QUERY_EMBEDDING_DTYPE_BY_DEVICE,
 )
 
 
@@ -153,7 +154,9 @@ class TableRetriever:
                     "dimensions": embedding["dimensions"],
                     "query_prefix": embedding["query_prefix"],
                     "max_length": embedding["query_max_length"],
-                    "dtype": "bfloat16",
+                    "dtype": _QUERY_EMBEDDING_DTYPE_BY_DEVICE[
+                        self.embedding_device
+                    ],
                 },
                 "device": device,
                 "embedding_device": self.embedding_device,
@@ -356,12 +359,13 @@ def load_retriever(corpus, *, device: str = "cpu", dense_index=None) -> TableRet
     ):
         raise ValueError("Query encoder differs from the selected TableRAG baseline.")
 
+    embedding_dtype = _QUERY_EMBEDDING_DTYPE_BY_DEVICE[embedding_device]
     embedder = SentenceTransformer(
         _EMBEDDING_ID,
         revision=_EMBEDDING_REVISION,
         device=embedding_device,
         local_files_only=True,
-        model_kwargs={"dtype": torch.bfloat16},
+        model_kwargs={"dtype": getattr(torch, embedding_dtype)},
     )
     if embedder.get_embedding_dimension() != embedding["dimensions"]:
         raise ValueError("Query encoder dimension differs from the corpus.")
