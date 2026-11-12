@@ -20,8 +20,9 @@ def test_build_uses_shared_paths_and_runtime_device_mapping(
     )
     captured = {}
 
-    def load_settings(*, data_directory=None):
+    def load_settings(*, data_directory=None, config_path=None):
         captured["data_directory_override"] = data_directory
+        captured["config_path"] = config_path
         if data_directory is None:
             return settings
         return replace(settings, data_directory=resolve_project_path(data_directory))
@@ -36,6 +37,8 @@ def test_build_uses_shared_paths_and_runtime_device_mapping(
 
     prepare_table_rag.main(
         [
+            "--config",
+            "configs/custom.yaml",
             "build",
             "--work-dir",
             "tmp/staging",
@@ -45,6 +48,7 @@ def test_build_uses_shared_paths_and_runtime_device_mapping(
     )
 
     assert captured["data_directory_override"] is None
+    assert captured["config_path"] == "configs/custom.yaml"
     assert captured["documents"] == settings.documents_dir
     assert captured["output"] == settings.data_directory
     assert captured["device"] == "cpu"
@@ -67,8 +71,8 @@ def test_qdrant_cli_uses_shared_credentials_defaults_and_explicit_overrides(
     )
     captured = {}
 
-    def load_settings(*, data_directory=None):
-        captured.setdefault("settings_overrides", []).append(data_directory)
+    def load_settings(*, data_directory=None, config_path=None):
+        captured.setdefault("settings_overrides", []).append((data_directory, config_path))
         if data_directory is None:
             return settings
         return replace(settings, data_directory=resolve_project_path(data_directory))
@@ -108,5 +112,5 @@ def test_qdrant_cli_uses_shared_credentials_defaults_and_explicit_overrides(
         True,
         credentials,
     )
-    assert captured["settings_overrides"] == [None, Path("relative/data")]
+    assert captured["settings_overrides"] == [(None, None), (Path("relative/data"), None)]
     assert "unit-test-secret" not in capsys.readouterr().out
