@@ -392,7 +392,7 @@ class TableModel:
             for only_finish in (False, True)
         }
         answer_prompt = ChatPromptTemplate.from_messages(
-            [SystemMessage(content=self.answer_prompt), ("human", "{payload}")]
+            [("system", "{instructions}"), ("human", "{payload}")]
         )
         self._answer = answer_prompt | model.with_structured_output(
             GeneratedAnswer,
@@ -450,8 +450,10 @@ class TableModel:
         return _safe_message(message)
 
     async def answer(
-        self, payload: str, *, context_hash: str, calls: ModelCalls
+        self, payload: str, *, context_hash: str, calls: ModelCalls, defense: str = ""
     ) -> GeneratedAnswer:
+        instructions = self.answer_prompt + ("\n\n" + defense if defense else "")
+
         def capture_answer(response):
             raw = response.get("raw") if isinstance(response, dict) else None
             # A schema dict also supports Responses API streaming. Validate the
@@ -467,9 +469,9 @@ class TableModel:
         result = await calls.invoke(
             "answer",
             self._answer,
-            {"payload": payload},
+            {"payload": payload, "instructions": instructions},
             model_input={
-                "system": self.answer_prompt,
+                "system": instructions,
                 "payload": payload,
                 "context_hash": context_hash,
                 "response_format": {

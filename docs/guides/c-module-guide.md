@@ -4,6 +4,8 @@
 
 아래 일반·보안 평가의 3방식 비교와 Qdrant/bootstrap 설명은 기존 평가 어댑터용이다. 기본 TableRAG 서버에는 Qdrant나 bootstrap 준비가 필요하지 않다.
 
+현재 TableRAG의 기본·방어 답변 네 개 생성은 [TableRAG 보안 비교 연결](table-rag-security.md)의 `python -m app.rag.security`를 사용한다. 생성과 동일 입력 확인만 수행하며 공격 성공 판정·채점과 구분한다.
+
 ## 가상 샘플
 
 저장소 루트의 [공통 환경](development.md#설치)에서 실행한다. 실제 자료·키·모델 호출 없이 실행 기록부터 보고서 생성까지 확인할 수 있다.

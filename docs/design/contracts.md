@@ -59,6 +59,8 @@
 
 ### 평가 어댑터
 
+- 현재 TableRAG의 `RagService.acompare_security(question, *, defense)`는 질문별 검색·계획·SQL을 한 번만 수행하고 동일한 원문·SQL·검색 판정으로 base/defense 답변 두 개를 생성한다. 실제 모델 입력·요청 ID·trace·전체 payload 해시를 남긴다. 기존 HTTP 요청 형식과 `ainvoke()` 기본 동작은 유지한다. CLI와 실패 처리 범위는 [보안 비교 연결](../guides/table-rag-security.md)을 참고한다.
+
 - `make_query_adapter(resources, settings)`는 `adapter(question, retrieval_mode, request_id)`를 반환한다. 어댑터는 `answer_query()`를 직접 호출하고 실패도 평탄한 실행 기록으로 반환한다.
 - `make_security_adapters(resources, settings, *, defense)`는 `retrieve_fn(question, mode)`과 `generate_fn(question, final_context_chunks, prompt_variant)`를 반환한다. 검색과 문맥 구성은 한 번 하고 `base`와 `defense`에 같은 문맥을 전달한다. 반환 기록에는 실제 문맥·모델 입출력·해시·시도·요청 ID를 담는다.
 - 평가 모듈이 `configure_evaluation(config_path: Path)`를 제공하면 CLI가 선택한 설정 경로(`--config` → `ADEN_CONFIG` → `configs/advanced.yaml`)를 자원 준비 전에 전달한다. 표준 bootstrap은 지정 설정을 일반·보안 어댑터가 공유하고, 활성 자원의 다른 설정 경로나 같은 설정 파일의 내용 변경을 거부한다. 훅이 없는 사용자 정의 모듈은 자체 설정을 사용한다.

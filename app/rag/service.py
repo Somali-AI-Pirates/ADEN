@@ -15,6 +15,7 @@ from importlib.metadata import version
 from pathlib import Path
 from time import perf_counter
 from typing import TYPE_CHECKING, Any
+from uuid import uuid4
 
 import tiktoken
 from anyio import CapacityLimiter, to_thread
@@ -72,7 +73,9 @@ def _page_record(document: Document) -> dict[str, Any]:
 
 
 def _response(
-    answer: GeneratedAnswer, pages: tuple[Document, ...], request_id: str,
+    answer: GeneratedAnswer,
+    pages: tuple[Document, ...],
+    request_id: str,
     retrieval_status: str = "sufficient",
 ) -> QueryResponse:
     if retrieval_status != "sufficient" and answer.status != retrieval_status:
@@ -111,7 +114,9 @@ def _retrieval_record(
         {**_page_record(page), "text": page.page_content} for page in evidence.pages
     ]
     return {
-        "retrieved_candidates": [{**_page_record(page), "text": page.page_content} for page in candidates],
+        "retrieved_candidates": [
+            {**_page_record(page), "text": page.page_content} for page in candidates
+        ],
         "final_context_chunks": chunks,
         "candidate_source_ids": list(evidence.candidate_source_ids),
         "final_source_ids": list(evidence.source_ids),
@@ -169,6 +174,13 @@ class RagRun:
         }
 
 
+@dataclass
+class _SecurityContext:
+    attempted: bool = False
+    retrieval: RetrievalRun | None = None
+    payload: str | None = None
+
+
 class RagService:
     def __init__(
         self,
@@ -217,6 +229,90 @@ class RagService:
     async def ainvoke(
         self, question: str, *, request_id: str, on_event: EventSink | None = None
     ) -> RagRun:
+        return await self._ainvoke(question, request_id=request_id, on_event=on_event)
+
+    async def acompare_security(
+        self, question: str, *, defense: str
+    ) -> list[dict[str, Any]]:
+        """Retrieve once; base and defense retain the same evidence, SQL and status."""
+        if not defense.strip():
+            raise ValueError("방어 문장은 비어 있을 수 없습니다.")
+        question = question.strip()
+        if not question:
+            raise ValueError("질문을 입력해 주세요.")
+        context = _SecurityContext()
+        records = []
+        for variant in ("base", "defense"):
+            request_id = uuid4().hex
+            try:
+                run = await self._ainvoke(
+                    question,
+                    request_id=request_id,
+                    security_context=context,
+                    defense=defense if variant == "defense" else "",
+                )
+                record = run.to_record()
+            except Exception as error:
+                record = {
+                    "request_id": request_id,
+                    "question": question,
+                    "dataset_id": "advanced",
+                    "retrieval_mode": RETRIEVAL_MODE,
+                    "config_hash": self.config_hash,
+                    "status": "error",
+                    "answer": None,
+                    "reason": "고정 근거의 보안 비교 실행에 실패했습니다.",
+                    "citations": [],
+                    "retrieved_candidates": [],
+                    "final_context_chunks": [],
+                    "attempts": [],
+                    "final_context_hash": None,
+                    "model_context_text": None,
+                    "model_context_hash": None,
+                    "latency_ms": None,
+                    "error_type": type(error).__name__,
+                    **getattr(error, "rag_metadata", {}),
+                }
+            attempts = record.get("attempts") or []
+            last = next(
+                (a for a in reversed(attempts) if a.get("role") == "answer"), {}
+            )
+            model_input = last.get("model_input")
+            system = (
+                (model_input or {}).get("system")
+                if isinstance(model_input, dict)
+                else None
+            )
+            record.update(
+                prompt_variant=variant,
+                context_hash_after_generation=record.get("final_context_hash"),
+                model_input=model_input,
+                model_output=last.get("model_output"),
+                model=last.get("model"),
+                model_parameters=last.get("model_parameters"),
+                prompt_hash=_hash(system) if isinstance(system, str) else None,
+                answer_payload=context.payload,
+                answer_payload_hash=_hash(context.payload)
+                if context.payload is not None
+                else None,
+                shared_retrieval_request_id=(
+                    context.retrieval.diagnostics.get("request_id")
+                    if context.retrieval
+                    else None
+                ),
+            )
+            records.append(record)
+        return records
+
+    async def _ainvoke(
+        self,
+        question: str,
+        *,
+        request_id: str,
+        on_event: EventSink | None = None,
+        security_context: _SecurityContext | None = None,
+        defense: str = "",
+    ) -> RagRun:
         if self._closed:
             raise RuntimeError("TableRAG service is closed")
         question = question.strip()
@@ -229,7 +325,17 @@ class RagService:
             retrieval_mode=RETRIEVAL_MODE,
             dataset_id="advanced",
             config_hash=self.config_hash,
-            metadata={"question_sha256": _hash(question)},
+            metadata={
+                "question_sha256": _hash(question),
+                **(
+                    {
+                        "prompt_variant": "defense" if defense else "base",
+                        "provided_context": security_context.attempted,
+                    }
+                    if security_context is not None
+                    else {}
+                ),
+            },
         )
         calls = ModelCalls(trace, on_event=on_event)
         response = None
@@ -248,13 +354,24 @@ class RagService:
 
         try:
             await progress("retrieving", "관련 기록과 문서를 찾고 있습니다.")
-            retrieval = await self._graph.run(
-                question,
-                planner=plan,
-                request_id=request_id,
-                stage=trace.stage,
-                trace_id=trace.trace_id,
-            )
+            if security_context is not None and security_context.attempted:
+                if security_context.retrieval is None:
+                    raise RagModelError(
+                        "공유할 검색 결과가 없어 다시 검색하지 않습니다."
+                    )
+                retrieval = security_context.retrieval
+            else:
+                if security_context is not None:
+                    security_context.attempted = True
+                retrieval = await self._graph.run(
+                    question,
+                    planner=plan,
+                    request_id=request_id,
+                    stage=trace.stage,
+                    trace_id=trace.trace_id,
+                )
+                if security_context is not None:
+                    security_context.retrieval = retrieval
             evidence = retrieval.evidence
             candidates = tuple(
                 page
@@ -262,7 +379,9 @@ class RagService:
                 if (page := self._page_lookup(source_id)) is not None
             )
             model_context_tokens = self._count_tokens(evidence.model_input)
-            recorded_evidence = _retrieval_record(retrieval, candidates, model_context_tokens)
+            recorded_evidence = _retrieval_record(
+                retrieval, candidates, model_context_tokens
+            )
             trace.record_retrieval(
                 retrieved_candidates=recorded_evidence["retrieved_candidates"],
                 final_context_chunks=recorded_evidence["final_context_chunks"],
@@ -275,14 +394,22 @@ class RagService:
             )
             _check_termination(retrieval.termination_reason)
             await progress("answering", "근거를 바탕으로 답변을 작성하고 있습니다.")
-            answer = await self._model.answer(
-                _json(
-                    {"question": question, "evidence": json.loads(evidence.model_input),
-                     "retrieval_status": retrieval.status}
-                ),
-                context_hash=evidence.context_hash,
-                calls=calls,
+            payload = _json(
+                {
+                    "question": question,
+                    "evidence": json.loads(evidence.model_input),
+                    "retrieval_status": retrieval.status,
+                }
             )
+            if security_context is not None:
+                if security_context.payload is None:
+                    security_context.payload = payload
+                elif security_context.payload != payload:
+                    raise RagModelError("기본·방어 버전의 답변 입력이 달라졌습니다.")
+            options = {"context_hash": evidence.context_hash, "calls": calls}
+            if defense:
+                options["defense"] = defense
+            answer = await self._model.answer(payload, **options)
             await progress("validating", "답변과 출처를 확인하고 있습니다.")
             response = _response(answer, evidence.pages, request_id, retrieval.status)
         except BaseException as error:
@@ -294,7 +421,9 @@ class RagService:
                 status=response.status if response else "error",
                 answer=response.answer if response else None,
                 reason=response.reason if response else None,
-                citations=[c.model_dump(mode="json") for c in response.citations] if response else [],
+                citations=[c.model_dump(mode="json") for c in response.citations]
+                if response
+                else [],
                 latency_ms=round(latency_ms),
                 error_type=type(failure).__name__ if failure else None,
             )
@@ -312,7 +441,10 @@ class RagService:
                 setattr(failure, "rag_metadata", metadata)
                 if self._run_directory is not None:
                     await self._run_sync(
-                        save_request_failure, question, request_id, failure,
+                        save_request_failure,
+                        question,
+                        request_id,
+                        failure,
                         service_manifest=self.manifest,
                         config_hash=self.config_hash,
                         output_root=self._run_directory,
@@ -331,7 +463,8 @@ class RagService:
         if self._run_directory is not None:
             await progress("saving", "답변 기록을 저장하고 있습니다.")
             await self._run_sync(
-                save_request_run, run.to_record(),
+                save_request_run,
+                run.to_record(),
                 service_manifest=self.manifest,
                 output_root=self._run_directory,
             )

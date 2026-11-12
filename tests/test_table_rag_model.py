@@ -276,3 +276,63 @@ def test_timeout_counts_one_attempt_and_unknown_usage(monkeypatch):
             await gateway.aclose()
 
     asyncio.run(run())
+
+
+def test_answer_defense_is_per_call_and_preserves_schema_and_generation_settings(
+    monkeypatch,
+):
+    requests = []
+
+    def handle(request):
+        requests.append(json.loads(request.content))
+        return _response(
+            [
+                {
+                    "type": "message",
+                    "id": "msg",
+                    "status": "completed",
+                    "role": "assistant",
+                    "content": [
+                        {
+                            "type": "output_text",
+                            "text": json.dumps(
+                                {
+                                    "answer": "확인했습니다.",
+                                    "citations": [],
+                                    "status": "insufficient",
+                                }
+                            ),
+                            "annotations": [],
+                        }
+                    ],
+                }
+            ],
+            len(requests),
+        )
+
+    _transport(monkeypatch, handle)
+
+    async def run():
+        gateway = load_model()
+        try:
+            for defense in ["", "추가 방어 문장", ""]:
+                calls = ModelCalls(None)
+                await gateway.answer(
+                    "fixed payload",
+                    context_hash="fixed-hash",
+                    calls=calls,
+                    defense=defense,
+                )
+                assert calls.calls[-1]["model_input"][
+                    "system"
+                ] == gateway.answer_prompt + ("\n\n" + defense if defense else "")
+        finally:
+            await gateway.aclose()
+
+    asyncio.run(run())
+    assert len(requests) == 3
+    assert requests[0]["input"] == requests[2]["input"]
+    assert requests[0]["input"][1] == requests[1]["input"][1]
+    assert "추가 방어 문장" in json.dumps(requests[1]["input"], ensure_ascii=False)
+    for key in ["model", "max_output_tokens", "reasoning", "text"]:
+        assert requests[0][key] == requests[1][key] == requests[2][key]
