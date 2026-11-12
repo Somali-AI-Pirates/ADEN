@@ -10,6 +10,11 @@ import pytest
 from app.api.main import create_app
 from app.observability.run_store import RequestRunStoreError
 from app.rag.service import RagContextBudgetError, RagModelError
+from app.rag.admission import (
+    RequestBusyError,
+    RequestDeadlineExceeded,
+    RequestUnavailableError,
+)
 from shared.contracts import QueryResponse
 from app.rag.config import TableRagSettings, load_table_rag_settings
 from shared.settings import PROJECT_ROOT
@@ -19,8 +24,12 @@ class FakeTableRagService:
     def __init__(self) -> None:
         self.requests = []
         self.close_count = 0
-        self.barrier = None
+        self.readiness_status = SimpleNamespace(ready=True, checks={"resources": True})
         self.error = None
+        self.barrier = None
+
+    async def readiness(self):
+        return self.readiness_status
 
     async def ainvoke(self, question: str, *, request_id: str):
         self.requests.append((question, request_id))
@@ -44,7 +53,9 @@ class FakeTableRagService:
 class TestTableRagApi:
     @pytest.fixture(autouse=True)
     def isolate_root_env_file(self, monkeypatch):
-        monkeypatch.setattr("app.rag.config.dotenv_values", lambda *_args, **_kwargs: {})
+        monkeypatch.setattr(
+            "app.rag.config.dotenv_values", lambda *_args, **_kwargs: {}
+        )
 
     def setup_method(self) -> None:
         self.settings = TableRagSettings()
@@ -63,13 +74,12 @@ class TestTableRagApi:
         assert response.status_code == 200
         assert response.json()["request_id"] == response.headers["X-Request-ID"]
         assert service.requests == [("예약 확인", response.headers["X-Request-ID"])]
-        loader.assert_called_once_with(
-            PROJECT_ROOT / "artifacts/advanced-table-rag"
-        )
+        loader.assert_called_once_with(PROJECT_ROOT / "artifacts/advanced-table-rag")
         assert service.close_count == 1
 
-
-    def test_default_service_receives_resolved_settings_and_credentials(self, monkeypatch):
+    def test_default_service_receives_resolved_settings_and_credentials(
+        self, monkeypatch
+    ):
         from app.rag.config import TableRagSettings
 
         service = FakeTableRagService()
@@ -112,6 +122,34 @@ class TestTableRagApi:
             assert rejected.status_code == 501
             assert rejected.json()["request_id"] == rejected.headers["X-Request-ID"]
             assert service.requests == []
+
+    @pytest.mark.parametrize(
+        "error,status,headers",
+        [
+            (RequestBusyError("private"), 429, {"Retry-After": "10"}),
+            (RequestUnavailableError("private"), 503, {}),
+            (RequestDeadlineExceeded("private"), 504, {}),
+        ],
+    )
+    def test_query_maps_admission_errors_to_safe_http_responses(
+        self, error, status, headers
+    ) -> None:
+        service = FakeTableRagService()
+        service.error = error
+        app = create_app(table_service_loader=lambda _path: service)
+        with (
+            patch.dict(
+                "os.environ", {"ADEN_TABLE_RAG_DIR": "artifacts/advanced-table-rag"}
+            ),
+            TestClient(app, raise_server_exceptions=False) as client,
+        ):
+            response = client.post("/query", json={"question": "예약 확인"})
+
+        assert response.status_code == status
+        assert response.headers["X-Request-ID"] == response.json()["request_id"]
+        for name, value in headers.items():
+            assert response.headers[name] == value
+        assert "private" not in response.text
 
     def test_same_app_restarts_and_closes_each_table_service(self) -> None:
         services = [FakeTableRagService(), FakeTableRagService()]
@@ -159,7 +197,9 @@ class TestTableRagApi:
             "두 번째 질문",
         }
 
-    def test_basic_dataset_config_is_rejected_before_service_load(self, tmp_path, monkeypatch):
+    def test_basic_dataset_config_is_rejected_before_service_load(
+        self, tmp_path, monkeypatch
+    ):
         config = tmp_path / "basic.yaml"
         config.write_text(
             "dataset: basic\ndocuments_dir: data/basic/documents\n",
@@ -176,7 +216,9 @@ class TestTableRagApi:
                 project_root=tmp_path,
             )
 
-        monkeypatch.setattr("app.api.lifespan.load_table_rag_settings", load_test_settings)
+        monkeypatch.setattr(
+            "app.api.lifespan.load_table_rag_settings", load_test_settings
+        )
         with pytest.raises(ValueError, match="advanced dataset"), TestClient(app):
             pass
         loader.assert_not_called()
@@ -206,11 +248,13 @@ class TestTableRagApi:
             assert "private" not in response.text
             assert service.close_count == 1
 
-
     def test_missing_bundle_keeps_swagger_and_readiness_available(self):
         loader = Mock(side_effect=FileNotFoundError("bundle not prepared"))
         app = create_app(table_service_loader=loader)
-        with patch.dict("os.environ", {"ADEN_TABLE_RAG_DIR": ""}), TestClient(app) as client:
+        with (
+            patch.dict("os.environ", {"ADEN_TABLE_RAG_DIR": ""}),
+            TestClient(app) as client,
+        ):
             assert client.get("/docs").status_code == 200
             assert client.get("/openapi.json").status_code == 200
             assert client.get("/health").json()["query_ready"] is False
@@ -218,7 +262,6 @@ class TestTableRagApi:
         assert response.status_code == 503
         assert "prepare_table_rag build" in response.json()["reason"]
         assert response.json()["request_id"] == response.headers["X-Request-ID"]
-
 
 
 def test_swagger_default_body_uses_only_question():

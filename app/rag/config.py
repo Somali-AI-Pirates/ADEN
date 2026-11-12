@@ -1,6 +1,8 @@
 """Resolve TableRAG runtime settings once at the application boundary."""
 
+import math
 import os
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -14,6 +16,36 @@ from shared.settings import PROJECT_ROOT
 DEFAULT_DATA_DIRECTORY = PROJECT_ROOT / "artifacts/advanced-table-rag"
 DEFAULT_RUN_DIRECTORY = PROJECT_ROOT / "artifacts/rag-runs"
 RETRIEVAL_MODE = "table_rag"
+
+
+def _positive_integer(name: str, value: Any, *, minimum: int) -> int:
+    if type(value) is int:
+        parsed = value
+    elif isinstance(value, str) and re.fullmatch(r"[+-]?[0-9]+", value.strip()):
+        parsed = int(value.strip())
+    else:
+        raise ValueError(f"{name} must be an integer")
+    if parsed < minimum:
+        raise ValueError(f"{name} must be at least {minimum}")
+    return parsed
+
+
+def _finite_seconds(name: str, value: Any, *, allow_zero: bool = False) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float, str)):
+        raise ValueError(f"{name} must be a finite number of seconds")
+    if isinstance(value, str):
+        if not value.strip():
+            raise ValueError(f"{name} must be a finite number of seconds")
+        try:
+            parsed = float(value)
+        except ValueError as error:
+            raise ValueError(f"{name} must be a finite number of seconds") from error
+    else:
+        parsed = float(value)
+    if not math.isfinite(parsed) or (parsed < 0 if allow_zero else parsed <= 0):
+        qualifier = "non-negative" if allow_zero else "positive"
+        raise ValueError(f"{name} must be a finite {qualifier} number of seconds")
+    return parsed
 
 
 @dataclass(frozen=True)
@@ -37,9 +69,38 @@ class TableRagSettings:
     vector_backend: str = "numpy"
     collection: str = "advanced_table_rag"
     trace_enabled: bool = True
+    max_active_requests: int = 1
+    max_waiting_requests: int = 2
+    queue_timeout_seconds: float = 10.0
+    request_timeout_seconds: float = 300.0
+    shutdown_grace_seconds: float = 30.0
     credentials: RuntimeCredentials = field(
         default_factory=RuntimeCredentials, repr=False, compare=False
     )
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "max_active_requests",
+            _positive_integer(
+                "max_active_requests", self.max_active_requests, minimum=1
+            ),
+        )
+        object.__setattr__(
+            self,
+            "max_waiting_requests",
+            _positive_integer(
+                "max_waiting_requests", self.max_waiting_requests, minimum=0
+            ),
+        )
+        for name, allow_zero in (
+            ("queue_timeout_seconds", False),
+            ("request_timeout_seconds", False),
+            ("shutdown_grace_seconds", True),
+        ):
+            object.__setattr__(
+                self, name, _finite_seconds(name, getattr(self, name), allow_zero=allow_zero)
+            )
 
     @property
     def dataset(self) -> str:
@@ -55,6 +116,11 @@ class TableRagSettings:
             "vector_backend": self.vector_backend,
             "collection": self.collection,
             "trace_enabled": self.trace_enabled,
+            "max_active_requests": self.max_active_requests,
+            "max_waiting_requests": self.max_waiting_requests,
+            "queue_timeout_seconds": self.queue_timeout_seconds,
+            "request_timeout_seconds": self.request_timeout_seconds,
+            "shutdown_grace_seconds": self.shutdown_grace_seconds,
         }
 
 
@@ -65,6 +131,11 @@ _ENV_KEYS = {
     "vector_backend": "ADEN_TABLE_RAG_VECTOR_BACKEND",
     "collection": "ADEN_TABLE_RAG_COLLECTION",
     "trace_enabled": "ADEN_TABLE_RAG_TRACE",
+    "max_active_requests": "ADEN_TABLE_RAG_MAX_ACTIVE_REQUESTS",
+    "max_waiting_requests": "ADEN_TABLE_RAG_MAX_WAITING_REQUESTS",
+    "queue_timeout_seconds": "ADEN_TABLE_RAG_QUEUE_TIMEOUT_SECONDS",
+    "request_timeout_seconds": "ADEN_TABLE_RAG_REQUEST_TIMEOUT_SECONDS",
+    "shutdown_grace_seconds": "ADEN_TABLE_RAG_SHUTDOWN_GRACE_SECONDS",
 }
 
 
@@ -164,5 +235,22 @@ def load_table_rag_settings(
         vector_backend=backend,
         collection=collection,
         trace_enabled=_boolean(values.get("trace_enabled", True)),
+        max_active_requests=_positive_integer(
+            "max_active_requests", values.get("max_active_requests", 1), minimum=1
+        ),
+        max_waiting_requests=_positive_integer(
+            "max_waiting_requests", values.get("max_waiting_requests", 2), minimum=0
+        ),
+        queue_timeout_seconds=_finite_seconds(
+            "queue_timeout_seconds", values.get("queue_timeout_seconds", 10)
+        ),
+        request_timeout_seconds=_finite_seconds(
+            "request_timeout_seconds", values.get("request_timeout_seconds", 300)
+        ),
+        shutdown_grace_seconds=_finite_seconds(
+            "shutdown_grace_seconds",
+            values.get("shutdown_grace_seconds", 30),
+            allow_zero=True,
+        ),
         credentials=credentials,
     )

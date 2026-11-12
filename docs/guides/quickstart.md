@@ -48,7 +48,7 @@ uv run --locked python -m app.ingestion.scripts.prepare_table_rag check-qdrant -
 uv run --locked fastapi dev
 ```
 
-[준비 상태](http://127.0.0.1:8000/health)의 query_ready가 true인지 확인한다. [Swagger UI](http://127.0.0.1:8000/docs)에서 POST /query를 열고 Try it out을 누른다.
+[현재 준비 상태](http://127.0.0.1:8000/health/ready)가 HTTP 200과 `ready=true`를 반환하는지 확인한다. 기존 `/health`의 `query_ready`는 시작 시 초기화 결과를 보여주며, 실행 중 저장소 상태는 `/health/ready`로 확인한다. [Swagger UI](http://127.0.0.1:8000/docs)에서 POST /query를 열고 Try it out을 누른다.
 
 ```json
 {"question": "예약 접수번호를 받으면 예약이 확정된 건가요?"}
@@ -65,6 +65,30 @@ uv run --locked python -m app.rag.cli "예약 접수번호를 받으면 예약�
 ```
 
 경로·장치·벡터 backend·컬렉션·추적 설정은 공통 `TableRagSettings`로 해석한다. 우선순위는 **명시 CLI 인자 → 프로세스 환경 → 루트 `.env` → 선택 YAML의 `table_rag` 절 → 코드 기본값**이다. 상대 경로는 저장소 루트 기준이며, CLI 인자를 생략하면 서버와 같은 환경값을 사용한다. 요청 기록 위치는 `ADEN_TABLE_RAG_RUN_DIR`로 바꿀 수 있다. Advanced YAML의 기존 최상위 모델·검색 값은 일반·보안 평가의 기존 검색 경로 전용이고, TableRAG의 고정 모델·검색 정책은 [공통 정책](../../shared/table_rag_policy.py)을 따른다. 원본 PDF 제공 경로는 같은 YAML의 documents_dir를 사용한다. 현재 서버는 Advanced TableRAG만 제공하며 Basic 실행 설정은 시작 단계에서 거절한다.
+
+### 상태 확인과 요청 제한
+
+| 경로 | 확인 범위 |
+| --- | --- |
+| `GET /health` | 기존 초기화 상태·데이터셋. 응답 형식과 의미 유지 |
+| `GET /health/live` | HTTP 처리 가능 여부. 외부 저장소·모델 호출 없음 |
+| `GET /health/ready` | 초기화·SQLite 읽기·선택 벡터 저장소·실행 기록 쓰기·종료 여부. 준비되면 200, 아니면 503 |
+
+준비 검사는 10초 동안 성공·실패 결과를 캐시하고 동시 검사는 하나로 합친다. Qdrant는 2초 연결·요청 제한으로 기존 컬렉션의 상태와 호환 정보를 읽는다. 모델 추론·전체 벡터 검사는 하지 않는다. 실행 기록 경로에 임시 파일을 쓰고 동기화·삭제하며, 원본·SQLite·벡터는 바꾸지 않는다. Langfuse 장애나 대기열 혼잡은 readiness 실패 사유가 아니다. 응답에는 구성요소별 참·거짓만 표시한다.
+
+TableRAG 서비스 하나의 기본 수용 한도는 **실행 1개·FIFO 대기 2개**다. 대기는 최대 10초, 준비 확인·대기를 포함한 요청 예산은 300초다. 서버·RAG CLI·TableRAG 평가 `run`이 같은 설정을 사용한다. 독립 프로세스 사이의 전역 한도나 별도 Judge·Ragas 채점의 한도는 아니다.
+
+| 상황 | HTTP 응답 |
+| --- | --- |
+| 대기열 초과 또는 대기 시간 초과 | 429, `Retry-After: 10` |
+| 자원 미준비 또는 서비스 종료 중 | 503 |
+| 요청 처리 예산 초과 | 504 |
+
+SSE는 헤더 전까지 같은 준비·수용 검사를 한다. 스트림이 시작된 뒤 실패하면 `error`로 끝나며 `final`을 보내지 않는다. 성공 `final`은 답변 검증과 저장이 끝난 뒤 보낸다.
+
+300초는 취소를 시작하는 시점이다. 이미 실행 중인 동기 추론·SQL·저장 작업은 강제 중단하지 않고 완료까지 기다리며 슬롯과 자원을 유지한다. 따라서 오류 반환이나 서비스 종료가 예산보다 늦을 수 있다. 서비스 종료 시 새 요청과 대기를 중단하고 실행 요청에 최대 30초를 준 뒤 취소·동기 작업 정리·공유 자원 종료를 진행한다. [Python 작업 스레드의 취소 제약](https://anyio.readthedocs.io/en/stable/threads.html#reacting-to-cancellation-in-worker-threads)
+
+변경이 필요하면 [.env.example](../../.env.example)의 `ADEN_TABLE_RAG_MAX_ACTIVE_REQUESTS`, `ADEN_TABLE_RAG_MAX_WAITING_REQUESTS`, `ADEN_TABLE_RAG_QUEUE_TIMEOUT_SECONDS`, `ADEN_TABLE_RAG_REQUEST_TIMEOUT_SECONDS`, `ADEN_TABLE_RAG_SHUTDOWN_GRACE_SECONDS`를 사용한다. 같은 이름의 소문자 필드는 YAML `table_rag`에서 지정할 수 있고 환경값이 우선한다. 검색·모델·문맥 정책은 바뀌지 않는다.
 
 ## 4. 저장된 Swagger 답변 평가
 

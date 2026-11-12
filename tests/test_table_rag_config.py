@@ -161,3 +161,119 @@ def test_cli_paths_are_resolved_from_project_root_not_current_directory(tmp_path
     assert resolve_project_path("runs", tmp_path) == tmp_path / "runs"
     absolute = tmp_path / "absolute"
     assert resolve_project_path(absolute, tmp_path) == absolute
+
+
+def test_request_limit_settings_follow_the_shared_precedence(tmp_path):
+    config = tmp_path / "config.yaml"
+    config.write_text(
+        "table_rag:\n"
+        "  max_active_requests: 4\n"
+        "  max_waiting_requests: 4\n"
+        "  queue_timeout_seconds: 20\n"
+        "  request_timeout_seconds: 500\n"
+        "  shutdown_grace_seconds: 40\n"
+    )
+    (tmp_path / ".env").write_text(
+        "ADEN_CONFIG=config.yaml\n"
+        "ADEN_TABLE_RAG_MAX_ACTIVE_REQUESTS=3\n"
+        "ADEN_TABLE_RAG_MAX_WAITING_REQUESTS=3\n"
+        "ADEN_TABLE_RAG_QUEUE_TIMEOUT_SECONDS=18\n"
+        "ADEN_TABLE_RAG_REQUEST_TIMEOUT_SECONDS=450\n"
+        "ADEN_TABLE_RAG_SHUTDOWN_GRACE_SECONDS=35\n"
+    )
+    empty_env_file = tmp_path / "empty.env"
+    empty_env_file.write_text("")
+    yaml_settings = load_table_rag_settings(
+        config_path="config.yaml",
+        project_root=tmp_path,
+        env={},
+        env_file=empty_env_file,
+    )
+    assert (
+        yaml_settings.max_active_requests,
+        yaml_settings.max_waiting_requests,
+        yaml_settings.queue_timeout_seconds,
+        yaml_settings.request_timeout_seconds,
+        yaml_settings.shutdown_grace_seconds,
+    ) == (4, 4, 20.0, 500.0, 40.0)
+    dotenv_settings = load_table_rag_settings(project_root=tmp_path, env={})
+    assert (
+        dotenv_settings.max_active_requests,
+        dotenv_settings.max_waiting_requests,
+        dotenv_settings.queue_timeout_seconds,
+        dotenv_settings.request_timeout_seconds,
+        dotenv_settings.shutdown_grace_seconds,
+    ) == (3, 3, 18.0, 450.0, 35.0)
+    settings = load_table_rag_settings(
+        project_root=tmp_path,
+        env={
+            "ADEN_TABLE_RAG_MAX_ACTIVE_REQUESTS": "2",
+            "ADEN_TABLE_RAG_MAX_WAITING_REQUESTS": "2",
+            "ADEN_TABLE_RAG_QUEUE_TIMEOUT_SECONDS": "15",
+            "ADEN_TABLE_RAG_REQUEST_TIMEOUT_SECONDS": "350",
+            "ADEN_TABLE_RAG_SHUTDOWN_GRACE_SECONDS": "25",
+        },
+    )
+    assert (
+        settings.max_active_requests,
+        settings.max_waiting_requests,
+        settings.queue_timeout_seconds,
+        settings.request_timeout_seconds,
+        settings.shutdown_grace_seconds,
+    ) == (2, 2, 15.0, 350.0, 25.0)
+    manifest = settings.public_manifest()
+    assert manifest["max_active_requests"] == 2
+    assert manifest["max_waiting_requests"] == 2
+    assert manifest["queue_timeout_seconds"] == 15.0
+    assert manifest["request_timeout_seconds"] == 350.0
+    assert manifest["shutdown_grace_seconds"] == 25.0
+
+
+def test_request_limit_defaults_are_shared_across_entrypoints(tmp_path):
+    settings = load_table_rag_settings(project_root=tmp_path, env={})
+    assert (
+        settings.max_active_requests,
+        settings.max_waiting_requests,
+        settings.queue_timeout_seconds,
+        settings.request_timeout_seconds,
+        settings.shutdown_grace_seconds,
+    ) == (1, 2, 10.0, 300.0, 30.0)
+
+
+@pytest.mark.parametrize(
+    ("environment", "expected"),
+    [
+        ({"ADEN_TABLE_RAG_MAX_ACTIVE_REQUESTS": "true"}, "max_active_requests"),
+        ({"ADEN_TABLE_RAG_MAX_ACTIVE_REQUESTS": "1.5"}, "max_active_requests"),
+        ({"ADEN_TABLE_RAG_MAX_ACTIVE_REQUESTS": "0"}, "max_active_requests"),
+        ({"ADEN_TABLE_RAG_MAX_WAITING_REQUESTS": "-1"}, "max_waiting_requests"),
+        ({"ADEN_TABLE_RAG_QUEUE_TIMEOUT_SECONDS": "nan"}, "queue_timeout_seconds"),
+        ({"ADEN_TABLE_RAG_QUEUE_TIMEOUT_SECONDS": "0"}, "queue_timeout_seconds"),
+        ({"ADEN_TABLE_RAG_REQUEST_TIMEOUT_SECONDS": "inf"}, "request_timeout_seconds"),
+        ({"ADEN_TABLE_RAG_REQUEST_TIMEOUT_SECONDS": "-0.1"}, "request_timeout_seconds"),
+        ({"ADEN_TABLE_RAG_SHUTDOWN_GRACE_SECONDS": "-1"}, "shutdown_grace_seconds"),
+    ],
+)
+def test_invalid_request_limit_environment_values_fail(tmp_path, environment, expected):
+    with pytest.raises(ValueError, match=expected):
+        load_table_rag_settings(project_root=tmp_path, env=environment)
+
+
+@pytest.mark.parametrize(
+    ("kwargs", "field_name"),
+    [
+        ({"max_active_requests": True}, "max_active_requests"),
+        ({"max_active_requests": 0}, "max_active_requests"),
+        ({"max_waiting_requests": 1.5}, "max_waiting_requests"),
+        ({"queue_timeout_seconds": float("nan")}, "queue_timeout_seconds"),
+        ({"queue_timeout_seconds": 0}, "queue_timeout_seconds"),
+        ({"request_timeout_seconds": float("inf")}, "request_timeout_seconds"),
+        ({"request_timeout_seconds": -1}, "request_timeout_seconds"),
+        ({"shutdown_grace_seconds": -0.1}, "shutdown_grace_seconds"),
+    ],
+)
+def test_direct_settings_construction_validates_request_limits(kwargs, field_name):
+    from app.rag.config import TableRagSettings
+
+    with pytest.raises(ValueError, match=field_name):
+        TableRagSettings(**kwargs)

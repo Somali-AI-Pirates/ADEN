@@ -16,6 +16,12 @@ class FakeTableRagService:
         self.requests = []
         self.error = None
         self.close_count = 0
+        self.readiness_status = SimpleNamespace(ready=True, checks={"resources": True})
+        self.readiness_calls = 0
+
+    async def readiness(self):
+        self.readiness_calls += 1
+        return self.readiness_status
 
     async def ainvoke(self, question, *, request_id):
         self.requests.append((question, request_id))
@@ -68,7 +74,9 @@ retrieval:
 """
 
 
-def test_json_query_uses_table_rag_service_and_preserves_request_id(tmp_path, monkeypatch):
+def test_json_query_uses_table_rag_service_and_preserves_request_id(
+    tmp_path, monkeypatch
+):
     install_config_loader(tmp_path, monkeypatch, basic_config())
     service = FakeTableRagService()
     loader = Mock(return_value=service)
@@ -86,6 +94,52 @@ def test_json_query_uses_table_rag_service_and_preserves_request_id(tmp_path, mo
     assert service.requests == [("예약 확인", response.headers["X-Request-ID"])]
     assert service.close_count == 1
     assert not hasattr(app.state, "resources")
+
+
+def test_liveness_is_local_and_readiness_returns_component_checks(
+    tmp_path, monkeypatch
+):
+    install_config_loader(tmp_path, monkeypatch, basic_config())
+    service = FakeTableRagService()
+    app = create_app(table_service_loader=lambda _path: service)
+
+    with TestClient(app) as client:
+        live = client.get("/health/live")
+        assert live.status_code == 200
+        assert live.json() == {"status": "ok"}
+        assert service.readiness_calls == 0
+
+        ready = client.get("/health/ready")
+        assert ready.status_code == 200
+        assert ready.json() == {"ready": True, "checks": {"resources": True}}
+        assert service.readiness_calls == 1
+
+        service.readiness_status = SimpleNamespace(
+            ready=False, checks={"resources": True, "vector_store": False}
+        )
+        unready = client.get("/health/ready")
+
+    assert unready.status_code == 503
+    assert unready.json() == {
+        "ready": False,
+        "checks": {"resources": True, "vector_store": False},
+    }
+    assert unready.headers["X-Request-ID"]
+
+
+def test_uninitialized_readiness_has_safe_component_status(tmp_path, monkeypatch):
+    install_config_loader(tmp_path, monkeypatch, basic_config())
+    app = create_app(
+        table_service_loader=lambda _path: (_ for _ in ()).throw(
+            FileNotFoundError("private path")
+        )
+    )
+    with TestClient(app) as client:
+        response = client.get("/health/ready")
+
+    assert response.status_code == 503
+    assert response.json() == {"ready": False, "checks": {"service": False}}
+    assert "private path" not in response.text
 
 
 def test_http_logs_cover_success_validation_service_failure_and_unready(
@@ -111,7 +165,9 @@ def test_http_logs_cover_success_validation_service_failure_and_unready(
 
     responses = [success, invalid, failed, unready]
     assert [response.status_code for response in responses] == [200, 422, 500, 503]
-    records = [record for record in caplog.records if record.name == "app.api.middleware"]
+    records = [
+        record for record in caplog.records if record.name == "app.api.middleware"
+    ]
     assert len(records) == len(responses)
     by_id = {record.request_id: record for record in records}
     for response in responses:
@@ -142,7 +198,9 @@ def test_http_logs_omit_question_query_and_auth_header(tmp_path, monkeypatch, ca
     assert response.status_code == 200
     assert unknown.status_code == 404
     assert secret not in caplog.text
-    records = [record for record in caplog.records if record.name == "app.api.middleware"]
+    records = [
+        record for record in caplog.records if record.name == "app.api.middleware"
+    ]
     assert records[-1].path == "<unmatched>"
 
 

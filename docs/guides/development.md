@@ -26,7 +26,7 @@ VS Code에서 저장소 루트를 열고 [권장 확장](../../.vscode/extension
 uv run fastapi dev
 ```
 
-자동 재시작 없이 로컬에서 실행하려면 `uv run fastapi run --host 127.0.0.1`을 사용한다. pip 환경에서는 `fastapi dev`를 직접 실행한다. [Swagger UI](http://127.0.0.1:8000/docs)에서 질문하고 `GET /health`의 `query_ready`로 질의 준비 여부를 확인한다.
+자동 재시작 없이 로컬에서 실행하려면 `uv run fastapi run --host 127.0.0.1`을 사용한다. pip 환경에서는 `fastapi dev`를 직접 실행한다. [Swagger UI](http://127.0.0.1:8000/docs)에서 질문하고 `GET /health/ready`의 HTTP 200과 `ready=true`로 현재 질의 준비 여부를 확인한다. `/health`는 기존 초기화 표시를 유지한다.
 
 키는 로컬 `.env`, 환경변수, 승인된 CI 비밀 설정으로 주입한다. Advanced TableRAG의 Cloud 벡터 검색에는 `QDRANT_URL`과 `QDRANT_API_KEY`를 로컬 환경에 설정한다. 키를 Git·로그·문서·채팅에 기록하지 않는다. 노출이 의심되면 제공자에서 폐기·교체하고 팀에 알린다.
 
@@ -34,9 +34,15 @@ uv run fastapi dev
 
 [데이터 번들](data.md#advanced-tablerag-데이터)을 준비한 뒤 `uv run --locked fastapi dev`로 실행한다. 기본 경로는 `artifacts/advanced-table-rag`다. 기존 로컬 dense 검색의 기본 backend는 `numpy`다. Qdrant Cloud를 쓰려면 `.env`에 `ADEN_TABLE_RAG_VECTOR_BACKEND=qdrant`, `QDRANT_URL`, `QDRANT_API_KEY`를 설정하고 [업로드·검사](data.md#advanced-tablerag-qdrant-cloud-벡터-검색)를 서버 실행 전에 완료한다. Cloud 연결·컬렉션 검증 실패 시 TableRAG 준비가 실패하며 로컬 검색으로 자동 전환하지 않는다. 로컬 경로를 선택하려면 `ADEN_TABLE_RAG_VECTOR_BACKEND=numpy`를 명시한다. `ADEN_TABLE_RAG_DIR`로 다른 번들을 지정하고, `ADEN_TABLE_RAG_DEVICE=cpu_gpu_rerank`로 CUDA 리랭킹을 선택할 수 있다.
 
-서버는 공통 기록 DB와 물리 표 DB를 읽기 전용으로 열고 모델을 한 번 준비한다. /health의 query_ready로 준비 상태를 확인한다. 질문은 POST /query에 question으로 전달한다.
+서버는 공통 기록 DB와 물리 표 DB를 읽기 전용으로 열고 모델을 한 번 준비한다. `/health/ready`로 현재 준비 상태를 확인한다. 질문은 POST /query에 question으로 전달한다.
 
 Langfuse 키가 있으면 상세 추적을 전송한다. 저장된 요청의 Faithfulness·Judge 채점과 점수 조회는 [빠른 시작](quickstart.md#4-저장된-swagger-답변-평가)을 따른다.
+
+### 요청 수용과 종료
+
+공통 서비스가 FIFO 대기열·실행 슬롯·요청 예산을 소유한다. HTTP와 SSE뿐 아니라 RAG CLI와 TableRAG 평가 `run`에도 같은 `TableRagSettings`가 적용된다. 기본 한도, HTTP 오류 및 동기 작업 정리의 시간 제약은 [빠른 시작](quickstart.md#상태-확인과-요청-제한)을 따른다. 준비 검사는 Langfuse나 유료 모델을 호출하지 않는다.
+
+운영 로그 `rag_admission`은 수용·거절과 대기 시간을, `rag_request`는 실행·취소·정리 결과와 예산 초과 시간을 요청 ID로 연결한다. 기존 검색·모델 지연과 대기 시간을 합쳐 비교하지 않는다. 이 제한은 서비스 인스턴스 단위이며 여러 서버 프로세스 전체의 합계 제한이 아니다. 통제된 가짜 작업으로 검사한 지연은 실제 모델 처리량을 뜻하지 않는다.
 
 ## 검사
 

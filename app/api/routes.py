@@ -1,9 +1,11 @@
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, Body, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from app.observability.run_store import RequestRunStoreError
+from app.rag.admission import RequestBusyError, RequestUnavailableError
 from shared.contracts import QueryRequest, QueryResponse
 from shared.exceptions import ServiceError
 
@@ -18,6 +20,15 @@ class HealthResponse(BaseModel):
     query_ready: bool = Field(
         title="질의 준비 여부", description="기본 질의 자원의 준비 여부"
     )
+
+
+class LivenessResponse(BaseModel):
+    status: Literal["ok"] = "ok"
+
+
+class ReadinessResponse(BaseModel):
+    ready: bool
+    checks: dict[str, bool]
 
 
 @router.get(
@@ -35,6 +46,59 @@ async def health(request: Request) -> HealthResponse:
     )
 
 
+@router.get(
+    "/health/live",
+    response_model=LivenessResponse,
+    tags=["서비스 상태"],
+    summary="프로세스 실행 확인",
+    description="앱 프로세스가 요청에 응답할 수 있는지 확인합니다. 외부 자원은 호출하지 않습니다.",
+)
+async def live() -> LivenessResponse:
+    return LivenessResponse()
+
+
+@router.get(
+    "/health/ready",
+    response_model=ReadinessResponse,
+    responses={
+        503: {
+            "model": ReadinessResponse,
+            "description": "필수 질의 자원을 사용할 수 없습니다.",
+        }
+    },
+    tags=["서비스 상태"],
+    summary="질의 자원 준비 확인",
+    description="SQLite, 선택 벡터 저장소 및 실행 기록 저장 경로의 읽기·쓰기 준비 상태입니다.",
+)
+async def ready(request: Request) -> JSONResponse:
+    service = request.app.state.table_service
+    if service is None:
+        result = ReadinessResponse(ready=False, checks={"service": False})
+    else:
+        status = await service.readiness()
+        result = ReadinessResponse(ready=status.ready, checks=dict(status.checks))
+
+    return JSONResponse(
+        status_code=200 if result.ready else 503,
+        content=result.model_dump(mode="json"),
+        headers={"X-Request-ID": request.state.request_id},
+    )
+
+
+def _busy_error(error: RequestBusyError) -> ServiceError:
+    return ServiceError(
+        "요청이 몰려 처리 대기열이 가득 찼습니다. 잠시 후 다시 시도해 주세요.",
+        429,
+        response_headers={"Retry-After": str(error.retry_after)},
+    )
+
+
+def _unavailable_error() -> ServiceError:
+    return ServiceError(
+        "질의 서비스를 사용할 수 없습니다. 잠시 후 다시 시도해 주세요.", 503
+    )
+
+
 @router.post(
     "/query",
     response_model=QueryResponse,
@@ -46,6 +110,10 @@ async def health(request: Request) -> HealthResponse:
         422: {
             "model": QueryResponse,
             "description": "질문 또는 검색 방식이 올바르지 않습니다.",
+        },
+        429: {
+            "model": QueryResponse,
+            "description": "요청 대기열이 가득 찼습니다. Retry-After 이후 다시 시도해 주세요.",
         },
         503: {
             "model": QueryResponse,
@@ -68,12 +136,16 @@ async def health(request: Request) -> HealthResponse:
 async def query(
     payload: Annotated[
         QueryRequest,
-        Body(openapi_examples={
-            "question": {
-                "summary": "기본 TableRAG에 질문하기",
-                "value": {"question": "예약 접수번호를 받으면 예약이 확정된 건가요?"},
+        Body(
+            openapi_examples={
+                "question": {
+                    "summary": "기본 TableRAG에 질문하기",
+                    "value": {
+                        "question": "예약 접수번호를 받으면 예약이 확정된 건가요?"
+                    },
+                }
             }
-        }),
+        ),
     ],
     request: Request,
 ) -> QueryResponse:
@@ -92,6 +164,10 @@ async def query(
 
     try:
         run = await table_service.ainvoke(payload.question, request_id=request_id)
+    except RequestBusyError as error:
+        raise _busy_error(error) from error
+    except RequestUnavailableError as error:
+        raise _unavailable_error() from error
     except RequestRunStoreError as error:
         raise ServiceError(
             "실행 기록을 저장하지 못했습니다. 서버 저장 공간을 확인해 주세요.", 503

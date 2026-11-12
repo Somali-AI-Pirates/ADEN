@@ -1,4 +1,5 @@
 import json
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -301,3 +302,157 @@ def test_collection_rejects_reduced_precision_vector_storage(datatype):
     ))
     with pytest.raises(QdrantIndexError, match="float32 vector storage"):
         _validate_vector_config(info)
+
+
+@pytest.mark.parametrize(
+    ("field", "replacement", "message"),
+    [
+        ("status", models.CollectionStatus.YELLOW, "not ready"),
+        ("optimizer_status", "error", "optimizers"),
+        ("points_count", 2, "point count"),
+        ("metadata", {"aden_status": "ready"}, "metadata"),
+    ],
+)
+def test_qdrant_readiness_rejects_incompatible_collection_state(
+    corpus_bundle, qdrant_client, field, replacement, message
+):
+    directory, _manifest_path, _manifest, _corpus = corpus_bundle
+    qdrant_index.upload_qdrant_index(directory, client=qdrant_client)
+    original = qdrant_client.get_collection(qdrant_index.DEFAULT_COLLECTION)
+    if field == "metadata":
+        config = SimpleNamespace(
+            params=original.config.params,
+            quantization_config=original.config.quantization_config,
+            metadata=replacement,
+        )
+    else:
+        config = original.config
+    info = SimpleNamespace(
+        config=config,
+        status=original.status,
+        optimizer_status=original.optimizer_status,
+        points_count=original.points_count,
+    )
+    if field != "metadata":
+        setattr(info, field, replacement)
+
+    class Client:
+        def __init__(self):
+            self.calls = []
+
+        def get_collection(self, collection):
+            self.calls.append(collection)
+            return info
+
+    client = Client()
+    with pytest.raises(qdrant_index.QdrantIndexError, match=message):
+        qdrant_index.check_qdrant_readiness(directory, _corpus, client=client)
+    assert client.calls == [qdrant_index.DEFAULT_COLLECTION]
+
+
+def test_qdrant_readiness_makes_one_read_only_metadata_call(
+    corpus_bundle, qdrant_client
+):
+    directory, _manifest_path, _manifest, corpus = corpus_bundle
+    qdrant_index.upload_qdrant_index(directory, client=qdrant_client)
+    raw_get = qdrant_client.get_collection
+    before = raw_get(qdrant_index.DEFAULT_COLLECTION)
+
+    class ReadOnlyClient:
+        def __init__(self):
+            self.get_calls = []
+
+        def get_collection(self, collection):
+            self.get_calls.append(collection)
+            return raw_get(collection)
+
+        def __getattr__(self, name):
+            raise AssertionError(f"Readiness must not call {name}")
+
+    client = ReadOnlyClient()
+    result = qdrant_index.check_qdrant_readiness(directory, corpus, client=client)
+
+    assert result is None
+    assert client.get_calls == [qdrant_index.DEFAULT_COLLECTION]
+    after = raw_get(qdrant_index.DEFAULT_COLLECTION)
+    assert after.config.metadata == before.config.metadata
+    assert after.points_count == before.points_count
+
+
+def test_qdrant_readiness_uses_two_second_compatibility_disabled_client_and_closes(
+    corpus_bundle, qdrant_client, monkeypatch
+):
+    from app.rag.config import RuntimeCredentials
+
+    directory, _manifest_path, _manifest, corpus = corpus_bundle
+    qdrant_index.upload_qdrant_index(directory, client=qdrant_client)
+    info = qdrant_client.get_collection(qdrant_index.DEFAULT_COLLECTION)
+    calls = []
+    closed = []
+
+    class Client:
+        def get_collection(self, collection):
+            calls.append(collection)
+            return info
+
+        def close(self):
+            closed.append(True)
+
+    client = Client()
+    constructor = []
+
+    def create_client(**kwargs):
+        constructor.append(kwargs)
+        return client
+
+    monkeypatch.setattr(qdrant_index, "QdrantClient", create_client)
+    credentials = RuntimeCredentials(
+        qdrant_url="https://qdrant.example.invalid",
+        qdrant_api_key="api-key-secret",
+    )
+
+    qdrant_index.check_qdrant_readiness(directory, corpus, credentials=credentials)
+
+    assert constructor == [
+        {
+            "url": "https://qdrant.example.invalid",
+            "api_key": "api-key-secret",
+            "timeout": 2,
+            "check_compatibility": False,
+        }
+    ]
+    assert calls == [qdrant_index.DEFAULT_COLLECTION]
+    assert closed == [True]
+
+
+def test_qdrant_readiness_hides_connection_details_and_closes_on_failure(
+    corpus_bundle, monkeypatch
+):
+    from app.rag.config import RuntimeCredentials
+    from app.rag.qdrant_index import QdrantIndexError
+
+    directory, _manifest_path, _manifest, corpus = corpus_bundle
+    closed = []
+
+    class Client:
+        def get_collection(self, collection):
+            raise TimeoutError("qdrant-secret-response")
+
+        def close(self):
+            closed.append(True)
+
+    monkeypatch.setattr(qdrant_index, "QdrantClient", lambda **kwargs: Client())
+    credentials = RuntimeCredentials(
+        qdrant_url="https://private-host.example.invalid",
+        qdrant_api_key="secret-api-key",
+    )
+
+    with pytest.raises(QdrantIndexError) as raised:
+        qdrant_index.check_qdrant_readiness(directory, corpus, credentials=credentials)
+
+    rendered = str(raised.value)
+    assert "TimeoutError" in rendered
+    assert "qdrant-secret-response" not in rendered
+    assert "private-host" not in rendered
+    assert "secret-api-key" not in rendered
+    assert closed == [True]

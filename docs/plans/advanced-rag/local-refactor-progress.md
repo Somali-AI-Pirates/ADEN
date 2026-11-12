@@ -130,3 +130,71 @@ Cloud 대조는 기존 23개의 서로 다른 질문 벡터와 저장한 KURE �
 - 원본 전체 재파싱·재임베딩은 하지 않았다. 기존 완성 번들 검사와 작은 합성 데이터의 구축/재개 동등성을 확인했다.
 - 기존 Cloud 컬렉션·SQLite·벡터를 변경하지 않았다. 다른 작성자의 infra·채팅·운영 문서·실험 기록도 편집 대상에서 제외했다. 작업 도중 변경된 외부 작업 파일은 덮어쓰지 않았다.
 - 위 로컬 리팩터링 완료 시점에는 커밋·푸시·PR·병합을 수행하지 않았다. 이후 사용자가 현재 변경 전체의 커밋·푸시와 P4 로컬 구현을 승인했다. 후속 실행 결과는 P4를 시작할 때 이 문서에 별도 기록한다.
+
+## P4 — 준비 상태·요청 수용·시간 제한 (2026-11-12)
+
+시작 기준 커밋은 6acc5aa8f5ca067c17ed382706d4ff6df9cdbb70다. 이전 변경 전체를 리팩터링(480a752), 운영 준비·채팅 헤더(9fcbb6c), CPU·ONNX 실험 기록(6acc5aa)으로 나눠 feat/advanced-hybrid-baseline에 푸시했고 원격 SHA를 확인했다. main 병합은 하지 않았다. 추가 운영 파일의 독립 검토와 비밀값/원문·셸 구문/상태표 점검은 artifacts/verification/p4/precommit-review.json에 남겼다.
+
+### 요구 동작과 지원 경계
+
+기존 검색·모델·HTTP/SSE 정상 응답·필수 저장 계약을 유지한다. /health는 기존 초기화 표시를 유지하고 /health/live와 /health/ready를 추가한다. readiness는 로컬 필수 자원·읽기 전용 SQLite·선택 벡터 저장소·결과 저장 가능성을 10초 캐시/단일 실행으로 확인하며 Qdrant 요청은 2초로 제한한다. Langfuse·유료 LLM은 판정에서 제외한다.
+
+서비스에 실행 1개·FIFO 대기 2개·대기 10초·대기를 포함한 처리 예산 300초·종료 유예 30초를 둔다. 수용 실패는 429/Retry-After 10, 미준비·종료는 503, 실행 예산 초과는 504다. SSE는 헤더 전 수용 검사, 시작 후 오류 시 error만 반환한다. 동기 작업은 강제 종료하지 않으며 완료까지 슬롯/자원을 유지하므로 취소 이후 정리 시간이 추가될 수 있다. 기존 CLI·평가도 같은 서비스 정책을 적용한다.
+
+이 P4 변경은 로컬 구현·검증만 한다. 새 P4 커밋·푸시·배포·Docker·CI/CD·모델/검색 정책 변경·유료 모델 평가는 수행하지 않는다. 지원 대안은 기존 Cloud/NumPy와 uv 실행이며, 분산 대기열·멀티프로세스 전역 제한은 제공하지 않는다.
+
+| 단계 | 상태 | 완료 조건 |
+| --- | --- | --- |
+| P4-1 설정·준비 상태 | 완료 | 우선순위/값 검증, probe 캐시·장애·회복·종료, live/ready 계약 |
+| P4-2 수용·예산·종료 | 완료 | FIFO/대기 초과·취소·soft deadline·shutdown·단일 해제 |
+| P4-3 HTTP·SSE 통합 | 완료 | 헤더 전/후 오류·Retry-After·요청 ID·저장 후 final |
+| P4-4 리뷰·최종 검증 | 완료 | 두 독립 리뷰, 고정 재생, 전체 검사·문서·검증 증거 |
+
+검증 증거는 artifacts/verification/p4/에 저장한다. 단계별 검사가 끝난 뒤 상태를 갱신한다.
+
+### P4 집중 검사 — 독립 리뷰 전
+
+- 서비스·수용·설정·준비·Qdrant 집중 검사 97개 통과. 캐시/동시 검사, SQLite/저장 경로 장애, FIFO/초과/대기 취소, 동기 작업 중 예산 초과와 종료 정리를 포함한다. 증거: `artifacts/verification/p4/focused-service.log`.
+- 고정 그래프 검사 12개 통과, 저장한 10개 실행의 후보·점수·SQL·최종 출처·문맥이 이전 고정 재생과 일치했다. 시각·실행 지문은 비교에서 제외했다. 증거: `graph-comparison.json`, `graph-replay.json`.
+- 기존 번들로 NumPy 및 Qdrant Cloud readiness가 모두 준비 상태를 반환했다. Cloud는 컬렉션 메타데이터를 읽기 전용으로 한 번 조회했다. 검사 후 임시 파일 0개, 캐시 재사용 결과 동일. 모델 로딩·추론·유료 호출은 하지 않았다. 증거: `actual-readiness.json`.
+- 테스트 지연은 가짜 작업으로 확인한 취소/대기 경계다. 실제 모델 처리량이나 배포 서버 부하 시험으로 해석하지 않는다.
+- 리뷰 전 확인 순서: API/SSE 집중 검사 결과 고정 → 두 독립 리뷰 → 지적 사항 수정/재검토 → 최종 공통 검사 및 완료 기록. 아래에 최종 결과를 이어 기록했다.
+
+API 집중 검사 40개를 통과했다. 실제 RagService로 헤더 전 거절, 대기 중 연결 종료, 스트림 도중 서비스 종료와 전송 실패, 동기 작업 정리까지 확인했다. 증거: `artifacts/verification/p4/focused-api.log`.
+
+### P4 독립 리뷰와 수정 — 완료
+
+새 문맥의 독립 에이전트 두 명이 전체 26개 변경 파일을 검토했다. 한 명은 FIFO·취소·동기 작업·자원 소유권을, 다른 한 명은 HTTP/SSE·준비 검사·설정·문서 경계를 중점 확인했다. 두 리뷰 모두 준비 검사 대기가 전체 요청 예산을 적용받지 않는 문제를 지적했다.
+
+`reserve_request`의 준비 검사 대기에 도착 시각 기준 deadline을 적용했다. 요청이 만료되어도 공유 probe는 계속 실행되고, 다른 health 요청이 같은 결과를 받을 수 있다. 차단한 가짜 probe가 끝나기 전에 요청만 만료되며 검색·planner·슬롯 사용이 없음을 회귀 검사로 확인했다. 수정 후 관련 80개 검사와 Ruff가 통과했고 두 리뷰어가 각각 수정과 경계를 재검토했다. 미해결 지적은 없다. 원래 검토본과 수정본은 `review-v1.diff`, `review.diff` 및 각각의 scope 지문으로 남겼다. 증거: `reviews.json`, `review-fix.md`, `review-fix-tests.log`.
+
+### P4 최종 검사 — 완료
+
+아래 증거 경로는 모두 `artifacts/verification/p4/` 기준이다.
+
+| 검사 | 실제 결과 | 증거 |
+| --- | --- | --- |
+| `python -m ruff check .` | 통과 | final-ruff.log |
+| `python -m pytest -q tests` | **616 passed, 11 subtests passed** | final-pytest.log |
+| `uv lock --check` | 통과 | final-lock.log |
+| 9개 CLI `--help` | 모두 통과 | final-cli-*.log |
+| 일반·보안 평가 `--sample` | 가상 실행 2건 통과 | final-sample-*.log |
+| `python -m build`·wheel 리소스/제외 파일 | sdist·wheel 및 새 모듈 포함 검사 통과 | final-build.log, final-checks.json |
+| 고정 그래프·검색 결과 재생 | 12개 검사, 저장된 10개 실행 동등 | graph-comparison.json |
+| 실제 로컬/Cloud 준비 검사 | NumPy·Qdrant 모두 준비, 임시 파일 0개 | actual-readiness.json |
+| 기존 SQLite·벡터 등 8개 번들 파일 | 변경 전후 SHA-256 동일 | bundle-preservation.json |
+| 변경 문서 7개의 링크·앵커 65개 | 모두 존재 | docs-links.json |
+| `git diff --check` | 통과 | diff-check.log |
+
+pytest 경고 1개는 메모리 Qdrant exact 검색에 search_params가 별도 영향을 주지 않는다는 SDK 안내다. 실제 Cloud readiness는 별도 읽기 전용으로 확인했다. 이전 리팩터링의 Cloud 23문항 exact 동등성 기록은 재실행하지 않았으며, 이번에는 변경된 준비 검사와 고정 검색 결과 재생을 확인했다.
+
+### P4 완료 상태와 재개 지점
+
+P4-1~4의 로컬 구현·검증을 완료했다. 런타임 코드는 수정 후 독립 재리뷰에서 고정한 지문과 일치한다. 마지막 변경은 완료 기록과 기준 계획의 상태 표시뿐이며, 링크/구조와 실제 증거를 다시 대조했다. 최종 파일 지문·명령·결과는 `final-content.json`과 `final-checks.json`에 있다.
+
+- 현재 HEAD와 푸시한 원격 브랜치는 `6acc5aa8f5ca067c17ed382706d4ff6df9cdbb70`다. **P4 변경은 로컬 미커밋 상태**다. main 병합·P4 추가 푸시는 하지 않았다.
+- CPU 스레드·ONNX 결과는 앞선 실험 기록 커밋에만 포함했다. 제품 모델·스레드 정책에 채택하지 않았다.
+- 검증 환경은 WSL Ubuntu-26.04·Python 3.13이다. 실제 모델 처리량/운영 부하·Windows 네이티브·ARM 환경은 검증하지 않았다.
+- 유료 LLM 답변·Judge·Ragas와 Langfuse 원격 전송/점수 재조회는 실행하지 않았다. 기존 연결을 유지하고 가짜 외부 경계로 정상 실행·저장·추적 계약을 검사했다.
+- Docker·CI/CD·프록시·운영 서버 설정은 적용하지 않았다. 기존 Cloud 컬렉션·SQLite·벡터를 다시 만들거나 변경하지 않았다.
+- 재개 시 먼저 `git status`와 `final-content.json`을 대조한다. 변경이 없으면 이번 검증 증거를 사용하고, 달라진 코드가 있으면 해당 경계 검사를 다시 수행한다. 추가 커밋/푸시나 운영 후속 작업은 새로 요청된 범위에서 진행한다.

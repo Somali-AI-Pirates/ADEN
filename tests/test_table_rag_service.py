@@ -69,7 +69,7 @@ class _Model:
         self.closed += 1
 
 
-def _service(model, close_search=None):
+def _service(model, close_search=None, before_search=None, **options):
     sources = {
         question: make_document(
             f"자료 {page}",
@@ -81,14 +81,20 @@ def _service(model, close_search=None):
     page_lookup = {
         document.metadata["source_id"]: document for document in sources.values()
     }
+    def search(question):
+        if before_search is not None:
+            before_search(question)
+        return SearchResult((sources[question],), (), {})
+
     return RagService(
-        search=lambda question: SearchResult((sources[question],), (), {}),
+        search=search,
         page_lookup=page_lookup.get,
         table_store=_Store(),
         model=model,
         tracer=Tracer(),
         manifest={"policy": "table_rag_a"},
         close_search=close_search,
+        **options,
     )
 
 
@@ -550,5 +556,231 @@ def test_cancelled_request_joins_sync_search_before_resources_close():
             await task
         await service.aclose()
         assert closed == ["search"]
+
+    asyncio.run(run())
+
+
+def test_busy_and_wait_timeout_do_not_call_search_or_model():
+    from app.rag.admission import RequestBusyError
+    from app.rag.config import TableRagSettings
+
+    async def run():
+        started = asyncio.Event()
+        finish = asyncio.Event()
+
+        class WaitingModel(_Model):
+            plans = 0
+
+            async def plan(self, *args, **kwargs):
+                self.plans += 1
+                started.set()
+                await finish.wait()
+                return await super().plan(*args, **kwargs)
+
+        model = WaitingModel()
+        service = _service(
+            model,
+            settings=TableRagSettings(max_waiting_requests=1, queue_timeout_seconds=0.03),
+        )
+        first = asyncio.create_task(service.ainvoke("첫 질문", request_id="active"))
+        await asyncio.wait_for(started.wait(), timeout=2)
+        waiting = asyncio.create_task(service.ainvoke("둘째 질문", request_id="waiting"))
+        await asyncio.sleep(0)
+        with pytest.raises(RequestBusyError):
+            await service.ainvoke("둘째 질문", request_id="overflow")
+        with pytest.raises(RequestBusyError):
+            await waiting
+        assert model.plans == 1
+        finish.set()
+        assert (await first).response.answer == "첫 질문"
+        await service.aclose()
+
+    asyncio.run(run())
+
+
+def test_deadline_cancels_model_and_records_operational_outcome(caplog):
+    from app.rag.admission import RequestDeadlineExceeded
+    from app.rag.config import TableRagSettings
+
+    async def run():
+        stopped = asyncio.Event()
+
+        class WaitingModel(_Model):
+            answers = 0
+
+            async def plan(self, *args, **kwargs):
+                try:
+                    await asyncio.Event().wait()
+                finally:
+                    stopped.set()
+
+            async def answer(self, *args, **kwargs):
+                self.answers += 1
+                return await super().answer(*args, **kwargs)
+
+        model = WaitingModel()
+        service = _service(model, settings=TableRagSettings(request_timeout_seconds=0.1))
+        with pytest.raises(RequestDeadlineExceeded):
+            await service.ainvoke("첫 질문", request_id="deadline")
+        assert stopped.is_set()
+        assert model.answers == 0
+        assert service._admission.active_count == 0
+        await service.aclose()
+
+    caplog.set_level("INFO", logger="app.rag.service")
+    asyncio.run(run())
+    assert any("request_id=deadline outcome=deadline_exceeded" in r.message for r in caplog.records)
+
+
+def test_deadline_holds_slot_until_sync_worker_finishes_without_followup_model():
+    from threading import Event
+
+    from app.rag.admission import RequestDeadlineExceeded
+    from app.rag.config import TableRagSettings
+
+    async def run():
+        started = Event()
+        release = Event()
+        search_calls = []
+
+        def before_search(question):
+            search_calls.append(question)
+            started.set()
+            assert release.wait(3)
+
+        service = _service(
+            _Model(), before_search=before_search,
+            settings=TableRagSettings(
+                request_timeout_seconds=0.2, queue_timeout_seconds=1
+            ),
+        )
+        first = asyncio.create_task(service.ainvoke("첫 질문", request_id="slow-worker"))
+        try:
+            assert await asyncio.to_thread(started.wait, 2)
+            await asyncio.sleep(0.25)
+            assert not first.done()
+            assert service._admission.active_count == 1
+            assert search_calls == ["첫 질문"]
+        finally:
+            release.set()
+        with pytest.raises(RequestDeadlineExceeded):
+            await first
+        assert service._admission.active_count == 0
+        await service.aclose()
+
+    asyncio.run(run())
+
+
+def test_shutdown_drains_worker_before_closing_resources_and_rejects_queue():
+    from threading import Event
+
+    from app.rag.admission import RequestUnavailableError
+    from app.rag.config import TableRagSettings
+
+    async def run():
+        started = Event()
+        release = Event()
+        order = []
+        def before_search(question):
+            started.set()
+            assert release.wait(3)
+            order.append("worker_finished")
+
+        service = _service(
+            _Model(), before_search=before_search,
+            close_search=lambda: order.append("resources_closed"),
+            settings=TableRagSettings(shutdown_grace_seconds=0),
+        )
+        first = asyncio.create_task(service.ainvoke("첫 질문", request_id="active"))
+        assert await asyncio.to_thread(started.wait, 2)
+        waiting = asyncio.create_task(service.ainvoke("둘째 질문", request_id="waiting"))
+        await asyncio.sleep(0)
+        closing = asyncio.create_task(service.aclose())
+        try:
+            with pytest.raises(RequestUnavailableError):
+                await waiting
+            await asyncio.sleep(0.01)
+            assert not closing.done()
+            assert order == []
+            assert not (await service.readiness()).ready
+        finally:
+            release.set()
+        with pytest.raises(asyncio.CancelledError):
+            await first
+        await closing
+        await service.aclose()
+        assert order == ["worker_finished", "resources_closed"]
+
+    asyncio.run(run())
+
+
+def test_unready_service_never_starts_the_pipeline():
+    from app.rag.admission import RequestUnavailableError
+    from app.rag.readiness import ReadinessProbe
+
+    class UnusedModel(_Model):
+        async def plan(self, *args, **kwargs):
+            raise AssertionError("Unready request called the planner")
+
+    async def run():
+        service = _service(
+            UnusedModel(), readiness_probe=ReadinessProbe({"records": lambda: False})
+        )
+        with pytest.raises(RequestUnavailableError):
+            await service.ainvoke("첫 질문", request_id="unready")
+        assert service._admission.active_count == 0
+        await service.aclose()
+
+    asyncio.run(run())
+
+
+def test_request_deadline_stops_readiness_wait_without_cancelling_shared_probe():
+    from threading import Event
+
+    from app.rag.admission import RequestDeadlineExceeded
+    from app.rag.config import TableRagSettings
+    from app.rag.readiness import ReadinessProbe
+
+    class UnusedModel(_Model):
+        async def plan(self, *args, **kwargs):
+            raise AssertionError("Expired request called the planner")
+
+    async def run():
+        started = Event()
+        release = Event()
+        probe_calls = []
+
+        def check():
+            probe_calls.append("check")
+            started.set()
+            assert release.wait(3)
+
+        def no_search(question):
+            raise AssertionError("Expired request called search")
+
+        service = _service(
+            UnusedModel(),
+            before_search=no_search,
+            settings=TableRagSettings(request_timeout_seconds=0.03),
+            readiness_probe=ReadinessProbe({"records": check}),
+        )
+        request = asyncio.create_task(
+            service.ainvoke("질문", request_id="readiness-deadline")
+        )
+        try:
+            assert await asyncio.to_thread(started.wait, 1)
+            with pytest.raises(RequestDeadlineExceeded):
+                await asyncio.wait_for(request, 0.5)
+            assert not release.is_set()
+            assert service._admission.active_count == 0
+            health = asyncio.create_task(service.readiness())
+            await asyncio.sleep(0)
+            assert not health.done()
+            release.set()
+            assert (await health).ready
+            assert probe_calls == ["check"]
+        finally:
+            release.set()
+            await service.aclose()
 
     asyncio.run(run())

@@ -20,6 +20,16 @@
 
 오류 응답은 `status="error"`, 빈 답변과 출처 목록, 안내 문구를 반환한다. `GET /health`는 `status="ok"`, `dataset`, `query_ready`를 반환한다. TableRAG 번들·모델 초기화가 실패해도 `/health`, `/docs`, `/openapi.json`은 열리며, 유효한 질의에는 `503`을 반환한다. 설정 문법 오류는 시작 단계에서 거부한다.
 
+### TableRAG 준비·수용·시간 제한
+
+`GET /health/live`는 `{"status":"ok"}`를 반환하며 모델·저장소를 호출하지 않는다. `GET /health/ready`는 `{"ready":true,"checks":{...}}` 형식으로 구성요소별 boolean만 반환한다. 모두 준비되면 200, 초기화 실패·저장소 장애·기록 저장 불가·종료 중이면 503이다. 경로·인증값·예외 원문은 응답에 넣지 않는다. `/health` 계약은 유지한다.
+
+준비 검사는 성공·실패를 10초 캐시하고 진행 중 검사를 공유한다. SQLite를 읽기 전용으로 확인하고, 선택한 벡터 저장소와 결과 저장 위치를 검사한다. Qdrant의 상태·호환 정보 조회는 연결·요청 제한 2초를 사용한다. Langfuse·LLM 가용성·혼잡 여부는 준비 조건이 아니다.
+
+공통 `RagService`는 FIFO 실행 1개·대기 2개·대기 최대 10초·전체 요청 예산 300초·종료 유예 30초를 기본값으로 사용한다. 설정과 지원 범위는 [실행 가이드](../guides/quickstart.md#상태-확인과-요청-제한)를 따른다. 준비·수용 실패 시 모델과 검색은 호출하지 않는다. 대기열 초과·대기 만료는 기존 오류 본문에 429와 `Retry-After: 10`을, 미준비·종료는 503을, 처리 예산 초과는 504를 반환하며 요청 ID를 보존한다.
+
+SSE도 헤더 전에 수용한다. 시작 이후 실패는 `error`로 종료하고 `final`을 보내지 않는다. 취소된 실행의 동기 작업은 완료까지 추적하고 슬롯·자원을 유지한다. 300초와 종료 유예는 강제 스레드 종료 시각이나 응답 반환 상한이 아니다.
+
 ## 데이터 객체
 
 타입은 [shared/contracts.py](../../shared/contracts.py)에 정의한다.
@@ -72,6 +82,7 @@ API 런타임은 [TableRagSettings](../../app/rag/config.py)의 `load_table_rag_
 | 기록 | 소비자와 범위 |
 | --- | --- |
 | HTTP `http_request` | 운영 로그. 요청 ID, 메서드, 라우트, 상태 코드, `latency_ms`와 `latency_scope="http"`를 기록한다. 경로가 없으면 `<unmatched>`를 쓴다. 질문·헤더·쿼리 문자열·모델 원문은 제외한다 |
+| `rag_admission` / `rag_request` | 서비스 운영 로그. 요청 ID, 대기·실행·전체 시간, 거절·취소·정리 상태를 기록한다. 검색·모델 지연과 별도 범위다 |
 | `RunRecord` | 평가 입력과 결과 재현. 서비스 직접 호출은 `service`, 일반 평가 어댑터는 `in_process_adapter`, 고정 문맥 생성은 `fixed_context_generation` |
 | Langfuse | 요청 ID로 질문·검색·최종 문맥·모델 시도·응답을 연결한다. 저장 확인은 [평가 가이드](../guides/c-module-guide.md#langfuse)를 따른다 |
 

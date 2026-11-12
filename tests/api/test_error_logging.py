@@ -18,6 +18,9 @@ class FailingTableRagService:
     def __init__(self, error=None):
         self.error = error
 
+    async def readiness(self):
+        return SimpleNamespace(ready=True, checks={"resources": True})
+
     async def ainvoke(self, question, *, request_id):
         if self.error is not None:
             raise self.error
@@ -80,7 +83,9 @@ def test_error_log_matches_table_rag_http_request_without_sensitive_details(
 
     with (
         caplog.at_level(logging.WARNING, logger="app.api.errors"),
-        TestClient(create_app(table_service_loader=loader), raise_server_exceptions=False) as client,
+        TestClient(
+            create_app(table_service_loader=loader), raise_server_exceptions=False
+        ) as client,
     ):
         question = " " if failure == "invalid" else SECRET
         response = client.post(
@@ -93,7 +98,11 @@ def test_error_log_matches_table_rag_http_request_without_sensitive_details(
     records = [record for record in caplog.records if record.name == "app.api.errors"]
     assert len(records) == 1
     record = records[0]
-    assert record.request_id == response.json()["request_id"] == response.headers["X-Request-ID"]
+    assert (
+        record.request_id
+        == response.json()["request_id"]
+        == response.headers["X-Request-ID"]
+    )
     assert record.error_type == error_type and record.status_code == status
     assert record.exc_info is None
     assert SECRET not in caplog.text + response.text

@@ -141,7 +141,13 @@ def _point_payload(document: Document, row_index: int) -> dict[str, Any]:
     return payload
 
 
-def _connect(client, credentials=None):
+def _connect(
+    client,
+    credentials=None,
+    *,
+    timeout: int = 60,
+    check_compatibility: bool | None = None,
+):
     if client is not None:
         return client, False
     if credentials is None:
@@ -161,8 +167,11 @@ def _connect(client, credentials=None):
         )
     if not api_key:
         raise QdrantIndexError("QDRANT_API_KEY is required for Advanced Qdrant Cloud.")
+    client_options = {"url": url, "api_key": api_key, "timeout": timeout}
+    if check_compatibility is not None:
+        client_options["check_compatibility"] = check_compatibility
     try:
-        return QdrantClient(url=url, api_key=api_key, timeout=60), True
+        return QdrantClient(**client_options), True
     except Exception as error:
         raise QdrantIndexError(
             f"Qdrant connection failed ({type(error).__name__})."
@@ -338,6 +347,45 @@ def upload_qdrant_index(
             ),
         )
         return {"collection": collection, "points": point_count, "status": "ready", "action": action}
+    finally:
+        _close_owned(qdrant, owned)
+
+
+def check_qdrant_readiness(
+    directory: str | Path,
+    corpus,
+    *,
+    collection: str = DEFAULT_COLLECTION,
+    client=None,
+    credentials=None,
+    timeout: int = 2,
+) -> None:
+    """Check a ready collection with one bounded, read-only metadata request."""
+    _require_collection_name(collection)
+    if isinstance(timeout, bool) or not isinstance(timeout, int) or timeout <= 0:
+        raise ValueError("Qdrant readiness timeout must be a positive integer")
+    expected, point_count = _read_snapshot(directory, corpus)
+    qdrant, owned = _connect(
+        client,
+        credentials,
+        timeout=timeout,
+        check_compatibility=False,
+    )
+    try:
+        info = _collection_info(qdrant, collection)
+        _validate_vector_config(info)
+        _validate_metadata(info, expected, "ready")
+        if getattr(info, "status", None) != models.CollectionStatus.GREEN:
+            raise QdrantIndexError("Qdrant collection is not ready.")
+        if getattr(info, "optimizer_status", None) != models.OptimizersStatusOneOf.OK:
+            raise QdrantIndexError("Qdrant collection optimizers are not ready.")
+        points_count = getattr(info, "points_count", None)
+        if (
+            isinstance(points_count, bool)
+            or not isinstance(points_count, int)
+            or points_count != point_count
+        ):
+            raise QdrantIndexError("Qdrant collection has an unexpected point count.")
     finally:
         _close_owned(qdrant, owned)
 

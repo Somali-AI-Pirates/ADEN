@@ -25,6 +25,14 @@ from app.observability.records import compute_context_hash
 from app.observability.run_store import save_request_failure, save_request_run
 from app.observability.tracing import Tracer
 from app.rag.config import RETRIEVAL_MODE, TableRagSettings, load_table_rag_settings
+from app.rag.admission import (
+    RequestAdmission,
+    RequestBusyError,
+    RequestDeadlineExceeded,
+    RequestReservation,
+    RequestUnavailableError,
+)
+from app.rag.readiness import ReadinessProbe, ReadinessStatus, build_readiness_probe
 from app.rag.corpus import load_corpus
 from app.rag.lifecycle import await_to_completion
 from app.rag.streaming import EventSink
@@ -187,6 +195,8 @@ class RagService:
         run_directory: Path | None = None,
         close_search: Callable[[], None] | None = None,
         resource_stack: AsyncExitStack | None = None,
+        settings: TableRagSettings | None = None,
+        readiness_probe: ReadinessProbe | None = None,
     ) -> None:
         self._page_lookup = page_lookup
         self._model = model
@@ -211,6 +221,21 @@ class RagService:
             self._resource_stack.push_async_callback(
                 _close_async_resource, self._model.aclose
             )
+        self._settings = settings or TableRagSettings()
+        self._admission = RequestAdmission(
+            max_active=self._settings.max_active_requests,
+            max_waiting=self._settings.max_waiting_requests,
+            queue_timeout=self._settings.queue_timeout_seconds,
+            request_timeout=self._settings.request_timeout_seconds,
+        )
+        # Direct dependency injection can supply a probe for its own stores.
+        # The product loader always supplies the concrete bundle/store probe.
+        self._readiness = readiness_probe or ReadinessProbe({"resources": lambda: True})
+        if resource_stack is None:
+            self._resource_stack.push_async_callback(
+                _close_async_resource, self._readiness.aclose
+            )
+        self._close_task: asyncio.Task | None = None
         self.config_hash = _hash(
             json.dumps(manifest, ensure_ascii=False, sort_keys=True)
         )
@@ -242,14 +267,107 @@ class RagService:
             raise asyncio.CancelledError
         return result
 
-    async def ainvoke(
-        self, question: str, *, request_id: str, on_event: EventSink | None = None
-    ) -> RagRun:
+    async def readiness(self) -> ReadinessStatus:
         if self._closed:
-            raise RuntimeError("TableRAG service is closed")
+            return ReadinessStatus(False, {"resources": False, "accepting": False})
+        status = await self._readiness.get()
+        checks = dict(status.checks)
+        checks["accepting"] = self._admission.accepting and not self._closed
+        return ReadinessStatus(all(checks.values()), checks)
+
+    async def reserve_request(self, request_id: str) -> RequestReservation:
+        arrived_at = asyncio.get_running_loop().time()
+        try:
+            if self._closed:
+                raise RequestUnavailableError("TableRAG service is closed")
+            try:
+                async with asyncio.timeout_at(
+                    arrived_at + self._settings.request_timeout_seconds
+                ):
+                    ready = (await self.readiness()).ready
+            except TimeoutError as error:
+                raise RequestDeadlineExceeded(
+                    "Request processing budget exceeded during readiness"
+                ) from error
+            if not ready:
+                raise RequestUnavailableError("Required TableRAG resources are unavailable")
+            reservation = await self._admission.acquire(
+                request_id, arrived_at=arrived_at
+            )
+        except (RequestBusyError, RequestUnavailableError, RequestDeadlineExceeded) as error:
+            logger.info(
+                "rag_admission request_id=%s outcome=%s elapsed_ms=%.3f",
+                request_id, type(error).__name__,
+                (asyncio.get_running_loop().time() - arrived_at) * 1000,
+            )
+            raise
+        except asyncio.CancelledError:
+            logger.info(
+                "rag_admission request_id=%s outcome=cancelled elapsed_ms=%.3f",
+                request_id, (asyncio.get_running_loop().time() - arrived_at) * 1000,
+            )
+            raise
+        logger.info(
+            "rag_admission request_id=%s outcome=accepted queue_ms=%.3f active=%s waiting=%s",
+            request_id, reservation.queue_ms,
+            self._admission.active_count, self._admission.waiting_count,
+        )
+        return reservation
+
+    async def ainvoke(
+        self, question: str, *, request_id: str, on_event: EventSink | None = None,
+        reservation: RequestReservation | None = None,
+    ) -> RagRun:
         question = question.strip()
         if not question:
+            if reservation is not None and reservation.request_id == request_id:
+                reservation.release()
             raise ValueError("질문을 입력해 주세요.")
+        reservation = reservation or await self.reserve_request(request_id)
+        # Claim before entering finally: an invalid/cross-request token must
+        # never release a slot belonging to another execution.
+        reservation.claim(self._admission, request_id)
+        outcome = "error"
+        deadline = asyncio.timeout_at(reservation.deadline)
+        try:
+            async with deadline:
+                if asyncio.get_running_loop().time() >= reservation.deadline:
+                    raise RequestDeadlineExceeded("Request processing budget exceeded")
+                # Recheck cached readiness after waiting for admission.
+                if not (await self.readiness()).ready:
+                    raise RequestUnavailableError("Required TableRAG resources are unavailable")
+                result = await self._execute(
+                    question, request_id=request_id, on_event=on_event
+                )
+            outcome = "complete"
+            return result
+        except TimeoutError as error:
+            exceeded = deadline.expired() or isinstance(error, RequestDeadlineExceeded)
+            outcome = "deadline_exceeded" if exceeded else "model_timeout"
+            if exceeded:
+                raise RequestDeadlineExceeded(
+                    "Request processing budget exceeded"
+                ) from error
+            raise
+        except asyncio.CancelledError:
+            outcome = "cancelled"
+            raise
+        finally:
+            # _run_sync joins in-flight workers before cancellation propagates.
+            # The slot is therefore held through cancellation and atomic saves.
+            self._admission.complete(reservation)
+            logger.info(
+                "rag_request request_id=%s outcome=%s queue_ms=%.3f execution_ms=%.3f "
+                "elapsed_ms=%.3f deadline_overrun_ms=%.3f cleanup_complete=true",
+                request_id, outcome, reservation.queue_ms,
+                (asyncio.get_running_loop().time() - reservation.admitted_at) * 1000,
+                (asyncio.get_running_loop().time() - reservation.arrived_at) * 1000,
+                max(0, asyncio.get_running_loop().time() - reservation.deadline) * 1000,
+            )
+
+    async def _execute(
+        self, question: str, *, request_id: str, on_event: EventSink | None = None
+    ) -> RagRun:
         started = perf_counter()
         trace = self.tracer.start_request(
             request_id,
@@ -366,12 +484,23 @@ class RagService:
         return run
 
     async def aclose(self) -> None:
-        if self._closed:
+        if self._close_task is not None and self._close_task.done():
             return
-        self._closed = True
-        resources, self._resource_stack = self._resource_stack, None
-        if resources is not None:
-            await _close_async_resource(resources.aclose)
+        if self._close_task is None:
+            self._closed = True
+            self._admission.accepting = False
+            self._close_task = asyncio.create_task(self._drain_and_close())
+        _, cancelled = await await_to_completion(self._close_task)
+        if cancelled:
+            raise asyncio.CancelledError
+
+    async def _drain_and_close(self) -> None:
+        try:
+            await self._admission.aclose(self._settings.shutdown_grace_seconds)
+        finally:
+            resources, self._resource_stack = self._resource_stack, None
+            if resources is not None:
+                await _close_async_resource(resources.aclose)
 
 
 def _check_termination(reason: str) -> None:
@@ -549,6 +678,9 @@ async def load_service(
             _close_sync_resource, tracer.shutdown
         )
 
+        readiness_probe = build_readiness_probe(directory, corpus, settings)
+        resources.push_async_callback(_close_async_resource, readiness_probe.aclose)
+
         corpus_manifest = (directory / "corpus.json").read_bytes()
         manifest = {
             "policy": RETRIEVAL_MODE,
@@ -598,6 +730,8 @@ async def load_service(
             record_index=record_index,
             run_directory=settings.run_directory,
             resource_stack=resources,
+            settings=settings,
+            readiness_probe=readiness_probe,
         )
         service._resource_stack = resources.pop_all()
         return service
