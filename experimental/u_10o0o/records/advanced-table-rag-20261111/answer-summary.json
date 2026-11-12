@@ -1,0 +1,60 @@
+{
+  "groups": {
+    "categories_positive": {
+      "baseline": {
+        "complete": 167,
+        "judgeable": 199,
+        "n": 200,
+        "unsupported": 20
+      },
+      "table_rag": {
+        "complete": 175,
+        "judgeable": 199,
+        "n": 200,
+        "unsupported": 21
+      }
+    },
+    "negative_control": {
+      "baseline": {
+        "complete": 19,
+        "judgeable": 20,
+        "n": 20,
+        "unsupported": 4
+      },
+      "table_rag": {
+        "complete": 19,
+        "judgeable": 20,
+        "n": 20,
+        "unsupported": 1
+      }
+    },
+    "official": {
+      "baseline": {
+        "complete": 46,
+        "judgeable": 60,
+        "n": 60,
+        "unsupported": 8
+      },
+      "table_rag": {
+        "complete": 54,
+        "judgeable": 60,
+        "n": 60,
+        "unsupported": 1
+      }
+    }
+  },
+  "human_reviewed": false,
+  "judge": "gpt-6-luna",
+  "prompt_sha256": "0c4f272a6bf80767ef088c2a579103746b1bbb96dc30db2fe177aa5b42851b3c",
+  "reasoning": "medium",
+  "status": {
+    "InternalServerError": 1,
+    "complete": 279
+  },
+  "usage": {
+    "cached_input_tokens": 9520,
+    "input_tokens": 2916862,
+    "output_tokens": 115798,
+    "reasoning_tokens": 77924
+  }
+}

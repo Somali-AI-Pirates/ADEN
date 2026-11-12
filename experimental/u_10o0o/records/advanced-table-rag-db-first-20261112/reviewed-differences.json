@@ -1,0 +1,50 @@
+[
+  {
+    "category": "official_additional",
+    "current": false,
+    "id": "official_additional:AS-ADD09",
+    "reason_current": "봉인 변경을 운송사에 알리는 절차와 기존·새 번호를 함께 보내는 근거가 부족하다.",
+    "reason_unified": "반환 원문이 질문의 필수 요구와 대상·적용 범위를 뒷받침한다.",
+    "unified": true
+  },
+  {
+    "category": "S06",
+    "current": true,
+    "id": "scenarios:AS-S06-20",
+    "reason_current": "반환 원문이 질문의 필수 요구와 대상·적용 범위를 뒷받침한다.",
+    "reason_unified": "두 후보 중 한 사건의 실제 반출일 근거가 최종 문맥에 없어 질문 단서와의 일치를 확인할 수 없다.",
+    "unified": false
+  },
+  {
+    "category": "semantic_queries/rule_paraphrase",
+    "current": false,
+    "id": "semantic_queries:AS-SEM-18",
+    "reason_current": "보관료 감액을 다른 비용에 확대하지 않는 적용 범위 근거가 부족하다.",
+    "reason_unified": "반환 원문이 질문의 필수 요구와 대상·적용 범위를 뒷받침한다.",
+    "unified": true
+  },
+  {
+    "category": "semantic_queries/cross_document_workflow",
+    "current": false,
+    "id": "semantic_queries:AS-SEM-23",
+    "reason_current": "신규 VGM 제출 경로를 확인할 규정이 부족하다.",
+    "reason_unified": "반환 원문이 질문의 필수 요구와 대상·적용 범위를 뒷받침한다.",
+    "unified": true
+  },
+  {
+    "category": "semantic_queries/cross_document_rule",
+    "current": false,
+    "id": "semantic_queries:AS-SEM-35",
+    "reason_current": "개별 무료기간 계약이 기본표를 대체하는 규칙이 빠졌다.",
+    "reason_unified": "반환 원문이 질문의 필수 요구와 대상·적용 범위를 뒷받침한다.",
+    "unified": true
+  },
+  {
+    "category": "semantic_queries/cross_document_rule",
+    "current": false,
+    "id": "semantic_queries:AS-SEM-37",
+    "reason_current": "미발행 계산 초안과 유효 발행 통지의 관계를 확인할 근거가 부족하다.",
+    "reason_unified": "반환 원문이 질문의 필수 요구와 대상·적용 범위를 뒷받침한다.",
+    "unified": true
+  }
+]

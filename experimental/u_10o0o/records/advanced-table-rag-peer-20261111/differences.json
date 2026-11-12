@@ -1,0 +1,410 @@
+[
+  {
+    "adjusted": {
+      "A": true,
+      "B": false
+    },
+    "id": "peer_multi_doc:SY3-adv-014",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "strict_pass_not_semantically_audited",
+      "B": "insufficient"
+    },
+    "split": "peer_multi_doc",
+    "strict": {
+      "A": true,
+      "B": false
+    }
+  },
+  {
+    "adjusted": {
+      "A": false,
+      "B": true
+    },
+    "id": "peer_multi_doc:SY3-adv-018",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "insufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_multi_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": false,
+      "B": true
+    },
+    "id": "peer_multi_doc:SY4-adv-001",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "insufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_multi_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": false
+    },
+    "id": "peer_multi_doc:SY4-adv-019",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "strict_pass_not_semantically_audited",
+      "B": "insufficient"
+    },
+    "split": "peer_multi_doc",
+    "strict": {
+      "A": true,
+      "B": false
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": false
+    },
+    "id": "peer_multi_doc:SY4-adv-021",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "strict_pass_not_semantically_audited",
+      "B": "ambiguous_question"
+    },
+    "split": "peer_multi_doc",
+    "strict": {
+      "A": true,
+      "B": false
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": true
+    },
+    "id": "peer_multi_doc:SYF3-adv-001",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "sufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_multi_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": true
+    },
+    "id": "peer_multi_doc:SYF3-adv-014",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "sufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_multi_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": false
+    },
+    "id": "peer_multi_doc:SYF3-adv-027",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "strict_pass_not_semantically_audited",
+      "B": "insufficient"
+    },
+    "split": "peer_multi_doc",
+    "strict": {
+      "A": true,
+      "B": false
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": true
+    },
+    "id": "peer_multi_doc:SYF3-adv-034",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "strict_pass_not_semantically_audited",
+      "B": "sufficient"
+    },
+    "split": "peer_multi_doc",
+    "strict": {
+      "A": true,
+      "B": false
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": true
+    },
+    "id": "peer_two_doc:SY-adv-010",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "strict_pass_not_semantically_audited",
+      "B": "sufficient"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": true,
+      "B": false
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": true
+    },
+    "id": "peer_two_doc:SY-adv-031",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "sufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": true
+    },
+    "id": "peer_two_doc:SY-adv-035",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "sufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": false,
+      "B": true
+    },
+    "id": "peer_two_doc:SY-adv-055",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "insufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": false,
+      "B": true
+    },
+    "id": "peer_two_doc:SYF-adv-001",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "ambiguous_question",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": false,
+      "B": true
+    },
+    "id": "peer_two_doc:SYF-adv-006",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "insufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": true
+    },
+    "id": "peer_two_doc:SYF-adv-010",
+    "preexisting_ambiguous": false,
+    "review": {
+      "A": "sufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": true
+    },
+    "id": "peer_two_doc:SYF-adv-031",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "sufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": false,
+      "B": true
+    },
+    "id": "peer_two_doc:SYF-adv-037",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "insufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": false,
+      "B": true
+    },
+    "id": "peer_two_doc:SYF-adv-040",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "ambiguous_question",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": false
+    },
+    "id": "peer_two_doc:SYF-adv-045",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "strict_pass_not_semantically_audited",
+      "B": "insufficient"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": true,
+      "B": false
+    }
+  },
+  {
+    "adjusted": {
+      "A": false,
+      "B": true
+    },
+    "id": "peer_two_doc:SYF-adv-046",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "insufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": true
+    },
+    "id": "peer_two_doc:SYF-adv-047",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "strict_pass_not_semantically_audited",
+      "B": "sufficient"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": true,
+      "B": false
+    }
+  },
+  {
+    "adjusted": {
+      "A": false,
+      "B": true
+    },
+    "id": "peer_two_doc:SYF-adv-050",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "insufficient",
+      "B": "strict_pass_not_semantically_audited"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": false,
+      "B": true
+    }
+  },
+  {
+    "adjusted": {
+      "A": true,
+      "B": false
+    },
+    "id": "peer_two_doc:SYF-adv-055",
+    "preexisting_ambiguous": true,
+    "review": {
+      "A": "strict_pass_not_semantically_audited",
+      "B": "insufficient"
+    },
+    "split": "peer_two_doc",
+    "strict": {
+      "A": true,
+      "B": false
+    }
+  }
+]

@@ -1,0 +1,342 @@
+{
+  "count": 30,
+  "family_counts": {
+    "HA": 10,
+    "HG": 10,
+    "IS": 10
+  },
+  "passed": 30,
+  "rows": [
+    {
+      "aggregation_equal": true,
+      "book_id": "AS046",
+      "family": "HG",
+      "original_cells": 2,
+      "page": 97,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_c6e9748b617dc334",
+      "type": "DECIMAL",
+      "typed_cells": 2
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS039",
+      "family": "HG",
+      "original_cells": 4,
+      "page": 69,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_005c890ddea1b5d9",
+      "type": "DECIMAL",
+      "typed_cells": 2
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS119",
+      "family": "HG",
+      "original_cells": 4,
+      "page": 89,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_6318a912a7dc0a09",
+      "type": "DECIMAL",
+      "typed_cells": 2
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS071",
+      "family": "HG",
+      "original_cells": 2,
+      "page": 115,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_c333b1832036eb68",
+      "type": "DECIMAL",
+      "typed_cells": 2
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS093",
+      "family": "HG",
+      "original_cells": 2,
+      "page": 142,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_d95207fe84e49bdf",
+      "type": "DECIMAL",
+      "typed_cells": 2
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS099",
+      "family": "HG",
+      "original_cells": 2,
+      "page": 87,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_a872453daa1cc2d1",
+      "type": "DECIMAL",
+      "typed_cells": 2
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS072",
+      "family": "HG",
+      "original_cells": 6,
+      "page": 117,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_0cd32cd5b1a2a64f",
+      "type": "DECIMAL",
+      "typed_cells": 5
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS101",
+      "family": "HG",
+      "original_cells": 5,
+      "page": 124,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_5aa6b5ec1af44d5c",
+      "type": "DATE",
+      "typed_cells": 5
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS082",
+      "family": "HG",
+      "original_cells": 5,
+      "page": 20,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_2c4db619e98dc5c4",
+      "type": "DATE",
+      "typed_cells": 5
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS075",
+      "family": "HG",
+      "original_cells": 6,
+      "page": 31,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_d39e76a4b8a79763",
+      "type": "DECIMAL",
+      "typed_cells": 2
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS055",
+      "family": "IS",
+      "original_cells": 7,
+      "page": 39,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_f96882943c8d5534",
+      "type": "DECIMAL",
+      "typed_cells": 7
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS013",
+      "family": "IS",
+      "original_cells": 7,
+      "page": 31,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_ef59eb678878902f",
+      "type": "DATE",
+      "typed_cells": 7
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS032",
+      "family": "IS",
+      "original_cells": 8,
+      "page": 80,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_17238c5785ee5103",
+      "type": "DATE",
+      "typed_cells": 3
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS016",
+      "family": "IS",
+      "original_cells": 8,
+      "page": 28,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_7e1985ae64c3392a",
+      "type": "DATE",
+      "typed_cells": 1
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS034",
+      "family": "IS",
+      "original_cells": 7,
+      "page": 76,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_5d855f85aa1489e2",
+      "type": "DATE",
+      "typed_cells": 1
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS049",
+      "family": "IS",
+      "original_cells": 8,
+      "page": 46,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_837787b6121c6a8b",
+      "type": "DATE",
+      "typed_cells": 1
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS024",
+      "family": "IS",
+      "original_cells": 7,
+      "page": 23,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_8aedb05771e570a3",
+      "type": "DATE",
+      "typed_cells": 7
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS003",
+      "family": "HA",
+      "original_cells": 6,
+      "page": 95,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_e2b3b5f47a747bbd",
+      "type": "DECIMAL",
+      "typed_cells": 3
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS004",
+      "family": "HA",
+      "original_cells": 2,
+      "page": 92,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_2ba5a32a422aad58",
+      "type": "DECIMAL",
+      "typed_cells": 1
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS038",
+      "family": "IS",
+      "original_cells": 8,
+      "page": 80,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_f57d060939d13be6",
+      "type": "DATE",
+      "typed_cells": 4
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS006",
+      "family": "HA",
+      "original_cells": 6,
+      "page": 16,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_4ca54888f86cc44b",
+      "type": "DECIMAL",
+      "typed_cells": 6
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS002",
+      "family": "HA",
+      "original_cells": 6,
+      "page": 10,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_6a84afbe2da47858",
+      "type": "DATE",
+      "typed_cells": 6
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS001",
+      "family": "HA",
+      "original_cells": 2,
+      "page": 66,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_5f41894b03d55224",
+      "type": "DECIMAL",
+      "typed_cells": 1
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS004",
+      "family": "HA",
+      "original_cells": 2,
+      "page": 7,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_2bb899203d1a0517",
+      "type": "DECIMAL",
+      "typed_cells": 1
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS006",
+      "family": "HA",
+      "original_cells": 6,
+      "page": 32,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_eb8df3a815c0b6f3",
+      "type": "DECIMAL",
+      "typed_cells": 6
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS001",
+      "family": "HA",
+      "original_cells": 2,
+      "page": 69,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_1f7643d174a6c024",
+      "type": "DECIMAL",
+      "typed_cells": 1
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS027",
+      "family": "IS",
+      "original_cells": 8,
+      "page": 53,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_208a50644a06dac3",
+      "type": "DATE",
+      "typed_cells": 8
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS003",
+      "family": "HA",
+      "original_cells": 6,
+      "page": 30,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_693a9a7251b3b216",
+      "type": "DECIMAL",
+      "typed_cells": 6
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS002",
+      "family": "HA",
+      "original_cells": 6,
+      "page": 98,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_f2c2051965168ad1",
+      "type": "DATE",
+      "typed_cells": 6
+    },
+    {
+      "aggregation_equal": true,
+      "book_id": "AS051",
+      "family": "IS",
+      "original_cells": 8,
+      "page": 64,
+      "raw_value_and_unit_equal": true,
+      "table_id": "t_8fed67c8f03e8c74",
+      "type": "DATE",
+      "typed_cells": 4
+    }
+  ],
+  "scope": "source-derived SQL/value checks; not natural-language query accuracy or human validation"
+}

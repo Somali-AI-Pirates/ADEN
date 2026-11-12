@@ -1,0 +1,42 @@
+[
+  {
+    "category": "official_development",
+    "current": true,
+    "id": "official_development:AS-DEV02",
+    "reason_current": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "reason_unified": "최초 예약 신청 창구의 직접 근거가 부족하며 예약 변경 연락처로 대신했다.",
+    "unified": false
+  },
+  {
+    "category": "official_development",
+    "current": false,
+    "id": "official_development:AS-DEV09",
+    "reason_current": "SI 정정 메일의 예약 식별정보·첨부자료 등 필수 제출 내용이 부족하다.",
+    "reason_unified": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "unified": true
+  },
+  {
+    "category": "semantic_queries/cross_document_workflow",
+    "current": false,
+    "id": "semantic_queries:AS-SEM-22",
+    "reason_current": "중량 정정은 확보했으나 장비 배정 변경의 요청 정보·절차가 빠졌다.",
+    "reason_unified": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "unified": true
+  },
+  {
+    "category": "semantic_queries/cross_document_rule",
+    "current": false,
+    "id": "semantic_queries:AS-SEM-31",
+    "reason_current": "SI 기한과 반입 회신은 있으나 기존 VGM 정정 경로가 빠졌다.",
+    "reason_unified": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "unified": true
+  },
+  {
+    "category": "semantic_queries/cross_document_rule",
+    "current": false,
+    "id": "semantic_queries:AS-SEM-37",
+    "reason_current": "감액 대체는 확보했으나 미발행 계산 초안과 유효 발행 통지의 관계가 빠졌다.",
+    "reason_unified": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "unified": true
+  }
+]

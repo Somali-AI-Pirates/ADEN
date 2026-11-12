@@ -1,0 +1,576 @@
+{
+  "A": {
+    "official_additional": {
+      "excluded": 0,
+      "mean_context_tokens": 3989.7241379310344,
+      "mean_returned_pages": 7.172413793103448,
+      "scored": 29,
+      "stages": {
+        "after_hg": {
+          "complete": 16,
+          "complete_rate": 0.5517241379310345,
+          "document_recall": 0.9310344827586207,
+          "hit": 0.9310344827586207,
+          "matched_pages": 68,
+          "mrr": 0.8620689655172413,
+          "ndcg": 0.7462104230321471,
+          "page_recall": 0.764367816091954,
+          "required_pages": 84,
+          "strict_all_pages": 16
+        },
+        "available": {
+          "complete": 20,
+          "complete_rate": 0.6896551724137931,
+          "document_recall": 0.9741379310344828,
+          "hit": 0.9310344827586207,
+          "matched_pages": 73,
+          "mrr": 0.8347701149425287,
+          "ndcg": 0.7911198692359235,
+          "page_recall": 0.8304597701149425,
+          "required_pages": 84,
+          "strict_all_pages": 20
+        },
+        "final": {
+          "complete": 18,
+          "complete_rate": 0.6206896551724138,
+          "document_recall": 0.9109195402298851,
+          "hit": 0.9310344827586207,
+          "matched_pages": 70,
+          "mrr": 0.8347701149425287,
+          "ndcg": 0.7793311446230047,
+          "page_recall": 0.8017241379310345,
+          "required_pages": 84,
+          "strict_all_pages": 18
+        },
+        "initial": {
+          "complete": 16,
+          "complete_rate": 0.5517241379310345,
+          "document_recall": 0.9310344827586207,
+          "hit": 0.9310344827586207,
+          "matched_pages": 68,
+          "mrr": 0.8620689655172413,
+          "ndcg": 0.7462104230321471,
+          "page_recall": 0.764367816091954,
+          "required_pages": 84,
+          "strict_all_pages": 16
+        }
+      },
+      "total": 29
+    },
+    "official_all": {
+      "excluded": 0,
+      "mean_context_tokens": 4032.2413793103447,
+      "mean_returned_pages": 7.224137931034483,
+      "scored": 58,
+      "stages": {
+        "after_hg": {
+          "complete": 37,
+          "complete_rate": 0.6379310344827587,
+          "document_recall": 0.9195402298850575,
+          "hit": 0.9655172413793104,
+          "matched_pages": 143,
+          "mrr": 0.9070881226053641,
+          "ndcg": 0.7978096166417121,
+          "page_recall": 0.824712643678161,
+          "required_pages": 170,
+          "strict_all_pages": 37
+        },
+        "available": {
+          "complete": 41,
+          "complete_rate": 0.7068965517241379,
+          "document_recall": 0.9454022988505748,
+          "hit": 0.9655172413793104,
+          "matched_pages": 149,
+          "mrr": 0.8934386973180076,
+          "ndcg": 0.8373029147903257,
+          "page_recall": 0.860632183908046,
+          "required_pages": 170,
+          "strict_all_pages": 41
+        },
+        "final": {
+          "complete": 39,
+          "complete_rate": 0.6724137931034483,
+          "document_recall": 0.9051724137931034,
+          "hit": 0.9482758620689655,
+          "matched_pages": 145,
+          "mrr": 0.8915229885057472,
+          "ndcg": 0.8282262128842186,
+          "page_recall": 0.8376436781609196,
+          "required_pages": 170,
+          "strict_all_pages": 39
+        },
+        "initial": {
+          "complete": 37,
+          "complete_rate": 0.6379310344827587,
+          "document_recall": 0.9195402298850575,
+          "hit": 0.9655172413793104,
+          "matched_pages": 143,
+          "mrr": 0.9070881226053641,
+          "ndcg": 0.7978096166417121,
+          "page_recall": 0.824712643678161,
+          "required_pages": 170,
+          "strict_all_pages": 37
+        }
+      },
+      "total": 58
+    },
+    "official_complex_groups": {
+      "excluded": 0,
+      "mean_context_tokens": 3922.5882352941176,
+      "mean_returned_pages": 7.117647058823529,
+      "scored": 51,
+      "stages": {
+        "after_hg": {
+          "complete": 32,
+          "complete_rate": 0.6274509803921569,
+          "document_recall": 0.9084967320261438,
+          "hit": 1.0,
+          "matched_pages": 138,
+          "mrr": 0.9335511982570807,
+          "ndcg": 0.8092736816709667,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 32
+        },
+        "available": {
+          "complete": 36,
+          "complete_rate": 0.7058823529411765,
+          "document_recall": 0.9379084967320261,
+          "hit": 1.0,
+          "matched_pages": 144,
+          "mrr": 0.9180283224400871,
+          "ndcg": 0.8541876285850762,
+          "page_recall": 0.880718954248366,
+          "required_pages": 163,
+          "strict_all_pages": 36
+        },
+        "final": {
+          "complete": 34,
+          "complete_rate": 0.6666666666666666,
+          "document_recall": 0.8921568627450981,
+          "hit": 0.9803921568627451,
+          "matched_pages": 140,
+          "mrr": 0.9158496732026145,
+          "ndcg": 0.8438651048487191,
+          "page_recall": 0.8545751633986929,
+          "required_pages": 163,
+          "strict_all_pages": 34
+        },
+        "initial": {
+          "complete": 32,
+          "complete_rate": 0.6274509803921569,
+          "document_recall": 0.9084967320261438,
+          "hit": 1.0,
+          "matched_pages": 138,
+          "mrr": 0.9335511982570807,
+          "ndcg": 0.8092736816709667,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 32
+        }
+      },
+      "total": 51
+    },
+    "official_development": {
+      "excluded": 0,
+      "mean_context_tokens": 4074.7586206896553,
+      "mean_returned_pages": 7.275862068965517,
+      "scored": 29,
+      "stages": {
+        "after_hg": {
+          "complete": 21,
+          "complete_rate": 0.7241379310344828,
+          "document_recall": 0.9080459770114943,
+          "hit": 1.0,
+          "matched_pages": 75,
+          "mrr": 0.9521072796934866,
+          "ndcg": 0.8494088102512771,
+          "page_recall": 0.8850574712643678,
+          "required_pages": 86,
+          "strict_all_pages": 21
+        },
+        "available": {
+          "complete": 21,
+          "complete_rate": 0.7241379310344828,
+          "document_recall": 0.9166666666666666,
+          "hit": 1.0,
+          "matched_pages": 76,
+          "mrr": 0.9521072796934866,
+          "ndcg": 0.8834859603447278,
+          "page_recall": 0.8908045977011494,
+          "required_pages": 86,
+          "strict_all_pages": 21
+        },
+        "final": {
+          "complete": 21,
+          "complete_rate": 0.7241379310344828,
+          "document_recall": 0.8994252873563218,
+          "hit": 0.9655172413793104,
+          "matched_pages": 75,
+          "mrr": 0.9482758620689655,
+          "ndcg": 0.8771212811454324,
+          "page_recall": 0.8735632183908045,
+          "required_pages": 86,
+          "strict_all_pages": 21
+        },
+        "initial": {
+          "complete": 21,
+          "complete_rate": 0.7241379310344828,
+          "document_recall": 0.9080459770114943,
+          "hit": 1.0,
+          "matched_pages": 75,
+          "mrr": 0.9521072796934866,
+          "ndcg": 0.8494088102512771,
+          "page_recall": 0.8850574712643678,
+          "required_pages": 86,
+          "strict_all_pages": 21
+        }
+      },
+      "total": 29
+    },
+    "official_multi_page": {
+      "excluded": 0,
+      "mean_context_tokens": 3922.5882352941176,
+      "mean_returned_pages": 7.117647058823529,
+      "scored": 51,
+      "stages": {
+        "after_hg": {
+          "complete": 32,
+          "complete_rate": 0.6274509803921569,
+          "document_recall": 0.9084967320261438,
+          "hit": 1.0,
+          "matched_pages": 138,
+          "mrr": 0.9335511982570807,
+          "ndcg": 0.8092736816709667,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 32
+        },
+        "available": {
+          "complete": 36,
+          "complete_rate": 0.7058823529411765,
+          "document_recall": 0.9379084967320261,
+          "hit": 1.0,
+          "matched_pages": 144,
+          "mrr": 0.9180283224400871,
+          "ndcg": 0.8541876285850762,
+          "page_recall": 0.880718954248366,
+          "required_pages": 163,
+          "strict_all_pages": 36
+        },
+        "final": {
+          "complete": 34,
+          "complete_rate": 0.6666666666666666,
+          "document_recall": 0.8921568627450981,
+          "hit": 0.9803921568627451,
+          "matched_pages": 140,
+          "mrr": 0.9158496732026145,
+          "ndcg": 0.8438651048487191,
+          "page_recall": 0.8545751633986929,
+          "required_pages": 163,
+          "strict_all_pages": 34
+        },
+        "initial": {
+          "complete": 32,
+          "complete_rate": 0.6274509803921569,
+          "document_recall": 0.9084967320261438,
+          "hit": 1.0,
+          "matched_pages": 138,
+          "mrr": 0.9335511982570807,
+          "ndcg": 0.8092736816709667,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 32
+        }
+      },
+      "total": 51
+    }
+  },
+  "B": {
+    "official_additional": {
+      "excluded": 0,
+      "mean_context_tokens": 3982.9655172413795,
+      "mean_returned_pages": 7.172413793103448,
+      "scored": 29,
+      "stages": {
+        "after_hg": {
+          "complete": 16,
+          "complete_rate": 0.5517241379310345,
+          "document_recall": 0.9310344827586207,
+          "hit": 0.9310344827586207,
+          "matched_pages": 68,
+          "mrr": 0.8620689655172413,
+          "ndcg": 0.7462104230321471,
+          "page_recall": 0.764367816091954,
+          "required_pages": 84,
+          "strict_all_pages": 16
+        },
+        "available": {
+          "complete": 18,
+          "complete_rate": 0.6206896551724138,
+          "document_recall": 0.9827586206896551,
+          "hit": 0.9310344827586207,
+          "matched_pages": 73,
+          "mrr": 0.9080459770114943,
+          "ndcg": 0.8105163226265021,
+          "page_recall": 0.8132183908045977,
+          "required_pages": 84,
+          "strict_all_pages": 18
+        },
+        "final": {
+          "complete": 16,
+          "complete_rate": 0.5517241379310345,
+          "document_recall": 0.92816091954023,
+          "hit": 0.9310344827586207,
+          "matched_pages": 70,
+          "mrr": 0.9080459770114943,
+          "ndcg": 0.7987275980135833,
+          "page_recall": 0.7844827586206896,
+          "required_pages": 84,
+          "strict_all_pages": 16
+        },
+        "initial": {
+          "complete": 16,
+          "complete_rate": 0.5517241379310345,
+          "document_recall": 0.9310344827586207,
+          "hit": 0.9310344827586207,
+          "matched_pages": 68,
+          "mrr": 0.8620689655172413,
+          "ndcg": 0.7462104230321471,
+          "page_recall": 0.764367816091954,
+          "required_pages": 84,
+          "strict_all_pages": 16
+        }
+      },
+      "total": 29
+    },
+    "official_all": {
+      "excluded": 0,
+      "mean_context_tokens": 4036.655172413793,
+      "mean_returned_pages": 7.224137931034483,
+      "scored": 58,
+      "stages": {
+        "after_hg": {
+          "complete": 37,
+          "complete_rate": 0.6379310344827587,
+          "document_recall": 0.9195402298850575,
+          "hit": 0.9655172413793104,
+          "matched_pages": 143,
+          "mrr": 0.9070881226053641,
+          "ndcg": 0.7978096166417121,
+          "page_recall": 0.824712643678161,
+          "required_pages": 170,
+          "strict_all_pages": 37
+        },
+        "available": {
+          "complete": 39,
+          "complete_rate": 0.6724137931034483,
+          "document_recall": 0.9454022988505748,
+          "hit": 0.9655172413793104,
+          "matched_pages": 149,
+          "mrr": 0.9300766283524904,
+          "ndcg": 0.8466354761710271,
+          "page_recall": 0.853448275862069,
+          "required_pages": 170,
+          "strict_all_pages": 39
+        },
+        "final": {
+          "complete": 36,
+          "complete_rate": 0.6206896551724138,
+          "document_recall": 0.9094827586206896,
+          "hit": 0.9482758620689655,
+          "matched_pages": 144,
+          "mrr": 0.92816091954023,
+          "ndcg": 0.8356184485960325,
+          "page_recall": 0.824712643678161,
+          "required_pages": 170,
+          "strict_all_pages": 36
+        },
+        "initial": {
+          "complete": 37,
+          "complete_rate": 0.6379310344827587,
+          "document_recall": 0.9195402298850575,
+          "hit": 0.9655172413793104,
+          "matched_pages": 143,
+          "mrr": 0.9070881226053641,
+          "ndcg": 0.7978096166417121,
+          "page_recall": 0.824712643678161,
+          "required_pages": 170,
+          "strict_all_pages": 37
+        }
+      },
+      "total": 58
+    },
+    "official_complex_groups": {
+      "excluded": 0,
+      "mean_context_tokens": 3927.607843137255,
+      "mean_returned_pages": 7.117647058823529,
+      "scored": 51,
+      "stages": {
+        "after_hg": {
+          "complete": 32,
+          "complete_rate": 0.6274509803921569,
+          "document_recall": 0.9084967320261438,
+          "hit": 1.0,
+          "matched_pages": 138,
+          "mrr": 0.9335511982570807,
+          "ndcg": 0.8092736816709667,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 32
+        },
+        "available": {
+          "complete": 34,
+          "complete_rate": 0.6666666666666666,
+          "document_recall": 0.9379084967320261,
+          "hit": 1.0,
+          "matched_pages": 144,
+          "mrr": 0.9596949891067538,
+          "ndcg": 0.8648011297631288,
+          "page_recall": 0.8725490196078431,
+          "required_pages": 163,
+          "strict_all_pages": 34
+        },
+        "final": {
+          "complete": 31,
+          "complete_rate": 0.6078431372549019,
+          "document_recall": 0.8970588235294118,
+          "hit": 0.9803921568627451,
+          "matched_pages": 139,
+          "mrr": 0.9575163398692811,
+          "ndcg": 0.8522719611484292,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 31
+        },
+        "initial": {
+          "complete": 32,
+          "complete_rate": 0.6274509803921569,
+          "document_recall": 0.9084967320261438,
+          "hit": 1.0,
+          "matched_pages": 138,
+          "mrr": 0.9335511982570807,
+          "ndcg": 0.8092736816709667,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 32
+        }
+      },
+      "total": 51
+    },
+    "official_development": {
+      "excluded": 0,
+      "mean_context_tokens": 4090.344827586207,
+      "mean_returned_pages": 7.275862068965517,
+      "scored": 29,
+      "stages": {
+        "after_hg": {
+          "complete": 21,
+          "complete_rate": 0.7241379310344828,
+          "document_recall": 0.9080459770114943,
+          "hit": 1.0,
+          "matched_pages": 75,
+          "mrr": 0.9521072796934866,
+          "ndcg": 0.8494088102512771,
+          "page_recall": 0.8850574712643678,
+          "required_pages": 86,
+          "strict_all_pages": 21
+        },
+        "available": {
+          "complete": 21,
+          "complete_rate": 0.7241379310344828,
+          "document_recall": 0.9080459770114943,
+          "hit": 1.0,
+          "matched_pages": 76,
+          "mrr": 0.9521072796934866,
+          "ndcg": 0.8827546297155521,
+          "page_recall": 0.8936781609195402,
+          "required_pages": 86,
+          "strict_all_pages": 21
+        },
+        "final": {
+          "complete": 20,
+          "complete_rate": 0.6896551724137931,
+          "document_recall": 0.8908045977011494,
+          "hit": 0.9655172413793104,
+          "matched_pages": 74,
+          "mrr": 0.9482758620689655,
+          "ndcg": 0.872509299178482,
+          "page_recall": 0.8649425287356322,
+          "required_pages": 86,
+          "strict_all_pages": 20
+        },
+        "initial": {
+          "complete": 21,
+          "complete_rate": 0.7241379310344828,
+          "document_recall": 0.9080459770114943,
+          "hit": 1.0,
+          "matched_pages": 75,
+          "mrr": 0.9521072796934866,
+          "ndcg": 0.8494088102512771,
+          "page_recall": 0.8850574712643678,
+          "required_pages": 86,
+          "strict_all_pages": 21
+        }
+      },
+      "total": 29
+    },
+    "official_multi_page": {
+      "excluded": 0,
+      "mean_context_tokens": 3927.607843137255,
+      "mean_returned_pages": 7.117647058823529,
+      "scored": 51,
+      "stages": {
+        "after_hg": {
+          "complete": 32,
+          "complete_rate": 0.6274509803921569,
+          "document_recall": 0.9084967320261438,
+          "hit": 1.0,
+          "matched_pages": 138,
+          "mrr": 0.9335511982570807,
+          "ndcg": 0.8092736816709667,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 32
+        },
+        "available": {
+          "complete": 34,
+          "complete_rate": 0.6666666666666666,
+          "document_recall": 0.9379084967320261,
+          "hit": 1.0,
+          "matched_pages": 144,
+          "mrr": 0.9596949891067538,
+          "ndcg": 0.8648011297631288,
+          "page_recall": 0.8725490196078431,
+          "required_pages": 163,
+          "strict_all_pages": 34
+        },
+        "final": {
+          "complete": 31,
+          "complete_rate": 0.6078431372549019,
+          "document_recall": 0.8970588235294118,
+          "hit": 0.9803921568627451,
+          "matched_pages": 139,
+          "mrr": 0.9575163398692811,
+          "ndcg": 0.8522719611484292,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 31
+        },
+        "initial": {
+          "complete": 32,
+          "complete_rate": 0.6274509803921569,
+          "document_recall": 0.9084967320261438,
+          "hit": 1.0,
+          "matched_pages": 138,
+          "mrr": 0.9335511982570807,
+          "ndcg": 0.8092736816709667,
+          "page_recall": 0.8398692810457516,
+          "required_pages": 163,
+          "strict_all_pages": 32
+        }
+      },
+      "total": 51
+    }
+  }
+}

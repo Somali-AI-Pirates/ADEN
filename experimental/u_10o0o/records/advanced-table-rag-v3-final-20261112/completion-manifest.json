@@ -1,0 +1,23 @@
+{
+  "changed_source_files": {
+    "experimental/u_10o0o/table_rag/benchmark.py": "bd0af5a0263c89c01192e3b9891c193a34d63bd087355f8f44e4a64400b3dc00",
+    "experimental/u_10o0o/table_rag/test_default_policy.py": "9381082aabe36e826f738cf98a485ecf2d855af95881c1654b8bfc464d399164",
+    "experimental/u_10o0o/table_rag/README.md": "36d8587aa1f24fc9298f64bdf1275173a1758e1b27af6ba24d9973d4bfba7ac9",
+    "experimental/u_10o0o/records/advanced-table-rag-preservation-20261111/baseline.md": "e2aa1b16d1ad79d8698c66bf8e0fbcf31d27c73468fd3bce1aa368beacf992b9"
+  },
+  "record_files": {
+    "verification.md": "cb9df56e78a96da906ccd76fc3e488c45d0125e8dfffb41c4d65b2fcf8e3f0c8",
+    "diagnosis-summary.json": "278e9f573560a081f2886d14f086d72c593c137954c61885cc720d609af65302",
+    "report.md": "7aa7b417749095cad8396335187997fe22954c89b2f750df9791f9edc18c905f",
+    "work-log.md": "eb499066acb8534571073ba80e6455e48d77f6f4310f81eee730109e00d7769a",
+    "diagnosis-inputs.json": "fbb1a6a545614d8ed95b29d0cf3266a4c3abda7dfc20a01301839885b03dc5c6",
+    "failure-stages.json": "43cb09a98335bc3953aefc6192d0bbc34083995665eb40f9895f053217315ec6",
+    "analyze.py": "6da5229a33afeb1b44d959831b53942c2e47fecae48a96af160f9263d33f5833",
+    "ambiguity.json": "e62361ba613fd0877922f7dd5ae9b45ca7eb0b912b8be4a1ff0040f90bb9a7e3"
+  },
+  "source_diff_sha256": "d6c0bbcaea12fdd8f80b6ef999e1719ddde455ad3d0a45ad6fa42fadb612d6a7",
+  "private_diagnosis_sha256": "4cbd74a0f98acdf9b3cd5795487b27ca523111f37050c684eae2b4c25fa1c65a",
+  "new_api_calls": 0,
+  "default_policy": "KURE-v3 B",
+  "independent_review": false
+}

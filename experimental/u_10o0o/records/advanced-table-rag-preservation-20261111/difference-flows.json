@@ -1,0 +1,132 @@
+[
+  {
+    "id": "peer_multi_doc:SY3-adv-004",
+    "arm": "A",
+    "finish": "sufficient",
+    "missing_groups": []
+  },
+  {
+    "id": "peer_multi_doc:SY3-adv-004",
+    "arm": "B",
+    "finish": "sufficient",
+    "missing_groups": [
+      {
+        "source_id": "AS056:p0056",
+        "search_hits": [
+          {
+            "search": 0,
+            "rank": 20,
+            "within_excerpt_top8": false
+          },
+          {
+            "search": 2,
+            "rank": 15,
+            "within_excerpt_top8": false
+          }
+        ],
+        "in_candidate20": false,
+        "selected_by_planner": false
+      }
+    ]
+  },
+  {
+    "id": "peer_multi_doc:SY3-adv-027",
+    "arm": "A",
+    "finish": "sufficient",
+    "missing_groups": []
+  },
+  {
+    "id": "peer_multi_doc:SY3-adv-027",
+    "arm": "B",
+    "finish": "needs_clarification",
+    "missing_groups": [
+      {
+        "source_id": "AS015:p0034",
+        "search_hits": [
+          {
+            "search": 0,
+            "rank": 16,
+            "within_excerpt_top8": false
+          },
+          {
+            "search": 1,
+            "rank": 11,
+            "within_excerpt_top8": false
+          },
+          {
+            "search": 3,
+            "rank": 9,
+            "within_excerpt_top8": false
+          }
+        ],
+        "in_candidate20": false,
+        "selected_by_planner": false
+      }
+    ]
+  },
+  {
+    "id": "peer_multi_doc:SYF3-adv-027",
+    "arm": "A",
+    "finish": "sufficient",
+    "missing_groups": []
+  },
+  {
+    "id": "peer_multi_doc:SYF3-adv-027",
+    "arm": "B",
+    "finish": "needs_clarification",
+    "missing_groups": [
+      {
+        "source_id": "AS015:p0034",
+        "search_hits": [
+          {
+            "search": 0,
+            "rank": 19,
+            "within_excerpt_top8": false
+          },
+          {
+            "search": 1,
+            "rank": 18,
+            "within_excerpt_top8": false
+          },
+          {
+            "search": 2,
+            "rank": 15,
+            "within_excerpt_top8": false
+          }
+        ],
+        "in_candidate20": false,
+        "selected_by_planner": false
+      }
+    ]
+  },
+  {
+    "id": "peer_multi_doc:SYF4-adv-033",
+    "arm": "A",
+    "finish": "needs_clarification",
+    "missing_groups": [
+      {
+        "source_id": "AS008:p0007",
+        "search_hits": [
+          {
+            "search": 0,
+            "rank": 10,
+            "within_excerpt_top8": false
+          },
+          {
+            "search": 2,
+            "rank": 9,
+            "within_excerpt_top8": false
+          }
+        ],
+        "in_candidate20": false,
+        "selected_by_planner": false
+      }
+    ]
+  },
+  {
+    "id": "peer_multi_doc:SYF4-adv-033",
+    "arm": "B",
+    "finish": "needs_clarification",
+    "missing_groups": []
+  }
+]

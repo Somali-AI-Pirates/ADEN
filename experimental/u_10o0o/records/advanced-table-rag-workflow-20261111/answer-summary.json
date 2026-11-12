@@ -1,0 +1,200 @@
+{
+  "groups": {
+    "S01": {
+      "baseline": {
+        "complete": 19,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 1
+      },
+      "workflow": {
+        "complete": 20,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 0
+      }
+    },
+    "S02": {
+      "baseline": {
+        "complete": 20,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 0
+      },
+      "workflow": {
+        "complete": 19,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 1
+      }
+    },
+    "S03": {
+      "baseline": {
+        "complete": 18,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 2
+      },
+      "workflow": {
+        "complete": 20,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 0
+      }
+    },
+    "S04": {
+      "baseline": {
+        "complete": 20,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 1
+      },
+      "workflow": {
+        "complete": 18,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 0
+      }
+    },
+    "S05": {
+      "baseline": {
+        "complete": 20,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 0
+      },
+      "workflow": {
+        "complete": 19,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 1
+      }
+    },
+    "S06": {
+      "baseline": {
+        "complete": 4,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 16
+      },
+      "workflow": {
+        "complete": 4,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 15
+      }
+    },
+    "S07": {
+      "baseline": {
+        "complete": 19,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 1
+      },
+      "workflow": {
+        "complete": 20,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 0
+      }
+    },
+    "categories_positive": {
+      "baseline": {
+        "complete": 155,
+        "eligible": 200,
+        "excluded": 0,
+        "n": 200,
+        "unsupported": 34
+      },
+      "workflow": {
+        "complete": 163,
+        "eligible": 200,
+        "excluded": 0,
+        "n": 200,
+        "unsupported": 22
+      }
+    },
+    "negative_control": {
+      "baseline": {
+        "complete": 19,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 3
+      },
+      "workflow": {
+        "complete": 20,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 0
+      }
+    },
+    "official": {
+      "baseline": {
+        "complete": 44,
+        "eligible": 60,
+        "excluded": 0,
+        "n": 60,
+        "unsupported": 3
+      },
+      "workflow": {
+        "complete": 46,
+        "eligible": 60,
+        "excluded": 0,
+        "n": 60,
+        "unsupported": 4
+      }
+    },
+    "semantic_queries": {
+      "baseline": {
+        "complete": 20,
+        "eligible": 40,
+        "excluded": 0,
+        "n": 40,
+        "unsupported": 10
+      },
+      "workflow": {
+        "complete": 27,
+        "eligible": 40,
+        "excluded": 0,
+        "n": 40,
+        "unsupported": 3
+      }
+    },
+    "work_rules": {
+      "baseline": {
+        "complete": 15,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 3
+      },
+      "workflow": {
+        "complete": 16,
+        "eligible": 20,
+        "excluded": 0,
+        "n": 20,
+        "unsupported": 2
+      }
+    }
+  },
+  "human_reviewed": false,
+  "status": {
+    "complete": 280
+  }
+}

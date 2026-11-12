@@ -1,0 +1,31 @@
+{
+  "boundaries": [
+    "Old option-off prompt and tools unchanged",
+    "No labels supplied to retrieval",
+    "Read passage quotations required; preview does not qualify",
+    "Final quotation retention checked",
+    "Original API timeout/retry/step/page/token limits preserved",
+    "No other authors files edited"
+  ],
+  "cli_help": "passed query --help",
+  "combined_tests": "408 passed, 15 subtests passed",
+  "files": {
+    "experimental/u_10o0o/table_rag_unified/README.md": "2ab55ad9f360a9d59da2876b6b0a6c30b228bb192266bf800df6df07a988d7fe",
+    "experimental/u_10o0o/table_rag_unified/__main__.py": "48168ce08f9028f7d399c001c134a2eacf97e5dc540ee884b893115fa40f4e91",
+    "experimental/u_10o0o/table_rag_unified/agent.py": "bea3ea2e0b85999a90ad9e16ce31dbc5d2751d9feebcaab623f3db3485e2d3cb",
+    "experimental/u_10o0o/table_rag_unified/evidence.py": "09cdfef933c09c8e302bf2bf5cfaf56dc5d26b8c9709722bb9a86cfc24597b39",
+    "experimental/u_10o0o/table_rag_unified/test_evidence.py": "a7914c60ef733024d4cffc18425604423922619ff5f984c79fa2086c4c36a14b"
+  },
+  "findings_resolved": [
+    "Experimental paths excluded by project Ruff; focused checks use explicit lint rules and isolated paths.",
+    "Runner imports reordered before any live request; protocol finalized before execution."
+  ],
+  "focused_ruff": "passed E4,E7,E9,F",
+  "focused_tests": "28 passed",
+  "limitations": [
+    "Semantic request completeness is measured post hoc, not guaranteed by syntax validation.",
+    "No independent human or sub-agent review."
+  ],
+  "repository_ruff": "Final check passed after the parallel owner changed app/rag/cli.py; this task did not modify it.",
+  "review_type": "self-review; independent agent review prohibited by side-conversation instruction"
+}

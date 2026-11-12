@@ -1,0 +1,20 @@
+{
+  "checks": [
+    "all_56_final_reviews_with_source_hashes_and_quotes",
+    "missing_review_rejected",
+    "duplicate_review_rejected",
+    "unfinished_review_rejected",
+    "changed_source_hash_rejected",
+    "unsupported_success_rejected",
+    "fabricated_quote_rejected",
+    "unreturned_source_rejected",
+    "unfinished_verdict_rejected",
+    "inconsistent_verdict_rejected",
+    "258_scored_20_out_of_scope_per_arm",
+    "ambiguous_case_kept_in_denominator",
+    "reviewed_metrics_reconcile"
+  ],
+  "count": 13,
+  "model_api_calls": 0,
+  "status": "passed"
+}

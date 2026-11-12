@@ -1,0 +1,30 @@
+{
+  "A": {
+    "count": 278,
+    "fast_path": 0,
+    "max_api_calls": 6,
+    "max_hybrid_calls": 5,
+    "plan_validation_fallbacks": 0,
+    "request_counts": {
+      "0": 278
+    },
+    "selection_errors": 0,
+    "within_page_token_limits": true
+  },
+  "B": {
+    "count": 278,
+    "fast_path": 0,
+    "max_api_calls": 3,
+    "max_hybrid_calls": 5,
+    "plan_validation_fallbacks": 89,
+    "request_counts": {
+      "0": 2,
+      "1": 171,
+      "2": 86,
+      "3": 14,
+      "4": 5
+    },
+    "selection_errors": 8,
+    "within_page_token_limits": true
+  }
+}

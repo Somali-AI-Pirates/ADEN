@@ -1,0 +1,4698 @@
+[
+  {
+    "arms": {
+      "A": {
+        "all_search_union": {
+          "all_groups": 1,
+          "all_pages": 1,
+          "document_recall": 1.0,
+          "group_recall": 1.0,
+          "hit": 1,
+          "matched_groups": 4,
+          "matched_pages": 4,
+          "mrr": 1.0,
+          "ndcg": 0.8105220141784195,
+          "page_recall": 1.0,
+          "required_groups": 4,
+          "required_pages": 4
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS089",
+            "page": 82
+          },
+          {
+            "book_id": "AS090",
+            "page": 82
+          },
+          {
+            "book_id": "AS091",
+            "page": 82
+          },
+          {
+            "book_id": "AS088",
+            "page": 82
+          },
+          {
+            "book_id": "AS119",
+            "page": 13
+          },
+          {
+            "book_id": "AS072",
+            "page": 53
+          },
+          {
+            "book_id": "AS119",
+            "page": 21
+          },
+          {
+            "book_id": "AS080",
+            "page": 96
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS091",
+              "page": 82
+            },
+            {
+              "book_id": "AS090",
+              "page": 82
+            },
+            {
+              "book_id": "AS119",
+              "page": 13
+            },
+            {
+              "book_id": "AS072",
+              "page": 53
+            },
+            {
+              "book_id": "AS119",
+              "page": 21
+            },
+            {
+              "book_id": "AS080",
+              "page": 96
+            },
+            {
+              "book_id": "AS014",
+              "page": 100
+            },
+            {
+              "book_id": "AS014",
+              "page": 108
+            },
+            {
+              "book_id": "AS074",
+              "page": 2
+            },
+            {
+              "book_id": "AS074",
+              "page": 10
+            },
+            {
+              "book_id": "AS059",
+              "page": 90
+            },
+            {
+              "book_id": "AS109",
+              "page": 66
+            },
+            {
+              "book_id": "AS089",
+              "page": 44
+            },
+            {
+              "book_id": "AS094",
+              "page": 67
+            },
+            {
+              "book_id": "AS079",
+              "page": 130
+            },
+            {
+              "book_id": "AS079",
+              "page": 145
+            },
+            {
+              "book_id": "AS029",
+              "page": 97
+            },
+            {
+              "book_id": "AS101",
+              "page": 117
+            },
+            {
+              "book_id": "AS014",
+              "page": 115
+            },
+            {
+              "book_id": "AS058",
+              "page": 109
+            }
+          ],
+          [
+            {
+              "book_id": "AS088",
+              "page": 82
+            },
+            {
+              "book_id": "AS089",
+              "page": 82
+            },
+            {
+              "book_id": "AS090",
+              "page": 82
+            },
+            {
+              "book_id": "AS091",
+              "page": 82
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.75,
+            "group_recall": 0.5,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 0.6366824387328317,
+            "page_recall": 0.5,
+            "required_groups": 4,
+            "required_pages": 4
+          },
+          "available": {
+            "all_groups": 1,
+            "all_pages": 1,
+            "document_recall": 1.0,
+            "group_recall": 1.0,
+            "hit": 1,
+            "matched_groups": 4,
+            "matched_pages": 4,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "required_groups": 4,
+            "required_pages": 4
+          },
+          "final": {
+            "all_groups": 1,
+            "all_pages": 1,
+            "document_recall": 1.0,
+            "group_recall": 1.0,
+            "hit": 1,
+            "matched_groups": 4,
+            "matched_pages": 4,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "required_groups": 4,
+            "required_pages": 4
+          },
+          "initial": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.75,
+            "group_recall": 0.5,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 0.6366824387328317,
+            "page_recall": 0.5,
+            "required_groups": 4,
+            "required_pages": 4
+          }
+        },
+        "status": "sufficient"
+      },
+      "B": {
+        "all_search_union": {
+          "all_groups": 0,
+          "all_pages": 0,
+          "document_recall": 0.75,
+          "group_recall": 0.5,
+          "hit": 1,
+          "matched_groups": 2,
+          "matched_pages": 2,
+          "mrr": 1.0,
+          "ndcg": 0.6366824387328317,
+          "page_recall": 0.5,
+          "required_groups": 4,
+          "required_pages": 4
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS091",
+            "page": 82
+          },
+          {
+            "book_id": "AS090",
+            "page": 82
+          },
+          {
+            "book_id": "AS119",
+            "page": 13
+          },
+          {
+            "book_id": "AS072",
+            "page": 53
+          },
+          {
+            "book_id": "AS119",
+            "page": 21
+          },
+          {
+            "book_id": "AS080",
+            "page": 96
+          },
+          {
+            "book_id": "AS014",
+            "page": 100
+          },
+          {
+            "book_id": "AS014",
+            "page": 108
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS091",
+              "page": 82
+            },
+            {
+              "book_id": "AS090",
+              "page": 82
+            },
+            {
+              "book_id": "AS119",
+              "page": 13
+            },
+            {
+              "book_id": "AS072",
+              "page": 53
+            },
+            {
+              "book_id": "AS119",
+              "page": 21
+            },
+            {
+              "book_id": "AS080",
+              "page": 96
+            },
+            {
+              "book_id": "AS014",
+              "page": 100
+            },
+            {
+              "book_id": "AS014",
+              "page": 108
+            },
+            {
+              "book_id": "AS074",
+              "page": 2
+            },
+            {
+              "book_id": "AS074",
+              "page": 10
+            },
+            {
+              "book_id": "AS059",
+              "page": 90
+            },
+            {
+              "book_id": "AS109",
+              "page": 66
+            },
+            {
+              "book_id": "AS089",
+              "page": 44
+            },
+            {
+              "book_id": "AS094",
+              "page": 67
+            },
+            {
+              "book_id": "AS079",
+              "page": 130
+            },
+            {
+              "book_id": "AS079",
+              "page": 145
+            },
+            {
+              "book_id": "AS029",
+              "page": 97
+            },
+            {
+              "book_id": "AS101",
+              "page": 117
+            },
+            {
+              "book_id": "AS014",
+              "page": 115
+            },
+            {
+              "book_id": "AS058",
+              "page": 109
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.75,
+            "group_recall": 0.5,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 0.6366824387328317,
+            "page_recall": 0.5,
+            "required_groups": 4,
+            "required_pages": 4
+          },
+          "available": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.75,
+            "group_recall": 0.5,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 0.6366824387328317,
+            "page_recall": 0.5,
+            "required_groups": 4,
+            "required_pages": 4
+          },
+          "final": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.5,
+            "group_recall": 0.5,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 0.6366824387328317,
+            "page_recall": 0.5,
+            "required_groups": 4,
+            "required_pages": 4
+          },
+          "initial": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.75,
+            "group_recall": 0.5,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 0.6366824387328317,
+            "page_recall": 0.5,
+            "required_groups": 4,
+            "required_pages": 4
+          }
+        },
+        "status": "sufficient"
+      }
+    },
+    "category": "official_development",
+    "id": "official_development:AS-DEV24"
+  },
+  {
+    "arms": {
+      "A": {
+        "all_search_union": {
+          "all_groups": 0,
+          "all_pages": 0,
+          "document_recall": 1.0,
+          "group_recall": 0.6666666666666666,
+          "hit": 1,
+          "matched_groups": 2,
+          "matched_pages": 2,
+          "mrr": 1.0,
+          "ndcg": 0.5703323992730301,
+          "page_recall": 0.6666666666666666,
+          "required_groups": 3,
+          "required_pages": 3
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS009",
+            "page": 53
+          },
+          {
+            "book_id": "AS011",
+            "page": 5
+          },
+          {
+            "book_id": "AS014",
+            "page": 19
+          },
+          {
+            "book_id": "AS014",
+            "page": 18
+          },
+          {
+            "book_id": "AS011",
+            "page": 12
+          },
+          {
+            "book_id": "AS014",
+            "page": 23
+          },
+          {
+            "book_id": "AS011",
+            "page": 1
+          },
+          {
+            "book_id": "AS010",
+            "page": 18
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS014",
+              "page": 18
+            },
+            {
+              "book_id": "AS014",
+              "page": 19
+            },
+            {
+              "book_id": "AS014",
+              "page": 23
+            },
+            {
+              "book_id": "AS010",
+              "page": 18
+            },
+            {
+              "book_id": "AS010",
+              "page": 15
+            },
+            {
+              "book_id": "AS010",
+              "page": 10
+            },
+            {
+              "book_id": "AS014",
+              "page": 28
+            },
+            {
+              "book_id": "AS014",
+              "page": 20
+            },
+            {
+              "book_id": "AS014",
+              "page": 24
+            },
+            {
+              "book_id": "AS007",
+              "page": 20
+            },
+            {
+              "book_id": "AS010",
+              "page": 12
+            },
+            {
+              "book_id": "AS014",
+              "page": 22
+            },
+            {
+              "book_id": "AS011",
+              "page": 1
+            },
+            {
+              "book_id": "AS014",
+              "page": 21
+            },
+            {
+              "book_id": "AS011",
+              "page": 4
+            },
+            {
+              "book_id": "AS010",
+              "page": 7
+            },
+            {
+              "book_id": "AS007",
+              "page": 14
+            },
+            {
+              "book_id": "AS010",
+              "page": 8
+            },
+            {
+              "book_id": "AS010",
+              "page": 17
+            },
+            {
+              "book_id": "AS010",
+              "page": 51
+            }
+          ],
+          [
+            {
+              "book_id": "AS011",
+              "page": 12
+            },
+            {
+              "book_id": "AS011",
+              "page": 5
+            },
+            {
+              "book_id": "AS011",
+              "page": 1
+            },
+            {
+              "book_id": "AS011",
+              "page": 4
+            },
+            {
+              "book_id": "AS011",
+              "page": 9
+            },
+            {
+              "book_id": "AS009",
+              "page": 53
+            },
+            {
+              "book_id": "AS011",
+              "page": 6
+            },
+            {
+              "book_id": "AS011",
+              "page": 39
+            },
+            {
+              "book_id": "AS014",
+              "page": 18
+            },
+            {
+              "book_id": "AS014",
+              "page": 19
+            },
+            {
+              "book_id": "AS010",
+              "page": 7
+            },
+            {
+              "book_id": "AS010",
+              "page": 9
+            },
+            {
+              "book_id": "AS010",
+              "page": 15
+            },
+            {
+              "book_id": "AS010",
+              "page": 18
+            },
+            {
+              "book_id": "AS010",
+              "page": 14
+            },
+            {
+              "book_id": "AS010",
+              "page": 11
+            },
+            {
+              "book_id": "AS010",
+              "page": 10
+            },
+            {
+              "book_id": "AS014",
+              "page": 20
+            },
+            {
+              "book_id": "AS014",
+              "page": 22
+            },
+            {
+              "book_id": "AS014",
+              "page": 21
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.5,
+            "group_recall": 0.3333333333333333,
+            "hit": 1,
+            "matched_groups": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.46927872602275644,
+            "page_recall": 0.3333333333333333,
+            "required_groups": 3,
+            "required_pages": 3
+          },
+          "available": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 1.0,
+            "group_recall": 0.6666666666666666,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 0.6713860725233041,
+            "page_recall": 0.6666666666666666,
+            "required_groups": 3,
+            "required_pages": 3
+          },
+          "final": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 1.0,
+            "group_recall": 0.6666666666666666,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 0.6713860725233041,
+            "page_recall": 0.6666666666666666,
+            "required_groups": 3,
+            "required_pages": 3
+          },
+          "initial": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.5,
+            "group_recall": 0.3333333333333333,
+            "hit": 1,
+            "matched_groups": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.46927872602275644,
+            "page_recall": 0.3333333333333333,
+            "required_groups": 3,
+            "required_pages": 3
+          }
+        },
+        "status": "sufficient"
+      },
+      "B": {
+        "all_search_union": {
+          "all_groups": 1,
+          "all_pages": 1,
+          "document_recall": 1.0,
+          "group_recall": 1.0,
+          "hit": 1,
+          "matched_groups": 3,
+          "matched_pages": 3,
+          "mrr": 1.0,
+          "ndcg": 0.6621035879253382,
+          "page_recall": 1.0,
+          "required_groups": 3,
+          "required_pages": 3
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS009",
+            "page": 53
+          },
+          {
+            "book_id": "AS009",
+            "page": 54
+          },
+          {
+            "book_id": "AS014",
+            "page": 18
+          },
+          {
+            "book_id": "AS014",
+            "page": 19
+          },
+          {
+            "book_id": "AS014",
+            "page": 23
+          },
+          {
+            "book_id": "AS011",
+            "page": 2
+          },
+          {
+            "book_id": "AS011",
+            "page": 29
+          },
+          {
+            "book_id": "AS010",
+            "page": 18
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS014",
+              "page": 18
+            },
+            {
+              "book_id": "AS014",
+              "page": 19
+            },
+            {
+              "book_id": "AS014",
+              "page": 23
+            },
+            {
+              "book_id": "AS010",
+              "page": 18
+            },
+            {
+              "book_id": "AS010",
+              "page": 15
+            },
+            {
+              "book_id": "AS010",
+              "page": 10
+            },
+            {
+              "book_id": "AS014",
+              "page": 28
+            },
+            {
+              "book_id": "AS014",
+              "page": 20
+            },
+            {
+              "book_id": "AS014",
+              "page": 24
+            },
+            {
+              "book_id": "AS007",
+              "page": 20
+            },
+            {
+              "book_id": "AS010",
+              "page": 12
+            },
+            {
+              "book_id": "AS014",
+              "page": 22
+            },
+            {
+              "book_id": "AS011",
+              "page": 1
+            },
+            {
+              "book_id": "AS014",
+              "page": 21
+            },
+            {
+              "book_id": "AS011",
+              "page": 4
+            },
+            {
+              "book_id": "AS010",
+              "page": 7
+            },
+            {
+              "book_id": "AS007",
+              "page": 14
+            },
+            {
+              "book_id": "AS010",
+              "page": 8
+            },
+            {
+              "book_id": "AS010",
+              "page": 17
+            },
+            {
+              "book_id": "AS010",
+              "page": 51
+            }
+          ],
+          [
+            {
+              "book_id": "AS009",
+              "page": 53
+            },
+            {
+              "book_id": "AS011",
+              "page": 2
+            },
+            {
+              "book_id": "AS011",
+              "page": 1
+            },
+            {
+              "book_id": "AS011",
+              "page": 20
+            },
+            {
+              "book_id": "AS011",
+              "page": 22
+            },
+            {
+              "book_id": "AS011",
+              "page": 25
+            },
+            {
+              "book_id": "AS011",
+              "page": 29
+            },
+            {
+              "book_id": "AS011",
+              "page": 27
+            },
+            {
+              "book_id": "AS007",
+              "page": 8
+            },
+            {
+              "book_id": "AS011",
+              "page": 19
+            },
+            {
+              "book_id": "AS011",
+              "page": 26
+            },
+            {
+              "book_id": "AS011",
+              "page": 24
+            },
+            {
+              "book_id": "AS011",
+              "page": 18
+            },
+            {
+              "book_id": "AS011",
+              "page": 17
+            },
+            {
+              "book_id": "AS007",
+              "page": 18
+            },
+            {
+              "book_id": "AS007",
+              "page": 15
+            },
+            {
+              "book_id": "AS007",
+              "page": 12
+            },
+            {
+              "book_id": "AS007",
+              "page": 9
+            },
+            {
+              "book_id": "AS007",
+              "page": 13
+            },
+            {
+              "book_id": "AS007",
+              "page": 19
+            }
+          ],
+          [
+            {
+              "book_id": "AS009",
+              "page": 53
+            },
+            {
+              "book_id": "AS011",
+              "page": 29
+            },
+            {
+              "book_id": "AS009",
+              "page": 54
+            },
+            {
+              "book_id": "AS011",
+              "page": 19
+            },
+            {
+              "book_id": "AS011",
+              "page": 22
+            },
+            {
+              "book_id": "AS011",
+              "page": 28
+            },
+            {
+              "book_id": "AS011",
+              "page": 26
+            },
+            {
+              "book_id": "AS011",
+              "page": 30
+            },
+            {
+              "book_id": "AS011",
+              "page": 18
+            },
+            {
+              "book_id": "AS011",
+              "page": 2
+            },
+            {
+              "book_id": "AS011",
+              "page": 1
+            },
+            {
+              "book_id": "AS007",
+              "page": 18
+            },
+            {
+              "book_id": "AS007",
+              "page": 13
+            },
+            {
+              "book_id": "AS007",
+              "page": 19
+            },
+            {
+              "book_id": "AS013",
+              "page": 1
+            },
+            {
+              "book_id": "AS013",
+              "page": 3
+            },
+            {
+              "book_id": "AS007",
+              "page": 12
+            },
+            {
+              "book_id": "AS013",
+              "page": 5
+            },
+            {
+              "book_id": "AS013",
+              "page": 6
+            },
+            {
+              "book_id": "AS013",
+              "page": 2
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.5,
+            "group_recall": 0.3333333333333333,
+            "hit": 1,
+            "matched_groups": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.46927872602275644,
+            "page_recall": 0.3333333333333333,
+            "required_groups": 3,
+            "required_pages": 3
+          },
+          "available": {
+            "all_groups": 1,
+            "all_pages": 1,
+            "document_recall": 1.0,
+            "group_recall": 1.0,
+            "hit": 1,
+            "matched_groups": 3,
+            "matched_pages": 3,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "required_groups": 3,
+            "required_pages": 3
+          },
+          "final": {
+            "all_groups": 1,
+            "all_pages": 1,
+            "document_recall": 1.0,
+            "group_recall": 1.0,
+            "hit": 1,
+            "matched_groups": 3,
+            "matched_pages": 3,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "required_groups": 3,
+            "required_pages": 3
+          },
+          "initial": {
+            "all_groups": 0,
+            "all_pages": 0,
+            "document_recall": 0.5,
+            "group_recall": 0.3333333333333333,
+            "hit": 1,
+            "matched_groups": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.46927872602275644,
+            "page_recall": 0.3333333333333333,
+            "required_groups": 3,
+            "required_pages": 3
+          }
+        },
+        "status": "sufficient"
+      }
+    },
+    "category": "official_additional",
+    "id": "official_additional:AS-ADD09"
+  },
+  {
+    "arms": {
+      "A": {
+        "all_search_union": {
+          "all_facts": 1,
+          "all_pages": 1,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 1.0,
+          "fact_recall": 1.0,
+          "hit": 1,
+          "matched_pages": 4,
+          "mrr": 0.3333333333333333,
+          "ndcg": 0.5080857799524143,
+          "page_recall": 1.0,
+          "primary_bundle_hits": 2,
+          "required_facts": 2,
+          "required_facts_hit": 2,
+          "required_pages": 4
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS109",
+            "page": 132
+          },
+          {
+            "book_id": "AS111",
+            "page": 132
+          },
+          {
+            "book_id": "AS109",
+            "page": 137
+          },
+          {
+            "book_id": "AS111",
+            "page": 137
+          },
+          {
+            "book_id": "AS112",
+            "page": 137
+          },
+          {
+            "book_id": "AS110",
+            "page": 132
+          },
+          {
+            "book_id": "AS111",
+            "page": 127
+          },
+          {
+            "book_id": "AS110",
+            "page": 137
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS112",
+              "page": 137
+            },
+            {
+              "book_id": "AS111",
+              "page": 127
+            },
+            {
+              "book_id": "AS111",
+              "page": 137
+            },
+            {
+              "book_id": "AS111",
+              "page": 147
+            },
+            {
+              "book_id": "AS111",
+              "page": 142
+            },
+            {
+              "book_id": "AS111",
+              "page": 132
+            },
+            {
+              "book_id": "AS054",
+              "page": 106
+            },
+            {
+              "book_id": "AS054",
+              "page": 114
+            },
+            {
+              "book_id": "AS082",
+              "page": 72
+            },
+            {
+              "book_id": "AS087",
+              "page": 83
+            },
+            {
+              "book_id": "AS009",
+              "page": 48
+            },
+            {
+              "book_id": "AS009",
+              "page": 24
+            },
+            {
+              "book_id": "AS009",
+              "page": 37
+            },
+            {
+              "book_id": "AS009",
+              "page": 26
+            },
+            {
+              "book_id": "AS009",
+              "page": 28
+            },
+            {
+              "book_id": "AS009",
+              "page": 22
+            },
+            {
+              "book_id": "AS009",
+              "page": 32
+            },
+            {
+              "book_id": "AS009",
+              "page": 36
+            },
+            {
+              "book_id": "AS009",
+              "page": 21
+            },
+            {
+              "book_id": "AS009",
+              "page": 33
+            }
+          ],
+          [
+            {
+              "book_id": "AS109",
+              "page": 132
+            },
+            {
+              "book_id": "AS109",
+              "page": 137
+            },
+            {
+              "book_id": "AS110",
+              "page": 132
+            },
+            {
+              "book_id": "AS110",
+              "page": 137
+            },
+            {
+              "book_id": "AS111",
+              "page": 132
+            },
+            {
+              "book_id": "AS111",
+              "page": 137
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 0.3333333333333333,
+            "ndcg": 0.33424620450682646,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 4
+          },
+          "available": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 4,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 2,
+            "required_facts": 2,
+            "required_facts_hit": 2,
+            "required_pages": 4
+          },
+          "final": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 4,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 2,
+            "required_facts": 2,
+            "required_facts_hit": 2,
+            "required_pages": 4
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 0.3333333333333333,
+            "ndcg": 0.33424620450682646,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 4
+          }
+        },
+        "status": "needs_clarification"
+      },
+      "B": {
+        "all_search_union": {
+          "all_facts": 0,
+          "all_pages": 0,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 1.0,
+          "fact_recall": 0.5,
+          "hit": 1,
+          "matched_pages": 3,
+          "mrr": 0.3333333333333333,
+          "ndcg": 0.42178651981530363,
+          "page_recall": 0.75,
+          "primary_bundle_hits": 1,
+          "required_facts": 2,
+          "required_facts_hit": 1,
+          "required_pages": 4
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS109",
+            "page": 137
+          },
+          {
+            "book_id": "AS111",
+            "page": 137
+          },
+          {
+            "book_id": "AS112",
+            "page": 137
+          },
+          {
+            "book_id": "AS111",
+            "page": 127
+          },
+          {
+            "book_id": "AS111",
+            "page": 147
+          },
+          {
+            "book_id": "AS111",
+            "page": 142
+          },
+          {
+            "book_id": "AS111",
+            "page": 132
+          },
+          {
+            "book_id": "AS054",
+            "page": 106
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS112",
+              "page": 137
+            },
+            {
+              "book_id": "AS111",
+              "page": 127
+            },
+            {
+              "book_id": "AS111",
+              "page": 137
+            },
+            {
+              "book_id": "AS111",
+              "page": 147
+            },
+            {
+              "book_id": "AS111",
+              "page": 142
+            },
+            {
+              "book_id": "AS111",
+              "page": 132
+            },
+            {
+              "book_id": "AS054",
+              "page": 106
+            },
+            {
+              "book_id": "AS054",
+              "page": 114
+            },
+            {
+              "book_id": "AS082",
+              "page": 72
+            },
+            {
+              "book_id": "AS087",
+              "page": 83
+            },
+            {
+              "book_id": "AS009",
+              "page": 48
+            },
+            {
+              "book_id": "AS009",
+              "page": 24
+            },
+            {
+              "book_id": "AS009",
+              "page": 37
+            },
+            {
+              "book_id": "AS009",
+              "page": 26
+            },
+            {
+              "book_id": "AS009",
+              "page": 28
+            },
+            {
+              "book_id": "AS009",
+              "page": 22
+            },
+            {
+              "book_id": "AS009",
+              "page": 32
+            },
+            {
+              "book_id": "AS009",
+              "page": 36
+            },
+            {
+              "book_id": "AS009",
+              "page": 21
+            },
+            {
+              "book_id": "AS009",
+              "page": 33
+            }
+          ],
+          [
+            {
+              "book_id": "AS109",
+              "page": 137
+            },
+            {
+              "book_id": "AS111",
+              "page": 137
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 0.3333333333333333,
+            "ndcg": 0.33424620450682646,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 4
+          },
+          "available": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 3,
+            "mrr": 1.0,
+            "ndcg": 0.7668091220635322,
+            "page_recall": 0.75,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 4
+          },
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 3,
+            "mrr": 1.0,
+            "ndcg": 0.7668091220635322,
+            "page_recall": 0.75,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 4
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 0.3333333333333333,
+            "ndcg": 0.33424620450682646,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 4
+          }
+        },
+        "status": "sufficient"
+      }
+    },
+    "category": "S06",
+    "id": "scenarios:AS-S06-20"
+  },
+  {
+    "arms": {
+      "A": {
+        "all_search_union": {
+          "all_facts": 1,
+          "all_pages": 1,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 1.0,
+          "fact_recall": 1.0,
+          "hit": 1,
+          "matched_pages": 1,
+          "mrr": 0.047619047619047616,
+          "ndcg": 0.22424382421757544,
+          "page_recall": 1.0,
+          "primary_bundle_hits": 1,
+          "required_facts": 1,
+          "required_facts_hit": 1,
+          "required_pages": 1
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS025",
+            "page": 19
+          },
+          {
+            "book_id": "AS033",
+            "page": 96
+          },
+          {
+            "book_id": "AS003",
+            "page": 105
+          },
+          {
+            "book_id": "AS003",
+            "page": 145
+          },
+          {
+            "book_id": "AS003",
+            "page": 130
+          },
+          {
+            "book_id": "AS022",
+            "page": 8
+          },
+          {
+            "book_id": "AS068",
+            "page": 75
+          },
+          {
+            "book_id": "AS041",
+            "page": 26
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS033",
+              "page": 96
+            },
+            {
+              "book_id": "AS003",
+              "page": 145
+            },
+            {
+              "book_id": "AS022",
+              "page": 8
+            },
+            {
+              "book_id": "AS041",
+              "page": 26
+            },
+            {
+              "book_id": "AS004",
+              "page": 1
+            },
+            {
+              "book_id": "AS022",
+              "page": 16
+            },
+            {
+              "book_id": "AS017",
+              "page": 42
+            },
+            {
+              "book_id": "AS022",
+              "page": 9
+            },
+            {
+              "book_id": "AS022",
+              "page": 17
+            },
+            {
+              "book_id": "AS040",
+              "page": 21
+            },
+            {
+              "book_id": "AS023",
+              "page": 14
+            },
+            {
+              "book_id": "AS041",
+              "page": 3
+            },
+            {
+              "book_id": "AS005",
+              "page": 23
+            },
+            {
+              "book_id": "AS005",
+              "page": 24
+            },
+            {
+              "book_id": "AS002",
+              "page": 23
+            },
+            {
+              "book_id": "AS002",
+              "page": 21
+            },
+            {
+              "book_id": "AS002",
+              "page": 8
+            },
+            {
+              "book_id": "AS005",
+              "page": 32
+            },
+            {
+              "book_id": "AS037",
+              "page": 32
+            },
+            {
+              "book_id": "AS037",
+              "page": 72
+            }
+          ],
+          [
+            {
+              "book_id": "AS025",
+              "page": 19
+            },
+            {
+              "book_id": "AS003",
+              "page": 105
+            },
+            {
+              "book_id": "AS003",
+              "page": 130
+            },
+            {
+              "book_id": "AS068",
+              "page": 75
+            },
+            {
+              "book_id": "AS003",
+              "page": 140
+            },
+            {
+              "book_id": "AS063",
+              "page": 42
+            },
+            {
+              "book_id": "AS080",
+              "page": 82
+            },
+            {
+              "book_id": "AS003",
+              "page": 135
+            },
+            {
+              "book_id": "AS073",
+              "page": 86
+            },
+            {
+              "book_id": "AS093",
+              "page": 90
+            },
+            {
+              "book_id": "AS105",
+              "page": 132
+            },
+            {
+              "book_id": "AS025",
+              "page": 20
+            },
+            {
+              "book_id": "AS025",
+              "page": 21
+            },
+            {
+              "book_id": "AS025",
+              "page": 22
+            },
+            {
+              "book_id": "AS041",
+              "page": 36
+            },
+            {
+              "book_id": "AS022",
+              "page": 7
+            },
+            {
+              "book_id": "AS022",
+              "page": 10
+            },
+            {
+              "book_id": "AS022",
+              "page": 14
+            },
+            {
+              "book_id": "AS022",
+              "page": 11
+            },
+            {
+              "book_id": "AS022",
+              "page": 15
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          },
+          "available": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 1,
+            "required_facts": 1,
+            "required_facts_hit": 1,
+            "required_pages": 1
+          },
+          "final": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 1,
+            "required_facts": 1,
+            "required_facts_hit": 1,
+            "required_pages": 1
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          }
+        },
+        "status": "sufficient"
+      },
+      "B": {
+        "all_search_union": {
+          "all_facts": 0,
+          "all_pages": 0,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 0.0,
+          "fact_recall": 0.0,
+          "hit": 0,
+          "matched_pages": 0,
+          "mrr": 0.0,
+          "ndcg": 0.0,
+          "page_recall": 0.0,
+          "primary_bundle_hits": 0,
+          "required_facts": 1,
+          "required_facts_hit": 0,
+          "required_pages": 1
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS033",
+            "page": 96
+          },
+          {
+            "book_id": "AS003",
+            "page": 145
+          },
+          {
+            "book_id": "AS022",
+            "page": 8
+          },
+          {
+            "book_id": "AS041",
+            "page": 26
+          },
+          {
+            "book_id": "AS004",
+            "page": 1
+          },
+          {
+            "book_id": "AS022",
+            "page": 16
+          },
+          {
+            "book_id": "AS017",
+            "page": 42
+          },
+          {
+            "book_id": "AS022",
+            "page": 9
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS033",
+              "page": 96
+            },
+            {
+              "book_id": "AS003",
+              "page": 145
+            },
+            {
+              "book_id": "AS022",
+              "page": 8
+            },
+            {
+              "book_id": "AS041",
+              "page": 26
+            },
+            {
+              "book_id": "AS004",
+              "page": 1
+            },
+            {
+              "book_id": "AS022",
+              "page": 16
+            },
+            {
+              "book_id": "AS017",
+              "page": 42
+            },
+            {
+              "book_id": "AS022",
+              "page": 9
+            },
+            {
+              "book_id": "AS022",
+              "page": 17
+            },
+            {
+              "book_id": "AS040",
+              "page": 21
+            },
+            {
+              "book_id": "AS023",
+              "page": 14
+            },
+            {
+              "book_id": "AS041",
+              "page": 3
+            },
+            {
+              "book_id": "AS005",
+              "page": 23
+            },
+            {
+              "book_id": "AS005",
+              "page": 24
+            },
+            {
+              "book_id": "AS002",
+              "page": 23
+            },
+            {
+              "book_id": "AS002",
+              "page": 21
+            },
+            {
+              "book_id": "AS002",
+              "page": 8
+            },
+            {
+              "book_id": "AS005",
+              "page": 32
+            },
+            {
+              "book_id": "AS037",
+              "page": 32
+            },
+            {
+              "book_id": "AS037",
+              "page": 72
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          },
+          "available": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          },
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          }
+        },
+        "status": "sufficient"
+      }
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "id": "semantic_queries:AS-SEM-15"
+  },
+  {
+    "arms": {
+      "A": {
+        "all_search_union": {
+          "all_facts": 0,
+          "all_pages": 0,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 0.0,
+          "fact_recall": 0.0,
+          "hit": 0,
+          "matched_pages": 0,
+          "mrr": 0.0,
+          "ndcg": 0.0,
+          "page_recall": 0.0,
+          "primary_bundle_hits": 0,
+          "required_facts": 1,
+          "required_facts_hit": 0,
+          "required_pages": 1
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS017",
+            "page": 40
+          },
+          {
+            "book_id": "AS017",
+            "page": 43
+          },
+          {
+            "book_id": "AS003",
+            "page": 28
+          },
+          {
+            "book_id": "AS003",
+            "page": 3
+          },
+          {
+            "book_id": "AS017",
+            "page": 41
+          },
+          {
+            "book_id": "AS017",
+            "page": 50
+          },
+          {
+            "book_id": "AS006",
+            "page": 28
+          },
+          {
+            "book_id": "AS003",
+            "page": 47
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS017",
+              "page": 43
+            },
+            {
+              "book_id": "AS017",
+              "page": 41
+            },
+            {
+              "book_id": "AS017",
+              "page": 50
+            },
+            {
+              "book_id": "AS017",
+              "page": 40
+            },
+            {
+              "book_id": "AS006",
+              "page": 28
+            },
+            {
+              "book_id": "AS003",
+              "page": 28
+            },
+            {
+              "book_id": "AS003",
+              "page": 3
+            },
+            {
+              "book_id": "AS003",
+              "page": 47
+            },
+            {
+              "book_id": "AS017",
+              "page": 42
+            },
+            {
+              "book_id": "AS017",
+              "page": 37
+            },
+            {
+              "book_id": "AS006",
+              "page": 31
+            },
+            {
+              "book_id": "AS006",
+              "page": 53
+            },
+            {
+              "book_id": "AS111",
+              "page": 132
+            },
+            {
+              "book_id": "AS019",
+              "page": 61
+            },
+            {
+              "book_id": "AS048",
+              "page": 46
+            },
+            {
+              "book_id": "AS051",
+              "page": 1
+            },
+            {
+              "book_id": "AS009",
+              "page": 48
+            },
+            {
+              "book_id": "AS009",
+              "page": 49
+            },
+            {
+              "book_id": "AS009",
+              "page": 21
+            },
+            {
+              "book_id": "AS009",
+              "page": 34
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          },
+          "available": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          },
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          }
+        },
+        "status": "sufficient"
+      },
+      "B": {
+        "all_search_union": {
+          "all_facts": 1,
+          "all_pages": 1,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 1.0,
+          "fact_recall": 1.0,
+          "hit": 1,
+          "matched_pages": 1,
+          "mrr": 0.047619047619047616,
+          "ndcg": 0.22424382421757544,
+          "page_recall": 1.0,
+          "primary_bundle_hits": 1,
+          "required_facts": 1,
+          "required_facts_hit": 1,
+          "required_pages": 1
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS025",
+            "page": 7
+          },
+          {
+            "book_id": "AS017",
+            "page": 43
+          },
+          {
+            "book_id": "AS003",
+            "page": 65
+          },
+          {
+            "book_id": "AS017",
+            "page": 41
+          },
+          {
+            "book_id": "AS017",
+            "page": 50
+          },
+          {
+            "book_id": "AS006",
+            "page": 75
+          },
+          {
+            "book_id": "AS017",
+            "page": 40
+          },
+          {
+            "book_id": "AS006",
+            "page": 6
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS017",
+              "page": 43
+            },
+            {
+              "book_id": "AS017",
+              "page": 41
+            },
+            {
+              "book_id": "AS017",
+              "page": 50
+            },
+            {
+              "book_id": "AS017",
+              "page": 40
+            },
+            {
+              "book_id": "AS006",
+              "page": 28
+            },
+            {
+              "book_id": "AS003",
+              "page": 28
+            },
+            {
+              "book_id": "AS003",
+              "page": 3
+            },
+            {
+              "book_id": "AS003",
+              "page": 47
+            },
+            {
+              "book_id": "AS017",
+              "page": 42
+            },
+            {
+              "book_id": "AS017",
+              "page": 37
+            },
+            {
+              "book_id": "AS006",
+              "page": 31
+            },
+            {
+              "book_id": "AS006",
+              "page": 53
+            },
+            {
+              "book_id": "AS111",
+              "page": 132
+            },
+            {
+              "book_id": "AS019",
+              "page": 61
+            },
+            {
+              "book_id": "AS048",
+              "page": 46
+            },
+            {
+              "book_id": "AS051",
+              "page": 1
+            },
+            {
+              "book_id": "AS009",
+              "page": 48
+            },
+            {
+              "book_id": "AS009",
+              "page": 49
+            },
+            {
+              "book_id": "AS009",
+              "page": 21
+            },
+            {
+              "book_id": "AS009",
+              "page": 34
+            }
+          ],
+          [
+            {
+              "book_id": "AS025",
+              "page": 7
+            },
+            {
+              "book_id": "AS017",
+              "page": 41
+            },
+            {
+              "book_id": "AS017",
+              "page": 43
+            },
+            {
+              "book_id": "AS003",
+              "page": 65
+            },
+            {
+              "book_id": "AS006",
+              "page": 75
+            },
+            {
+              "book_id": "AS006",
+              "page": 6
+            },
+            {
+              "book_id": "AS006",
+              "page": 48
+            },
+            {
+              "book_id": "AS003",
+              "page": 77
+            },
+            {
+              "book_id": "AS003",
+              "page": 41
+            },
+            {
+              "book_id": "AS006",
+              "page": 96
+            },
+            {
+              "book_id": "AS003",
+              "page": 97
+            },
+            {
+              "book_id": "AS003",
+              "page": 15
+            },
+            {
+              "book_id": "AS003",
+              "page": 28
+            },
+            {
+              "book_id": "AS003",
+              "page": 76
+            },
+            {
+              "book_id": "AS003",
+              "page": 6
+            },
+            {
+              "book_id": "AS003",
+              "page": 47
+            },
+            {
+              "book_id": "AS003",
+              "page": 26
+            },
+            {
+              "book_id": "AS017",
+              "page": 42
+            },
+            {
+              "book_id": "AS025",
+              "page": 16
+            },
+            {
+              "book_id": "AS044",
+              "page": 14
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          },
+          "available": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 1,
+            "required_facts": 1,
+            "required_facts_hit": 1,
+            "required_pages": 1
+          },
+          "final": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 1,
+            "required_facts": 1,
+            "required_facts_hit": 1,
+            "required_pages": 1
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.0,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 1,
+            "required_facts_hit": 0,
+            "required_pages": 1
+          }
+        },
+        "status": "sufficient"
+      }
+    },
+    "category": "semantic_queries/rule_paraphrase",
+    "id": "semantic_queries:AS-SEM-18"
+  },
+  {
+    "arms": {
+      "A": {
+        "all_search_union": {
+          "all_facts": 0,
+          "all_pages": 0,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 0.5,
+          "fact_recall": 0.5,
+          "hit": 1,
+          "matched_pages": 1,
+          "mrr": 0.043478260869565216,
+          "ndcg": 0.13373003436102654,
+          "page_recall": 0.5,
+          "primary_bundle_hits": 1,
+          "required_facts": 2,
+          "required_facts_hit": 1,
+          "required_pages": 2
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS009",
+            "page": 21
+          },
+          {
+            "book_id": "AS009",
+            "page": 22
+          },
+          {
+            "book_id": "AS007",
+            "page": 20
+          },
+          {
+            "book_id": "AS008",
+            "page": 1
+          },
+          {
+            "book_id": "AS009",
+            "page": 23
+          },
+          {
+            "book_id": "AS007",
+            "page": 8
+          },
+          {
+            "book_id": "AS007",
+            "page": 26
+          },
+          {
+            "book_id": "AS009",
+            "page": 33
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS008",
+              "page": 1
+            },
+            {
+              "book_id": "AS007",
+              "page": 26
+            },
+            {
+              "book_id": "AS007",
+              "page": 27
+            },
+            {
+              "book_id": "AS007",
+              "page": 33
+            },
+            {
+              "book_id": "AS007",
+              "page": 23
+            },
+            {
+              "book_id": "AS007",
+              "page": 25
+            },
+            {
+              "book_id": "AS007",
+              "page": 31
+            },
+            {
+              "book_id": "AS007",
+              "page": 36
+            },
+            {
+              "book_id": "AS007",
+              "page": 22
+            },
+            {
+              "book_id": "AS007",
+              "page": 28
+            },
+            {
+              "book_id": "AS008",
+              "page": 7
+            },
+            {
+              "book_id": "AS016",
+              "page": 39
+            },
+            {
+              "book_id": "AS009",
+              "page": 54
+            },
+            {
+              "book_id": "AS016",
+              "page": 43
+            },
+            {
+              "book_id": "AS009",
+              "page": 52
+            },
+            {
+              "book_id": "AS013",
+              "page": 18
+            },
+            {
+              "book_id": "AS027",
+              "page": 45
+            },
+            {
+              "book_id": "AS027",
+              "page": 49
+            },
+            {
+              "book_id": "AS027",
+              "page": 44
+            },
+            {
+              "book_id": "AS024",
+              "page": 32
+            }
+          ],
+          [
+            {
+              "book_id": "AS009",
+              "page": 23
+            },
+            {
+              "book_id": "AS009",
+              "page": 33
+            },
+            {
+              "book_id": "AS009",
+              "page": 21
+            },
+            {
+              "book_id": "AS009",
+              "page": 26
+            },
+            {
+              "book_id": "AS009",
+              "page": 36
+            },
+            {
+              "book_id": "AS009",
+              "page": 32
+            },
+            {
+              "book_id": "AS009",
+              "page": 30
+            },
+            {
+              "book_id": "AS009",
+              "page": 22
+            },
+            {
+              "book_id": "AS009",
+              "page": 34
+            },
+            {
+              "book_id": "AS009",
+              "page": 35
+            },
+            {
+              "book_id": "AS009",
+              "page": 31
+            },
+            {
+              "book_id": "AS009",
+              "page": 28
+            },
+            {
+              "book_id": "AS009",
+              "page": 24
+            },
+            {
+              "book_id": "AS009",
+              "page": 29
+            },
+            {
+              "book_id": "AS009",
+              "page": 48
+            },
+            {
+              "book_id": "AS009",
+              "page": 47
+            },
+            {
+              "book_id": "AS009",
+              "page": 45
+            },
+            {
+              "book_id": "AS009",
+              "page": 27
+            },
+            {
+              "book_id": "AS009",
+              "page": 38
+            },
+            {
+              "book_id": "AS007",
+              "page": 8
+            }
+          ],
+          [
+            {
+              "book_id": "AS007",
+              "page": 20
+            },
+            {
+              "book_id": "AS007",
+              "page": 8
+            },
+            {
+              "book_id": "AS007",
+              "page": 13
+            },
+            {
+              "book_id": "AS007",
+              "page": 14
+            },
+            {
+              "book_id": "AS007",
+              "page": 19
+            },
+            {
+              "book_id": "AS007",
+              "page": 10
+            },
+            {
+              "book_id": "AS010",
+              "page": 31
+            },
+            {
+              "book_id": "AS010",
+              "page": 27
+            },
+            {
+              "book_id": "AS010",
+              "page": 25
+            },
+            {
+              "book_id": "AS010",
+              "page": 23
+            },
+            {
+              "book_id": "AS010",
+              "page": 29
+            },
+            {
+              "book_id": "AS009",
+              "page": 34
+            },
+            {
+              "book_id": "AS009",
+              "page": 24
+            },
+            {
+              "book_id": "AS009",
+              "page": 26
+            },
+            {
+              "book_id": "AS009",
+              "page": 22
+            },
+            {
+              "book_id": "AS009",
+              "page": 28
+            },
+            {
+              "book_id": "AS009",
+              "page": 36
+            },
+            {
+              "book_id": "AS009",
+              "page": 30
+            },
+            {
+              "book_id": "AS009",
+              "page": 21
+            },
+            {
+              "book_id": "AS009",
+              "page": 32
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          },
+          "available": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.6131471927654584,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.6131471927654584,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          }
+        },
+        "status": "sufficient"
+      },
+      "B": {
+        "all_search_union": {
+          "all_facts": 1,
+          "all_pages": 1,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 1.0,
+          "fact_recall": 1.0,
+          "hit": 1,
+          "matched_pages": 2,
+          "mrr": 0.045454545454545456,
+          "ndcg": 0.2385225406322207,
+          "page_recall": 1.0,
+          "primary_bundle_hits": 2,
+          "required_facts": 2,
+          "required_facts_hit": 2,
+          "required_pages": 2
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS009",
+            "page": 21
+          },
+          {
+            "book_id": "AS014",
+            "page": 18
+          },
+          {
+            "book_id": "AS008",
+            "page": 1
+          },
+          {
+            "book_id": "AS009",
+            "page": 33
+          },
+          {
+            "book_id": "AS007",
+            "page": 19
+          },
+          {
+            "book_id": "AS010",
+            "page": 27
+          },
+          {
+            "book_id": "AS009",
+            "page": 40
+          },
+          {
+            "book_id": "AS007",
+            "page": 26
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS008",
+              "page": 1
+            },
+            {
+              "book_id": "AS007",
+              "page": 26
+            },
+            {
+              "book_id": "AS007",
+              "page": 27
+            },
+            {
+              "book_id": "AS007",
+              "page": 33
+            },
+            {
+              "book_id": "AS007",
+              "page": 23
+            },
+            {
+              "book_id": "AS007",
+              "page": 25
+            },
+            {
+              "book_id": "AS007",
+              "page": 31
+            },
+            {
+              "book_id": "AS007",
+              "page": 36
+            },
+            {
+              "book_id": "AS007",
+              "page": 22
+            },
+            {
+              "book_id": "AS007",
+              "page": 28
+            },
+            {
+              "book_id": "AS008",
+              "page": 7
+            },
+            {
+              "book_id": "AS016",
+              "page": 39
+            },
+            {
+              "book_id": "AS009",
+              "page": 54
+            },
+            {
+              "book_id": "AS016",
+              "page": 43
+            },
+            {
+              "book_id": "AS009",
+              "page": 52
+            },
+            {
+              "book_id": "AS013",
+              "page": 18
+            },
+            {
+              "book_id": "AS027",
+              "page": 45
+            },
+            {
+              "book_id": "AS027",
+              "page": 49
+            },
+            {
+              "book_id": "AS027",
+              "page": 44
+            },
+            {
+              "book_id": "AS024",
+              "page": 32
+            }
+          ],
+          [
+            {
+              "book_id": "AS009",
+              "page": 33
+            },
+            {
+              "book_id": "AS009",
+              "page": 21
+            },
+            {
+              "book_id": "AS009",
+              "page": 22
+            },
+            {
+              "book_id": "AS007",
+              "page": 27
+            },
+            {
+              "book_id": "AS009",
+              "page": 32
+            },
+            {
+              "book_id": "AS009",
+              "page": 34
+            },
+            {
+              "book_id": "AS007",
+              "page": 31
+            },
+            {
+              "book_id": "AS007",
+              "page": 26
+            },
+            {
+              "book_id": "AS009",
+              "page": 38
+            },
+            {
+              "book_id": "AS007",
+              "page": 22
+            },
+            {
+              "book_id": "AS009",
+              "page": 36
+            },
+            {
+              "book_id": "AS007",
+              "page": 32
+            },
+            {
+              "book_id": "AS007",
+              "page": 28
+            },
+            {
+              "book_id": "AS009",
+              "page": 23
+            },
+            {
+              "book_id": "AS007",
+              "page": 25
+            },
+            {
+              "book_id": "AS009",
+              "page": 26
+            },
+            {
+              "book_id": "AS009",
+              "page": 24
+            },
+            {
+              "book_id": "AS009",
+              "page": 30
+            },
+            {
+              "book_id": "AS009",
+              "page": 28
+            },
+            {
+              "book_id": "AS009",
+              "page": 31
+            }
+          ],
+          [
+            {
+              "book_id": "AS007",
+              "page": 19
+            },
+            {
+              "book_id": "AS007",
+              "page": 20
+            },
+            {
+              "book_id": "AS007",
+              "page": 8
+            },
+            {
+              "book_id": "AS007",
+              "page": 14
+            },
+            {
+              "book_id": "AS009",
+              "page": 23
+            },
+            {
+              "book_id": "AS009",
+              "page": 34
+            },
+            {
+              "book_id": "AS009",
+              "page": 27
+            },
+            {
+              "book_id": "AS009",
+              "page": 35
+            },
+            {
+              "book_id": "AS009",
+              "page": 32
+            },
+            {
+              "book_id": "AS009",
+              "page": 36
+            },
+            {
+              "book_id": "AS009",
+              "page": 22
+            },
+            {
+              "book_id": "AS009",
+              "page": 30
+            },
+            {
+              "book_id": "AS009",
+              "page": 26
+            },
+            {
+              "book_id": "AS009",
+              "page": 45
+            },
+            {
+              "book_id": "AS009",
+              "page": 28
+            },
+            {
+              "book_id": "AS009",
+              "page": 31
+            },
+            {
+              "book_id": "AS009",
+              "page": 24
+            },
+            {
+              "book_id": "AS009",
+              "page": 21
+            },
+            {
+              "book_id": "AS009",
+              "page": 33
+            },
+            {
+              "book_id": "AS009",
+              "page": 25
+            }
+          ],
+          [
+            {
+              "book_id": "AS010",
+              "page": 27
+            },
+            {
+              "book_id": "AS010",
+              "page": 28
+            },
+            {
+              "book_id": "AS010",
+              "page": 32
+            },
+            {
+              "book_id": "AS010",
+              "page": 29
+            },
+            {
+              "book_id": "AS010",
+              "page": 25
+            },
+            {
+              "book_id": "AS010",
+              "page": 23
+            },
+            {
+              "book_id": "AS010",
+              "page": 22
+            },
+            {
+              "book_id": "AS010",
+              "page": 24
+            },
+            {
+              "book_id": "AS010",
+              "page": 26
+            },
+            {
+              "book_id": "AS010",
+              "page": 31
+            },
+            {
+              "book_id": "AS010",
+              "page": 20
+            },
+            {
+              "book_id": "AS010",
+              "page": 19
+            },
+            {
+              "book_id": "AS010",
+              "page": 21
+            },
+            {
+              "book_id": "AS010",
+              "page": 30
+            },
+            {
+              "book_id": "AS010",
+              "page": 9
+            },
+            {
+              "book_id": "AS010",
+              "page": 1
+            },
+            {
+              "book_id": "AS010",
+              "page": 2
+            },
+            {
+              "book_id": "AS010",
+              "page": 3
+            },
+            {
+              "book_id": "AS014",
+              "page": 18
+            },
+            {
+              "book_id": "AS014",
+              "page": 19
+            }
+          ],
+          [
+            {
+              "book_id": "AS014",
+              "page": 18
+            },
+            {
+              "book_id": "AS009",
+              "page": 40
+            },
+            {
+              "book_id": "AS009",
+              "page": 50
+            },
+            {
+              "book_id": "AS009",
+              "page": 41
+            },
+            {
+              "book_id": "AS009",
+              "page": 46
+            },
+            {
+              "book_id": "AS009",
+              "page": 38
+            },
+            {
+              "book_id": "AS009",
+              "page": 51
+            },
+            {
+              "book_id": "AS009",
+              "page": 47
+            },
+            {
+              "book_id": "AS009",
+              "page": 37
+            },
+            {
+              "book_id": "AS009",
+              "page": 48
+            },
+            {
+              "book_id": "AS009",
+              "page": 39
+            },
+            {
+              "book_id": "AS009",
+              "page": 45
+            },
+            {
+              "book_id": "AS007",
+              "page": 14
+            },
+            {
+              "book_id": "AS009",
+              "page": 21
+            },
+            {
+              "book_id": "AS009",
+              "page": 28
+            },
+            {
+              "book_id": "AS009",
+              "page": 35
+            },
+            {
+              "book_id": "AS009",
+              "page": 31
+            },
+            {
+              "book_id": "AS009",
+              "page": 33
+            },
+            {
+              "book_id": "AS009",
+              "page": 25
+            },
+            {
+              "book_id": "AS009",
+              "page": 29
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          },
+          "available": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 2,
+            "required_facts": 2,
+            "required_facts_hit": 2,
+            "required_pages": 2
+          },
+          "final": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 2,
+            "required_facts": 2,
+            "required_facts_hit": 2,
+            "required_pages": 2
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          }
+        },
+        "status": "sufficient"
+      }
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "id": "semantic_queries:AS-SEM-23"
+  },
+  {
+    "arms": {
+      "A": {
+        "all_search_union": {
+          "all_facts": 1,
+          "all_pages": 1,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 1.0,
+          "fact_recall": 1.0,
+          "hit": 1,
+          "matched_pages": 2,
+          "mrr": 0.05555555555555555,
+          "ndcg": 0.2818347856967185,
+          "page_recall": 1.0,
+          "primary_bundle_hits": 2,
+          "required_facts": 2,
+          "required_facts_hit": 2,
+          "required_pages": 2
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS020",
+            "page": 1
+          },
+          {
+            "book_id": "AS023",
+            "page": 1
+          },
+          {
+            "book_id": "AS024",
+            "page": 19
+          },
+          {
+            "book_id": "AS017",
+            "page": 44
+          },
+          {
+            "book_id": "AS019",
+            "page": 9
+          },
+          {
+            "book_id": "AS024",
+            "page": 35
+          },
+          {
+            "book_id": "AS017",
+            "page": 45
+          },
+          {
+            "book_id": "AS030",
+            "page": 27
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS024",
+              "page": 19
+            },
+            {
+              "book_id": "AS017",
+              "page": 44
+            },
+            {
+              "book_id": "AS024",
+              "page": 35
+            },
+            {
+              "book_id": "AS030",
+              "page": 27
+            },
+            {
+              "book_id": "AS020",
+              "page": 43
+            },
+            {
+              "book_id": "AS029",
+              "page": 51
+            },
+            {
+              "book_id": "AS024",
+              "page": 5
+            },
+            {
+              "book_id": "AS024",
+              "page": 1
+            },
+            {
+              "book_id": "AS024",
+              "page": 36
+            },
+            {
+              "book_id": "AS024",
+              "page": 40
+            },
+            {
+              "book_id": "AS024",
+              "page": 41
+            },
+            {
+              "book_id": "AS029",
+              "page": 74
+            },
+            {
+              "book_id": "AS024",
+              "page": 45
+            },
+            {
+              "book_id": "AS024",
+              "page": 27
+            },
+            {
+              "book_id": "AS037",
+              "page": 66
+            },
+            {
+              "book_id": "AS030",
+              "page": 31
+            },
+            {
+              "book_id": "AS030",
+              "page": 44
+            },
+            {
+              "book_id": "AS023",
+              "page": 1
+            },
+            {
+              "book_id": "AS037",
+              "page": 56
+            },
+            {
+              "book_id": "AS040",
+              "page": 9
+            }
+          ],
+          [
+            {
+              "book_id": "AS020",
+              "page": 1
+            },
+            {
+              "book_id": "AS017",
+              "page": 44
+            },
+            {
+              "book_id": "AS023",
+              "page": 1
+            },
+            {
+              "book_id": "AS019",
+              "page": 9
+            },
+            {
+              "book_id": "AS017",
+              "page": 45
+            },
+            {
+              "book_id": "AS017",
+              "page": 49
+            },
+            {
+              "book_id": "AS018",
+              "page": 9
+            },
+            {
+              "book_id": "AS017",
+              "page": 46
+            },
+            {
+              "book_id": "AS017",
+              "page": 40
+            },
+            {
+              "book_id": "AS024",
+              "page": 40
+            },
+            {
+              "book_id": "AS024",
+              "page": 1
+            },
+            {
+              "book_id": "AS024",
+              "page": 19
+            },
+            {
+              "book_id": "AS024",
+              "page": 4
+            },
+            {
+              "book_id": "AS024",
+              "page": 42
+            },
+            {
+              "book_id": "AS024",
+              "page": 2
+            },
+            {
+              "book_id": "AS024",
+              "page": 35
+            },
+            {
+              "book_id": "AS024",
+              "page": 41
+            },
+            {
+              "book_id": "AS024",
+              "page": 6
+            },
+            {
+              "book_id": "AS030",
+              "page": 27
+            },
+            {
+              "book_id": "AS024",
+              "page": 3
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 0.05555555555555555,
+            "ndcg": 0.14434031438272124,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "available": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 2,
+            "required_facts": 2,
+            "required_facts_hit": 2,
+            "required_pages": 2
+          },
+          "final": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 2,
+            "required_facts": 2,
+            "required_facts_hit": 2,
+            "required_pages": 2
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 0.05555555555555555,
+            "ndcg": 0.14434031438272124,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          }
+        },
+        "status": "sufficient"
+      },
+      "B": {
+        "all_search_union": {
+          "all_facts": 0,
+          "all_pages": 0,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 1.0,
+          "fact_recall": 0.5,
+          "hit": 1,
+          "matched_pages": 1,
+          "mrr": 0.05555555555555555,
+          "ndcg": 0.14434031438272124,
+          "page_recall": 0.5,
+          "primary_bundle_hits": 1,
+          "required_facts": 2,
+          "required_facts_hit": 1,
+          "required_pages": 2
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS023",
+            "page": 1
+          },
+          {
+            "book_id": "AS024",
+            "page": 19
+          },
+          {
+            "book_id": "AS017",
+            "page": 44
+          },
+          {
+            "book_id": "AS024",
+            "page": 35
+          },
+          {
+            "book_id": "AS029",
+            "page": 47
+          },
+          {
+            "book_id": "AS030",
+            "page": 27
+          },
+          {
+            "book_id": "AS023",
+            "page": 7
+          },
+          {
+            "book_id": "AS020",
+            "page": 43
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS024",
+              "page": 19
+            },
+            {
+              "book_id": "AS017",
+              "page": 44
+            },
+            {
+              "book_id": "AS024",
+              "page": 35
+            },
+            {
+              "book_id": "AS030",
+              "page": 27
+            },
+            {
+              "book_id": "AS020",
+              "page": 43
+            },
+            {
+              "book_id": "AS029",
+              "page": 51
+            },
+            {
+              "book_id": "AS024",
+              "page": 5
+            },
+            {
+              "book_id": "AS024",
+              "page": 1
+            },
+            {
+              "book_id": "AS024",
+              "page": 36
+            },
+            {
+              "book_id": "AS024",
+              "page": 40
+            },
+            {
+              "book_id": "AS024",
+              "page": 41
+            },
+            {
+              "book_id": "AS029",
+              "page": 74
+            },
+            {
+              "book_id": "AS024",
+              "page": 45
+            },
+            {
+              "book_id": "AS024",
+              "page": 27
+            },
+            {
+              "book_id": "AS037",
+              "page": 66
+            },
+            {
+              "book_id": "AS030",
+              "page": 31
+            },
+            {
+              "book_id": "AS030",
+              "page": 44
+            },
+            {
+              "book_id": "AS023",
+              "page": 1
+            },
+            {
+              "book_id": "AS037",
+              "page": 56
+            },
+            {
+              "book_id": "AS040",
+              "page": 9
+            }
+          ],
+          [
+            {
+              "book_id": "AS024",
+              "page": 19
+            },
+            {
+              "book_id": "AS023",
+              "page": 1
+            },
+            {
+              "book_id": "AS029",
+              "page": 47
+            },
+            {
+              "book_id": "AS023",
+              "page": 7
+            },
+            {
+              "book_id": "AS018",
+              "page": 9
+            },
+            {
+              "book_id": "AS023",
+              "page": 23
+            },
+            {
+              "book_id": "AS030",
+              "page": 27
+            },
+            {
+              "book_id": "AS017",
+              "page": 44
+            },
+            {
+              "book_id": "AS024",
+              "page": 40
+            },
+            {
+              "book_id": "AS023",
+              "page": 24
+            },
+            {
+              "book_id": "AS017",
+              "page": 45
+            },
+            {
+              "book_id": "AS017",
+              "page": 40
+            },
+            {
+              "book_id": "AS024",
+              "page": 1
+            },
+            {
+              "book_id": "AS024",
+              "page": 43
+            },
+            {
+              "book_id": "AS033",
+              "page": 11
+            },
+            {
+              "book_id": "AS020",
+              "page": 2
+            },
+            {
+              "book_id": "AS028",
+              "page": 11
+            },
+            {
+              "book_id": "AS024",
+              "page": 45
+            },
+            {
+              "book_id": "AS036",
+              "page": 10
+            },
+            {
+              "book_id": "AS021",
+              "page": 25
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 0.05555555555555555,
+            "ndcg": 0.14434031438272124,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "available": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.6131471927654584,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.6131471927654584,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 0.05555555555555555,
+            "ndcg": 0.14434031438272124,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          }
+        },
+        "status": "sufficient"
+      }
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "id": "semantic_queries:AS-SEM-33"
+  },
+  {
+    "arms": {
+      "A": {
+        "all_search_union": {
+          "all_facts": 0,
+          "all_pages": 0,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 0.5,
+          "fact_recall": 0.5,
+          "hit": 1,
+          "matched_pages": 1,
+          "mrr": 0.047619047619047616,
+          "ndcg": 0.13749447131399728,
+          "page_recall": 0.5,
+          "primary_bundle_hits": 1,
+          "required_facts": 2,
+          "required_facts_hit": 1,
+          "required_pages": 2
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS022",
+            "page": 7
+          },
+          {
+            "book_id": "AS001",
+            "page": 1
+          },
+          {
+            "book_id": "AS041",
+            "page": 35
+          },
+          {
+            "book_id": "AS041",
+            "page": 27
+          },
+          {
+            "book_id": "AS017",
+            "page": 39
+          },
+          {
+            "book_id": "AS041",
+            "page": 17
+          },
+          {
+            "book_id": "AS041",
+            "page": 43
+          },
+          {
+            "book_id": "AS040",
+            "page": 61
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS001",
+              "page": 1
+            },
+            {
+              "book_id": "AS041",
+              "page": 27
+            },
+            {
+              "book_id": "AS041",
+              "page": 17
+            },
+            {
+              "book_id": "AS040",
+              "page": 61
+            },
+            {
+              "book_id": "AS041",
+              "page": 41
+            },
+            {
+              "book_id": "AS040",
+              "page": 70
+            },
+            {
+              "book_id": "AS022",
+              "page": 9
+            },
+            {
+              "book_id": "AS041",
+              "page": 55
+            },
+            {
+              "book_id": "AS022",
+              "page": 16
+            },
+            {
+              "book_id": "AS022",
+              "page": 17
+            },
+            {
+              "book_id": "AS041",
+              "page": 54
+            },
+            {
+              "book_id": "AS040",
+              "page": 47
+            },
+            {
+              "book_id": "AS040",
+              "page": 68
+            },
+            {
+              "book_id": "AS040",
+              "page": 67
+            },
+            {
+              "book_id": "AS007",
+              "page": 22
+            },
+            {
+              "book_id": "AS007",
+              "page": 26
+            },
+            {
+              "book_id": "AS015",
+              "page": 53
+            },
+            {
+              "book_id": "AS038",
+              "page": 39
+            },
+            {
+              "book_id": "AS014",
+              "page": 25
+            },
+            {
+              "book_id": "AS008",
+              "page": 35
+            }
+          ],
+          [
+            {
+              "book_id": "AS022",
+              "page": 7
+            },
+            {
+              "book_id": "AS041",
+              "page": 35
+            },
+            {
+              "book_id": "AS017",
+              "page": 39
+            },
+            {
+              "book_id": "AS041",
+              "page": 43
+            },
+            {
+              "book_id": "AS041",
+              "page": 62
+            },
+            {
+              "book_id": "AS022",
+              "page": 9
+            },
+            {
+              "book_id": "AS041",
+              "page": 27
+            },
+            {
+              "book_id": "AS022",
+              "page": 17
+            },
+            {
+              "book_id": "AS017",
+              "page": 37
+            },
+            {
+              "book_id": "AS041",
+              "page": 23
+            },
+            {
+              "book_id": "AS041",
+              "page": 31
+            },
+            {
+              "book_id": "AS041",
+              "page": 28
+            },
+            {
+              "book_id": "AS022",
+              "page": 13
+            },
+            {
+              "book_id": "AS022",
+              "page": 14
+            },
+            {
+              "book_id": "AS004",
+              "page": 1
+            },
+            {
+              "book_id": "AS022",
+              "page": 8
+            },
+            {
+              "book_id": "AS001",
+              "page": 1
+            },
+            {
+              "book_id": "AS026",
+              "page": 9
+            },
+            {
+              "book_id": "AS026",
+              "page": 49
+            },
+            {
+              "book_id": "AS026",
+              "page": 51
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          },
+          "available": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.6131471927654584,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.6131471927654584,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          }
+        },
+        "status": "needs_clarification"
+      },
+      "B": {
+        "all_search_union": {
+          "all_facts": 1,
+          "all_pages": 1,
+          "alternative_bundle_hits": 0,
+          "alternative_only_hits": 0,
+          "document_recall": 1.0,
+          "fact_recall": 1.0,
+          "hit": 1,
+          "matched_pages": 2,
+          "mrr": 0.045454545454545456,
+          "ndcg": 0.26598986379449846,
+          "page_recall": 1.0,
+          "primary_bundle_hits": 2,
+          "required_facts": 2,
+          "required_facts_hit": 2,
+          "required_pages": 2
+        },
+        "api_failures": 0,
+        "final": [
+          {
+            "book_id": "AS022",
+            "page": 7
+          },
+          {
+            "book_id": "AS025",
+            "page": 19
+          },
+          {
+            "book_id": "AS001",
+            "page": 1
+          },
+          {
+            "book_id": "AS041",
+            "page": 26
+          },
+          {
+            "book_id": "AS041",
+            "page": 27
+          },
+          {
+            "book_id": "AS022",
+            "page": 9
+          },
+          {
+            "book_id": "AS041",
+            "page": 17
+          },
+          {
+            "book_id": "AS020",
+            "page": 19
+          }
+        ],
+        "searches": [
+          [
+            {
+              "book_id": "AS001",
+              "page": 1
+            },
+            {
+              "book_id": "AS041",
+              "page": 27
+            },
+            {
+              "book_id": "AS041",
+              "page": 17
+            },
+            {
+              "book_id": "AS040",
+              "page": 61
+            },
+            {
+              "book_id": "AS041",
+              "page": 41
+            },
+            {
+              "book_id": "AS040",
+              "page": 70
+            },
+            {
+              "book_id": "AS022",
+              "page": 9
+            },
+            {
+              "book_id": "AS041",
+              "page": 55
+            },
+            {
+              "book_id": "AS022",
+              "page": 16
+            },
+            {
+              "book_id": "AS022",
+              "page": 17
+            },
+            {
+              "book_id": "AS041",
+              "page": 54
+            },
+            {
+              "book_id": "AS040",
+              "page": 47
+            },
+            {
+              "book_id": "AS040",
+              "page": 68
+            },
+            {
+              "book_id": "AS040",
+              "page": 67
+            },
+            {
+              "book_id": "AS007",
+              "page": 22
+            },
+            {
+              "book_id": "AS007",
+              "page": 26
+            },
+            {
+              "book_id": "AS015",
+              "page": 53
+            },
+            {
+              "book_id": "AS038",
+              "page": 39
+            },
+            {
+              "book_id": "AS014",
+              "page": 25
+            },
+            {
+              "book_id": "AS008",
+              "page": 35
+            }
+          ],
+          [
+            {
+              "book_id": "AS041",
+              "page": 26
+            },
+            {
+              "book_id": "AS022",
+              "page": 7
+            },
+            {
+              "book_id": "AS022",
+              "page": 9
+            },
+            {
+              "book_id": "AS020",
+              "page": 19
+            },
+            {
+              "book_id": "AS041",
+              "page": 43
+            },
+            {
+              "book_id": "AS022",
+              "page": 17
+            },
+            {
+              "book_id": "AS025",
+              "page": 19
+            },
+            {
+              "book_id": "AS022",
+              "page": 30
+            },
+            {
+              "book_id": "AS022",
+              "page": 13
+            },
+            {
+              "book_id": "AS022",
+              "page": 14
+            },
+            {
+              "book_id": "AS041",
+              "page": 62
+            },
+            {
+              "book_id": "AS022",
+              "page": 12
+            },
+            {
+              "book_id": "AS017",
+              "page": 37
+            },
+            {
+              "book_id": "AS023",
+              "page": 1
+            },
+            {
+              "book_id": "AS017",
+              "page": 40
+            },
+            {
+              "book_id": "AS006",
+              "page": 33
+            },
+            {
+              "book_id": "AS006",
+              "page": 40
+            },
+            {
+              "book_id": "AS003",
+              "page": 85
+            },
+            {
+              "book_id": "AS003",
+              "page": 25
+            },
+            {
+              "book_id": "AS003",
+              "page": 40
+            }
+          ]
+        ],
+        "selection_audit": {
+          "not_retained": [],
+          "policy": "preserve",
+          "unobserved": []
+        },
+        "stages": {
+          "after_hg": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          },
+          "available": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 2,
+            "required_facts": 2,
+            "required_facts_hit": 2,
+            "required_pages": 2
+          },
+          "final": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 2,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 2,
+            "required_facts": 2,
+            "required_facts_hit": 2,
+            "required_pages": 2
+          },
+          "initial": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          }
+        },
+        "status": "needs_clarification"
+      }
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "id": "semantic_queries:AS-SEM-36"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "original_private_copy": "Original workspace plus artifacts/u_10o0o/advanced-table-rag-bounded-workflow-20261112/v2 results",
+  "file": "experimental/u_10o0o/records/advanced-table-rag-bounded-workflow-20261112/difference-flows.json",
+  "original_sha256": "ec8a008353592ac999f0b69ab34547ef7221a1a5f94e55807b4384d2a42c74a0",
+  "public_sha256": "054f4137daafcc4417f34f0b79125149928bf848c351784066ae51b7131b7d9a",
+  "plans_removed": 58,
+  "metrics_changed": false,
+  "reason": "Remove query, question_span, interpreted need, target values from shared diagnostic; preserve full local run and public request IDs/counts/kinds in routing-per-question.json."
+}

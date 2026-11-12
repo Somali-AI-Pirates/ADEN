@@ -1,0 +1,60 @@
+{
+  "answers": 560,
+  "budget_and_provenance_audit": "passed for all 280",
+  "cli_help": "passed",
+  "final_code": {
+    "experimental/u_10o0o/table_rag/__main__.py": "1457fb5f20501d64d9d5edaf9262b77731350c42ba1b3e3d4b84815b4fedbe05",
+    "experimental/u_10o0o/table_rag/evidence.py": "4144b46d9b7a970282dae395c4533708e04a068466ec288baabda03c3cdaf80b",
+    "experimental/u_10o0o/table_rag/test_workflow.py": "6201035dc164c1f04008d9d1eac446670a2eb5e96ce7bc86b9f5628b86fe20a4",
+    "experimental/u_10o0o/table_rag/workflow.py": "36365126ad7ed99f1810e75e8ab7435b7095a9f54935e571ccec2f6c4aac62ea",
+    "experimental/u_10o0o/table_rag/workflow_experiment.py": "ece8633cc82725a2d1abe6f83d0fb385c107f872850a07fe8d5ae5ec0b9d0cd8"
+  },
+  "final_pytest": {
+    "passed": 506,
+    "subtests_passed": 15
+  },
+  "format": {
+    "files": 15,
+    "passed": true
+  },
+  "full_experiment": "complete",
+  "live_connection": {
+    "reference_labels_read": false,
+    "retrieval_api_calls": 4,
+    "status": "passed",
+    "v1_saved_questions": 1
+  },
+  "local_markdown_links": "passed",
+  "package_build": "not run; packaging unchanged and experiments excluded from wheel",
+  "paired_judgment_status": {
+    "complete": 280
+  },
+  "paired_judgments": 280,
+  "post_run_changed_functions": [
+    "score",
+    "report"
+  ],
+  "postprocessing_code": {
+    "experimental/u_10o0o/records/advanced-table-rag-workflow-20261111/audit.py": "91bec93c63d102522c56105f4a2bc2ea839c6a70925f49d0fbad2391bf465a9c",
+    "experimental/u_10o0o/records/advanced-table-rag-workflow-20261111/diagnose.py": "536a5407deef5df91823b774b15c4f78c3914b4ede9037ad3eec9bbcc8075c17"
+  },
+  "postprocessing_regression": "40 passed",
+  "pytest": {
+    "command": "PYTHONPATH=/tmp/aden-side-test-deps .venv/bin/python -B -m pytest -q -p no:cacheprovider tests experimental/u_10o0o/tests experimental/u_10o0o/table_rag/test_table_rag.py experimental/u_10o0o/table_rag/test_workflow.py",
+    "passed": 506,
+    "subtests_passed": 15
+  },
+  "retrieval_questions": 280,
+  "review": "Self-review only; independent agents prohibited in this side conversation",
+  "reviewed_code": {
+    "experimental/u_10o0o/table_rag/__main__.py": "1457fb5f20501d64d9d5edaf9262b77731350c42ba1b3e3d4b84815b4fedbe05",
+    "experimental/u_10o0o/table_rag/evidence.py": "4144b46d9b7a970282dae395c4533708e04a068466ec288baabda03c3cdaf80b",
+    "experimental/u_10o0o/table_rag/test_workflow.py": "6201035dc164c1f04008d9d1eac446670a2eb5e96ce7bc86b9f5628b86fe20a4",
+    "experimental/u_10o0o/table_rag/workflow.py": "36365126ad7ed99f1810e75e8ab7435b7095a9f54935e571ccec2f6c4aac62ea",
+    "experimental/u_10o0o/table_rag/workflow_experiment.py": "96c27c9d6482b91a75748eb870c981e54fd8ccf939936818e9a36b68321d5d4a"
+  },
+  "ruff_common": "passed",
+  "ruff_explicit_package": "passed",
+  "runtime_unchanged_after_outputs": true,
+  "score_invariants": "passed"
+}

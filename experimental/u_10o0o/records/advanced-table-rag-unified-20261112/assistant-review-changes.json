@@ -1,0 +1,82 @@
+[
+  {
+    "arm": "B",
+    "change": "문장 끝을 바꿔 인용한 부분을 실제 반환 문장의 연속 인용으로 교체했다.",
+    "id": "official_development:AS-DEV08"
+  },
+  {
+    "arm": "B",
+    "change": "원문과 일치하지만 너무 짧은 표 셀 인용에 실제 표 머리말과 앞 행을 함께 보존했다.",
+    "id": "official_development:AS-DEV26"
+  },
+  {
+    "arm": "B",
+    "change": "원문에 없는 쉼표가 삽입된 인용을 반환 원문 그대로 교체했다.",
+    "id": "work_rules:AS-WR-12"
+  },
+  {
+    "arm": "A",
+    "change": "다른 자료의 문구처럼 인용한 부분을 실제 반환된 계약 적용 기준과 기존 예약 존속 문장으로 교체했다.",
+    "id": "semantic_queries:AS-SEM-33"
+  },
+  {
+    "arm": "A",
+    "change": "질문 밖 추가 요구를 필수조건으로 삼지 않았다. 반환 근거가 실제 질문의 판단·금액·기간 또는 적용 범위를 충족한다.",
+    "id": "official_additional:AS-ADD03"
+  },
+  {
+    "arm": "B",
+    "change": "질문 밖 추가 요구를 필수조건으로 삼지 않았다. 반환 근거가 실제 질문의 판단·금액·기간 또는 적용 범위를 충족한다.",
+    "id": "official_additional:AS-ADD03"
+  },
+  {
+    "arm": "A",
+    "change": "질문 밖 추가 요구를 필수조건으로 삼지 않았다. 반환 근거가 실제 질문의 판단·금액·기간 또는 적용 범위를 충족한다.",
+    "id": "official_additional:AS-ADD10"
+  },
+  {
+    "arm": "B",
+    "change": "질문 밖 추가 요구를 필수조건으로 삼지 않았다. 반환 근거가 실제 질문의 판단·금액·기간 또는 적용 범위를 충족한다.",
+    "id": "official_additional:AS-ADD10"
+  },
+  {
+    "arm": "A",
+    "change": "질문 밖 추가 요구를 필수조건으로 삼지 않았다. 반환 근거가 실제 질문의 판단·금액·기간 또는 적용 범위를 충족한다.",
+    "id": "official_additional:AS-ADD14"
+  },
+  {
+    "arm": "B",
+    "change": "질문 밖 추가 요구를 필수조건으로 삼지 않았다. 반환 근거가 실제 질문의 판단·금액·기간 또는 적용 범위를 충족한다.",
+    "id": "official_additional:AS-ADD21"
+  },
+  {
+    "arm": "B",
+    "change": "반환 표 행의 열 섞임은 주소 단서 누락과 구분했다. 행 자체를 인용하며 이어 붙인 주소를 원문 인용처럼 만들지 않았다.",
+    "id": "official_additional:AS-ADD06"
+  },
+  {
+    "arm": "A",
+    "change": "질문의 기접수·신규접수 구분에 직접 대응하는 반환 공지를 인정했다. 특정 건에서 이미 정정 처리가 끝났다고 주장하지 않는다.",
+    "id": "work_rules:AS-WR-12"
+  },
+  {
+    "arm": "B",
+    "change": "질문의 기접수·신규접수 구분에 직접 대응하는 반환 공지를 인정했다. 특정 건에서 이미 정정 처리가 끝났다고 주장하지 않는다.",
+    "id": "semantic_queries:AS-SEM-24"
+  },
+  {
+    "arm": "B",
+    "change": "지정 장비·승인 일수 한정 규칙과 금액 감액의 별도 계산을 함께 인정했다. 동일 문구가 있는 특정 정답 쪽만 요구하지 않았다.",
+    "id": "semantic_queries:AS-SEM-36"
+  },
+  {
+    "arm": "A",
+    "change": "기존에 지적된 적용 범위 모호성을 재확인했다. 양쪽 모두 분모에 남기고 성공으로 세지 않는다.",
+    "id": "semantic_queries:AS-SEM-32"
+  },
+  {
+    "arm": "B",
+    "change": "기존에 지적된 적용 범위 모호성을 재확인했다. 양쪽 모두 분모에 남기고 성공으로 세지 않는다.",
+    "id": "semantic_queries:AS-SEM-32"
+  }
+]

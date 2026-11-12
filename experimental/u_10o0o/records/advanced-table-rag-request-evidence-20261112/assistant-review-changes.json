@@ -1,0 +1,77 @@
+[
+  {
+    "arm": "B",
+    "change": "SI 최초 접수 기록의 제출처와 VGM 신규 경로·중량 구분이 실제 반환 문맥에 있다.",
+    "id": "official_development:AS-DEV06"
+  },
+  {
+    "arm": "A",
+    "change": "예약 변경 요청 내용과 조건부 SI 마감 규칙이 반환되어 있다. B에도 같은 범위 기준을 적용했다.",
+    "id": "official_additional:AS-ADD02"
+  },
+  {
+    "arm": "A",
+    "change": "미회신 취소 요청을 완료 처리하지 않는 구분 근거가 있다. 질문 밖 특정 담당자 확인 절차를 별도 필수 요구로 확대하지 않았다.",
+    "id": "official_additional:AS-ADD03"
+  },
+  {
+    "arm": "A",
+    "change": "기존 접수분의 포털 중복 등록 제외 규칙이 질문에 충분하다.",
+    "id": "official_additional:AS-ADD10"
+  },
+  {
+    "arm": "A",
+    "change": "질문이 요청한 승인 적용 보관료와 무료·유료 날짜가 반환 정산 원문에 명시되어 있다. 원시 사건일의 별도 증명까지 필수로 확대하지 않았다.",
+    "id": "official_additional:AS-ADD14"
+  },
+  {
+    "arm": "B",
+    "change": "미회신 취소 요청을 완료 처리하지 않는 구분 근거가 있다. 질문 밖 특정 담당자 확인 절차를 별도 필수 요구로 확대하지 않았다.",
+    "id": "official_additional:AS-ADD03"
+  },
+  {
+    "arm": "B",
+    "change": "기존 접수분의 포털 중복 등록 제외 규칙이 질문에 충분하다.",
+    "id": "official_additional:AS-ADD10"
+  },
+  {
+    "arm": "B",
+    "change": "질문이 요청한 승인 적용 보관료와 무료·유료 날짜가 반환 정산 원문에 명시되어 있다. 원시 사건일의 별도 증명까지 필수로 확대하지 않았다.",
+    "id": "official_additional:AS-ADD14"
+  },
+  {
+    "arm": "A",
+    "change": "SI 정정 연락처의 추출 순서 문제를 교정했다. 날짜별 신규 VGM 경로의 누락은 실패로 유지했다.",
+    "id": "official_additional:AS-ADD06"
+  },
+  {
+    "arm": "B",
+    "change": "기존·새 번호의 대체 근거를 인정했다. 운송사 변경 통지 누락은 실패로 유지했다.",
+    "id": "official_additional:AS-ADD09"
+  },
+  {
+    "arm": "B",
+    "change": "표 셀·머리말의 잘못되거나 짧은 인용을 실제 연속 원문 행으로 교체했다. 판정은 유지했다.",
+    "id": "official_development:AS-DEV20"
+  },
+  {
+    "arm": "A",
+    "change": "표 셀·머리말의 잘못되거나 짧은 인용을 실제 연속 원문 행으로 교체했다. 판정은 유지했다.",
+    "id": "official_development:AS-DEV26"
+  },
+  {
+    "arm": "B",
+    "change": "표 셀·머리말의 잘못되거나 짧은 인용을 실제 연속 원문 행으로 교체했다. 판정은 유지했다.",
+    "id": "official_development:AS-DEV26"
+  },
+  {
+    "arm": "B",
+    "change": "표 셀·머리말의 잘못되거나 짧은 인용을 실제 연속 원문 행으로 교체했다. 판정은 유지했다.",
+    "id": "official_additional:AS-ADD21"
+  },
+  {
+    "arm": "A",
+    "change": "표 셀·머리말의 잘못되거나 짧은 인용을 실제 연속 원문 행으로 교체했다. 판정은 유지했다.",
+    "id": "official_additional:AS-ADD23"
+  }
+]
