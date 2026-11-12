@@ -88,7 +88,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--questions", required=True, help="질문 파일(id·question만 사용)")
     p.add_argument("--ids", help="질문 ID, 쉼표 구분(기본: 전체)")
     p.add_argument("--modes", default="", help="검색 방식, 쉼표 구분(비우면 서버 기본 방식)")
-    p.add_argument("--timeout", type=float, default=120.0, help="요청당 클라이언트 제한 시간(초)")
+    # 서버는 모델 호출 제한(model_timeout_seconds)을 시도마다 쓰므로 그 합보다 길어야 재시도한 성공 요청이 timeout으로 남지 않는다
+    p.add_argument("--timeout", type=float, default=150.0,
+                   help="요청당 클라이언트 제한 시간(초). 서버 설정의 model_timeout_seconds × "
+                        "generation_max_attempts보다 길게 둔다(advanced.yaml 60초×2회 기준 150). "
+                        "서버 설정을 바꾸면 함께 조정한다")
     p.add_argument("--condition", default="", help="실행 조건 설명(서버 설정·근거 공급 등). 기록에만 남긴다")
     p.add_argument("--experiment-id")
     p.add_argument("--artifacts-dir", default=str(ROOT / "artifacts" / "experiments"))

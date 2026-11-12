@@ -86,6 +86,7 @@ python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000
 
 - 시간(`latency_scope=http_client`)은 요청 직전부터 응답 본문 수신 완료까지다. Judge·RAGAS 채점, trace 조회, 서버 기동은 넣지 않는다. 평가 CLI의 `latency_ms`(`service`, HTTP 없이 서비스 함수 실행)와 다른 값이다.
 - `outcome`은 success, http_error(4xx·5xx, 응답 본문의 사유), timeout, connection_error, invalid_response다.
+- 기본 `--timeout`은 150초다. 서버는 모델 호출 제한(`model_timeout_seconds`)을 시도마다 적용하므로 클라이언트 제한은 `model_timeout_seconds × generation_max_attempts`(advanced.yaml 60초×2회)보다 길어야 한다. 짧으면 서버에서 재시도 끝에 성공한 요청이 클라이언트에는 timeout으로 남는다. 서버 설정을 바꾸면 함께 조정한다.
 - 응답의 `request_id`(없으면 `X-Request-ID`)로 서버와 같은 방식의 trace ID를 계산한다. API 응답에는 근거·최종 문맥·모델 입력이 없으므로 RunRecord를 만들지 않고, 필요하면 trace에서 조회한다.
 
 ### 평가 점수 게시
@@ -104,5 +105,7 @@ python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000
 ## 공식 비교 재현 증거
 
 - manifest의 커밋·미커밋 상태, 실험 ID, 질문·검색 방식, 설정 해시, 정답 파일 해시(`references_sha256`)와 평가 모델을 확인한다.
+- 설정 해시는 두 가지다. manifest의 `config_hash`는 `--config` 설정 파일 자체의 SHA-256이라 파일이 같으면 PC와 관계없이 같다. 실행 기록·trace의 `config_hash`(`experiment_config_hash`)는 읽어 들인 설정 JSON과 생성 프롬프트 해시로 계산하는데, `documents_dir`가 절대 경로로 들어가 저장소 위치가 다르면 같은 설정이라도 값이 다르다. 기존 기록과 대조할 수 있도록 계산식은 바꾸지 않는다.
+- 같은 PC의 API와 평가 CLI는 실행 기록·trace의 `config_hash`로 대조할 수 있다. PC 사이에는 실행 커밋, `prompt_hash`, `final_context_hash`·`model_context_hash`와 함께 생성 모델, `reasoning_effort`, `max_output_tokens`, `model_timeout_seconds`, `generation_max_attempts`, `retrieval.k`, `context_token_budget`을 직접 비교한다. 해시 몇 개가 같다고 실행 조건 전체가 같은 것은 아니다.
 - 실행 명령, 질문·정답 파일과 색인 manifest의 SHA-256, 컬렉션, 유효 설정·프롬프트·의존성 버전, [시간 측정 범위](../design/contracts.md#기록-형식과-측정-범위)를 결과에 보충한다. 미커밋 코드로 실행했다면 해당 diff도 남긴다. 확인되지 않은 토큰은 `null`이다.
 - 전체 실행 기록은 `artifacts/experiments/<id>/`에, 선별한 공식 비교·제출 자료는 `reports/<id>/`에 둔다. 조건이 바뀌면 새 실험 ID로 저장한다. 제출 시 실제 실행 커밋을 태그하고 결과를 프로젝트 소개와 팀 작업에 연결한다.
