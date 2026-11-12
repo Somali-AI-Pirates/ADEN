@@ -17,6 +17,7 @@ from app.rag.admission import (
 )
 from app.rag.lifecycle import await_to_completion
 from app.rag.model import RagContextBudgetError, RagModelError
+from shared.contracts import MAX_CONVERSATION_TURNS, ConversationTurn
 from shared.exceptions import ServiceError
 
 router = APIRouter()
@@ -27,6 +28,9 @@ _BOOK_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$")
 class ChatRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question: str = Field(min_length=1)
+    conversation_history: list[ConversationTurn] = Field(
+        default_factory=list, max_length=MAX_CONVERSATION_TURNS
+    )
 
     @field_validator("question")
     @classmethod
@@ -164,6 +168,7 @@ async def query_stream(payload: ChatRequest, request: Request):
                     request_id=request_id,
                     on_event=emit,
                     reservation=reservation,
+                    conversation_history=tuple(payload.conversation_history),
                 )
                 if result.response.request_id != request_id:
                     raise RagModelError("Mismatched request identity")

@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import re
 import sqlite3
 from collections.abc import Callable
 from contextlib import AsyncExitStack
@@ -38,6 +39,8 @@ from app.rag.lifecycle import await_to_completion
 from app.rag.streaming import EventSink
 from app.rag.model import (
     ANSWER_OUTPUT_TOKENS,
+    CONVERSATION_GUIDANCE,
+    MISSING_EMAIL_TARGET_GUIDANCE,
     MODEL,
     PLAN_OUTPUT_TOKENS,
     REASONING_EFFORT,
@@ -49,7 +52,7 @@ from app.rag.model import (
     TableModel,
     load_model,
 )
-from shared.contracts import AnswerStatus, Citation, QueryResponse
+from shared.contracts import AnswerStatus, Citation, ConversationTurn, QueryResponse
 from shared.table_rag_policy import (
     CANDIDATE_LIMIT,
     CONTEXT_WINDOW,
@@ -62,6 +65,9 @@ if TYPE_CHECKING:
     from app.rag.table_store import TableStore
 
 logger = logging.getLogger(__name__)
+_EMAIL_WITHOUT_TARGET = re.compile(
+    r"이메일(?:이|은)?\s*(?:뭐야|뭔가요|뭐예요|어떻게\s*됩니까|어떻게\s*되나요)\s*[?!.]*"
+)
 
 
 def _json(value: Any) -> str:
@@ -317,6 +323,7 @@ class RagService:
     async def ainvoke(
         self, question: str, *, request_id: str, on_event: EventSink | None = None,
         reservation: RequestReservation | None = None,
+        conversation_history: tuple[ConversationTurn, ...] | None = None,
     ) -> RagRun:
         question = question.strip()
         if not question:
@@ -337,7 +344,8 @@ class RagService:
                 if not (await self.readiness()).ready:
                     raise RequestUnavailableError("Required TableRAG resources are unavailable")
                 result = await self._execute(
-                    question, request_id=request_id, on_event=on_event
+                    question, request_id=request_id, on_event=on_event,
+                    conversation_history=conversation_history,
                 )
             outcome = "complete"
             return result
@@ -366,7 +374,8 @@ class RagService:
             )
 
     async def _execute(
-        self, question: str, *, request_id: str, on_event: EventSink | None = None
+        self, question: str, *, request_id: str, on_event: EventSink | None = None,
+        conversation_history: tuple[ConversationTurn, ...] | None = None,
     ) -> RagRun:
         started = perf_counter()
         trace = self.tracer.start_request(
@@ -377,7 +386,12 @@ class RagService:
             config_hash=self.config_hash,
             metadata={"question_sha256": _hash(question)},
         )
-        calls = ModelCalls(trace, on_event=on_event)
+        guidance = ("", "")
+        if conversation_history:
+            guidance = CONVERSATION_GUIDANCE
+        elif conversation_history is not None and _EMAIL_WITHOUT_TARGET.fullmatch(question):
+            guidance = MISSING_EMAIL_TARGET_GUIDANCE
+        calls = ModelCalls(trace, on_event=on_event, guidance=guidance)
         response = None
         retrieval = None
         candidates = ()
@@ -400,6 +414,9 @@ class RagService:
                 request_id=request_id,
                 stage=trace.stage,
                 trace_id=trace.trace_id,
+                conversation_history=conversation_history or (),
+                plan_guidance_tokens=self._count_tokens("\n\n" + guidance[0]) if guidance[0] else 0,
+                include_clarification_fallback=not guidance[0],
             )
             evidence = retrieval.evidence
             candidates = tuple(
@@ -421,11 +438,17 @@ class RagService:
             )
             _check_termination(retrieval.termination_reason)
             await progress("answering", "근거를 바탕으로 답변을 작성하고 있습니다.")
+            answer_input = {
+                "question": question,
+                "evidence": json.loads(evidence.model_input),
+                "retrieval_status": retrieval.status,
+            }
+            if conversation_history:
+                answer_input["conversation_history"] = [
+                    turn.model_dump(exclude={"source_ids"}) for turn in conversation_history
+                ]
             answer = await self._model.answer(
-                _json(
-                    {"question": question, "evidence": json.loads(evidence.model_input),
-                     "retrieval_status": retrieval.status}
-                ),
+                _json(answer_input),
                 context_hash=evidence.context_hash,
                 calls=calls,
             )

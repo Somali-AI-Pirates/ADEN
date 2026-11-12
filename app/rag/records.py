@@ -70,9 +70,13 @@ def canonical_spec(value: str) -> str:
     return _SPEC_LOOKUP.get(compact, norm(value))
 
 
-def grounded(request, question: str, observations) -> None:
-    """Require lookup constraints to appear in the question or prior evidence."""
-    text = norm(question + " " + json.dumps(observations, ensure_ascii=False))
+def grounded(
+    request, question: str, observations, *, previous_questions: tuple[str, ...] = ()
+) -> None:
+    """Require lookup constraints to come from user text or observed evidence."""
+    observed_text = json.dumps(observations, ensure_ascii=False)
+    user_text = "\n".join((*previous_questions, question))
+    text = norm(user_text + " " + observed_text)
     compact = "".join(text.split())
     allowed_codes = set(codes(text))
     excluded_codes = {

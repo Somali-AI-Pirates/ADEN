@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 RetrievalMode = Literal["naive", "hybrid", "hybrid_rerank"]
 AnswerStatus = Literal["answered", "needs_clarification", "abstained"]
@@ -64,6 +64,18 @@ class GenerationResult(BaseModel):
     model_answer: ModelAnswer
     attempts: list[dict[str, Any]]
     usage: dict[str, Any] | None
+
+
+MAX_CONVERSATION_TURNS = 6
+MAX_CONVERSATION_TEXT_LENGTH = 2000
+ConversationSourceId = Annotated[str, Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9_-]{0,79}:p[0-9]{4,9}$")]
+
+
+class ConversationTurn(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True, str_strip_whitespace=True)
+    question: str = Field(min_length=1, max_length=MAX_CONVERSATION_TEXT_LENGTH)
+    answer: str = Field(min_length=1, max_length=MAX_CONVERSATION_TEXT_LENGTH)
+    source_ids: list[ConversationSourceId] = Field(default_factory=list, max_length=8)
 
 
 class QueryRequest(BaseModel):

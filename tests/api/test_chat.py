@@ -5,6 +5,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from fastapi.testclient import TestClient
+from langchain_core.messages import AIMessage
 from starlette.requests import Request
 from pypdf import PdfWriter
 import pytest
@@ -14,6 +15,10 @@ from app.api.main import create_app
 from app.observability.run_store import RequestRunStoreError
 from shared.contracts import QueryResponse
 from app.rag.config import TableRagSettings
+from app.observability.tracing import Tracer
+from app.rag.model import GeneratedAnswer
+from app.rag.models import SearchResult, SourceRef, make_document
+from app.rag.service import RagService
 from app.rag.admission import (
     RequestBusyError,
     RequestDeadlineExceeded,
@@ -46,7 +51,7 @@ class Service:
         self.reservations.append((request_id, reservation))
         return reservation
 
-    async def ainvoke(self, question, *, request_id, on_event=None, reservation=None):
+    async def ainvoke(self, question, *, request_id, on_event=None, reservation=None, conversation_history=()):
         await on_event(
             {"type": "progress", "stage": "answering", "message": "답변 작성 중"}
         )
@@ -100,6 +105,130 @@ def test_stream_has_request_identity_and_authoritative_final():
     assert values[-1]["response"]["citations"][0]["page"] == 1
 
 
+def test_email_follow_up_searches_for_current_document_evidence():
+    topic = "한빛물류 예약 담당 연락처를 확인해 줘."
+    formal = "한빛물류 예약 담당 이메일이 어떻게 됩니까?"
+    informal = "한빛물류 예약 담당 이메일이 뭐야?"
+    follow_up = "이메일이 뭐야?"
+    ambiguous = "이메일이 어떻게 됩니까?"
+    legacy_clarification = "연락처가 뭐야?"
+    contact = "booking@example.com"
+    document = make_document(
+        f"한빛물류 예약 담당 이메일: {contact}",
+        SourceRef(book_id="AS001", file_name="AS001.pdf", page=2),
+        "AS001:p0002:page",
+    )
+    source_id = document.metadata["source_id"]
+    searches = []
+    document_available = True
+
+    def search(query):
+        searches.append(query)
+        has_candidate = "한빛물류" in query or query in (ambiguous, legacy_clarification)
+        pages = (document,) if document_available and has_candidate else ()
+        return SearchResult(pages, (), {})
+
+    class Model:
+        def planner_overhead(self, count_tokens):
+            return 0
+
+        async def plan(self, messages, *, finish_only, calls):
+            initial = json.loads(messages[0].content)
+            if len(messages) > 1:
+                evidence = json.loads(messages[-1].content)
+            else:
+                evidence = initial["initial_evidence"][0]
+                prior = initial.get("conversation_history", [])
+                if len(initial["initial_evidence"]) > 1:
+                    evidence = initial["initial_evidence"][-1]
+                    assert evidence["kind"] == "conversation_sources"
+                elif initial["question"] == follow_up and prior and prior[-1]["question"] == topic:
+                    return AIMessage(content="", tool_calls=[{
+                        "name": "search_evidence", "id": "email-search",
+                        "args": {"query": "한빛물류 예약 담당 이메일", "kind": "documents"},
+                    }])
+            asks_for_clarification = initial["question"] in (ambiguous, legacy_clarification)
+            sources = [] if asks_for_clarification else evidence["candidate_sources"]
+            status = "insufficient" if len(messages) > 1 else "needs_clarification"
+            return AIMessage(content="", tool_calls=[{
+                "name": "finish", "id": "finish-email",
+                "args": {
+                    "status": "sufficient" if sources else status,
+                    "selected_sources": sources, "interim_summary": "", "conflicts": [],
+                },
+            }])
+
+        async def answer(self, payload, *, context_hash, calls):
+            value = json.loads(payload)
+            pages = value["evidence"]["pages"]
+            if value["question"] == legacy_clarification:
+                assert not calls.answer_guidance
+                assert pages[0]["source_id"] == source_id
+                return GeneratedAnswer(
+                    status="needs_clarification", answer="어느 연락처를 찾으시나요?", citations=[source_id],
+                )
+            if not pages:
+                if value["retrieval_status"] == "insufficient":
+                    return GeneratedAnswer(status="insufficient", answer="이메일 근거가 없습니다.", citations=[])
+                return GeneratedAnswer(
+                    status="needs_clarification", answer="어느 업체의 이메일을 찾으시나요?", citations=[],
+                )
+            assert contact in pages[0]["text"]
+            if value["question"] == follow_up:
+                assert value["conversation_history"][-1]["question"] == topic
+                assert "old@example.com" not in pages[0]["text"]
+                assert calls.answer_guidance
+            else:
+                assert not calls.answer_guidance
+            return GeneratedAnswer(status="answered", answer=contact, citations=[pages[0]["source_id"]])
+
+        async def aclose(self):
+            pass
+
+    service = RagService(
+        search=search,
+        page_lookup=lambda identifier: document if document_available and identifier == source_id else None,
+        table_store=SimpleNamespace(schema=lambda _: []),
+        model=Model(), tracer=Tracer(), manifest={"policy": "table_rag_a"},
+    )
+    app = create_app(table_service_loader=lambda _: service)
+    with TestClient(app) as client:
+        def ask(question, **options):
+            response = client.post("/query/stream", json={"question": question, **options})
+            assert response.status_code == 200
+            assert events(response)[-1]["type"] == "final"
+            return events(response)[-1]["response"]
+
+        for question in (topic, formal, informal):
+            assert ask(question)["answer"] == contact
+        assert ask(follow_up)["status"] == "needs_clarification"
+        clarification = ask(ambiguous)
+        assert clarification["status"] == "needs_clarification"
+        assert clarification["citations"] == []
+        assert contact not in clarification["answer"]
+        assert ask(legacy_clarification)["citations"][0]["source_id"] == source_id
+        legacy = client.post("/query", json={"question": legacy_clarification})
+        assert legacy.status_code == 200
+        assert legacy.json()["citations"][0]["source_id"] == source_id
+        previous = [{"question": topic, "answer": "이전 안내: old@example.com"}]
+        answer = ask(follow_up, conversation_history=previous)
+        assert answer["status"] == "answered"
+        assert answer["answer"] == contact
+        assert [citation["source_id"] for citation in answer["citations"]] == [source_id]
+        assert searches[-2:] == [follow_up, "한빛물류 예약 담당 이메일"]
+        assert ask(follow_up)["status"] == "needs_clarification"
+        previous[0]["source_ids"] = ["AS999:p9999", source_id]
+        reread = ask(follow_up, conversation_history=previous)
+        assert reread["answer"] == contact
+        assert [citation["source_id"] for citation in reread["citations"]] == [source_id]
+        assert searches[-1] == follow_up
+        document_available = False
+        unsupported = ask(follow_up, conversation_history=previous)
+        assert unsupported["status"] == "abstained"
+        assert unsupported["citations"] == []
+        assert "old@example.com" not in unsupported["answer"]
+
+
 @pytest.mark.parametrize(
     "error", [RequestRunStoreError("private path"), RuntimeError("secret")]
 )
@@ -118,7 +247,15 @@ def test_stream_validation_and_unready():
         raise FileNotFoundError()
 
     with TestClient(create_app(table_service_loader=unavailable)) as client:
-        for body in [{"question": " "}, {"question": "예약", "retrieval_mode": None}]:
+        turn = {"question": "업체 확인", "answer": "업체는 한빛물류입니다."}
+        for body in [
+            {"question": " "},
+            {"question": "예약", "retrieval_mode": None},
+            {"question": "예약", "conversation_history": [turn] * 7},
+            {"question": "예약", "conversation_history": [{**turn, "answer": "가" * 2001}]},
+            {"question": "예약", "conversation_history": [{**turn, "question": " "}]},
+            {"question": "예약", "conversation_history": [{**turn, "source_ids": ["../bad"]}]},
+        ]:
             response = client.post("/query/stream", json=body)
             assert response.status_code == 422
             assert response.headers["X-Request-ID"] == response.json()["request_id"]

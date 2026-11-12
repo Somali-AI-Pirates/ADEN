@@ -8,6 +8,7 @@ from langchain_core.messages import AIMessage, BaseMessage
 
 from app.rag.models import EvidenceContext, SearchResult
 from app.rag.tools import FinishRequest
+from shared.contracts import ConversationTurn
 
 
 Planner = Callable[..., Awaitable[AIMessage]]
@@ -20,12 +21,15 @@ class TableRagRuntimeContext(TypedDict):
     planner: Planner
     stage: Stage | None
     trace_id: str | None
+    plan_guidance_tokens: int
+    include_clarification_fallback: bool
 
 
 class TableRagState(TypedDict):
     """Mutable workflow data; shared services stay outside this request state."""
 
     question: str
+    conversation_history: tuple[ConversationTurn, ...]
     request_id: str
     messages: list[BaseMessage]
     searches: list[SearchResult]

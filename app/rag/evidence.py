@@ -135,6 +135,7 @@ def assemble_evidence(
     candidate_limit: int = CANDIDATE_LIMIT,
     page_limit: int = MAX_CONTEXT_PAGES,
     token_budget: int = MAX_CONTEXT_TOKENS,
+    include_fallback_pages: bool = True,
 ) -> EvidenceContext:
     if candidate_limit <= 0 or page_limit <= 0 or token_budget <= 0:
         raise ValueError("Candidate, page, and token limits must be positive")
@@ -172,11 +173,12 @@ def assemble_evidence(
         if identifier in by_source
     ]
     preferred_ids = {source_id(document) for document in selected}
-    selected.extend(
-        document
-        for identifier, document in by_source.items()
-        if identifier not in preferred_ids
-    )
+    if include_fallback_pages:
+        selected.extend(
+            document
+            for identifier, document in by_source.items()
+            if identifier not in preferred_ids
+        )
 
     kept_sql: list[dict[str, Any]] = []
     required_sources: set[str] = set()

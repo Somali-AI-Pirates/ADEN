@@ -5,6 +5,42 @@ const id = "a".repeat(32);
 const response = { request_id: id, status: "answered", answer: "확인된 기록입니다.\n\n| 구분 | 상태 |\n| --- | --- |\n| 예약 | 확인 |", reason: "근거 확인", citations: [{ source_id: "S1", book_id: "AS001", file_name: "AS001.pdf", page: 2 }] };
 const event = (data: object) => `data: ${JSON.stringify(data)}\n\n`;
 
+test("email follow-up sends completed conversation context until reset", async ({ page }) => {
+  const topic = "한빛물류 예약 담당 연락처를 확인해 줘.";
+  const followUp = "이메일이 뭐야?";
+  const firstAnswer = "한빛물류 예약 담당 연락처를 확인했습니다.";
+  const emailAnswer = "예약 담당 이메일은 booking@example.com입니다.";
+  const citations = [{ ...response.citations[0], source_id: "AS001:p0002" }];
+  const requests: unknown[] = [];
+  await page.route("**/api/query/stream", route => {
+    requests.push(route.request().postDataJSON());
+    const answer = requests.length === 2 ? emailAnswer : firstAnswer;
+    return route.fulfill({
+      contentType: "text/event-stream", headers: { "X-Request-ID": id },
+      body: event({ type: "start", request_id: id }) +
+        event({ type: "final", request_id: id, response: { ...response, answer, citations } }),
+    });
+  });
+  await page.goto("/");
+  const ask = async (question: string) => {
+    await page.getByRole("textbox", { name: "질문", exact: true }).fill(question);
+    await page.getByRole("button", { name: "질문 전송" }).click();
+  };
+  await ask(topic);
+  await expect(page.getByText(firstAnswer, { exact: true })).toBeVisible();
+  await ask(followUp);
+  await expect(page.getByText(emailAnswer, { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "AS001.pdf 2쪽 원문 열기", exact: true }).last()).toBeVisible();
+  await page.getByRole("button", { name: "새 대화" }).click();
+  await ask(followUp);
+  await expect(page.getByText(firstAnswer, { exact: true })).toBeVisible();
+  expect(requests).toEqual([
+    { question: topic },
+    { question: followUp, conversation_history: [{ question: topic, answer: firstAnswer, source_ids: ["AS001:p0002"] }] },
+    { question: followUp },
+  ]);
+});
+
 test("formatted Korean answers keep working inline and card citations", async ({ page }) => {
   const citedResponse = {
     ...response,

@@ -36,7 +36,7 @@ test("EOF, mismatched identity and invalid document sources do not become succes
   assert.throws(() => parseResponse({ ...response, citations: [{ ...response.citations[0], page: 0 }] }));
 });
 
-test("adapter submits only the current question and keeps final response", async () => {
+test("adapter submits the latest question and bounded completed history", async () => {
   const original = globalThis.fetch;
   const posted: unknown[] = [];
   globalThis.fetch = async (_url, init) => {
@@ -44,12 +44,29 @@ test("adapter submits only the current question and keeps final response", async
     return new Response(body(sse(start) + sse({ type: "answer_delta", request_id: id, delta: "임시" }) + sse({ type: "final", request_id: id, response })), { headers: { "content-type": "text/event-stream", "X-Request-ID": id } });
   };
   try {
-    const args = { messages: [{ role: "user", content: [{ type: "text", text: "과거 질문" }] }, { role: "user", content: [{ type: "text", text: "예약 확인" }] }], abortSignal: new AbortController().signal } as unknown as Parameters<typeof chatAdapter.run>[0];
+    const text = (value: string) => [{ type: "text", text: value }];
+    const longAnswer = "😀".repeat(2001);
+    const completed = Array.from({ length: 7 }, (_, index) => ({
+      question: `이전 질문 ${index}`,
+      answer: index === 6 ? longAnswer : `완료된 답변 ${index}`,
+    }));
+    const messages = [
+      ...completed.flatMap(turn => [
+        { role: "user", content: text(turn.question) },
+        { role: "assistant", content: text(turn.answer), status: { type: "complete" } },
+      ]),
+      { role: "user", content: text("중단한 질문") },
+      { role: "assistant", content: text("임시 답변"), status: { type: "incomplete" } },
+      { role: "user", content: text("예약 확인") },
+    ];
+    const args = { messages, abortSignal: new AbortController().signal } as unknown as Parameters<typeof chatAdapter.run>[0];
     const result = chatAdapter.run(args);
     assert.ok(Symbol.asyncIterator in result);
     const snapshots = [];
     for await (const update of result) snapshots.push(update);
-    assert.deepEqual(posted, [{ question: "예약 확인" }]);
+    const expectedHistory = completed.slice(1);
+    expectedHistory[5] = { question: "이전 질문 6", answer: "😀".repeat(2000) };
+    assert.deepEqual(posted, [{ question: "예약 확인", conversation_history: expectedHistory }]);
     assert.deepEqual(snapshots.at(-1)?.metadata?.custom?.response, response);
     assert.equal(snapshots.at(-1)?.status?.type, "complete");
   } finally { globalThis.fetch = original; }

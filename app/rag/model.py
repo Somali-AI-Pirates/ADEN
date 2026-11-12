@@ -66,6 +66,13 @@ def _prompt(name: str) -> str:
     )
 
 
+CONVERSATION_GUIDANCE = (_prompt("conversation-plan"), _prompt("conversation-answer"))
+MISSING_EMAIL_TARGET_GUIDANCE = (
+    "질문에는 이메일을 찾을 업무나 담당 창구가 생략됐다. 검색 후보에서 대상을 추정하지 말고 finish의 status를 needs_clarification으로, selected_sources를 빈 배열로 설정한다.",
+    "어느 업무나 담당 창구의 이메일을 찾는지 묻는다. 후보 주소와 출처는 제시하지 않는다.",
+)
+
+
 def _tool(name, schema, description):
     return {
         "type": "function",
@@ -195,9 +202,12 @@ class _UsageCallback(BaseCallbackHandler):
 class ModelCalls:
     """One request's model accounting and generation spans."""
 
-    def __init__(self, trace, on_event: EventSink | None = None) -> None:
+    def __init__(
+        self, trace, on_event: EventSink | None = None, *, guidance: tuple[str, str] = ("", "")
+    ) -> None:
         self.trace = trace
         self.on_event = on_event
+        self.plan_guidance, self.answer_guidance = guidance
         self.calls: list[dict[str, Any]] = []
 
     async def invoke(
@@ -379,7 +389,7 @@ class TableModel:
         ]
         finish_tool = self.tools[-1]
         plan_prompt = ChatPromptTemplate.from_messages(
-            [SystemMessage(content=self.plan_prompt), MessagesPlaceholder("history")]
+            [("system", "{instructions}"), MessagesPlaceholder("history")]
         )
         self._plan = {
             only_finish: plan_prompt
@@ -393,7 +403,7 @@ class TableModel:
             for only_finish in (False, True)
         }
         answer_prompt = ChatPromptTemplate.from_messages(
-            [SystemMessage(content=self.answer_prompt), ("human", "{payload}")]
+            [("system", "{instructions}"), ("human", "{payload}")]
         )
         self._answer = answer_prompt | model.with_structured_output(
             GeneratedAnswer,
@@ -429,8 +439,9 @@ class TableModel:
 
     async def plan(self, history, *, finish_only: bool, calls: ModelCalls) -> AIMessage:
         tools = [self.tools[-1]] if finish_only else self.tools
+        instructions = "\n\n".join(filter(None, (self.plan_prompt, calls.plan_guidance)))
         model_input = {
-            "system": self.plan_prompt,
+            "system": instructions,
             "history": [_visible_message(message) for message in history],
             "tools": tools,
             "tool_choice": "finish" if finish_only else "required",
@@ -439,7 +450,7 @@ class TableModel:
         message = await calls.invoke(
             "planner",
             self._plan[finish_only],
-            {"history": [_safe_message(item) for item in history]},
+            {"instructions": instructions, "history": [_safe_message(item) for item in history]},
             model_input=model_input,
             tool_schema=tools,
             output_capture=lambda response: _visible_output(
@@ -465,12 +476,13 @@ class TableModel:
             response["parsed"] = parsed
             return parsed.model_dump()
 
+        instructions = "\n\n".join(filter(None, (self.answer_prompt, calls.answer_guidance)))
         result = await calls.invoke(
             "answer",
             self._answer,
-            {"payload": payload},
+            {"instructions": instructions, "payload": payload},
             model_input={
-                "system": self.answer_prompt,
+                "system": instructions,
                 "payload": payload,
                 "context_hash": context_hash,
                 "response_format": {

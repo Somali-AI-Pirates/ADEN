@@ -13,6 +13,10 @@ export type QueryResponse = {
   citations: Citation[];
 };
 
+export type ConversationTurn = { question: string; answer: string; source_ids?: string[] };
+export const MAX_CONVERSATION_TURNS = 6;
+export const MAX_CONVERSATION_TEXT_LENGTH = 2000;
+
 export type StreamEvent =
   | { type: "start"; request_id: string }
   | { type: "progress"; request_id: string; stage: string; message: string }
@@ -112,7 +116,9 @@ export async function* readEvents(body: ReadableStream<Uint8Array>, id: string):
   }
 }
 
-export async function* streamQuestion(question: string, signal: AbortSignal): AsyncGenerator<StreamEvent> {
+export async function* streamQuestion(
+  question: string, signal: AbortSignal, conversationHistory: ConversationTurn[] = [],
+): AsyncGenerator<StreamEvent> {
   const controller = new AbortController();
   const cancel = () => controller.abort(signal.reason);
   signal.addEventListener("abort", cancel, { once: true });
@@ -123,7 +129,9 @@ export async function* streamQuestion(question: string, signal: AbortSignal): As
     const response = await fetch("/api/query/stream", {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
-      body: JSON.stringify({ question }),
+      body: JSON.stringify(conversationHistory.length
+        ? { question, conversation_history: conversationHistory }
+        : { question }),
       signal: controller.signal,
       cache: "no-store",
     });

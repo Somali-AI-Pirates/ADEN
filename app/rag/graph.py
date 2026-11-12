@@ -22,7 +22,7 @@ from app.rag.evidence import (
     token_count,
 )
 from app.rag.model import RagContextBudgetError, RagModelError
-from app.rag.models import RetrievalRun
+from app.rag.models import RetrievalRun, SearchResult
 from app.rag.records import RecordIndex, codes, grounded
 from app.rag.table_store import TableStore
 from app.rag.state import Planner, Stage, TableRagRuntimeContext, TableRagState
@@ -44,6 +44,7 @@ from app.rag.tools import (
     ReadSourcesRequest,
     SearchEvidenceRequest,
 )
+from shared.contracts import ConversationTurn
 from shared.table_rag_policy import (
     CONTEXT_WINDOW,
     MAX_PLANNER_CALLS,
@@ -274,6 +275,27 @@ class TableRagGraph:
                 observations.append(observation)
                 initial_route = "hybrid"
 
+            previous_sources = dict.fromkeys(
+                identifier
+                for turn in reversed(state["conversation_history"])
+                for identifier in turn.source_ids
+            )
+            if previous_sources:
+                pages = tuple(
+                    page
+                    for identifier in list(previous_sources)[:4]
+                    if (page := self.dependencies.page_lookup(identifier)) is not None
+                )
+                if pages:
+                    result = SearchResult(pages, (), {"kind": "conversation_sources"})
+                    observation = await self.dependencies.run_sync(
+                        build_observation, result, self.dependencies.table_store, subquery=question
+                    )
+                    observation["kind"] = "conversation_sources"
+                    searches.append(result)
+                    groups.append(list(pages))
+                    observations.append(observation)
+
             elapsed = perf_counter() - started
             _set_span_output(
                 span,
@@ -292,15 +314,17 @@ class TableRagGraph:
                     "seconds": elapsed,
                 },
             )
-        initial_payload = json_payload(
-            {
-                "question": question,
-                "initial_route": initial_route,
-                "initial_evidence": observations,
-            }
-        )
+        initial_payload = {
+            "question": question,
+            "initial_route": initial_route,
+            "initial_evidence": observations,
+        }
+        if state["conversation_history"]:
+            initial_payload["conversation_history"] = [
+                turn.model_dump(exclude={"source_ids"}) for turn in state["conversation_history"]
+            ]
         return {
-            "messages": [HumanMessage(content=initial_payload)],
+            "messages": [HumanMessage(content=json_payload(initial_payload))],
             "searches": searches,
             "groups": groups,
             "observations": observations,
@@ -379,7 +403,11 @@ class TableRagGraph:
         planner_count = state["planner_count"] + 1
         messages = state["messages"]
         finish_only = state["solve_count"] >= MAX_TOOL_OPERATIONS
-        input_tokens = _serialized_message_tokens(messages) + self.plan_overhead_tokens
+        input_tokens = (
+            _serialized_message_tokens(messages)
+            + self.plan_overhead_tokens
+            + runtime.context["plan_guidance_tokens"]
+        )
         if input_tokens + self.planner_output_tokens > self.context_window:
             with _span(
                 runtime.context["stage"],
@@ -592,7 +620,12 @@ class TableRagGraph:
         documents: list[Document] = []
         if isinstance(request, LookupRecordsRequest):
             try:
-                grounded(request, state["question"], state["observations"])
+                grounded(
+                    request, state["question"], state["observations"],
+                    previous_questions=tuple(
+                        turn.question for turn in state["conversation_history"]
+                    ),
+                )
             except ValueError as error:
                 return self._invalid_tool_result(
                     state,
@@ -777,6 +810,12 @@ class TableRagGraph:
         runtime: Runtime[TableRagRuntimeContext],
     ) -> dict[str, Any]:
         started = perf_counter()
+        finish = state["finish"]
+        clarification_without_sources = (
+            not runtime.context["include_clarification_fallback"]
+            and finish.status == "needs_clarification"
+            and not finish.selected_sources
+        )
         with _span(
             runtime.context["stage"],
             "rag.assemble",
@@ -786,9 +825,10 @@ class TableRagGraph:
                 assemble_evidence,
                 state["question"],
                 state["groups"],
-                state["finish"].selected_sources,
-                state["sql_attempts"],
+                finish.selected_sources,
+                [] if clarification_without_sources else state["sql_attempts"],
                 self.dependencies.page_lookup,
+                include_fallback_pages=not clarification_without_sources,
             )
             elapsed = perf_counter() - started
             _set_span_output(
@@ -821,7 +861,6 @@ class TableRagGraph:
         timings["total_seconds"] = sum(
             value for key, value in timings.items() if key.endswith("_seconds")
         )
-        finish = state["finish"]
         final_source_ids = set(evidence.source_ids)
         missing_selected = [
             identifier
@@ -870,10 +909,14 @@ class TableRagGraph:
         request_id: str,
         stage: Stage | None = None,
         trace_id: str | None = None,
+        conversation_history: tuple[ConversationTurn, ...] = (),
+        plan_guidance_tokens: int = 0,
+        include_clarification_fallback: bool = True,
     ) -> RetrievalRun:
         state = await self.graph.ainvoke(
             {
                 "question": question,
+                "conversation_history": conversation_history,
                 "request_id": request_id,
                 "messages": [],
                 "searches": [],
@@ -907,6 +950,8 @@ class TableRagGraph:
                 "planner": planner,
                 "stage": stage,
                 "trace_id": trace_id,
+                "plan_guidance_tokens": plan_guidance_tokens,
+                "include_clarification_fallback": include_clarification_fallback,
             },
             config={"recursion_limit": 32},
         )
