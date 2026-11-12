@@ -29,6 +29,22 @@ def tokenize(text):
     return tokens
 
 
+BM25_CODE_PATTERN = re.compile(
+    r"(?<![A-Za-z0-9])[A-Za-z][A-Za-z0-9]{0,6}"
+    r"(?:[ \t]*[-‐‑–—−－][ \t]*[A-Za-z0-9]{1,8}){1,4}(?![A-Za-z0-9])"
+)
+BM25_CODE_DASHES = str.maketrans({dash: "-" for dash in "‐‑–—−－"})
+
+
+def tokenize_for_bm25(text: str) -> list[str]:
+    """Add normalized full codes to the default bigram tokens."""
+    codes = [
+        re.sub(r"[ \t]*-[ \t]*", "-", match.group().translate(BM25_CODE_DASHES)).lower()
+        for match in BM25_CODE_PATTERN.finditer(text)
+    ]
+    return tokenize(text) + codes
+
+
 class KeywordIndex:
     """BM25 (Okapi). k1·b는 널리 쓰는 기본값이다."""
 

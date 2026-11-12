@@ -243,7 +243,12 @@ def test_run_command_persists_questions_without_loading_references(
     (data_directory / "corpus.json").write_text("{}", encoding="utf-8")
     service = FakeService(result=rag_result())
     loader_module = ModuleType("app.rag.service")
-    loader_module.load_service = lambda directory: service
+
+    async def load_fake_service(*, settings):
+        assert settings.data_directory == data_directory.resolve()
+        return service
+
+    loader_module.load_service = load_fake_service
     monkeypatch.setitem(sys.modules, "app.rag.service", loader_module)
 
     args = parse_args(

@@ -228,19 +228,64 @@ def test_collection_name_guard_keeps_basic_collection_untouched(corpus_bundle, q
      "https://example.invalid?api_key=secret"],
 )
 def test_cloud_connection_requires_https_before_sending_credentials(monkeypatch, url):
-    from app.indexing import vector_store
+    from app.rag.config import RuntimeCredentials
     from app.rag.qdrant_index import QdrantIndexError, _connect
 
-    monkeypatch.setenv("QDRANT_URL", url)
-    monkeypatch.setenv("QDRANT_API_KEY", "secret-api-key")
+    monkeypatch.setenv("QDRANT_URL", "https://ambient.example.invalid")
+    monkeypatch.setenv("QDRANT_API_KEY", "ambient-api-key")
     calls = []
-    monkeypatch.setattr(vector_store, "connect", lambda: calls.append(True))
+    monkeypatch.setattr(
+        qdrant_index, "QdrantClient", lambda **kwargs: calls.append(kwargs)
+    )
+    credentials = RuntimeCredentials(qdrant_url=url, qdrant_api_key="secret-api-key")
     with pytest.raises(QdrantIndexError, match="HTTPS QDRANT_URL") as error:
-        _connect(None)
+        _connect(None, credentials)
     assert calls == []
     assert "secret-api-key" not in str(error.value)
     if url:
         assert url not in str(error.value)
+
+
+def test_explicit_missing_qdrant_key_does_not_fall_back_to_environment(monkeypatch):
+    from app.rag.config import RuntimeCredentials
+    from app.rag.qdrant_index import QdrantIndexError, _connect
+
+    monkeypatch.setenv("QDRANT_API_KEY", "ambient-api-key")
+    calls = []
+    monkeypatch.setattr(
+        qdrant_index, "QdrantClient", lambda **kwargs: calls.append(kwargs)
+    )
+    credentials = RuntimeCredentials(qdrant_url="https://qdrant.example.invalid")
+    with pytest.raises(QdrantIndexError, match="QDRANT_API_KEY"):
+        _connect(None, credentials)
+    assert calls == []
+
+
+def test_qdrant_uses_explicit_credentials(monkeypatch):
+    from app.rag.config import RuntimeCredentials
+    from app.rag.qdrant_index import _connect
+
+    monkeypatch.setenv("QDRANT_URL", "https://ambient.example.invalid")
+    monkeypatch.setenv("QDRANT_API_KEY", "ambient-api-key")
+    client = object()
+    calls = []
+    monkeypatch.setattr(
+        qdrant_index,
+        "QdrantClient",
+        lambda **kwargs: calls.append(kwargs) or client,
+    )
+    credentials = RuntimeCredentials(
+        qdrant_url="https://explicit.example.invalid",
+        qdrant_api_key="explicit-api-key",
+    )
+    connected, owned = _connect(None, credentials)
+    assert connected is client
+    assert owned is True
+    assert calls == [{
+        "url": "https://explicit.example.invalid",
+        "api_key": "explicit-api-key",
+        "timeout": 60,
+    }]
 
 
 @pytest.mark.parametrize("datatype", [models.Datatype.FLOAT16, models.Datatype.UINT8])

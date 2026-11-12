@@ -11,6 +11,8 @@ from datetime import datetime, timezone
 import uuid
 from collections.abc import Mapping, Sequence
 from pathlib import Path
+
+from app.rag.config import resolve_project_path
 from typing import Any, Protocol
 
 from app.evaluation.dataset import load_questions, load_references
@@ -33,7 +35,6 @@ from app.evaluation.scripts._common import base_manifest, load_env, now_id, sha2
 from app.observability.records import compute_context_hash, summarize_usage
 
 RETRIEVAL_MODE = "table_rag"
-DEFAULT_DATA_DIRECTORY = "artifacts/advanced-table-rag"
 DEFAULT_ARTIFACTS_DIRECTORY = "artifacts/experiments/table-rag"
 
 
@@ -345,19 +346,21 @@ def grade_saved_runs(
 
 
 def _run_command(args: Any) -> None:
+    from app.rag.config import load_table_rag_settings
     from app.rag.service import load_service
 
+    settings = load_table_rag_settings(data_directory=args.data_directory)
     experiment_id = args.experiment_id or now_id("table-rag")
     dataset_id = "advanced"
-    questions_path = Path(args.questions).resolve()
+    questions_path = resolve_project_path(args.questions)
     question_ids = (
         [value.strip() for value in args.ids.split(",")] if args.ids else None
     )
     questions = load_questions(questions_path, question_ids)
-    data_directory = Path(args.data_directory).resolve()
+    data_directory = settings.data_directory
     corpus_manifest_path = data_directory / "corpus.json"
     config_hash = sha256_file(corpus_manifest_path)
-    artifact_root = Path(args.artifacts_dir).resolve()
+    artifact_root = resolve_project_path(args.artifacts_dir)
     if Path(experiment_id).name != experiment_id or experiment_id in {"", ".", ".."}:
         raise SystemExit("Experiment ID must be a directory name")
     artifact_dir = (artifact_root / experiment_id).resolve()
@@ -384,7 +387,7 @@ def _run_command(args: Any) -> None:
     async def run() -> None:
         service = None
         try:
-            service = load_service(data_directory)
+            service = await load_service(settings=settings)
             manifest["service"] = dict(getattr(service, "manifest", {}))
             run_config_hash = getattr(service, "config_hash", config_hash)
             manifest["config_hash"] = run_config_hash
@@ -418,7 +421,7 @@ def _run_command(args: Any) -> None:
 
 
 def _grade_command(args: Any) -> None:
-    artifact_dir = Path(args.run_directory).resolve()
+    artifact_dir = resolve_project_path(args.run_directory)
     manifest_path = artifact_dir / "manifest.json"
     runs_path = artifact_dir / "runs.jsonl"
     if not manifest_path.is_file() or not runs_path.is_file():
@@ -435,7 +438,7 @@ def _grade_command(args: Any) -> None:
         or [record["question_id"] for record in records] != expected_ids
     ):
         raise SystemExit("Finish saving every selected question before grading")
-    references_path = Path(args.references).resolve() if args.references else None
+    references_path = resolve_project_path(args.references) if args.references else None
     references = load_references(references_path) if references_path else None
     question_ids = {record["question_id"] for record in records}
     if args.reference_id and references is None:
@@ -602,7 +605,7 @@ def _publish_grade(
 
 
 def _publish_command(args):
-    grade_dir = Path(args.grade_directory).resolve()
+    grade_dir = resolve_project_path(args.grade_directory)
     artifact_dir = grade_dir.parent.parent
     manifest = json.loads((grade_dir / "manifest.json").read_text(encoding="utf-8"))
     records = read_jsonl(artifact_dir / "runs.jsonl")
@@ -631,7 +634,7 @@ def parse_args(argv: Sequence[str] | None = None) -> Any:
     run_parser.add_argument("--questions", required=True)
     run_parser.add_argument("--ids")
     run_parser.add_argument("--experiment-id")
-    run_parser.add_argument("--data-directory", default=DEFAULT_DATA_DIRECTORY)
+    run_parser.add_argument("--data-directory")
     run_parser.add_argument("--artifacts-dir", default=DEFAULT_ARTIFACTS_DIRECTORY)
     run_parser.set_defaults(handler=_run_command)
 

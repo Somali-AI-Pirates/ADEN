@@ -5,12 +5,14 @@ from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
 from fastapi.testclient import TestClient
+import pytest
 
 from app.api.main import create_app
 from app.observability.run_store import RequestRunStoreError
 from app.rag.service import RagContextBudgetError, RagModelError
 from shared.contracts import QueryResponse
-from shared.settings import DEFAULT_CONFIG, PROJECT_ROOT, load_settings
+from app.rag.config import TableRagSettings, load_table_rag_settings
+from shared.settings import PROJECT_ROOT
 
 
 class FakeTableRagService:
@@ -40,18 +42,18 @@ class FakeTableRagService:
 
 
 class TestTableRagApi:
+    @pytest.fixture(autouse=True)
+    def isolate_root_env_file(self, monkeypatch):
+        monkeypatch.setattr("app.rag.config.dotenv_values", lambda *_args, **_kwargs: {})
+
     def setup_method(self) -> None:
-        self.settings = load_settings(DEFAULT_CONFIG)
+        self.settings = TableRagSettings()
 
     def test_default_loads_table_service_and_preserves_request_id(self) -> None:
         service = FakeTableRagService()
-        resources_loader = Mock(side_effect=AssertionError("legacy loader called"))
         loader = Mock(return_value=service)
         app = create_app(table_service_loader=loader)
-        with (
-            patch.dict("os.environ", {"ADEN_TABLE_RAG_DIR": ""}),
-            patch("app.api.lifespan.load_resources", resources_loader),
-        ):
+        with patch.dict("os.environ", {"ADEN_TABLE_RAG_DIR": ""}):
             with TestClient(app) as client:
                 health = client.get("/health").json()
                 response = client.post("/query", json={"question": "예약 확인"})
@@ -64,10 +66,37 @@ class TestTableRagApi:
         loader.assert_called_once_with(
             PROJECT_ROOT / "artifacts/advanced-table-rag"
         )
-        resources_loader.assert_not_called()
         assert service.close_count == 1
 
-    def test_explicit_legacy_mode_is_unavailable_in_table_rag(self) -> None:
+
+    def test_default_service_receives_resolved_settings_and_credentials(self, monkeypatch):
+        from app.rag.config import TableRagSettings
+
+        service = FakeTableRagService()
+        received = []
+        settings = TableRagSettings(data_directory=PROJECT_ROOT / "custom-table-rag")
+
+        async def load_service(*, settings):
+            received.append(settings)
+            return service
+
+        monkeypatch.setenv("OPENAI_API_KEY", "settings-test-openai-key")
+        monkeypatch.setenv("ADEN_TABLE_RAG_DIR", "custom-table-rag")
+        from app.rag import service as service_module
+
+        monkeypatch.setattr(service_module, "load_service", load_service)
+        app = create_app()
+        with TestClient(app) as client:
+            response = client.post("/query", json={"question": "예약 확인"})
+
+        assert response.status_code == 200
+        assert len(received) == 1
+        assert received[0].data_directory == settings.data_directory
+        assert received[0].credentials.openai_api_key == "settings-test-openai-key"
+        assert "settings-test-openai-key" not in repr(received[0])
+        assert service.close_count == 1
+
+    def test_explicit_retrieval_mode_is_unavailable_in_table_rag(self) -> None:
         service = FakeTableRagService()
         app = create_app(table_service_loader=lambda _path: service)
         with (
@@ -130,22 +159,26 @@ class TestTableRagApi:
             "두 번째 질문",
         }
 
-    def test_non_advanced_dataset_does_not_load_table_service(self) -> None:
-        settings = self.settings.model_copy(update={"dataset": "basic"})
+    def test_basic_dataset_config_is_rejected_before_service_load(self, tmp_path, monkeypatch):
+        config = tmp_path / "basic.yaml"
+        config.write_text(
+            "dataset: basic\ndocuments_dir: data/basic/documents\n",
+            encoding="utf-8",
+        )
         loader = Mock()
         app = create_app(table_service_loader=loader)
-        with (
-            patch.dict(
-                "os.environ",
-                {"ADEN_TABLE_RAG_DIR": "artifacts/advanced-table-rag"},
-            ),
-            patch("app.api.lifespan.load_settings", return_value=settings),
-            TestClient(app) as client,
-        ):
-            assert client.get("/health").json()["query_ready"] is False
-            response = client.post("/query", json={"question": "예약 확인"})
 
-        assert response.status_code == 503
+        def load_test_settings():
+            return load_table_rag_settings(
+                config_path=config,
+                env={},
+                env_file=tmp_path / "missing.env",
+                project_root=tmp_path,
+            )
+
+        monkeypatch.setattr("app.api.lifespan.load_table_rag_settings", load_test_settings)
+        with pytest.raises(ValueError, match="advanced dataset"), TestClient(app):
+            pass
         loader.assert_not_called()
 
     def test_model_timeout_and_context_errors_keep_public_status(self) -> None:

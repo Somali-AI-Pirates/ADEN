@@ -5,9 +5,9 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-import os
 import sqlite3
 from collections.abc import Callable
+from contextlib import AsyncExitStack
 from dataclasses import dataclass
 from functools import partial
 from hashlib import sha256
@@ -18,19 +18,18 @@ from typing import TYPE_CHECKING, Any
 
 import tiktoken
 from anyio import CapacityLimiter, to_thread
-from dotenv import load_dotenv
 from langchain_core.documents import Document
 
 from app.generation.citations import resolve_citations
 from app.observability.records import compute_context_hash
 from app.observability.run_store import save_request_failure, save_request_run
 from app.observability.tracing import Tracer
-from app.rag.config import DEFAULT_DATA_DIRECTORY, DEFAULT_RUN_DIRECTORY, RETRIEVAL_MODE
+from app.rag.config import RETRIEVAL_MODE, TableRagSettings, load_table_rag_settings
 from app.rag.corpus import load_corpus
+from app.rag.lifecycle import await_to_completion
 from app.rag.streaming import EventSink
 from app.rag.model import (
     ANSWER_OUTPUT_TOKENS,
-    CONTEXT_WINDOW,
     MODEL,
     PLAN_OUTPUT_TOKENS,
     REASONING_EFFORT,
@@ -43,7 +42,12 @@ from app.rag.model import (
     load_model,
 )
 from shared.contracts import AnswerStatus, Citation, QueryResponse
-from shared.settings import PROJECT_ROOT
+from shared.table_rag_policy import (
+    CANDIDATE_LIMIT,
+    CONTEXT_WINDOW,
+    MAX_CONTEXT_PAGES,
+    MAX_CONTEXT_TOKENS,
+)
 
 if TYPE_CHECKING:
     from app.rag.models import RetrievalRun, SearchResult
@@ -182,6 +186,7 @@ class RagService:
         record_index: Any = None,
         run_directory: Path | None = None,
         close_search: Callable[[], None] | None = None,
+        resource_stack: AsyncExitStack | None = None,
     ) -> None:
         self._page_lookup = page_lookup
         self._model = model
@@ -190,6 +195,22 @@ class RagService:
         self._record_index = record_index
         self._run_directory = run_directory
         self._close_search = close_search
+        self._resource_stack = resource_stack or AsyncExitStack()
+        if resource_stack is None:
+            self._resource_stack.push_async_callback(
+                _close_sync_resource, self.tracer.shutdown
+            )
+            if self._close_search is not None:
+                self._resource_stack.push_async_callback(
+                    _close_sync_resource, self._close_search
+                )
+            if self._record_index is not None:
+                self._resource_stack.push_async_callback(
+                    _close_sync_resource, self._record_index.close
+                )
+            self._resource_stack.push_async_callback(
+                _close_async_resource, self._model.aclose
+            )
         self.config_hash = _hash(
             json.dumps(manifest, ensure_ascii=False, sort_keys=True)
         )
@@ -212,9 +233,14 @@ class RagService:
         return len(self._encoding.encode(text, disallowed_special=()))
 
     async def _run_sync(self, function, *args, **kwargs):
-        return await to_thread.run_sync(
-            partial(function, *args, **kwargs), limiter=self._workers
+        result, cancelled = await await_to_completion(
+            to_thread.run_sync(
+                partial(function, *args, **kwargs), limiter=self._workers
+            )
         )
+        if cancelled:
+            raise asyncio.CancelledError
+        return result
 
     async def ainvoke(
         self, question: str, *, request_id: str, on_event: EventSink | None = None
@@ -273,7 +299,7 @@ class RagService:
                 model_context_hash=evidence.context_hash,
                 model_context_token_count=model_context_tokens,
                 budget_excluded_chunk_ids=evidence.excluded_chunk_ids,
-                k=8,
+                k=MAX_CONTEXT_PAGES,
             )
             _check_termination(retrieval.termination_reason)
             await progress("answering", "근거를 바탕으로 답변을 작성하고 있습니다.")
@@ -343,18 +369,9 @@ class RagService:
         if self._closed:
             return
         self._closed = True
-        try:
-            await self._model.aclose()
-        finally:
-            try:
-                if self._record_index is not None:
-                    await self._run_sync(self._record_index.close)
-            finally:
-                try:
-                    if self._close_search is not None:
-                        await self._run_sync(self._close_search)
-                finally:
-                    await asyncio.to_thread(self.tracer.shutdown)
+        resources, self._resource_stack = self._resource_stack, None
+        if resources is not None:
+            await _close_async_resource(resources.aclose)
 
 
 def _check_termination(reason: str) -> None:
@@ -379,6 +396,8 @@ def _runtime_fingerprints() -> dict[str, str]:
             "app/observability/records.py",
             "app/observability/tracing.py",
             "shared/contracts.py",
+            "shared/table_rag_policy.py",
+            "shared/text_normalization.py",
         )
     )
     return {
@@ -387,45 +406,154 @@ def _runtime_fingerprints() -> dict[str, str]:
     }
 
 
-def load_service(directory: str | Path = DEFAULT_DATA_DIRECTORY) -> RagService:
-    """Load the verified DB-first TableRAG bundle and its pinned models."""
+async def _close_async_resource(callback, *args) -> None:
+    _, cancelled = await await_to_completion(callback(*args))
+    if cancelled:
+        raise asyncio.CancelledError
+
+
+async def _close_sync_resource(callback, *args) -> None:
+    _, cancelled = await await_to_completion(
+        to_thread.run_sync(partial(callback, *args))
+    )
+    if cancelled:
+        raise asyncio.CancelledError
+
+
+async def _run_sync_acquiring(function, *args, on_acquired=None, **kwargs):
+    """Create a sync resource in a worker and register it before cancellation propagates."""
+
+    async def create_and_register():
+        resource = await to_thread.run_sync(partial(function, *args, **kwargs))
+        if on_acquired is not None:
+            on_acquired(resource)
+        return resource
+
+    resource, cancelled = await await_to_completion(create_and_register())
+    if cancelled:
+        raise asyncio.CancelledError
+    return resource
+
+
+class _CloseOnce:
+    """Disarm a provisional owner when a higher-level resource takes ownership."""
+
+    def __init__(self, resource) -> None:
+        self._resource = resource
+
+    def disarm(self) -> None:
+        self._resource = None
+
+    def close(self) -> None:
+        resource, self._resource = self._resource, None
+        if resource is not None:
+            resource.close()
+
+
+def _close_corpus(corpus) -> None:
+    close = getattr(corpus, "close", None)
+    if close is not None:
+        close()
+        return
+    vectors = getattr(corpus, "vectors", None)
+    memory_map = getattr(vectors, "_mmap", None)
+    if memory_map is not None and not getattr(memory_map, "closed", False):
+        memory_map.close()
+
+
+async def load_service(
+    directory: str | Path | None = None,
+    *,
+    settings: TableRagSettings | None = None,
+) -> RagService:
+    """Asynchronously load the verified DB-first TableRAG bundle and own its resources."""
     from app.rag.retrieval import load_retriever
     from app.rag.records import RecordIndex
 
-    load_dotenv(PROJECT_ROOT / ".env", override=False)
-    if not os.environ.get("OPENAI_API_KEY"):
+    if settings is not None and directory is not None:
+        raise ValueError("Pass either directory or settings, not both")
+    settings = settings or load_table_rag_settings(data_directory=directory)
+    credentials = settings.credentials
+    if not credentials.openai_api_key:
         raise ValueError("OPENAI_API_KEY is required for TableRAG")
-    directory = Path(directory).resolve()
+    directory = settings.data_directory.resolve()
     started = perf_counter()
-    corpus = load_corpus(directory)
-    backend = os.environ.get("ADEN_TABLE_RAG_VECTOR_BACKEND", "numpy")
-    if backend not in {"numpy", "qdrant"}:
-        raise ValueError("ADEN_TABLE_RAG_VECTOR_BACKEND must be numpy or qdrant")
-    dense_index = None
-    if backend == "qdrant":
-        from app.rag.qdrant_index import DEFAULT_COLLECTION, open_qdrant_index
 
-        dense_index = open_qdrant_index(
-            directory,
-            corpus,
-            collection=os.environ.get("ADEN_TABLE_RAG_COLLECTION", DEFAULT_COLLECTION),
+    async with AsyncExitStack() as resources:
+        def register_corpus(corpus):
+            resources.push_async_callback(_close_sync_resource, _close_corpus, corpus)
+
+        corpus = await _run_sync_acquiring(
+            load_corpus, directory, on_acquired=register_corpus
         )
-    record_index = None
-    try:
-        device = os.environ.get("ADEN_TABLE_RAG_DEVICE", "cpu")
-        retriever = load_retriever(corpus, device=device, dense_index=dense_index)
-        record_index = RecordIndex(directory)
-        model = load_model()
+        dense_index = None
+        dense_owner = None
+        if settings.vector_backend == "qdrant":
+            from app.rag.qdrant_index import open_qdrant_index
+
+            def register_dense(index):
+                nonlocal dense_owner
+                dense_owner = _CloseOnce(index)
+                resources.push_async_callback(
+                    _close_sync_resource, dense_owner.close
+                )
+
+            dense_index = await _run_sync_acquiring(
+                open_qdrant_index,
+                directory,
+                corpus,
+                collection=settings.collection,
+                credentials=credentials,
+                on_acquired=register_dense,
+            )
+        elif settings.vector_backend != "numpy":
+            raise ValueError("ADEN_TABLE_RAG_VECTOR_BACKEND must be numpy or qdrant")
+
+        def register_retriever(retriever):
+            if dense_owner is not None:
+                dense_owner.disarm()
+            resources.push_async_callback(
+                _close_sync_resource, retriever.close
+            )
+
+        retriever = await _run_sync_acquiring(
+            load_retriever,
+            corpus,
+            device=settings.device,
+            dense_index=dense_index,
+            on_acquired=register_retriever,
+        )
+
+        def register_record_index(record_index):
+            resources.push_async_callback(
+                _close_sync_resource, record_index.close
+            )
+
+        record_index = await _run_sync_acquiring(
+            RecordIndex, directory, on_acquired=register_record_index
+        )
+        model = await load_model(api_key=credentials.openai_api_key)
+        resources.push_async_callback(_close_async_resource, model.aclose)
+
         tracer = Tracer()
-        if os.environ.get("ADEN_TABLE_RAG_TRACE", "1") == "1":
+        if settings.trace_enabled:
             try:
-                tracer = Tracer.from_env()
+                tracer = Tracer.from_credentials(
+                    public_key=credentials.langfuse_public_key,
+                    secret_key=credentials.langfuse_secret_key,
+                    base_url=credentials.langfuse_base_url,
+                )
             except Exception as error:
                 logger.warning("TableRAG tracing unavailable (%s)", type(error).__name__)
+        resources.push_async_callback(
+            _close_sync_resource, tracer.shutdown
+        )
+
         corpus_manifest = (directory / "corpus.json").read_bytes()
         manifest = {
             "policy": RETRIEVAL_MODE,
             "db_first": True,
+            "runtime_settings": settings.public_manifest(),
             "module_sha256": _runtime_fingerprints(),
             "runtime_versions": {
                 name: version(name)
@@ -455,12 +583,12 @@ def load_service(directory: str | Path = DEFAULT_DATA_DIRECTORY) -> RagService:
             "timeout_seconds": TIMEOUT_SECONDS,
             "max_retries": 0,
             "prompt_sha256": model.prompt_hashes(),
-            "candidate_pages": 20,
-            "final_pages": 8,
-            "evidence_tokens": 8000,
+            "candidate_pages": CANDIDATE_LIMIT,
+            "final_pages": MAX_CONTEXT_PAGES,
+            "evidence_tokens": MAX_CONTEXT_TOKENS,
         }
         logger.info("DB-first TableRAG ready in %.2f seconds", perf_counter() - started)
-        return RagService(
+        service = RagService(
             search=retriever.search,
             page_lookup=corpus.pages_by_source.get,
             table_store=corpus.table_store,
@@ -468,14 +596,8 @@ def load_service(directory: str | Path = DEFAULT_DATA_DIRECTORY) -> RagService:
             tracer=tracer,
             manifest=manifest,
             record_index=record_index,
-            run_directory=DEFAULT_RUN_DIRECTORY,
-            close_search=retriever.close,
+            run_directory=settings.run_directory,
+            resource_stack=resources,
         )
-    except BaseException:
-        try:
-            if record_index is not None:
-                record_index.close()
-        finally:
-            if dense_index is not None:
-                dense_index.close()
-        raise
+        service._resource_stack = resources.pop_all()
+        return service

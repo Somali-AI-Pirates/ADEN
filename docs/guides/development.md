@@ -18,9 +18,9 @@ VS Code에서 저장소 루트를 열고 [권장 확장](../../.vscode/extension
 
 ## 서버 실행
 
-처음 준비하는 환경은 [빠른 시작](quickstart.md)을 순서대로 실행한다. 기본 Advanced 설정은 DB 우선 통합 TableRAG다. 기존 전체 Qdrant 경로를 선택할 때는 설정 파일의 `rag_backend`를 `legacy`로 지정한다. Advanced TableRAG 안의 dense 검색 선택은 별도 설정인 `ADEN_TABLE_RAG_VECTOR_BACKEND=numpy|qdrant`로 제어한다. 이는 DB 우선 경로를 바꾸지 않는다.
+처음 준비하는 환경은 [빠른 시작](quickstart.md)을 순서대로 실행한다. 기본 Advanced API는 DB 우선 통합 TableRAG다. dense 검색 선택은 `ADEN_TABLE_RAG_VECTOR_BACKEND=numpy|qdrant`로 제어한다. API는 B/C 레거시 자원 로더를 사용하지 않는다.
 
-[설치](#설치) 후 [환경변수 예시](../../.env.example)를 참고해 로컬 `.env`와 Advanced 설정을 준비한다. A 없이 B·C를 먼저 확인하는 방법과 메모리 색인의 같은 프로세스 적재 조건은 [로컬 B·C 안내](local-bc.md)를 따른다. 기본 앱은 색인 미준비 시 503과 원인을 반환하며 임의의 가상 근거로 답변하지 않는다. 다른 설정 파일과 색인·근거 연결은 `ADEN_CONFIG`, `ADEN_QDRANT_CLIENT`, `ADEN_EVIDENCE_PROVIDER`로 지정한다.
+[설치](#설치) 후 [환경변수 예시](../../.env.example)를 참고해 로컬 `.env`와 Advanced 설정을 준비한다. TableRAG API는 `ADEN_CONFIG`와 `ADEN_TABLE_RAG_*` 설정을 사용한다. B/C 평가 CLI의 색인·근거 연결은 `ADEN_CONFIG`, `ADEN_QDRANT_CLIENT`, `ADEN_EVIDENCE_PROVIDER`로 지정하며, [로컬 B·C 안내](local-bc.md)를 따른다. 기본 API는 번들·모델 준비에 실패하면 `/health`의 `query_ready=false`와 질의의 503을 반환한다.
 
 ```bash
 uv run fastapi dev

@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import re
 from pathlib import Path
 from typing import Any
@@ -12,14 +11,17 @@ from urllib.parse import urlsplit
 
 import numpy as np
 from langchain_core.documents import Document
-from qdrant_client import models
+
+from shared.table_rag_policy import (
+    DIMENSIONS as _DIMENSIONS,
+    EMBEDDING_ID as _EMBEDDING_ID,
+    EMBEDDING_REVISION as _EMBEDDING_REVISION,
+)
+from qdrant_client import QdrantClient, models
 
 DEFAULT_COLLECTION = "advanced_table_rag"
 _COLLECTION_PATTERN = re.compile(r"^advanced_table_rag(?:_[A-Za-z0-9][A-Za-z0-9_-]*)?$")
 _SCHEMA_VERSION = 1
-_EMBEDDING_ID = "nlpai-lab/KURE-v3"
-_EMBEDDING_REVISION = "73d5e710bc0b1f324a60746922cbad6d38f480d4"
-_DIMENSIONS = 2048
 _BATCH_SIZE = 128
 _SCROLL_PAGE_SIZE = 512
 _NORM_TOLERANCE = 2e-3
@@ -139,24 +141,28 @@ def _point_payload(document: Document, row_index: int) -> dict[str, Any]:
     return payload
 
 
-def _connect(client):
+def _connect(client, credentials=None):
     if client is not None:
         return client, False
-    try:
-        from app.indexing.vector_store import connect
+    if credentials is None:
+        from app.rag.config import load_table_rag_settings
 
-        url = urlsplit(os.environ.get("QDRANT_URL", ""))
-        if (
-            url.scheme != "https" or not url.hostname
-            or url.username is not None or url.password is not None
-            or url.query or url.fragment
-        ):
-            raise QdrantIndexError(
-                "Advanced Qdrant Cloud requires an HTTPS QDRANT_URL without credentials or query parameters."
-            )
-        return connect(), True
-    except QdrantIndexError:
-        raise
+        credentials = load_table_rag_settings().credentials
+    url = getattr(credentials, "qdrant_url", None)
+    api_key = getattr(credentials, "qdrant_api_key", None)
+    parsed_url = urlsplit(url or "")
+    if (
+        parsed_url.scheme != "https" or not parsed_url.hostname
+        or parsed_url.username is not None or parsed_url.password is not None
+        or parsed_url.query or parsed_url.fragment
+    ):
+        raise QdrantIndexError(
+            "Advanced Qdrant Cloud requires an HTTPS QDRANT_URL without credentials or query parameters."
+        )
+    if not api_key:
+        raise QdrantIndexError("QDRANT_API_KEY is required for Advanced Qdrant Cloud.")
+    try:
+        return QdrantClient(url=url, api_key=api_key, timeout=60), True
     except Exception as error:
         raise QdrantIndexError(
             f"Qdrant connection failed ({type(error).__name__})."
@@ -266,6 +272,7 @@ def upload_qdrant_index(
     *,
     collection: str = DEFAULT_COLLECTION,
     client=None,
+    credentials=None,
 ) -> dict[str, Any]:
     """Upload the existing vectors.npy without embedding text or deleting collections."""
     _require_collection_name(collection)
@@ -273,7 +280,7 @@ def upload_qdrant_index(
     expected, point_count = _read_snapshot(directory, corpus)
     _validate_local_vectors(corpus, point_count)
 
-    qdrant, owned = _connect(client)
+    qdrant, owned = _connect(client, credentials)
     try:
         exists = _safe_call("collection lookup", lambda: qdrant.collection_exists(collection))
         if exists:
@@ -340,13 +347,14 @@ def check_qdrant_index(
     *,
     collection: str = DEFAULT_COLLECTION,
     client=None,
+    credentials=None,
     full: bool = False,
 ) -> dict[str, Any]:
     """Check a ready collection; full mode also checks every row and vector."""
     _require_collection_name(collection)
     corpus = _load_corpus(directory)
     expected, point_count = _read_snapshot(directory, corpus)
-    qdrant, owned = _connect(client)
+    qdrant, owned = _connect(client, credentials)
     try:
         exists = _safe_call("collection lookup", lambda: qdrant.collection_exists(collection))
         if not exists:
@@ -461,11 +469,12 @@ def open_qdrant_index(
     *,
     collection: str = DEFAULT_COLLECTION,
     client=None,
+    credentials=None,
 ) -> QdrantDenseIndex:
     """Open a ready exact-search collection aligned to a validated local corpus."""
     _require_collection_name(collection)
     expected, point_count = _read_snapshot(directory, corpus)
-    qdrant, owned = _connect(client)
+    qdrant, owned = _connect(client, credentials)
     try:
         exists = _safe_call("collection lookup", lambda: qdrant.collection_exists(collection))
         if not exists:

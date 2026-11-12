@@ -5,17 +5,14 @@ from collections.abc import Sequence
 
 from langchain_core.documents import Document
 
-from app.indexing.keyword_store import tokenize
-
-_CODE_PATTERN = re.compile(
-    r"(?<![A-Za-z0-9])[A-Za-z][A-Za-z0-9]{0,6}"
-    r"(?:[ \t]*[-‐‑–—−－][ \t]*[A-Za-z0-9]{1,8}){1,4}(?![A-Za-z0-9])"
+from app.indexing.keyword_store import tokenize_for_bm25
+from shared.table_rag_policy import (
+    BM25_K1 as _BM25_K1,
+    BM25_B as _BM25_B,
+    HEADING_WEIGHT as _HEADING_WEIGHT,
+    HEADING_POOL as _HEADING_POOL,
 )
-_CODE_DASHES = str.maketrans({dash: "-" for dash in "‐‑–—−－"})
-_BM25_K1 = 1.5
-_BM25_B = 0.75
-_HEADING_WEIGHT = 0.25
-_HEADING_POOL = 80
+
 _BLOCKS = re.compile(r"\n\s*\n+")
 _FOOTER = re.compile(r"^\s*\d+\s*/\s*\d+\s*$")
 
@@ -32,15 +29,6 @@ def _page_heading(text: str) -> str:
             lines.pop()
         selected = [" ".join(lines[:6])]
     return "\n".join(selected)[:600]
-
-
-def tokenize_for_bm25(text: str) -> list[str]:
-    """Add normalized full codes to the default bigram tokens."""
-    codes = [
-        re.sub(r"[ \t]*-[ \t]*", "-", match.group().translate(_CODE_DASHES)).lower()
-        for match in _CODE_PATTERN.finditer(text)
-    ]
-    return tokenize(text) + codes
 
 
 class BM25Index:

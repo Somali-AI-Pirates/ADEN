@@ -36,15 +36,15 @@ from app.rag.corpus import load_corpus
 corpus = load_corpus("artifacts/advanced-table-rag")
 ```
 
-corpus.documents와 corpus.vectors는 같은 순서를 사용한다. corpus.pages_by_source는 원본 출처 조회, corpus.table_store는 스키마와 제한된 읽기 전용 SQL을 제공한다. 공통 RecordIndex는 코드·대상별 조회를 담당한다.
+corpus.documents와 corpus.vectors는 같은 순서를 사용한다. corpus.pages_by_source는 원본 출처 조회, corpus.table_store는 스키마와 제한된 읽기 전용 SQL을 제공한다. 직접 로드했다면 사용 후 corpus.close()로 벡터 mmap을 닫는다. 공통 RecordIndex는 코드·대상별 조회를 담당한다.
 
-완성된 번들의 모든 파일을 함께 옮기고 check로 검증한다. 원본 PDF·DB·벡터·실행 기록은 로컬 artifacts에서 관리한다. 데이터나 모델을 변경하면 지문이 갱신되며, 중단된 구축의 재개에는 동일한 입력 지문을 사용한다.
+완성된 번들의 모든 파일을 함께 옮기고 check로 검증한다. 원본 PDF·DB·벡터·실행 기록은 로컬 artifacts에서 관리한다. 데이터나 모델을 변경하면 지문이 갱신되며, 중단된 구축의 재개에는 동일한 입력·구축 코드 지문을 사용한다. 단계 파일 분리로 기존 중간 캐시의 코드 지문이 달라진 경우, 이전 코드로 재개하거나 새 작업 경로에 구축한다. 완성된 번들은 이전 생성 코드 지문이 달라도 기존 형식·파일·모델·정렬 검사에 통과하면 읽을 수 있다.
 
 ## Advanced TableRAG Qdrant Cloud 벡터 검색
 
 기본 실행은 `numpy`로 `vectors.npy`를 검색한다. `ADEN_TABLE_RAG_VECTOR_BACKEND=qdrant`를 설정하면 dense Top 50 검색만 Qdrant Cloud의 exact 검색(`exact=True`)으로 수행한다. ANN과 양자화 검색은 사용하지 않는다. `QDRANT_URL`과 `QDRANT_API_KEY`는 로컬 `.env` 또는 환경변수로 제공한다. 코드에서 backend를 생략했을 때의 기본값은 `numpy`여서 오프라인·기존 로컬 실행 경로를 유지한다.
 
-기본 컬렉션은 `advanced_table_rag`다. 다른 컬렉션 이름은 `advanced_table_rag` 또는 `advanced_table_rag_` 접두사를 가진 이름만 허용한다. `.env`의 `ADEN_TABLE_RAG_COLLECTION`과 업로드·검사 명령의 `--collection` 값이 같아야 한다. Basic의 기존 Qdrant 컬렉션은 사용하거나 변경하지 않는다.
+기본 컬렉션은 `advanced_table_rag`다. 다른 컬렉션 이름은 `advanced_table_rag` 또는 `advanced_table_rag_` 접두사를 가진 이름만 허용한다. 업로드·검사 명령은 서버와 같은 `ADEN_TABLE_RAG_COLLECTION`을 읽으며, 명시한 `--collection`이 우선한다. 서버가 사용할 컬렉션과 같은 이름으로 검사한다. Basic의 기존 Qdrant 컬렉션은 사용하거나 변경하지 않는다.
 
 기존 번들의 21,750개 2,048차원 벡터와 검색 단위 ID·출처 식별값을 업로드한다. 이 단계는 KURE-v3 재임베딩을 하지 않으며 PDF 원문, 검색 텍스트, SQLite DB를 Cloud로 보내지 않는다. 로컬 번들과 `vectors.npy`는 NumPy 검색, 데이터 검사·재사용을 위해 유지한다. BM25 문서, 질문 임베딩, KURE nano 리랭커, 원문 페이지·표와 SQLite도 로컬에 남는다. Cloud는 dense 후보를 찾는 역할만 하며, BM25와 5:5 RRF·리랭킹·최종 출처 흐름은 그대로다.
 
@@ -61,7 +61,7 @@ uv run --locked python -m app.ingestion.scripts.prepare_table_rag check-qdrant -
 
 ## 기존 Basic Qdrant 색인
 
-이 절은 기존 Basic 검색용 색인과 측정 절차다. Advanced TableRAG의 Qdrant Cloud 벡터 검색은 위 절을 따른다. 이 Basic 색인의 검색 전용 측정은 Qdrant Cloud 컬렉션을 쓴다. 서비스 자원 로더는 메모리 Qdrant만 쓰므로 Basic Cloud 컬렉션을 직접 읽지 않는다. 서비스·평가에서 이 색인으로 검색하려면 같은 실행에서 메모리 Qdrant에 적재해 넘긴다([로컬 B·C 안내](local-bc.md#api와-평가-cli의-공통-실행)). `QDRANT_URL`과 `QDRANT_API_KEY`는 Basic 색인 생성에도 로컬 `.env`에서 사용한다.
+이 절은 기존 Basic 검색용 색인과 측정 절차다. Advanced TableRAG의 Qdrant Cloud 벡터 검색은 위 절을 따른다. 이 Basic 색인의 검색 전용 측정은 Qdrant Cloud 컬렉션을 쓴다. 서비스 자원 로더는 메모리 Qdrant만 쓰므로 Basic Cloud 컬렉션을 직접 읽지 않는다. 기존 평가 어댑터에서 이 색인으로 검색하려면 같은 실행에서 메모리 Qdrant에 적재해 넘긴다([로컬 B·C 평가 안내](local-bc.md#bc-평가-cli와-공통-bootstrap)). `QDRANT_URL`과 `QDRANT_API_KEY`는 Basic 색인 생성에도 로컬 `.env`에서 사용한다.
 
 [개발 환경](development.md#설치)을 준비하고 로컬 `.env`에 `QDRANT_URL`과 `QDRANT_API_KEY`를 설정한다. 기존 `artifacts/basic/index_manifest.json`과 팀 공용 컬렉션이 있으면 먼저 확인한다. 새 색인이 필요할 때 저장소 루트에서 실행한다. 두 명령은 설정 파일을 읽지 않고 자체 기본값(`data/basic`, E5-small)을 쓰므로 서비스 기본 설정이 Advanced로 바뀐 영향을 받지 않는다.
 

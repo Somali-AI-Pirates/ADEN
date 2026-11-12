@@ -8,7 +8,7 @@ from typing import Any
 import numpy as np
 from langchain_core.documents import Document
 
-from app.rag.retrieval import load_page_documents, load_table_documents
+from app.rag.models import SourceRef, make_document
 from app.rag.table_store import TableStore
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
@@ -22,6 +22,15 @@ class TableRagCorpus:
     table_store: TableStore
     embedding: dict[str, Any]
     page_count: int
+
+    def close(self) -> None:
+        _close_vector_map(self.vectors)
+
+
+def _close_vector_map(vectors: Any) -> None:
+    memory_map = getattr(vectors, "_mmap", None)
+    if memory_map is not None and not getattr(memory_map, "closed", False):
+        memory_map.close()
 
 
 def _read_json(path: Path) -> Any:
@@ -46,6 +55,58 @@ def _verify_hash(path: Path, expected: Any, name: str) -> None:
         raise ValueError(f"Corpus fingerprint mismatch: {name}")
 
 
+def load_table_documents(directory: str | Path):
+    p = Path(directory) / "table-chunks.json"
+    tables = json.loads(p.read_text(encoding="utf-8"))
+
+    documents = []
+
+    for table in tables:
+        source = SourceRef(
+            book_id=table["book_id"], file_name=table["file_name"], page=table["page"]
+        )
+        document = make_document(table["text"], source, table["chunk_id"])
+        document.metadata["table_id"] = table["table_id"]
+        documents.append(document)
+
+    return documents
+
+
+def load_page_documents(path: str | Path):
+    pages = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(pages, list):
+        raise ValueError("Page data must be a JSON list")
+
+    documents = []
+    seen_source_ids = set()
+
+    for page in pages:
+        if not isinstance(page, dict):
+            raise ValueError("Each page entry must be a JSON object")
+
+        file_name = page.get("file_name")
+        text = page.get("text")
+        if not isinstance(file_name, str) or not file_name:
+            raise ValueError("Each page entry must have a non-empty file_name")
+        if not isinstance(text, str):
+            raise ValueError("Each page entry must have text as a string")
+
+        book_id = page.get("book_id") or Path(file_name).stem
+        source = SourceRef(
+            book_id=book_id,
+            file_name=file_name,
+            page=page["page"],
+        )
+        if source.source_id in seen_source_ids:
+            raise ValueError(f"Duplicate page source ID: {source.source_id}")
+        seen_source_ids.add(source.source_id)
+
+        documents.append(make_document(text, source, f"{source.source_id}:page"))
+
+    return documents
+
+
+
 def load_corpus(directory: str | Path) -> TableRagCorpus:
     """Load a validated Advanced TableRAG bundle without loading an embedding model."""
     directory = Path(directory).resolve()
@@ -63,6 +124,7 @@ def load_corpus(directory: str | Path) -> TableRagCorpus:
     embedding = manifest.get("embedding")
     counts = manifest.get("counts")
     files = manifest.get("files")
+
     if (
         not isinstance(embedding, dict)
         or not isinstance(counts, dict)
@@ -165,24 +227,27 @@ def load_corpus(directory: str | Path) -> TableRagCorpus:
         unit_ids.add(unit_id)
 
     vectors = np.load(directory / "vectors.npy", mmap_mode="r", allow_pickle=False)
+    try:
+        if not isinstance(vectors, np.ndarray):
+            raise ValueError("vectors.npy must contain a NumPy array")
 
-    if not isinstance(vectors, np.ndarray):
-        raise ValueError("vectors.npy must contain a NumPy array")
+        if vectors.dtype != np.dtype(np.float32):
+            raise ValueError("vectors.npy must use float32 values")
 
-    if vectors.dtype != np.dtype(np.float32):
-        raise ValueError("vectors.npy must use float32 values")
-
-    expected_shape = (
-        counts["pages"] + counts["table_documents"],
-        embedding["dimensions"],
-    )
-    if vectors.shape != expected_shape:
-        raise ValueError(
-            f"vectors.npy shape mismatch: expected {expected_shape}, got {vectors.shape}"
+        expected_shape = (
+            counts["pages"] + counts["table_documents"],
+            embedding["dimensions"],
         )
+        if vectors.shape != expected_shape:
+            raise ValueError(
+                f"vectors.npy shape mismatch: expected {expected_shape}, got {vectors.shape}"
+            )
 
-    if vectors.flags.writeable:
-        vectors.setflags(write=False)
+        if vectors.flags.writeable:
+            vectors.setflags(write=False)
+    except BaseException:
+        _close_vector_map(vectors)
+        raise
 
     return TableRagCorpus(
         documents=tuple(page_documents + table_documents),

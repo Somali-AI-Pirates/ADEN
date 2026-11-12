@@ -1,15 +1,11 @@
-import asyncio
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, Body, Request
 from pydantic import BaseModel, Field
 
 from app.observability.run_store import RequestRunStoreError
-from app.service.query import answer_query
-from app.service.resources import Resources
 from shared.contracts import QueryRequest, QueryResponse
 from shared.exceptions import ServiceError
-from shared.settings import Settings
 
 router = APIRouter()
 
@@ -32,13 +28,10 @@ class HealthResponse(BaseModel):
     response_description="현재 서비스 상태",
 )
 async def health(request: Request) -> HealthResponse:
-    settings: Settings = request.app.state.settings
+    settings = request.app.state.settings
     return HealthResponse(
         dataset=settings.dataset,
-        query_ready=(
-            request.app.state.resources is not None
-            or request.app.state.table_service is not None
-        ),
+        query_ready=request.app.state.table_service is not None,
     )
 
 
@@ -60,7 +53,7 @@ async def health(request: Request) -> HealthResponse:
         },
         501: {
             "model": QueryResponse,
-            "description": "선택한 검색 방식은 준비 중입니다.",
+            "description": "이 서버는 검색 방식 선택을 지원하지 않습니다.",
         },
         502: {
             "model": QueryResponse,
@@ -86,50 +79,39 @@ async def query(
 ) -> QueryResponse:
     request_id: str = request.state.request_id
     table_service = request.app.state.table_service
-    if table_service is not None:
-        from app.rag.service import RagContextBudgetError, RagModelError
-
-        if payload.retrieval_mode is not None:
-            raise ServiceError(
-                "이 서버는 DB 우선 TableRAG 검색을 사용합니다. 검색 방식 없이 질문을 보내 주세요.",
-                501,
-            )
-
-        try:
-            run = await table_service.ainvoke(payload.question, request_id=request_id)
-        except RequestRunStoreError as error:
-            raise ServiceError(
-                "실행 기록을 저장하지 못했습니다. 서버 저장 공간을 확인해 주세요.", 503
-            ) from error
-        except RagContextBudgetError as error:
-            raise ServiceError(
-                "질문의 복잡도가 현재 처리 한도를 넘었습니다. 범위를 좁혀 다시 시도해 주세요.",
-                502,
-            ) from error
-        except TimeoutError as error:
-            raise ServiceError(
-                "답변 처리 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.",
-                504,
-            ) from error
-        except RagModelError as error:
-            raise ServiceError(
-                "답변 생성 서비스에 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
-                502,
-            ) from error
-
-        if run.response.request_id != request_id:
-            raise ServiceError("요청 식별 정보를 확인하지 못했습니다.", 502)
-        return run.response
-
-    resources: Resources | None = request.app.state.resources
-    if resources is None:
+    if table_service is None:
         raise ServiceError(request.app.state.readiness_reason, 503)
 
-    settings: Settings = request.app.state.settings
-    return await asyncio.to_thread(
-        answer_query,
-        payload,
-        resources,
-        request_id,
-        settings,
-    )
+    from app.rag.service import RagContextBudgetError, RagModelError
+
+    if payload.retrieval_mode is not None:
+        raise ServiceError(
+            "이 서버는 DB 우선 TableRAG 검색을 사용합니다. 검색 방식 없이 질문을 보내 주세요.",
+            501,
+        )
+
+    try:
+        run = await table_service.ainvoke(payload.question, request_id=request_id)
+    except RequestRunStoreError as error:
+        raise ServiceError(
+            "실행 기록을 저장하지 못했습니다. 서버 저장 공간을 확인해 주세요.", 503
+        ) from error
+    except RagContextBudgetError as error:
+        raise ServiceError(
+            "질문의 복잡도가 현재 처리 한도를 넘었습니다. 범위를 좁혀 다시 시도해 주세요.",
+            502,
+        ) from error
+    except TimeoutError as error:
+        raise ServiceError(
+            "답변 처리 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.",
+            504,
+        ) from error
+    except RagModelError as error:
+        raise ServiceError(
+            "답변 생성 서비스에 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+            502,
+        ) from error
+
+    if run.response.request_id != request_id:
+        raise ServiceError("요청 식별 정보를 확인하지 못했습니다.", 502)
+    return run.response

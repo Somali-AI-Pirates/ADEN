@@ -11,7 +11,7 @@ from app.api.chat import ChatRequest, query_stream
 from app.api.main import create_app
 from app.observability.run_store import RequestRunStoreError
 from shared.contracts import QueryResponse
-from shared.settings import DEFAULT_CONFIG, load_settings
+from app.rag.config import TableRagSettings
 
 
 class Service:
@@ -103,10 +103,10 @@ def test_pdf_is_inline_range_capable_and_confined_to_originals(tmp_path):
     secret = tmp_path / "secret.pdf"
     secret.write_bytes(b"private")
     (root / "AS002.pdf").symlink_to(secret)
-    settings = load_settings(DEFAULT_CONFIG).model_copy(update={"documents_dir": root})
+    settings = TableRagSettings(documents_dir=root)
     app = create_app(table_service_loader=lambda _: Service())
     with (
-        patch("app.api.lifespan.load_settings", return_value=settings),
+        patch("app.api.lifespan.load_table_rag_settings", return_value=settings),
         TestClient(app) as client,
     ):
         response = client.get("/documents/AS001")

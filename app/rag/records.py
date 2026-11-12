@@ -10,7 +10,8 @@ from time import perf_counter
 from unicodedata import normalize
 from urllib.parse import quote
 
-from app.rag.keyword_retriever import tokenize_for_bm25
+from app.indexing.keyword_store import tokenize_for_bm25
+from shared.text_normalization import normalize_text as norm
 
 ROLES = ("contract", "events", "approval", "invoice", "receipt", "settlement", "record")
 FIELDS = (
@@ -54,11 +55,6 @@ _SPEC_LOOKUP = {
     for form in forms
 }
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
-
-
-def norm(value: str) -> str:
-    """Normalize values using the shared-record index convention."""
-    return " ".join(normalize("NFKC", value).casefold().split())
 
 
 def codes(text: str) -> tuple[str, ...]:

@@ -1,19 +1,12 @@
 from contextlib import ExitStack
-from dataclasses import asdict
 import os
 from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock, patch
 
-from fastapi.testclient import TestClient
-
-from app.api.main import app
-from app.observability.records import compute_context_hash
 from app.service.resources import load_resources
-from shared.contracts import Chunk
 from shared.exceptions import ServiceError
 from shared.settings import load_settings
-from tests.pipeline_fakes import FakeModel
 
 
 def broken_factory(settings):
@@ -41,7 +34,6 @@ class ResourceTests(unittest.TestCase):
                 clear=True,
             )
         )
-        stack.enter_context(patch("app.api.lifespan.load_dotenv"))
         self.embedder = SimpleNamespace(
             dim=2,
             embed_query=Mock(return_value=SimpleNamespace(tolist=lambda: [0.1, 0.2])),
@@ -65,49 +57,6 @@ class ResourceTests(unittest.TestCase):
             )
         )
         self.settings = load_settings()
-        self.settings.rag_backend = "legacy"
-        stack.enter_context(
-            patch("app.api.lifespan.load_settings", return_value=self.settings)
-        )
-
-    def test_startup_runs_real_pipeline_and_closes_shared_clients(self):
-        chunk = Chunk(
-            "DEMO-p1-c1", "DEMO", "DEMO.pdf", 1, "예약 접수와 확정은 별도입니다."
-        )
-        self.client.query_points.return_value = SimpleNamespace(
-            points=[SimpleNamespace(payload=asdict(chunk), score=0.9)],
-        )
-        self.model_factory.return_value = FakeModel(["S1"])
-        with TestClient(app) as client:
-            self.assertTrue(client.get("/health").json()["query_ready"])
-            for _ in range(2):
-                response = client.post("/query", json={"question": "예약 문의"})
-                self.assertEqual(response.status_code, 200, response.text)
-                self.assertEqual(response.json()["status"], "answered")
-                self.assertEqual(
-                    response.json()["citations"],
-                    [
-                        {
-                            "source_id": "S1",
-                            "book_id": "DEMO",
-                            "file_name": "DEMO.pdf",
-                            "page": 1,
-                        }
-                    ],
-                )
-            self.client.close.assert_not_called()
-            self.openai.return_value.close.assert_not_called()
-        trace = self.tracer_factory.from_env.return_value.start_request.return_value
-        record = trace.record_retrieval.call_args.kwargs
-        self.assertEqual(
-            record["final_context_hash"],
-            compute_context_hash(record["final_context_chunks"]),
-        )
-        self.factory.assert_called_once_with(location=":memory:")
-        self.openai.assert_called_once()
-        self.client.close.assert_called_once()
-        self.openai.return_value.close.assert_called_once()
-        self.tracer_factory.from_env.return_value.shutdown.assert_called_once()
 
     def test_missing_credentials_stop_before_clients_are_created(self):
         del os.environ["OPENAI_API_KEY"]
@@ -149,11 +98,6 @@ class ResourceTests(unittest.TestCase):
                 self.assertIn(expected, message)
                 self.assertIn(next(iter(env)), message)
                 self.assertNotIn("private path detail", message)
-                with TestClient(app) as client:  # API도 같은 원인을 알린다
-                    self.assertFalse(client.get("/health").json()["query_ready"])
-                    response = client.post("/query", json={"question": "예약 문의"})
-                self.assertEqual(response.status_code, 503)
-                self.assertEqual(response.json()["reason"], message)
         self.factory.assert_not_called()
         self.openai.assert_not_called()
 

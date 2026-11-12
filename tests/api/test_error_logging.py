@@ -1,43 +1,96 @@
-"""실패 응답의 요청 ID와 원인 종류를 원문 노출 없이 연결한다."""
 import logging
-from unittest.mock import Mock, patch
+from types import SimpleNamespace
 
-import pytest
 from fastapi.testclient import TestClient
+import pytest
 
 from app.api.main import create_app
-from shared.exceptions import ServiceError
-from tests.pipeline_fakes import make_query_resources
+from app.rag.config import load_table_rag_settings
+from app.api import lifespan as lifespan_module
+from app.observability.run_store import RequestRunStoreError
+from shared.contracts import QueryResponse
+
 
 SECRET = "PRIVATE-DATA-MUST-NOT-APPEAR"
 
 
-@pytest.mark.parametrize("failure,status,error_type", [
-    ("evidence", 503, "KeyError"),
-    ("unexpected", 500, "RuntimeError"),
-    ("invalid", 422, "RequestValidationError"),
-    ("unready", 503, "ServiceError"),
-])
-def test_error_log_matches_http_request_without_sensitive_details(caplog, failure, status, error_type):
-    resources = make_query_resources()
-    if failure == "evidence":
-        resources.evidence_provider = Mock(side_effect=KeyError(SECRET))
-    loader = Mock(return_value=resources)
-    if failure == "unready":
-        loader.side_effect = ServiceError("준비 중", 503)
+class FailingTableRagService:
+    def __init__(self, error=None):
+        self.error = error
+
+    async def ainvoke(self, question, *, request_id):
+        if self.error is not None:
+            raise self.error
+        return SimpleNamespace(
+            response=QueryResponse(
+                request_id=request_id,
+                status="answered",
+                answer="ok",
+                reason="evidence",
+                citations=[],
+            )
+        )
+
+    async def aclose(self):
+        pass
+
+
+def install_safe_settings(monkeypatch, tmp_path):
+    config = tmp_path / "advanced.yaml"
+    config.write_text(
+        "dataset: advanced\ndocuments_dir: documents\n"
+        "retrieval:\n  default_mode: naive\n  k: 8\n  context_token_budget: 8000\n",
+        encoding="utf-8",
+    )
+
+    def load_settings():
+        return load_table_rag_settings(
+            config_path=config,
+            env={},
+            env_file=tmp_path / "missing.env",
+            project_root=tmp_path,
+        )
+
+    monkeypatch.setattr(lifespan_module, "load_table_rag_settings", load_settings)
+
+
+@pytest.mark.parametrize(
+    "failure,status,error_type",
+    [
+        ("store", 503, "RequestRunStoreError"),
+        ("unexpected", 500, "RuntimeError"),
+        ("invalid", 422, "RequestValidationError"),
+        ("unready", 503, "ServiceError"),
+    ],
+)
+def test_error_log_matches_table_rag_http_request_without_sensitive_details(
+    caplog, monkeypatch, tmp_path, failure, status, error_type
+):
+    install_safe_settings(monkeypatch, tmp_path)
+    service = FailingTableRagService()
+    if failure == "store":
+        service.error = RequestRunStoreError(SECRET)
+    elif failure == "unexpected":
+        service.error = RuntimeError(SECRET)
+
+    def loader(_path):
+        if failure == "unready":
+            raise FileNotFoundError(SECRET)
+        return service
+
     with (
-        patch("app.api.lifespan.load_dotenv"),
         caplog.at_level(logging.WARNING, logger="app.api.errors"),
-        TestClient(create_app(resources_loader=loader), raise_server_exceptions=False) as client,
+        TestClient(create_app(table_service_loader=loader), raise_server_exceptions=False) as client,
     ):
         question = " " if failure == "invalid" else SECRET
-        if failure == "unexpected":
-            with patch("app.api.routes.answer_query", side_effect=RuntimeError(SECRET)):
-                response = client.post("/query", json={"question":question})
-        else:
-            response = client.post("/query", json={"question":question}, headers={"Authorization":"Bearer "+SECRET})
+        response = client.post(
+            "/query",
+            json={"question": question},
+            headers={"Authorization": "Bearer " + SECRET},
+        )
+
     assert response.status_code == status
-    records = [r for r in caplog.records if r.name == "app.api.errors"]
+    records = [record for record in caplog.records if record.name == "app.api.errors"]
     assert len(records) == 1
     record = records[0]
     assert record.request_id == response.json()["request_id"] == response.headers["X-Request-ID"]

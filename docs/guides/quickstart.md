@@ -31,7 +31,7 @@ uv run --locked python -m app.ingestion.scripts.prepare_table_rag check --direct
 
 첫 구축은 모델 준비와 전체 임베딩 때문에 시간이 걸린다. GPU에서 구축한 번들은 같은 모델을 사용하는 CPU 서버에서 그대로 읽을 수 있다. 완료되면 records.sqlite3, tables.sqlite3, 페이지·표 자료, 벡터와 지문 파일이 한 디렉터리에 생긴다. 현재 번들의 `vectors.npy`에는 KURE-v3 2,048차원 벡터 21,750개(페이지 18,000개와 표 검색 단위 3,750개)가 있다. 완성된 번들이 있으면 check부터 실행한다. [데이터 구조와 구축](data.md#advanced-tablerag-데이터)
 
-중단한 구축은 같은 명령으로 재개한다. 입력 PDF·파서·모델 조건이 일치하는 완료 단계만 재사용한다. 강제 종료 후 잠금 파일 오류가 나면 오류에 표시된 프로세스가 종료됐는지 확인한 뒤 해당 잠금 파일만 제거한다. 작업 디렉터리와 체크포인트는 유지한다. 완성된 번들은 자동으로 덮어쓰지 않는다. 입력이나 구축 코드를 바꿨다면 서버를 끄고 새 출력 경로에 구축·검사한 뒤 `ADEN_TABLE_RAG_DIR`로 해당 번들을 선택한다.
+중단한 구축은 같은 명령으로 재개한다. 입력 PDF·파서·모델 조건이 일치하는 완료 단계만 재사용한다. 강제 종료 후 잠금 파일 오류가 나면 오류에 표시된 프로세스가 종료됐는지 확인한 뒤 해당 잠금 파일만 제거한다. 작업 디렉터리와 체크포인트는 유지한다. 완성된 번들은 자동으로 덮어쓰지 않는다. 입력이나 구축 코드의 지문이 달라진 중간 작업은 재사용하지 않는다. 이전 코드로 재개하거나 새 `--work-dir`와 출력 경로에 구축·검사한 뒤 `ADEN_TABLE_RAG_DIR`로 해당 번들을 선택한다.
 
 Qdrant Cloud를 선택했다면 로컬 벡터 번들 준비가 끝난 뒤, 서버를 실행하기 전에 기존 `vectors.npy`를 업로드하고 검사한다. 이 작업은 벡터를 다시 임베딩하지 않는다.
 
@@ -40,7 +40,7 @@ uv run --locked python -m app.ingestion.scripts.prepare_table_rag upload-qdrant 
 uv run --locked python -m app.ingestion.scripts.prepare_table_rag check-qdrant --directory artifacts/advanced-table-rag --full
 ```
 
-기본 컬렉션 이름은 `advanced_table_rag`다. 다른 이름을 쓸 때는 `advanced_table_rag` 또는 `advanced_table_rag_`로 시작하는 이름만 사용하고, `.env`의 `ADEN_TABLE_RAG_COLLECTION`과 두 명령의 `--collection` 값을 동일하게 맞춘다. 업로드와 검사가 끝난 뒤 서버를 시작한다. [Qdrant Cloud 저장 범위와 검증](data.md#advanced-tablerag-qdrant-cloud-벡터-검색)
+기본 컬렉션 이름은 `advanced_table_rag`다. 다른 이름을 쓸 때는 `advanced_table_rag` 또는 `advanced_table_rag_`로 시작하는 이름만 사용하고, `.env`의 `ADEN_TABLE_RAG_COLLECTION`을 설정한다. 업로드·검사 명령도 이 값을 읽으며, `--collection`을 명시하면 해당 실행에서만 우선한다. 업로드와 검사가 끝난 뒤 서버를 시작한다. [Qdrant Cloud 저장 범위와 검증](data.md#advanced-tablerag-qdrant-cloud-벡터-검색)
 
 ## 3. 서버와 Swagger
 
@@ -58,13 +58,13 @@ uv run --locked fastapi dev
 
 DB·모델 준비가 끝나지 않았거나 Qdrant Cloud 컬렉션을 사용할 수 없거나 호환되지 않으면 TableRAG 준비가 실패하고 `query_ready`는 false이며 `/query`는 503을 반환한다. 데이터 검사 결과와 서버의 준비 오류를 먼저 확인한다. Qdrant 오류가 나도 NumPy로 자동 전환하지 않는다. 이전 로컬 검색 경로를 사용하려면 `.env`에 `ADEN_TABLE_RAG_VECTOR_BACKEND=numpy`를 명시하고 서버를 다시 시작한다. 서버는 시작할 때 선택된 벡터 backend와 로컬 모델을 준비한다.
 
-CPU가 기본이다. CUDA 리랭킹은 ADEN_TABLE_RAG_DEVICE=cpu_gpu_rerank로 선택한다. 서버의 번들 위치는 ADEN_TABLE_RAG_DIR로 변경할 수 있다. 터미널 CLI도 같은 서비스를 쓰지만 번들 위치는 --data-directory 인자로 받는다.
+CPU가 기본이다. CUDA 리랭킹은 ADEN_TABLE_RAG_DEVICE=cpu_gpu_rerank로 선택한다. 서버·RAG CLI·평가 run의 번들 위치는 모두 ADEN_TABLE_RAG_DIR로 변경할 수 있다. CLI에서 --data-directory를 명시하면 그 값이 우선한다.
 
 ```bash
 uv run --locked python -m app.rag.cli "예약 접수번호를 받으면 예약이 확정된 건가요?"
 ```
 
-서버에 사용자 지정 번들을 설정했다면 CLI에도 `--data-directory "$ADEN_TABLE_RAG_DIR"`를 붙인다.
+경로·장치·벡터 backend·컬렉션·추적 설정은 공통 `TableRagSettings`로 해석한다. 우선순위는 **명시 CLI 인자 → 프로세스 환경 → 루트 `.env` → 선택 YAML의 `table_rag` 절 → 코드 기본값**이다. 상대 경로는 저장소 루트 기준이며, CLI 인자를 생략하면 서버와 같은 환경값을 사용한다. 요청 기록 위치는 `ADEN_TABLE_RAG_RUN_DIR`로 바꿀 수 있다. Advanced YAML의 기존 최상위 모델·검색 값은 일반·보안 평가의 기존 검색 경로 전용이고, TableRAG의 고정 모델·검색 정책은 [공통 정책](../../shared/table_rag_policy.py)을 따른다. 원본 PDF 제공 경로는 같은 YAML의 documents_dir를 사용한다. 현재 서버는 Advanced TableRAG만 제공하며 Basic 실행 설정은 시작 단계에서 거절한다.
 
 ## 4. 저장된 Swagger 답변 평가
 

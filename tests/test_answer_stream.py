@@ -138,7 +138,7 @@ def test_real_langchain_responses_stream_uses_one_call_and_keeps_usage(monkeypat
     )
 
     async def scenario():
-        model = load_model()
+        model = await load_model()
         events = []
 
         async def emit(v):

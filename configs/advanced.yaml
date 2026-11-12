@@ -1,5 +1,8 @@
+# TableRAG uses the fixed policy in shared/table_rag_policy.py.
+# The model/retrieval keys below configure B/C evaluation adapters.
+# Optional table_rag runtime paths/device/backend are resolved at entrypoints;
+# explicit CLI > environment > root .env > table_rag YAML > defaults.
 dataset: advanced
-rag_backend: table_rag
 documents_dir: data/advanced/documents
 generation_model: gpt-6-luna
 qdrant_collection: advanced_snowflake_ko_pages

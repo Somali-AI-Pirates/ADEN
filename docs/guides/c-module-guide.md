@@ -2,7 +2,7 @@
 
 기본 서버의 DB 우선 통합 TableRAG는 [TableRAG 평가](#tablerag-평가)를 따른다. 저장된 Swagger 요청은 [빠른 시작](quickstart.md#4-저장된-swagger-답변-평가)에서 바로 채점할 수 있다. 최신 실행 검증 결과는 [구현 기록](../plans/advanced-rag/unified-implementation-log.md)에 남긴다.
 
-아래 일반·보안 평가의 3방식 비교와 Qdrant/bootstrap 설명은 기존 평가 어댑터용이다. 기본 TableRAG 서버에는 Qdrant나 bootstrap 준비가 필요하지 않다.
+아래 일반·보안 평가의 3방식 비교와 Qdrant/bootstrap 설명은 기존 평가 어댑터용이다. TableRAG는 준비된 공통 번들을 사용한다. NumPy 경로에는 Qdrant 준비가 필요 없으며, Qdrant backend를 선택했다면 [빠른 시작](quickstart.md)의 전용 컬렉션 검사까지 마쳐야 한다.
 
 ## 가상 샘플
 
@@ -30,7 +30,7 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 - 보안 평가 `run_security`는 `--security-file`, 초기화된 `--retrieve`·`--generate`, `--retrieval-mode`를 받고 두 callable에 같은 설정 경로를 전달한다. 문항별로 같은 최종 문맥을 기본·방어 프롬프트에 재사용한다. 노출 분석의 공격 문장은 항목의 `attack_text`, 없으면 `embedded_excerpt`(Advanced `security_tasks.json`)에서 읽는다. 공격 미노출과 생성 실패를 방어 성공으로 세지 않는다.
 - 선택한 설정 경로는 표준 `app.service.bootstrap`의 실제 실행 설정으로 전달한다. CLI는 모듈의 선택적 `configure_evaluation(config_path)` 훅을 자원 준비 전에 호출한다. 사용자 정의 어댑터는 이 훅을 제공하거나 자체 설정 로더를 같은 파일에 맞춰야 한다. 이미 준비된 표준 자원은 다른 설정 경로나 같은 파일의 내용 변경을 감지하면 거부하므로 다른 설정의 실험은 새 실행으로 시작한다.
 - 초기화된 함수는 `app.service.bootstrap`이 제공한다. 일반 평가는 `--adapter app.service.bootstrap:query_adapter`, 보안 평가는 `--retrieve app.service.bootstrap:retrieve_context --generate app.service.bootstrap:generate_with_context`를 지정하고 설정 파일(생략 시 위 선택 순서, Basic 재현은 `--config configs/basic.yaml`)을 정한다. 자원은 첫 사용 때 준비되며 계약은 [어댑터 계약](../design/contracts.md#평가-어댑터)을 따른다.
-- 표준 bootstrap은 API와 같은 자원 준비(`load_resources`)를 쓴다. 색인을 적재한 메모리 Qdrant(`ADEN_QDRANT_CLIENT`)나 준비된 근거(`ADEN_EVIDENCE_PROVIDER`)를 [API와 같은 환경변수로 연결](local-bc.md#api와-평가-cli의-공통-실행)한다. 연결이 없거나 잘못되면 첫 질문 전에 원인(없는 컬렉션, 잘못된 지정)을 알리고 멈춘다. 저장된 후보를 주입한 실행은 고정 근거 B·C 검증이며 검색 방식의 성능 비교로 해석하지 않는다. 세 방식 비교는 각 방식이 실제로 검색한 후보가 준비됐을 때 한다.
+- 표준 bootstrap은 일반·보안 평가용 자원 준비(load_resources)를 사용한다. 색인을 적재한 메모리 Qdrant(ADEN_QDRANT_CLIENT)나 준비된 근거(ADEN_EVIDENCE_PROVIDER)는 [평가 CLI의 공통 bootstrap](local-bc.md#bc-평가-cli와-공통-bootstrap)에 연결한다. 연결이 없거나 잘못되면 첫 질문 전에 원인을 알리고 멈춘다. 저장된 후보를 주입한 실행은 고정 근거 B·C 검증이다. 세 방식의 검색 성능 비교는 각 방식이 실제로 검색한 후보가 준비됐을 때 한다. 현재 TableRAG 서버 설정은 [빠른 시작](quickstart.md)을 따른다.
 - Judge·Faithfulness는 `--judge-model`·`--ragas-model`을 지정하지 않으면 `unavailable`이다. RAGAS는 공통 설치에 포함되지 않으며 [`eval` 추가 설치](development.md#설치)로 받는다(ragas 0.4.3 고정). RAGAS 평가 모델의 출력 한도는 8,192토큰으로 고정한다. ragas 기본값 1,024에서는 실제 답변의 출력이 잘려 평가 불가가 된다.
 
 ## TableRAG 평가
@@ -51,7 +51,7 @@ uv run --locked --extra eval python -m app.evaluation.scripts.run_table_rag grad
 uv run --locked python -m app.evaluation.scripts.run_table_rag publish --grade-directory <실행_디렉터리>/grades/luna --verify
 ```
 
-새 실행 명령은 run_table_rag다. run_table_rag_a는 기존 호출자를 위한 동일 명령의 진입점으로 남는다. 기본 데이터 디렉터리는 artifacts/advanced-table-rag이며 --data-directory로 바꾼다.
+실행 명령은 run_table_rag다. 기본 데이터 디렉터리는 artifacts/advanced-table-rag다. API·RAG CLI와 같은 설정 우선순위를 사용하며, --data-directory를 생략하면 ADEN_TABLE_RAG_DIR을 적용하고 명시하면 환경값보다 우선한다.
 
 참고답 없이 grade --ragas-model gpt-6-luna를 실행하면 Faithfulness를 계산한다. 참고답 기반 지표는 unavailable 사유로 표시한다. 참고답이 있으면 실제 실행 question_id에 해당하는 항목을 사용하며 SQL 기대값은 expected_sql_results의 columns와 rows에 기록한다.
 
@@ -114,14 +114,9 @@ python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id>
 
 ### HTTP 측정
 
-`http_benchmark`는 실행 중인 API의 `/query`를 호출해 클라이언트 측 응답 시간과 결과를 `artifacts/experiments/<ID>/http_runs.jsonl`에 남긴다. 서버는 API와 평가 CLI가 같은 환경변수(`ADEN_CONFIG`, 근거 공급·색인 연결)로 띄운다.
+`http_benchmark`는 실행 중인 API의 `/query`를 호출해 클라이언트 측 응답 시간과 결과를 `artifacts/experiments/<ID>/http_runs.jsonl`에 남긴다. 서버는 [빠른 시작](quickstart.md)의 TableRAG 설정으로 실행한다.
 
-```bash
-python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000 \
-    --questions <질문 파일> --ids <ID> --modes hybrid_rerank --condition "<실행 조건>" --verify-langfuse
-```
-
-서버 기본 경로가 TableRAG이면 --modes 옵션을 생략한다. 요청 본문에는 question만 들어가고, 선택 모드가 없는 TableRAG /query 경로가 실행된다.
+현재 서버는 TableRAG만 제공하므로 --modes 옵션을 생략한다. 요청 본문에는 question만 들어가고, 선택 모드가 없는 TableRAG /query 경로가 실행된다.
 
 ```bash
 python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000 --questions <질문 파일> --ids <ID> --condition "TableRAG 기본 경로" --verify-langfuse
@@ -129,7 +124,7 @@ python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000
 
 - 시간(`latency_scope=http_client`)은 요청 직전부터 응답 본문 수신 완료까지다. Judge·RAGAS 채점, trace 조회, 서버 기동은 넣지 않는다. 평가 CLI의 `latency_ms`(`service`, HTTP 없이 서비스 함수 실행)와 다른 값이다.
 - `outcome`은 success, http_error(4xx·5xx, 응답 본문의 사유), timeout, connection_error, invalid_response다.
-- 기본 `--timeout`은 150초다. 서버는 모델 호출 제한(`model_timeout_seconds`)을 시도마다 적용하므로 클라이언트 제한은 `model_timeout_seconds × generation_max_attempts`(advanced.yaml 60초×2회)보다 길어야 한다. 짧으면 서버에서 재시도 끝에 성공한 요청이 클라이언트에는 timeout으로 남는다. 서버 설정을 바꾸면 함께 조정한다.
+- 클라이언트 기본 --timeout은 150초다. TableRAG는 각 Luna 호출에 30초 제한과 자동 재시도 0회를 적용하며, 계획·도구 호출이 여러 차례 실행될 수 있다. 전체 검색·생성 시간은 한 모델 호출보다 길다. 측정 목적과 관측한 전체 지연에 맞춰 클라이언트 제한을 지정한다.
 - 응답의 `request_id`(없으면 `X-Request-ID`)로 서버와 같은 방식의 trace ID를 계산한다. API 응답에는 근거·최종 문맥·모델 입력이 없으므로 `http_benchmark`는 RunRecord를 만들지 않는다. 채점이 필요하면 아래 `http_records`로 trace에서 복원한다.
 
 ### HTTP 답변 채점

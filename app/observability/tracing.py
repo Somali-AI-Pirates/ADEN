@@ -278,16 +278,37 @@ class Tracer:
         return self._client is not None
 
     @classmethod
-    def from_env(cls) -> "Tracer":
-        """키가 없으면 비활성 Tracer(기록 상태 `disabled`). 키 값은 출력하지 않는다."""
-        if not (
-            os.environ.get("LANGFUSE_PUBLIC_KEY")
-            and os.environ.get("LANGFUSE_SECRET_KEY")
-        ):
+    def from_credentials(
+        cls,
+        *,
+        public_key: str | None,
+        secret_key: str | None,
+        base_url: str | None = None,
+    ) -> "Tracer":
+        """Create a client from explicit credentials; missing keys disable tracing."""
+        if not (public_key and secret_key):
             return cls(None)
         from langfuse import Langfuse  # 지연 import: 모듈 import 시 SDK 초기화 방지
 
-        return cls(Langfuse())
+        return cls(
+            Langfuse(
+                public_key=public_key,
+                secret_key=secret_key,
+                # Use the SDK's existing default explicitly; do not re-read an
+                # environment that may have changed after settings resolution.
+                base_url=base_url or "https://cloud.langfuse.com",
+            )
+        )
+
+    @classmethod
+    def from_env(cls) -> "Tracer":
+        """Legacy factory for tools that still load their credentials from the environment."""
+        return cls.from_credentials(
+            public_key=os.environ.get("LANGFUSE_PUBLIC_KEY"),
+            secret_key=os.environ.get("LANGFUSE_SECRET_KEY"),
+            base_url=os.environ.get("LANGFUSE_BASE_URL")
+            or os.environ.get("LANGFUSE_HOST"),
+        )
 
     def start_request(
         self,

@@ -1,91 +1,33 @@
-import json
 import threading
-from pathlib import Path
 
 import numpy as np
 
-from app.rag.models import SourceRef, make_document
-from app.rag.keyword_retriever import (
-    BM25Index,
-    _BM25_B,
-    _BM25_K1,
-    _HEADING_POOL,
-    _HEADING_WEIGHT,
+from app.rag.keyword_retriever import BM25Index
+from shared.table_rag_policy import (
+    RERANK_BATCH_SIZE as _RERANK_BATCH_SIZE,
+    RERANK_MAX_LENGTH as _RERANK_MAX_LENGTH,
+    DENSE_TOP_K as _DENSE_TOP_K,
+    BM25_TOP_K as _BM25_TOP_K,
+    RRF_CONSTANT as _RRF_CONSTANT,
+    RRF_WEIGHTS as _RRF_WEIGHTS,
+    CANDIDATE_LIMIT as _CANDIDATE_LIMIT,
+    TABLE_LIMIT as _TABLE_LIMIT,
+    CPU_THREADS as _CPU_THREADS,
+    RERANKER_ID as _RERANKER_ID,
+    RERANKER_REVISION as _RERANKER_REVISION,
+    EMBEDDING_ID as _EMBEDDING_ID,
+    EMBEDDING_REVISION as _EMBEDDING_REVISION,
+    BM25_B as _BM25_B,
+    BM25_K1 as _BM25_K1,
+    HEADING_POOL as _HEADING_POOL,
+    HEADING_WEIGHT as _HEADING_WEIGHT,
 )
-
-
-def load_table_documents(directory: str | Path):
-    p = Path(directory) / "table-chunks.json"
-    tables = json.loads(p.read_text(encoding="utf-8"))
-
-    documents = []
-
-    for table in tables:
-        source = SourceRef(
-            book_id=table["book_id"], file_name=table["file_name"], page=table["page"]
-        )
-        document = make_document(table["text"], source, table["chunk_id"])
-        document.metadata["table_id"] = table["table_id"]
-        documents.append(document)
-
-    return documents
-
-
-def load_page_documents(path: str | Path):
-    pages = json.loads(Path(path).read_text(encoding="utf-8"))
-    if not isinstance(pages, list):
-        raise ValueError("Page data must be a JSON list")
-
-    documents = []
-    seen_source_ids = set()
-
-    for page in pages:
-        if not isinstance(page, dict):
-            raise ValueError("Each page entry must be a JSON object")
-
-        file_name = page.get("file_name")
-        text = page.get("text")
-        if not isinstance(file_name, str) or not file_name:
-            raise ValueError("Each page entry must have a non-empty file_name")
-        if not isinstance(text, str):
-            raise ValueError("Each page entry must have text as a string")
-
-        book_id = page.get("book_id") or Path(file_name).stem
-        source = SourceRef(
-            book_id=book_id,
-            file_name=file_name,
-            page=page["page"],
-        )
-        if source.source_id in seen_source_ids:
-            raise ValueError(f"Duplicate page source ID: {source.source_id}")
-        seen_source_ids.add(source.source_id)
-
-        documents.append(make_document(text, source, f"{source.source_id}:page"))
-
-    return documents
 
 
 def rank_dense(corpus, query_vector, *, top_k=5):
     scores = corpus.vectors @ query_vector
     args = np.argsort(-scores, kind="stable")[:top_k]
     return [(corpus.documents[i], float(scores[i])) for i in args]
-
-
-# Frozen A(v5) single-search configuration. Changes create a different manifest.
-_EMBED_BATCH_SIZE = 1
-_RERANK_BATCH_SIZE = 4
-_RERANK_MAX_LENGTH = 2048
-_DENSE_TOP_K = 50
-_BM25_TOP_K = 50
-_RRF_CONSTANT = 60
-_RRF_WEIGHTS = (0.5, 0.5)
-_CANDIDATE_LIMIT = 20
-_TABLE_LIMIT = 6
-_CPU_THREADS = 2
-_RERANKER_ID = "nlpai-lab/KURE-Reranker-nano"
-_RERANKER_REVISION = "8514b9e113f3b27c441ed9c2b50f81d80388b2fd"
-_EMBEDDING_ID = "nlpai-lab/KURE-v3"
-_EMBEDDING_REVISION = "73d5e710bc0b1f324a60746922cbad6d38f480d4"
 
 
 def _unit_key(document):
