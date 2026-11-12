@@ -1,0 +1,21 @@
+{
+  "request_id": "ca732b995675467f898029e7e5986709",
+  "trace_id": "e53bf92768f00cc14be9a2c690bcaec0",
+  "trace_url": "https://cloud.langfuse.com/project/cmw31qdbs01yvad0japltbo24/traces/e53bf92768f00cc14be9a2c690bcaec0",
+  "observation_names": [
+    "final-context",
+    "generation-attempt-1",
+    "rag-query",
+    "retrieval",
+    "validation-attempt-1"
+  ],
+  "persisted_context_matches": true,
+  "prompt_applied": true,
+  "root_response_matches": true,
+  "attempts": 1,
+  "usage": {
+    "input_tokens": 7275,
+    "output_tokens": 790,
+    "status": "complete"
+  }
+}

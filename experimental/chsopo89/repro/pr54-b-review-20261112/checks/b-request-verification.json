@@ -1,0 +1,38 @@
+{
+  "B1_review": {
+    "file": "review.md",
+    "mock_tests": 14
+  },
+  "B2_question_ids": {
+    "file": "b-used-questions.csv",
+    "ids": [
+      "AS-DEV19",
+      "M01",
+      "S09",
+      "S07",
+      "M19"
+    ],
+    "purpose_and_proof": true
+  },
+  "B3_original_records": {
+    "files": 12,
+    "checks": [
+      {
+        "condition": "insufficient",
+        "record_schema": "passed",
+        "request_id_response_context": "passed",
+        "original_bytes": "identical"
+      },
+      {
+        "condition": "sufficient",
+        "record_schema": "passed",
+        "request_id_response_context": "passed",
+        "original_bytes": "identical"
+      }
+    ],
+    "generation_pr": 53,
+    "not_pr54_answers": true
+  },
+  "new_model_calls": 0,
+  "A_or_C_code_changed": false
+}
