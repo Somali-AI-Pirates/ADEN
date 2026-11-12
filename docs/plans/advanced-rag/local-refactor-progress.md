@@ -326,3 +326,66 @@ TableRAG 실행과 점수 게시가 공통 로더에서 같은 환경 우선순�
 평가 게시 설정은 Judge·RAGAS용 환경 로드 전에 한 번 해석하고 게시까지 전달한다. 선택한 URL은 YAML·프로세스 환경·.env에 동일한 검증을 적용한다. 새 토큰 모듈을 런타임 모듈 지문에 포함했다. 독립 검토에서 발견한 지문 경로와 포트 검증을 보완했다.
 
 최종 Ruff, 전체 pytest 665개·하위 검사 11개, 기존 완성 번들 검사와 sdist·wheel 리소스 검사가 통과했다. lock, CLI 11개, 가상 평가 2건, actionlint 및 문서 상대 링크 53개도 확인했다. 검증 증거는 artifacts/verification/local-cleanup-20261113/에 있다.
+
+## 서버 전체 가독성과 공식 Langfuse 연동 — 2026-11-13
+
+요청: 질문 한 건의 처리 흐름을 코드로 따라 읽을 수 있도록 현재 서버 전체를 검수·리팩터링한다. [서버 코드 설계 기준](../../design/server-code-design.md)을 기준으로 삼는다. 현재 API·TableRAG·검색·저장소·설정·추적을 검수하고, CLI·평가 소비자 호환성을 유지한다. 모델·검색·HTTP/SSE·데이터/실행 기록 계약은 보존한다. B/C 내부 재설계, 개인 실험, 웹 생성 파일, 유료 호출, 원격 게시, 배포 및 Git 커밋·푸시는 범위 밖이다.
+
+기준 HEAD: 1332f0a84b32d2c79921f940d10b3eb6d6d0cb03. 기존 app/api/chat.py 추출 변경과 app/rag/service.py 포맷 변경을 포함한 작업 트리를 보존했다. 변경 전 소스 218개·지문·diff와 집중 검사 84개 통과 증거는 artifacts/verification/server-readability-20261113/에 있다. 이전 완료 기록을 이번 작업의 완료 증거로 사용하지 않는다.
+
+| 단계 | 상태 | 작업·증거 |
+| --- | --- | --- |
+| 0 | 완료 | 설계 기준·기준 소스·84개 집중 검사 고정. 전체 모듈 검수표는 단계 4에서 확정 |
+| 1 | 완료 | API·서비스·초기화 책임 분리. 집중 103개 통과, OpenAPI 변경 없음. 최종 통합 리뷰는 단계 5 |
+| 2 | 완료 | 그래프 20개·모델 11개 집중 검사. 5개 시나리오의 변경 전후 계획 입력·도구·SQL·최종 문맥 일치, stream/nonstream Responses 요청 본문 동일 |
+| 3 | 완료 | 실제 설치 SDK의 메모리 exporter·공식 콜백·마스킹·구형/신형 기록 복원 36개 통과. 원격 저장은 범위 밖 |
+| 4 | 완료 | 전체 검수표 작성. Qdrant 명령의 코퍼스 종료 보완·주석 정정·관측 중복 제거. 검색·저장소 집중 95개 통과 |
+| 5 | 완료 | 독립 리뷰 2건의 지적 반영, 전체 pytest 677개·하위 검사 11개 및 최종 검사 통과. 실제 함수 읽기 안내와 증거 기록 완료 |
+
+### 구현 결과와 검수 판단
+
+- API는 요청·HTTP/SSE 변환, 서비스는 수용·기한·근거 확보·답변·검증·저장, bootstrap은 자원 초기화·종료 등록을 맡는다. 기존 요청 수명과 저장 후 final 순서를 유지한다.
+- 그래프에는 네 도구가 각각 노드로 등록돼 해당 처리 함수를 직접 호출한다. 서비스의 중첩 계획 콜백·Stage 전달과 제품 경로의 수동 generation 기록을 제거했다. ModelCalls는 로컬 사용량을, 공식 CallbackHandler는 원격 관측 연결을 맡는다.
+- 검색·SQLite·설정은 책임이 모여 있는 현행 구성을 유지했다. Qdrant upload/check에서 직접 연 코퍼스를 모든 종료 경로에 닫도록 보완했다. 완성 번들·벡터·컬렉션과 장치 설정은 바꾸지 않았다.
+- [설계 문서](../../design/server-code-design.md#채팅-한-건을-함수-순서로-따라가기)에 12단계 읽기 안내와 실제 함수 위치, 코드와 Langfuse 화면의 대응, 전체 검수표를 남겼다.
+
+### 동등성·추적 검증
+
+고정 계획 5개를 변경 전 소스와 현행 소스의 별도 프로세스에서 실행했다. DB 우선·일반 검색, 네 도구와 최대 5회 후 finish, 인자 거절·SQL 거절·근거 부족·추가 확인·미지원 도구의 재계획을 포함한다. 계획 메시지, 호출 수·순서, 후보, SQL, 최종 출처·문맥·토큰·hash가 모두 같았다. 시간·코드 지문은 의미 비교에서 분리했다. 증거는 graph-replay-comparison.md와 전후 JSON·재생 스크립트다.
+
+모델은 실제 Responses 요청을 MockTransport로 받아 비스트리밍·스트리밍의 전체 JSON 본문이 변경 전과 같음을 확인했다. model-request-payload-comparison.json에 고정 입력과 비교 지문이 있다.
+
+Langfuse 5.2.0·LangChain core 1.7.6·LangGraph 1.2.20의 실제 SDK와 메모리 exporter로 요청별 trace·부모 연결, 모델 호출당 generation 하나, 스트리밍 사용량과 미측정 usage의 null, 공식 메시지 및 이전 수동 기록 복원을 확인했다. 제품 서비스의 callback 전달·동등성 검사는 별도 경계 테스트로 수행했다. 실제 외부 모델부터 원격 Langfuse 저장까지 한 번에 실행한 검사는 아니다.
+
+### 독립 리뷰와 조치
+
+실행·자원·동시성·API 계약과 추적·평가·정보 보호를 두 리뷰어가 나눠 확인했다. 그래프 도구 노드의 직접 호출, reverse-order 자원 종료, 취소·저장 순서와 기존 기록 필드를 확인했다.
+
+추적 리뷰에서 필터의 마지막 예외 경로가 원문을 전송할 가능성과 error 필드의 키 형태 문자열이 코드 문자열로 통과하는 문제를 발견했다. 안전한 필터 적용이 불가능하면 SDK가 전송 묶음을 버리도록 했고, error 필드도 인증 문자열 필터를 통과하도록 보완했다. 두 실패 경로와 OpenAI/GitHub/Bearer 형태의 합성값을 회귀 검사했다. 최종 리뷰에서 남은 차단 결함은 없었다.
+
+마스킹 보장은 현재 제품의 LangChain callback 관측 속성에 대한 것이다. SDK의 export hook으로 수정할 수 없는 임의 OpenTelemetry event·resource까지 보호한다고 해석하지 않는다.
+
+### 최종 검사
+
+- Ruff와 전체 pytest: 677 passed, 11 subtests passed. 로컬 Qdrant exact 검색의 기존 경고 1개가 있으며 실패는 없다.
+- 첫 전체 검사에서는 평가 CLI 테스트의 fake loader가 이전 service 모듈을 가리켜 1개가 실패했다. 실제 초기화 위치인 bootstrap 경계로 테스트를 수정했고 해당 검사 및 전체 검사를 다시 통과했다. assertions와 제품 동작은 유지했다.
+- uv lock --check, CLI 도움말 11개, 네트워크 없는 일반·보안 샘플 평가 2개, sdist·wheel 빌드와 필수 코드/리소스 14개 포함·민감/실험 파일 제외 검사가 통과했다.
+- 초기 OpenAPI와 최종 OpenAPI가 같았다. 수정 문서의 상대 링크와 실제 함수 행 앵커를 검사했다. Git diff 공백 검사도 통과했다.
+- 초기 검증 셸에서 uv를 PATH로 찾지 못한 실행은 환경 오류로 기록하고, 확인된 /home/jake/.local/bin/uv로 lock·빌드를 완료했다. 의존성이나 CUDA 환경을 다시 설치하지 않았다.
+
+모든 증거는 로컬 artifacts/verification/server-readability-20261113/에 있다. before-content.json·before.diff는 변경 전 기준, graph-replay-*와 model-request-payload-comparison.json은 동등성, final-pytest.json·final-other-checks.json·package-resources.json·docs-links.json은 최종 검사, reviews.json·final-content.json은 리뷰와 최종 파일 지문이다.
+
+### 완료 범위와 다음 작업
+
+이번 로컬 리팩터링의 0~5단계를 완료했다. 유료 Luna·Judge/Ragas 호출, 원격 Langfuse trace·점수 게시와 조회, 운영 배포, 커밋·푸시는 수행하지 않았다. B/C의 수동 추적과 저장된 평가 입력·점수 식별자 호환은 합성 검사로 확인했다. 웹/ARM64 이미지 재빌드와 전체 PDF 재구축은 수행하지 않았다.
+
+다음에는 위 최종 지문과 실제 작업 트리를 대조한 뒤, 필요한 경우 별도로 승인된 실제 질문으로 Langfuse 화면 및 원격 평가 게시를 확인한다. 이미 끝난 리팩터링 단계나 과거 실험을 다시 적용하지 않는다.
+
+
+## 서버 리팩터링 실제 연결 확인 — 2026-11-13
+
+사용자가 로컬 구현 이후 실제 질문·Langfuse·평가·점수 게시와 PR 병합까지 진행하도록 요청했다. [실제 연결 검증 기록](server-readability-live-verification.md)에 최종 표본, 발견한 결함과 수정, 원격 확인 및 한계를 정리했다.
+
+긴 식별자에서 추적 필터가 지연되는 문제를 토큰 단일 스캔으로 해결했다. HTTP trace 복원의 캐시·추론 토큰 누락도 보완했다. 최종 소스로 JSON·SSE 각 1건의 답변·인용·저장, 원격 trace 부모·generation 수·문맥·사용량 일치를 확인했다. Ragas와 Judge 채점 및 원래 trace의 점수 21개 게시·조회·같은 ID 재게시가 완료됐다. 추가 회귀를 포함한 전체 pytest 685개·하위 검사 11개와 Ruff·lock·패키지 검사가 통과했다. 기존 677개 검사를 이번 수정의 최종 증거로 재사용하지 않았다.
+
+이번 Git 반영에는 서버 리팩터링·회귀 테스트·설계·검증 문서만 포함한다. 기존 웹 생성 파일과 개인 실험은 보존한다. 운영 자동 배포 변수는 false임을 확인했고 배포를 활성화하지 않는다. PR·CI·병합 상태는 해당 PR 기록을 따른다.

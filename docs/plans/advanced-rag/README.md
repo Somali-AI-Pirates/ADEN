@@ -10,6 +10,8 @@
 
 후속 작업의 파일별 변경·로컬 환경·CI/CD·aden 서브도메인 배포는 [구조 정리·배포 구현 계획](architecture-operations-implementation-plan.md)을 따른다. 클라우드 대상과 완료 여부는 해당 문서에서 별도로 관리한다. 실제 적용한 DNS·HTTPS·GitHub 환경은 [클라우드 준비 기록](cloud-setup-record.md)에서 확인한다.
 
+서버 코드를 읽는 순서와 작성 기준은 [서버 코드 설계](../../design/server-code-design.md)를 따른다.
+
 ## 1. 범위와 호환 경계
 
 공통 API·RAG CLI·TableRAG 평가 CLI는 같은 `RagService`를 사용한다. 명시 코드가 모두 출처 있는 유일한 대상에 연결되면 공통 SQLite의 HG·HA·IS 기록을 먼저 조회한다. 코드가 없거나 확정할 수 없거나 제외 표현이 있으면 전체 페이지·표 검색으로 시작한다. 기존 HG 전용 보강은 사용하지 않는다.
@@ -53,7 +55,9 @@
 | app/rag/retrieval.py | 페이지·표 BM25/벡터/RRF/KURE |
 | app/rag/tools.py / graph.py | 도구 입력 스키마·관측 경계·State 갱신·반복 종료 |
 | app/rag/state.py / tool_handlers.py | 요청 State·Runtime context / 상태를 변경하지 않는 네 도구 처리 |
-| app/rag/evidence.py / model.py / service.py | 최종 근거·모델 호출·API/CLI 공통 실행 |
+| app/rag/bootstrap.py / service.py | 공유 자원 초기화 / API·CLI 공통 요청 실행 |
+| app/rag/evidence.py / model.py / result.py | 최종 근거·직접 모델 호출·검증과 실행 기록 변환 |
+| app/rag/model_usage.py | 요청별 모델 사용량·재시도 집계 |
 | app/rag/lifecycle.py | 취소 시 작업 완료 대기·한 번만 닫기 |
 | app/observability/run_store.py / tracing.py | 요청별 로컬 저장 및 Langfuse |
 | app/evaluation/table_rag_a.py | 저장된 통합 TableRAG 출력 채점 (기존 모듈 이름 유지) |

@@ -1,6 +1,6 @@
 # ADEN 에이전트 작업 지침
 
-공통 개발 문서는 [docs/README.md](docs/README.md)에서 찾는다. 작업 범위에 맞춰 [기여 규칙](docs/CONTRIBUTING.md), [설계](docs/design/architecture.md), [계약](docs/design/contracts.md), [검사](docs/guides/development.md#검사)를 적용한다. 사용자 요청과 상위 지침이 우선한다.
+공통 개발 문서는 [docs/README.md](docs/README.md)에서 찾는다. 작업 범위에 맞춰 [기여 규칙](docs/CONTRIBUTING.md), [설계](docs/design/architecture.md), [서버 코드 작성 기준](docs/design/server-code-design.md), [계약](docs/design/contracts.md), [검사](docs/guides/development.md#검사)를 적용한다. 사용자 요청과 상위 지침이 우선한다.
 
 - 관련 구현·호출자·테스트를 먼저 읽고 기존 진입점을 재사용한다. 동작과 계약을 바꾸면 함께 사용하는 코드·테스트·문서를 맞춘다. 생성 문서는 생성 입력을 수정한다.
 - 다른 작성자의 변경, 기존 데이터·색인·실행 결과, 개인 실험을 보존한다. 개인 실험에 공통 파일 형식을 요구하거나 제품 의존성을 추가하지 않는다.
