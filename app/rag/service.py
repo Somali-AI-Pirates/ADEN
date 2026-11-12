@@ -520,10 +520,10 @@ def _runtime_fingerprints() -> dict[str, str]:
         for name in (
             "app/generation/context.py",
             "app/generation/citations.py",
-            "app/indexing/keyword_store.py",
             "app/ingestion/layout.py",
             "app/observability/records.py",
             "app/observability/tracing.py",
+            "shared/bm25_tokens.py",
             "shared/contracts.py",
             "shared/table_rag_policy.py",
             "shared/text_normalization.py",

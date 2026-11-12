@@ -1,5 +1,8 @@
 import asyncio
 import json
+import os
+
+import pytest
 
 from app.evaluation.report import summarize
 from app.evaluation.table_rag_a import (
@@ -195,6 +198,24 @@ def test_cli_subcommands_require_run_or_grade_inputs():
     assert grade_args.k == 8
 
 
+def test_grade_and_publish_cli_accept_runtime_config():
+    grade_args = parse_args(
+        ["grade", "--run-directory", "run", "--config", "configs/staging.yaml"]
+    )
+    publish_args = parse_args(
+        [
+            "publish",
+            "--grade-directory",
+            "run/grades/one",
+            "--config",
+            "configs/staging.yaml",
+        ]
+    )
+
+    assert grade_args.config == "configs/staging.yaml"
+    assert publish_args.config == "configs/staging.yaml"
+
+
 def test_model_failure_preserves_usage_and_trace_metadata(tmp_path):
     class ModelFailure(TimeoutError):
         rag_metadata = {
@@ -232,6 +253,7 @@ def test_run_command_persists_questions_without_loading_references(
     from types import ModuleType
 
     from app.evaluation.table_rag_a import _run_command
+    from app.rag.config import load_table_rag_settings as resolve_settings
 
     questions_path = tmp_path / "questions.json"
     questions_path.write_text(
@@ -242,6 +264,31 @@ def test_run_command_persists_questions_without_loading_references(
     data_directory.mkdir()
     (data_directory / "corpus.json").write_text("{}", encoding="utf-8")
     service = FakeService(result=rag_result())
+
+    config_path = tmp_path / "runtime.yaml"
+    config_path.write_text(
+        "connections:\n  langfuse_base_url: https://trace.example.test\n",
+        encoding="utf-8",
+    )
+    env_file = tmp_path / ".env"
+    env_file.write_text(
+        "OPENAI_API_KEY=fake-openai-key\n"
+        "LANGFUSE_PUBLIC_KEY=fake-public-key\n"
+        "LANGFUSE_SECRET_KEY=fake-secret-key\n",
+        encoding="utf-8",
+    )
+
+    def resolve_test_settings(**kwargs):
+        return resolve_settings(
+            **kwargs,
+            env={},
+            env_file=env_file,
+            project_root=tmp_path,
+        )
+
+    monkeypatch.setattr(
+        "app.rag.config.load_table_rag_settings", resolve_test_settings
+    )
     loader_module = ModuleType("app.rag.service")
 
     async def load_fake_service(*, settings):
@@ -258,6 +305,8 @@ def test_run_command_persists_questions_without_loading_references(
             str(questions_path),
             "--experiment-id",
             "table-a-cli-test",
+            "--config",
+            str(config_path),
             "--data-directory",
             str(data_directory),
             "--artifacts-dir",
@@ -271,9 +320,180 @@ def test_run_command_persists_questions_without_loading_references(
     runs = json.loads((experiment_directory / "runs.jsonl").read_text().splitlines()[0])
     assert manifest["table_rag"]["run_status"] == "complete"
     assert manifest["table_rag"]["question_ids"] == ["q-1"]
+    assert manifest["table_rag"]["langfuse_base_url"] == "https://trace.example.test"
+    serialized_manifest = json.dumps(manifest)
+    assert "fake-openai-key" not in serialized_manifest
+    assert "fake-public-key" not in serialized_manifest
+    assert "fake-secret-key" not in serialized_manifest
     assert runs["question"] == QUESTION["question"]
     assert runs["retrieval_mode"] == "table_rag"
     assert service.closed
+
+
+def test_publication_uses_resolved_settings_and_rejects_endpoint_mismatch(
+    monkeypatch,
+):
+    import app.evaluation.table_rag_a as evaluation
+    from app.observability.tracing import Tracer
+    from app.rag.config import RuntimeCredentials, TableRagSettings
+
+    settings = TableRagSettings(
+        credentials=RuntimeCredentials(
+            langfuse_public_key="fake-public-key",
+            langfuse_secret_key="fake-secret-key",
+            langfuse_base_url="https://trace.example.invalid",
+        )
+    )
+    current = {"settings": settings}
+    config_paths = []
+    tracer_args = []
+
+    def resolve_settings(*, config_path=None, **_kwargs):
+        config_paths.append(config_path)
+        return current["settings"]
+
+    def create_tracer(cls, *, public_key, secret_key, base_url=None):
+        tracer_args.append((public_key, secret_key, base_url))
+        return "fake-tracer"
+
+    monkeypatch.setattr("app.rag.config.load_table_rag_settings", resolve_settings)
+    monkeypatch.setattr(
+        evaluation,
+        "load_env",
+        lambda: pytest.fail("publishing settings must resolve before dotenv injection"),
+    )
+    monkeypatch.setattr(Tracer, "from_credentials", classmethod(create_tracer))
+
+    run_manifest = {
+        "table_rag": {"langfuse_base_url": "https://trace.example.invalid"}
+    }
+    resolved = evaluation._resolve_publication_settings(
+        run_manifest, config_path=None
+    )
+    assert evaluation._publication_tracer(resolved) == "fake-tracer"
+    assert tracer_args[-1] == (
+        "fake-public-key",
+        "fake-secret-key",
+        "https://trace.example.invalid",
+    )
+
+    current["settings"] = TableRagSettings(
+        credentials=RuntimeCredentials(
+            langfuse_public_key="fake-public-key",
+            langfuse_secret_key="fake-secret-key",
+            langfuse_base_url="https://default.example.invalid",
+        )
+    )
+    with pytest.raises(SystemExit, match="differs from the saved run"):
+        evaluation._resolve_publication_settings(
+            run_manifest, config_path=None
+        )
+    assert len(tracer_args) == 1
+
+    current["settings"] = settings
+    resolved = evaluation._resolve_publication_settings(
+        run_manifest, config_path="configs/staging.yaml"
+    )
+    assert evaluation._publication_tracer(resolved) == "fake-tracer"
+
+    # Saved Swagger/older CLI runs predate endpoint metadata.
+    legacy_manifest = {"table_rag_a": {"run_status": "complete"}}
+    resolved = evaluation._resolve_publication_settings(
+        legacy_manifest, config_path="configs/staging.yaml"
+    )
+    assert evaluation._publication_tracer(resolved) == "fake-tracer"
+    assert tracer_args[-1][2] == "https://trace.example.invalid"
+    assert config_paths == [None, None, "configs/staging.yaml", "configs/staging.yaml"]
+
+
+def test_grade_publish_resolves_process_alias_before_dotenv_is_loaded(
+    tmp_path, monkeypatch
+):
+    import app.evaluation.table_rag_a as evaluation
+    import app.rag.config as rag_config
+
+    process_url = "https://process.example.invalid"
+    dotenv_url = "https://dotenv.example.invalid"
+    config_path = tmp_path / "selected.yaml"
+    config_path.write_text(
+        "connections: {langfuse_base_url: 'https://yaml.example.invalid'}\n",
+        encoding="utf-8",
+    )
+    env_file = tmp_path / ".env"
+    env_file.write_text(
+        f"LANGFUSE_BASE_URL={dotenv_url}\n", encoding="utf-8"
+    )
+    monkeypatch.setenv("LANGFUSE_HOST", process_url)
+    monkeypatch.delenv("LANGFUSE_BASE_URL", raising=False)
+
+    original_loader = rag_config.load_table_rag_settings
+
+    def load_with_test_sources(**kwargs):
+        return original_loader(
+            **kwargs,
+            env=dict(os.environ),
+            env_file=env_file,
+            project_root=tmp_path,
+        )
+
+    monkeypatch.setattr(rag_config, "load_table_rag_settings", load_with_test_sources)
+
+    run_directory = tmp_path / "saved-run"
+    run_directory.mkdir()
+    (run_directory / "manifest.json").write_text(
+        json.dumps(
+            {
+                "experiment_id": "saved-run",
+                "dataset_id": "advanced",
+                "config_hash": "snapshot",
+                "sample": False,
+                "table_rag": {
+                    "run_status": "complete",
+                    "question_ids": [],
+                    "langfuse_base_url": process_url,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    (run_directory / "runs.jsonl").write_text("", encoding="utf-8")
+
+    published_targets = []
+
+    def inject_dotenv_for_grader():
+        os.environ["LANGFUSE_BASE_URL"] = dotenv_url
+
+    def capture_publish(*_args, settings, **_kwargs):
+        published_targets.append(settings.credentials.langfuse_base_url)
+
+    monkeypatch.setattr(evaluation, "load_env", inject_dotenv_for_grader)
+    monkeypatch.setattr(
+        evaluation, "make_ragas_faithfulness", lambda _model: lambda *_args: {}
+    )
+    monkeypatch.setattr(evaluation, "grade_saved_runs", lambda *_args, **_kwargs: [])
+    monkeypatch.setattr(evaluation, "write_artifacts", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(evaluation, "write_report", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(evaluation, "_publish_grade", capture_publish)
+
+    args = evaluation.parse_args(
+        [
+            "grade",
+            "--run-directory",
+            str(run_directory),
+            "--grade-id",
+            "grade-1",
+            "--config",
+            str(config_path),
+            "--ragas-model",
+            "gpt-6-luna",
+            "--publish-langfuse-scores",
+        ]
+    )
+    evaluation._grade_command(args)
+
+    assert published_targets == [process_url]
+    assert os.environ["LANGFUSE_BASE_URL"] == dotenv_url
+
 
 
 def test_grade_command_writes_report_from_saved_runs(tmp_path):

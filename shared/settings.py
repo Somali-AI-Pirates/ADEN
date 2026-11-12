@@ -52,9 +52,11 @@ def connection_settings(raw: Mapping[str, Any]) -> dict[str, Any]:
             raise ValueError(f"connections.{name} must be a URL")
         try:
             parsed = urlsplit(value)
+            port = parsed.port
             valid = (
                 parsed.scheme in {"http", "https"}
                 and bool(parsed.hostname)
+                and (port is None or port > 0)
                 and parsed.username is None
                 and parsed.password is None
                 and not parsed.query
@@ -78,7 +80,10 @@ def connection_url(
     for values in environment:
         present = [values[key] for key in _CONNECTION_ENV[name] if key in values]
         if present:
-            return next((value for value in present if value), None)
+            resolved = next((value for value in present if value), None)
+            if resolved is not None:
+                connection_settings({"connections": {name: resolved}})
+            return resolved
     return connections.get(name)
 
 

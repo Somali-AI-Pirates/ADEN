@@ -331,6 +331,37 @@ def test_process_url_alias_overrides_dotenv_and_yaml(tmp_path):
     assert settings.credentials.langfuse_base_url == "https://process.example.test"
 
 
+@pytest.mark.parametrize(
+    ("env", "dotenv_value"),
+    [
+        (
+            {"LANGFUSE_HOST": "https://trace.example.invalid?token=private"},
+            "https://dotenv.example.invalid",
+        ),
+        ({}, "https://user:private@trace.example.invalid"),
+        ({}, "https://trace.example.invalid:private"),
+        ({}, "https://trace.example.invalid:65536"),
+    ],
+)
+def test_effective_langfuse_url_from_environment_sources_is_validated(
+    tmp_path, env, dotenv_value
+):
+    config = tmp_path / "config.yaml"
+    config.write_text(
+        "connections: {langfuse_base_url: 'https://yaml.example.invalid'}\n",
+        encoding="utf-8",
+    )
+    (tmp_path / ".env").write_text(
+        f"LANGFUSE_BASE_URL={dotenv_value}\n", encoding="utf-8"
+    )
+
+    with pytest.raises(ValueError, match="without credentials") as raised:
+        load_table_rag_settings(
+            project_root=tmp_path, config_path=config, env=env
+        )
+    assert "private" not in str(raised.value)
+
+
 def test_connection_yaml_rejects_embedded_credentials_without_exposing_them(tmp_path):
     config = tmp_path / "config.yaml"
     config.write_text("connections: {qdrant_url: 'https://user:hidden@example.test'}\n")

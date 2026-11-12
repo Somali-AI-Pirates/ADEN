@@ -7,6 +7,7 @@ from contextlib import contextmanager
 from langchain_core.messages import AIMessage
 import pytest
 
+import app.rag.graph as graph_module
 from app.rag.graph import TableRagGraph
 from app.rag.models import SearchResult, SourceRef, make_document
 
@@ -336,16 +337,20 @@ class _Records:
         return ["t_cost"]
 
 
-def _trace_stage(events):
+def _trace_stage(events, *, active=None):
     @contextmanager
     def stage(name, **kwargs):
         event = {"name": name, "input": kwargs.get("input")}
+        if active is not None:
+            active.add(name)
         try:
             yield event
         except BaseException as error:
             event.update(level="ERROR", status_message=type(error).__name__)
             raise
         finally:
+            if active is not None:
+                active.discard(name)
             events.append(event)
 
     return stage
@@ -453,7 +458,7 @@ def test_rejected_state_checks_do_not_create_tool_spans(
     assert not any(event.get("level") == "ERROR" for event in events)
 
 
-def test_valid_tool_spans_keep_their_names_inputs_and_outputs():
+def test_valid_tool_spans_keep_their_names_inputs_and_outputs(monkeypatch):
     pages = {
         "SYN001:p0001": _document(1, "synthetic table source"),
         "SYN001:p0002": _document(2, "synthetic record source"),
@@ -471,6 +476,17 @@ def test_valid_tool_spans_keep_their_names_inputs_and_outputs():
     )
     records = _Records()
     events = []
+    active_spans = set()
+    read_handler_seconds = []
+    original_read_sources = graph_module.read_sources
+
+    async def tracked_read_sources(*args, **kwargs):
+        assert "rag.read_sources" in active_spans
+        delta = await original_read_sources(*args, **kwargs)
+        read_handler_seconds.append(delta.span_output["seconds"])
+        return delta
+
+    monkeypatch.setattr(graph_module, "read_sources", tracked_read_sources)
 
     def search(query):
         assert query == "운영 규정"
@@ -549,7 +565,7 @@ def test_valid_tool_spans_keep_their_names_inputs_and_outputs():
             f"{CODE} 예약의 근거와 운영 규정을 확인해줘",
             planner=planner,
             request_id="trace-valid",
-            stage=_trace_stage(events),
+            stage=_trace_stage(events, active=active_spans),
             trace_id="trace-valid",
         )
     )
@@ -603,6 +619,12 @@ def test_valid_tool_spans_keep_their_names_inputs_and_outputs():
         "observation",
         "seconds",
     }
+    assert len(read_handler_seconds) == 1
+    assert (
+        tool_events["rag.read_sources"]["output"]["seconds"]
+        >= read_handler_seconds[0]
+    )
+    assert not active_spans
     assert tool_events["rag.sql"]["input"] == {
         "request_id": "trace-valid",
         "table_ids": ["t_cost"],
@@ -610,3 +632,48 @@ def test_valid_tool_spans_keep_their_names_inputs_and_outputs():
     }
     assert tool_events["rag.sql"]["output"]["status"] == "ok"
     assert tool_events["rag.sql"]["output"]["source_count"] == 1
+
+
+def test_read_sources_handler_error_is_recorded_in_its_span(monkeypatch):
+    events = []
+    active_spans = set()
+
+    async def failing_read_sources(*_args, **_kwargs):
+        assert "rag.read_sources" in active_spans
+        raise RuntimeError("synthetic source formatting failure")
+
+    monkeypatch.setattr(graph_module, "read_sources", failing_read_sources)
+    page = _document(1)
+    graph = TableRagGraph(
+        search=lambda _query: SearchResult((page,), (), {}),
+        table_store=_Store(),
+        page_lookup=lambda source: page if source == "SYN001:p0001" else None,
+    )
+
+    async def planner(_history, *, finish_only):
+        assert not finish_only
+        return _call(
+            "read_sources",
+            "read-failure",
+            {"source_ids": ["SYN001:p0001"]},
+        )
+
+    with pytest.raises(RuntimeError, match="synthetic source formatting failure"):
+        asyncio.run(
+            graph.run(
+                "synthetic question",
+                planner=planner,
+                request_id="trace-read-failure",
+                stage=_trace_stage(events, active=active_spans),
+                trace_id="trace-read-failure",
+            )
+        )
+
+    read_event = next(event for event in events if event["name"] == "rag.read_sources")
+    assert read_event["input"] == {
+        "request_id": "trace-read-failure",
+        "source_ids": ["SYN001:p0001"],
+    }
+    assert read_event["level"] == "ERROR"
+    assert read_event["status_message"] == "RuntimeError"
+    assert not active_spans

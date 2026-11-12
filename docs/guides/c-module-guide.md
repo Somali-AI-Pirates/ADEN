@@ -51,7 +51,7 @@ uv run --locked --extra eval python -m app.evaluation.scripts.run_table_rag grad
 uv run --locked python -m app.evaluation.scripts.run_table_rag publish --grade-directory <실행_디렉터리>/grades/luna --verify
 ```
 
-실행 명령은 run_table_rag다. 기본 데이터 디렉터리는 artifacts/advanced-table-rag다. API·RAG CLI와 같은 설정 우선순위를 사용하며, `--data-directory`를 명시하면 YAML과 환경값보다 우선한다. `--config`는 해당 실행의 YAML을 선택한다.
+실행 명령은 run_table_rag다. 기본 데이터 디렉터리는 artifacts/advanced-table-rag다. API·RAG CLI와 같은 설정 우선순위를 사용하며, `--data-directory`를 명시하면 YAML과 환경값보다 우선한다. `--config`는 해당 실행의 YAML을 선택한다. `grade`의 점수 게시와 별도 `publish`도 같은 옵션을 받는다. 명시 YAML을 쓴 실행의 점수는 같은 YAML을 지정해 게시한다. 새 CLI 실행은 안전한 Langfuse 주소를 manifest에 남기고, 게시 시 설정 주소가 다르면 외부 호출 전에 거절한다. 기존 기록에 주소가 없으면 기본/명시 설정을 사용한다. 게시 대상은 실행과 동일한 우선순위로 해석한다. 프로세스의 연결 주소가 루트 `.env`에 기록된 다른 이름의 주소보다 우선한다. 연결 주소에는 인증 정보·쿼리·프래그먼트가 없는 HTTP(S) URL을 사용한다. 게시 설정 해석은 번들이나 모델을 로드하지 않는다.
 
 참고답 없이 grade --ragas-model gpt-6-luna를 실행하면 Faithfulness를 계산한다. 참고답 기반 지표는 unavailable 사유로 표시한다. 참고답이 있으면 실제 실행 question_id에 해당하는 항목을 사용하며 SQL 기대값은 expected_sql_results의 columns와 rows에 기록한다.
 
