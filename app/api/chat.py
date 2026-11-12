@@ -118,7 +118,7 @@ async def query_stream(payload: ChatRequest, request: Request):
         events(),
         media_type="text/event-stream",
         headers={
-            "Cache-Control": "no-cache, no-store",
+            "Cache-Control": "no-cache, no-store, no-transform",
             "X-Accel-Buffering": "no",
             "X-Request-ID": request_id,
         },

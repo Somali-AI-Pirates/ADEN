@@ -1,0 +1,12 @@
+#!/bin/sh
+# This SSH key can check its route but cannot deploy, run a shell, or access Docker.
+set -eu
+case "${SSH_ORIGINAL_COMMAND:-}" in
+    aden-status)
+        printf '%s\n' '{"service":"aden","deployment_enabled":false,"reason":"deployment workflow and images are not implemented"}'
+        ;;
+    *)
+        printf '%s\n' 'ADEN deployment is disabled; only aden-status is available.' >&2
+        exit 64
+        ;;
+esac

@@ -60,6 +60,7 @@ def test_stream_has_request_identity_and_authoritative_final():
         response = client.post("/query/stream", json={"question": " 예약 확인 "})
     values = events(response)
     assert response.status_code == 200
+    assert response.headers["Cache-Control"] == "no-cache, no-store, no-transform"
     assert response.headers["X-Accel-Buffering"] == "no"
     assert [v["type"] for v in values] == ["start", "progress", "answer_delta", "final"]
     assert {v["request_id"] for v in values} == {response.headers["X-Request-ID"]}
