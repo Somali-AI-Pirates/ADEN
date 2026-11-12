@@ -277,3 +277,111 @@ def test_direct_settings_construction_validates_request_limits(kwargs, field_nam
 
     with pytest.raises(ValueError, match=field_name):
         TableRagSettings(**kwargs)
+
+
+def test_default_runtime_overlays_workstation_yaml_but_explicit_config_does_not(tmp_path):
+    configs = tmp_path / "configs"
+    configs.mkdir()
+    (configs / "advanced.yaml").write_text(
+        "table_rag: {device: cpu, max_waiting_requests: 4}\n"
+        "connections: {langfuse_base_url: 'https://trace.example.test'}\n"
+    )
+    (configs / "local.yaml").write_text(
+        "documents_dir: local-pdfs\n"
+        "table_rag: {device: cuda, vector_backend: qdrant}\n"
+        "connections: {qdrant_url: 'https://vector.example.test'}\n"
+    )
+    local = load_table_rag_settings(project_root=tmp_path, env={})
+    assert local.device == "cuda"
+    assert local.vector_backend == "qdrant"
+    assert local.documents_dir == tmp_path / "local-pdfs"
+    assert local.max_waiting_requests == 4
+    assert local.credentials.qdrant_url == "https://vector.example.test"
+    assert local.credentials.langfuse_base_url == "https://trace.example.test"
+    explicit = load_table_rag_settings(
+        project_root=tmp_path, env={"ADEN_CONFIG": "configs/advanced.yaml"}
+    )
+    assert explicit.device == "cpu"
+    assert explicit.credentials.qdrant_url is None
+
+
+def test_local_qdrant_settings_do_not_carry_cloud_api_key(tmp_path):
+    configs = tmp_path / "configs"
+    configs.mkdir()
+    (configs / "local.yaml").write_text(
+        "connections: {qdrant_local: true, qdrant_url: 'http://127.0.0.1:6333'}\n"
+    )
+    (tmp_path / ".env").write_text("QDRANT_API_KEY=existing-cloud-key\n")
+    settings = load_table_rag_settings(project_root=tmp_path, env={})
+    assert settings.credentials.qdrant_local is True
+    assert settings.credentials.qdrant_url == "http://127.0.0.1:6333"
+    assert settings.credentials.qdrant_api_key is None
+
+
+def test_process_url_alias_overrides_dotenv_and_yaml(tmp_path):
+    configs = tmp_path / "configs"
+    configs.mkdir()
+    (configs / "local.yaml").write_text(
+        "connections: {langfuse_base_url: 'https://yaml.example.test'}\n"
+    )
+    (tmp_path / ".env").write_text("LANGFUSE_BASE_URL=https://dotenv.example.test\n")
+    settings = load_table_rag_settings(
+        project_root=tmp_path, env={"LANGFUSE_HOST": "https://process.example.test"}
+    )
+    assert settings.credentials.langfuse_base_url == "https://process.example.test"
+
+
+def test_connection_yaml_rejects_embedded_credentials_without_exposing_them(tmp_path):
+    config = tmp_path / "config.yaml"
+    config.write_text("connections: {qdrant_url: 'https://user:hidden@example.test'}\n")
+    with pytest.raises(ValueError, match="without credentials") as raised:
+        load_table_rag_settings(project_root=tmp_path, config_path=config, env={})
+    assert "hidden" not in str(raised.value)
+
+
+def test_legacy_cloud_consumers_can_use_migrated_yaml(tmp_path, monkeypatch):
+    from app.indexing import vector_store
+    from app.observability.tracing import Tracer
+    from shared import settings
+
+    configs = tmp_path / "configs"
+    configs.mkdir()
+    (configs / "local.yaml").write_text(
+        "connections:\n"
+        "  qdrant_url: https://vector.example.test\n"
+        "  langfuse_base_url: https://trace.example.test\n"
+    )
+    monkeypatch.setattr(settings, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(settings, "configured_path", lambda: configs / "advanced.yaml")
+    for key in ("ADEN_CONFIG", "QDRANT_URL", "LANGFUSE_BASE_URL", "LANGFUSE_HOST"):
+        monkeypatch.delenv(key, raising=False)
+    monkeypatch.setenv("QDRANT_API_KEY", "fake-qdrant-key")
+    monkeypatch.setenv("LANGFUSE_PUBLIC_KEY", "fake-public-key")
+    monkeypatch.setenv("LANGFUSE_SECRET_KEY", "fake-secret-key")
+    monkeypatch.setattr(vector_store, "QdrantClient", lambda **options: options)
+    monkeypatch.setattr(Tracer, "from_credentials", lambda **options: options)
+    assert vector_store.connect()["url"] == "https://vector.example.test"
+    assert Tracer.from_env()["base_url"] == "https://trace.example.test"
+
+
+@pytest.mark.parametrize("explicit_local", [False, True])
+def test_legacy_cloud_address_is_independent_of_advanced_local_qdrant(
+    tmp_path, monkeypatch, explicit_local
+):
+    from shared import settings
+
+    configs = tmp_path / "configs"
+    configs.mkdir()
+    default = configs / "advanced.yaml"
+    workstation = configs / "local.yaml"
+    cloud = "connections: {qdrant_url: 'https://cloud.example.test'}\n"
+    local = "connections: {qdrant_local: true, qdrant_url: 'http://127.0.0.1:6333'}\n"
+    default.write_text(local if explicit_local else cloud)
+    workstation.write_text(cloud if explicit_local else local)
+    monkeypatch.setattr(settings, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(settings, "configured_path", lambda: default)
+    monkeypatch.delenv("QDRANT_URL", raising=False)
+    monkeypatch.delenv("ADEN_CONFIG", raising=False)
+    if explicit_local:
+        monkeypatch.setenv("ADEN_CONFIG", str(default))
+    assert settings.legacy_connection_url("qdrant_url") == "https://cloud.example.test"

@@ -1,6 +1,8 @@
 import os
+from collections.abc import Mapping
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
+from urllib.parse import urlsplit
 
 import yaml
 from pydantic import BaseModel, Field
@@ -10,6 +12,90 @@ from shared.contracts import RetrievalMode
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = PROJECT_ROOT / "configs" / "advanced.yaml"
 CONFIG_ENV = "ADEN_CONFIG"
+_CONNECTION_ENV = {
+    "qdrant_url": ("QDRANT_URL",),
+    "langfuse_base_url": ("LANGFUSE_BASE_URL", "LANGFUSE_HOST"),
+}
+
+
+def read_config_mapping(path: Path) -> dict[str, Any]:
+    try:
+        raw = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except yaml.YAMLError:
+        raise ValueError(f"Invalid YAML in {path.name}") from None
+    if not isinstance(raw, dict):
+        raise ValueError(f"{path.name} must contain a YAML mapping")
+    return raw
+
+
+def read_local_runtime_config(root: Path) -> dict[str, Any]:
+    path = root / "configs/local.yaml"
+    if not path.is_file():
+        return {}
+    raw = read_config_mapping(path)
+    if raw.keys() - {"documents_dir", "table_rag", "connections"}:
+        raise ValueError("configs/local.yaml supports only documents_dir, table_rag, and connections")
+    return raw
+
+
+def connection_settings(raw: Mapping[str, Any]) -> dict[str, Any]:
+    connections = raw.get("connections", {})
+    if not isinstance(connections, dict) or connections.keys() - {
+        "qdrant_url", "qdrant_local", "langfuse_base_url",
+    }:
+        raise ValueError("Unsupported connections settings")
+    for name in ("qdrant_url", "langfuse_base_url"):
+        value = connections.get(name)
+        if value is None:
+            continue
+        if not isinstance(value, str):
+            raise ValueError(f"connections.{name} must be a URL")
+        try:
+            parsed = urlsplit(value)
+            valid = (
+                parsed.scheme in {"http", "https"}
+                and bool(parsed.hostname)
+                and parsed.username is None
+                and parsed.password is None
+                and not parsed.query
+                and not parsed.fragment
+                and not any(char.isspace() for char in value)
+            )
+        except ValueError:
+            valid = False
+        if not valid:
+            raise ValueError(f"connections.{name} must be a URL without credentials or query parameters")
+    if type(connections.get("qdrant_local", False)) is not bool:
+        raise ValueError("connections.qdrant_local must be a boolean")
+    return connections
+
+
+def connection_url(
+    connections: Mapping[str, Any],
+    name: str,
+    *environment: Mapping[str, str],
+) -> str | None:
+    for values in environment:
+        present = [values[key] for key in _CONNECTION_ENV[name] if key in values]
+        if present:
+            return next((value for value in present if value), None)
+    return connections.get(name)
+
+
+def legacy_connection_url(name: str) -> str | None:
+    """Resolve a legacy endpoint independently of the Advanced-only local Qdrant."""
+    if any(key in os.environ for key in _CONNECTION_ENV[name]):
+        return connection_url({}, name, os.environ)
+    configured = configured_path()
+    selected = connection_settings(read_config_mapping(configured)) if configured.exists() else {}
+    workstation = connection_settings(read_local_runtime_config(PROJECT_ROOT))
+    sources = (selected, workstation) if os.environ.get(CONFIG_ENV) else (workstation, selected)
+    for connections in sources:
+        if name == "qdrant_url" and connections.get("qdrant_local"):
+            continue
+        if name in connections:
+            return connection_url(connections, name)
+    return None
 
 
 class RetrievalSettings(BaseModel):

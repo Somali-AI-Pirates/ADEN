@@ -1,7 +1,7 @@
 """Langfuse 요청 추적 (langfuse Python SDK 5.x 공식 인터페이스 기준).
 
 - import 시 네트워크에 연결하지 않는다. SDK도 `Tracer.from_env()` 호출 때 지연 import한다.
-- 인증정보는 환경변수(LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY, LANGFUSE_BASE_URL)로만 받고
+- 인증정보는 환경변수(LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY)에서 받고, 주소는 YAML이나 기존 환경변수에서 받으며
   로그·기록에 남기지 않는다. 오류는 예외 타입 이름만 저장한다.
 - trace ID는 `create_trace_id(seed=request_id)`로 만들어 같은 request_id로 trace를 다시 찾을 수 있다.
 - SDK의 flush()는 전송 실패를 예외로 알리지 않는다. 그래서 flush 결과는
@@ -303,11 +303,14 @@ class Tracer:
     @classmethod
     def from_env(cls) -> "Tracer":
         """Legacy factory for tools that still load their credentials from the environment."""
+        from shared.settings import legacy_connection_url
+
+        public_key = os.environ.get("LANGFUSE_PUBLIC_KEY")
+        secret_key = os.environ.get("LANGFUSE_SECRET_KEY")
         return cls.from_credentials(
-            public_key=os.environ.get("LANGFUSE_PUBLIC_KEY"),
-            secret_key=os.environ.get("LANGFUSE_SECRET_KEY"),
-            base_url=os.environ.get("LANGFUSE_BASE_URL")
-            or os.environ.get("LANGFUSE_HOST"),
+            public_key=public_key,
+            secret_key=secret_key,
+            base_url=legacy_connection_url("langfuse_base_url") if public_key and secret_key else None,
         )
 
     def start_request(

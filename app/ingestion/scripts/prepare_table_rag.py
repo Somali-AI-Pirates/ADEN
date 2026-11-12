@@ -19,6 +19,7 @@ def _build_device(argument: str | None, configured: str) -> str:
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--config", help="Runtime YAML (relative to the repository root).")
     commands = parser.add_subparsers(dest="command", required=True)
 
     build = commands.add_parser("build", help="Build from raw Advanced PDFs")
@@ -75,7 +76,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == "build":
-            settings = load_table_rag_settings(data_directory=args.output)
+            settings = load_table_rag_settings(data_directory=args.output, config_path=args.config)
             documents = (
                 resolve_project_path(args.documents)
                 if args.documents is not None
@@ -101,7 +102,7 @@ def main(argv=None):
             print(f"Advanced TableRAG bundle ready: {result}")
             print(json.dumps(check_bundle(result), ensure_ascii=False, indent=2))
         elif args.command == "check":
-            settings = load_table_rag_settings(data_directory=args.directory)
+            settings = load_table_rag_settings(data_directory=args.directory, config_path=args.config)
             print(
                 json.dumps(
                     check_bundle(settings.data_directory),
@@ -110,7 +111,7 @@ def main(argv=None):
                 )
             )
         elif args.command in {"upload-qdrant", "check-qdrant"}:
-            settings = load_table_rag_settings(data_directory=args.directory)
+            settings = load_table_rag_settings(data_directory=args.directory, config_path=args.config)
             if args.collection is not None:
                 settings = replace(settings, collection=args.collection)
             if args.command == "upload-qdrant":

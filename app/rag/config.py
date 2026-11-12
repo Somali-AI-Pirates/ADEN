@@ -8,10 +8,15 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-import yaml
 from dotenv import dotenv_values
 
-from shared.settings import PROJECT_ROOT
+from shared.settings import (
+    PROJECT_ROOT,
+    connection_settings,
+    connection_url,
+    read_config_mapping,
+    read_local_runtime_config,
+)
 
 DEFAULT_DATA_DIRECTORY = PROJECT_ROOT / "artifacts/advanced-table-rag"
 DEFAULT_RUN_DIRECTORY = PROJECT_ROOT / "artifacts/rag-runs"
@@ -58,6 +63,7 @@ class RuntimeCredentials:
     langfuse_public_key: str | None = field(default=None, repr=False)
     langfuse_secret_key: str | None = field(default=None, repr=False)
     langfuse_base_url: str | None = field(default=None, repr=False)
+    qdrant_local: bool = False
 
 
 @dataclass(frozen=True)
@@ -167,7 +173,7 @@ def load_table_rag_settings(
     env_file: str | Path | None = None,
     project_root: Path = PROJECT_ROOT,
 ) -> TableRagSettings:
-    """CLI > process environment > root .env > table_rag YAML > defaults.
+    """CLI > process environment > root .env > local/base YAML > defaults.
 
     Legacy top-level YAML model/search settings intentionally do not configure
     TableRAG. Reading .env here never changes the process environment.
@@ -176,30 +182,32 @@ def load_table_rag_settings(
     dotenv_path = resolve_project_path(env_file, root) if env_file is not None else root / ".env"
     # Disable interpolation so ambient process values cannot change a supplied
     # environment snapshot or silently alter a credential.
-    merged = {
+    dotenv = {
         key: value
         for key, value in dotenv_values(dotenv_path, interpolate=False).items()
         if value is not None
     }
-    merged.update(os.environ if env is None else env)
+    process = os.environ if env is None else env
+    merged = {**dotenv, **process}
     selected_config = config_path or merged.get("ADEN_CONFIG")
     yaml_path = resolve_project_path(selected_config, root) if selected_config else root / "configs/advanced.yaml"
     values: dict[str, Any] = {}
     documents_dir: str | Path = "data/advanced/documents"
-    if yaml_path.exists() or selected_config:
-        raw = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
-        if not isinstance(raw, dict):
-            raise ValueError("TableRAG config must be a YAML mapping")
+    connections: dict[str, Any] = {}
+    documents = [read_config_mapping(yaml_path)] if yaml_path.exists() or selected_config else []
+    if not selected_config:
+        documents.append(read_local_runtime_config(root))
+    for raw in documents:
         if raw.get("dataset", "advanced") != "advanced":
             raise ValueError("TableRAG supports only the advanced dataset")
         documents_dir = raw.get("documents_dir", documents_dir)
         section = raw.get("table_rag", {})
         if not isinstance(section, dict):
             raise ValueError("table_rag must be a YAML mapping")
-        unknown = section.keys() - _ENV_KEYS.keys()
-        if unknown:
-            raise ValueError(f"Unsupported table_rag settings: {', '.join(sorted(unknown))}")
+        if section.keys() - _ENV_KEYS.keys():
+            raise ValueError("Unsupported table_rag settings")
         values.update(section)
+        connections.update(connection_settings(raw))
     for name, key in _ENV_KEYS.items():
         if key in merged:
             # Existing API uses an empty data override to mean "not selected".
@@ -219,13 +227,15 @@ def load_table_rag_settings(
         raise ValueError("Unsupported TableRAG vector backend")
     if not isinstance(collection, str) or not collection.strip():
         raise ValueError("TableRAG collection must be a non-empty string")
+    local_qdrant = connections.get("qdrant_local", False)
     credentials = RuntimeCredentials(
         openai_api_key=merged.get("OPENAI_API_KEY") or None,
-        qdrant_url=merged.get("QDRANT_URL") or None,
-        qdrant_api_key=merged.get("QDRANT_API_KEY") or None,
+        qdrant_url=connection_url(connections, "qdrant_url", process, dotenv),
+        qdrant_api_key=None if local_qdrant else merged.get("QDRANT_API_KEY") or None,
         langfuse_public_key=merged.get("LANGFUSE_PUBLIC_KEY") or None,
         langfuse_secret_key=merged.get("LANGFUSE_SECRET_KEY") or None,
-        langfuse_base_url=merged.get("LANGFUSE_BASE_URL") or merged.get("LANGFUSE_HOST") or None,
+        langfuse_base_url=connection_url(connections, "langfuse_base_url", process, dotenv),
+        qdrant_local=local_qdrant,
     )
     return TableRagSettings(
         data_directory=resolve_project_path(values.get("data_directory", "artifacts/advanced-table-rag"), root),

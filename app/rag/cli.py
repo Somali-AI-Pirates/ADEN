@@ -12,9 +12,10 @@ from app.rag.service import load_service
 def main() -> None:
     parser = argparse.ArgumentParser(description="Ask the Advanced TableRAG service.")
     parser.add_argument("question")
+    parser.add_argument("--config", help="Runtime YAML (relative to the repository root).")
     parser.add_argument("--data-directory")
     args = parser.parse_args()
-    settings = load_table_rag_settings(data_directory=args.data_directory)
+    settings = load_table_rag_settings(data_directory=args.data_directory, config_path=args.config)
     request_id = uuid4().hex
 
     async def run() -> None:

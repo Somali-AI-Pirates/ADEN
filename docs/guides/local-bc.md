@@ -50,7 +50,7 @@ uv run --locked python -m app.evaluation.scripts.run_benchmark \
 
 평가 CLI는 `RunRecord`의 `request_id`와 설정·문맥 해시를 실행 결과에 남긴다. Langfuse를 사용할 때는 해당 ID로 trace와 모델 관측을 연결한다. API 응답의 `X-Request-ID`나 HTTP 요청 로그는 이 B/C 평가 adapter 실행 계약에 포함되지 않는다.
 
-상세 추적에는 `LANGFUSE_PUBLIC_KEY`·`LANGFUSE_SECRET_KEY`·`LANGFUSE_BASE_URL`과 프로젝트 조회 권한이 필요하다. 수집 지연 시 재조회하며 flush 성공만으로 저장됐다고 판단하지 않는다.
+상세 추적에는 `LANGFUSE_PUBLIC_KEY`·`LANGFUSE_SECRET_KEY`, 추적 주소와 프로젝트 조회 권한이 필요하다. 수집 지연 시 재조회하며 flush 성공만으로 저장됐다고 판단하지 않는다.
 
 | 관측 | 확인할 내용 |
 | --- | --- |
@@ -143,7 +143,7 @@ python -m app.evaluation.scripts.run_benchmark --sample --publish-langfuse-score
 
 첫 테스트는 실제 서비스와 LangChain 체인을 사용하되 모델·외부 추적만 모의 객체로 대체한다. 메모리 Qdrant 연결 검사는 실제 QdrantLocal을 사용한다. `--sample` 평가·점수 게시는 모두 가상이며 실제 Advanced 검색·답변 품질이나 Langfuse 서버 수신을 입증하지 않는다. 샘플을 다시 실행할 때는 새 실험 ID를 사용한다.
 
-실제 생성은 OpenAI API를 사용한다. Langfuse는 환경변수의 서버로 연결되며 로컬 서버를 쓰면 그 주소를 `LANGFUSE_BASE_URL`에 지정한다. 키 값은 로그·보고서에 쓰지 않는다.
+실제 생성은 OpenAI API를 사용한다. 로컬 Langfuse 주소는 개인 YAML의 `connections.langfuse_base_url`에 지정한다. 키 값은 로그·보고서에 쓰지 않는다.
 
 ## 추적과 평가
 

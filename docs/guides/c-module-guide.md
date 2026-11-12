@@ -51,7 +51,7 @@ uv run --locked --extra eval python -m app.evaluation.scripts.run_table_rag grad
 uv run --locked python -m app.evaluation.scripts.run_table_rag publish --grade-directory <실행_디렉터리>/grades/luna --verify
 ```
 
-실행 명령은 run_table_rag다. 기본 데이터 디렉터리는 artifacts/advanced-table-rag다. API·RAG CLI와 같은 설정 우선순위를 사용하며, --data-directory를 생략하면 ADEN_TABLE_RAG_DIR을 적용하고 명시하면 환경값보다 우선한다.
+실행 명령은 run_table_rag다. 기본 데이터 디렉터리는 artifacts/advanced-table-rag다. API·RAG CLI와 같은 설정 우선순위를 사용하며, `--data-directory`를 명시하면 YAML과 환경값보다 우선한다. `--config`는 해당 실행의 YAML을 선택한다.
 
 참고답 없이 grade --ragas-model gpt-6-luna를 실행하면 Faithfulness를 계산한다. 참고답 기반 지표는 unavailable 사유로 표시한다. 참고답이 있으면 실제 실행 question_id에 해당하는 항목을 사용하며 SQL 기대값은 expected_sql_results의 columns와 rows에 기록한다.
 
@@ -96,7 +96,7 @@ python -m app.evaluation.scripts.regrade --source <원본 실험 ID> --reference
 
 통합 TableRAG는 rag-query 아래 계획 모델, 다섯 도구, 문맥 조립, 답변의 실제 입출력·시간·토큰을 남긴다. 자세한 실행은 [빠른 시작](quickstart.md)을 따른다. 아래 일반 retrieval/generation 단계 이름은 기존 검색 경로의 기록이다.
 
-`LANGFUSE_PUBLIC_KEY`와 `LANGFUSE_SECRET_KEY`로 추적을 활성화한다. `LANGFUSE_BASE_URL`로 서버를 지정할 수 있다. 요청 ID에서 trace ID를 만들며, 추적은 `rag-query` 아래 `retrieval` → `final-context` → `generation-attempt-N` 순서로 이어지고 `validation-attempt-N`은 해당 생성 시도 아래에 둔다. 각 관측은 실제 실행 구간의 시작·끝 시각으로 기록한다. `retrieval`의 입력은 질문과 검색 방식이고 출력은 후보 배열(`candidates`)이다. 후보 본문은 배열을 펼쳐 각 항목의 `text`에서 본다. 주입한 근거를 쓴 요청은 `provided_context=true`이며 그 `retrieval` 구간은 과거 검색 시간이 아니다.
+`LANGFUSE_PUBLIC_KEY`와 `LANGFUSE_SECRET_KEY`로 추적을 활성화한다. YAML의 `connections.langfuse_base_url`로 서버를 지정한다. 기존 `LANGFUSE_BASE_URL` 환경변수도 지원한다. 요청 ID에서 trace ID를 만들며, 추적은 `rag-query` 아래 `retrieval` → `final-context` → `generation-attempt-N` 순서로 이어지고 `validation-attempt-N`은 해당 생성 시도 아래에 둔다. 각 관측은 실제 실행 구간의 시작·끝 시각으로 기록한다. `retrieval`의 입력은 질문과 검색 방식이고 출력은 후보 배열(`candidates`)이다. 후보 본문은 배열을 펼쳐 각 항목의 `text`에서 본다. 주입한 근거를 쓴 요청은 `provided_context=true`이며 그 `retrieval` 구간은 과거 검색 시간이 아니다.
 
 추적에는 질문, 검색·문맥 본문, 모델 입출력이 포함될 수 있다. 팀 공식 데이터의 첫 전송 전에 프로젝트·접근 범위·보존 기준을 확인한다. 저장은 실제 관측을 조회해 확인하고, 일반 평가는 `langfuse_verification`을 남긴다.
 

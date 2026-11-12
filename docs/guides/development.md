@@ -18,9 +18,9 @@ VS Code에서 저장소 루트를 열고 [권장 확장](../../.vscode/extension
 
 ## 서버 실행
 
-처음 준비하는 환경은 [빠른 시작](quickstart.md)을 순서대로 실행한다. 기본 Advanced API는 DB 우선 통합 TableRAG다. dense 검색 선택은 `ADEN_TABLE_RAG_VECTOR_BACKEND=numpy|qdrant`로 제어한다. API는 B/C 레거시 자원 로더를 사용하지 않는다.
+처음 준비하는 환경은 [빠른 시작](quickstart.md)을 순서대로 실행한다. 기본 Advanced API는 DB 우선 통합 TableRAG다. dense 검색 선택은 YAML의 `table_rag.vector_backend`로 선택한다. API는 B/C 레거시 자원 로더를 사용하지 않는다.
 
-[설치](#설치) 후 [환경변수 예시](../../.env.example)를 참고해 로컬 `.env`와 Advanced 설정을 준비한다. TableRAG API는 `ADEN_CONFIG`와 `ADEN_TABLE_RAG_*` 설정을 사용한다. B/C 평가 CLI의 색인·근거 연결은 `ADEN_CONFIG`, `ADEN_QDRANT_CLIENT`, `ADEN_EVIDENCE_PROVIDER`로 지정하며, [로컬 B·C 안내](local-bc.md)를 따른다. 기본 API는 번들·모델 준비에 실패하면 `/health`의 `query_ready=false`와 질의의 503을 반환한다.
+[설치](#설치) 후 [환경변수 예시](../../.env.example)를 참고해 로컬 `.env`와 Advanced 설정을 준비한다. TableRAG API는 기본 Advanced YAML에 `configs/local.yaml`의 개인 설정을 적용한다. 기존 `ADEN_CONFIG`와 `ADEN_TABLE_RAG_*` 환경변수는 우선 적용할 수 있다. B/C 평가 CLI의 색인·근거 연결은 `ADEN_CONFIG`, `ADEN_QDRANT_CLIENT`, `ADEN_EVIDENCE_PROVIDER`로 지정하며, [로컬 B·C 안내](local-bc.md)를 따른다. 기본 API는 번들·모델 준비에 실패하면 `/health`의 `query_ready=false`와 질의의 503을 반환한다.
 
 ```bash
 uv run fastapi dev
@@ -28,11 +28,11 @@ uv run fastapi dev
 
 자동 재시작 없이 로컬에서 실행하려면 `uv run fastapi run --host 127.0.0.1`을 사용한다. pip 환경에서는 `fastapi dev`를 직접 실행한다. [Swagger UI](http://127.0.0.1:8000/docs)에서 질문하고 `GET /health/ready`의 HTTP 200과 `ready=true`로 현재 질의 준비 여부를 확인한다. `/health`는 기존 초기화 표시를 유지한다.
 
-키는 로컬 `.env`, 환경변수, 승인된 CI 비밀 설정으로 주입한다. Advanced TableRAG의 Cloud 벡터 검색에는 `QDRANT_URL`과 `QDRANT_API_KEY`를 로컬 환경에 설정한다. 키를 Git·로그·문서·채팅에 기록하지 않는다. 노출이 의심되면 제공자에서 폐기·교체하고 팀에 알린다.
+키는 로컬 `.env`, 환경변수, 승인된 CI 비밀 설정으로 주입한다. Advanced TableRAG의 Cloud 벡터 검색에는 YAML의 `connections.qdrant_url`과 `.env`의 `QDRANT_API_KEY`를 설정한다. 키를 Git·로그·문서·채팅에 기록하지 않는다. 노출이 의심되면 제공자에서 폐기·교체하고 팀에 알린다.
 
 ## Advanced TableRAG 실행
 
-[데이터 번들](data.md#advanced-tablerag-데이터)을 준비한 뒤 `uv run --locked fastapi dev`로 실행한다. 기본 경로는 `artifacts/advanced-table-rag`다. 기존 로컬 dense 검색의 기본 backend는 `numpy`다. Qdrant Cloud를 쓰려면 `.env`에 `ADEN_TABLE_RAG_VECTOR_BACKEND=qdrant`, `QDRANT_URL`, `QDRANT_API_KEY`를 설정하고 [업로드·검사](data.md#advanced-tablerag-qdrant-cloud-벡터-검색)를 서버 실행 전에 완료한다. Cloud 연결·컬렉션 검증 실패 시 TableRAG 준비가 실패하며 로컬 검색으로 자동 전환하지 않는다. 로컬 경로를 선택하려면 `ADEN_TABLE_RAG_VECTOR_BACKEND=numpy`를 명시한다. `ADEN_TABLE_RAG_DIR`로 다른 번들을 지정하고, `ADEN_TABLE_RAG_DEVICE=cpu_gpu_rerank`로 CUDA 리랭킹을 선택할 수 있다.
+[데이터 번들](data.md#advanced-tablerag-데이터)을 준비한 뒤 `uv run --locked fastapi dev`로 실행한다. 공유 기본값은 CPU와 NumPy다. GPU가 있는 환경은 개인 YAML에서 `table_rag.device: cuda`를 선택한다. Qdrant Cloud를 쓰려면 `table_rag.vector_backend: qdrant`를 지정하고 [업로드·검사](data.md#advanced-tablerag-qdrant-cloud-벡터-검색)를 먼저 완료한다.
 
 서버는 공통 기록 DB와 물리 표 DB를 읽기 전용으로 열고 모델을 한 번 준비한다. `/health/ready`로 현재 준비 상태를 확인한다. 질문은 POST /query에 question으로 전달한다.
 

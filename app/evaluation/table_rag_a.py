@@ -349,7 +349,7 @@ def _run_command(args: Any) -> None:
     from app.rag.config import load_table_rag_settings
     from app.rag.service import load_service
 
-    settings = load_table_rag_settings(data_directory=args.data_directory)
+    settings = load_table_rag_settings(data_directory=args.data_directory, config_path=getattr(args, "config", None))
     experiment_id = args.experiment_id or now_id("table-rag")
     dataset_id = "advanced"
     questions_path = resolve_project_path(args.questions)
@@ -634,6 +634,7 @@ def parse_args(argv: Sequence[str] | None = None) -> Any:
     run_parser.add_argument("--questions", required=True)
     run_parser.add_argument("--ids")
     run_parser.add_argument("--experiment-id")
+    run_parser.add_argument("--config", help="Runtime YAML (relative to the repository root).")
     run_parser.add_argument("--data-directory")
     run_parser.add_argument("--artifacts-dir", default=DEFAULT_ARTIFACTS_DIRECTORY)
     run_parser.set_defaults(handler=_run_command)

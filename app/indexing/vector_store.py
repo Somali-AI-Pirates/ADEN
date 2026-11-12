@@ -1,8 +1,7 @@
 """Qdrant Cloud Dense 색인 생성·로드.
 
-접속 정보는 환경변수로 받는다 (저장소 루트의 .env, Git 제외):
-    QDRANT_URL      클러스터 주소 (https://<cluster-id>.<region>.cloud.qdrant.io:6333)
-    QDRANT_API_KEY  클러스터 API 키
+주소는 YAML connections.qdrant_url을, API 키는 .env를 사용한다.
+기존 QDRANT_URL 환경변수도 지원한다.
 
 팀이 클러스터 하나를 함께 쓴다. 그래서 컬렉션 이름에 데이터·모델·청크 크기를 넣고,
 이미 있는 컬렉션은 recreate=True일 때만 지운다.
@@ -13,12 +12,13 @@ from dataclasses import asdict
 from qdrant_client import QdrantClient, models
 
 from app.ingestion.chunker import index_text
+from shared.settings import legacy_connection_url
 
 
 def connect():
-    url, key = os.environ.get("QDRANT_URL"), os.environ.get("QDRANT_API_KEY")
+    url, key = legacy_connection_url("qdrant_url"), os.environ.get("QDRANT_API_KEY")
     if not url or not key:
-        raise RuntimeError("QDRANT_URL, QDRANT_API_KEY 환경변수가 없습니다. 저장소 루트의 .env를 확인하세요.")
+        raise RuntimeError("Qdrant Cloud 주소와 API 키가 필요합니다. configs/local.yaml 및 .env를 확인하세요.")
     return QdrantClient(url=url, api_key=key, timeout=60)
 
 
