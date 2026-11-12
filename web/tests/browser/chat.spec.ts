@@ -5,19 +5,45 @@ const id = "a".repeat(32);
 const response = { request_id: id, status: "answered", answer: "확인된 기록입니다.\n\n| 구분 | 상태 |\n| --- | --- |\n| 예약 | 확인 |", reason: "근거 확인", citations: [{ source_id: "S1", book_id: "AS001", file_name: "AS001.pdf", page: 2 }] };
 const event = (data: object) => `data: ${JSON.stringify(data)}\n\n`;
 
-test("answer, citation, PDF page navigation and close preserve the conversation", async ({ page }) => {
+test("formatted Korean answers keep working inline and card citations", async ({ page }) => {
+  const citedResponse = {
+    ...response,
+    answer: [
+      "무료 기간은 5월 4~8일이고, 유료 기간은 5월 9~12일입니다. [AS001:p0002]",
+      "장비반납지연료는 **보류(미결)**입니다. [AS001:p0002, AS001:p0001]",
+      "| 구분 | 상태 |\n| --- | --- |\n| 예약 | ~~접수 전~~ 접수 완료 |",
+      "코드 예시 `[AS001:p0002]`와 미확인 인용 [AS999:p9999]",
+    ].join("\n\n"),
+    citations: [
+      { ...response.citations[0], source_id: "AS001:p0002" },
+      { ...response.citations[0], source_id: "AS001:p0001", page: 1 },
+    ],
+  };
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   await page.route("**/api/query/stream", route => route.fulfill({
     contentType: "text/event-stream", headers: { "X-Request-ID": id },
-    body: event({ type: "start", request_id: id }) + event({ type: "answer_delta", request_id: id, delta: "확인 중" }) + event({ type: "final", request_id: id, response }),
+    body: event({ type: "start", request_id: id }) + event({ type: "answer_delta", request_id: id, delta: "확인 중" }) + event({ type: "final", request_id: id, response: citedResponse }),
   }));
   await page.route("**/api/documents/AS001", route => route.fulfill({ contentType: "application/pdf", body: readFileSync("tests/fixtures/document.pdf") }));
   await page.goto("/");
   await page.getByRole("textbox", { name: "질문", exact: true }).fill("예약 확인");
   await page.getByRole("button", { name: "질문 전송" }).click();
   await expect(page.getByText("답변 완료", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "AS001.pdf 2쪽 원문 열기" }).click();
+  const answer = page.locator(".markdown");
+  const dateRanges = "무료 기간은 5월 4~8일이고, 유료 기간은 5월 9~12일입니다.";
+  await expect(answer.getByText(dateRanges)).toBeVisible();
+  await expect(answer.locator("strong")).toHaveText("보류(미결)");
+  await expect(answer.getByText("장비반납지연료는 보류(미결)입니다.")).toBeVisible();
+  await expect(answer.locator("del")).toHaveText("접수 전");
+  await expect(answer.getByRole("table").getByRole("cell", { name: "예약" })).toBeVisible();
+  const inline = page.getByRole("button", { name: "인용 1 · AS001.pdf 2쪽 원문 열기" });
+  await expect(inline).toHaveCount(2);
+  await expect(page.getByRole("button", { name: "인용 2 · AS001.pdf 1쪽 원문 열기" })).toHaveCount(1);
+  await expect(page.locator("code").getByText("[AS001:p0002]", { exact: true })).toBeVisible();
+  await expect(page.getByText("와 미확인 인용 [AS999:p9999]")).toBeVisible();
+  await expect(page.getByRole("button", { name: "AS001.pdf 2쪽 원문 열기", exact: true })).toContainText("1");
+  await inline.first().press("Enter");
   await expect(page.locator('.react-pdf__Page[data-page-number="2"] canvas')).toBeVisible();
   await expect(page.getByRole("spinbutton", { name: "페이지", exact: true })).toHaveValue("2");
   await page.getByRole("button", { name: "이전 페이지" }).click();
@@ -27,9 +53,10 @@ test("answer, citation, PDF page navigation and close preserve the conversation"
   await page.screenshot({ path: "test-results/chat-with-document.png", fullPage: true });
   await page.getByRole("button", { name: "문서 닫기" }).click();
   await expect(page.getByRole("complementary", { name: "원본 문서" })).toHaveCount(0);
-  await expect(page.getByText("확인된 기록입니다.")).toBeVisible();
+  await expect(answer.getByText(dateRanges)).toBeVisible();
+  await expect(inline.first()).toBeFocused();
   await page.setViewportSize({ width: 320, height: 700 });
-  const source = page.getByRole("button", { name: "AS001.pdf 2쪽 원문 열기" });
+  const source = page.getByRole("button", { name: "AS001.pdf 2쪽 원문 열기", exact: true });
   await source.click();
   await expect(page.getByRole("complementary", { name: "원본 문서" })).toBeVisible();
   await expect(page.locator('.react-pdf__Page[data-page-number="2"] canvas')).toBeVisible();

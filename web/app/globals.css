@@ -299,6 +299,35 @@ a { color: var(--accent); }
 .markdown th, .markdown td { padding: 6px 9px; border: 1px solid var(--line); text-align: left; }
 .markdown th { background: var(--soft); }
 
+.inline-citation, .source-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.7em;
+  padding-inline: .35em;
+  border-radius: 5px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+
+.inline-citation {
+  min-height: 22px;
+  margin-inline: .25em .1em;
+  border: 1px solid transparent;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.inline-citation:hover, .inline-citation[aria-current] {
+  border-color: var(--control-line);
+}
+
+.source-index { flex: none; min-height: 19px; }
+
 .progress {
   display: flex;
   align-items: center;
@@ -349,7 +378,7 @@ a { color: var(--accent); }
 
 .source-card:hover, .source-card[aria-current] { border-color: var(--control-line); background: var(--accent-soft); }
 .source-card strong { min-width: 0; overflow-wrap: anywhere; }
-.source-page, .source-card span[aria-hidden] { flex: none; color: var(--muted); }
+.source-page, .source-arrow { flex: none; color: var(--muted); }
 
 .message-footer {
   display: flex;

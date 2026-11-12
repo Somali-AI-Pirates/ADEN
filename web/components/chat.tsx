@@ -109,7 +109,9 @@ function AssistantMessage() {
       {response && <span className={`answer-status ${response.status}`}>{labels[response.status]}</span>}
     </div>
     {running && <p className="progress" role="status"><span className="progress-dot" />{String(custom.progress || "질문을 전달하고 있습니다.")}</p>}
-    {text && <MarkdownContent text={text} />}
+    {text && (
+      <MarkdownContent text={text} citations={response?.citations} activeSource={source} onOpenSource={openSource} />
+    )}
     {running && text && <p className="provisional">작성 중인 답변입니다. 출처 확인 후 완료됩니다.</p>}
     {incomplete && <div className="answer-error" role={error ? "alert" : "status"}>{error || "답변 생성을 중단했습니다."}{text && <span> 위 내용은 완료되지 않은 임시 답변입니다.</span>}</div>}
     {response && response.citations.length > 0 && <div className="sources" aria-label="답변 출처">
@@ -122,9 +124,10 @@ function AssistantMessage() {
           aria-current={(source?.book_id === citation.book_id && source.page === citation.page) || undefined}
           aria-label={`${citation.file_name} ${citation.page}쪽 원문 열기`}
         >
+          <span className="source-index" aria-hidden="true">{index + 1}</span>
           <strong>{citation.file_name}</strong>
           <span className="source-page">{citation.page}쪽</span>
-          <span aria-hidden="true">↗</span>
+          <span className="source-arrow" aria-hidden="true">↗</span>
         </button>
       ))}</div>
     </div>}
