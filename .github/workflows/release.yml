@@ -2,6 +2,10 @@ name: ADEN release
 
 on:
   workflow_call:
+    secrets:
+      ADEN_DEPLOY_SSH_KEY:
+        description: SSH key for the gated production deployment.
+        required: true
 
 permissions:
   contents: read
