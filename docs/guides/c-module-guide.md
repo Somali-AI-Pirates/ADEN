@@ -37,7 +37,8 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 | Hit@k · Recall@k | `evidence_groups`의 고유 문서와 실제 최종 문맥의 상위 k개 청크 문서를 비교한다. 근거 문서가 없으면 해당 없음, 빈 문맥이면 0, 실행 실패로 문맥을 모르면 평가 불가다 |
 | 근거 누락 진단 | `evidence_groups`의 쪽 단위 근거가 검색 후보, 최종 문맥 중 어디서 빠졌는지 센다(`candidate_page_recall`, `final_page_recall`, `context_lost_page_recall`). `budget_lost_page_recall`은 토큰 예산으로 제외한 ID가 기록된 경우만 센다. Recall@k는 문서 단위라 쪽 단위 진단보다 높게 나올 수 있다 |
 | Faithfulness | 질문, 생성 출력과 실제 최종 청크를 평가한다. 청크는 생성 모델 문맥처럼 제목(`heading`)을 본문 앞에 붙인다. 사실 주장이 없으면 해당 없음, 문맥 없이 사실을 주장하면 0, 평가기 오류는 평가 불가다 |
-| Judge | 사실·조건·근거·판단을 각각 0/1과 이유로 기록한다. 최종 청크는 제목을 포함해 전달한다. 서비스 오류는 판단 0, 다른 항목은 평가 불가다. 기준 버전과 변경 이력은 [채점 기준 이력](judge-rubric.md)에 남긴다 |
+| Judge | 사실·조건·근거·판단을 각각 0/1과 이유로 기록한다. 최종 청크는 제목을 포함해 전달한다. 서비스 오류는 판단 0, 다른 항목은 평가 불가다. `has_factual_claims`와 네 항목의 status·score·reason이 빠지거나 맞지 않으면 네 항목을 모두 평가 불가로 두고 구조 오류를 사유에 남긴다(일부 항목만 골라 쓰지 않음). 기준 버전과 변경 이력은 [채점 기준 이력](judge-rubric.md)에 남긴다 |
+| 검산 진단 | 공식 점수가 아니라 Judge의 대상별 진단 `calculation_checks`(complete/incomplete/not_applicable/unavailable, `missing_evidence`, 실제 문맥의 `supporting_source_ids`)다. 계산·검산을 요구하지 않는 질문은 not_applicable, 요청받은 검산을 못 했으면 incomplete, 진단 자체를 못 했으면 unavailable이다. 근거 ID가 문맥에 없거나 상태와 배열이 모순되면 진단만 평가 불가로 두고 네 점수는 유지한다. 보고서에는 상태별 건수, `comparison.csv`에는 대상별 내역이 남는다. Langfuse에는 게시하지 않는다 |
 | 평균·운영 지표 | `scored`만 평균하며 0점은 포함한다. `not_applicable`·`unavailable`은 건수를 따로 센다. 오류율은 `error` 요청만 세며 서비스 시간·토큰과 평가기 사용량은 분리한다 |
 
 ## 재채점
@@ -74,12 +75,26 @@ python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id>
 
 독립 `--verify-langfuse`는 실행 기록이 없으므로 `rag-query`만 기대한다. `verified`는 존재 확인이며 입출력·문맥·사용량의 내용 확인은 아니다.
 
+### HTTP 측정
+
+`http_benchmark`는 실행 중인 API의 `/query`를 호출해 클라이언트 측 응답 시간과 결과를 `artifacts/experiments/<ID>/http_runs.jsonl`에 남긴다. 서버는 API와 평가 CLI가 같은 환경변수(`ADEN_CONFIG`, 근거 공급·색인 연결)로 띄운다.
+
+```bash
+python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000 \
+    --questions <질문 파일> --ids <ID> --modes hybrid_rerank --condition "<실행 조건>" --verify-langfuse
+```
+
+- 시간(`latency_scope=http_client`)은 요청 직전부터 응답 본문 수신 완료까지다. Judge·RAGAS 채점, trace 조회, 서버 기동은 넣지 않는다. 평가 CLI의 `latency_ms`(`service`, HTTP 없이 서비스 함수 실행)와 다른 값이다.
+- `outcome`은 success, http_error(4xx·5xx, 응답 본문의 사유), timeout, connection_error, invalid_response다.
+- 기본 `--timeout`은 150초다. 서버는 모델 호출 제한(`model_timeout_seconds`)을 시도마다 적용하므로 클라이언트 제한은 `model_timeout_seconds × generation_max_attempts`(advanced.yaml 60초×2회)보다 길어야 한다. 짧으면 서버에서 재시도 끝에 성공한 요청이 클라이언트에는 timeout으로 남는다. 서버 설정을 바꾸면 함께 조정한다.
+- 응답의 `request_id`(없으면 `X-Request-ID`)로 서버와 같은 방식의 trace ID를 계산한다. API 응답에는 근거·최종 문맥·모델 입력이 없으므로 RunRecord를 만들지 않고, 필요하면 trace에서 조회한다.
+
 ### 평가 점수 게시
 
 `run_benchmark`와 `regrade`에 `--publish-langfuse-scores`를 주면 채점값을 해당 trace의 점수로 보낸다. 점수 이름은 `<평가 세트>.<지표>`다. 지표는 `retrieval.hit@k`, `retrieval.recall@k`, `faithfulness`, `judge.<항목>`, `evidence.<진단>`이고 첫 마디(`retrieval`, `faithfulness`, `judge`, `evidence`)가 지표군이다.
 
 - 평가 세트는 한 번의 채점 결과를 묶는 이름이다. `--evaluation-set`으로 정하며 기본값은 실험 ID다(예: `dev-v1-r1.judge.fact`, `dev-v2-r1.judge.fact`). 같은 trace를 다른 기준이나 반복 회차로 채점해도 이름이 달라 Langfuse의 이름별 집계가 섞이지 않는다.
-- 한 세트에는 같은 채점 조건(데이터셋, 설정 해시, `k`, 평가 모델, Judge 프롬프트 해시, 정답 파일 해시)만 게시한다. 같은 세트 이름을 쓴 다른 실험과 조건이 다르거나 같은 요청을 다시 채점했으면 서비스·평가 호출 전에 거부한다. 그래서 기준 버전(v1·v2)과 반복 회차는 서로 다른 세트가 된다. 이 대조는 `--artifacts-dir`에 저장된 실험만 본다. 다른 PC에서 게시한 점수와 겹치는지는 서버 점수의 metadata(`evaluation_hash`)를 조회해 확인한다.
+- 한 세트에는 같은 채점 조건(데이터셋, 설정 해시, `k`, 평가 모델, Judge 프롬프트 해시, Judge 출력 스키마 `judge_schema`, 정답 파일 해시)만 게시한다. 스키마 기록이 없는 2026-11-11 이전 결과(`judge-output-v1`)와 이후 결과는 같은 세트에 넣을 수 없다. 같은 세트 이름을 쓴 다른 실험과 조건이 다르거나 같은 요청을 다시 채점했으면 서비스·평가 호출 전에 거부한다. 그래서 기준 버전(v1·v2)과 반복 회차는 서로 다른 세트가 된다. 이 대조는 `--artifacts-dir`에 저장된 실험만 본다. 다른 PC에서 게시한 점수와 겹치는지는 서버 점수의 metadata(`evaluation_hash`)를 조회해 확인한다.
 - 게시할 지표군은 `--publish-groups`로 고른다. `run_benchmark`의 기본값은 전체다. `regrade`는 새로 계산한 지표군만 기본으로 게시한다: Judge, 그리고 `--ragas-model`로 다시 계산했으면 Faithfulness. 원본에서 옮겨 온 Faithfulness와 그대로인 검색 지표·근거 진단은 정답 파일이 바뀐 경우처럼 필요할 때 `--publish-groups retrieval evidence`나 `all`로 고른다.
 - 최종 비교에는 평가 세트 하나만 쓴다. 기준을 확정한 뒤 `regrade --ragas-model <모델> --publish-groups all --evaluation-set <최종 세트>`처럼 모든 지표군을 한 세트로 게시하고 그 세트 이름을 결과에 적는다. 기준 비교나 반복 회차의 세트는 기록으로 남기되 최종 수치에 섞지 않는다.
 - `scored`인 값만 보낸다. 해당 없음·평가 불가는 0으로 보내지 않는다. 서비스 오류의 판단 0점은 평가 규칙대로 보낸다.
@@ -90,5 +105,7 @@ python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id>
 ## 공식 비교 재현 증거
 
 - manifest의 커밋·미커밋 상태, 실험 ID, 질문·검색 방식, 설정 해시, 정답 파일 해시(`references_sha256`)와 평가 모델을 확인한다.
+- 설정 해시는 두 가지다. manifest의 `config_hash`는 `--config` 설정 파일 자체의 SHA-256이라 파일이 같으면 PC와 관계없이 같다. 실행 기록·trace의 `config_hash`(`experiment_config_hash`)는 읽어 들인 설정 JSON과 생성 프롬프트 해시로 계산하는데, `documents_dir`가 절대 경로로 들어가 저장소 위치가 다르면 같은 설정이라도 값이 다르다. 기존 기록과 대조할 수 있도록 계산식은 바꾸지 않는다.
+- 같은 PC의 API와 평가 CLI는 실행 기록·trace의 `config_hash`로 대조할 수 있다. PC 사이에는 실행 커밋, `prompt_hash`, `final_context_hash`·`model_context_hash`와 함께 생성 모델, `reasoning_effort`, `max_output_tokens`, `model_timeout_seconds`, `generation_max_attempts`, `retrieval.k`, `context_token_budget`을 직접 비교한다. 해시 몇 개가 같다고 실행 조건 전체가 같은 것은 아니다.
 - 실행 명령, 질문·정답 파일과 색인 manifest의 SHA-256, 컬렉션, 유효 설정·프롬프트·의존성 버전, [시간 측정 범위](../design/contracts.md#기록-형식과-측정-범위)를 결과에 보충한다. 미커밋 코드로 실행했다면 해당 diff도 남긴다. 확인되지 않은 토큰은 `null`이다.
 - 전체 실행 기록은 `artifacts/experiments/<id>/`에, 선별한 공식 비교·제출 자료는 `reports/<id>/`에 둔다. 조건이 바뀌면 새 실험 ID로 저장한다. 제출 시 실제 실행 커밋을 태그하고 결과를 프로젝트 소개와 팀 작업에 연결한다.

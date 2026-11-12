@@ -18,9 +18,12 @@ from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any
 
-from app.evaluation.metrics import evidence_diagnostics, retrieval_metrics, score
+from app.evaluation.metrics import SCORE_STATUSES, evidence_diagnostics, retrieval_metrics, score
 
 CRITERIA = ("fact", "condition", "evidence", "decision")  # 사실·조건·근거·판단
+# v1: 항목별로 맞는 것만 받고 has_factual_claims는 선택. v2: 필수 필드·타입을 검증하고 검산 진단을 따로 받는다
+JUDGE_SCHEMA_VERSION = "judge-output-v2"
+CALCULATION_STATUSES = ("complete", "incomplete", "not_applicable", "unavailable")
 # ragas 기본 1024는 실제 답변(문맥 8청크)의 주장 추출·검증 출력이 잘려 IncompleteOutputException이 난다
 RAGAS_MAX_TOKENS = 8192
 PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
@@ -87,63 +90,161 @@ def build_judge_prompt(template: str, record: Mapping[str, Any],
     return template
 
 
-def parse_judge_output(text: str) -> tuple[dict[str, dict[str, Any]], bool | None]:
-    """Judge JSON을 항목별 score로 바꾼다. 형식이 틀린 항목은 평가 불가로 둔다."""
+def _criterion_errors(key: str, item: Any) -> list[str]:
+    if not isinstance(item, Mapping):
+        return [f"{key} 항목 없음"]
+    errors = []
+    status, value, reason = item.get("status"), item.get("score"), item.get("reason")
+    if status not in SCORE_STATUSES:
+        errors.append(f"{key}.status가 {'/'.join(SCORE_STATUSES)}가 아님: {status!r}")
+    elif status == "scored":
+        if isinstance(value, bool) or value not in (0, 1):  # True == 1이라 bool을 먼저 막는다
+            errors.append(f"{key}.score는 scored일 때 0 또는 1: {value!r}")
+    elif value is not None:
+        errors.append(f"{key}.score는 {status}일 때 null: {value!r}")
+    if not isinstance(reason, str) or not reason.strip():
+        errors.append(f"{key}.reason이 비어 있음")
+    return errors
+
+
+def _is_strings(value: Any) -> bool:
+    if not isinstance(value, list):
+        return False
+    for item in value:
+        if not isinstance(item, str) or not item.strip():
+            return False
+    return True
+
+
+def _calculation(status: str, reason: str, items: list | None = None) -> dict[str, Any]:
+    return {"status": status, "reason": reason, "items": items or []}
+
+
+def parse_calculation_checks(data: Any, source_ids: set[str]) -> dict[str, Any]:
+    """검산 대상별 진단. 공식 네 점수와 따로 검증해, 진단이 틀려도 네 점수는 그대로 둔다.
+
+    전체 상태: 대상이 없거나 모두 not_applicable이면 not_applicable, incomplete가 있으면 incomplete,
+    unavailable이 있으면 unavailable, 그 외 complete. 구조가 틀리면 unavailable과 오류 사유다."""
+    raw = data.get("calculation_checks") if isinstance(data, Mapping) else None
+    if raw is None:
+        return _calculation("unavailable", "Judge 출력에 calculation_checks 없음")
+    if not isinstance(raw, list):
+        return _calculation("unavailable", "검산 진단 구조 오류: calculation_checks는 배열이어야 함")
+    items, errors = [], []
+    for index, item in enumerate(raw):
+        where = f"calculation_checks[{index}]"
+        if not isinstance(item, Mapping):
+            errors.append(f"{where}가 객체가 아님")
+            continue
+        target, status, reason = item.get("target"), item.get("status"), item.get("reason")
+        missing, supporting = item.get("missing_evidence"), item.get("supporting_source_ids")
+        if not isinstance(target, str) or not target.strip():
+            errors.append(f"{where}.target이 비어 있음")
+        if status not in CALCULATION_STATUSES:
+            errors.append(f"{where}.status가 {'/'.join(CALCULATION_STATUSES)}가 아님: {status!r}")
+        if not isinstance(reason, str) or not reason.strip():
+            errors.append(f"{where}.reason이 비어 있음")
+        if not _is_strings(missing) or not _is_strings(supporting):
+            errors.append(f"{where}.missing_evidence·supporting_source_ids는 문자열 배열이어야 함")
+            continue
+        unknown = []
+        for source_id in supporting:
+            if source_id not in source_ids:
+                unknown.append(source_id)
+        if unknown:
+            errors.append(f"{where}.supporting_source_ids가 실제 제공 문맥에 없음: {unknown}")
+        if status == "complete" and (missing or not supporting):
+            errors.append(f"{where}: complete는 부족 근거가 없고 문맥 근거 ID가 있어야 함")
+        elif status == "incomplete" and not missing:
+            errors.append(f"{where}: incomplete는 부족한 근거를 적어야 함")
+        elif status == "not_applicable" and (missing or supporting):
+            errors.append(f"{where}: not_applicable에는 부족 근거·근거 ID를 두지 않음")
+        items.append({"target": target, "status": status, "missing_evidence": list(missing),
+                      "supporting_source_ids": list(supporting), "reason": reason})
+    if errors:
+        return _calculation("unavailable", "검산 진단 구조 오류: " + "; ".join(errors))
+    statuses = []
+    for item in items:
+        statuses.append(item["status"])
+    if not statuses or set(statuses) == {"not_applicable"}:
+        return _calculation("not_applicable", "검산을 요청한 대상 없음", items)
+    if "incomplete" in statuses:
+        overall = "incomplete"
+    elif "unavailable" in statuses:
+        overall = "unavailable"
+    else:
+        overall = "complete"
+    return _calculation(overall, f"검산 대상 {len(items)}개", items)
+
+
+def parse_judge_output(text: str, source_ids: set[str] | None = None
+                       ) -> tuple[dict[str, dict[str, Any]], bool | None, dict[str, Any]]:
+    """Judge JSON → (네 항목 점수, has_factual_claims, 검산 진단).
+
+    네 항목과 has_factual_claims는 필수다. 하나라도 빠지거나 타입·status·score가 맞지 않으면
+    네 항목을 모두 평가 불가로 두고 오류를 사유에 남긴다(일부만 골라 정상 점수로 쓰지 않는다)."""
     data = json.loads(text)
-    criteria = data.get("criteria") or {}
+    errors = []
+    if not isinstance(data, Mapping):
+        data = {}
+        errors.append("Judge 출력이 JSON 객체가 아님")
+    claims = data.get("has_factual_claims")
+    if not isinstance(claims, bool):
+        errors.append(f"has_factual_claims는 boolean이어야 함: {claims!r}")
+    criteria = data.get("criteria")
+    if isinstance(criteria, Mapping):
+        for key in CRITERIA:
+            errors.extend(_criterion_errors(key, criteria.get(key)))
+    else:
+        errors.append("criteria 객체 없음")
+    calculation = parse_calculation_checks(data, source_ids or set())
+    if errors:
+        un = score(None, "unavailable", "Judge 출력 구조 오류: " + "; ".join(errors))
+        result = {}
+        for key in CRITERIA:
+            result[key] = un
+        return result, None, calculation
     result = {}
     for key in CRITERIA:
-        item = criteria.get(key)
-        if not isinstance(item, Mapping):
-            result[key] = score(None, "unavailable", "Judge 출력에 항목 없음")
-            continue
-        reason = str(item.get("reason") or "")
-        status = item.get("status", "scored")
-        value = item.get("score")
-        if status == "scored" and value in (0, 1) and not isinstance(value, bool):
-            result[key] = score(float(value), "scored", reason)
-        elif status in ("not_applicable", "unavailable") and value is None:
-            result[key] = score(None, status, reason)
+        item = criteria[key]
+        if item["status"] == "scored":
+            result[key] = score(float(item["score"]), "scored", item["reason"].strip())
         else:
-            result[key] = score(None, "unavailable", f"Judge 출력 형식 오류: {item!r}")
-    claims = data.get("has_factual_claims")
-    if isinstance(claims, bool):
-        return result, claims
-    else:
-        return result, None
+            result[key] = score(None, item["status"], item["reason"].strip())
+    return result, claims, calculation
 
 
-def grade_judge(record: Mapping[str, Any], reference: Mapping[str, Any],
-                judge_fn: JudgeFn | None, template: str) -> tuple[dict, bool | None, dict | None]:
+def grade_judge(record: Mapping[str, Any], reference: Mapping[str, Any], judge_fn: JudgeFn | None,
+                template: str) -> tuple[dict, bool | None, dict | None, dict[str, Any]]:
+    """반환: (네 항목 점수, has_factual_claims, Judge 사용량, 검산 진단)."""
     if record["status"] == "error":
         # 서비스 실패: 판단은 0, 답변이 없어 확인할 수 없는 항목은 평가 불가. Judge를 호출하지 않는다.
         un = score(None, "unavailable", f"서비스 실패({record.get('error_type')})로 평가할 답변 없음")
         return ({"fact": un, "condition": un, "evidence": un,
                  "decision": score(0.0, "scored", f"서비스 실패: {record.get('error_type')}")},
-                None, None)
+                None, None, _calculation("unavailable", "서비스 실패로 평가할 답변 없음"))
     if judge_fn is None:
-        un = score(None, "unavailable", "Judge 평가기 미설정")
-        unavailable_criteria = {}
-        for criterion in CRITERIA:
-            unavailable_criteria[criterion] = un
-        return unavailable_criteria, None, None
-    prompt = build_judge_prompt(template, record, reference)
-    out, usage = _timed(lambda: judge_fn(prompt))
-    if out is None:
-        un = score(None, "unavailable", f"Judge 호출 실패: {usage['error']}")
-        unavailable_criteria = {}
-        for criterion in CRITERIA:
-            unavailable_criteria[criterion] = un
-        return unavailable_criteria, None, usage
-    try:
-        criteria, claims = parse_judge_output(out["text"])
-    except (ValueError, TypeError, KeyError, AttributeError) as exc:
-        un = score(None, "unavailable", f"Judge 출력 파싱 실패: {type(exc).__name__}")
-        unavailable_criteria = {}
-        for criterion in CRITERIA:
-            unavailable_criteria[criterion] = un
-        return unavailable_criteria, None, usage
-    return criteria, claims, usage
+        failure = "Judge 평가기 미설정"
+        usage = None
+    else:
+        prompt = build_judge_prompt(template, record, reference)
+        out, usage = _timed(lambda: judge_fn(prompt))
+        if out is None:
+            failure = f"Judge 호출 실패: {usage['error']}"
+        else:
+            source_ids = set()
+            for chunk in record.get("final_context_chunks") or []:
+                source_ids.add(chunk.get("source_id"))
+            try:
+                criteria, claims, calculation = parse_judge_output(out["text"], source_ids)
+                return criteria, claims, usage, calculation
+            except (ValueError, TypeError, KeyError, AttributeError) as exc:
+                failure = f"Judge 출력 파싱 실패: {type(exc).__name__}"
+    un = score(None, "unavailable", failure)
+    unavailable_criteria = {}
+    for criterion in CRITERIA:
+        unavailable_criteria[criterion] = un
+    return unavailable_criteria, None, usage, _calculation("unavailable", failure)
 
 
 def grade_faithfulness(record: Mapping[str, Any], has_claims: bool | None,
@@ -179,7 +280,7 @@ def grade_record(record: Mapping[str, Any], reference: Mapping[str, Any], *, k: 
         template = judge_template
     else:
         template = load_prompt("judge.txt")
-    judge, claims, judge_usage = grade_judge(record, reference, judge_fn, template)
+    judge, claims, judge_usage, calculation = grade_judge(record, reference, judge_fn, template)
     faith, faith_usage = grade_faithfulness(record, claims, faithfulness_fn)
     return {
         "experiment_id": record["experiment_id"], "question_id": record["question_id"],
@@ -188,6 +289,7 @@ def grade_record(record: Mapping[str, Any], reference: Mapping[str, Any], *, k: 
         "retrieval": retrieval_metrics(reference, record.get("final_context_chunks"), k),
         "evidence_diagnostics": evidence_diagnostics(reference, record, k),
         "faithfulness": faith, "judge": judge, "has_factual_claims": claims,
+        "calculation_checks": calculation,
         "grading_usage": {"judge": judge_usage, "faithfulness": faith_usage},
     }
 

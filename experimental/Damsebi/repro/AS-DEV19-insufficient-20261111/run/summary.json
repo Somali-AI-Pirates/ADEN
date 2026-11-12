@@ -1,0 +1,76 @@
+{
+  "experiment_id": "bc-fixed-insufficient-20261111",
+  "question_id": "AS-DEV19",
+  "retrieval_mode": "hybrid_rerank",
+  "request_id": "10f59919-be61-47c9-ac6e-ded3d23a381c",
+  "langfuse_trace_id": "68796d4e5d9f37145d9f2d6e34e4cedd",
+  "langfuse_verification": "verified",
+  "status": "answered",
+  "answer": "날짜 계산 방식은 같지 않습니다. 보관료는 평일(월~금)만, 장비반납지연료는 달력일로 산입합니다. 실제 양하는 2029-08-05, 실제 장비 반출은 2029-08-16, 실제 지정 장치장 반납은 2029-08-24입니다. [S2][S7]\n\n1. **보관료:** 산입 2029-08-05~2029-08-16, 총 9일(평일 산입), 무료 4일, 유료 5일입니다. 청구 산식은 무료기간 이후 유료 4일×USD 35 + 1일×USD 65이며, 확정액은 **USD 205**입니다. [S1][S2][S7]\n2. **장비반납지연료:** 산입 2029-08-16~2029-08-24, 총 8일(달력일 산입), 무료 3일, 유료 5일입니다. 청구 산식은 무료기간 이후 유료 4일×USD 25 + 1일×USD 45이며, 확정액은 **USD 145**입니다. [S1][S2][S7]\n\n두 비용의 산입 기간은 별도 사건에 따라 계산되며, 확정액 합계는 **USD 350**입니다. [S1][S7]",
+  "reason": "해당 예약·장비와 기준 시각에 연결된 계약 대조, 실제 사건 기록 및 청구 명세에서 산입 방식·일수·구간 요율·확정액을 확인했습니다. [S1][S2][S7]",
+  "citations": [
+    {
+      "book_id": "AS079",
+      "file_name": "AS079.pdf",
+      "page": 33,
+      "source_id": "S1"
+    },
+    {
+      "book_id": "AS078",
+      "file_name": "AS078.pdf",
+      "page": 33,
+      "source_id": "S2"
+    },
+    {
+      "book_id": "AS077",
+      "file_name": "AS077.pdf",
+      "page": 33,
+      "source_id": "S7"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "error": null,
+      "input_tokens": 5753,
+      "output_tokens": 407,
+      "latency_ms": 4779,
+      "model": "gpt-6-luna",
+      "model_parameters": {
+        "max_output_tokens": 4096,
+        "reasoning_effort": "low"
+      }
+    }
+  ],
+  "provided_context": true,
+  "final_context_chunk_ids": [
+    "AS079-p33-c1",
+    "AS078-p33-c1",
+    "AS094-p88-c1",
+    "AS067-p138-c1",
+    "AS024-p69-c1",
+    "AS029-p94-c1",
+    "AS077-p33-c1"
+  ],
+  "final_context_hash": "sha256:4f88bef23ee804f4912c2fe557fe51e61e910fa1125f7378af06d0fab8e718fa",
+  "model_context_hash": "368a18f32dc3cba65982c36248b197e52b3fbfca73e91d49bcb10090ebdf27bb",
+  "model_context_token_count": 3345,
+  "run_config_hash_note": "실행 기록의 config_hash는 설정 JSON(documents_dir 절대 경로 포함)+프롬프트 해시라 PC마다 다르다",
+  "run_config_hash": "e9503b575b2de8682a9878252ebab0fb84b0cc291022e189f0271c5ffafed651",
+  "latency_ms": 4792,
+  "c_evaluation": {
+    "judge_prompt": "sha256:5c29900bc2f7c590358c8fc4c545a96a2ac5e8226d6d9406e35dec35de049cc4",
+    "judge_schema": "judge-output-v2",
+    "judge": {
+      "fact": 0.0,
+      "condition": 0.0,
+      "evidence": 0.0,
+      "decision": 0.0
+    },
+    "calculation_checks": {
+      "보관료": "incomplete",
+      "장비반납지연료": "incomplete"
+    },
+    "faithfulness": 1.0
+  }
+}
