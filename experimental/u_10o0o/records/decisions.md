@@ -85,3 +85,8 @@ Advanced 60문항 중 근거가 있는 58문항에서 55문항을 적중했다. 
 공식 60·카테고리 220문항을 두 조건에서 새로 실행한 결과, 공식 전체 근거 32/58·페이지 Recall@8 77.01%, 카테고리 전체 근거 170/200으로 같았다. 실제 질문의 토큰은 바뀌지 않았고 문서 36쪽에 숫자를 포함한 전체 코드 토큰 245개가 추가됐다. 초기 후보 순서 5개, 최종 문맥 2개가 바뀌었으나 근거 충족률의 개선·하락은 없었다. 따라서 이번 채택은 표기 변형 지원과 회귀 없음에 근거하며, 성능 향상을 입증한 것으로 해석하지 않는다. [비교 결과](advanced-bm25-code-normalization-20261111/report.md)
 
 5:5 RRF, 제목 보너스, KURE Top3+RRF, HG·대상별 원문 조회, 후보 20쪽·최종 8쪽·o200k 8,000토큰과 모델 리비전은 유지한다. [현재 실행 안내](../README.md#현재-advanced-구성) · [기본 경로 재현과 공식 누락 분석](advanced-normalized-baseline-20261111/report.md)
+
+
+## 2026-11-12 제품 적용 기준
+
+사용자 선택에 따라 제품 기본값을 table_rag_unified의 db_first=True, verify_evidence=False로 확정했다. 공통 HG·HA·IS 기록 조회와 다섯 도구, KURE-v3·KURE nano·Luna medium, 후보20·최종8쪽·8,000토큰을 사용한다. 요청별 근거 확인 기능과 토글은 제품 범위에서 제외했다. 과거 실험 점수는 당시 조건의 결과로 보존한다. [구현·검증 기록](../../../docs/plans/advanced-rag/unified-implementation-log.md)

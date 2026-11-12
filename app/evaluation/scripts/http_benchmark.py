@@ -8,8 +8,10 @@
   API 응답에 없는 검색 후보·최종 문맥·모델 입력으로 RunRecord를 만들지 않는다. 채점하려면 `http_records`로
   같은 request_id의 서버 trace에서 RunRecord를 만든 뒤 `regrade`로 채점한다.
 
-    python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000 \
-        --questions <질문 파일> --ids M19 --modes hybrid_rerank --experiment-id <ID> [--verify-langfuse]
+    python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000 \\
+        --questions <질문 파일> --ids M19 --experiment-id <ID> [--verify-langfuse]
+
+모드 없는 요청은 question 필드만 보내 서버 기본 경로를 사용한다. 기본 서버가 TableRAG이면 이 경로로 측정한다.
 """
 
 from __future__ import annotations
@@ -88,7 +90,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--base-url", default="http://127.0.0.1:8000")
     p.add_argument("--questions", required=True, help="질문 파일(id·question만 사용)")
     p.add_argument("--ids", help="질문 ID, 쉼표 구분(기본: 전체)")
-    p.add_argument("--modes", default="", help="검색 방식, 쉼표 구분(비우면 서버 기본 방식)")
+    p.add_argument("--modes", default="", help="검색 방식, 쉼표 구분(생략하면 검색 방식 필드 없이 서버 기본 경로 사용; TableRAG 포함)")
     # 서버는 모델 호출 제한(model_timeout_seconds)을 시도마다 쓰므로 그 합보다 길어야 재시도한 성공 요청이 timeout으로 남지 않는다
     p.add_argument("--timeout", type=float, default=150.0,
                    help="요청당 클라이언트 제한 시간(초). 서버 설정의 model_timeout_seconds × "

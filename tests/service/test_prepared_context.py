@@ -178,6 +178,7 @@ def test_api_and_evaluation_share_configured_settings_and_resources(
     stack, _ = generation_setup
     config = yaml.safe_load(DEFAULT_CONFIG.read_text(encoding="utf-8"))
     config["dataset"] = "shared-check"
+    config["rag_backend"] = "legacy"  # Explicit B/C adapter compatibility path.
     config["retrieval"].update(k=2, context_token_budget=500)
     path = tmp_path / "shared.yaml"
     path.write_text(yaml.safe_dump(config), encoding="utf-8")

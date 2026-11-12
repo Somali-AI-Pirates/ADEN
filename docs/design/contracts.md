@@ -4,6 +4,8 @@
 
 `POST /query`는 `question`과 선택 필드 `retrieval_mode`를 받는다. 질문은 양끝 공백을 제거한 뒤 빈 값이면 거부한다. 방식은 `naive`, `hybrid`, `hybrid_rerank`이며 생략하거나 `null`이면 서비스 설정을 사용한다.
 
+기본 Advanced 서버는 DB 우선 통합 TableRAG로 질문을 처리한다. 검색 경로는 서버 설정으로 고정되며 기존 검색 방식을 명시한 요청에는 501을 반환한다. 인용 source_id는 AS001:p0001처럼 원본 문서와 쪽 번호를 나타낸다. 성공 요청과 모델 오류 기록은 artifacts/rag-runs/<request_id>에 저장한다. 기록 저장 실패는 503이다.
+
 응답은 `request_id`, `status`, `answer`, `reason`, `citations`를 반환한다. `X-Request-ID`와 본문의 요청 ID로 로그를 연결한다.
 
 | HTTP | 상태·조건 |
@@ -36,7 +38,7 @@
 
 ## 설정과 함수
 
-[Advanced 설정](../../configs/advanced.yaml)은 [Settings](../../shared/settings.py)로 검증한다. 검색 기본값·후보 수·최종 `k`·문맥 예산, 모델·호출 한도, 색인·임베딩 설정을 관리한다. `Resources`는 클라이언트, 토큰 계산기, 추적기, 검색 상태와 정리 콜백을 소유한다.
+[Advanced 설정](../../configs/advanced.yaml)은 [Settings](../../shared/settings.py)로 검증한다. 기본 TableRAG 경로의 모델·검색 조건은 [채택한 구현 기준](../plans/advanced-rag/README.md)에 맞춰 제품 상수와 번들 manifest로 고정한다. 아래 함수 표와 YAML의 검색·모델·색인 세부 설정은 기존 B/C 레거시 경로에 해당한다. `Resources`는 클라이언트, 토큰 계산기, 추적기, 검색 상태와 정리 콜백을 소유한다.
 
 | 진입점 | 호출과 반환 |
 | --- | --- |
@@ -112,3 +114,13 @@ HTTP 요청을 서버 trace로 복원한 기록(`app.evaluation.scripts.http_rec
 모델 시도에는 실제 체인 호출의 `latency_ms`를 추가한다. `provided_context`는 provider(주입한 후보 또는 후보·문맥) 사용 여부다. 최종 문맥의 토큰 수와 예산 제외 ID는 Langfuse에도 기록한다. 평가 진단과 점수 게시는 별도 채점 단계에서만 수행한다.
 
 채점 기록에는 `evidence_diagnostics`와 Judge의 검산 진단 `calculation_checks`(`status`, `reason`, 대상별 `items`)를, 점수를 게시한 경우 `langfuse_score_status_counts`와 보낸 점수의 `langfuse_score_ids`(`<평가 세트>.<지표>` 이름 → ID)를 남긴다. manifest의 `langfuse_scores`에는 `evaluation_set`, 게시한 지표군 `groups`, 채점 조건 해시 `evaluation_hash`와 게시 상태를 남긴다. 실행 기록의 `langfuse_verification`은 `verified`, `partial`, `not_found`, `failed` 또는 추적 비활성의 `null`이다. 뜻과 게시 규칙은 [평가 가이드](../guides/c-module-guide.md#langfuse)를 따른다.
+
+### TableRAG SQL 수치와 출처 범위
+
+decimal_add·decimal_sub·decimal_sum은 입력 소수 자릿수를 보존해 합산한다. 산술은 정렬된 10,000자리 이내의 유한 수를 지원하고 범위를 넘으면 SQL 오류로 처리한다. decimal_avg는 유한 소수 결과의 정밀도를 확보하며, 반복 소수는 최소 28자리 유효 숫자와 큰 정수부 이후 최소 28자리 소수를 유지하는 정밀도에서 half-even으로 반올림한다. 프로세스의 Decimal 기본 정밀도 변경에 영향을 받지 않는다.
+
+SQL 결과에는 실행한 쿼리문도 보존한다. 최종 근거에 남은 쿼리·결과·출처만 답변 모델과 Judge/Faithfulness에 함께 전달한다. SQL의 sources는 SELECT가 읽은 원본 물리 표의 페이지를 뜻한다. 계산식과 열 선택이 업무 질문에 맞는지는 모델·평가의 판단 대상이며, 결과 값마다 원문 셀에 그대로 존재함을 증명한다는 의미는 아니다.
+
+## 브라우저 스트리밍과 원본 문서
+
+기존 `POST /query` JSON 계약은 유지한다. TableRAG 전용 `POST /query/stream`은 질문을 받아 SSE로 진행 상태·임시 텍스트·검증 및 저장 완료 응답을 보낸다. `GET /documents/{book_id}`는 설정된 원본 PDF를 열람한다. 이벤트·오류·문서 경로의 상세 계약과 실행은 [클라이언트 가이드](../../web/README.md#스트림과-오류)를 따른다.

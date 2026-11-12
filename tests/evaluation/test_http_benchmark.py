@@ -23,7 +23,8 @@ class Handler(BaseHTTPRequestHandler):
             status, body = 200, "not json"
         else:
             status, body = 200, {"request_id": "rid-ok", "status": "answered", "answer": "a",
-                                 "reason": "r", "citations": [], "mode": payload.get("retrieval_mode")}
+                                 "reason": "r", "citations": [], "mode": payload.get("retrieval_mode"),
+                                 "mode_present": "retrieval_mode" in payload}
         data = (body if isinstance(body, str) else json.dumps(body, ensure_ascii=False)).encode()
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
@@ -72,3 +73,11 @@ def test_connection_error_and_trace_id():
     assert row["outcome"] in ("connection_error", "timeout") and row["request_id"] is None
     assert trace_id_for(None) is None
     assert trace_id_for("abc") == trace_id_for("abc") and len(trace_id_for("abc")) == 32
+
+
+def test_omitting_mode_sends_server_default_request(base_url):
+    row = post_query(base_url, "q", None, timeout_s=5)
+
+    assert row["outcome"] == "success"
+    assert row["response"]["mode"] is None
+    assert row["response"]["mode_present"] is False

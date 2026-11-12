@@ -24,6 +24,7 @@ class Settings(BaseModel):
     documents_dir: Path
     generation_model: str
     retrieval: RetrievalSettings
+    rag_backend: Literal["legacy", "table_rag"] = "legacy"
     qdrant_collection: str = "advanced_snowflake_ko_pages"
     embedding_model: str = "intfloat/multilingual-e5-small"
     embedding_device: str = "cpu"

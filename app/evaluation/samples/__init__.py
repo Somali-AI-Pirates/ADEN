@@ -10,6 +10,7 @@ import hashlib
 import json
 import re
 from collections.abc import Mapping, Sequence
+from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
@@ -258,7 +259,10 @@ class FakeLangfuseClient:
         self.fail_on = fail_on
         self.flushed = 0
         self.scores: list[dict[str, Any]] = []
-        self.api = SimpleNamespace(observations=SimpleNamespace(get_many=self._get_many))
+        self.api = SimpleNamespace(
+            observations=SimpleNamespace(get_many=self._get_many),
+            scores=SimpleNamespace(get_many=self._get_scores),
+        )
 
     @staticmethod
     def create_trace_id(*, seed: str | None = None) -> str:
@@ -279,6 +283,19 @@ class FakeLangfuseClient:
             raise ConnectionError("mock score failure")
         self.scores.append(kwargs)
 
+    def _get_scores(self, *, id=None, limit=2, request_options=None):
+        matches = [score for score in self.scores if score.get("score_id") == id]
+        data = [
+            SimpleNamespace(
+                id=score.get("score_id"),
+                name=score["name"],
+                value=score["value"],
+                timestamp=score.get("timestamp") or datetime.now(timezone.utc),
+            )
+            for score in matches[:limit]
+        ]
+        return SimpleNamespace(data=data)
+
     def flush(self) -> None:
         if self.fail_on == "flush":
             raise ConnectionError("mock flush failure")
@@ -287,9 +304,31 @@ class FakeLangfuseClient:
     def shutdown(self) -> None:
         self.flush()
 
-    def _get_many(self, *, trace_id: str, limit: int = 50):
-        data = [SimpleNamespace(name=o["name"]) for o in self.observations
-                if o["trace_id"] == trace_id and self.flushed]
+    def _get_many(self, *, trace_id: str, limit: int = 50, fields: str | None = None):
+        data = []
+        if self.flushed:
+            for observation in self.observations:
+                if observation["trace_id"] != trace_id:
+                    continue
+                current = {
+                    "input": observation.get("input"),
+                    "output": observation.get("output"),
+                }
+                for update in observation["updates"]:
+                    current.update(
+                        {
+                            key: update[key]
+                            for key in ("input", "output")
+                            if key in update
+                        }
+                    )
+                data.append(
+                    SimpleNamespace(
+                        name=observation["name"],
+                        input=current["input"],
+                        output=current["output"],
+                    )
+                )
         return SimpleNamespace(data=data)
 
 

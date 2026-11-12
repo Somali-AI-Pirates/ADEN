@@ -16,6 +16,30 @@ Basic은 제공 ZIP 두 개의 PDF를 합치고, 두 ZIP에 공통인 평가 JSO
 
 색인·정제 입력은 해당 난이도의 `documents/*.pdf`다. 원본 PDF·평가 자료·[정제본](../design/knowledge-data.md)·추출 캐시·색인·전체 실행 기록은 로컬에서 관리한다. 보안 시험용 문구는 데이터로 처리한다.
 
+## Advanced TableRAG 데이터
+
+기본 번들 위치는 artifacts/advanced-table-rag다. 원본 PDF부터 만드는 명령과 모델 준비는 [빠른 시작](quickstart.md#2-sqlite와-검색-자료-준비)을 따른다. build는 복원 페이지, 파싱된 표, HG·HA·IS 코드·역할 연결, 모델 벡터와 manifest를 만들고 check는 결과의 지문과 연결을 검사한다.
+
+| 파일 | 역할 |
+| --- | --- |
+| records.sqlite3 | 공통 대상·코드·속성·역할·원본 연결, 표 카탈로그 검색 |
+| tables.sqlite3 | 계산용 물리 표와 행·열·원본 출처 |
+| pages.json, table-chunks.json, catalog.json | 복원 페이지와 검증된 표 검색 단위 |
+| vectors.npy | 문서 순서와 일치하는 정규화 벡터 |
+| corpus.json, store.json, records.json | 파일·원본·모델 지문과 스키마·구축 정보 |
+
+원본 페이지 18,000개와 IS 표 본문 3,750개는 같은 2,048차원 벡터 배열의 행에 대응한다. 검색 단위는 서로 달라도 같은 원본 페이지를 가리킬 수 있다. 최종 출처는 book_id와 page로 중복 제거한다.
+
+```python
+from app.rag.corpus import load_corpus
+
+corpus = load_corpus("artifacts/advanced-table-rag")
+```
+
+corpus.documents와 corpus.vectors는 같은 순서를 사용한다. corpus.pages_by_source는 원본 출처 조회, corpus.table_store는 스키마와 제한된 읽기 전용 SQL을 제공한다. 공통 RecordIndex는 코드·대상별 조회를 담당한다.
+
+완성된 번들의 모든 파일을 함께 옮기고 check로 검증한다. 원본 PDF·DB·벡터·실행 기록은 로컬 artifacts에서 관리한다. 데이터나 모델을 변경하면 지문이 갱신되며, 중단된 구축의 재개에는 동일한 입력 지문을 사용한다.
+
 ## Qdrant 색인
 
 이 절의 색인 생성과 아래 검색 전용 측정은 Qdrant Cloud 컬렉션을 쓴다. 서비스 자원 로더는 메모리 Qdrant만 쓰므로 Cloud 컬렉션을 직접 읽지 않는다. 서비스·평가에서 이 색인으로 검색하려면 같은 실행에서 메모리 Qdrant에 적재해 넘긴다([로컬 B·C 안내](local-bc.md#api와-평가-cli의-공통-실행)). `QDRANT_URL`과 `QDRANT_API_KEY`는 [환경변수 예시](../../.env.example)에 없으며 이 용도로만 로컬 `.env`에 둔다.

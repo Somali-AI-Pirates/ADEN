@@ -3,6 +3,7 @@
 두 점수는 크기와 의미가 달라 그대로 더하지 않는다. 각 목록의 순위만 써서
 1 / (RRF_K + 순위)를 더하고, 같은 chunk_id는 한 번만 남긴다.
 """
+
 from app.retrieval.dense import dense_search
 from shared.contracts import RetrievedChunk
 
@@ -18,8 +19,12 @@ def rrf_merge(ranked_lists, top_n, k=RRF_K):
             scores[chunk.chunk_id] = scores.get(chunk.chunk_id, 0.0) + 1.0 / (k + rank)
             chunk_of.setdefault(chunk.chunk_id, chunk)
     order = sorted(scores, key=lambda cid: (-scores[cid], cid))[:top_n]
-    return [RetrievedChunk(chunk=chunk_of[cid], rank=rank, score=scores[cid], retriever="hybrid")
-            for rank, cid in enumerate(order, start=1)]
+    return [
+        RetrievedChunk(
+            chunk=chunk_of[cid], rank=rank, score=scores[cid], retriever="hybrid"
+        )
+        for rank, cid in enumerate(order, start=1)
+    ]
 
 
 def hybrid_search(question, resources, top_n, keyword_index, candidates=CANDIDATES):

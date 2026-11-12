@@ -8,6 +8,7 @@
 색인은 따로 저장하지 않는다. Qdrant 컬렉션의 payload(청크 전체)를 읽어 메모리에 만든다.
 그래서 Dense와 BM25가 항상 같은 청크를 본다. 620개 기준 1초 안팎이다.
 """
+
 import math
 import re
 from collections import Counter
@@ -24,7 +25,7 @@ def tokenize(text):
         if part.isascii() or len(part) == 1:
             tokens.append(part)
         else:
-            tokens.extend(part[i:i + 2] for i in range(len(part) - 1))
+            tokens.extend(part[i : i + 2] for i in range(len(part) - 1))
     return tokens
 
 
@@ -47,7 +48,11 @@ class KeywordIndex:
         scored = []
         for i, tf in enumerate(self.tfs):
             norm = self.k1 * (1 - self.b + self.b * self.lens[i] / self.avg_len)
-            s = sum(self.idf[t] * tf[t] * (self.k1 + 1) / (tf[t] + norm) for t in terms if t in tf)
+            s = sum(
+                self.idf[t] * tf[t] * (self.k1 + 1) / (tf[t] + norm)
+                for t in terms
+                if t in tf
+            )
             if s > 0:
                 scored.append((s, self.chunks[i].chunk_id, i))
         scored.sort(key=lambda x: (-x[0], x[1]))
@@ -58,8 +63,9 @@ def load_keyword_index(client, collection):
     """Qdrant 컬렉션의 청크 전체로 BM25 색인을 만든다."""
     chunks, offset = [], None
     while True:
-        points, offset = client.scroll(collection, limit=256, offset=offset,
-                                       with_payload=True, with_vectors=False)
+        points, offset = client.scroll(
+            collection, limit=256, offset=offset, with_payload=True, with_vectors=False
+        )
         chunks.extend(Chunk(**p.payload) for p in points)
         if offset is None:
             break

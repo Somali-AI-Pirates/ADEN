@@ -15,13 +15,22 @@ import math
 import os
 import time
 from collections.abc import Mapping, Sequence
-from typing import Any
+from typing import Any, cast
 
 ROOT_NAME = "rag-query"
 
 
 def _error_name(exc: BaseException) -> str:
     return type(exc).__name__
+
+
+def _safe_error_details(exc: BaseException) -> dict[str, Any]:
+    """Return only the exception type and HTTP status; never persist response bodies or headers."""
+    details = {"error": _error_name(exc)}
+    status_code = getattr(exc, "status_code", None)
+    if isinstance(status_code, int) and not isinstance(status_code, bool):
+        details["status_code"] = status_code
+    return details
 
 
 class RequestTrace:
@@ -150,6 +159,7 @@ class RequestTrace:
             "context",
             name="final-context",
             as_type="span",
+            input=self._query,
             output={
                 "final_context_chunks": list(final_context_chunks),
                 "final_context_hash": final_context_hash,
@@ -168,6 +178,8 @@ class RequestTrace:
         model: str,
         model_input: Any,
         model_output: Any = None,
+        role: str | None = None,
+        tool_schema: Any = None,
         input_tokens: int | None = None,
         output_tokens: int | None = None,
         error: str | None = None,
@@ -176,25 +188,30 @@ class RequestTrace:
         latency_ms: int | None = None,
         calendar_reference: str = "",
     ) -> None:
-        """AttemptRecord 한 건(`trace.record_attempt(**attempt)`). 미확인 사용량은 보내지 않는다."""
+        """Record visible model inputs/outputs and measured usage for one call."""
         usage = {}
         for usage_key, token_count in (("input", input_tokens), ("output", output_tokens)):
             if token_count is not None:
                 usage[usage_key] = token_count
-        if model_parameters:
-            recorded_parameters = dict(model_parameters)
+        recorded_parameters = dict(model_parameters) if model_parameters else None
+        if role in {"planner", "answer"}:
+            name = f"{role}-{attempt}"
         else:
-            recorded_parameters = None
+            name = f"generation-attempt-{attempt}"
+        call_input = {"request": model_input}
+        if tool_schema is not None:
+            call_input["tool_schema"] = tool_schema
         kwargs: dict[str, Any] = dict(
-            name=f"generation-attempt-{attempt}",
+            name=name,
             as_type="generation",
             model=model,
-            input=model_input,
+            input=call_input,
             output=model_output,
             usage_details=usage or None,
             model_parameters=recorded_parameters,
             metadata={
                 "attempt": attempt,
+                "role": role,
                 "latency_ms": latency_ms,
                 "prompt_variant": prompt_variant,
                 "calendar_reference": calendar_reference or None,
@@ -206,7 +223,7 @@ class RequestTrace:
         )
         if error:
             kwargs.update(level="ERROR", status_message=error)
-        self._child(f"attempt-{attempt}", **kwargs)
+        self._child(name, **kwargs)
 
     def finish(
         self,
@@ -292,7 +309,7 @@ class Tracer:
             metadata=metadata,
         )
 
-    def record_score(self, trace_id, name, value, *, comment=None, score_id=None, metadata=None):
+    def record_score(self, trace_id, name, value, *, comment=None, score_id=None, metadata=None, timestamp=None):
         """명시적 평가값을 전송하며 수신 확인은 별도로 남긴다."""
         if self._client is None:
             return {"status": "disabled"}
@@ -301,12 +318,178 @@ class Tracer:
         if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
             return {"status": "invalid"}
         try:
+            options = {"timestamp": timestamp} if timestamp is not None else {}
             self._client.create_score(trace_id=trace_id, name=name, value=float(value),
                                       data_type="NUMERIC", comment=comment, score_id=score_id,
-                                      metadata=metadata)
+                                      metadata=metadata, **options)
         except Exception as exc:
             return {"status": "sdk_error", "error": _error_name(exc)}
         return {"status": "recorded_unverified"}
+
+    def verify_score(
+        self,
+        score_id,
+        *,
+        name,
+        value,
+        timestamp,
+        timeout_s: float = 5.0,
+        interval_s: float = 0.5,
+    ) -> dict[str, Any]:
+        """Poll Langfuse briefly for a score, then verify its ID, value and date."""
+        if self._client is None:
+            return {"status": "disabled"}
+        if (
+            not math.isfinite(timeout_s)
+            or not math.isfinite(interval_s)
+            or timeout_s < 0
+            or interval_s < 0
+        ):
+            raise ValueError("Score readback timeout and interval must be finite and non-negative")
+        deadline = time.monotonic() + timeout_s
+        first_attempt = True
+        while True:
+            remaining = deadline - time.monotonic()
+            if not first_attempt and remaining <= 0:
+                return {"status": "not_found"}
+            # Langfuse 5.x request_options forwards timeout_in_seconds to HTTPX.
+            # HTTPX accepts sub-second floats; retries are disabled so one fetch
+            # cannot silently extend the readback deadline through SDK retries.
+            request_timeout = max(0.001, remaining)
+            try:
+                response = self._client.api.scores.get_many(
+                    id=score_id,
+                    limit=2,
+                    request_options=cast(
+                        Any,
+                        {
+                            "timeout_in_seconds": request_timeout,
+                            "max_retries": 0,
+                        },
+                    ),
+                )
+                first_attempt = False
+                matches = [row for row in response.data if row.id == score_id]
+                completed_at = time.monotonic()
+                if timeout_s > 0 and completed_at > deadline:
+                    return {"status": "not_found"}
+                if len(matches) > 1:
+                    return {"status": "duplicate"}
+                if matches:
+                    row = matches[0]
+                    if (row.name, row.value, row.timestamp.date()) != (
+                        name,
+                        value,
+                        timestamp.date(),
+                    ):
+                        return {"status": "mismatch"}
+                    return {"status": "verified"}
+            except Exception as exc:
+                return {"status": "failed", **_safe_error_details(exc)}
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                return {"status": "not_found"}
+            time.sleep(min(interval_s, remaining))
+
+    def verify_scores(
+        self,
+        trace_id: str | None,
+        expected_scores: Sequence[Mapping[str, Any]],
+        *,
+        timeout_s: float = 5.0,
+        interval_s: float = 0.5,
+    ) -> dict[str, dict[str, Any]]:
+        """Read a trace's score pages once and match the expected score IDs locally."""
+        expected = {item["score_id"]: item for item in expected_scores}
+        if len(expected) != len(expected_scores):
+            raise ValueError("Expected score IDs must be unique")
+        if not expected:
+            return {}
+        if self._client is None:
+            return {score_id: {"status": "disabled"} for score_id in expected}
+        if not trace_id:
+            return {score_id: {"status": "no_trace_id"} for score_id in expected}
+        if (
+            not math.isfinite(timeout_s)
+            or not math.isfinite(interval_s)
+            or timeout_s < 0
+            or interval_s < 0
+        ):
+            raise ValueError("Score readback timeout and interval must be finite and non-negative")
+
+        deadline = time.monotonic() + timeout_s
+        found: dict[str, list[Any]] = {score_id: [] for score_id in expected}
+        error_details = None
+        first_fetch = True
+        while True:
+            scan_found: dict[str, list[Any]] = {score_id: [] for score_id in expected}
+            cursor = None
+            while True:
+                remaining = deadline - time.monotonic()
+                if not first_fetch and remaining <= 0:
+                    break
+                request_timeout = max(0.001, remaining)
+                try:
+                    response = self._client.api.scores.get_many(
+                        trace_id=trace_id,
+                        limit=100,
+                        cursor=cursor,
+                        request_options=cast(
+                            Any,
+                            {
+                                "timeout_in_seconds": request_timeout,
+                                "max_retries": 0,
+                            },
+                        ),
+                    )
+                except Exception as exc:
+                    error_details = _safe_error_details(exc)
+                    break
+                first_fetch = False
+                completed_at = time.monotonic()
+                if timeout_s > 0 and completed_at > deadline:
+                    break
+                for row in response.data:
+                    score_id = getattr(row, "id", None)
+                    if score_id in scan_found:
+                        scan_found[score_id].append(row)
+                if all(scan_found.values()):
+                    break
+                metadata = getattr(response, "meta", None)
+                cursor = getattr(metadata, "cursor", None)
+                if not cursor:
+                    break
+            if error_details:
+                break
+            found = scan_found
+            if all(found.values()):
+                break
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                break
+            time.sleep(min(interval_s, remaining))
+
+        results = {}
+        for score_id, expected_score in expected.items():
+            matches = found[score_id]
+            if error_details:
+                result = {"status": "failed", **error_details}
+            elif not matches:
+                result = {"status": "not_found"}
+            elif len(matches) > 1:
+                result = {"status": "duplicate"}
+            else:
+                row = matches[0]
+                if (row.name, row.value, row.timestamp.date()) != (
+                    expected_score["name"],
+                    expected_score["value"],
+                    expected_score["timestamp"].date(),
+                ):
+                    result = {"status": "mismatch"}
+                else:
+                    result = {"status": "verified"}
+            results[score_id] = result
+        return results
 
     def flush(self) -> dict[str, Any]:
         """대기 중 기록을 전송한다. 성공해도 `flushed_unverified`이며 저장 확인은 verify_trace()."""
@@ -319,8 +502,13 @@ class Tracer:
         return {"status": "flushed_unverified"}
 
     def verify_trace(
-        self, trace_id: str | None, *, timeout_s: float = 60.0, interval_s: float = 5.0,
+        self,
+        trace_id: str | None,
+        *,
+        timeout_s: float = 60.0,
+        interval_s: float = 5.0,
         expected_observations: Sequence[str] | None = None,
+        require_payload_names: Sequence[str] = (),
     ) -> dict[str, Any]:
         """Langfuse API에서 trace의 관측을 조회한다. 수집 지연(15~30초)이 있어 재시도한다."""
         if self._client is None or not trace_id:
@@ -332,18 +520,39 @@ class Tracer:
         while True:
             try:
                 resp = self._client.api.observations.get_many(
-                    trace_id=trace_id, limit=50
+                    trace_id=trace_id, limit=50,
+                    fields="core,basic,time,io,metadata,model,usage",
                 )
                 observation_names = set()
+                missing_payload = []
+                required_payloads = set(require_payload_names)
                 for observation in resp.data:
-                    if getattr(observation, "name", None):
-                        observation_names.add(observation.name)
+                    name = getattr(observation, "name", None)
+                    if name:
+                        observation_names.add(name)
+                    if name in required_payloads and (
+                        getattr(observation, "input", None) is None
+                        or getattr(observation, "output", None) is None
+                    ):
+                        missing_payload.append(name)
                 names = sorted(observation_names)
                 missing = sorted(set(expected_observations or [ROOT_NAME]) - set(names))
-                if names and not missing:
-                    return {"status": "verified", "observation_names": names}
-                last = ({"status": "partial", "observation_names": names,
-                         "missing_observations": missing} if names else {"status": "not_found"})
+                if names and not missing and not missing_payload:
+                    return {
+                        "status": "verified",
+                        "observation_names": names,
+                        "payload_observations": sorted(required_payloads),
+                    }
+                last = (
+                    {
+                        "status": "partial",
+                        "observation_names": names,
+                        "missing_observations": missing,
+                        "missing_payload": sorted(set(missing_payload)),
+                    }
+                    if names
+                    else {"status": "not_found"}
+                )
             except Exception as exc:
                 last = {"status": "failed", "error": _error_name(exc)}
             if time.monotonic() >= deadline:

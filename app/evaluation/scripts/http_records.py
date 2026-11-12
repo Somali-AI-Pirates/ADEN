@@ -1,7 +1,6 @@
 """HTTP 평가 기록(`http_benchmark`)을 서버 trace와 이어 채점할 수 있는 실행 기록(runs.jsonl)으로 만든다.
 
-API 응답에는 검색 후보·최종 문맥·모델 입력이 없다. 같은 request_id로 계산한 서버 trace(`rag-query`,
-`retrieval`, `final-context`, `generation-attempt-N`)에서 읽어 그 요청의 RunRecord를 만든다.
+API 응답에는 검색 후보·최종 문맥·모델 입력이 없다. 같은 request_id의 서버 trace에서 읽어 RunRecord를 만든다. TableRAG는 planner·answer 호출과 최종 문맥 JSON에 포함된 SQL 결과도 복원한다.
 - 답변을 새로 생성하지 않는다. 답변·상태·reason·인용·질문·검색 방식·request_id가 HTTP 응답과 trace에서
   같을 때만 연결한다(오류 응답은 API 오류 처리기가 문구를 정하므로 상태만 대조한다).
 - request_id가 없는 요청(timeout 등)과 trace를 읽지 못했거나 응답과 다른 요청은 runs.jsonl에 넣지 않고
@@ -18,15 +17,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import time
 from collections import Counter
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
 from app.evaluation.dataset import load_questions
 from app.evaluation.report import write_json, write_jsonl
 from app.evaluation.scripts._common import ROOT, base_manifest, guard_overwrite, load_env, sha256_file
-from app.observability.records import RETRIEVAL_MODES, normalize_run_record
+from app.observability.records import SUPPORTED_RETRIEVAL_MODES, normalize_run_record
 from app.observability.tracing import ROOT_NAME, Tracer
 from shared.settings import load_settings
 
@@ -42,29 +43,72 @@ def _obj(value: Any) -> Any:
 
 
 def _attempts(by_name: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    named_attempts = []
+    pattern = re.compile(r"^(?:(planner|answer)|generation-attempt)-(\d+)$")
+    for name, observation in by_name.items():
+        match = pattern.fullmatch(name)
+        if match:
+            named_role, number = match.groups()
+            named_attempts.append((int(number), named_role, observation))
+
     attempts = []
-    while f"generation-attempt-{len(attempts) + 1}" in by_name:
-        number = len(attempts) + 1
-        observation = by_name[f"generation-attempt-{number}"]
+    for attempt_number, (trace_attempt, named_role, observation) in enumerate(
+        sorted(named_attempts, key=lambda item: item[0]), start=1
+    ):
         metadata = observation.get("metadata") or {}
         usage = observation.get("usageDetails") or {}
         level = getattr(observation.get("level"), "value", observation.get("level"))
+        role = metadata.get("role") or named_role
+        raw_input = _obj(observation.get("input"))
+        if isinstance(raw_input, dict) and "request" in raw_input:
+            model_input = raw_input.get("request")
+            tool_schema = raw_input.get("tool_schema")
+        else:
+            model_input = raw_input
+            tool_schema = None
         tokens = {}
+        usage_known = metadata.get("usage_known")
         for side in ("input", "output"):  # 서버가 사용량을 모른다고 기록한 값은 null로 둔다
-            tokens[side] = usage.get(side) if metadata.get(f"usage_known.{side}") is not False else None
+            if isinstance(usage_known, bool):
+                known = usage_known
+            elif isinstance(usage_known, Mapping):
+                known = metadata.get(f"usage_known.{side}", usage_known.get(side))
+            else:
+                known = metadata.get(f"usage_known.{side}")
+            tokens[side] = usage.get(side) if known is not False else None
         error = None
         if level == "ERROR":
             error = observation.get("statusMessage") or "error"
-        attempts.append({
-            "attempt": number, "model": observation.get("model"),
-            "model_input": _obj(observation.get("input")), "model_output": _obj(observation.get("output")),
+        attempt = {
+            "attempt": attempt_number, "model": observation.get("model"),
+            "model_input": model_input, "model_output": _obj(observation.get("output")),
             "input_tokens": tokens["input"], "output_tokens": tokens["output"], "error": error,
+            "role": role,
             "prompt_variant": metadata.get("prompt_variant"),
             "model_parameters": observation.get("modelParameters") or None,
             "latency_ms": metadata.get("latency_ms"),
             "calendar_reference": metadata.get("calendar_reference") or "",
-        })
+        }
+        if tool_schema is not None:
+            attempt["tool_schema"] = tool_schema
+        if trace_attempt != attempt_number:
+            attempt["trace_attempt"] = trace_attempt
+        attempts.append(attempt)
     return attempts
+
+
+def _included_sql_results(context: dict[str, Any]) -> list[dict[str, Any]]:
+    """실제 모델 입력에 포함된 SQL 결과를 최종 문맥 JSON에서 복원한다."""
+    direct = context.get("included_sql_results")
+    if isinstance(direct, list):
+        return direct
+
+    payload = _obj(context.get("model_context_text"))
+    if isinstance(payload, dict):
+        sql = payload.get("sql")
+        if isinstance(sql, list) and all(isinstance(item, dict) for item in sql):
+            return sql
+    return []
 
 
 def run_record(row: dict[str, Any], question: str, observations: list[Any], *,
@@ -107,6 +151,7 @@ def run_record(row: dict[str, Any], question: str, observations: list[Any], *,
         "model_context_hash": context.get("model_context_hash"),
         "model_context_token_count": context.get("model_context_token_count"),
         "final_context_chunk_count": len(chunks) if chunks is not None else None,
+        "included_sql_results": _included_sql_results(context),
         "budget_excluded_chunk_ids": context.get("budget_excluded_chunk_ids"),
         "k": (context_observation.get("metadata") or {}).get("k"),
         "status": final["status"], "answer": final.get("answer"), "reason": final.get("reason"),
@@ -191,7 +236,7 @@ def main() -> None:
     if len(datasets) > 1 or len(server_configs) > 1:
         raise SystemExit("한 HTTP 실험에 서로 다른 서버 설정의 요청이 섞였다. 조건별로 실험을 나눈다")
     modes = []
-    for mode in RETRIEVAL_MODES:
+    for mode in SUPPORTED_RETRIEVAL_MODES:
         if any(record["retrieval_mode"] == mode for record in records):
             modes.append(mode)
     manifest = base_manifest(experiment_id=experiment_id,

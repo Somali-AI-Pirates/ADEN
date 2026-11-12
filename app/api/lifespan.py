@@ -2,7 +2,9 @@
 
 import asyncio
 import logging
+import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -25,15 +27,43 @@ async def lifespan(app: FastAPI):
     logging.getLogger("uvicorn.access").disabled = True
 
     load_dotenv(PROJECT_ROOT / ".env")
-    settings = load_settings(configured_path(DEFAULT_CONFIG))  # 평가 CLI와 같은 ADEN_CONFIG
+    settings = load_settings(
+        configured_path(DEFAULT_CONFIG)
+    )  # 평가 CLI와 같은 ADEN_CONFIG
     app.state.settings = settings
     app.state.resources = None
+    app.state.table_service = None
     app.state.readiness_reason = "검색과 답변 생성 기능을 준비하고 있습니다."
 
     resources = None
+    table_service = None
     try:
-        loader = getattr(app.state, "resources_loader", None) or load_resources
-        resources = await asyncio.to_thread(loader, settings)
+        table_directory = os.environ.get("ADEN_TABLE_RAG_DIR", "").strip()
+        legacy_loader = getattr(app.state, "resources_loader", None)
+        if table_directory or (settings.rag_backend == "table_rag" and legacy_loader is None):
+            if settings.dataset != "advanced":
+                raise ServiceError(
+                    "TableRAG 데이터는 advanced 설정에서만 사용할 수 있습니다.", 503
+                )
+            from app.rag.config import DEFAULT_DATA_DIRECTORY
+
+            path = Path(table_directory) if table_directory else DEFAULT_DATA_DIRECTORY
+            if not path.is_absolute():
+                path = PROJECT_ROOT / path
+            loader = getattr(app.state, "table_service_loader", None)
+            if loader is None:
+                from app.rag.service import load_service
+
+                loader = load_service
+            table_service = await asyncio.to_thread(loader, path)
+        else:
+            loader = getattr(app.state, "resources_loader", None) or load_resources
+            resources = await asyncio.to_thread(loader, settings)
+    except FileNotFoundError:
+        app.state.readiness_reason = (
+            "TableRAG 데이터 또는 모델 캐시가 없습니다. "
+            "데이터 가이드의 prepare_table_rag build와 check를 실행해 주세요."
+        )
     except ServiceError as error:
         app.state.readiness_reason = str(error)
     except Exception as error:
@@ -42,12 +72,18 @@ async def lifespan(app: FastAPI):
             "문서 검색 준비에 실패했습니다. 서버 설정을 확인해 주세요."
         )
     else:
-        app.state.resources = resources
+        if table_service is not None:
+            app.state.table_service = table_service
+        else:
+            app.state.resources = resources
 
     try:
         yield
     finally:
         app.state.resources = None
+        app.state.table_service = None
         app.state.settings = None
         if resources is not None:
             await asyncio.to_thread(resources.close)
+        if table_service is not None:
+            await table_service.aclose()

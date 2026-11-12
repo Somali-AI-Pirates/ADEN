@@ -84,6 +84,73 @@ def test_record_rejects_trace_that_does_not_match_http_response(row, observation
         http_records.run_record(row, QUESTION, observations, experiment_id="http-x-records")
 
 
+def test_table_rag_trace_keeps_planner_answer_usage_and_included_sql():
+    sql_result = {
+        "status": "ok",
+        "sql": "SELECT amount FROM charges",
+        "columns": ["amount"],
+        "rows": [{"amount": "120.00"}],
+        "sources": [{"book_id": "B1", "page": 1}],
+    }
+    model_context = json.dumps({"pages": [], "sql": [sql_result]}, ensure_ascii=False)
+    final = [{**CHUNK, "source_id": "S1"}]
+    response = {"request_id": "rid-1", "status": "answered", "answer": "120.00입니다.",
+                "reason": "원문 표를 확인했습니다.", "citations": [CITATION]}
+    observations = [
+        Obs("rag-query", input=json.dumps({"question": QUESTION}), output=json.dumps(response),
+            metadata={"request_id": "rid-1", "retrieval_mode": "table_rag", "dataset_id": "advanced",
+                      "config_hash": "server-run-hash", "prompt_hash": "prompt-hash", "latency_ms": 900}),
+        Obs("retrieval", output=json.dumps({"candidates": [{**CHUNK, "rank": 1, "score": 0.9,
+                                                              "retriever": "hybrid"}]})),
+        Obs("final-context", metadata={"k": 8}, output=json.dumps({
+            "final_context_chunks": final, "final_context_hash": compute_context_hash(final),
+            "model_context_text": model_context,
+            "model_context_hash": hashlib.sha256(model_context.encode()).hexdigest()})),
+        Obs("planner-1", model="gpt-6-luna", input=json.dumps({
+            "request": {"messages": [{"role": "user", "content": QUESTION}]},
+            "tool_schema": {"type": "function", "name": "lookup_records"}}),
+            output=json.dumps({"tool": "lookup_records"}), usageDetails={"input": 250, "output": 20},
+            metadata={"role": "planner", "usage_known": {"input": True, "output": True},
+                      "latency_ms": 150, "attempt": 1}),
+        Obs("answer-2", model="gpt-6-luna", input=json.dumps({
+            "request": {"question": QUESTION, "evidence": model_context}}),
+            output=json.dumps({"answer": "120.00입니다."}), usageDetails={"input": 300, "output": 30},
+            metadata={"role": "answer", "usage_known": {"input": True, "output": True},
+                      "latency_ms": 200, "attempt": 2}),
+    ]
+    row = http_row(retrieval_mode=None, response=response)
+
+    record = http_records.run_record(row, QUESTION, observations, experiment_id="table-rag-records")
+
+    assert record["retrieval_mode"] == "table_rag"
+    assert [attempt["role"] for attempt in record["attempts"]] == ["planner", "answer"]
+    assert record["attempts"][0]["model_input"] == {"messages": [{"role": "user", "content": QUESTION}]}
+    assert record["attempts"][0]["tool_schema"] == {"type": "function", "name": "lookup_records"}
+    assert [(attempt["input_tokens"], attempt["output_tokens"]) for attempt in record["attempts"]] == [
+        (250, 20), (300, 30)
+    ]
+    assert record["included_sql_results"] == [sql_result]
+
+
+def test_attempts_support_boolean_usage_known_metadata():
+    attempts = http_records._attempts({
+        "planner-1": {
+            "metadata": {"role": "planner", "usage_known": True},
+            "usageDetails": {"input": 10, "output": 2},
+            "model": "gpt-6-luna", "input": {"request": {"question": QUESTION}},
+        },
+        "answer-2": {
+            "metadata": {"role": "answer", "usage_known": False},
+            "usageDetails": {"input": 20, "output": 3},
+            "model": "gpt-6-luna", "input": {"request": {"question": QUESTION}},
+        },
+    })
+
+    assert [(item["role"], item["input_tokens"], item["output_tokens"]) for item in attempts] == [
+        ("planner", 10, 2), ("answer", None, None)
+    ]
+
+
 def test_failed_attempt_keeps_error():
     record = http_records.run_record(http_row(), QUESTION, trace(level="ERROR"), experiment_id="e")
     assert record["attempts"][0]["error"] == "error"
@@ -120,6 +187,7 @@ def test_links_http_runs_and_regrade_scores_same_request(tmp_path, monkeypatch):
     assert [run["request_id"] for run in runs] == ["rid-1"]
     manifest = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["http_records"]["linked"] == 1 and manifest["benchmark"]["k"] == 8
+    assert manifest["http_records"]["server_config_hashes"] == ["server-run-hash"]
     assert manifest["http_records"]["unlinked"][0]["outcome"] == "timeout"
     assert manifest["config_hash"] == sha256_file(ROOT / "configs" / "advanced.yaml")
 

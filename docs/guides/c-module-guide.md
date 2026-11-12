@@ -1,6 +1,8 @@
 # 평가와 실행 기록
 
-현재 가상 샘플과 기존 색인의 [검색 전용 측정](data.md#검색만-확인), 그리고 실제 생성 모델·Langfuse·Judge·RAGAS를 연결한 일반 평가가 Basic custom 문항(1문항 점검과 개발용 8문항, 2026-11-10)으로 확인돼 있다. [근거 주입 경로와 메모리 Qdrant](local-bc.md), 단계별 추적, 평가 점수 게시도 같은 날 Basic 1문항으로 실제 서버에서 확인했다. Advanced 색인을 쓴 실행, 제공 평가 파일을 쓴 실행, 전체 문항 비교, 보안 비교의 실제 실행은 검증이 필요하다.
+기본 서버의 DB 우선 통합 TableRAG는 [TableRAG 평가](#tablerag-평가)를 따른다. 저장된 Swagger 요청은 [빠른 시작](quickstart.md#4-저장된-swagger-답변-평가)에서 바로 채점할 수 있다. 최신 실행 검증 결과는 [구현 기록](../plans/advanced-rag/unified-implementation-log.md)에 남긴다.
+
+아래 일반·보안 평가의 3방식 비교와 Qdrant/bootstrap 설명은 기존 평가 어댑터용이다. 기본 TableRAG 서버에는 Qdrant나 bootstrap 준비가 필요하지 않다.
 
 ## 가상 샘플
 
@@ -31,6 +33,38 @@ python -m app.evaluation.scripts.run_security --sample --experiment-id sample-gu
 - 표준 bootstrap은 API와 같은 자원 준비(`load_resources`)를 쓴다. 색인을 적재한 메모리 Qdrant(`ADEN_QDRANT_CLIENT`)나 준비된 근거(`ADEN_EVIDENCE_PROVIDER`)를 [API와 같은 환경변수로 연결](local-bc.md#api와-평가-cli의-공통-실행)한다. 연결이 없거나 잘못되면 첫 질문 전에 원인(없는 컬렉션, 잘못된 지정)을 알리고 멈춘다. 저장된 후보를 주입한 실행은 고정 근거 B·C 검증이며 검색 방식의 성능 비교로 해석하지 않는다. 세 방식 비교는 각 방식이 실제로 검색한 후보가 준비됐을 때 한다.
 - Judge·Faithfulness는 `--judge-model`·`--ragas-model`을 지정하지 않으면 `unavailable`이다. RAGAS는 공통 설치에 포함되지 않으며 [`eval` 추가 설치](development.md#설치)로 받는다(ragas 0.4.3 고정). RAGAS 평가 모델의 출력 한도는 8,192토큰으로 고정한다. ragas 기본값 1,024에서는 실제 답변의 출력이 잘려 평가 불가가 된다.
 
+## TableRAG 평가
+
+기본 API와 같은 DB 우선 서비스를 실행하고 저장된 결과를 별도로 채점한다. 서버에서 이미 질문한 결과는 [빠른 시작](quickstart.md#4-저장된-swagger-답변-평가)을 따라 request_id 폴더에서 채점한다.
+
+공식 평가 파일이 준비되어 있으면 먼저 한 문항을 실행한다. 실행 ID와 grade ID는 기존 출력과 겹치지 않게 지정한다.
+
+```bash
+RUN_ID="table-rag-dev01-$(date +%Y%m%d-%H%M%S)"
+uv run --locked python -m app.evaluation.scripts.run_table_rag run --questions data/advanced/evaluation/development_questions.json --ids AS-DEV01 --experiment-id "$RUN_ID"
+```
+
+명령이 출력한 실행 디렉터리를 다음 --run-directory에 지정한다.
+
+```bash
+uv run --locked --extra eval python -m app.evaluation.scripts.run_table_rag grade --run-directory <실행_디렉터리> --references data/advanced/evaluation/development.json --grade-id luna --judge-model gpt-6-luna --ragas-model gpt-6-luna
+uv run --locked python -m app.evaluation.scripts.run_table_rag publish --grade-directory <실행_디렉터리>/grades/luna --verify
+```
+
+새 실행 명령은 run_table_rag다. run_table_rag_a는 기존 호출자를 위한 동일 명령의 진입점으로 남는다. 기본 데이터 디렉터리는 artifacts/advanced-table-rag이며 --data-directory로 바꾼다.
+
+참고답 없이 grade --ragas-model gpt-6-luna를 실행하면 Faithfulness를 계산한다. 참고답 기반 지표는 unavailable 사유로 표시한다. 참고답이 있으면 실제 실행 question_id에 해당하는 항목을 사용하며 SQL 기대값은 expected_sql_results의 columns와 rows에 기록한다.
+
+단일 Swagger 실행을 기존 데이터셋 질문과 연결할 때는 --reference-id AS-DEV01처럼 지정한다. 이 옵션은 저장된 질문을 다시 실행하지 않고 채점 ID만 연결하므로 실제 질문이 같은지 먼저 확인한다.
+
+참고답 예시는 다음과 같다. Swagger의 question_id에는 응답의 request_id를 넣는다. 답변을 실행한 뒤 독립적으로 준비한 기대값과 원본 출처를 적는다.
+
+```json
+[{"id": "실행의_question_id", "reference_answer": "원본에서 확인한 기대 답변", "evidence_groups": [[{"book_id": "AS001", "page": 1}]]}]
+```
+
+Langfuse 점수는 원래 실행 trace에 연결된다. 재게시에는 첫 게시와 같은 점수 ID·이름·timestamp를 사용한다. --verify가 원격 점수를 조회해 확인한 결과를 저장하며, 전송 실패나 조회되지 않은 항목은 확인됨으로 집계하지 않는다.
+
 ## 평가 규칙
 
 | 지표 | 집계 기준 |
@@ -60,6 +94,8 @@ python -m app.evaluation.scripts.regrade --source <원본 실험 ID> --reference
 
 ## Langfuse
 
+통합 TableRAG는 rag-query 아래 계획 모델, 다섯 도구, 문맥 조립, 답변의 실제 입출력·시간·토큰을 남긴다. 자세한 실행은 [빠른 시작](quickstart.md)을 따른다. 아래 일반 retrieval/generation 단계 이름은 기존 검색 경로의 기록이다.
+
 `LANGFUSE_PUBLIC_KEY`와 `LANGFUSE_SECRET_KEY`로 추적을 활성화한다. `LANGFUSE_BASE_URL`로 서버를 지정할 수 있다. 요청 ID에서 trace ID를 만들며, 추적은 `rag-query` 아래 `retrieval` → `final-context` → `generation-attempt-N` 순서로 이어지고 `validation-attempt-N`은 해당 생성 시도 아래에 둔다. 각 관측은 실제 실행 구간의 시작·끝 시각으로 기록한다. `retrieval`의 입력은 질문과 검색 방식이고 출력은 후보 배열(`candidates`)이다. 후보 본문은 배열을 펼쳐 각 항목의 `text`에서 본다. 주입한 근거를 쓴 요청은 `provided_context=true`이며 그 `retrieval` 구간은 과거 검색 시간이 아니다.
 
 추적에는 질문, 검색·문맥 본문, 모델 입출력이 포함될 수 있다. 팀 공식 데이터의 첫 전송 전에 프로젝트·접근 범위·보존 기준을 확인한다. 저장은 실제 관측을 조회해 확인하고, 일반 평가는 `langfuse_verification`을 남긴다.
@@ -85,6 +121,12 @@ python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000
     --questions <질문 파일> --ids <ID> --modes hybrid_rerank --condition "<실행 조건>" --verify-langfuse
 ```
 
+서버 기본 경로가 TableRAG이면 --modes 옵션을 생략한다. 요청 본문에는 question만 들어가고, 선택 모드가 없는 TableRAG /query 경로가 실행된다.
+
+```bash
+python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000 --questions <질문 파일> --ids <ID> --condition "TableRAG 기본 경로" --verify-langfuse
+```
+
 - 시간(`latency_scope=http_client`)은 요청 직전부터 응답 본문 수신 완료까지다. Judge·RAGAS 채점, trace 조회, 서버 기동은 넣지 않는다. 평가 CLI의 `latency_ms`(`service`, HTTP 없이 서비스 함수 실행)와 다른 값이다.
 - `outcome`은 success, http_error(4xx·5xx, 응답 본문의 사유), timeout, connection_error, invalid_response다.
 - 기본 `--timeout`은 150초다. 서버는 모델 호출 제한(`model_timeout_seconds`)을 시도마다 적용하므로 클라이언트 제한은 `model_timeout_seconds × generation_max_attempts`(advanced.yaml 60초×2회)보다 길어야 한다. 짧으면 서버에서 재시도 끝에 성공한 요청이 클라이언트에는 timeout으로 남는다. 서버 설정을 바꾸면 함께 조정한다.
@@ -92,7 +134,7 @@ python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000
 
 ### HTTP 답변 채점
 
-HTTP로 받은 답변을 평가 CLI에서 다시 생성하지 않고 그대로 채점한다. `http_records`가 HTTP 기록의 request_id로 서버 trace(`rag-query`·`retrieval`·`final-context`·`generation-attempt-N`)를 읽어 그 요청의 RunRecord를 만들고, 그 폴더를 `regrade`의 원본으로 쓴다.
+HTTP로 받은 답변을 평가 CLI에서 다시 생성하지 않고 그대로 채점한다. http_records는 같은 request_id의 서버 trace에서 검색 후보·최종 문맥·planner와 answer 호출을 복원하고, TableRAG는 최종 문맥 JSON의 실제 SQL 결과도 보존한다.
 
 ```bash
 python -m app.evaluation.scripts.http_records --source <HTTP 실험 ID> --questions <질문 파일> \
@@ -103,7 +145,7 @@ python -m app.evaluation.scripts.regrade --source <HTTP 실험 ID>-records --ref
 
 - 답변·상태·reason·인용·질문·검색 방식·request_id가 HTTP 응답과 trace 최종 출력에서 같을 때만 연결한다. 오류 응답은 API 오류 처리기가 문구를 정하므로 상태만 대조한다. 후보·최종 문맥·모델 시도·서버 처리 시간(`latency_ms`, `service`)은 trace에서, 클라이언트 시간은 `http_latency_ms`(`http_client`)로 옮긴다. 문맥·모델 문맥 해시는 RunRecord 정규화에서 다시 검사한다.
 - request_id가 없는 요청(timeout·연결 오류)과 trace를 읽지 못했거나 응답과 다른 요청은 `runs.jsonl`에 넣지 않고 manifest의 `http_records.unlinked`에 사유를 남긴다. 비교표에는 누락으로 센다.
-- `--config`는 서버가 쓴 설정 파일이다. 채점 `k`(trace의 `k`와 같아야 함)와 manifest의 설정 파일 해시에 쓴다. 한 HTTP 실험에 서로 다른 서버 실행 설정 해시가 섞이면 거부한다. 서버 코드 버전은 HTTP 실험 manifest의 커밋(`http_records.source_git_commit`)이므로 서버와 `http_benchmark`를 같은 checkout에서 실행한다.
+- `--config`는 서버가 쓴 설정 파일이다. 채점 `k`(trace의 `k`와 같아야 함)와 manifest의 설정 파일 해시에 쓴다. 실제 요청 trace의 서버 설정 해시도 manifest와 점수 게시 조건에 별도로 남긴다. 한 HTTP 실험에 서로 다른 서버 실행 설정 해시가 섞이면 거부한다. 서버 코드 버전은 HTTP 실험 manifest의 커밋(`http_records.source_git_commit`)이므로 서버와 `http_benchmark`를 같은 checkout에서 실행한다.
 - 원본 HTTP 폴더는 수정하지 않는다. 채점 결과는 `regrade`의 새 실험 ID에 저장되며 점수 행의 `request_id`와 게시 점수의 trace가 HTTP 요청과 같다. 같은 답변을 다시 채점하면 새 실험 ID(`-e2`, `-e3` …)를 쓴다. 이 ID가 채점 회차 구분자이며 Langfuse 점수 metadata의 `experiment_id`에도 남는다.
 
 ### 평가 점수 게시

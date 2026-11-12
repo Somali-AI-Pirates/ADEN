@@ -1,4 +1,5 @@
 dataset: advanced
+rag_backend: table_rag
 documents_dir: data/advanced/documents
 generation_model: gpt-6-luna
 qdrant_collection: advanced_snowflake_ko_pages
