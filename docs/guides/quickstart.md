@@ -120,6 +120,8 @@ uv run --locked python -m app.evaluation.scripts.run_table_rag publish --grade-d
 uv run --locked --extra eval python -m app.evaluation.scripts.run_table_rag grade --run-directory "artifacts/rag-runs/$REQUEST_ID" --references data/advanced/evaluation/development.json --reference-id AS-DEV01 --grade-id reference --judge-model gpt-6-luna --ragas-model gpt-6-luna
 ```
 
+명시 YAML로 서버나 평가를 실행했다면 점수 게시에도 같은 파일을 `publish --config <실행에_사용한_YAML>`로 지정한다. 채점과 게시를 함께 할 때는 `grade --publish-langfuse-scores --config <실행에_사용한_YAML>`을 사용한다. 새 평가 CLI 실행은 Langfuse 주소만 기록하며, 게시 설정의 주소가 다르면 전송 전에 멈춘다. 주소가 없는 기존 실행·Swagger 기록은 기본 또는 명시 설정을 사용하므로 서버와 같은 연결을 선택해야 한다. 인증값은 실행 기록에 저장하지 않는다.
+
 점수는 grades/<grade-id>/scores.jsonl에 저장된다. Langfuse에서는 같은 요청의 rag-query trace와 게시된 scores를 확인한다. 평가기 오류는 unavailable 사유로 표시되며, --verify는 실제 원격 점수 저장 여부를 확인한다. 한 trace의 점수를 묶어서 조회하고 점수 ID·값·게시 날짜를 대조한다. 수집 지연이 있으면 trace별로 최대 5초의 재조회 기간을 사용하며, 전체 조회 시간은 trace 수와 네트워크 응답 시간에 따라 늘어난다.
 
 ## 5. 개발 검사

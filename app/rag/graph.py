@@ -683,15 +683,6 @@ class TableRagGraph:
                 )
                 _set_span_output(span, delta.span_output)
         else:
-            delta = await read_sources(
-                request,
-                documents=documents,
-                dependencies=self.dependencies,
-            )
-            span_output = {
-                **delta.span_output,
-                "seconds": perf_counter() - tool_started,
-            }
             with _span(
                 runtime.context["stage"],
                 "rag.read_sources",
@@ -700,6 +691,15 @@ class TableRagGraph:
                     "source_ids": request.source_ids,
                 },
             ) as span:
+                delta = await read_sources(
+                    request,
+                    documents=documents,
+                    dependencies=self.dependencies,
+                )
+                span_output = {
+                    **delta.span_output,
+                    "seconds": perf_counter() - tool_started,
+                }
                 _set_span_output(span, span_output)
 
         timings = dict(state["timings"])

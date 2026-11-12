@@ -10,7 +10,7 @@ from time import perf_counter
 from unicodedata import normalize
 from urllib.parse import quote
 
-from app.indexing.keyword_store import tokenize_for_bm25
+from shared.bm25_tokens import tokenize_for_bm25
 from shared.text_normalization import normalize_text as norm
 
 ROLES = ("contract", "events", "approval", "invoice", "receipt", "settlement", "record")

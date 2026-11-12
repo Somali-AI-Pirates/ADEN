@@ -33,9 +33,11 @@ from app.evaluation.runner import grade_all
 from app.evaluation.metrics import evidence_diagnostics, retrieval_metrics, score
 from app.evaluation.scripts._common import base_manifest, load_env, now_id, sha256_file
 from app.observability.records import compute_context_hash, summarize_usage
+from shared.settings import connection_settings
 
 RETRIEVAL_MODE = "table_rag"
 DEFAULT_ARTIFACTS_DIRECTORY = "artifacts/experiments/table-rag"
+DEFAULT_LANGFUSE_BASE_URL = "https://cloud.langfuse.com"
 
 
 class EvaluationService(Protocol):
@@ -350,6 +352,9 @@ def _run_command(args: Any) -> None:
     from app.rag.service import load_service
 
     settings = load_table_rag_settings(data_directory=args.data_directory, config_path=getattr(args, "config", None))
+    langfuse_base_url = _validated_langfuse_base_url(
+        settings.credentials.langfuse_base_url
+    )
     experiment_id = args.experiment_id or now_id("table-rag")
     dataset_id = "advanced"
     questions_path = resolve_project_path(args.questions)
@@ -376,6 +381,9 @@ def _run_command(args: Any) -> None:
     )
     manifest["table_rag"] = {
         "data_directory": str(data_directory),
+        # The endpoint is safe configuration metadata, not a credential. Keep
+        # it with the run so later grading targets the same Langfuse endpoint.
+        "langfuse_base_url": langfuse_base_url,
         "corpus_manifest_sha256": config_hash,
         "questions_file": questions_path.name,
         "questions_sha256": sha256_file(questions_path),
@@ -459,6 +467,12 @@ def _grade_command(args: Any) -> None:
     if references is None and args.judge_model:
         raise SystemExit("Judge needs references. Pass --references or omit --judge-model.")
 
+    publication_settings = (
+        _resolve_publication_settings(manifest, config_path=args.config)
+        if args.publish_langfuse_scores
+        else None
+    )
+
     grade_id = args.grade_id or now_id("grade")
     if Path(grade_id).name != grade_id or grade_id in {"", ".", ".."}:
         raise SystemExit("Grade ID must be a directory name")
@@ -469,7 +483,7 @@ def _grade_command(args: Any) -> None:
     manifest["grade_id"] = grade_id
     manifest["runs_sha256"] = sha256_file(runs_path)
 
-    if args.judge_model or args.ragas_model or args.publish_langfuse_scores:
+    if args.judge_model or args.ragas_model:
         load_env()
     judge_fn = make_openai_judge(args.judge_model) if args.judge_model else None
     faithfulness_fn = (
@@ -510,6 +524,7 @@ def _grade_command(args: Any) -> None:
             evaluation_set=args.evaluation_set,
             groups=args.publish_groups,
             verify=True,
+            settings=publication_settings,
         )
     print(f"Scores and report saved to {grade_dir}")
 
@@ -524,9 +539,9 @@ def _publish_grade(
     evaluation_set=None,
     groups=None,
     verify=True,
+    settings,
 ):
     from app.evaluation.publishing import GROUPS, plan_publication, score_items
-    from app.observability.tracing import Tracer
 
     plan = manifest.get("langfuse_scores")
     if plan is None:
@@ -552,8 +567,7 @@ def _publish_grade(
         )
     if manifest["runs_sha256"] != sha256_file(artifact_dir / "runs.jsonl"):
         raise SystemExit("Question run has changed since grading")
-    load_env()
-    tracer = Tracer.from_env()
+    tracer = _publication_tracer(settings)
     try:
         manifest["langfuse_scores"] = publish_evaluation_scores(
             tracer, records, scores, manifest
@@ -604,12 +618,65 @@ def _publish_grade(
         print(f"Langfuse score readback: {json.dumps(readback, sort_keys=True)}")
 
 
+def _validated_langfuse_base_url(value: str | None) -> str:
+    """Return the effective, credential-free Langfuse endpoint for run metadata."""
+    base_url = value or DEFAULT_LANGFUSE_BASE_URL
+    try:
+        connection_settings({"connections": {"langfuse_base_url": base_url}})
+    except (TypeError, ValueError):
+        raise SystemExit(
+            "Langfuse base URL must be an HTTP(S) URL without credentials or query parameters"
+        ) from None
+    return base_url
+
+
+def _run_langfuse_base_url(manifest: Mapping[str, Any]) -> str | None:
+    metadata = manifest.get("table_rag") or manifest.get("table_rag_a") or {}
+    if not isinstance(metadata, Mapping):
+        return None
+    value = metadata.get("langfuse_base_url")
+    return _validated_langfuse_base_url(value) if value is not None else None
+
+
+def _resolve_publication_settings(
+    manifest: Mapping[str, Any], *, config_path: str | None
+):
+    """Resolve and validate the publishing target before dotenv enters process env."""
+    from app.rag.config import load_table_rag_settings
+
+    settings = load_table_rag_settings(config_path=config_path)
+    configured_base_url = _validated_langfuse_base_url(
+        settings.credentials.langfuse_base_url
+    )
+    run_base_url = _run_langfuse_base_url(manifest)
+
+    if run_base_url is not None and configured_base_url != run_base_url:
+        raise SystemExit(
+            "The selected Langfuse endpoint differs from the saved run. "
+            "Select the run's original settings with --config or ADEN_CONFIG."
+        )
+
+    return settings
+
+
+def _publication_tracer(settings):
+    """Build Langfuse from the already resolved credentials and endpoint."""
+    from app.observability.tracing import Tracer
+
+    return Tracer.from_credentials(
+        public_key=settings.credentials.langfuse_public_key,
+        secret_key=settings.credentials.langfuse_secret_key,
+        base_url=settings.credentials.langfuse_base_url or DEFAULT_LANGFUSE_BASE_URL,
+    )
+
+
 def _publish_command(args):
     grade_dir = resolve_project_path(args.grade_directory)
     artifact_dir = grade_dir.parent.parent
     manifest = json.loads((grade_dir / "manifest.json").read_text(encoding="utf-8"))
     records = read_jsonl(artifact_dir / "runs.jsonl")
     scores = read_jsonl(grade_dir / "scores.jsonl")
+    settings = _resolve_publication_settings(manifest, config_path=args.config)
     _publish_grade(
         grade_dir,
         artifact_dir,
@@ -619,6 +686,7 @@ def _publish_command(args):
         evaluation_set=args.evaluation_set,
         groups=args.publish_groups,
         verify=args.verify,
+        settings=settings,
     )
 
 
@@ -649,6 +717,10 @@ def parse_args(argv: Sequence[str] | None = None) -> Any:
         "--reference-id", help="Dataset question ID corresponding to one saved request"
     )
     grade_parser.add_argument("--grade-id", help="New grade directory name")
+    grade_parser.add_argument(
+        "--config",
+        help="Runtime YAML for Langfuse score publishing; must match the saved run target.",
+    )
     grade_parser.add_argument("--k", type=int, default=8)
     grade_parser.add_argument("--judge-model")
     grade_parser.add_argument("--ragas-model")
@@ -670,6 +742,10 @@ def parse_args(argv: Sequence[str] | None = None) -> Any:
         "publish", help="Publish or retry a saved grade."
     )
     publish_parser.add_argument("--grade-directory", required=True)
+    publish_parser.add_argument(
+        "--config",
+        help="Runtime YAML for Langfuse score publishing; must match the saved run target.",
+    )
     publish_parser.add_argument("--evaluation-set")
     publish_parser.add_argument(
         "--publish-groups",

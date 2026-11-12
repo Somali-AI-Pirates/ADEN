@@ -34,7 +34,7 @@ def dependency_versions(names):
 
 def stage_fingerprints():
     """Fingerprint each build stage and the overall assembly implementation."""
-    from app.indexing.keyword_store import (
+    from shared.bm25_tokens import (
         BM25_CODE_DASHES,
         BM25_CODE_PATTERN,
         TOKEN,
