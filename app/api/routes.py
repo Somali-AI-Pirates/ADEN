@@ -1,13 +1,14 @@
 import asyncio
 from typing import Literal
 
-from fastapi import APIRouter, Request, Response
+from fastapi import APIRouter, Request
 from pydantic import BaseModel, Field
 
 from app.service.query import answer_query
 from app.service.resources import Resources
 from shared.contracts import QueryRequest, QueryResponse
 from shared.settings import Settings
+from shared.exceptions import ServiceError
 
 router = APIRouter()
 
@@ -70,19 +71,11 @@ async def health(request: Request) -> HealthResponse:
 async def query(
     payload: QueryRequest,
     request: Request,
-    response: Response,
 ) -> QueryResponse:
     request_id: str = request.state.request_id
     resources: Resources | None = request.app.state.resources
     if resources is None:
-        response.status_code = 503
-        return QueryResponse(
-            request_id=request_id,
-            status="error",
-            answer="",
-            reason=request.app.state.readiness_reason,
-            citations=[],
-        )
+        raise ServiceError(request.app.state.readiness_reason, 503)
 
     settings: Settings = request.app.state.settings
     return await asyncio.to_thread(

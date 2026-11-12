@@ -1,0 +1,22 @@
+{
+  "inputs": [
+    {
+      "path": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/questions.json",
+      "sha256": "febac3a3766fff15230ffb540e7859944a94e3d86f7fd62b53f4559873f1d51d"
+    },
+    {
+      "path": "experimental/ysl727727/overnight/data/synth_multi_adv.json",
+      "sha256": "7ead57097e66d072e0b5f2253220bc65bbcc8193b0926e2f174beb286ba67c9d"
+    },
+    {
+      "path": "artifacts/u_10o0o/advanced_restored_pages.json",
+      "sha256": "7d658eb1a16417a82f1e1f9ec3f689c56fe1505d17bf1efd497ec26edce3ed3d"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-peer-20261111/dataset-target-issues.json",
+      "sha256": "311bafef65d8e03bda7391f82b1f71bc037dce3511d7630d060e11af98535889"
+    }
+  ],
+  "repairs_add_identifiers_not_source_pages": true,
+  "review": "assistant self-review; no independent human review"
+}

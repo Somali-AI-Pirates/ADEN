@@ -130,6 +130,14 @@ def summarize(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[str, A
             key: aggregate(d.get(key) or score(None, "unavailable", "기록 없음") for d in diagnostics)
             for key in keys
         }
+        # 검산 진단은 점수가 아니라 상태별 건수로 둔다. 진단이 없는 이전 기록은 missing으로 센다
+        calculation_counts = {}
+        for score_row in scores:
+            if score_row["retrieval_mode"] != mode:
+                continue
+            status = (score_row.get("calculation_checks") or {}).get("status", "missing")
+            calculation_counts[status] = calculation_counts.get(status, 0) + 1
+        stats["calculation_checks"] = calculation_counts
     return summary
 
 
@@ -163,6 +171,10 @@ def comparison_rows(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[
             row[f"judge_{c}"] = s["judge"][c]["value"]
             row[f"judge_{c}_status"] = s["judge"][c]["status"]
             row[f"judge_{c}_reason"] = s["judge"][c]["reason"]
+        calculation = s.get("calculation_checks") or {}
+        row["calculation_status"] = calculation.get("status")
+        row["calculation_reason"] = calculation.get("reason")
+        row["calculation_items"] = json.dumps(calculation.get("items", []), ensure_ascii=False)
         row.update(latency_ms=r["latency_ms"], input_tokens=r["usage"]["input_tokens"],
                    output_tokens=r["usage"]["output_tokens"], usage_status=r["usage"]["status"],
                    attempts=len(r["attempts"]), langfuse_trace_id=r.get("langfuse_trace_id"),
@@ -256,7 +268,9 @@ def render_readme(report_dir: Path) -> str:
                   f"- 선택 질문({len(bench['question_ids'])}개): "
                   + ", ".join(question_labels),
                   f"- 선택 이유: {bench.get('selection_reason') or '(미기재)'}",
-                  f"- 평가기: Judge={bench.get('judge')}, Faithfulness={bench.get('faithfulness')}",
+                  f"- 평가기: Judge={bench.get('judge')}, Faithfulness={bench.get('faithfulness')}, "
+                  f"Judge 프롬프트 `{(bench.get('judge_prompt') or '-')[:19]}`, "
+                  f"출력 스키마 `{bench.get('judge_schema') or 'judge-output-v1(기록 없음)'}`",
                   f"- Langfuse 전송: `{bench.get('langfuse_flush')}` "
                   "(`flushed_unverified`는 전송 요청만 끝난 상태이며 저장 확인이 아니다)",
                   f"- Langfuse 저장 확인(요청 수): `{bench.get('langfuse_verification')}` "
@@ -291,6 +305,20 @@ def render_readme(report_dir: Path) -> str:
                       "| 지표 | " + " | ".join(summary) + " |", "| --- |" + " --- |" * len(summary)]
             for key in diagnostic_keys:
                 lines.append(f"| {key} | " + " | ".join(_fmt(summary[m].get("evidence_diagnostics", {}).get(key, aggregate([]))) for m in summary) + " |")
+        calculation_cells = []
+        for mode_name in summary:
+            counts = summary[mode_name].get("calculation_checks") or {}
+            parts = []
+            for status, count in sorted(counts.items()):
+                parts.append(f"{status} {count}")
+            calculation_cells.append(", ".join(parts) or "-")
+        lines += ["", "## 검산 진단 (Judge, 공식 점수 아님)", "",
+                  "complete 검산 완료 / incomplete 요청받은 검산 미완료 / not_applicable 검산 요청 없음 / "
+                  "unavailable 진단 불가(구조 오류·호출 실패·서비스 실패) / missing 진단이 없는 이전 기록. "
+                  "대상별 부족 근거는 `comparison.csv`의 `calculation_items`에 있다.", "",
+                  "| 방식 | 문항 수(상태별) |", "| --- | --- |"]
+        for mode_name, cell in zip(summary, calculation_cells):
+            lines.append(f"| {mode_name} | {cell} |")
         lines += ["", "## 운영 지표 (서비스 요청만, 평가 호출 제외)", "",
                   "| 방식 | 요청 | 오류율 | 평균 시간(정상) | 입력 토큰 | 출력 토큰 | 사용량 확인(완전/부분/미확인) | 재시도 |",
                   "| --- | --- | --- | --- | --- | --- | --- | --- |"]

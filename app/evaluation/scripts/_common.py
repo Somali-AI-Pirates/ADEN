@@ -11,10 +11,12 @@ from importlib import metadata
 from pathlib import Path
 from typing import Any
 
+import yaml
 from dotenv import load_dotenv
+from pydantic import ValidationError
 
 from app.evaluation.publishing import GROUPS, plan_publication
-from shared.settings import PROJECT_ROOT
+from shared.settings import PROJECT_ROOT, Settings, configured_path, load_settings
 
 ROOT = PROJECT_ROOT
 
@@ -22,6 +24,19 @@ ROOT = PROJECT_ROOT
 def load_env() -> None:
     """서비스 bootstrap을 거치지 않는 경로(저장 확인·재채점)용. 이미 설정된 환경변수를 우선한다."""
     load_dotenv(ROOT / ".env")
+
+
+def load_config(config: str | None) -> tuple[Path, Settings]:
+    """실제 일반·보안 평가의 설정: --config → ADEN_CONFIG → 기본 Advanced 파일(저장소 루트 기준).
+
+    `.env`를 먼저 읽어 ADEN_CONFIG에 반영한다(프로세스 환경변수 우선). 선택한 파일이 없거나 YAML·설정이
+    잘못되면 다른 파일로 대체하지 않고 어댑터·평가기 준비 전에 멈춘다."""
+    load_env()
+    try:
+        path = (ROOT / config if config else configured_path()).resolve()
+        return path, load_settings(path)
+    except (OSError, yaml.YAMLError, ValidationError) as exc:
+        raise SystemExit(f"평가 설정을 읽지 못했다: {exc}") from exc
 
 
 def git_info() -> dict[str, Any]:

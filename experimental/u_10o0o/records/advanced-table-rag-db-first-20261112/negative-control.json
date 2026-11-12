@@ -1,0 +1,110 @@
+{
+  "A": {
+    "api_per_question": {
+      "p50": 6.037729392500069,
+      "p95": 11.886187196149786
+    },
+    "api_status": {
+      "complete": 38
+    },
+    "db_then_hybrid_questions": 0,
+    "end_to_end": {
+      "p50": 7.626524775500002,
+      "p95": 14.875639920249865
+    },
+    "finish": {
+      "insufficient": 14,
+      "needs_clarification": 6
+    },
+    "hybrid_per_question": {
+      "p50": 1.6134204020002016,
+      "p95": 2.9727217833002446
+    },
+    "hybrid_search_calls": 38,
+    "initial_db_questions": 0,
+    "n": 20,
+    "planner_calls": 38,
+    "record_lookup_calls": 0,
+    "record_lookup_per_call": {
+      "p50": 0,
+      "p95": 0
+    },
+    "record_resolution": {},
+    "sql_calls": 0,
+    "sql_kept": 0,
+    "sql_ok": 0,
+    "table_discovery_calls": 0,
+    "table_discovery_per_call": {
+      "p50": 0,
+      "p95": 0
+    },
+    "tool_statuses": {
+      "executed": 18,
+      "finished": 20
+    },
+    "tools": {
+      "finish": 20,
+      "search_evidence": 18
+    },
+    "usage": {
+      "input_tokens": 427188,
+      "output_tokens": 6290,
+      "reasoning_tokens": 3273
+    },
+    "zero_hybrid_questions": 0
+  },
+  "B": {
+    "api_per_question": {
+      "p50": 5.431105824500037,
+      "p95": 16.191168253299978
+    },
+    "api_status": {
+      "complete": 37
+    },
+    "db_then_hybrid_questions": 0,
+    "end_to_end": {
+      "p50": 7.659037804000263,
+      "p95": 18.48013224164977
+    },
+    "finish": {
+      "insufficient": 12,
+      "needs_clarification": 8
+    },
+    "hybrid_per_question": {
+      "p50": 1.6897462054998869,
+      "p95": 2.2848075990501457
+    },
+    "hybrid_search_calls": 37,
+    "initial_db_questions": 0,
+    "n": 20,
+    "planner_calls": 37,
+    "record_lookup_calls": 0,
+    "record_lookup_per_call": {
+      "p50": 0,
+      "p95": 0
+    },
+    "record_resolution": {},
+    "sql_calls": 0,
+    "sql_kept": 0,
+    "sql_ok": 0,
+    "table_discovery_calls": 0,
+    "table_discovery_per_call": {
+      "p50": 0,
+      "p95": 0
+    },
+    "tool_statuses": {
+      "executed": 17,
+      "finished": 20
+    },
+    "tools": {
+      "finish": 20,
+      "search_evidence": 17
+    },
+    "usage": {
+      "input_tokens": 414666,
+      "output_tokens": 6331,
+      "reasoning_tokens": 3260
+    },
+    "zero_hybrid_questions": 0
+  }
+}

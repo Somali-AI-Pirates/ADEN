@@ -1,0 +1,321 @@
+{
+  "clarification": {
+    "arms": {
+      "A": {
+        "api_calls": 126,
+        "api_failures": 0,
+        "correct_clarification": 25,
+        "overconfirmation": 17,
+        "p50_seconds": 18.13045019099809,
+        "p95_seconds": 32.956432837802275,
+        "search_calls": 123,
+        "selected_not_retained_questions": 0,
+        "status": {
+          "insufficient": 1,
+          "needs_clarification": 25,
+          "sufficient": 17
+        }
+      },
+      "B": {
+        "api_calls": 69,
+        "api_failures": 0,
+        "correct_clarification": 41,
+        "overconfirmation": 2,
+        "p50_seconds": 8.873200211994117,
+        "p95_seconds": 22.606465536497122,
+        "search_calls": 68,
+        "selected_not_retained_questions": 0,
+        "status": {
+          "needs_clarification": 41,
+          "sufficient": 2
+        }
+      }
+    },
+    "n": 43
+  },
+  "false_all": {
+    "arms": {
+      "A": {
+        "api_calls": 199,
+        "api_failures": 1,
+        "candidate_complete": 65,
+        "evidence_complete": 83,
+        "final_page_recall": 0.85,
+        "p50_seconds": 13.6225899150013,
+        "p95_seconds": 33.54514261100121,
+        "review_verdicts": {
+          "insufficient": 4,
+          "sufficient": 80,
+          "uncertain": 1
+        },
+        "search_calls": 193,
+        "selected_not_retained_questions": 5,
+        "status": {
+          "insufficient": 2,
+          "needs_clarification": 1,
+          "sufficient": 82
+        },
+        "strict_complete": 64
+      },
+      "B": {
+        "api_calls": 188,
+        "api_failures": 0,
+        "candidate_complete": 65,
+        "evidence_complete": 83,
+        "final_page_recall": 0.8519607843137254,
+        "p50_seconds": 13.509053820998815,
+        "p95_seconds": 28.802341568798873,
+        "review_verdicts": {
+          "insufficient": 3,
+          "sufficient": 82
+        },
+        "search_calls": 179,
+        "selected_not_retained_questions": 0,
+        "status": {
+          "needs_clarification": 3,
+          "sufficient": 82
+        },
+        "strict_complete": 64
+      }
+    },
+    "n": 85
+  },
+  "false_both_api_ok": {
+    "arms": {
+      "A": {
+        "api_calls": 197,
+        "api_failures": 0,
+        "candidate_complete": 64,
+        "evidence_complete": 82,
+        "final_page_recall": 0.8482142857142857,
+        "p50_seconds": 13.595765850001044,
+        "p95_seconds": 32.3413521408489,
+        "review_verdicts": {
+          "insufficient": 4,
+          "sufficient": 79,
+          "uncertain": 1
+        },
+        "search_calls": 192,
+        "selected_not_retained_questions": 5,
+        "status": {
+          "insufficient": 1,
+          "needs_clarification": 1,
+          "sufficient": 82
+        },
+        "strict_complete": 63
+      },
+      "B": {
+        "api_calls": 184,
+        "api_failures": 0,
+        "candidate_complete": 64,
+        "evidence_complete": 82,
+        "final_page_recall": 0.8501984126984126,
+        "p50_seconds": 13.412690409499191,
+        "p95_seconds": 28.808442341099,
+        "review_verdicts": {
+          "insufficient": 3,
+          "sufficient": 81
+        },
+        "search_calls": 176,
+        "selected_not_retained_questions": 0,
+        "status": {
+          "needs_clarification": 3,
+          "sufficient": 81
+        },
+        "strict_complete": 63
+      }
+    },
+    "n": 84
+  },
+  "false_repaired": {
+    "arms": {
+      "A": {
+        "api_calls": 101,
+        "api_failures": 0,
+        "candidate_complete": 43,
+        "evidence_complete": 45,
+        "final_page_recall": 0.9764492753623187,
+        "p50_seconds": 13.64796494500115,
+        "p95_seconds": 28.7266721377473,
+        "review_verdicts": {
+          "insufficient": 3,
+          "sufficient": 42,
+          "uncertain": 1
+        },
+        "search_calls": 98,
+        "selected_not_retained_questions": 3,
+        "status": {
+          "needs_clarification": 1,
+          "sufficient": 45
+        },
+        "strict_complete": 42
+      },
+      "B": {
+        "api_calls": 102,
+        "api_failures": 0,
+        "candidate_complete": 45,
+        "evidence_complete": 46,
+        "final_page_recall": 0.9873188405797101,
+        "p50_seconds": 13.593370406499162,
+        "p95_seconds": 28.79624079649875,
+        "review_verdicts": {
+          "insufficient": 1,
+          "sufficient": 45
+        },
+        "search_calls": 96,
+        "selected_not_retained_questions": 0,
+        "status": {
+          "needs_clarification": 1,
+          "sufficient": 45
+        },
+        "strict_complete": 44
+      }
+    },
+    "n": 46
+  },
+  "false_unchanged": {
+    "arms": {
+      "A": {
+        "api_calls": 98,
+        "api_failures": 1,
+        "candidate_complete": 22,
+        "evidence_complete": 38,
+        "final_page_recall": 0.7008547008547009,
+        "p50_seconds": 13.568941785000789,
+        "p95_seconds": 34.058297161601516,
+        "review_verdicts": {
+          "insufficient": 1,
+          "sufficient": 38
+        },
+        "search_calls": 95,
+        "selected_not_retained_questions": 2,
+        "status": {
+          "insufficient": 2,
+          "sufficient": 37
+        },
+        "strict_complete": 22
+      },
+      "B": {
+        "api_calls": 86,
+        "api_failures": 0,
+        "candidate_complete": 20,
+        "evidence_complete": 37,
+        "final_page_recall": 0.6923076923076923,
+        "p50_seconds": 13.005872460998944,
+        "p95_seconds": 27.095573994494774,
+        "review_verdicts": {
+          "insufficient": 2,
+          "sufficient": 37
+        },
+        "search_calls": 83,
+        "selected_not_retained_questions": 0,
+        "status": {
+          "needs_clarification": 2,
+          "sufficient": 37
+        },
+        "strict_complete": 20
+      }
+    },
+    "n": 39
+  },
+  "normal_all": {
+    "arms": {
+      "A": {
+        "api_calls": 229,
+        "api_failures": 0,
+        "candidate_complete": 74,
+        "evidence_complete": 74,
+        "final_page_recall": 0.8892156862745098,
+        "p50_seconds": 14.486231839000538,
+        "p95_seconds": 41.228737458999966,
+        "review_verdicts": {
+          "ambiguous_question": 3,
+          "insufficient": 7,
+          "not_reviewed": 72,
+          "sufficient": 3
+        },
+        "search_calls": 225,
+        "selected_not_retained_questions": 5,
+        "status": {
+          "insufficient": 2,
+          "needs_clarification": 5,
+          "sufficient": 78
+        },
+        "strict_complete": 72
+      },
+      "B": {
+        "api_calls": 212,
+        "api_failures": 0,
+        "candidate_complete": 73,
+        "evidence_complete": 72,
+        "final_page_recall": 0.888235294117647,
+        "p50_seconds": 14.474497530005465,
+        "p95_seconds": 38.10773441700148,
+        "review_verdicts": {
+          "ambiguous_question": 3,
+          "insufficient": 9,
+          "not_reviewed": 72,
+          "sufficient": 1
+        },
+        "search_calls": 211,
+        "selected_not_retained_questions": 0,
+        "status": {
+          "insufficient": 3,
+          "needs_clarification": 12,
+          "sufficient": 70
+        },
+        "strict_complete": 72
+      }
+    },
+    "n": 85
+  },
+  "normal_without_known_ambiguity": {
+    "arms": {
+      "A": {
+        "api_calls": 207,
+        "api_failures": 0,
+        "candidate_complete": 74,
+        "evidence_complete": 74,
+        "final_page_recall": 0.9846491228070174,
+        "p50_seconds": 14.457636282000749,
+        "p95_seconds": 41.588691225999355,
+        "review_verdicts": {
+          "insufficient": 1,
+          "not_reviewed": 72,
+          "sufficient": 3
+        },
+        "search_calls": 204,
+        "selected_not_retained_questions": 5,
+        "status": {
+          "insufficient": 2,
+          "needs_clarification": 1,
+          "sufficient": 73
+        },
+        "strict_complete": 72
+      },
+      "B": {
+        "api_calls": 199,
+        "api_failures": 0,
+        "candidate_complete": 73,
+        "evidence_complete": 72,
+        "final_page_recall": 0.9835526315789473,
+        "p50_seconds": 14.792393635500048,
+        "p95_seconds": 38.71007053900212,
+        "review_verdicts": {
+          "insufficient": 3,
+          "not_reviewed": 72,
+          "sufficient": 1
+        },
+        "search_calls": 199,
+        "selected_not_retained_questions": 0,
+        "status": {
+          "insufficient": 3,
+          "needs_clarification": 4,
+          "sufficient": 69
+        },
+        "strict_complete": 72
+      }
+    },
+    "n": 76
+  }
+}

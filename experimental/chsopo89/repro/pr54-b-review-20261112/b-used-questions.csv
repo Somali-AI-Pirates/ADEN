@@ -1,0 +1,6 @@
+﻿dataset,question_id,purpose,scope
+advanced,AS-DEV19,#53 근거 충분/부족에서 청구서 금액·독립 검산 미완료 구분 확인,직전 #53 수정 확인
+advanced,M01,실제 서명자 구분: original·actual_signer 변형의 답변 규칙 수정 전후 비교,과거 B 답변 규칙 수정·회귀 확인
+advanced,S09,내부 출력 설명 제거 규칙의 수정 전후 비교,과거 B 답변 규칙 수정·회귀 확인
+advanced,S07,명시적 실제 서명자(explicit_signer) 응답 회귀 확인,과거 B 답변 규칙 수정·회귀 확인
+advanced,M19,날짜 산입(calendar_regression) 회귀 확인,과거 B 답변 규칙 수정·회귀 확인

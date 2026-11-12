@@ -1,0 +1,14 @@
+{
+  "all_556_results_saved": true,
+  "changed_files": {
+    "experimental/u_10o0o/table_rag/replay_product.py": {
+      "current": "eff227664d6ba0f00c41938675cd95b7a4cf1fe6b3a4f71455ad9b0ad26b10c6",
+      "frozen": "45951ba90d496689e393154874eb49541af7a6ab92a433848f7ff7a0fddbb18b"
+    }
+  },
+  "executing_code_unchanged": true,
+  "reason": "The legacy benchmark freezes every table_rag/*.py, including an unused production replay entry point. Its independent edit caused the final broad file check to stop. Results were verified without reissuing paid requests.",
+  "reference_contents_not_read_by_this_check": true,
+  "unused_module_import_reference_count": 0,
+  "verified_at": "2026-11-12T02:52:47.068746+00:00"
+}

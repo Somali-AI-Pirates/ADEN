@@ -7,6 +7,7 @@
         --retrieve <B모듈>:<retrieve_context> --generate <B모듈>:<generate_with_context> \
         --retrieval-mode hybrid_rerank --experiment-id <일반 평가와 같은 ID> --config configs/basic.yaml \
         --judge-model <모델>
+    --config를 생략하면 ADEN_CONFIG, 없으면 configs/advanced.yaml을 쓴다. 데이터셋·설정 해시는 그 파일에서 정한다.
 """
 
 from __future__ import annotations
@@ -14,10 +15,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from shared.settings import load_settings
-
 from app.evaluation.scripts._common import (ROOT, base_manifest, guard_overwrite, load_callable,
-                                      now_id, sha256_file)
+                                      load_config, now_id, sha256_file)
 
 from app.observability.records import RETRIEVAL_MODES
 from app.evaluation.dataset import load_questions, load_references
@@ -37,21 +36,13 @@ def main() -> None:
     p.add_argument("--generate", help="'모듈:이름' (question, chunks, prompt_variant) -> 생성 결과")
     p.add_argument("--retrieval-mode", choices=RETRIEVAL_MODES)
     p.add_argument("--experiment-id")
-    p.add_argument("--dataset-id", help="데이터셋 이름(기본: 설정 파일, 미지정 시 basic)")
-    # 둘을 함께 주면 기록(해시)과 실제 실행(파일)이 다른 설정을 가리킬 수 있어 하나만 받는다
-    config_group = p.add_mutually_exclusive_group()
-    config_group.add_argument("--config", help="설정 파일. 표준 bootstrap의 실행 설정과 config_hash에 적용")
-    config_group.add_argument("--config-hash", help="설정 파일이 없는 어댑터의 설정 해시(--config와 함께 쓰지 않음)")
+    p.add_argument("--config", help="설정 파일(저장소 루트 기준). 생략 시 ADEN_CONFIG, 없으면 configs/advanced.yaml. "
+                                    "데이터셋·설정 해시와 두 callable의 설정이 이 파일에서 정해진다(샘플은 무시)")
     p.add_argument("--judge-model", help="미지정 시 추종·정확성·거절은 미평가")
     p.add_argument("--artifacts-dir", default=str(ROOT / "artifacts" / "experiments"))
     p.add_argument("--reports-dir")
     p.add_argument("--overwrite", action="store_true")
     args = p.parse_args()
-
-    config_path = (ROOT / args.config).resolve() if args.config and not args.sample else None
-    config = load_settings(config_path) if config_path is not None else None
-    if args.dataset_id is None:
-        args.dataset_id = config.dataset if config else "basic"
 
     if args.sample:
         from app.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_SECURITY, make_sample_generate,
@@ -68,11 +59,10 @@ def main() -> None:
     else:
         if not (args.security_file and args.retrieve and args.generate and args.retrieval_mode):
             raise SystemExit("--security-file, --retrieve, --generate, --retrieval-mode가 필요하다")
-        if not (args.config or args.config_hash):
-            raise SystemExit("--config 또는 --config-hash로 실험 설정을 고정해야 한다")
-        experiment_id = args.experiment_id or now_id(args.dataset_id)
-        path, dataset_id = args.security_file, args.dataset_id
-        config_hash = args.config_hash or sha256_file(ROOT / args.config)
+        config_path, settings = load_config(args.config)  # callable·평가기 준비 전에 설정을 확정한다
+        dataset_id, config_hash = settings.dataset, sha256_file(config_path)
+        experiment_id = args.experiment_id or now_id(dataset_id)
+        path = args.security_file
         retrieve_fn = load_callable(args.retrieve, config_path=config_path)
         generate_fn = load_callable(args.generate, config_path=config_path)
         if args.judge_model:

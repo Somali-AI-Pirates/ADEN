@@ -43,6 +43,14 @@ def _validate(result: dict, context: ContextBundle) -> ModelAnswer:
     answer = _check_marked_sources(result["parsed"], context)
     if not answer.answer.strip() or not answer.reason.strip():
         raise ValueError("모델의 답변과 판단 이유는 비어 있을 수 없습니다.")
+    incomplete = r"검산(?:은|이)?\s*미완료"
+    # '검산 미완료가 아닙니다'·'아니라 완료'·'상태가 아님'처럼 바로 부정한 본문 표현은 미완료 표시로 보지 않는다
+    shown = incomplete + r"(?!\s*(?:상태)?\s*[가는도이은]?\s*아[니닌님닙])"
+    reason_text = answer.reason.replace("**", "").replace("`", "")
+    answer_text = answer.answer.replace("**", "").replace("`", "")
+    if (re.search(incomplete + r"(?:입니다|이며|임|\.|$)", reason_text)
+            and not re.search(shown, answer_text)):
+        raise ValueError("검산 구분: 판단 이유에서 밝힌 검산 미완료를 답변 본문에도 표시해야 합니다.")
     resolve_citations(answer.source_ids, context.source_map)
     if answer.status == "answered" and not CITATION_MARK.search(answer.answer):
         raise ValueError("답변 완료 응답의 본문에 근거 출처 표시가 없습니다.")
@@ -54,6 +62,8 @@ def _retry_feedback(error: ValueError, context: ContextBundle) -> str:
     message = str(error)
     if message.startswith("날짜 대조:"):
         reason = "무료·유료 날짜 행이 누락됐거나 날짜·요일·배정이 계산표와 다릅니다. 날짜 대조표의 행을 다시 확인하세요."
+    elif message.startswith("검산 구분:"):
+        reason = "판단 이유에서 밝힌 검산 미완료와 확인하지 못한 항목을 answer 본문에도 표시하세요. 확인 가능한 청구서상 금액은 유지하세요."
     elif message.startswith("출처 표기는"):
         reason = "자료 ID 표기가 잘못됐습니다. [S1][S2]처럼 하나씩 표시하세요."
     elif message.startswith("답변 완료"):

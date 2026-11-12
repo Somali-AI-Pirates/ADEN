@@ -1,0 +1,1265 @@
+[
+  {
+    "A": {
+      "final_sources": [
+        "AS008:p0001",
+        "AS008:p0002",
+        "AS014:p0001",
+        "AS014:p0007",
+        "AS007:p0011",
+        "AS007:p0012",
+        "AS014:p0012",
+        "AS007:p0017"
+      ],
+      "key_source_in_final": true,
+      "key_source_initial_rank": 19,
+      "retrieval_seconds": 19.42501785500008,
+      "searches": [
+        {
+          "key_source_rank": 19,
+          "kind": "documents",
+          "sources": [
+            "AS014:p0001",
+            "AS014:p0007",
+            "AS014:p0012",
+            "AS014:p0006",
+            "AS014:p0005",
+            "AS014:p0008",
+            "AS014:p0009",
+            "AS008:p0001",
+            "AS014:p0010",
+            "AS014:p0003",
+            "AS014:p0013",
+            "AS014:p0004",
+            "AS014:p0016",
+            "AS014:p0002",
+            "AS014:p0011",
+            "AS014:p0015",
+            "AS014:p0014",
+            "AS014:p0017",
+            "AS008:p0002",
+            "AS008:p0005"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS008:p0001",
+            "AS007:p0011",
+            "AS007:p0017",
+            "AS007:p0018",
+            "AS007:p0008",
+            "AS007:p0014",
+            "AS007:p0009",
+            "AS007:p0015",
+            "AS007:p0012",
+            "AS007:p0020",
+            "AS007:p0016",
+            "AS007:p0010",
+            "AS007:p0004",
+            "AS007:p0001",
+            "AS007:p0007",
+            "AS007:p0002",
+            "AS007:p0003",
+            "AS026:p0008",
+            "AS007:p0006",
+            "AS007:p0005"
+          ],
+          "step": 1
+        },
+        {
+          "key_source_rank": 7,
+          "kind": "documents",
+          "sources": [
+            "AS007:p0012",
+            "AS007:p0011",
+            "AS007:p0018",
+            "AS013:p0006",
+            "AS007:p0010",
+            "AS013:p0002",
+            "AS008:p0002",
+            "AS013:p0003",
+            "AS013:p0005",
+            "AS013:p0004",
+            "AS010:p0026",
+            "AS010:p0025",
+            "AS010:p0022",
+            "AS010:p0030",
+            "AS010:p0027",
+            "AS010:p0029",
+            "AS010:p0031",
+            "AS010:p0019",
+            "AS010:p0021",
+            "AS010:p0020"
+          ],
+          "step": 2
+        }
+      ],
+      "selected_sources": [
+        "AS008:p0001",
+        "AS008:p0002",
+        "AS014:p0001"
+      ],
+      "tools": {
+        "finish": 1,
+        "solve_subquery": 2
+      }
+    },
+    "B": {
+      "final_sources": [
+        "AS008:p0001",
+        "AS007:p0012",
+        "AS014:p0001",
+        "AS014:p0007",
+        "AS007:p0018",
+        "AS007:p0020",
+        "AS014:p0012",
+        "AS007:p0010"
+      ],
+      "key_source_in_final": false,
+      "key_source_initial_rank": 19,
+      "retrieval_seconds": 25.338760968000315,
+      "searches": [
+        {
+          "key_source_rank": 19,
+          "kind": "documents",
+          "sources": [
+            "AS014:p0001",
+            "AS014:p0007",
+            "AS014:p0012",
+            "AS014:p0006",
+            "AS014:p0005",
+            "AS014:p0008",
+            "AS014:p0009",
+            "AS008:p0001",
+            "AS014:p0010",
+            "AS014:p0003",
+            "AS014:p0013",
+            "AS014:p0004",
+            "AS014:p0016",
+            "AS014:p0002",
+            "AS014:p0011",
+            "AS014:p0015",
+            "AS014:p0014",
+            "AS014:p0017",
+            "AS008:p0002",
+            "AS008:p0005"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS008:p0001",
+            "AS007:p0012",
+            "AS007:p0018",
+            "AS007:p0010",
+            "AS007:p0011",
+            "AS007:p0016",
+            "AS007:p0020",
+            "AS007:p0008",
+            "AS007:p0017",
+            "AS007:p0014",
+            "AS007:p0031",
+            "AS007:p0033",
+            "AS007:p0013",
+            "AS007:p0021",
+            "AS007:p0029",
+            "AS007:p0030",
+            "AS007:p0019",
+            "AS007:p0032",
+            "AS007:p0027",
+            "AS007:p0009"
+          ],
+          "step": 1
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS007:p0012",
+            "AS007:p0018",
+            "AS007:p0011",
+            "AS007:p0017",
+            "AS007:p0014",
+            "AS007:p0008",
+            "AS007:p0009",
+            "AS007:p0020",
+            "AS007:p0016",
+            "AS007:p0010",
+            "AS007:p0015",
+            "AS013:p0006",
+            "AS013:p0002",
+            "AS013:p0003",
+            "AS007:p0013",
+            "AS013:p0005",
+            "AS007:p0019",
+            "AS013:p0004",
+            "AS013:p0001",
+            "AS010:p0021"
+          ],
+          "step": 2
+        },
+        {
+          "key_source_rank": 14,
+          "kind": "documents",
+          "sources": [
+            "AS007:p0012",
+            "AS007:p0020",
+            "AS007:p0014",
+            "AS007:p0018",
+            "AS007:p0008",
+            "AS007:p0011",
+            "AS007:p0017",
+            "AS007:p0013",
+            "AS007:p0009",
+            "AS007:p0010",
+            "AS007:p0015",
+            "AS007:p0019",
+            "AS007:p0016",
+            "AS008:p0002",
+            "AS013:p0002",
+            "AS013:p0003",
+            "AS013:p0005",
+            "AS013:p0006",
+            "AS013:p0001",
+            "AS013:p0004"
+          ],
+          "step": 3
+        }
+      ],
+      "selected_sources": [
+        "AS008:p0001",
+        "AS007:p0012",
+        "AS014:p0001"
+      ],
+      "tools": {
+        "finish": 1,
+        "search_evidence": 3
+      }
+    },
+    "category": "official_development",
+    "current": true,
+    "evidence_role": "최초 예약 신청 창구의 근거",
+    "flow_reason": "양쪽 초기 후보에 있었지만 통합 조건은 최종 문맥에서 제외하고 예약 변경 연락처를 선택했다. 후보 확보보다 역할 구분과 최종 선택의 손실이다.",
+    "id": "official_development:AS-DEV02",
+    "key_source": "AS008:p0002",
+    "reason_current": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "reason_unified": "최초 예약 신청 창구의 직접 근거가 부족하며 예약 변경 연락처로 대신했다.",
+    "unified": false
+  },
+  {
+    "A": {
+      "final_sources": [
+        "AS014:p0001",
+        "AS014:p0007",
+        "AS009:p0023",
+        "AS007:p0019",
+        "AS009:p0021",
+        "AS014:p0010",
+        "AS007:p0013",
+        "AS014:p0006"
+      ],
+      "key_source_in_final": false,
+      "key_source_initial_rank": 10,
+      "retrieval_seconds": 28.171248478000052,
+      "searches": [
+        {
+          "key_source_rank": 10,
+          "kind": "documents",
+          "sources": [
+            "AS009:p0023",
+            "AS007:p0019",
+            "AS009:p0021",
+            "AS007:p0013",
+            "AS009:p0053",
+            "AS014:p0001",
+            "AS009:p0031",
+            "AS014:p0007",
+            "AS014:p0010",
+            "AS009:p0052",
+            "AS014:p0004",
+            "AS014:p0003",
+            "AS014:p0015",
+            "AS014:p0022",
+            "AS014:p0008",
+            "AS014:p0017",
+            "AS014:p0002",
+            "AS010:p0049",
+            "AS014:p0011",
+            "AS010:p0031"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS014:p0001",
+            "AS014:p0007",
+            "AS014:p0010",
+            "AS007:p0019",
+            "AS014:p0006",
+            "AS014:p0004",
+            "AS014:p0009",
+            "AS014:p0012",
+            "AS007:p0012",
+            "AS014:p0015",
+            "AS014:p0014",
+            "AS014:p0008",
+            "AS007:p0010",
+            "AS014:p0005",
+            "AS014:p0017",
+            "AS014:p0003",
+            "AS014:p0016",
+            "AS014:p0013",
+            "AS014:p0002",
+            "AS014:p0011"
+          ],
+          "step": 1
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS009:p0023",
+            "AS007:p0013",
+            "AS007:p0019",
+            "AS007:p0012",
+            "AS007:p0018",
+            "AS014:p0007",
+            "AS014:p0001",
+            "AS007:p0011",
+            "AS007:p0010",
+            "AS014:p0004",
+            "AS014:p0017",
+            "AS014:p0006",
+            "AS014:p0002",
+            "AS014:p0014",
+            "AS014:p0005",
+            "AS014:p0011",
+            "AS014:p0015",
+            "AS014:p0003",
+            "AS009:p0007",
+            "AS009:p0001"
+          ],
+          "step": 2
+        }
+      ],
+      "selected_sources": [
+        "AS014:p0001",
+        "AS014:p0007",
+        "AS009:p0023",
+        "AS007:p0019"
+      ],
+      "tools": {
+        "finish": 1,
+        "solve_subquery": 2
+      }
+    },
+    "B": {
+      "final_sources": [
+        "AS014:p0001",
+        "AS009:p0052",
+        "AS009:p0023",
+        "AS007:p0019",
+        "AS009:p0022",
+        "AS009:p0021",
+        "AS009:p0063",
+        "AS007:p0013"
+      ],
+      "key_source_in_final": true,
+      "key_source_initial_rank": 10,
+      "retrieval_seconds": 19.969297968999854,
+      "searches": [
+        {
+          "key_source_rank": 10,
+          "kind": "documents",
+          "sources": [
+            "AS009:p0023",
+            "AS007:p0019",
+            "AS009:p0021",
+            "AS007:p0013",
+            "AS009:p0053",
+            "AS014:p0001",
+            "AS009:p0031",
+            "AS014:p0007",
+            "AS014:p0010",
+            "AS009:p0052",
+            "AS014:p0004",
+            "AS014:p0003",
+            "AS014:p0015",
+            "AS014:p0022",
+            "AS014:p0008",
+            "AS014:p0017",
+            "AS014:p0002",
+            "AS010:p0049",
+            "AS014:p0011",
+            "AS010:p0031"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": 3,
+          "kind": "documents",
+          "sources": [
+            "AS014:p0001",
+            "AS009:p0023",
+            "AS009:p0052",
+            "AS009:p0022",
+            "AS009:p0063",
+            "AS009:p0054",
+            "AS009:p0061",
+            "AS009:p0056",
+            "AS009:p0021",
+            "AS009:p0053",
+            "AS009:p0058",
+            "AS009:p0057",
+            "AS009:p0059",
+            "AS009:p0035",
+            "AS009:p0060",
+            "AS009:p0033",
+            "AS009:p0027",
+            "AS009:p0031",
+            "AS009:p0029",
+            "AS009:p0025"
+          ],
+          "step": 1
+        }
+      ],
+      "selected_sources": [
+        "AS014:p0001",
+        "AS009:p0052",
+        "AS009:p0023"
+      ],
+      "tools": {
+        "finish": 1,
+        "search_evidence": 1
+      }
+    },
+    "category": "official_development",
+    "current": false,
+    "evidence_role": "SI 정정 메일의 필수 제출 내용",
+    "flow_reason": "양쪽 초기 후보에 있었다. 통합 조건은 후속 문서 검색에서 다시 찾고 최종 출처로 선택했으며, 기존 조건은 최종 문맥에서 놓쳤다.",
+    "id": "official_development:AS-DEV09",
+    "key_source": "AS009:p0052",
+    "reason_current": "SI 정정 메일의 예약 식별정보·첨부자료 등 필수 제출 내용이 부족하다.",
+    "reason_unified": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "unified": true
+  },
+  {
+    "A": {
+      "final_sources": [
+        "AS007:p0012",
+        "AS009:p0023",
+        "AS009:p0022",
+        "AS009:p0005",
+        "AS013:p0006",
+        "AS009:p0021",
+        "AS007:p0017",
+        "AS009:p0028"
+      ],
+      "key_source_in_final": false,
+      "key_source_initial_rank": null,
+      "retrieval_seconds": 18.04653276600004,
+      "searches": [
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS009:p0023",
+            "AS009:p0022",
+            "AS009:p0021",
+            "AS009:p0028",
+            "AS009:p0024",
+            "AS009:p0035",
+            "AS009:p0034",
+            "AS009:p0026",
+            "AS009:p0030",
+            "AS009:p0036",
+            "AS009:p0032",
+            "AS009:p0027",
+            "AS009:p0033",
+            "AS009:p0025",
+            "AS009:p0031",
+            "AS009:p0029",
+            "AS009:p0040",
+            "AS009:p0038",
+            "AS009:p0048",
+            "AS009:p0042"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS007:p0012",
+            "AS009:p0023",
+            "AS009:p0005",
+            "AS013:p0006",
+            "AS009:p0034",
+            "AS009:p0030",
+            "AS009:p0027",
+            "AS009:p0025",
+            "AS009:p0029",
+            "AS009:p0031",
+            "AS009:p0038",
+            "AS007:p0018",
+            "AS009:p0022",
+            "AS009:p0021",
+            "AS009:p0054",
+            "AS009:p0002",
+            "AS009:p0033",
+            "AS013:p0005",
+            "AS009:p0053",
+            "AS009:p0052"
+          ],
+          "step": 1
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS013:p0006",
+            "AS007:p0017",
+            "AS007:p0011",
+            "AS007:p0019",
+            "AS007:p0013",
+            "AS007:p0018",
+            "AS007:p0012",
+            "AS009:p0023",
+            "AS009:p0054",
+            "AS009:p0053",
+            "AS009:p0022",
+            "AS009:p0026",
+            "AS009:p0024",
+            "AS009:p0027",
+            "AS009:p0029",
+            "AS009:p0033",
+            "AS009:p0025",
+            "AS009:p0035",
+            "AS009:p0021",
+            "AS009:p0031"
+          ],
+          "step": 2
+        }
+      ],
+      "selected_sources": [
+        "AS007:p0012",
+        "AS009:p0023"
+      ],
+      "tools": {
+        "finish": 1,
+        "solve_subquery": 2
+      }
+    },
+    "B": {
+      "final_sources": [
+        "AS008:p0008",
+        "AS009:p0054",
+        "AS009:p0023",
+        "AS009:p0022",
+        "AS009:p0021",
+        "AS009:p0035",
+        "AS008:p0002",
+        "AS009:p0028"
+      ],
+      "key_source_in_final": true,
+      "key_source_initial_rank": null,
+      "retrieval_seconds": 15.042610365999963,
+      "searches": [
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS009:p0023",
+            "AS009:p0022",
+            "AS009:p0021",
+            "AS009:p0028",
+            "AS009:p0024",
+            "AS009:p0035",
+            "AS009:p0034",
+            "AS009:p0026",
+            "AS009:p0030",
+            "AS009:p0036",
+            "AS009:p0032",
+            "AS009:p0027",
+            "AS009:p0033",
+            "AS009:p0025",
+            "AS009:p0031",
+            "AS009:p0029",
+            "AS009:p0040",
+            "AS009:p0038",
+            "AS009:p0048",
+            "AS009:p0042"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS009:p0035",
+            "AS009:p0034",
+            "AS009:p0022",
+            "AS009:p0028",
+            "AS009:p0026",
+            "AS009:p0036",
+            "AS009:p0030",
+            "AS009:p0032",
+            "AS009:p0023",
+            "AS009:p0025",
+            "AS009:p0027",
+            "AS009:p0033",
+            "AS009:p0021",
+            "AS009:p0031",
+            "AS009:p0029",
+            "AS009:p0050",
+            "AS009:p0048",
+            "AS009:p0038",
+            "AS009:p0041",
+            "AS009:p0051"
+          ],
+          "step": 1
+        },
+        {
+          "key_source_rank": 1,
+          "kind": "documents",
+          "sources": [
+            "AS008:p0008",
+            "AS008:p0002",
+            "AS030:p0078",
+            "AS009:p0054",
+            "AS016:p0038",
+            "AS011:p0026",
+            "AS009:p0042",
+            "AS009:p0040",
+            "AS009:p0038",
+            "AS009:p0034",
+            "AS009:p0028",
+            "AS009:p0022",
+            "AS009:p0032",
+            "AS009:p0026",
+            "AS009:p0024",
+            "AS009:p0036",
+            "AS009:p0030",
+            "AS016:p0029",
+            "AS029:p0071",
+            "AS008:p0027"
+          ],
+          "step": 2
+        }
+      ],
+      "selected_sources": [
+        "AS008:p0008",
+        "AS009:p0054",
+        "AS009:p0023",
+        "AS009:p0022"
+      ],
+      "tools": {
+        "finish": 1,
+        "search_evidence": 2
+      }
+    },
+    "category": "semantic_queries/cross_document_workflow",
+    "current": false,
+    "evidence_role": "장비 배정 변경의 요청 정보와 절차",
+    "flow_reason": "양쪽 초기 후보에는 없었다. 통합 조건의 두 번째 후속 문서 검색이 확보해 보존했다. 기존 조건은 중량 정정과 일반 연락처에 머물렀다.",
+    "id": "semantic_queries:AS-SEM-22",
+    "key_source": "AS008:p0008",
+    "reason_current": "중량 정정은 확보했으나 장비 배정 변경의 요청 정보·절차가 빠졌다.",
+    "reason_unified": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "unified": true
+  },
+  {
+    "A": {
+      "final_sources": [
+        "AS014:p0001",
+        "AS014:p0005",
+        "AS007:p0019",
+        "AS011:p0002",
+        "AS008:p0001",
+        "AS007:p0018",
+        "AS007:p0008",
+        "AS007:p0013"
+      ],
+      "key_source_in_final": false,
+      "key_source_initial_rank": null,
+      "retrieval_seconds": 32.239567479000016,
+      "searches": [
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS014:p0001",
+            "AS008:p0001",
+            "AS008:p0007",
+            "AS007:p0018",
+            "AS007:p0016",
+            "AS007:p0010",
+            "AS014:p0017",
+            "AS007:p0017",
+            "AS007:p0012",
+            "AS007:p0001",
+            "AS007:p0031",
+            "AS009:p0021",
+            "AS009:p0022",
+            "AS009:p0034",
+            "AS009:p0024",
+            "AS009:p0028",
+            "AS009:p0032",
+            "AS009:p0030",
+            "AS009:p0026",
+            "AS018:p0061"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS007:p0018",
+            "AS007:p0011",
+            "AS007:p0010",
+            "AS007:p0012",
+            "AS014:p0001",
+            "AS014:p0013",
+            "AS014:p0005",
+            "AS014:p0010",
+            "AS014:p0012",
+            "AS014:p0014",
+            "AS008:p0007",
+            "AS014:p0015",
+            "AS014:p0004",
+            "AS014:p0006",
+            "AS014:p0008",
+            "AS014:p0016",
+            "AS014:p0007",
+            "AS014:p0002",
+            "AS014:p0017",
+            "AS014:p0011"
+          ],
+          "step": 1
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS011:p0002",
+            "AS007:p0008",
+            "AS007:p0014",
+            "AS007:p0020",
+            "AS011:p0001",
+            "AS011:p0003",
+            "AS011:p0015",
+            "AS011:p0013",
+            "AS011:p0007",
+            "AS007:p0009",
+            "AS011:p0031",
+            "AS011:p0005",
+            "AS007:p0010",
+            "AS007:p0012",
+            "AS008:p0007",
+            "AS016:p0056",
+            "AS016:p0064",
+            "AS046:p0080",
+            "AS016:p0066",
+            "AS018:p0061"
+          ],
+          "step": 2
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS007:p0019",
+            "AS007:p0013",
+            "AS007:p0008",
+            "AS007:p0020",
+            "AS007:p0014",
+            "AS007:p0012",
+            "AS007:p0011",
+            "AS007:p0018",
+            "AS007:p0010",
+            "AS009:p0023",
+            "AS009:p0021",
+            "AS009:p0024",
+            "AS009:p0026",
+            "AS009:p0022",
+            "AS009:p0025",
+            "AS009:p0027",
+            "AS009:p0035",
+            "AS009:p0031",
+            "AS009:p0029",
+            "AS009:p0033"
+          ],
+          "step": 3
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS007:p0008",
+            "AS007:p0014",
+            "AS007:p0020",
+            "AS007:p0019",
+            "AS007:p0013",
+            "AS007:p0018",
+            "AS007:p0012",
+            "AS007:p0011",
+            "AS007:p0017",
+            "AS007:p0015",
+            "AS007:p0009",
+            "AS007:p0010",
+            "AS007:p0016",
+            "AS013:p0006",
+            "AS013:p0002",
+            "AS013:p0001",
+            "AS009:p0026",
+            "AS009:p0022",
+            "AS009:p0024",
+            "AS009:p0028"
+          ],
+          "step": 4
+        }
+      ],
+      "selected_sources": [
+        "AS014:p0001",
+        "AS014:p0005",
+        "AS007:p0019",
+        "AS011:p0002"
+      ],
+      "tools": {
+        "finish": 1,
+        "solve_subquery": 4
+      }
+    },
+    "B": {
+      "final_sources": [
+        "AS014:p0001",
+        "AS010:p0054",
+        "AS011:p0002",
+        "AS008:p0001",
+        "AS014:p0010",
+        "AS011:p0016",
+        "AS013:p0002",
+        "AS010:p0032"
+      ],
+      "key_source_in_final": true,
+      "key_source_initial_rank": null,
+      "retrieval_seconds": 26.558670686000028,
+      "searches": [
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS014:p0001",
+            "AS008:p0001",
+            "AS008:p0007",
+            "AS007:p0018",
+            "AS007:p0016",
+            "AS007:p0010",
+            "AS014:p0017",
+            "AS007:p0017",
+            "AS007:p0012",
+            "AS007:p0001",
+            "AS007:p0031",
+            "AS009:p0021",
+            "AS009:p0022",
+            "AS009:p0034",
+            "AS009:p0024",
+            "AS009:p0028",
+            "AS009:p0032",
+            "AS009:p0030",
+            "AS009:p0026",
+            "AS018:p0061"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS014:p0001",
+            "AS014:p0010",
+            "AS014:p0013",
+            "AS014:p0008",
+            "AS014:p0012",
+            "AS014:p0005",
+            "AS008:p0007",
+            "AS007:p0018",
+            "AS014:p0006",
+            "AS014:p0009",
+            "AS014:p0003",
+            "AS014:p0017",
+            "AS014:p0002",
+            "AS014:p0016",
+            "AS007:p0010",
+            "AS014:p0015",
+            "AS014:p0004",
+            "AS014:p0007",
+            "AS014:p0014",
+            "AS014:p0011"
+          ],
+          "step": 1
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS011:p0002",
+            "AS011:p0016",
+            "AS011:p0015",
+            "AS011:p0013",
+            "AS011:p0010",
+            "AS011:p0001",
+            "AS011:p0014",
+            "AS007:p0009",
+            "AS011:p0012",
+            "AS011:p0008",
+            "AS011:p0007",
+            "AS011:p0004",
+            "AS011:p0006",
+            "AS007:p0014",
+            "AS007:p0015",
+            "AS011:p0009",
+            "AS013:p0003",
+            "AS013:p0002",
+            "AS007:p0008",
+            "AS007:p0020"
+          ],
+          "step": 2
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS013:p0002",
+            "AS007:p0008",
+            "AS007:p0013",
+            "AS013:p0001",
+            "AS007:p0019",
+            "AS007:p0020",
+            "AS007:p0014",
+            "AS009:p0034",
+            "AS009:p0026",
+            "AS009:p0028",
+            "AS009:p0030",
+            "AS009:p0027",
+            "AS009:p0022",
+            "AS009:p0025",
+            "AS009:p0024",
+            "AS009:p0023",
+            "AS009:p0036",
+            "AS009:p0021",
+            "AS009:p0032",
+            "AS009:p0029"
+          ],
+          "step": 3
+        },
+        {
+          "key_source_rank": 1,
+          "kind": "documents",
+          "sources": [
+            "AS010:p0054",
+            "AS010:p0032",
+            "AS010:p0022",
+            "AS010:p0024",
+            "AS010:p0026",
+            "AS010:p0020",
+            "AS010:p0030",
+            "AS010:p0056",
+            "AS010:p0028",
+            "AS010:p0049",
+            "AS010:p0021",
+            "AS010:p0031",
+            "AS010:p0055",
+            "AS010:p0025",
+            "AS010:p0029",
+            "AS010:p0027",
+            "AS014:p0019",
+            "AS010:p0002",
+            "AS014:p0026",
+            "AS014:p0018"
+          ],
+          "step": 4
+        }
+      ],
+      "selected_sources": [
+        "AS014:p0001",
+        "AS010:p0054",
+        "AS011:p0002"
+      ],
+      "tools": {
+        "finish": 1,
+        "search_evidence": 4
+      }
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "current": false,
+    "evidence_role": "기존 VGM 기록의 정정 경로",
+    "flow_reason": "양쪽 초기 후보에는 없었다. 통합 조건의 네 번째 후속 문서 검색에서 확보했다. 기존 조건은 SI 마감과 반입 회신은 찾았으나 해당 경로가 빠졌다.",
+    "id": "semantic_queries:AS-SEM-31",
+    "key_source": "AS010:p0054",
+    "reason_current": "SI 기한과 반입 회신은 있으나 기존 VGM 정정 경로가 빠졌다.",
+    "reason_unified": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "unified": true
+  },
+  {
+    "A": {
+      "final_sources": [
+        "AS044:p0009",
+        "AS043:p0011",
+        "AS025:p0047",
+        "AS025:p0033",
+        "AS051:p0033",
+        "AS025:p0057",
+        "AS051:p0020",
+        "AS025:p0055"
+      ],
+      "key_source_in_final": false,
+      "key_source_initial_rank": 9,
+      "retrieval_seconds": 27.71873194400007,
+      "searches": [
+        {
+          "key_source_rank": 9,
+          "kind": "documents",
+          "sources": [
+            "AS025:p0047",
+            "AS044:p0009",
+            "AS043:p0011",
+            "AS025:p0033",
+            "AS025:p0038",
+            "AS025:p0041",
+            "AS025:p0007",
+            "AS025:p0037",
+            "AS051:p0001",
+            "AS025:p0040",
+            "AS043:p0015",
+            "AS025:p0016",
+            "AS050:p0070",
+            "AS047:p0003",
+            "AS051:p0036",
+            "AS051:p0040",
+            "AS049:p0071",
+            "AS049:p0005",
+            "AS045:p0060",
+            "AS055:p0033"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": 14,
+          "kind": "documents",
+          "sources": [
+            "AS044:p0009",
+            "AS043:p0011",
+            "AS025:p0047",
+            "AS051:p0033",
+            "AS044:p0010",
+            "AS044:p0018",
+            "AS044:p0021",
+            "AS025:p0041",
+            "AS041:p0010",
+            "AS052:p0023",
+            "AS044:p0015",
+            "AS043:p0071",
+            "AS051:p0020",
+            "AS051:p0001",
+            "AS052:p0039",
+            "AS053:p0052",
+            "AS050:p0021",
+            "AS052:p0055",
+            "AS053:p0037",
+            "AS041:p0026"
+          ],
+          "step": 1
+        },
+        {
+          "key_source_rank": 17,
+          "kind": "documents",
+          "sources": [
+            "AS044:p0009",
+            "AS025:p0047",
+            "AS025:p0057",
+            "AS025:p0054",
+            "AS025:p0048",
+            "AS025:p0055",
+            "AS025:p0058",
+            "AS025:p0050",
+            "AS043:p0011",
+            "AS025:p0053",
+            "AS025:p0018",
+            "AS051:p0020",
+            "AS047:p0027",
+            "AS047:p0023",
+            "AS051:p0002",
+            "AS050:p0021",
+            "AS051:p0001",
+            "AS051:p0019",
+            "AS041:p0010",
+            "AS052:p0023"
+          ],
+          "step": 2
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS044:p0009",
+            "AS043:p0011",
+            "AS051:p0020",
+            "AS025:p0047",
+            "AS025:p0056",
+            "AS025:p0055",
+            "AS047:p0023",
+            "AS025:p0057",
+            "AS050:p0021",
+            "AS025:p0058",
+            "AS025:p0048",
+            "AS025:p0018",
+            "AS025:p0050",
+            "AS043:p0085",
+            "AS049:p0056",
+            "AS052:p0023",
+            "AS053:p0037",
+            "AS046:p0006",
+            "AS049:p0051",
+            "AS049:p0039"
+          ],
+          "step": 3
+        },
+        {
+          "key_source_rank": null,
+          "kind": "documents",
+          "sources": [
+            "AS044:p0009",
+            "AS025:p0055",
+            "AS043:p0011",
+            "AS025:p0047",
+            "AS051:p0020",
+            "AS025:p0058",
+            "AS025:p0018",
+            "AS025:p0048",
+            "AS047:p0023",
+            "AS041:p0010",
+            "AS051:p0033",
+            "AS049:p0056",
+            "AS052:p0023",
+            "AS052:p0055",
+            "AS052:p0036",
+            "AS053:p0037",
+            "AS051:p0036",
+            "AS053:p0052",
+            "AS051:p0035",
+            "AS051:p0037"
+          ],
+          "step": 4
+        }
+      ],
+      "selected_sources": [
+        "AS044:p0009",
+        "AS043:p0011",
+        "AS025:p0047"
+      ],
+      "tools": {
+        "finish": 1,
+        "solve_subquery": 4
+      }
+    },
+    "B": {
+      "final_sources": [
+        "AS025:p0033",
+        "AS025:p0047",
+        "AS051:p0001",
+        "AS044:p0009",
+        "AS025:p0057",
+        "AS043:p0011",
+        "AS052:p0061",
+        "AS025:p0038"
+      ],
+      "key_source_in_final": true,
+      "key_source_initial_rank": 9,
+      "retrieval_seconds": 15.653211116999955,
+      "searches": [
+        {
+          "key_source_rank": 9,
+          "kind": "documents",
+          "sources": [
+            "AS025:p0047",
+            "AS044:p0009",
+            "AS043:p0011",
+            "AS025:p0033",
+            "AS025:p0038",
+            "AS025:p0041",
+            "AS025:p0007",
+            "AS025:p0037",
+            "AS051:p0001",
+            "AS025:p0040",
+            "AS043:p0015",
+            "AS025:p0016",
+            "AS050:p0070",
+            "AS047:p0003",
+            "AS051:p0036",
+            "AS051:p0040",
+            "AS049:p0071",
+            "AS049:p0005",
+            "AS045:p0060",
+            "AS055:p0033"
+          ],
+          "step": 0
+        },
+        {
+          "key_source_rank": 4,
+          "kind": "documents",
+          "sources": [
+            "AS025:p0047",
+            "AS025:p0057",
+            "AS052:p0061",
+            "AS051:p0001",
+            "AS025:p0033",
+            "AS052:p0012",
+            "AS052:p0009",
+            "AS052:p0042",
+            "AS052:p0051",
+            "AS052:p0053",
+            "AS052:p0023",
+            "AS052:p0050",
+            "AS052:p0049",
+            "AS052:p0052",
+            "AS052:p0039",
+            "AS052:p0001",
+            "AS052:p0005",
+            "AS052:p0003",
+            "AS052:p0007",
+            "AS051:p0041"
+          ],
+          "step": 1
+        }
+      ],
+      "selected_sources": [
+        "AS025:p0033",
+        "AS025:p0047",
+        "AS051:p0001"
+      ],
+      "tools": {
+        "finish": 1,
+        "read_sources": 1,
+        "search_evidence": 1
+      }
+    },
+    "category": "semantic_queries/cross_document_rule",
+    "current": false,
+    "evidence_role": "미발행 계산 초안과 유효 발행 통지의 관계",
+    "flow_reason": "양쪽 초기 후보에 있었다. 통합 조건은 후속 검색과 원본 읽기를 거쳐 해당 출처를 선택했다. 기존 조건은 감액 대체 관련 근거에 집중하면서 최종 문맥에서 제외했다.",
+    "id": "semantic_queries:AS-SEM-37",
+    "key_source": "AS051:p0001",
+    "reason_current": "감액 대체는 확보했으나 미발행 계산 초안과 유효 발행 통지의 관계가 빠졌다.",
+    "reason_unified": "동일 대상 또는 해당 적용 범위의 반환 원문으로 질문의 필수 요구를 충족한다.",
+    "unified": true
+  }
+]

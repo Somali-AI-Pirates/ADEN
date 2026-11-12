@@ -1,0 +1,20 @@
+{
+  "review": "self-review; independent agents prohibited",
+  "checked": [
+    "A retains search-first result ordering",
+    "B skips initial search only with unique complete-code original sources",
+    "identical planner instructions and tools",
+    "unknown and ambiguous targets retain hybrid fallback",
+    "DB faults are not swallowed",
+    "no label access in retrieval"
+  ],
+  "file_hashes": {
+    "experimental/u_10o0o/table_rag_unified/agent.py": "496b5899d314c3f59674e2917e3fa3a9e6e808caa756dcc1d4021dbd804ee6fb",
+    "experimental/u_10o0o/table_rag_unified/test_db_first.py": "855dcf2281fbe7fc3f70b8edde00fd1372f209ca286fdb3ad40cb2b16ad5061e",
+    "experimental/u_10o0o/table_rag_unified/__main__.py": "bdd669a37f35a23f45b34f440b6b8aedb535ab569a21419c0a759b05997d5ba0",
+    "experimental/u_10o0o/table_rag_unified/index.py": "43e0e4d1e83cf41cbbb4b8478dd18b087fabcbb2b54496d19ffd668bf37f802f",
+    "experimental/u_10o0o/table_rag_unified/__init__.py": "fb80a87dc982467efa1bb14f3c2786a8accf3678ca7b23dade48ed66f58dc725",
+    "experimental/u_10o0o/table_rag_unified/test_unified.py": "023641a6ae47c45e84c1910d309eae410f09771bc728855327e20825432ab7b2",
+    "experimental/u_10o0o/records/advanced-table-rag-db-first-20261112/run_benchmark.py": "250a8fcb05afe090b3739c5db8b2927519d3ec7edc2ffbc1f745d5d56d8e6813"
+  }
+}

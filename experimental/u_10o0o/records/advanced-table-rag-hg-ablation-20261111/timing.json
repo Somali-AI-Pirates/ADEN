@@ -1,0 +1,84 @@
+{
+  "A": {
+    "api_per_question": {
+      "p50": 4.910241015502834,
+      "p95": 19.37382308005877
+    },
+    "api_status": {
+      "complete": 488
+    },
+    "end_to_end": {
+      "p50": 6.18368349800221,
+      "p95": 23.612061335399968
+    },
+    "finish": {
+      "insufficient": 17,
+      "needs_clarification": 14,
+      "sufficient": 247
+    },
+    "hg_per_question": {
+      "p50": 0.003987747495557414,
+      "p95": 0.010425452500905399
+    },
+    "hg_per_search": {
+      "p50": 0.0024258089979412034,
+      "p95": 0.004186149999441113
+    },
+    "n": 278,
+    "planner_calls": 488,
+    "search_calls": 481,
+    "search_per_question": {
+      "p50": 1.3859686524992867,
+      "p95": 5.044533652957494
+    },
+    "sql_calls": 22,
+    "sql_kept": 22,
+    "sql_ok": 22,
+    "usage": {
+      "input_tokens": 5889080,
+      "output_tokens": 134742,
+      "reasoning_tokens": 49691
+    }
+  },
+  "B": {
+    "api_per_question": {
+      "p50": 7.157037038003182,
+      "p95": 19.82033806845062
+    },
+    "api_status": {
+      "complete": 556
+    },
+    "end_to_end": {
+      "p50": 9.223593770999287,
+      "p95": 24.56432918440128
+    },
+    "finish": {
+      "insufficient": 19,
+      "needs_clarification": 19,
+      "sufficient": 240
+    },
+    "hg_per_question": {
+      "p50": 3.851000656140968e-06,
+      "p95": 9.018505318181266e-06
+    },
+    "hg_per_search": {
+      "p50": 2.115004463121295e-06,
+      "p95": 2.895804936997592e-06
+    },
+    "n": 278,
+    "planner_calls": 556,
+    "search_calls": 543,
+    "search_per_question": {
+      "p50": 1.8426356359996134,
+      "p95": 5.304926045057436
+    },
+    "sql_calls": 20,
+    "sql_kept": 19,
+    "sql_ok": 19,
+    "usage": {
+      "input_tokens": 6968175,
+      "output_tokens": 150186,
+      "reasoning_tokens": 54480
+    }
+  }
+}

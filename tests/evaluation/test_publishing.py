@@ -83,6 +83,10 @@ def test_a_set_accepts_only_the_same_conditions_and_new_requests(tmp_path):
     assert plan_publication(v2, evaluation_set="dev-v2", artifacts_dir=tmp_path)["evaluation_set"] == "dev-v2"
     with pytest.raises(ValueError, match="세트 이름"):
         plan_publication(manifest, evaluation_set="dev.v1")
+    # 같은 프롬프트라도 Judge 출력 스키마가 바뀌면(기록 없음 = v1) 다른 채점 조건이다
+    schema_v2 = other | {"benchmark": {**manifest["benchmark"], "judge_schema": "judge-output-v2"}}
+    with pytest.raises(ValueError, match="다른 채점 조건"):
+        plan_publication(schema_v2, evaluation_set="dev-v1", artifacts_dir=tmp_path, request_ids=["r3"])
 
 
 def test_publication_failure_does_not_destroy_local_scores():

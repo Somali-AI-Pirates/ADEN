@@ -1,0 +1,12 @@
+{
+  "adjudications_sha256": "89ad51b78bcb780581dd55783f948f0c33eb417ce2cfd701071addf4a6551d1c",
+  "all_required_checked": true,
+  "assistant_checked_or_exact_reuse": 72,
+  "exact_reused_outputs": 56,
+  "independent_human_review": false,
+  "model_plus_source_checks": 164,
+  "review_inputs_sha256": "be1c476ec5776733a2b3a67553a8b4550c33ac707eed898be5e27e0ce2e09c97",
+  "reviewed_outputs": 236,
+  "scope": "All official contexts, symmetric category strict misses and prior ambiguous cases",
+  "source_quote_hash_checks": true
+}

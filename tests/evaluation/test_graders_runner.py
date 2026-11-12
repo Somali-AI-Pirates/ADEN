@@ -82,15 +82,95 @@ def test_grader_call_failures_are_unavailable_not_scores():
     assert bad["judge"]["fact"]["reason"].startswith("Judge 출력 파싱 실패")
 
 
-def test_missing_fact_stays_zero_and_bad_items_unavailable():
-    crit, _ = parse_judge_output(json.dumps({"criteria": {
-        "fact": {"score": 0, "status": "scored", "reason": "필수 사실 누락"},
-        "condition": {"score": 0.5, "status": "scored"},
-        "evidence": {"score": None, "status": "not_applicable", "reason": "인용 요구 없음"}}}))
-    assert crit["fact"]["value"] == 0.0
-    assert crit["condition"]["status"] == "unavailable"
-    assert crit["evidence"]["status"] == "not_applicable"
-    assert crit["decision"]["status"] == "unavailable"
+def judge_json(claims=True, checks=(), **crit):
+    criteria = {k: {"score": 1, "status": "scored", "reason": "ok"}
+                for k in ("fact", "condition", "evidence", "decision")}
+    criteria.update(crit)
+    return json.dumps({"has_factual_claims": claims, "criteria": criteria,
+                       "calculation_checks": list(checks)})
+
+
+def test_valid_output_keeps_zero_and_not_applicable():
+    crit, claims, calc = parse_judge_output(judge_json(
+        fact={"score": 0, "status": "scored", "reason": "필수 사실 누락"},
+        evidence={"score": None, "status": "not_applicable", "reason": "인용 요구 없음"}))
+    assert crit["fact"] == {"value": 0.0, "status": "scored", "reason": "필수 사실 누락"}
+    assert crit["evidence"]["status"] == "not_applicable" and claims is True
+    assert calc["status"] == "not_applicable"  # 검산 요청 없음은 빈 배열
+
+
+@pytest.mark.parametrize("bad, message", [
+    ({"condition": {"score": 0.5, "status": "scored", "reason": "x"}}, "condition.score"),
+    ({"fact": {"score": True, "status": "scored", "reason": "x"}}, "fact.score"),  # bool은 점수가 아니다
+    ({"fact": {"score": None, "status": "scored", "reason": "x"}}, "fact.score"),
+    ({"evidence": {"score": 1, "status": "not_applicable", "reason": "x"}}, "evidence.score"),
+    ({"decision": {"score": 1, "status": "done", "reason": "x"}}, "decision.status"),
+    ({"fact": {"score": 1, "status": "scored", "reason": " "}}, "fact.reason"),
+    ({"decision": "1"}, "decision 항목 없음"),
+])
+def test_structure_errors_make_all_four_unavailable_with_reason(bad, message):
+    crit, claims, _ = parse_judge_output(judge_json(**bad))
+    assert claims is None
+    for item in crit.values():
+        assert item["status"] == "unavailable" and item["value"] is None
+        assert item["reason"].startswith("Judge 출력 구조 오류") and message in item["reason"]
+
+
+def test_has_factual_claims_and_criteria_are_required():
+    no_claims = json.loads(judge_json())
+    del no_claims["has_factual_claims"]
+    crit, claims, _ = parse_judge_output(json.dumps(no_claims))
+    assert claims is None and "has_factual_claims" in crit["fact"]["reason"]
+    crit, _, _ = parse_judge_output(json.dumps({"has_factual_claims": "true"}))
+    assert "criteria 객체 없음" in crit["decision"]["reason"]
+
+
+CHECK = {"target": "보관료", "status": "complete", "missing_evidence": [],
+         "supporting_source_ids": ["S1"], "reason": "규칙·사건·요율로 계산"}
+
+
+def test_calculation_checks_are_validated_separately_from_scores():
+    crit, _, calc = parse_judge_output(judge_json(checks=[CHECK]), {"S1"})
+    assert calc["status"] == "complete" and calc["items"][0]["supporting_source_ids"] == ["S1"]
+    # 문맥에 없는 근거 ID는 진단만 평가 불가로 두고 네 점수는 그대로 둔다
+    crit, _, calc = parse_judge_output(judge_json(checks=[CHECK]), {"S2"})
+    assert crit["fact"]["value"] == 1.0
+    assert calc["status"] == "unavailable" and "실제 제공 문맥에 없음" in calc["reason"]
+    missing = {**CHECK, "status": "incomplete", "missing_evidence": ["산입 규칙"], "supporting_source_ids": []}
+    _, _, calc = parse_judge_output(judge_json(checks=[CHECK, missing]), {"S1"})
+    assert calc["status"] == "incomplete" and calc["items"][1]["missing_evidence"] == ["산입 규칙"]
+
+
+@pytest.mark.parametrize("check, message", [
+    ({**CHECK, "missing_evidence": ["요율"]}, "complete는"),
+    ({**CHECK, "supporting_source_ids": []}, "complete는"),
+    ({**CHECK, "status": "incomplete"}, "incomplete는"),
+    ({**CHECK, "status": "not_applicable"}, "not_applicable에는"),
+    ({**CHECK, "status": "done"}, ".status"),
+    ({**CHECK, "missing_evidence": "요율"}, "문자열 배열"),
+    ({**CHECK, "target": ""}, ".target"),
+])
+def test_inconsistent_calculation_checks_are_unavailable(check, message):
+    _, _, calc = parse_judge_output(judge_json(checks=[check]), {"S1"})
+    assert calc["status"] == "unavailable" and message in calc["reason"]
+
+
+def test_missing_calculation_checks_do_not_invalidate_scores():
+    old = json.loads(judge_json())
+    del old["calculation_checks"]  # 이전 기준(v2) 출력
+    crit, claims, calc = parse_judge_output(json.dumps(old))
+    assert crit["fact"]["value"] == 1.0 and claims is True
+    assert calc == {"status": "unavailable", "reason": "Judge 출력에 calculation_checks 없음", "items": []}
+
+
+def test_grade_record_checks_source_ids_against_final_context():
+    def judge(prompt):
+        return {"text": judge_json(checks=[CHECK])}
+
+    s = grade(record(), judge, None)
+    assert s["calculation_checks"]["status"] == "complete"  # FINAL의 S1
+    err = grade(record(status="error", answer=None, reason=None, error_type="t"), None, None)
+    assert err["calculation_checks"]["status"] == "unavailable"
 
 
 def test_judge_prompt_gets_reference_but_service_does_not():

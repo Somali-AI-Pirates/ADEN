@@ -1,0 +1,85 @@
+{
+  "answer_status": {
+    "baseline": {
+      "complete": 280
+    },
+    "workflow": {
+      "complete": 280
+    }
+  },
+  "api_seconds_per_question": {
+    "n": 280,
+    "p50": 30.60422378650219,
+    "p95": 73.2114179560953
+  },
+  "calls": 1369,
+  "dropped_claims": 0,
+  "invalid_supports": 27,
+  "local_search_seconds_per_question_including_lock_queue": {
+    "n": 280,
+    "p50": 3.0045919604981464,
+    "p95": 7.056515240349291
+  },
+  "more_than_eight_provenance_pages": 1,
+  "retrieval_api_calls_per_question": 4.889285714285714,
+  "retrieval_plus_answer_seconds": {
+    "n": 280,
+    "p50": 38.600946692000434,
+    "p95": 85.90899466149878
+  },
+  "retrieval_seconds": {
+    "n": 280,
+    "p50": 34.95313678149796,
+    "p95": 78.79212783659825
+  },
+  "runtime_complete": 211,
+  "runtime_complete_but_reference_missing": 15,
+  "searches": 643,
+  "sql": {
+    "ok": 287,
+    "rejected": 1,
+    "sql_error": 8
+  },
+  "stages": {
+    "intermediate": {
+      "calls": 363,
+      "seconds": {
+        "n": 363,
+        "p50": 8.978865451001184,
+        "p95": 17.359805929298446
+      },
+      "status": {
+        "complete": 363
+      }
+    },
+    "plan": {
+      "calls": 643,
+      "seconds": {
+        "n": 643,
+        "p50": 3.02370639199944,
+        "p95": 5.948816762201022
+      },
+      "status": {
+        "complete": 643
+      }
+    },
+    "sql": {
+      "calls": 363,
+      "seconds": {
+        "n": 363,
+        "p50": 10.67457159300102,
+        "p95": 25.012418006797816
+      },
+      "status": {
+        "complete": 354,
+        "timeout": 9
+      }
+    }
+  },
+  "usage": {
+    "cached_input_tokens": 2761540,
+    "input_tokens": 10987368,
+    "output_tokens": 867388,
+    "reasoning_tokens": 422803
+  }
+}

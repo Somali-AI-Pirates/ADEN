@@ -1,0 +1,2401 @@
+[
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-26",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0011",
+      "AS007:p0013",
+      "AS009:p0054",
+      "AS012:p0033",
+      "AS013:p0005",
+      "AS013:p0007",
+      "AS013:p0018",
+      "AS014:p0052"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-18",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS006:p0006",
+      "AS006:p0048",
+      "AS017:p0040",
+      "AS017:p0041",
+      "AS017:p0043",
+      "AS017:p0050",
+      "AS025:p0001",
+      "AS025:p0007"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "scenarios:AS-S02-17",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS054:p0134",
+      "AS082:p0072",
+      "AS087:p0083",
+      "AS090:p0079",
+      "AS107:p0087",
+      "AS109:p0087",
+      "AS114:p0075",
+      "AS119:p0025"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "work_rules:AS-WR-20",
+    "independent_human_review": false,
+    "reason": "최종 문맥에 고객 메모와 내부 준비 메모를 승인 정정으로 채택하지 않는 원문이 있다. 모델 검수에서 놓친 이 대체 근거를 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS016:p0001",
+      "AS017:p0044",
+      "AS017:p0049",
+      "AS017:p0059",
+      "AS023:p0001",
+      "AS023:p0021",
+      "AS023:p0062",
+      "AS046:p0010"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD25",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS022:p0137",
+      "AS033:p0131",
+      "AS109:p0024",
+      "AS109:p0040",
+      "AS109:p0101",
+      "AS109:p0131",
+      "AS110:p0101",
+      "AS110:p0131"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-33",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0044",
+      "AS017:p0045",
+      "AS017:p0046",
+      "AS023:p0001",
+      "AS023:p0002",
+      "AS024:p0019",
+      "AS024:p0035",
+      "AS030:p0027"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD26",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS033:p0150",
+      "AS040:p0150",
+      "AS076:p0148",
+      "AS077:p0148",
+      "AS081:p0148",
+      "AS096:p0143",
+      "AS098:p0025",
+      "AS103:p0025"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-24",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0018",
+      "AS007:p0019",
+      "AS009:p0023",
+      "AS009:p0052",
+      "AS010:p0001",
+      "AS010:p0052",
+      "AS014:p0019",
+      "AS016:p0039"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-18",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS003:p0041",
+      "AS003:p0065",
+      "AS006:p0048",
+      "AS017:p0037",
+      "AS017:p0040",
+      "AS017:p0041",
+      "AS017:p0043",
+      "AS017:p0050"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-31",
+    "independent_human_review": false,
+    "reason": "기존 이메일 접수분의 정정을 어디로 보내는지 직접 묻는데 해당 경로 근거가 부족하다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0008",
+      "AS007:p0014",
+      "AS007:p0020",
+      "AS008:p0001",
+      "AS011:p0005",
+      "AS011:p0006",
+      "AS013:p0002",
+      "AS014:p0001"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-36",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS001:p0001",
+      "AS001:p0003",
+      "AS022:p0007",
+      "AS022:p0009",
+      "AS041:p0017",
+      "AS041:p0027",
+      "AS059:p0121",
+      "AS093:p0023"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD24",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS028:p0103",
+      "AS074:p0115",
+      "AS078:p0115",
+      "AS079:p0115",
+      "AS080:p0115",
+      "AS084:p0042",
+      "AS089:p0100",
+      "AS099:p0002"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD05",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0008",
+      "AS009:p0012",
+      "AS009:p0014",
+      "AS009:p0055",
+      "AS014:p0001",
+      "AS014:p0004",
+      "AS014:p0005",
+      "AS014:p0010"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-31",
+    "independent_human_review": false,
+    "reason": "기존 이메일 접수분의 정정을 어디로 보내는지 직접 묻는데 해당 경로 근거가 부족하다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0008",
+      "AS008:p0001",
+      "AS009:p0021",
+      "AS009:p0023",
+      "AS010:p0051",
+      "AS011:p0002",
+      "AS014:p0001",
+      "AS014:p0005"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV27",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS052:p0137",
+      "AS060:p0091",
+      "AS076:p0082",
+      "AS108:p0130",
+      "AS109:p0130",
+      "AS110:p0130",
+      "AS119:p0125",
+      "AS119:p0130"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV26",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0072",
+      "AS018:p0138",
+      "AS024:p0093",
+      "AS057:p0093",
+      "AS069:p0031",
+      "AS077:p0114",
+      "AS078:p0114",
+      "AS120:p0141"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV23",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS018:p0107",
+      "AS049:p0101",
+      "AS098:p0070",
+      "AS101:p0070",
+      "AS102:p0070",
+      "AS103:p0070",
+      "AS104:p0070",
+      "AS105:p0070"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV19",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS014:p0115",
+      "AS029:p0097",
+      "AS059:p0004",
+      "AS067:p0138",
+      "AS076:p0033",
+      "AS078:p0033",
+      "AS079:p0033",
+      "AS094:p0088"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD09",
+    "independent_human_review": false,
+    "reason": "봉인 변경을 운송사에도 전달해야 한다는 근거가 최종 문맥에 부족하다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0018",
+      "AS009:p0053",
+      "AS011:p0001",
+      "AS011:p0002",
+      "AS011:p0004",
+      "AS014:p0018",
+      "AS014:p0019",
+      "AS014:p0023"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "A",
+    "id": "scenarios:AS-S06-10",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS018:p0141",
+      "AS020:p0126",
+      "AS020:p0129",
+      "AS022:p0124",
+      "AS049:p0130",
+      "AS071:p0052",
+      "AS099:p0049",
+      "AS100:p0049"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "scenarios:AS-S06-17",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS090:p0133",
+      "AS090:p0138",
+      "AS092:p0113",
+      "AS092:p0118",
+      "AS092:p0123",
+      "AS092:p0128",
+      "AS092:p0133",
+      "AS092:p0138"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-13",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0008",
+      "AS017:p0010",
+      "AS017:p0012",
+      "AS017:p0014",
+      "AS017:p0015",
+      "AS017:p0016",
+      "AS017:p0019",
+      "AS071:p0008"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-38",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0016",
+      "AS034:p0027",
+      "AS036:p0064",
+      "AS036:p0065",
+      "AS037:p0040",
+      "AS046:p0047",
+      "AS057:p0103",
+      "AS069:p0041"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD14",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS001:p0024",
+      "AS001:p0049",
+      "AS004:p0001",
+      "AS005:p0001",
+      "AS006:p0001",
+      "AS020:p0126",
+      "AS071:p0147",
+      "AS112:p0091"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV17",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS006:p0116",
+      "AS008:p0076",
+      "AS009:p0086",
+      "AS010:p0081",
+      "AS013:p0076",
+      "AS021:p0091",
+      "AS058:p0130",
+      "AS068:p0003"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-33",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0044",
+      "AS023:p0001",
+      "AS023:p0004",
+      "AS023:p0007",
+      "AS024:p0019",
+      "AS024:p0035",
+      "AS029:p0047",
+      "AS030:p0027"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV24",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS072:p0053",
+      "AS088:p0082",
+      "AS089:p0082",
+      "AS090:p0082",
+      "AS091:p0082",
+      "AS092:p0082",
+      "AS119:p0013",
+      "AS119:p0021"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD25",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS107:p0131",
+      "AS108:p0131",
+      "AS109:p0024",
+      "AS109:p0101",
+      "AS109:p0131",
+      "AS110:p0101",
+      "AS110:p0131",
+      "AS111:p0131"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-37",
+    "independent_human_review": false,
+    "reason": "대체 승인 중복 감액 금지와 초안·발행·대체 통지의 구별이 반환됐다. 질문에 없는 구체적 청구 숫자를 추가 필수 사실로 요구하지 않는다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS025:p0033",
+      "AS025:p0047",
+      "AS025:p0051",
+      "AS025:p0056",
+      "AS025:p0057",
+      "AS043:p0011",
+      "AS044:p0009",
+      "AS051:p0036"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD28",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0133",
+      "AS016:p0092",
+      "AS017:p0087",
+      "AS018:p0097",
+      "AS019:p0092",
+      "AS020:p0082",
+      "AS060:p0132",
+      "AS078:p0004"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD06",
+    "independent_human_review": false,
+    "reason": "VGM 경로와 중량 구분은 있으나 SI 정정 이메일 주소가 표 추출에서 다른 열과 섞여 온전하게 확인되지 않는다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0008",
+      "AS007:p0019",
+      "AS009:p0021",
+      "AS009:p0022",
+      "AS009:p0023",
+      "AS009:p0033",
+      "AS010:p0049",
+      "AS014:p0019"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV04",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0021",
+      "AS009:p0022",
+      "AS009:p0023",
+      "AS009:p0031",
+      "AS009:p0033",
+      "AS009:p0034",
+      "AS009:p0035",
+      "AS009:p0047"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "scenarios:AS-S06-02",
+    "independent_human_review": false,
+    "reason": "동일 단서에 해당하는 두 후보 중 한 사건의 근거가 빠졌다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS009:p0113",
+      "AS010:p0116",
+      "AS012:p0116",
+      "AS013:p0111",
+      "AS014:p0095",
+      "AS015:p0116",
+      "AS016:p0126",
+      "AS060:p0096"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "A",
+    "id": "scenarios:AS-S06-13",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS060:p0062",
+      "AS062:p0062",
+      "AS063:p0059",
+      "AS064:p0065",
+      "AS065:p0059",
+      "AS078:p0056",
+      "AS097:p0053",
+      "AS108:p0071"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-10",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0007",
+      "AS010:p0015",
+      "AS010:p0021",
+      "AS010:p0022",
+      "AS010:p0027",
+      "AS010:p0028",
+      "AS010:p0032",
+      "AS010:p0036"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD14",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS001:p0024",
+      "AS001:p0049",
+      "AS004:p0001",
+      "AS006:p0001",
+      "AS006:p0018",
+      "AS017:p0131",
+      "AS112:p0091",
+      "AS116:p0022"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-22",
+    "independent_human_review": false,
+    "reason": "장비 변경과 SI 정정의 분리는 확인되지만 장비 변경 때 전달할 정보의 근거가 부족하다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0017",
+      "AS007:p0018",
+      "AS007:p0019",
+      "AS009:p0021",
+      "AS009:p0022",
+      "AS009:p0023",
+      "AS009:p0054",
+      "AS013:p0006"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV29",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS071:p0064",
+      "AS091:p0114",
+      "AS093:p0114",
+      "AS096:p0007",
+      "AS097:p0007",
+      "AS098:p0007",
+      "AS099:p0007",
+      "AS100:p0007"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV08",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0011",
+      "AS013:p0007",
+      "AS013:p0009",
+      "AS013:p0011",
+      "AS013:p0018",
+      "AS052:p0112",
+      "AS078:p0096",
+      "AS099:p0078"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV30",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS071:p0016",
+      "AS072:p0016",
+      "AS072:p0024",
+      "AS073:p0016",
+      "AS073:p0101",
+      "AS074:p0016",
+      "AS075:p0016",
+      "AS097:p0086"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV04",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0021",
+      "AS009:p0022",
+      "AS009:p0023",
+      "AS009:p0031",
+      "AS009:p0033",
+      "AS009:p0034",
+      "AS009:p0035",
+      "AS009:p0047"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD21",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS019:p0137",
+      "AS059:p0045",
+      "AS072:p0071",
+      "AS073:p0071",
+      "AS074:p0071",
+      "AS089:p0005",
+      "AS099:p0110",
+      "AS113:p0129"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV25",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS084:p0038",
+      "AS096:p0122",
+      "AS108:p0097",
+      "AS109:p0097",
+      "AS110:p0097",
+      "AS111:p0097",
+      "AS112:p0097",
+      "AS116:p0097"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-32",
+    "independent_human_review": false,
+    "reason": "적용할 터미널·계약이 없어 주말 포함 여부를 확정할 수 없는 문항이다. 양쪽 모두 성공으로 세지 않고 분모에 유지했다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS002:p0004",
+      "AS002:p0051",
+      "AS005:p0054",
+      "AS017:p0008",
+      "AS020:p0019",
+      "AS022:p0007",
+      "AS040:p0145",
+      "AS111:p0065"
+    ],
+    "strict_complete": true,
+    "verdict": "ambiguous_question"
+  },
+  {
+    "arm": "A",
+    "id": "scenarios:AS-S06-20",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS108:p0132",
+      "AS109:p0132",
+      "AS109:p0137",
+      "AS110:p0132",
+      "AS111:p0132",
+      "AS111:p0137",
+      "AS112:p0132",
+      "AS112:p0137"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "scenarios:AS-S06-13",
+    "independent_human_review": false,
+    "reason": "두 정답 사건의 청구 명세와 식별 정보가 모두 남아 각 비용과 추가 확인 대상을 구분할 수 있다. 반출일 원문 페이지의 부재만으로 실패 처리하지 않는다. 사건 일치 여부는 사후 참고 사건 키와 대조했으며 누락 페이지의 날짜를 반환 사실로 추가하지 않았다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS062:p0062",
+      "AS062:p0065",
+      "AS063:p0059",
+      "AS064:p0065",
+      "AS065:p0059",
+      "AS078:p0056",
+      "AS095:p0053",
+      "AS097:p0053"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "scenarios:AS-S03-11",
+    "independent_human_review": false,
+    "reason": "계약·승인·청구는 남았으나 질문이 직접 요청한 실제 적입 반출일을 확인할 기록이 빠졌다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS001:p0131",
+      "AS006:p0131",
+      "AS008:p0091",
+      "AS009:p0101",
+      "AS010:p0096",
+      "AS033:p0126",
+      "AS038:p0116",
+      "AS044:p0111",
+      "SQL0"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD19",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS034:p0099",
+      "AS071:p0137",
+      "AS072:p0103",
+      "AS072:p0137",
+      "AS095:p0043",
+      "AS099:p0051",
+      "AS100:p0051",
+      "AS101:p0051"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV16",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS031:p0102",
+      "AS032:p0092",
+      "AS033:p0102",
+      "AS034:p0092",
+      "AS034:p0100",
+      "AS035:p0097",
+      "AS088:p0084",
+      "AS107:p0098"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-13",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0008",
+      "AS017:p0010",
+      "AS017:p0012",
+      "AS017:p0014",
+      "AS017:p0015",
+      "AS017:p0016",
+      "AS017:p0019",
+      "AS071:p0008"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-23",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0013",
+      "AS007:p0019",
+      "AS007:p0026",
+      "AS007:p0027",
+      "AS007:p0031",
+      "AS008:p0001",
+      "AS009:p0021",
+      "AS014:p0018"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD07",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS011:p0002",
+      "AS011:p0010",
+      "AS011:p0012",
+      "AS011:p0017",
+      "AS011:p0033",
+      "AS011:p0036",
+      "AS011:p0037",
+      "AS011:p0038"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD20",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS034:p0146",
+      "AS037:p0136",
+      "AS038:p0146",
+      "AS042:p0136",
+      "AS056:p0118",
+      "AS064:p0055",
+      "AS072:p0143",
+      "AS117:p0138"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV29",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS039:p0110",
+      "AS040:p0120",
+      "AS071:p0064",
+      "AS093:p0114",
+      "AS097:p0007",
+      "AS099:p0007",
+      "AS099:p0032",
+      "AS100:p0007"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-28",
+    "independent_human_review": false,
+    "reason": "일정 변경 전달과 기존 이력 보존, 자료 접수와 확정 변경의 구별이 모두 반환됐다. 등록일의 단어 일치 대신 동일한 업무 판단을 지원하는 대체 원문을 인정했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS008:p0018",
+      "AS013:p0019",
+      "AS013:p0052",
+      "AS017:p0026",
+      "AS017:p0055",
+      "AS031:p0051",
+      "AS031:p0065",
+      "AS033:p0010"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-30",
+    "independent_human_review": false,
+    "reason": "질문에서 실제 양하 확인은 이미 전제로 주어졌다. 반환된 단계별 인계 원칙과 면제 요청·자료 재요청·승인 미완료 구분이 요청에 충분하며, 미특정 사건의 양하일 조회를 추가 요구하지 않는다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS003:p0033",
+      "AS006:p0031",
+      "AS036:p0063",
+      "AS042:p0039",
+      "AS042:p0072",
+      "AS054:p0033",
+      "AS055:p0058",
+      "AS087:p0052"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV23",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS018:p0107",
+      "AS049:p0101",
+      "AS078:p0039",
+      "AS098:p0070",
+      "AS101:p0070",
+      "AS103:p0070",
+      "AS104:p0070",
+      "AS105:p0070"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD21",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS070:p0071",
+      "AS071:p0071",
+      "AS072:p0071",
+      "AS073:p0071",
+      "AS074:p0071",
+      "AS089:p0005",
+      "AS099:p0110",
+      "AS113:p0129"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "scenarios:AS-S02-17",
+    "independent_human_review": false,
+    "reason": "대상의 현장 기록은 찾았지만 같은 사건의 확정 보관료 명세가 남지 않았다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS054:p0134",
+      "AS082:p0072",
+      "AS088:p0079",
+      "AS107:p0087",
+      "AS112:p0075",
+      "AS113:p0075",
+      "AS114:p0075",
+      "AS119:p0025"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD03",
+    "independent_human_review": false,
+    "reason": "질문은 회신 전 취소 완료 처리 여부만 묻는다. 반환된 취소 미완료 상태 근거로 답할 수 있으며, 문의 부서 이름은 추가 필수 요구로 삼지 않는다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS008:p0031",
+      "AS008:p0034",
+      "AS008:p0035",
+      "AS008:p0038",
+      "AS008:p0042",
+      "AS008:p0043",
+      "AS030:p0047",
+      "AS030:p0053"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV26",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS018:p0138",
+      "AS057:p0093",
+      "AS069:p0031",
+      "AS075:p0114",
+      "AS076:p0114",
+      "AS077:p0114",
+      "AS078:p0114",
+      "AS079:p0114"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD24",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS028:p0103",
+      "AS074:p0115",
+      "AS076:p0115",
+      "AS077:p0115",
+      "AS078:p0115",
+      "AS079:p0115",
+      "AS080:p0115",
+      "AS084:p0042"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD19",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS034:p0099",
+      "AS072:p0103",
+      "AS095:p0043",
+      "AS097:p0051",
+      "AS098:p0051",
+      "AS099:p0051",
+      "AS100:p0051",
+      "AS101:p0051"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-32",
+    "independent_human_review": false,
+    "reason": "적용할 터미널·계약이 없어 주말 포함 여부를 확정할 수 없는 문항이다. 양쪽 모두 성공으로 세지 않고 분모에 유지했다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS001:p0004",
+      "AS001:p0043",
+      "AS001:p0083",
+      "AS021:p0114",
+      "AS040:p0145",
+      "AS111:p0032",
+      "AS111:p0065",
+      "AS118:p0102"
+    ],
+    "strict_complete": false,
+    "verdict": "ambiguous_question"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV08",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS013:p0007",
+      "AS052:p0112",
+      "AS078:p0096",
+      "AS082:p0022",
+      "AS089:p0082",
+      "AS097:p0060",
+      "AS099:p0078",
+      "AS100:p0077"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD28",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0133",
+      "AS018:p0087",
+      "AS018:p0097",
+      "AS019:p0092",
+      "AS060:p0132",
+      "AS076:p0113",
+      "AS078:p0004",
+      "AS080:p0127"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV27",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS060:p0091",
+      "AS076:p0082",
+      "AS106:p0130",
+      "AS107:p0130",
+      "AS108:p0130",
+      "AS109:p0130",
+      "AS110:p0130",
+      "AS119:p0130"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-34",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0039",
+      "AS017:p0044",
+      "AS017:p0046",
+      "AS017:p0049",
+      "AS019:p0009",
+      "AS023:p0001",
+      "AS023:p0005",
+      "AS023:p0021"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "scenarios:AS-S06-02",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0113",
+      "AS010:p0116",
+      "AS013:p0111",
+      "AS014:p0095",
+      "AS015:p0116",
+      "AS060:p0096",
+      "AS105:p0053",
+      "AS107:p0053"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-10",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS010:p0005",
+      "AS010:p0012",
+      "AS010:p0015",
+      "AS010:p0021",
+      "AS010:p0022",
+      "AS010:p0024",
+      "AS010:p0027",
+      "AS010:p0032",
+      "SQL0"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV30",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS072:p0008",
+      "AS072:p0016",
+      "AS072:p0024",
+      "AS073:p0016",
+      "AS073:p0101",
+      "AS074:p0016",
+      "AS075:p0016",
+      "AS097:p0086"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "scenarios:AS-S03-11",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS001:p0131",
+      "AS006:p0131",
+      "AS007:p0101",
+      "AS008:p0091",
+      "AS009:p0101",
+      "AS010:p0096",
+      "AS013:p0091",
+      "AS041:p0116"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-26",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0011",
+      "AS007:p0013",
+      "AS009:p0054",
+      "AS012:p0035",
+      "AS013:p0007",
+      "AS013:p0014",
+      "AS039:p0050",
+      "AS039:p0058"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV25",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS084:p0038",
+      "AS096:p0122",
+      "AS106:p0122",
+      "AS110:p0097",
+      "AS111:p0097",
+      "AS111:p0112",
+      "AS112:p0097",
+      "AS116:p0097"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD06",
+    "independent_human_review": false,
+    "reason": "VGM 경로와 중량 구분은 있으나 SI 정정 이메일 주소가 표 추출에서 다른 열과 섞여 온전하게 확인되지 않는다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0008",
+      "AS007:p0013",
+      "AS007:p0020",
+      "AS009:p0021",
+      "AS009:p0022",
+      "AS009:p0023",
+      "AS010:p0009",
+      "AS014:p0019"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV06",
+    "independent_human_review": false,
+    "reason": "SI 정정 담당 사례만으로 신규 SI 제출 창구를 확정할 수 없고 연락처 표기도 깨져 있다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0013",
+      "AS007:p0017",
+      "AS007:p0019",
+      "AS007:p0020",
+      "AS009:p0021",
+      "AS010:p0015",
+      "AS014:p0018",
+      "AS014:p0019"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-22",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0011",
+      "AS007:p0012",
+      "AS007:p0018",
+      "AS008:p0008",
+      "AS009:p0021",
+      "AS009:p0022",
+      "AS009:p0023",
+      "AS009:p0054"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD10",
+    "independent_human_review": false,
+    "reason": "질문은 기접수 자료를 포털에 신규 등록해야 하는지 묻는다. 신규 경로 전환과 기접수 자료의 중복 제출 금지로 판단 가능하며, 별도 정정 절차의 세부 설명은 필수로 추가하지 않는다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS010:p0018",
+      "AS010:p0053",
+      "AS010:p0055",
+      "AS014:p0019",
+      "AS014:p0020",
+      "AS014:p0022",
+      "AS014:p0037",
+      "AS014:p0040"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV22",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS048:p0074",
+      "AS063:p0022",
+      "AS063:p0030",
+      "AS078:p0060",
+      "AS079:p0060",
+      "AS080:p0060",
+      "AS080:p0127",
+      "AS101:p0118"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "scenarios:AS-S06-08",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS039:p0097",
+      "AS039:p0105",
+      "AS102:p0145",
+      "AS102:p0150",
+      "AS104:p0130",
+      "AS104:p0135",
+      "AS104:p0145",
+      "AS104:p0150"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV09",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0019",
+      "AS008:p0001",
+      "AS009:p0021",
+      "AS009:p0023",
+      "AS009:p0052",
+      "AS009:p0054",
+      "AS014:p0001",
+      "AS014:p0007"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD10",
+    "independent_human_review": false,
+    "reason": "질문은 기접수 자료를 포털에 신규 등록해야 하는지 묻는다. 신규 경로 전환과 기접수 자료의 중복 제출 금지로 판단 가능하며, 별도 정정 절차의 세부 설명은 필수로 추가하지 않는다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS010:p0012",
+      "AS010:p0049",
+      "AS010:p0053",
+      "AS010:p0055",
+      "AS010:p0058",
+      "AS014:p0019",
+      "AS014:p0020",
+      "AS014:p0040"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "scenarios:AS-S06-10",
+    "independent_human_review": false,
+    "reason": "두 후보의 해당 사건 원문과 비용을 확보하지 못했다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS049:p0082",
+      "AS049:p0130",
+      "AS071:p0052",
+      "AS096:p0049",
+      "AS097:p0049",
+      "AS098:p0049",
+      "AS099:p0049",
+      "AS100:p0049"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-39",
+    "independent_human_review": false,
+    "reason": "질문이 이미 고객 작성 상담값임을 밝힌다. 반환된 공식 개정 요율과 실제 양하일 기준으로 판단 가능하며, 고객 메모의 미제시 숫자를 원문 사실로 보충하지 않았다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0044",
+      "AS017:p0049",
+      "AS018:p0009",
+      "AS018:p0059",
+      "AS023:p0001",
+      "AS023:p0002",
+      "AS023:p0060",
+      "AS046:p0010"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-35",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS001:p0065",
+      "AS001:p0097",
+      "AS017:p0038",
+      "AS017:p0039",
+      "AS017:p0041",
+      "AS017:p0042",
+      "AS020:p0019",
+      "AS021:p0024"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "scenarios:AS-S06-11",
+    "independent_human_review": false,
+    "reason": "두 후보 중 한 사건만 남아 모호성을 충분히 확인할 근거가 부족하다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS064:p0097",
+      "AS064:p0107",
+      "AS064:p0112",
+      "AS064:p0127",
+      "AS066:p0097",
+      "AS066:p0107",
+      "AS066:p0122",
+      "AS067:p0107"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "work_rules:AS-WR-20",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS016:p0001",
+      "AS017:p0001",
+      "AS017:p0003",
+      "AS023:p0020",
+      "AS023:p0021",
+      "AS023:p0060",
+      "AS023:p0062",
+      "AS046:p0010"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD05",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0008",
+      "AS009:p0009",
+      "AS009:p0011",
+      "AS009:p0012",
+      "AS014:p0001",
+      "AS014:p0004",
+      "AS014:p0005",
+      "AS014:p0010"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV24",
+    "independent_human_review": false,
+    "reason": "반환된 승인 대조와 청구 명세가 정답 사건에 해당하며 요청한 면제 범위와 두 비용 합계를 직접 제공한다. 양하일은 사건 조회 단서이고 날짜 자체를 출력하라는 질문이 아니다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS014:p0100",
+      "AS014:p0108",
+      "AS072:p0053",
+      "AS080:p0096",
+      "AS090:p0082",
+      "AS091:p0082",
+      "AS119:p0013",
+      "AS119:p0021"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV22",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS048:p0074",
+      "AS063:p0022",
+      "AS063:p0030",
+      "AS076:p0060",
+      "AS077:p0060",
+      "AS078:p0060",
+      "AS079:p0060",
+      "AS080:p0060"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-34",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0002",
+      "AS017:p0003",
+      "AS017:p0039",
+      "AS017:p0044",
+      "AS017:p0046",
+      "AS019:p0009",
+      "AS023:p0001",
+      "AS023:p0005"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV19",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS014:p0115",
+      "AS029:p0097",
+      "AS076:p0033",
+      "AS077:p0033",
+      "AS078:p0033",
+      "AS079:p0033",
+      "AS080:p0033",
+      "AS094:p0088"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV17",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS006:p0116",
+      "AS007:p0086",
+      "AS008:p0076",
+      "AS009:p0086",
+      "AS010:p0081",
+      "AS013:p0076",
+      "AS021:p0091",
+      "AS068:p0003"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-39",
+    "independent_human_review": false,
+    "reason": "질문이 이미 고객 작성 상담값임을 밝힌다. 반환된 공식 개정 요율과 실제 양하일 기준으로 판단 가능하며, 고객 메모의 미제시 숫자를 원문 사실로 보충하지 않았다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0044",
+      "AS017:p0049",
+      "AS018:p0009",
+      "AS018:p0067",
+      "AS023:p0001",
+      "AS023:p0060",
+      "AS023:p0062",
+      "AS046:p0010"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "work_rules:AS-WR-12",
+    "independent_human_review": false,
+    "reason": "신규 40피트 포털 전환과 기접수 자료의 중복 제출 금지를 함께 반환했다. 구체적인 이메일 주소를 묻는 문항과 구분해 실제 질문의 양쪽 구분을 채점했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS010:p0015",
+      "AS010:p0049",
+      "AS010:p0053",
+      "AS010:p0058",
+      "AS014:p0018",
+      "AS014:p0019",
+      "AS014:p0027",
+      "AS014:p0028"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV16",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS032:p0092",
+      "AS033:p0102",
+      "AS034:p0092",
+      "AS034:p0100",
+      "AS035:p0097",
+      "AS049:p0116",
+      "AS088:p0084",
+      "AS107:p0098"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-30",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS006:p0001",
+      "AS017:p0011",
+      "AS032:p0011",
+      "AS042:p0039",
+      "AS042:p0068",
+      "AS054:p0033",
+      "AS055:p0058",
+      "AS087:p0052"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-28",
+    "independent_human_review": false,
+    "reason": "일정 변경 전달과 기존 이력 보존, 자료 접수와 확정 변경의 구별이 모두 반환됐다. 등록일의 단어 일치 대신 동일한 업무 판단을 지원하는 대체 원문을 인정했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS013:p0019",
+      "AS013:p0052",
+      "AS017:p0036",
+      "AS017:p0055",
+      "AS017:p0062",
+      "AS023:p0047",
+      "AS031:p0051",
+      "AS031:p0056"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD03",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS008:p0009",
+      "AS008:p0031",
+      "AS008:p0034",
+      "AS008:p0035",
+      "AS008:p0038",
+      "AS008:p0042",
+      "AS008:p0043",
+      "AS030:p0053"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV02",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0008",
+      "AS007:p0011",
+      "AS007:p0012",
+      "AS008:p0001",
+      "AS008:p0002",
+      "AS014:p0001",
+      "AS014:p0007",
+      "AS014:p0012"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-37",
+    "independent_human_review": false,
+    "reason": "대체 승인 중복 감액 금지와 초안·발행·대체 통지의 구별이 반환됐다. 질문에 없는 구체적 청구 숫자를 추가 필수 사실로 요구하지 않는다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS025:p0002",
+      "AS025:p0033",
+      "AS025:p0047",
+      "AS025:p0048",
+      "AS025:p0057",
+      "AS043:p0011",
+      "AS043:p0015",
+      "AS044:p0009"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD07",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS011:p0002",
+      "AS011:p0010",
+      "AS011:p0012",
+      "AS011:p0017",
+      "AS011:p0033",
+      "AS011:p0036",
+      "AS011:p0037",
+      "AS011:p0038"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD22",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS048:p0084",
+      "AS067:p0083",
+      "AS074:p0083",
+      "AS075:p0083",
+      "AS076:p0083",
+      "AS077:p0083",
+      "AS078:p0035",
+      "AS078:p0083",
+      "SQL0"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-38",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS017:p0016",
+      "AS019:p0099",
+      "AS046:p0047",
+      "AS057:p0103",
+      "AS062:p0138",
+      "AS069:p0021",
+      "AS069:p0041",
+      "AS075:p0059"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD26",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS033:p0150",
+      "AS074:p0148",
+      "AS075:p0148",
+      "AS076:p0148",
+      "AS077:p0148",
+      "AS078:p0148",
+      "AS081:p0148",
+      "AS103:p0025"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "scenarios:AS-S06-20",
+    "independent_human_review": false,
+    "reason": "두 후보 중 한 사건의 실제 대상·비용 근거가 빠졌다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS108:p0137",
+      "AS109:p0137",
+      "AS110:p0137",
+      "AS111:p0127",
+      "AS111:p0137",
+      "AS111:p0142",
+      "AS111:p0147",
+      "AS112:p0137"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "work_rules:AS-WR-12",
+    "independent_human_review": false,
+    "reason": "신규 40피트 포털 전환과 기접수 자료의 중복 제출 금지를 함께 반환했다. 구체적인 이메일 주소를 묻는 문항과 구분해 실제 질문의 양쪽 구분을 채점했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS010:p0008",
+      "AS010:p0015",
+      "AS010:p0053",
+      "AS014:p0018",
+      "AS014:p0019",
+      "AS014:p0020",
+      "AS014:p0027",
+      "AS014:p0029"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-24",
+    "independent_human_review": false,
+    "reason": "SI 중량 정정 항목과 신규 접수 경로 변경의 범위를 함께 반환했다. 질문에 없는 구체적인 기존 정정 주소까지 요구하지 않고 새 접수 화면에 신규 등록하는지의 판단을 채점했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0019",
+      "AS009:p0023",
+      "AS010:p0053",
+      "AS014:p0018",
+      "AS014:p0019",
+      "AS014:p0021",
+      "AS014:p0030",
+      "AS016:p0039"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD27",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS015:p0130",
+      "AS041:p0093",
+      "AS043:p0093",
+      "AS044:p0088",
+      "AS061:p0032",
+      "AS063:p0032",
+      "AS097:p0074",
+      "AS103:p0045"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD27",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS015:p0130",
+      "AS041:p0093",
+      "AS042:p0083",
+      "AS043:p0093",
+      "AS044:p0088",
+      "AS045:p0088",
+      "AS063:p0032",
+      "AS103:p0045"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-36",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS001:p0001",
+      "AS020:p0019",
+      "AS022:p0007",
+      "AS022:p0009",
+      "AS025:p0019",
+      "AS033:p0111",
+      "AS041:p0027",
+      "AS059:p0121"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD20",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS027:p0146",
+      "AS032:p0146",
+      "AS034:p0146",
+      "AS037:p0136",
+      "AS038:p0146",
+      "AS042:p0136",
+      "AS064:p0055",
+      "AS117:p0138"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV06",
+    "independent_human_review": false,
+    "reason": "SI 정정 담당 사례만으로 신규 SI 제출 창구를 확정할 수 없고 연락처 표기도 깨져 있다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0013",
+      "AS007:p0014",
+      "AS007:p0019",
+      "AS007:p0020",
+      "AS009:p0021",
+      "AS010:p0015",
+      "AS014:p0018",
+      "AS014:p0019"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "A",
+    "id": "semantic_queries:AS-SEM-35",
+    "independent_human_review": false,
+    "reason": "개별 계약 무료일수가 기본표를 대체하는지 더하는지 판단할 근거가 빠졌다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS001:p0028",
+      "AS001:p0041",
+      "AS001:p0047",
+      "AS001:p0065",
+      "AS001:p0076",
+      "AS001:p0097",
+      "AS017:p0039",
+      "AS017:p0042"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD22",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0137",
+      "AS048:p0084",
+      "AS067:p0083",
+      "AS074:p0083",
+      "AS076:p0083",
+      "AS077:p0083",
+      "AS078:p0035",
+      "AS094:p0083"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_development:AS-DEV02",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0008",
+      "AS007:p0012",
+      "AS007:p0018",
+      "AS007:p0020",
+      "AS008:p0001",
+      "AS008:p0002",
+      "AS014:p0001",
+      "AS014:p0007"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD01",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0001",
+      "AS007:p0003",
+      "AS007:p0004",
+      "AS016:p0055",
+      "AS026:p0006",
+      "AS026:p0007",
+      "AS026:p0008",
+      "AS046:p0073"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD29",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS064:p0064",
+      "AS107:p0076",
+      "AS111:p0025",
+      "AS112:p0025",
+      "AS113:p0025",
+      "AS114:p0009",
+      "AS114:p0025",
+      "AS115:p0025"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "scenarios:AS-S06-08",
+    "independent_human_review": false,
+    "reason": "질문의 두 후보를 뒷받침할 사건 기록을 찾지 못하고 다른 사건의 자료가 반환됐다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS039:p0097",
+      "AS039:p0105",
+      "AS104:p0120",
+      "AS104:p0125",
+      "AS104:p0130",
+      "AS104:p0135",
+      "AS104:p0140",
+      "AS119:p0034",
+      "SQL0"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "semantic_queries:AS-SEM-23",
+    "independent_human_review": false,
+    "reason": "중량 구분은 있으나 질문의 신규 검증 중량 제출 경로가 최종 문맥에 없다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0008",
+      "AS007:p0019",
+      "AS007:p0026",
+      "AS007:p0027",
+      "AS008:p0001",
+      "AS009:p0021",
+      "AS009:p0022",
+      "AS009:p0023"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "scenarios:AS-S06-17",
+    "independent_human_review": false,
+    "reason": "두 정답 사건의 청구 명세와 식별 정보가 모두 남아 각 비용과 추가 확인 대상을 구분할 수 있다. 반출일 원문 페이지의 부재만으로 실패 처리하지 않는다. 사건 일치 여부는 사후 참고 사건 키와 대조했으며 누락 페이지의 날짜를 반환 사실로 추가하지 않았다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS092:p0113",
+      "AS092:p0118",
+      "AS092:p0123",
+      "AS092:p0128",
+      "AS092:p0133",
+      "AS092:p0138",
+      "AS092:p0143",
+      "AS092:p0148",
+      "SQL0"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "scenarios:AS-S06-11",
+    "independent_human_review": false,
+    "reason": "동일 단서의 두 후보와 각 청구 근거를 모두 반환했다. 추가 확인을 요구하는 정상 문항이므로 질문 결함으로 처리하지 않는다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0095",
+      "AS064:p0102",
+      "AS064:p0107",
+      "AS066:p0097",
+      "AS066:p0102",
+      "AS066:p0107",
+      "AS066:p0122",
+      "AS067:p0107"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD29",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS064:p0064",
+      "AS107:p0076",
+      "AS107:p0103",
+      "AS111:p0025",
+      "AS113:p0025",
+      "AS114:p0009",
+      "AS114:p0017",
+      "AS114:p0025"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "A",
+    "id": "official_additional:AS-ADD01",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS007:p0001",
+      "AS007:p0003",
+      "AS007:p0004",
+      "AS016:p0055",
+      "AS026:p0006",
+      "AS026:p0007",
+      "AS026:p0008",
+      "AS046:p0073"
+    ],
+    "strict_complete": false,
+    "verdict": "sufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_development:AS-DEV09",
+    "independent_human_review": false,
+    "reason": "정정 메일의 예약 식별정보와 첨부 정정본 표시 등 요청한 기재사항 근거 일부가 빠졌다.",
+    "reviewed_complete": false,
+    "source_ids": [
+      "AS007:p0013",
+      "AS007:p0019",
+      "AS009:p0003",
+      "AS009:p0021",
+      "AS009:p0022",
+      "AS009:p0023",
+      "AS009:p0053",
+      "AS014:p0001"
+    ],
+    "strict_complete": false,
+    "verdict": "insufficient"
+  },
+  {
+    "arm": "B",
+    "id": "official_additional:AS-ADD09",
+    "independent_human_review": false,
+    "reason": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reviewed_complete": true,
+    "source_ids": [
+      "AS009:p0053",
+      "AS009:p0054",
+      "AS011:p0009",
+      "AS011:p0017",
+      "AS011:p0018",
+      "AS011:p0022",
+      "AS014:p0018",
+      "AS014:p0019"
+    ],
+    "strict_complete": true,
+    "verdict": "sufficient"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "commit": "793e86bb07287475cd3ea628c69144574b788c14",
+  "evidence_line_sha256": "e43f7c4c842b5ffdc70fa66c9db4f28662b6e2b7b7ae7a5a727db2abd96588ce",
+  "evidence_line_equals_original_file_line": true,
+  "run_record_line_sha256": "1e665ac4dd96ee67fe8eaa474bf9764901f3a1d6c08b304b56fb1d3533572a4e",
+  "files_at_commit": {
+    "configs/advanced.yaml": "0221d3af369d3dfdc8a8a7a48e5fb96cb5ab330898757b54c5231d8ade80b7be",
+    "app/generation/prompts/shipping_qa.txt": "c2ec0c3b24b33c80a0a1e93d66c7dcbd783c812bdfe0fee1c8e9c28d3b690d8d"
+  },
+  "final_context_hash": "sha256:4f88bef23ee804f4912c2fe557fe51e61e910fa1125f7378af06d0fab8e718fa",
+  "model_context_hash": "368a18f32dc3cba65982c36248b197e52b3fbfca73e91d49bcb10090ebdf27bb"
+}

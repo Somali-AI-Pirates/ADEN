@@ -1,0 +1,104 @@
+{
+  "A": {
+    "api_per_question": {
+      "p50": 6.738602856499995,
+      "p95": 9.648084779800012
+    },
+    "api_status": {
+      "complete": 38
+    },
+    "end_to_end": {
+      "p50": 8.657589028499984,
+      "p95": 11.870201661049963
+    },
+    "finish": {
+      "insufficient": 14,
+      "needs_clarification": 6
+    },
+    "hybrid_per_question": {
+      "p50": 1.8370914724999636,
+      "p95": 2.7787393040500263
+    },
+    "hybrid_search_calls": 38,
+    "n": 20,
+    "planner_calls": 38,
+    "record_lookup_calls": 0,
+    "record_lookup_per_call": {
+      "p50": 0,
+      "p95": 0
+    },
+    "record_resolution": {},
+    "sql_calls": 0,
+    "sql_kept": 0,
+    "sql_ok": 0,
+    "table_discovery_calls": 0,
+    "table_discovery_per_call": {
+      "p50": 0,
+      "p95": 0
+    },
+    "tool_statuses": {
+      "executed": 18,
+      "finished": 20
+    },
+    "tools": {
+      "finish": 20,
+      "solve_subquery": 18
+    },
+    "usage": {
+      "input_tokens": 422818,
+      "output_tokens": 8401,
+      "reasoning_tokens": 4013
+    }
+  },
+  "B": {
+    "api_per_question": {
+      "p50": 7.175828717499968,
+      "p95": 16.601818904799973
+    },
+    "api_status": {
+      "complete": 40
+    },
+    "end_to_end": {
+      "p50": 9.757380885999993,
+      "p95": 19.76561775194999
+    },
+    "finish": {
+      "insufficient": 12,
+      "needs_clarification": 8
+    },
+    "hybrid_per_question": {
+      "p50": 2.100978902500003,
+      "p95": 3.3935362052000104
+    },
+    "hybrid_search_calls": 39,
+    "n": 20,
+    "planner_calls": 40,
+    "record_lookup_calls": 0,
+    "record_lookup_per_call": {
+      "p50": 0,
+      "p95": 0
+    },
+    "record_resolution": {},
+    "sql_calls": 0,
+    "sql_kept": 0,
+    "sql_ok": 0,
+    "table_discovery_calls": 1,
+    "table_discovery_per_call": {
+      "p50": 0.0250638030000232,
+      "p95": 0.0250638030000232
+    },
+    "tool_statuses": {
+      "executed": 20,
+      "finished": 20
+    },
+    "tools": {
+      "finish": 20,
+      "search_evidence": 20
+    },
+    "usage": {
+      "input_tokens": 462591,
+      "output_tokens": 7285,
+      "reasoning_tokens": 4150
+    }
+  }
+}

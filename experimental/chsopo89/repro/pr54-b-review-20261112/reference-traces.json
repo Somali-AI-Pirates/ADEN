@@ -1,0 +1,49 @@
+{
+  "reevaluation_code_pr": 54,
+  "reference_answers": [
+    {
+      "condition": "insufficient",
+      "question_id": "AS-DEV19",
+      "generation_pr": 53,
+      "generation_commit": "49224db54527ecec08421b54a99648e97c49caa1",
+      "is_pr54_generation": false,
+      "request_id": "9445cfa1354c4dd28ecc5712322afb84",
+      "trace_id": "c627debddac91ea452d843bd3009c90c",
+      "trace_url": "https://cloud.langfuse.com/project/cmw31qdbs01yvad0japltbo24/traces/c627debddac91ea452d843bd3009c90c",
+      "model_context_hash": "368a18f32dc3cba65982c36248b197e52b3fbfca73e91d49bcb10090ebdf27bb",
+      "final_context_hash": "sha256:4f88bef23ee804f4912c2fe557fe51e61e910fa1125f7378af06d0fab8e718fa",
+      "http_status": 200,
+      "http_response_sha256": "ff0d102f2bcc235dcdd6f68e6204c3d57d6bffe8747666e6a1016009a244644f",
+      "prior_record_comment": "https://github.com/Somali-AI-Pirates/ADEN/pull/53#issuecomment-6812598451",
+      "usage": "이전 참고 답변; #54 수정 후 결과로 채점하지 않음",
+      "context_comparison": "C 문서의 부족 조건 해시 접두사와 일치",
+      "http_response_file": "raw/insufficient/http_response.json",
+      "run_record_file": "raw/insufficient/runs_from_trace.jsonl",
+      "execution_manifest_file": "raw/insufficient/manifest.json",
+      "trace_link_file": "raw/insufficient/trace_link.json"
+    },
+    {
+      "condition": "sufficient",
+      "question_id": "AS-DEV19",
+      "generation_pr": 53,
+      "generation_commit": "49224db54527ecec08421b54a99648e97c49caa1",
+      "is_pr54_generation": false,
+      "request_id": "ca732b995675467f898029e7e5986709",
+      "trace_id": "e53bf92768f00cc14be9a2c690bcaec0",
+      "trace_url": "https://cloud.langfuse.com/project/cmw31qdbs01yvad0japltbo24/traces/e53bf92768f00cc14be9a2c690bcaec0",
+      "model_context_hash": "2952c68bb2abd1894c267f5f427b5623d77cb3e7d351b2b2a2976e54aeba594d",
+      "final_context_hash": "sha256:b02261577128fe10df6ff34dd604ff9619b31904ffc2557a6ad16395ea190f38",
+      "http_status": 200,
+      "http_response_sha256": "ecfa56ca4a88185521a7b7386123e77dbb4b6a31a7174096e334f61ad136e582",
+      "prior_record_comment": "https://github.com/Somali-AI-Pirates/ADEN/pull/53#issuecomment-6812598451",
+      "usage": "이전 참고 답변; #54 수정 후 결과로 채점하지 않음",
+      "context_comparison": "C 충분 조건 해시와 불일치하므로 같은 문맥의 전후 비교에서 제외",
+      "http_response_file": "raw/sufficient/http_response.json",
+      "run_record_file": "raw/sufficient/runs_from_trace.jsonl",
+      "execution_manifest_file": "raw/sufficient/manifest.json",
+      "trace_link_file": "raw/sufficient/trace_link.json"
+    }
+  ],
+  "remote_rechecked_now": false,
+  "local_originals_attached": true
+}

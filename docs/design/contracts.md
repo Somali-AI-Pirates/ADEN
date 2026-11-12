@@ -59,7 +59,7 @@
 
 - `make_query_adapter(resources, settings)`는 `adapter(question, retrieval_mode, request_id)`를 반환한다. 어댑터는 `answer_query()`를 직접 호출하고 실패도 평탄한 실행 기록으로 반환한다.
 - `make_security_adapters(resources, settings, *, defense)`는 `retrieve_fn(question, mode)`과 `generate_fn(question, final_context_chunks, prompt_variant)`를 반환한다. 검색과 문맥 구성은 한 번 하고 `base`와 `defense`에 같은 문맥을 전달한다. 반환 기록에는 실제 문맥·모델 입출력·해시·시도·요청 ID를 담는다.
-- 평가 모듈이 `configure_evaluation(config_path: Path)`를 제공하면 CLI의 `--config` 경로를 자원 준비 전에 전달한다. 표준 bootstrap은 지정 설정을 일반·보안 어댑터가 공유하고, 활성 자원의 다른 설정 경로나 같은 설정 파일의 내용 변경을 거부한다. 훅이 없는 사용자 정의 모듈은 자체 설정을 사용한다.
+- 평가 모듈이 `configure_evaluation(config_path: Path)`를 제공하면 CLI가 선택한 설정 경로(`--config` → `ADEN_CONFIG` → `configs/advanced.yaml`)를 자원 준비 전에 전달한다. 표준 bootstrap은 지정 설정을 일반·보안 어댑터가 공유하고, 활성 자원의 다른 설정 경로나 같은 설정 파일의 내용 변경을 거부한다. 훅이 없는 사용자 정의 모듈은 자체 설정을 사용한다.
 - 평가 CLI의 `모듈:이름`은 초기화된 callable이다. 실제 실행 준비 절차는 [평가 가이드](../guides/c-module-guide.md#실제-연결)를 따른다.
 - `app.service.bootstrap`이 그 callable을 제공한다. `query_adapter`(`--adapter`), `retrieve_context`(`--retrieve`), `generate_with_context`(`--generate`)이며, import 때가 아니라 첫 사용 때 프로젝트 루트 `.env`(기존 환경변수 우선)·선택 설정 파일(미지정 시 `configs/advanced.yaml`)·`load_resources()`를 한 번 준비하고 프로세스 종료 때 `Resources.close()`로 해제한다. `query_adapter`는 실행기의 flush·저장 확인용 `tracer` 속성을 노출하고, 보안 두 callable은 같은 어댑터 쌍과 `app/generation/prompts/defense.txt`를 사용한다.
 
@@ -87,7 +87,7 @@ HTTP 시간은 응답 생성까지이며 본문 전송·백그라운드 작업·
 | `latency_ms` | 0 이상의 정수 또는 미측정 `null` |
 | `attempts`, `langfuse_trace_id` | 시도 배열과 trace ID 또는 `null` |
 
-후보의 `rank`·`score`·`retriever`와 제목은 보존할 수 있다. 오류에는 `error_type`과 확인 가능한 이유를 남긴다. `latency_scope`, 실제 최종 청크 수, 문맥 토큰 수, 예산으로 제외한 ID는 선택 필드다. 모델 시도가 있으면 실제 `model_context_text`와 `model_context_hash`가 필수다. 보안 분석의 루트 모델 입출력은 마지막 시도의 값을 연결한다.
+HTTP 요청을 서버 trace로 복원한 기록(`app.evaluation.scripts.http_records`)은 `latency_ms`에 서버 처리 시간(`service`)을 두고 `http_experiment_id`, `http_status`, `http_outcome`, `http_latency_ms`(`http_client`), `prompt_hash`, `k`를 더한다. 후보의 `rank`·`score`·`retriever`와 제목은 보존할 수 있다. 오류에는 `error_type`과 확인 가능한 이유를 남긴다. `latency_scope`, 실제 최종 청크 수, 문맥 토큰 수, 예산으로 제외한 ID는 선택 필드다. 모델 시도가 있으면 실제 `model_context_text`와 `model_context_hash`가 필수다. 보안 분석의 루트 모델 입출력은 마지막 시도의 값을 연결한다.
 
 ### 문맥 해시
 
@@ -111,4 +111,4 @@ HTTP 시간은 응답 생성까지이며 본문 전송·백그라운드 작업·
 
 모델 시도에는 실제 체인 호출의 `latency_ms`를 추가한다. `provided_context`는 provider(주입한 후보 또는 후보·문맥) 사용 여부다. 최종 문맥의 토큰 수와 예산 제외 ID는 Langfuse에도 기록한다. 평가 진단과 점수 게시는 별도 채점 단계에서만 수행한다.
 
-채점 기록에는 `evidence_diagnostics`를, 점수를 게시한 경우 `langfuse_score_status_counts`와 보낸 점수의 `langfuse_score_ids`(`<평가 세트>.<지표>` 이름 → ID)를 남긴다. manifest의 `langfuse_scores`에는 `evaluation_set`, 게시한 지표군 `groups`, 채점 조건 해시 `evaluation_hash`와 게시 상태를 남긴다. 실행 기록의 `langfuse_verification`은 `verified`, `partial`, `not_found`, `failed` 또는 추적 비활성의 `null`이다. 뜻과 게시 규칙은 [평가 가이드](../guides/c-module-guide.md#langfuse)를 따른다.
+채점 기록에는 `evidence_diagnostics`와 Judge의 검산 진단 `calculation_checks`(`status`, `reason`, 대상별 `items`)를, 점수를 게시한 경우 `langfuse_score_status_counts`와 보낸 점수의 `langfuse_score_ids`(`<평가 세트>.<지표>` 이름 → ID)를 남긴다. manifest의 `langfuse_scores`에는 `evaluation_set`, 게시한 지표군 `groups`, 채점 조건 해시 `evaluation_hash`와 게시 상태를 남긴다. 실행 기록의 `langfuse_verification`은 `verified`, `partial`, `not_found`, `failed` 또는 추적 비활성의 `null`이다. 뜻과 게시 규칙은 [평가 가이드](../guides/c-module-guide.md#langfuse)를 따른다.

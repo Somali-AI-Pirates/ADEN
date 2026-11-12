@@ -350,6 +350,13 @@ class Tracer:
                 return last
             time.sleep(interval_s)
 
+    def observations(self, trace_id: str) -> list[Any]:
+        """trace의 관측을 입출력·메타데이터·사용량까지 조회한다(HTTP 평가 기록 연결용). 비활성이면 []."""
+        if self._client is None or not trace_id:
+            return []
+        return list(self._client.api.observations.get_many(
+            trace_id=trace_id, limit=50, fields="core,basic,time,io,metadata,model,usage").data)
+
     def shutdown(self) -> dict[str, Any]:
         if self._client is None:
             return {"status": "disabled"}

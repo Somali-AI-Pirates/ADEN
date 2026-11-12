@@ -1,0 +1,42 @@
+{
+  "common_and_personal_tests": 464,
+  "focused_tests": 10,
+  "passes": [
+    {
+      "checks": [
+        "No cross-page/section source links",
+        "Verified table cells only",
+        "Original source and table snapshot fingerprints",
+        "Selected evidence retained in final original context"
+      ],
+      "focus": "Source integrity and lifetime"
+    },
+    {
+      "checks": [
+        "Unverified DB values fall back to original question search",
+        "Unknown evidence IDs rejected",
+        "Existing read-only SQL whitelist reused",
+        "Provider and format failures not treated as sufficient",
+        "At most 3 API calls and one repair",
+        "Existing baseline and production flow unchanged"
+      ],
+      "focus": "Trust boundaries and bounded execution"
+    }
+  ],
+  "remaining_limits": [
+    "Narrative applicability and requirement completeness remain model judgements",
+    "Simple-record syntax deliberately restricted",
+    "No unused validation-set result",
+    "Combined changes cannot identify individual causal effects"
+  ],
+  "review_type": "self-review; independent agents prohibited in this side conversation",
+  "reviewed_files": {
+    "experimental/u_10o0o/table_rag_workflow/__init__.py": "a851ecc48b497c1f111fda32b6ac6a18f093bc53ec02c2aa8962579922b3e7ce",
+    "experimental/u_10o0o/table_rag_workflow/__main__.py": "e8994146afa3b924f3b9f976b6238be1062053d14146571c8714b11d8a74e286",
+    "experimental/u_10o0o/table_rag_workflow/agent.py": "9ea59dc79db501c7011ede8e639593b96afe4325569bced30ed1726f22796b56",
+    "experimental/u_10o0o/table_rag_workflow/catalog.py": "8c5704e85547312763fa5773c2b747ad7da3a33fc42ff229064b3569d031c1d3",
+    "experimental/u_10o0o/table_rag_workflow/retrieval.py": "423fb0c89288950996862cda674f628d908fda9d992b3a4049ab2b63dde8ddc5",
+    "experimental/u_10o0o/table_rag_workflow/test_workflow.py": "769d6b797ef961ed1be98b6098e0937c8ea477a2786d4fc8e48b4b71fd4655e5"
+  },
+  "subtests": 15
+}

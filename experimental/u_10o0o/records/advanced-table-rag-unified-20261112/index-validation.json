@@ -1,0 +1,47 @@
+{
+  "counts": {
+    "attributes": 26320,
+    "entities": 25451,
+    "keys": 121495,
+    "sources": 36767,
+    "tables": 21126
+  },
+  "date_attribute_types": {
+    "actual_designated_return_date": 2623,
+    "actual_discharge_date": 2928,
+    "actual_gate_out_date": 2928,
+    "recorded_amendment_effective_date": 273,
+    "scheduled_return_date": 2730,
+    "system_entry_date": 2928
+  },
+  "distinct_key_count": 56358,
+  "families": {
+    "HA": 198,
+    "HG": 2730,
+    "IS": 22523
+  },
+  "file_bytes": 109600768,
+  "is_sources_per_record_max": 1,
+  "key_kinds": {
+    "approval_id": 2730,
+    "contract_id": 13848,
+    "equipment_id": 14137,
+    "evidence_id": 7917,
+    "invoice_id": 2730,
+    "receipt_id": 2730,
+    "record_id": 22523,
+    "record_reference": 40636,
+    "reservation_id": 14244
+  },
+  "multi_entity_keys": 7300,
+  "role_counts": {
+    "approval": 2730,
+    "contract": 2928,
+    "events": 2928,
+    "invoice": 2730,
+    "receipt": 2730,
+    "record": 22523,
+    "settlement": 198
+  },
+  "snapshot_manifest_sha256": "2338a9f8c4090cfe708bbe782bbb552a2f06ee216175da680c90667f49c46bfc"
+}

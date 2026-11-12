@@ -1,0 +1,34 @@
+{
+  "ruff_common": "passed",
+  "ruff_owned_files": "passed",
+  "format_owned_files": "passed",
+  "pytest": {
+    "passed": 514,
+    "subtests_passed": 15,
+    "seconds": 9.5,
+    "scope": [
+      "tests",
+      "experimental/u_10o0o/tests",
+      "table_rag/test_table_rag.py",
+      "table_rag/test_workflow.py",
+      "table_rag/test_speed.py"
+    ]
+  },
+  "cli": [
+    "--help passed",
+    "run v2 complete",
+    "report completed",
+    "analyze completed"
+  ],
+  "links": "all local record Markdown links resolve",
+  "self_review": true,
+  "independent_review": false,
+  "independent_review_reason": "Side conversation prohibits sub-agents",
+  "runtime_modified_after_test": false,
+  "files": {
+    "experimental/u_10o0o/table_rag/speed.py": "38633373a2d157eb9772dc10581d14c6310b81e92c3de436c683d978c6d5f421",
+    "experimental/u_10o0o/table_rag/test_speed.py": "711cbe73b885ab77d5451f52d97d8fcd3ff05539f86302312e13ae4d05ed5872",
+    "experimental/u_10o0o/records/advanced-table-rag-speed-20261111/analyze.py": "6381e40ef97db8862456ef7012e1f25cfb0e47f7dd2303cfceaefee8086faaa4"
+  },
+  "run_sha256": "fea32f0c196cc3c6dc33bce396ce0c9f6e8d14ddfbac212b3ed300000fdf0f16"
+}

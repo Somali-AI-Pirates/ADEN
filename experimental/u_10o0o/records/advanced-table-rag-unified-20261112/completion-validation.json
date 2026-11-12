@@ -1,0 +1,39 @@
+{
+  "artifacts": {
+    "report.md": "88c5e5855d53f866e495ee6a20b9363f90ca46902db3eb3abaf1ead5e39d8df6",
+    "review-manifest.json": "2dc24e3203fdc52363af805029443039db3e6651b9234c79968ee4c527d30ebe",
+    "reviewed-difference-flows.json": "3e69ece5fb7b2dfcc4c25c5323ed609c3a59e62d9123c9216701cf0674ef9638",
+    "reviewed-difference-flows.md": "04103bda5acb2f141bd494e1f55576991bcd038fab329e38f9253c3ab19c09fe",
+    "reviewed-per-question.json": "f968111f945629d70f7ae930731f61efb864902d8fb8ea1818fd876b72a27c17",
+    "reviewed-summary.json": "a939f6df2a4116c286fd01cebdad7d671d880e226dcd8a3d04e137966304a023",
+    "timing.json": "80fc64102cb278e62d4eb5a13cf2205d97488f0fea05173c0fe096a093da135d",
+    "work-log.md": "310462dfe30990a49196622103afa8651a6bbc2c005087ded38a5a5ae9d4a3d9"
+  },
+  "budgets": {
+    "A": {
+      "max_final_pages": 8,
+      "max_tokens_including_retained_sql": 6614,
+      "outputs": 278
+    },
+    "B": {
+      "max_final_pages": 8,
+      "max_tokens_including_retained_sql": 6470,
+      "outputs": 278
+    }
+  },
+  "checked_at": "2026-11-12T00:39:53.926092+00:00",
+  "common_ruff": "passed",
+  "independent_review": false,
+  "local_markdown_links": 17,
+  "outputs": 556,
+  "pytest": {
+    "passed": 374,
+    "seconds": 6.13,
+    "subtests": 15
+  },
+  "reviews": 84,
+  "scoped_format": "15 files passed",
+  "scoped_ruff": "passed",
+  "status": "complete",
+  "unchanged_frozen_runtime_files": 94
+}

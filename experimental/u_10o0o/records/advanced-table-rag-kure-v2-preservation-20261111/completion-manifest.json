@@ -1,0 +1,399 @@
+{
+  "record_files": {
+    "adjudications.json": "5fff1239d022327cc1cf0d0981aab0526b9046fe17943ba6d053fdc0ae501eb9",
+    "audit-manifest.json": "de57820dd4a14ea49149607cac19462b31c7c2673596bf3979cdd7a11c857167",
+    "conclusion.md": "5b7df16b6a95bff18d3938c76eb66833004e0fceb184ef2f3e51673082377bee",
+    "dataset-manifest.json": "6a6fb8bb003fb0e92947cb10b1280f19c0ee683b4f4c6cae44e66100b2eb07d1",
+    "differences.json": "dcaae44af855b7ea652e94ce9b9962e141484b8559c5a5931140cef6cb138f14",
+    "finalize.py": "489f628561059e9b0e2cb5617a2e4bd0ff34dd024a000a1e1d41f17caced1003",
+    "per-question.json": "517fc097ee59149bf3aff3efe3e7fd1b6b5e36d915dcc827c687749e321a59d7",
+    "question-changes.md": "aba27ce43e9c684d99e6dbbbcd01dee44c7b83d53657bcbcf150985285aba3bb",
+    "replay.py": "cb1e597c18b1f8671e77c9e84b07893cecc312217a5d557c12a5924cebafb9fd",
+    "report.md": "e7879b3dbc1a7eeadd9a5d857ef13fec14db49bc283a7aee9e5fb64f786e5b75",
+    "required-reviews.json": "490f373238e484855e7665899955219ee7a38fcc997e1270dc1a13d1a26a1b1c",
+    "review.py": "1be595e8fa964bcccc6a9b5f6cafbb4defeaba5109b8a76402eda356cd32a6e6",
+    "reviewed-per-question.json": "5fa0348b605b062c717aeb538ec7d9f1a6425b4f38abe952299919931c017731",
+    "run_benchmark.py": "447ca227f6b775c88ae2ccb7c3712e8453096a415bab9b5072abc13ae35fe8b9",
+    "same-search-replay.json": "f4660932ccee1fac6156d0375240547b4af8197ad3f5ae16221455a13c1dcdbc",
+    "score-manifest.json": "84c09e5efeccdf1109f2e4c23308cd38511998ebf50f8b3d8d838718a77bab2e",
+    "score.py": "45434aff12beb0b6bdc950a8c946953801ae6eaa455f9dc316dfee85ebcff279",
+    "summary.json": "882b24cfbae6d2817ffb7e4d1422f2dfefc3966159e85fa45c241c78c0dcc6d7",
+    "usage.json": "a1516d364bb53eaf33e88e4c42809aa08e1a2a5fcf5e24d8686edb4e34f487c1",
+    "verification.md": "b5aa7b028b792b184979dade1670e74d4bc65457d9a7d2ef8adb24614e1efc78",
+    "work-log.md": "1794f56adc4a2e6285f9d32c7f86ed2462097869afe226170a1ddbd6a4364fb9"
+  },
+  "runtime_parity": [
+    {
+      "path": "app/__init__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/evaluation/__init__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/evaluation/dataset.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/evaluation/metrics.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/generation/__init__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/generation/context.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/ingestion/__init__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/ingestion/chunker.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/ingestion/common_rules.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/ingestion/curated_schema.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/ingestion/curation.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/ingestion/knowledge.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/ingestion/knowledge_schema.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/ingestion/layout.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "app/ingestion/loader.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/__init__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_case_lookup.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_case_sources.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_clarify_lookup.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_clause_binding.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_experiment_eval.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_fast_bm25.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_field_roles.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_format_extension.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_full_metrics.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_hg_lookup.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_is_lookup_ab.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_is_record_lookup.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_luna_interpreter.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_pair_context.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_pair_source_lookup.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_pattern_full.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_patterns.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_question_router.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_role_context.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_routing_rules.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_schema_query.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_search.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_snapshots.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_source_lookup.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_structured_curation.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_structured_luna.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_structured_store.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_table_views.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_target_benchmark.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_target_lookup.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_target_metrics.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_usage_blind.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_validity.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/advanced_workflow_eval.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/bm25.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/context_evidence.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/__init__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/__main__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/assets.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/kure_followup.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/kure_resolution.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/kure_v2.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/score_selected.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embeding.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/evaluate.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/hybrid.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/pattern_retrieval/__init__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/pattern_retrieval/common.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/pattern_retrieval/established_retrieve.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/pattern_retrieval/established_score.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/pattern_retrieval/legacy_baseline.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/prepare.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-kure-v2-preservation-20261111/run_benchmark.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/rerank.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/search.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/__init__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/__main__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/agent.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/benchmark.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/evidence.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/hg.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/kure_benchmark.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/kure_v2.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/oracle.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/report.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/retrieval.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/speed.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/store.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/workflow.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/workflow_experiment.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "shared/__init__.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "shared/contracts.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/kure_v2.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/embedding_ablation/kure_resolution.py",
+      "matches_frozen": true
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-kure-v2-preservation-20261111/run_benchmark.py",
+      "matches_frozen": true
+    }
+  ],
+  "local_audit_inputs": {
+    "protocol.json": "6906a0f2adde9ef8fdf9a0a1a98084508018461305ee5942405464964f9a2844",
+    "run.json": "30cad79c04080ef501e35f5b3a9c227ee73b6a1f47b01fc9ee3195021f880b6a",
+    "manual-review.json": "e33470d4036d4407619c3a2d3afdc125fcc41940a0feabcaf043c9b20fa0bc82",
+    "additional-dataset-review.json": "3dc270412fb6ce3530bb62f751f4141ef75717a616c92287b1d4a30e0ba84352",
+    "configuration-control.json": "161e110dfe3b171819036f01d0e46e9aad14a5416dabe36791fc4b2c3ea0f912",
+    "evidence-review/run.json": "26871d3dbacee4d232f21323de5faf20db4f5f1bce95acb16d3f86ccb5887bb6"
+  }
+}

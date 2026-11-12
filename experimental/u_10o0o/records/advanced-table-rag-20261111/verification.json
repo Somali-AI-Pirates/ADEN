@@ -1,0 +1,38 @@
+{
+  "actual_cli_executed": [
+    "build",
+    "vectors",
+    "run",
+    "score",
+    "grade",
+    "report",
+    "timing",
+    "baseline-answers"
+  ],
+  "api_automatic_retries": false,
+  "baseline_hg_replay": {
+    "same": 280,
+    "total": 280
+  },
+  "budget_audit_sha256": "15186ac1de306f730db0413ea3d2841e8af0734d129b27324bc1d7f9b8e85f35",
+  "cli_help": "passed",
+  "local_document_links": "passed",
+  "package_build": "not run; experiment excluded from wheel and packaging unchanged",
+  "pytest": {
+    "command": "PYTHONPATH=/tmp/aden-side-test-deps .venv/bin/python -B -m pytest -q -p no:cacheprovider tests experimental/u_10o0o/tests experimental/u_10o0o/table_rag/test_table_rag.py",
+    "passed": 491,
+    "subtests_passed": 15
+  },
+  "retrieval_results_mutated_after_scoring": false,
+  "review": "self-review; independent agents prohibited in this side conversation",
+  "ruff_common": "passed",
+  "ruff_explicit_experiment": "passed",
+  "ruff_format": {
+    "files": 12,
+    "status": "passed"
+  },
+  "source_oracle": {
+    "passed": 30,
+    "total": 30
+  }
+}

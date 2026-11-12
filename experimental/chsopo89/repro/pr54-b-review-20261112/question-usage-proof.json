@@ -1,0 +1,48 @@
+{
+  "dataset": "advanced",
+  "source_cases_sha256": "f6d6ee240d33717a3ff63ef43bef09633c23b2d74b0b60483b9f11c44d8cc5b4",
+  "source_manifest_sha256": "e8daa4910d42ee766615091b879550862dbb7ff707c1b9b87962267b18ab13d9",
+  "case_metadata": [
+    {
+      "question_id": "M01",
+      "scenario": "original",
+      "arm": "before"
+    },
+    {
+      "question_id": "M01",
+      "scenario": "original",
+      "arm": "after"
+    },
+    {
+      "question_id": "S09",
+      "scenario": "original",
+      "arm": "before"
+    },
+    {
+      "question_id": "S09",
+      "scenario": "original",
+      "arm": "after"
+    },
+    {
+      "question_id": "M01",
+      "scenario": "actual_signer",
+      "arm": "before"
+    },
+    {
+      "question_id": "M01",
+      "scenario": "actual_signer",
+      "arm": "after"
+    },
+    {
+      "question_id": "S07",
+      "scenario": "explicit_signer",
+      "arm": "after"
+    },
+    {
+      "question_id": "M19",
+      "scenario": "calendar_regression",
+      "arm": "after"
+    }
+  ],
+  "raw_private_cases_copied": false
+}

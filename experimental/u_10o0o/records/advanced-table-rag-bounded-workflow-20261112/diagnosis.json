@@ -1,0 +1,4357 @@
+{
+  "code_findings": [
+    "Planning precedes any retrieved evidence. The bounded repair can search or query SQL but cannot perform a later record lookup using newly discovered identifiers.",
+    "An unverified field in a target discards that target set and restores the original question query. Correct indirect clues can be lost together.",
+    "Record role selection does not automatically retain source pages proving the identifying date/shipper/cargo predicates.",
+    "All non-fast-path questions require both planning and selection. The restricted zero-model grammar matched none of the 278 evaluation questions."
+  ],
+  "groups": {
+    "S01": {
+      "loss_stages": {},
+      "n": 20,
+      "no_record_lookup": 1,
+      "plan_fallback_questions": 1,
+      "regressions": 0,
+      "repeated_document_queries": 0
+    },
+    "S02": {
+      "loss_stages": {
+        "all_retrieval_union_missing_designated_evidence": 3,
+        "final_8_missing_designated_evidence": 2
+      },
+      "n": 20,
+      "no_record_lookup": 19,
+      "plan_fallback_questions": 19,
+      "regressions": 5,
+      "repeated_document_queries": 4
+    },
+    "S03": {
+      "loss_stages": {},
+      "n": 20,
+      "no_record_lookup": 1,
+      "plan_fallback_questions": 1,
+      "regressions": 0,
+      "repeated_document_queries": 0
+    },
+    "S04": {
+      "loss_stages": {
+        "all_retrieval_union_missing_designated_evidence": 3,
+        "final_8_missing_designated_evidence": 5
+      },
+      "n": 20,
+      "no_record_lookup": 6,
+      "plan_fallback_questions": 10,
+      "regressions": 8,
+      "repeated_document_queries": 4
+    },
+    "S05": {
+      "loss_stages": {},
+      "n": 20,
+      "no_record_lookup": 2,
+      "plan_fallback_questions": 3,
+      "regressions": 0,
+      "repeated_document_queries": 0
+    },
+    "S06": {
+      "loss_stages": {
+        "all_retrieval_union_missing_designated_evidence": 10
+      },
+      "n": 20,
+      "no_record_lookup": 20,
+      "plan_fallback_questions": 20,
+      "regressions": 10,
+      "repeated_document_queries": 0
+    },
+    "S07": {
+      "loss_stages": {},
+      "n": 20,
+      "no_record_lookup": 1,
+      "plan_fallback_questions": 1,
+      "regressions": 0,
+      "repeated_document_queries": 0
+    },
+    "negative_control/near_domain": {
+      "loss_stages": {},
+      "n": 10,
+      "no_record_lookup": 10,
+      "plan_fallback_questions": 1,
+      "regressions": 0,
+      "repeated_document_queries": 0
+    },
+    "negative_control/unrelated": {
+      "loss_stages": {},
+      "n": 10,
+      "no_record_lookup": 10,
+      "plan_fallback_questions": 0,
+      "regressions": 0,
+      "repeated_document_queries": 0
+    },
+    "official_additional": {
+      "loss_stages": {
+        "all_retrieval_union_missing_designated_evidence": 3,
+        "final_8_missing_designated_evidence": 1
+      },
+      "n": 29,
+      "no_record_lookup": 19,
+      "plan_fallback_questions": 12,
+      "regressions": 4,
+      "repeated_document_queries": 9
+    },
+    "official_development": {
+      "loss_stages": {
+        "all_retrieval_union_missing_designated_evidence": 4,
+        "merged_20_missing_designated_evidence": 1
+      },
+      "n": 29,
+      "no_record_lookup": 20,
+      "plan_fallback_questions": 13,
+      "regressions": 5,
+      "repeated_document_queries": 8
+    },
+    "semantic_queries/cross_document_rule": {
+      "loss_stages": {
+        "all_retrieval_union_missing_designated_evidence": 4,
+        "merged_20_missing_designated_evidence": 1
+      },
+      "n": 10,
+      "no_record_lookup": 8,
+      "plan_fallback_questions": 3,
+      "regressions": 5,
+      "repeated_document_queries": 1
+    },
+    "semantic_queries/cross_document_workflow": {
+      "loss_stages": {
+        "all_retrieval_union_missing_designated_evidence": 3,
+        "final_8_missing_designated_evidence": 1
+      },
+      "n": 10,
+      "no_record_lookup": 9,
+      "plan_fallback_questions": 0,
+      "regressions": 4,
+      "repeated_document_queries": 0
+    },
+    "semantic_queries/procedure_paraphrase": {
+      "loss_stages": {},
+      "n": 10,
+      "no_record_lookup": 10,
+      "plan_fallback_questions": 0,
+      "regressions": 0,
+      "repeated_document_queries": 0
+    },
+    "semantic_queries/rule_paraphrase": {
+      "loss_stages": {},
+      "n": 10,
+      "no_record_lookup": 9,
+      "plan_fallback_questions": 1,
+      "regressions": 0,
+      "repeated_document_queries": 0
+    },
+    "work_rules/applicability": {
+      "loss_stages": {
+        "merged_20_missing_designated_evidence": 1
+      },
+      "n": 10,
+      "no_record_lookup": 10,
+      "plan_fallback_questions": 4,
+      "regressions": 1,
+      "repeated_document_queries": 2
+    },
+    "work_rules/procedure": {
+      "loss_stages": {},
+      "n": 10,
+      "no_record_lookup": 10,
+      "plan_fallback_questions": 0,
+      "regressions": 0,
+      "repeated_document_queries": 0
+    }
+  },
+  "limits": "Loss stages use registered evidence even when final semantic review accepts alternatives. They locate reference loss, not every possible alternative source.",
+  "per_question": [
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "official_development:AS-DEV01",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV02",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV03",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "official_development:AS-DEV04",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV05",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV06",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "official_development:AS-DEV07",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV08",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 4,
+      "id": "official_development:AS-DEV09",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV10",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "official_development:AS-DEV11",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "merged_20_missing_designated_evidence",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV13",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV14",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV15",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV16",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV17",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV18",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 4,
+      "id": "official_development:AS-DEV19",
+      "lookup_statuses": [
+        "not_found",
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 3,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV20",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "official_development:AS-DEV21",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV22",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV23",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 1,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV24",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV25",
+      "lookup_statuses": [
+        "not_found",
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 3,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV26",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_development:AS-DEV27",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV28",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "official_development:AS-DEV29",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_development",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_development:AS-DEV30",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "official_additional:AS-ADD01",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD02",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "official_additional:AS-ADD03",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD04",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "final_8_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD05",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_additional:AS-ADD06",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD07",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD08",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 4,
+      "id": "official_additional:AS-ADD09",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD10",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "official_additional:AS-ADD11",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD13",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD14",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD15",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_additional:AS-ADD16",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD17",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_additional:AS-ADD18",
+      "lookup_statuses": [
+        "not_found",
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 3,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 4,
+      "id": "official_additional:AS-ADD19",
+      "lookup_statuses": [],
+      "plan_fallbacks": 3,
+      "record_calls": 0,
+      "repeated_document_queries": 2,
+      "request_count": 3,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_additional:AS-ADD20",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_additional:AS-ADD21",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD22",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 4,
+      "id": "official_additional:AS-ADD23",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 3,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 5,
+      "id": "official_additional:AS-ADD24",
+      "lookup_statuses": [
+        "not_found",
+        "not_found",
+        "not_found",
+        "not_found",
+        "not_found",
+        "not_found",
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 4,
+      "repeated_document_queries": 0,
+      "request_count": 4,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD25",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD26",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_additional:AS-ADD27",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "official_additional:AS-ADD28",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "official_additional:AS-ADD29",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "official_additional",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "official_additional:AS-ADD30",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-01",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "settlement"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-02",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "settlement"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-03",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-04",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S01-05",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-06",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-07",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "record"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-08",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "record"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-09",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "record"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S01-10",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "record"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S01-11",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "record"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S01-12",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "record"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-13",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-14",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-15",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S01-16",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-17",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-18",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-19",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S01",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S01-20",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-01",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-02",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S02-03",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S02-04",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "final_8_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-05",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-06",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-07",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S02-08",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S02-09",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-10",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-11",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-12",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-13",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 3,
+      "id": "scenarios:AS-S02-14",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-15",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-16",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "scenarios:AS-S02-17",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "scenarios:AS-S02-18",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "final_8_missing_designated_evidence",
+      "document_calls": 3,
+      "id": "scenarios:AS-S02-19",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S02",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S02-20",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S03-01",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S03-02",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-03",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S03-04",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-05",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S03-06",
+      "lookup_statuses": [
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 3,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-07",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-08",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-09",
+      "lookup_statuses": [
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 3,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-10",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-11",
+      "lookup_statuses": [
+        "matched",
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 4,
+      "repeated_document_queries": 0,
+      "request_count": 4,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-12",
+      "lookup_statuses": [
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 3,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [
+        "approval",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S03-13",
+      "lookup_statuses": [
+        "matched",
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 4,
+      "repeated_document_queries": 0,
+      "request_count": 4,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S03-14",
+      "lookup_statuses": [
+        "matched",
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 4,
+      "repeated_document_queries": 0,
+      "request_count": 4,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-15",
+      "lookup_statuses": [
+        "matched",
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 4,
+      "repeated_document_queries": 0,
+      "request_count": 4,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S03-16",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-17",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S03-18",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "approval",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S03-19",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S03",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "scenarios:AS-S03-20",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S04-01",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S04-02",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S04-03",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S04-04",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S04-05",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S04-06",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S04-07",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S04-08",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S04-09",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 1,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "scenarios:AS-S04-10",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 1,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "final_8_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S04-11",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 1,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S04-12",
+      "lookup_statuses": [
+        "matched",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "approval",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S04-13",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 1,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "final_8_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S04-14",
+      "lookup_statuses": [
+        "matched",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "final_8_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S04-15",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 3,
+      "id": "scenarios:AS-S04-16",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "final_8_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "scenarios:AS-S04-17",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "final_8_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S04-18",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "scenarios:AS-S04-19",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S04",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S04-20",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-01",
+      "lookup_statuses": [
+        "conflict"
+      ],
+      "plan_fallbacks": 1,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S05-02",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S05-03",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-04",
+      "lookup_statuses": [
+        "conflict"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-05",
+      "lookup_statuses": [
+        "conflict"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-06",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S05-07",
+      "lookup_statuses": [
+        "conflict"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-08",
+      "lookup_statuses": [
+        "conflict"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S05-09",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "approval",
+        "contract"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S05-10",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-11",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "approval",
+        "contract",
+        "events"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-12",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "approval",
+        "contract"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S05-13",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "approval",
+        "contract"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-14",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "approval",
+        "contract"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-15",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-16",
+      "lookup_statuses": [
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 3,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S05-17",
+      "lookup_statuses": [
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 3,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S05-18",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 0,
+      "id": "scenarios:AS-S05-19",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S05",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S05-20",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "scenarios:AS-S06-01",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S06-02",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-03",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-04",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "scenarios:AS-S06-05",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-06",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-07",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S06-08",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-09",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-10",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-11",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "scenarios:AS-S06-12",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "scenarios:AS-S06-13",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-14",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-15",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-16",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-17",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-18",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-19",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S06",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S06-20",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S07-01",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-02",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-03",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-04",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S07-05",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S07-06",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-07",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S07-08",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-09",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-10",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-11",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S07-12",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-13",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-14",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S07-15",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S07-16",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-17",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-18",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "scenarios:AS-S07-19",
+      "lookup_statuses": [
+        "matched",
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [
+        "contract",
+        "events",
+        "invoice",
+        "receipt"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "S07",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "scenarios:AS-S07-20",
+      "lookup_statuses": [
+        "matched"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [
+        "events",
+        "invoice"
+      ],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-01",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-02",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-03",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-04",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-05",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-06",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-07",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-08",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-09",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/unrelated",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-10",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-11",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-12",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "negative_control:AS-S08-13",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-14",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-15",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-16",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-17",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "negative_control:AS-S08-18",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-19",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "negative_control/near_domain",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "negative_control:AS-S08-20",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "work_rules:AS-WR-01",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "work_rules:AS-WR-02",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "work_rules:AS-WR-03",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "work_rules:AS-WR-04",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "work_rules:AS-WR-05",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "work_rules:AS-WR-06",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "work_rules:AS-WR-07",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "work_rules:AS-WR-08",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "work_rules:AS-WR-09",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/procedure",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "work_rules:AS-WR-10",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "work_rules:AS-WR-11",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "work_rules:AS-WR-12",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "work_rules:AS-WR-13",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "work_rules:AS-WR-14",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "work_rules:AS-WR-15",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "work_rules:AS-WR-16",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "work_rules:AS-WR-17",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "work_rules:AS-WR-18",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "merged_20_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "work_rules:AS-WR-19",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "work_rules/applicability",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "work_rules:AS-WR-20",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-01",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-02",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-03",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-04",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-05",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-06",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 0,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-07",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-08",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-09",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/procedure_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-10",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-11",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-12",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-13",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-14",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-15",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-16",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-17",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-18",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-19",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/rule_paraphrase",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "semantic_queries:AS-SEM-20",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-21",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-22",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "semantic_queries:AS-SEM-23",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-24",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-25",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 3,
+      "id": "semantic_queries:AS-SEM-26",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-27",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-28",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-29",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_workflow",
+      "designated_loss_stage": "final_8_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-30",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 4,
+      "id": "semantic_queries:AS-SEM-31",
+      "lookup_statuses": [
+        "not_found",
+        "not_found"
+      ],
+      "plan_fallbacks": 0,
+      "record_calls": 2,
+      "repeated_document_queries": 0,
+      "request_count": 3,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "semantic_queries:AS-SEM-32",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-33",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 0,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 3,
+      "id": "semantic_queries:AS-SEM-34",
+      "lookup_statuses": [],
+      "plan_fallbacks": 2,
+      "record_calls": 0,
+      "repeated_document_queries": 1,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-35",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-36",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "not_regressed",
+      "document_calls": 2,
+      "id": "semantic_queries:AS-SEM-37",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": false
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 1,
+      "id": "semantic_queries:AS-SEM-38",
+      "lookup_statuses": [],
+      "plan_fallbacks": 0,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 1,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "all_retrieval_union_missing_designated_evidence",
+      "document_calls": 3,
+      "id": "semantic_queries:AS-SEM-39",
+      "lookup_statuses": [
+        "not_found"
+      ],
+      "plan_fallbacks": 1,
+      "record_calls": 1,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    },
+    {
+      "category": "semantic_queries/cross_document_rule",
+      "designated_loss_stage": "merged_20_missing_designated_evidence",
+      "document_calls": 3,
+      "id": "semantic_queries:AS-SEM-40",
+      "lookup_statuses": [],
+      "plan_fallbacks": 1,
+      "record_calls": 0,
+      "repeated_document_queries": 0,
+      "request_count": 2,
+      "returned_record_roles": [],
+      "reviewed_regression": true
+    }
+  ]
+}

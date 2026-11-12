@@ -1,0 +1,30 @@
+{
+  "budgets": {
+    "A": {
+      "count": 278,
+      "max_pages": 8,
+      "max_tokens_with_sql": 6614
+    },
+    "B": {
+      "count": 278,
+      "max_pages": 8,
+      "max_tokens_with_sql": 6949
+    }
+  },
+  "checked_at": "2026-11-12T01:18:44.015091+00:00",
+  "frozen_runtime_files": 94,
+  "independent_review": false,
+  "local_links": 13,
+  "model_review_calls": 90,
+  "new_assistant_inspections": 57,
+  "pytest": {
+    "passed": 399,
+    "seconds": 6.2,
+    "subtests": 15
+  },
+  "retrieval_outputs": 556,
+  "reused_source_identical_reviews": 33,
+  "status": "complete",
+  "unchanged_implementation_review_files": 7,
+  "validation_note": "Runtime and tests unchanged since post-review full pytest; final scoring validates every source hash and quote."
+}

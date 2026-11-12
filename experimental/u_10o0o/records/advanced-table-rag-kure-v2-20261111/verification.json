@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "ruff_common": "passed",
+    "ruff_owned": "passed",
+    "format": "passed",
+    "pytest_passed": 519,
+    "subtests_passed": 15,
+    "focused_tests": 38,
+    "default_initial_search_parity": "6/6",
+    "completed_retrievals": 280,
+    "completed_answers": 6,
+    "old_scores_reproduced": "280/280",
+    "local_record_links": "passed",
+    "cli_help": "passed"
+  },
+  "review": "self-review; sub-agents prohibited",
+  "adopted_new_model": false,
+  "run_sha256": "8095d170c9b1fdbed45210a390db95b20612c5445857af8a6c9655d8f2bfd543",
+  "files": {
+    "experimental/u_10o0o/table_rag/retrieval.py": "eb18d4dc02399846338eb8c681e8eaf6218200e7acc28fb165682015be7e7dca",
+    "experimental/u_10o0o/table_rag/kure_v2.py": "2718d1a2e769d1c92473fbe836f5d79a11c62095157dfec6c5559526b382ebc3",
+    "experimental/u_10o0o/table_rag/kure_benchmark.py": "1ebb0810a07f887931959499df3aaaa57693b9ac4266d519a7aee098813bdfde",
+    "experimental/u_10o0o/table_rag/test_speed.py": "56481b99b1d5dce0df1b79a0c5973202a54f9688d0e65ec2251e02a5eccb9627",
+    "experimental/u_10o0o/table_rag/test_kure_v2.py": "313c61f0abf5ef40707000c16aa969ce4edb54b1c5c6af8a85f42c23a8ee5153",
+    "experimental/u_10o0o/table_rag/README.md": "c74d02d61324ca114097a598a202f0fd0242bfff8dd864021c78c6c9fb678820",
+    "experimental/u_10o0o/records/advanced-table-rag-kure-v2-20261111/analyze.py": "f5a43ed562d4fc101e36d9354203b1841ca8d67a67cecd4736f266a69006857d"
+  }
+}

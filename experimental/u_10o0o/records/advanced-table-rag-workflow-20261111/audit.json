@@ -1,0 +1,72 @@
+{
+  "budget_passed": true,
+  "max_distinct_source_references": 9,
+  "max_evidence_json_tokens": 8000,
+  "max_raw_pages": 8,
+  "proofs_and_guards": {
+    "answer_coverage_guard": 5,
+    "document_proofs": 1552,
+    "invalid_answer_citations": 0,
+    "sql_proofs": 685
+  },
+  "questions": 280,
+  "questions_with_more_than_eight_source_references": 1,
+  "retrieval_outputs_modified": false,
+  "run_sha256": "f3c36795cb93096e569b1ce5c2df6f1286815ee7754de4239df65ebed2e8aa4b",
+  "script_sha256": "91bec93c63d102522c56105f4a2bc2ea839c6a70925f49d0fbad2391bf465a9c",
+  "service_api_calls_per_question": 5.889285714285714,
+  "service_calls_exclude_baseline_generation_and_judge": true,
+  "source_proof_audit_passed": true,
+  "token_accounting": "reasoning is included in output; cached tokens in input; pilot/aborted/in-flight unreturned usage excluded",
+  "token_audit": "Restored runtime insertion order from frozen Ledger.payload; disk JSON sorts keys and changes token boundaries",
+  "usage_by_stage": {
+    "answer_baseline": {
+      "cached_input_tokens": 4716,
+      "calls": 280,
+      "input_tokens": 1410094,
+      "output_tokens": 100949,
+      "reasoning_tokens": 50365,
+      "total_tokens": 1511043
+    },
+    "answer_workflow": {
+      "cached_input_tokens": 0,
+      "calls": 280,
+      "input_tokens": 1806124,
+      "output_tokens": 83270,
+      "reasoning_tokens": 28372,
+      "total_tokens": 1889394
+    },
+    "intermediate": {
+      "cached_input_tokens": 0,
+      "calls": 363,
+      "input_tokens": 2943414,
+      "output_tokens": 382845,
+      "reasoning_tokens": 157806,
+      "total_tokens": 3326259
+    },
+    "judge": {
+      "cached_input_tokens": 0,
+      "calls": 280,
+      "input_tokens": 3419254,
+      "output_tokens": 146083,
+      "reasoning_tokens": 106952,
+      "total_tokens": 3565337
+    },
+    "plan": {
+      "cached_input_tokens": 2761540,
+      "calls": 643,
+      "input_tokens": 5694831,
+      "output_tokens": 140999,
+      "reasoning_tokens": 31726,
+      "total_tokens": 5835830
+    },
+    "sql": {
+      "cached_input_tokens": 0,
+      "calls": 363,
+      "input_tokens": 2349123,
+      "output_tokens": 343544,
+      "reasoning_tokens": 233271,
+      "total_tokens": 2692667
+    }
+  }
+}

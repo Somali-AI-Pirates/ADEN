@@ -1,0 +1,799 @@
+{
+  "S01": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 29
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 29,
+        "retrieval_p50": 3.98215530699963,
+        "retrieval_p95": 10.70532196625027,
+        "search_calls": 29,
+        "selected_not_retained": 0,
+        "sql_calls": 8,
+        "usage": {
+          "input_tokens": 284175,
+          "output_tokens": 5521,
+          "reasoning_tokens": 1567
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 32
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 32,
+        "retrieval_p50": 7.153032891001203,
+        "retrieval_p95": 9.541311098451116,
+        "search_calls": 32,
+        "selected_not_retained": 0,
+        "sql_calls": 12,
+        "usage": {
+          "input_tokens": 329812,
+          "output_tokens": 5765,
+          "reasoning_tokens": 1507
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  },
+  "S02": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 21
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 21,
+        "retrieval_p50": 3.939778981002746,
+        "retrieval_p95": 6.299858952454817,
+        "search_calls": 21,
+        "selected_not_retained": 0,
+        "sql_calls": 1,
+        "usage": {
+          "input_tokens": 165837,
+          "output_tokens": 3454,
+          "reasoning_tokens": 729
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 25
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 25,
+        "retrieval_p50": 4.244353313501051,
+        "retrieval_p95": 9.03649778439758,
+        "search_calls": 25,
+        "selected_not_retained": 0,
+        "sql_calls": 4,
+        "usage": {
+          "input_tokens": 230104,
+          "output_tokens": 4800,
+          "reasoning_tokens": 1272
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  },
+  "S03": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 38
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 38,
+        "retrieval_p50": 10.587786502001109,
+        "retrieval_p95": 18.91620232535024,
+        "search_calls": 36,
+        "selected_not_retained": 0,
+        "sql_calls": 3,
+        "usage": {
+          "input_tokens": 418173,
+          "output_tokens": 13476,
+          "reasoning_tokens": 5211
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 36
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 36,
+        "retrieval_p50": 10.880507341498742,
+        "retrieval_p95": 15.30510853449996,
+        "search_calls": 33,
+        "selected_not_retained": 0,
+        "sql_calls": 2,
+        "usage": {
+          "input_tokens": 367128,
+          "output_tokens": 11933,
+          "reasoning_tokens": 4193
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  },
+  "S04": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 21
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 21,
+        "retrieval_p50": 5.010651044998667,
+        "retrieval_p95": 10.425925944501078,
+        "search_calls": 21,
+        "selected_not_retained": 0,
+        "sql_calls": 1,
+        "usage": {
+          "input_tokens": 165121,
+          "output_tokens": 5177,
+          "reasoning_tokens": 1472
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 27
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 27,
+        "retrieval_p50": 5.563044760994671,
+        "retrieval_p95": 14.428202117099866,
+        "search_calls": 26,
+        "selected_not_retained": 0,
+        "sql_calls": 3,
+        "usage": {
+          "input_tokens": 253129,
+          "output_tokens": 8244,
+          "reasoning_tokens": 2956
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  },
+  "S05": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 39
+        },
+        "count": 20,
+        "finish_status": {
+          "insufficient": 1,
+          "sufficient": 19
+        },
+        "planner_calls": 39,
+        "retrieval_p50": 9.381224337499589,
+        "retrieval_p95": 17.654160699405118,
+        "search_calls": 36,
+        "selected_not_retained": 0,
+        "sql_calls": 5,
+        "usage": {
+          "input_tokens": 418000,
+          "output_tokens": 9779,
+          "reasoning_tokens": 3259
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 37
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 37,
+        "retrieval_p50": 8.217586967497482,
+        "retrieval_p95": 16.868558494601167,
+        "search_calls": 34,
+        "selected_not_retained": 0,
+        "sql_calls": 5,
+        "usage": {
+          "input_tokens": 396702,
+          "output_tokens": 9199,
+          "reasoning_tokens": 3068
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  },
+  "S06": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 28
+        },
+        "count": 20,
+        "finish_status": {
+          "needs_clarification": 2,
+          "sufficient": 18
+        },
+        "planner_calls": 28,
+        "retrieval_p50": 4.856889989503543,
+        "retrieval_p95": 12.053284737101057,
+        "search_calls": 28,
+        "selected_not_retained": 0,
+        "sql_calls": 0,
+        "usage": {
+          "input_tokens": 264720,
+          "output_tokens": 5940,
+          "reasoning_tokens": 2073
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 25
+        },
+        "count": 20,
+        "finish_status": {
+          "needs_clarification": 11,
+          "sufficient": 9
+        },
+        "planner_calls": 25,
+        "retrieval_p50": 5.416508117999911,
+        "retrieval_p95": 11.489613122452285,
+        "search_calls": 25,
+        "selected_not_retained": 0,
+        "sql_calls": 1,
+        "usage": {
+          "input_tokens": 228635,
+          "output_tokens": 6291,
+          "reasoning_tokens": 2677
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  },
+  "S07": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 40
+        },
+        "count": 20,
+        "finish_status": {
+          "insufficient": 2,
+          "sufficient": 18
+        },
+        "planner_calls": 40,
+        "retrieval_p50": 10.895970446999854,
+        "retrieval_p95": 14.845347038205364,
+        "search_calls": 35,
+        "selected_not_retained": 0,
+        "sql_calls": 0,
+        "usage": {
+          "input_tokens": 407719,
+          "output_tokens": 11753,
+          "reasoning_tokens": 3384
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 0,
+      "candidate": 20,
+      "page_recall": 1.0,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 20,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 32
+        },
+        "count": 20,
+        "finish_status": {
+          "insufficient": 5,
+          "sufficient": 15
+        },
+        "planner_calls": 32,
+        "retrieval_p50": 7.938083702498261,
+        "retrieval_p95": 14.644586156548032,
+        "search_calls": 30,
+        "selected_not_retained": 0,
+        "sql_calls": 0,
+        "usage": {
+          "input_tokens": 320403,
+          "output_tokens": 9768,
+          "reasoning_tokens": 3509
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  },
+  "categories_positive": {
+    "A": {
+      "ambiguous_scope": 1,
+      "audited_outputs": 18,
+      "candidate": 190,
+      "page_recall": 0.9608333333333333,
+      "reviewed": 195,
+      "reviewed_insufficient": 4,
+      "strict": 188,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 362
+        },
+        "count": 200,
+        "finish_status": {
+          "insufficient": 4,
+          "needs_clarification": 7,
+          "sufficient": 189
+        },
+        "planner_calls": 362,
+        "retrieval_p50": 7.091201074501441,
+        "retrieval_p95": 24.115498836404726,
+        "search_calls": 349,
+        "selected_not_retained": 0,
+        "sql_calls": 18,
+        "usage": {
+          "input_tokens": 4223461,
+          "output_tokens": 97997,
+          "reasoning_tokens": 34913
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 1,
+      "audited_outputs": 18,
+      "candidate": 188,
+      "page_recall": 0.9441666666666667,
+      "reviewed": 196,
+      "reviewed_insufficient": 3,
+      "strict": 184,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 343
+        },
+        "count": 200,
+        "finish_status": {
+          "insufficient": 7,
+          "needs_clarification": 17,
+          "sufficient": 176
+        },
+        "planner_calls": 343,
+        "retrieval_p50": 7.153032891001203,
+        "retrieval_p95": 20.67283446745241,
+        "search_calls": 332,
+        "selected_not_retained": 0,
+        "sql_calls": 27,
+        "usage": {
+          "input_tokens": 3851769,
+          "output_tokens": 96363,
+          "reasoning_tokens": 37117
+        }
+      }
+    },
+    "n": 200,
+    "reviewed_improvements": 1,
+    "reviewed_regressions": 0
+  },
+  "official_all": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 10,
+      "candidate": 51,
+      "page_recall": 0.9094827586206896,
+      "reviewed": 57,
+      "reviewed_insufficient": 1,
+      "strict": 48,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 87
+        },
+        "count": 58,
+        "finish_status": {
+          "needs_clarification": 1,
+          "sufficient": 57
+        },
+        "planner_calls": 87,
+        "retrieval_p50": 5.532587720001175,
+        "retrieval_p95": 20.86940007530065,
+        "search_calls": 85,
+        "selected_not_retained": 0,
+        "sql_calls": 2,
+        "usage": {
+          "input_tokens": 935902,
+          "output_tokens": 27758,
+          "reasoning_tokens": 10611
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 10,
+      "candidate": 51,
+      "page_recall": 0.9181034482758621,
+      "reviewed": 57,
+      "reviewed_insufficient": 1,
+      "strict": 49,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 89
+        },
+        "count": 58,
+        "finish_status": {
+          "insufficient": 1,
+          "sufficient": 57
+        },
+        "planner_calls": 89,
+        "retrieval_p50": 6.168017046500609,
+        "retrieval_p95": 20.65757386895202,
+        "search_calls": 87,
+        "selected_not_retained": 0,
+        "sql_calls": 6,
+        "usage": {
+          "input_tokens": 958635,
+          "output_tokens": 28412,
+          "reasoning_tokens": 11230
+        }
+      }
+    },
+    "n": 58,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  },
+  "semantic_multi": {
+    "A": {
+      "ambiguous_scope": 1,
+      "audited_outputs": 10,
+      "candidate": 13,
+      "page_recall": 0.7833333333333333,
+      "reviewed": 16,
+      "reviewed_insufficient": 3,
+      "strict": 12,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 75
+        },
+        "count": 20,
+        "finish_status": {
+          "insufficient": 1,
+          "needs_clarification": 4,
+          "sufficient": 15
+        },
+        "planner_calls": 75,
+        "retrieval_p50": 23.12071204199674,
+        "retrieval_p95": 32.86866353300393,
+        "search_calls": 75,
+        "selected_not_retained": 0,
+        "sql_calls": 0,
+        "usage": {
+          "input_tokens": 1338061,
+          "output_tokens": 23791,
+          "reasoning_tokens": 9298
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 1,
+      "audited_outputs": 10,
+      "candidate": 14,
+      "page_recall": 0.7416666666666667,
+      "reviewed": 17,
+      "reviewed_insufficient": 2,
+      "strict": 11,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 62
+        },
+        "count": 20,
+        "finish_status": {
+          "insufficient": 2,
+          "needs_clarification": 4,
+          "sufficient": 14
+        },
+        "planner_calls": 62,
+        "retrieval_p50": 20.251592630502273,
+        "retrieval_p95": 33.559903908201896,
+        "search_calls": 62,
+        "selected_not_retained": 0,
+        "sql_calls": 0,
+        "usage": {
+          "input_tokens": 1007871,
+          "output_tokens": 22656,
+          "reasoning_tokens": 10753
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 1,
+    "reviewed_regressions": 0
+  },
+  "semantic_single": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 6,
+      "candidate": 18,
+      "page_recall": 0.85,
+      "reviewed": 19,
+      "reviewed_insufficient": 1,
+      "strict": 17,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 39
+        },
+        "count": 20,
+        "finish_status": {
+          "needs_clarification": 1,
+          "sufficient": 19
+        },
+        "planner_calls": 39,
+        "retrieval_p50": 9.720041087501158,
+        "retrieval_p95": 17.101684309746634,
+        "search_calls": 37,
+        "selected_not_retained": 0,
+        "sql_calls": 0,
+        "usage": {
+          "input_tokens": 417020,
+          "output_tokens": 10245,
+          "reasoning_tokens": 4263
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 6,
+      "candidate": 16,
+      "page_recall": 0.75,
+      "reviewed": 19,
+      "reviewed_insufficient": 1,
+      "strict": 15,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 33
+        },
+        "count": 20,
+        "finish_status": {
+          "needs_clarification": 2,
+          "sufficient": 18
+        },
+        "planner_calls": 33,
+        "retrieval_p50": 8.532803345504362,
+        "retrieval_p95": 13.821152165551759,
+        "search_calls": 32,
+        "selected_not_retained": 0,
+        "sql_calls": 0,
+        "usage": {
+          "input_tokens": 340994,
+          "output_tokens": 8313,
+          "reasoning_tokens": 3384
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  },
+  "work_rules_all": {
+    "A": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 2,
+      "candidate": 19,
+      "page_recall": 0.975,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 19,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 32
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 32,
+        "retrieval_p50": 6.334806175997073,
+        "retrieval_p95": 19.776748191499433,
+        "search_calls": 31,
+        "selected_not_retained": 0,
+        "sql_calls": 0,
+        "usage": {
+          "input_tokens": 344635,
+          "output_tokens": 8861,
+          "reasoning_tokens": 3657
+        }
+      }
+    },
+    "B": {
+      "ambiguous_scope": 0,
+      "audited_outputs": 2,
+      "candidate": 18,
+      "page_recall": 0.95,
+      "reviewed": 20,
+      "reviewed_insufficient": 0,
+      "strict": 18,
+      "timing": {
+        "api_failure_questions": [],
+        "api_status": {
+          "complete": 34
+        },
+        "count": 20,
+        "finish_status": {
+          "sufficient": 20
+        },
+        "planner_calls": 34,
+        "retrieval_p50": 8.205777437000506,
+        "retrieval_p95": 19.776271222647846,
+        "search_calls": 33,
+        "selected_not_retained": 0,
+        "sql_calls": 0,
+        "usage": {
+          "input_tokens": 376991,
+          "output_tokens": 9394,
+          "reasoning_tokens": 3798
+        }
+      }
+    },
+    "n": 20,
+    "reviewed_improvements": 0,
+    "reviewed_regressions": 0
+  }
+}

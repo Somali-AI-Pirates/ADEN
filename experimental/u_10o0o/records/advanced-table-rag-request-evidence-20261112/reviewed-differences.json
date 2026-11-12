@@ -1,0 +1,26 @@
+[
+  {
+    "category": "official_development",
+    "current": false,
+    "id": "official_development:AS-DEV06",
+    "reason_current": "SI 최초 제출 창구의 직접 근거 부족.",
+    "reason_unified": "SI 최초 접수 기록의 제출처와 VGM 신규 경로·중량 구분이 실제 반환 문맥에 있다.",
+    "unified": true
+  },
+  {
+    "category": "official_additional",
+    "current": false,
+    "id": "official_additional:AS-ADD06",
+    "reason_current": "20GP 신규 VGM의 해당 날짜 적용 경로 근거 부족.",
+    "reason_unified": "지정 근거 충족 또는 로컬 검수 사유 참조",
+    "unified": true
+  },
+  {
+    "category": "official_additional",
+    "current": true,
+    "id": "official_additional:AS-ADD09",
+    "reason_current": "지정 근거 충족 또는 로컬 검수 사유 참조",
+    "reason_unified": "봉인 변경을 운송사에도 전달하는 근거 부족.",
+    "unified": false
+  }
+]

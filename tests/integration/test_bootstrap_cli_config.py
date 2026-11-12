@@ -1,13 +1,15 @@
 from dataclasses import asdict
+import hashlib
 import importlib
 import json
+import os
 from types import SimpleNamespace
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import pytest
 import yaml
 
-from app.evaluation.scripts import run_benchmark, run_security
+from app.evaluation.scripts import _common, run_benchmark, run_security
 from shared.contracts import Chunk
 from shared.settings import DEFAULT_CONFIG
 from tests.pipeline_fakes import make_query_resources
@@ -17,6 +19,7 @@ from tests.pipeline_fakes import make_query_resources
 def configured_service(monkeypatch):
     module = importlib.import_module("app.service.bootstrap")
     monkeypatch.setattr(module, "load_dotenv", Mock())
+    monkeypatch.setattr(_common, "load_dotenv", Mock())  # 저장소의 실제 .env를 읽지 않는다
     resources = make_query_resources()
     resources.qdrant.query_points.return_value.points = [
         SimpleNamespace(payload=asdict(Chunk(f"DEMO-p{i}-c1", "DEMO", "DEMO.pdf", i,
@@ -52,16 +55,14 @@ def write_inputs(tmp_path):
     return config, questions
 
 
-@pytest.mark.parametrize("extra, expected_k", [([], 3), (["--k", "3"], 3)])
-def test_benchmark_config_reaches_runtime_context_and_metrics(tmp_path, monkeypatch,
-                                                            configured_service, extra, expected_k):
+def test_benchmark_config_reaches_runtime_context_and_metrics(tmp_path, monkeypatch, configured_service):
     config, questions = write_inputs(tmp_path)
     monkeypatch.setattr("sys.argv", ["run_benchmark", "--questions", str(questions),
                         "--adapter", "app.service.bootstrap:query_adapter", "--config", str(config),
                         "--experiment-id", "configured", "--modes", "naive",
-                        "--artifacts-dir", str(tmp_path / "a"), "--reports-dir", str(tmp_path / "r"),
-                        *extra])
-    run_benchmark.main()
+                        "--artifacts-dir", str(tmp_path / "a"), "--reports-dir", str(tmp_path / "r")])
+    with patch.dict(os.environ, {"ADEN_CONFIG": str(DEFAULT_CONFIG)}):  # --config가 우선한다
+        run_benchmark.main()
     service, loader, resources = configured_service
     loader.assert_called_once()
     actual = loader.call_args.args[0]
@@ -73,10 +74,11 @@ def test_benchmark_config_reaches_runtime_context_and_metrics(tmp_path, monkeypa
     manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
     runs = [json.loads(line) for line in (output / "runs.jsonl").read_text(encoding="utf-8").splitlines()]
     scores = [json.loads(line) for line in (output / "scores.jsonl").read_text(encoding="utf-8").splitlines()]
-    assert manifest["dataset_id"] == "advanced" and manifest["benchmark"]["k"] == expected_k
+    assert manifest["dataset_id"] == "advanced" and manifest["benchmark"]["k"] == 3
+    assert manifest["config_hash"] == "sha256:" + hashlib.sha256(config.read_bytes()).hexdigest()
     assert len(runs) == 1 and runs[0]["status"] == "answered"
     assert runs[0]["dataset_id"] == "advanced" and len(runs[0]["final_context_chunks"]) == 3
-    assert scores[0]["retrieval"]["k"] == expected_k
+    assert scores[0]["retrieval"]["k"] == 3
 
 
 def benchmark_argv(tmp_path, questions, *extra):
@@ -86,57 +88,77 @@ def benchmark_argv(tmp_path, questions, *extra):
             "--reports-dir", str(tmp_path / "r"), *extra]
 
 
-@pytest.mark.parametrize("extra, message", [
-    (["--config", "{config}", "--k", "5"], "retrieval.k 3"),
-    (["--config-hash", "manual-hash"], "--config 없이"),
-    (["--config-hash", "manual-hash", "--k", "0"], "양수"),
-])
-def test_benchmark_rejects_k_not_tied_to_service_config(tmp_path, monkeypatch, configured_service,
-                                                        extra, message):
+def security_argv(tmp_path, questions, *extra):
+    return ["run_security", "--security-file", str(questions),
+            "--retrieve", "app.service.bootstrap:retrieve_context",
+            "--generate", "app.service.bootstrap:generate_with_context", "--retrieval-mode", "naive",
+            "--experiment-id", "k-check", "--artifacts-dir", str(tmp_path / "a"),
+            "--reports-dir", str(tmp_path / "r"), *extra]
+
+
+@pytest.mark.parametrize("use_aden_config, expected_k", [(True, 3), (False, 8)])
+def test_benchmark_without_config_uses_aden_config_then_default(tmp_path, monkeypatch, configured_service,
+                                                                use_aden_config, expected_k):
     config, questions = write_inputs(tmp_path)
-    extra = [str(config) if item == "{config}" else item for item in extra]
-    monkeypatch.setattr("sys.argv", benchmark_argv(tmp_path, questions, *extra))
-    with pytest.raises(SystemExit, match=message):
+    chosen = config if use_aden_config else DEFAULT_CONFIG
+    monkeypatch.setattr("sys.argv", benchmark_argv(tmp_path, questions))
+    with patch.dict(os.environ):
+        os.environ.pop("ADEN_CONFIG", None)
+        if use_aden_config:
+            os.environ["ADEN_CONFIG"] = str(config)
         run_benchmark.main()
-    _, loader, _ = configured_service
-    loader.assert_not_called()
+    manifest = json.loads((tmp_path / "a" / "k-check" / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["config_hash"] == "sha256:" + hashlib.sha256(chosen.read_bytes()).hexdigest()
+    assert manifest["benchmark"]["k"] == expected_k
+    assert configured_service[0]._config_path == chosen.resolve()
+
+
+@pytest.mark.parametrize("argv, removed", [
+    (benchmark_argv, ["--k", "3"]),
+    (benchmark_argv, ["--config-hash", "manual-hash"]),
+    (benchmark_argv, ["--dataset-id", "basic"]),
+    (security_argv, ["--config-hash", "manual-hash"]),
+    (security_argv, ["--dataset-id", "basic"]),
+])
+def test_removed_options_are_rejected_by_argparse(tmp_path, monkeypatch, capsys, configured_service,
+                                                  argv, removed):
+    _, questions = write_inputs(tmp_path)
+    monkeypatch.setattr("sys.argv", argv(tmp_path, questions, *removed))
+    script = run_benchmark if argv is benchmark_argv else run_security
+    with pytest.raises(SystemExit) as exc:
+        script.main()
+    assert exc.value.code == 2 and "unrecognized arguments" in capsys.readouterr().err
+    configured_service[1].assert_not_called()
     assert not (tmp_path / "a" / "k-check").exists()
 
 
-def test_benchmark_without_config_uses_explicit_k(tmp_path, monkeypatch, configured_service):
+@pytest.mark.parametrize("problem", ["missing", "yaml", "settings", "aden_config_missing"])
+@pytest.mark.parametrize("argv", [benchmark_argv, security_argv])
+def test_bad_config_stops_before_adapter_and_graders(tmp_path, monkeypatch, configured_service, argv, problem):
     _, questions = write_inputs(tmp_path)
-    monkeypatch.setattr("sys.argv", benchmark_argv(tmp_path, questions,
-                                                   "--config-hash", "manual-hash", "--k", "8"))
-    run_benchmark.main()
-    output = tmp_path / "a" / "k-check"
-    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
-    scores = [json.loads(line) for line in (output / "scores.jsonl").read_text(encoding="utf-8").splitlines()]
-    assert manifest["config_hash"] == "manual-hash" and manifest["benchmark"]["k"] == 8
-    assert scores[0]["retrieval"]["k"] == 8
-
-
-
-@pytest.mark.parametrize("script, args", [
-    (run_benchmark, ["--questions", "{questions}",
-                     "--adapter", "app.service.bootstrap:query_adapter", "--modes", "naive"]),
-    (run_security, ["--security-file", "{questions}",
-                    "--retrieve", "app.service.bootstrap:retrieve_context",
-                    "--generate", "app.service.bootstrap:generate_with_context",
-                    "--retrieval-mode", "naive"]),
-])
-def test_config_and_config_hash_are_mutually_exclusive(tmp_path, monkeypatch, capsys,
-                                                       configured_service, script, args):
-    config, questions = write_inputs(tmp_path)
-    args = [str(questions) if item == "{questions}" else item for item in args]
-    monkeypatch.setattr("sys.argv", ["cli", *args, "--config", str(config),
-                                     "--config-hash", "manual-hash", "--experiment-id", "both",
-                                     "--artifacts-dir", str(tmp_path / "a"),
-                                     "--reports-dir", str(tmp_path / "r")])
-    with pytest.raises(SystemExit) as exc:
-        script.main()
-    assert exc.value.code == 2 and "not allowed with" in capsys.readouterr().err
-    configured_service[1].assert_not_called()  # 서비스 자원·유료 호출 전에 멈춘다
-    assert not (tmp_path / "a" / "both").exists()
+    bad = tmp_path / "bad.yaml"
+    if problem == "yaml":
+        bad.write_text("dataset: [unclosed\n", encoding="utf-8")
+    elif problem == "settings":
+        bad.write_text("dataset: only-this\n", encoding="utf-8")
+    script = run_benchmark if argv is benchmark_argv else run_security
+    if script is run_benchmark:
+        factories = ["load_callable", "make_openai_judge", "make_ragas_faithfulness"]
+    else:
+        factories = ["load_callable", "make_openai_security_judge"]
+    for name in factories:
+        monkeypatch.setattr(script, name, Mock())
+    extra = ["--judge-model", "judge"]
+    if problem != "aden_config_missing":
+        extra += ["--config", str(bad)]
+    monkeypatch.setattr("sys.argv", argv(tmp_path, questions, *extra))
+    with patch.dict(os.environ, {"ADEN_CONFIG": str(bad)}):
+        with pytest.raises(SystemExit, match="평가 설정을 읽지 못했다"):
+            script.main()
+    for name in factories:
+        getattr(script, name).assert_not_called()
+    configured_service[1].assert_not_called()
+    assert not (tmp_path / "a" / "k-check").exists()
 
 
 def test_security_config_applies_once_to_both_callables(tmp_path, monkeypatch, configured_service):
@@ -147,8 +169,9 @@ def test_security_config_applies_once_to_both_callables(tmp_path, monkeypatch, c
                         "--config", str(config), "--retrieval-mode", "naive", "--experiment-id", "configured",
                         "--artifacts-dir", str(tmp_path / "a"), "--reports-dir", str(tmp_path / "r")])
     run_security.main()
-    _, loader, resources = configured_service
-    loader.assert_called_once()
+    service, loader, resources = configured_service
+    loader.assert_called_once()  # 두 callable이 같은 설정·자원을 쓴다
+    assert service._config_path == config.resolve()
     assert loader.call_args.args[0].dataset == "advanced"
     resources.qdrant.query_points.assert_called_once()
     assert resources.qdrant.query_points.call_args.args[0] == "configured-advanced-index"

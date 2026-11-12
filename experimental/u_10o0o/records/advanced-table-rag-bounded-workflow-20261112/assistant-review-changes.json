@@ -1,0 +1,128 @@
+[
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "ambiguous_question",
+    "id": "scenarios:AS-S06-01",
+    "reason": "추가 확인형은 두 후보의 식별 기록과 금액을 확보하면 근거 충족이다. 하나의 금액을 확정할 수 없다는 이유로 검색 실패로 판정하지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "ambiguous_question",
+    "id": "scenarios:AS-S06-04",
+    "reason": "추가 확인형은 두 후보의 식별 기록과 금액을 확보하면 근거 충족이다. 하나의 금액을 확정할 수 없다는 이유로 검색 실패로 판정하지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "ambiguous_question",
+    "id": "scenarios:AS-S06-06",
+    "reason": "추가 확인형은 두 후보의 식별 기록과 금액을 확보하면 근거 충족이다. 하나의 금액을 확정할 수 없다는 이유로 검색 실패로 판정하지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "ambiguous_question",
+    "id": "scenarios:AS-S06-17",
+    "reason": "추가 확인형은 두 후보의 식별 기록과 금액을 확보하면 근거 충족이다. 하나의 금액을 확정할 수 없다는 이유로 검색 실패로 판정하지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "ambiguous_question",
+    "id": "scenarios:AS-S06-12",
+    "reason": "추가 확인형은 두 후보의 식별 기록과 금액을 확보하면 근거 충족이다. 하나의 금액을 확정할 수 없다는 이유로 검색 실패로 판정하지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "ambiguous_question",
+    "id": "scenarios:AS-S06-07",
+    "reason": "추가 확인형은 두 후보의 식별 기록과 금액을 확보하면 근거 충족이다. 하나의 금액을 확정할 수 없다는 이유로 검색 실패로 판정하지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "ambiguous_question",
+    "id": "scenarios:AS-S06-19",
+    "reason": "추가 확인형은 두 후보의 식별 기록과 금액을 확보하면 근거 충족이다. 하나의 금액을 확정할 수 없다는 이유로 검색 실패로 판정하지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "ambiguous_question",
+    "id": "scenarios:AS-S06-14",
+    "reason": "추가 확인형은 두 후보의 식별 기록과 금액을 확보하면 근거 충족이다. 하나의 금액을 확정할 수 없다는 이유로 검색 실패로 판정하지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "ambiguous_question",
+    "id": "scenarios:AS-S06-11",
+    "reason": "추가 확인형은 두 후보의 식별 기록과 금액을 확보하면 근거 충족이다. 하나의 금액을 확정할 수 없다는 이유로 검색 실패로 판정하지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "A",
+    "before": "sufficient",
+    "id": "work_rules:AS-WR-07",
+    "reason": "실제로 반환된 원문 위치·연속 문구로 인용을 교정했다. 새 출처나 참고답을 근거에 추가하지 않았다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "B",
+    "before": "sufficient",
+    "id": "official_additional:AS-ADD18",
+    "reason": "실제로 반환된 원문 위치·연속 문구로 인용을 교정했다. 새 출처나 참고답을 근거에 추가하지 않았다."
+  },
+  {
+    "after": "insufficient",
+    "arm": "B",
+    "before": "insufficient",
+    "id": "official_development:AS-DEV13",
+    "reason": "실제로 반환된 원문 위치·연속 문구로 인용을 교정했다. 새 출처나 참고답을 근거에 추가하지 않았다."
+  },
+  {
+    "after": "insufficient",
+    "arm": "B",
+    "before": "insufficient",
+    "id": "official_development:AS-DEV02",
+    "reason": "실제로 반환된 원문 위치·연속 문구로 인용을 교정했다. 새 출처나 참고답을 근거에 추가하지 않았다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "B",
+    "before": "ambiguous_question",
+    "id": "semantic_queries:AS-SEM-29",
+    "reason": "질문은 특정 금액의 산출이 아니라 초안·발행 구분과 미배분금 관리 원칙을 묻는다. 반환 원문의 명시적 관리 지침이 두 요청을 지원한다. 다른 사례의 금액을 옮기지 않는다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "B",
+    "before": "sufficient",
+    "id": "official_development:AS-DEV26",
+    "reason": "짧은 표 셀 인용의 앞뒤 원문을 함께 보존했다. 판정과 출처는 유지했다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "B",
+    "before": "sufficient",
+    "id": "official_development:AS-DEV26",
+    "reason": "짧은 표 셀 인용의 앞뒤 원문을 함께 보존했다. 판정과 출처는 유지했다."
+  },
+  {
+    "after": "insufficient",
+    "arm": "A",
+    "before": "insufficient",
+    "id": "semantic_queries:AS-SEM-31",
+    "reason": "반환된 원문의 표 셀·기접수 조건과 인용 위치를 대조했다. 원래 판정은 유지했다."
+  },
+  {
+    "after": "sufficient",
+    "arm": "B",
+    "before": "sufficient",
+    "id": "official_development:AS-DEV26",
+    "reason": "반환된 원문의 표 셀·기접수 조건과 인용 위치를 대조했다. 원래 판정은 유지했다."
+  }
+]

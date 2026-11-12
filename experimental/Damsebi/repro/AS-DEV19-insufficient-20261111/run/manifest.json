@@ -1,0 +1,14 @@
+{
+  "experiment_id": "bc-fixed-insufficient-20261111",
+  "dataset_id": "advanced",
+  "config_hash": "sha256:0221d3af369d3dfdc8a8a7a48e5fb96cb5ab330898757b54c5231d8ade80b7be",
+  "git_commit": "793e86bb07287475cd3ea628c69144574b788c14",
+  "git_dirty": true,
+  "versions": {
+    "python": "3.13.15",
+    "langfuse": "5.2.0",
+    "ragas": "0.4.3",
+    "openai": "2.54.0"
+  },
+  "config_hash_note": "manifest의 config_hash는 configs/advanced.yaml 파일 자체의 SHA-256"
+}

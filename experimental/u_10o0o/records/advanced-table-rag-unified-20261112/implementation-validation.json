@@ -1,0 +1,35 @@
+{
+  "HA_case_count": 198,
+  "HG_case_count": 2730,
+  "all_tests": 374,
+  "checks": [
+    "shared class remains ambiguous",
+    "different event keys remain conflicting",
+    "typed actual dates are separate",
+    "excluded and unobserved identifiers rejected",
+    "SQLite read-only and fingerprint guard",
+    "ContextVar isolation and restoration",
+    "SQL/read/table discovery do not repeat hybrid",
+    "unobserved SQL rejected"
+  ],
+  "common_ruff": "passed",
+  "focused_tests": 13,
+  "foreign_key_errors": 0,
+  "independent_review": false,
+  "lookup_sample_status": {
+    "HA": "matched",
+    "HG": "matched",
+    "IS": "matched"
+  },
+  "original_role_source_links_verified": 14244,
+  "review_method": "self-review; delegation prohibited by side-conversation instruction",
+  "sqlite_integrity": "ok",
+  "subtests": 15,
+  "task_files": {
+    "experimental/u_10o0o/table_rag_unified/__init__.py": "fb80a87dc982467efa1bb14f3c2786a8accf3678ca7b23dade48ed66f58dc725",
+    "experimental/u_10o0o/table_rag_unified/__main__.py": "ee4bd0d5aa092c854d7ffad31a8051b366d6cd8fb56a3a760d821184617b0d2e",
+    "experimental/u_10o0o/table_rag_unified/agent.py": "9734dd5f646d55a5f0b1168b4fff437011d5faff765b2da58f1ac3bb9af5dc6b",
+    "experimental/u_10o0o/table_rag_unified/index.py": "43e0e4d1e83cf41cbbb4b8478dd18b087fabcbb2b54496d19ffd668bf37f802f",
+    "experimental/u_10o0o/table_rag_unified/test_unified.py": "023641a6ae47c45e84c1910d309eae410f09771bc728855327e20825432ab7b2"
+  }
+}

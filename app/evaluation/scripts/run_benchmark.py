@@ -6,6 +6,7 @@
     python -m app.evaluation.scripts.run_benchmark --questions data/basic/evaluation/<파일>.json \
         --adapter <B모듈>:<어댑터> --ids Q1,Q2 --config configs/basic.yaml \
         --judge-model <모델> --ragas-model <모델> --selection-reason "..."
+    --config를 생략하면 ADEN_CONFIG, 없으면 configs/advanced.yaml을 쓴다. 데이터셋·채점 k·설정 해시는 그 파일에서 정한다.
 Langfuse 저장 확인:
     python -m app.evaluation.scripts.run_benchmark --verify-langfuse <trace_id> [<trace_id> ...]
 """
@@ -18,19 +19,19 @@ import time
 from collections import Counter
 from pathlib import Path
 
-from shared.settings import Settings, load_settings
-
 from app.observability.records import RETRIEVAL_MODES
 from app.observability.tracing import Tracer
 from app.evaluation.dataset import load_questions, load_references
-from app.evaluation.graders import PROMPTS_DIR, make_openai_judge, make_ragas_faithfulness
+from app.evaluation.graders import (JUDGE_SCHEMA_VERSION, PROMPTS_DIR, make_openai_judge,
+                                    make_ragas_faithfulness)
 from app.evaluation.report import write_artifacts, write_report
 from app.evaluation.publishing import expected_observations, publish_evaluation_scores
 from app.evaluation.runner import grade_all, run_comparison
 from app.evaluation.scripts._common import (ROOT, add_publish_options, base_manifest, guard_overwrite,
-                                      load_callable, load_env, now_id, publication_plan, sha256_file)
+                                      load_callable, load_config, load_env, now_id, publication_plan,
+                                      sha256_file)
 
-SAMPLE_K = 8  # 가상 샘플 전용 기본값. 실제 실행은 설정 파일이나 --k로 정한다.
+SAMPLE_K = 8  # 가상 샘플 고정값. 실제 실행은 설정 파일의 retrieval.k를 쓴다.
 
 
 def parse_args() -> argparse.Namespace:
@@ -44,14 +45,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--ids", help="선택 질문 ID, 쉼표 구분(기본: 전체)")
     p.add_argument("--selection-reason", default="")
     p.add_argument("--experiment-id")
-    p.add_argument("--dataset-id", help="데이터셋 이름(기본: 설정 파일, 미지정 시 advanced)")
-    # 둘을 함께 주면 기록(해시)과 실제 실행(파일)이 다른 설정을 가리킬 수 있어 하나만 받는다
-    config_group = p.add_mutually_exclusive_group()
-    config_group.add_argument("--config", help="설정 파일. 표준 bootstrap의 실행 설정과 config_hash에 적용")
-    config_group.add_argument("--config-hash", help="설정 파일이 없는 어댑터의 설정 해시(--config와 함께 쓰지 않음)")
-    p.add_argument("--k", type=int,
-                   help="Hit/Recall 평가의 상위 청크 수. --config가 있으면 그 retrieval.k와 같아야 하고"
-                        "(생략 시 그 값), --config 없이 실행하면 반드시 지정")
+    p.add_argument("--config", help="설정 파일(저장소 루트 기준). 생략 시 ADEN_CONFIG, 없으면 configs/advanced.yaml. "
+                                    "데이터셋·채점 k·설정 해시와 어댑터 설정이 이 파일에서 정해진다(샘플은 무시)")
     p.add_argument("--modes", default=",".join(RETRIEVAL_MODES))
     p.add_argument("--judge-model", help="미지정 시 Judge는 평가 불가로 기록")
     p.add_argument("--ragas-model", help="미지정 시 Faithfulness는 평가 불가로 기록")
@@ -64,20 +59,6 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-def resolve_k(k: int | None, config: Settings | None) -> int:
-    """채점 k를 실제 검색 설정과 맞춘다. 설정 파일이 없으면 추정하지 않고 명시값을 요구한다."""
-    if k is not None and k <= 0:
-        raise SystemExit(f"--k는 양수여야 한다: {k}")
-    if config is not None:
-        if k is not None and k != config.retrieval.k:
-            raise SystemExit(f"--k {k}가 설정 파일의 retrieval.k {config.retrieval.k}와 다르다. "
-                             "채점 k는 실제 검색 설정과 같아야 하므로 --k를 빼거나 같은 값을 지정한다")
-        return config.retrieval.k
-    if k is None:
-        raise SystemExit("--config 없이 실행하면 --k로 서비스가 실제로 쓰는 retrieval.k를 지정해야 한다")
-    return k
-
-
 def main() -> None:
     args = parse_args()
     if args.verify_langfuse:
@@ -87,11 +68,6 @@ def main() -> None:
             print(trace_id, json.dumps(tracer.verify_trace(trace_id), ensure_ascii=False))
         return
 
-    config_path = (ROOT / args.config).resolve() if args.config and not args.sample else None
-    config = load_settings(config_path) if config_path is not None else None
-    if args.dataset_id is None:
-        args.dataset_id = config.dataset if config else "advanced"
-
     modes = []
     for mode in args.modes.split(","):
         if mode:
@@ -99,7 +75,7 @@ def main() -> None:
     if args.sample:
         from app.evaluation.samples import (SAMPLE_DATASET_ID, SAMPLE_EVAL, FakeLangfuseClient,
                                         MockJudge, SampleServiceAdapter, mock_faithfulness)
-        args.k = resolve_k(SAMPLE_K if args.k is None else args.k, None)
+        k = SAMPLE_K
         experiment_id = args.experiment_id or now_id("sample")
         if not experiment_id.startswith("sample-"):
             raise SystemExit("샘플 실험 ID는 'sample-'로 시작해야 한다")
@@ -113,15 +89,12 @@ def main() -> None:
     else:
         if not (args.questions and args.adapter):
             raise SystemExit("실제 실행에는 --questions와 --adapter가 필요하다(샘플은 --sample)")
-        if not (args.config or args.config_hash):
-            raise SystemExit("--config 또는 --config-hash로 실험 설정을 고정해야 한다")
-        args.k = resolve_k(args.k, config)
-        experiment_id = args.experiment_id or now_id(args.dataset_id)
+        config_path, settings = load_config(args.config)  # 어댑터·평가기 준비 전에 설정을 확정한다
+        dataset_id, k, config_hash = settings.dataset, settings.retrieval.k, sha256_file(config_path)
+        experiment_id = args.experiment_id or now_id(dataset_id)
         questions_path = references_path = args.questions
         if args.references:
             references_path = args.references
-        dataset_id = args.dataset_id
-        config_hash = args.config_hash or sha256_file(ROOT / args.config)
         adapter = load_callable(args.adapter, config_path=config_path)
         tracer = getattr(adapter, "tracer", None)
         if args.judge_model:
@@ -158,11 +131,12 @@ def main() -> None:
         else:
             selection_reason = ""
     manifest["benchmark"] = {
-        "k": args.k, "modes": modes, "question_ids": question_ids,
+        "k": k, "modes": modes, "question_ids": question_ids,
         "selection_reason": selection_reason,
         "references_sha256": sha256_file(Path(references_path)),
         "questions_file": Path(questions_path).name, "judge": judge_desc,
         "faithfulness": faith_desc, "judge_prompt": sha256_file(PROMPTS_DIR / "judge.txt"),
+        "judge_schema": JUDGE_SCHEMA_VERSION,
     }
     publication = publication_plan(args, manifest)  # 서비스·평가 호출 전에 평가 세트 충돌을 확인한다
 
@@ -198,7 +172,7 @@ def main() -> None:
     write_artifacts(exp_dir, manifest, runs=runs)
 
     # 2) 채점: 저장된 답변·최종 문맥에 정답·채점 기준을 연결
-    scores = grade_all(runs, load_references(references_path), k=args.k,
+    scores = grade_all(runs, load_references(references_path), k=k,
                        judge_fn=judge_fn, faithfulness_fn=faith_fn)
     if publication:
         manifest["langfuse_scores"] = publication

@@ -40,7 +40,7 @@ def conditions(manifest):
     return {"dataset_id": manifest.get("dataset_id"), "config_hash": manifest["config_hash"],
             "sample": bool(manifest.get("sample")),
             **{key: bench.get(key) for key in
-               ("k", "judge", "faithfulness", "judge_prompt", "references_sha256")}}
+               ("k", "judge", "faithfulness", "judge_prompt", "judge_schema", "references_sha256")}}
 
 
 def plan_publication(manifest, *, evaluation_set=None, groups=None, artifacts_dir=None,

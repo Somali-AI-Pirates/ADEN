@@ -1,5 +1,9 @@
 # 페이지 검색 실험 기록
 
+현재 TableRAG 선택과 종료 근거는 [종료 기록](records/advanced-table-rag-closeout-20261112/README.md)에 있다. 통합 DB 우선·요청별 인용 검사 OFF이며, 아래 과거 검색 구성과 구분한다.
+
+새 검색 비교 결과는 [평가·결과 보고 기준](evaluation-policy.md)에 따라 실패 문항의 대체 근거 검수까지 마친 뒤 확정한다. 지정 점수와 검수 반영 점수를 함께 남긴다.
+
 ## 현재 Advanced 구성
 
 2026-11-11부터 기본 BM25는 `bigram-id-normalized`를 사용한다. 기존 bigram 토큰을 유지하고 코드의 대소문자, 하이픈 주변 공백, 유사 하이픈 문자를 정규화한 전체 토큰을 추가한다. 본문·제목·BM25 질의에 동일하게 적용하며 원문과 벡터 입력은 그대로 둔다. 공식 60·카테고리 220문항에서 점수 회귀가 없었고 표기 변형 지원을 위해 채택했다. 점수가 상승한 변경은 아니다. 이전 `bigram-id`는 비교용 토크나이저로 유지한다. [코드 정규화 비교](records/advanced-bm25-code-normalization-20261111/report.md) · [채택 검증과 공식 누락 분석](records/advanced-normalized-baseline-20261111/report.md)
