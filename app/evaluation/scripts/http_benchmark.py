@@ -5,7 +5,8 @@
 - 결과: success(200·응답 해석) / http_error(4xx·5xx, 본문의 오류 사유 기록) / timeout / connection_error /
   invalid_response(200인데 응답을 해석하지 못함).
 - 응답의 request_id(없으면 `X-Request-ID` 헤더)로 Langfuse trace ID를 계산해 서버 기록과 연결한다.
-  API 응답에 없는 검색 후보·최종 문맥·모델 입력으로 RunRecord를 만들지 않는다. 필요하면 trace를 조회한다.
+  API 응답에 없는 검색 후보·최종 문맥·모델 입력으로 RunRecord를 만들지 않는다. 채점하려면 `http_records`로
+  같은 request_id의 서버 trace에서 RunRecord를 만든 뒤 `regrade`로 채점한다.
 
     python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000 \
         --questions <질문 파일> --ids M19 --modes hybrid_rerank --experiment-id <ID> [--verify-langfuse]
