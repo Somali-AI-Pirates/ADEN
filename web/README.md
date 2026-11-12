@@ -1,0 +1,62 @@
+# ADEN 채팅 클라이언트
+
+Next.js 정적 프런트엔드, assistant-ui 대화 상태, React-PDF 원문 열람을 사용한다. 사내비의 한국어 입력·모바일 입력·오류/취소 UX를 참고했으며 사내비 저장소는 변경하지 않는다. RAG 실행과 API 키는 Python 서버에만 있다.
+
+## 빠른 시작
+
+Node.js 22 이상과 [서버 빠른 시작](../docs/guides/quickstart.md)의 데이터·모델 준비가 필요하다.
+
+저장소 루트의 첫 터미널:
+
+```bash
+uv run --locked fastapi dev
+```
+
+두 번째 터미널:
+
+```bash
+cd web
+npm ci
+npm run dev
+```
+
+[채팅 화면](http://localhost:3000)을 연다. 개발 서버가 `/api/*`를 `http://127.0.0.1:8000/*`로 전달한다. 다른 서버 주소를 사용할 때는 `ADEN_API_URL=http://127.0.0.1:8123 npm run dev`로 실행한다. 브라우저에 API 키를 넣지 않는다.
+
+1. 질문을 보내면 기록 조회·근거 확인·답변 작성 상태가 표시된다.
+2. 모델이 생성하는 답변이 점진적으로 나타난다. 출처 검증과 실행 기록 저장이 끝나야 완료된다.
+3. 답변 아래 문서명·페이지 카드를 누르면 해당 원본 PDF 페이지가 열린다. 이전/다음 페이지, 페이지 입력, 확대, 새 탭 열기를 지원한다.
+4. 요청 정보에서 서버와 저장 기록을 연결하는 요청 ID를 확인한다. `artifacts/rag-runs/<request_id>/`의 평가 방법은 서버 빠른 시작을 따른다.
+
+현재 질문은 각각 독립적으로 처리한다. 앞 질문을 전제로 한 후속 질문에는 대상·조건을 다시 적는다. 대화는 메모리에만 있고 새로고침하면 지워진다. PDF 내 문장 강조와 문장별 인라인 인용은 포함하지 않는다.
+
+## 스트림과 오류
+
+- `POST /query/stream`에 `{"question":"..."}`를 보낸다. 기존 JSON `POST /query`는 그대로 사용할 수 있다.
+- 메시지는 `start → progress/answer_delta → final 또는 error`다. 모든 이벤트와 `X-Request-ID`, 최종 응답의 ID가 일치해야 한다.
+- `final.response`는 기존 QueryResponse와 같은 답변·상태·출처다. `answer_delta`는 최종 검증 전 임시 텍스트이며 추론·도구 인자·원시 JSON을 포함하지 않는다.
+- 시작 전 입력 오류·준비 실패는 HTTP 오류다. 시작 후 모델·저장 오류는 SSE `error`다. 화면은 부분 답변을 미완료로 표시하고 출처를 확정하지 않는다. 자동 유료 재시도는 하지 않는다.
+- 중단하거나 연결을 닫으면 요청별 서비스 작업을 취소한다. 이미 실행 중인 동기 검색 작업은 반환까지 시간이 걸릴 수 있다. 브라우저 대기 한도는 300초다.
+- `GET /documents/{book_id}`는 설정의 `documents_dir` 아래 `{book_id}.pdf`만 제공한다. 출처 페이지는 PDF 파일의 1부터 시작하는 페이지 번호다. 원본 PDF를 서버에도 두어야 한다.
+- 문서·답변·API에 인증을 추가하는 배포에서는 세 경로에 같은 접근 정책을 적용한다. 이 클라이언트가 계정이나 문서별 권한을 새로 만들지는 않는다.
+
+## 정적 배포
+
+```bash
+npm run build
+```
+
+`out/`을 정적 서버에 배포한다. PDF worker·문자맵·폰트는 설치/빌드 때 복사해 로컬에서 제공한다. 외부 CDN으로 PDF나 문서 내용을 보내지 않는다. 예시는 [nginx.conf](deployment/nginx.conf)를 따른다. `/api/`를 FastAPI로 프록시하고 스트리밍 버퍼링을 끈다. 배포 환경의 실제 백엔드 주소와 정적 파일 경로로 조정한다.
+
+## 검사
+
+```bash
+npm run typecheck
+npm test
+npx playwright install chromium
+npm run test:e2e
+npm run build
+```
+
+기본 테스트는 외부 LLM을 호출하지 않는다. SSE의 UTF-8 경계·요청 ID·종료 검증, 저장 실패, 출처 페이지 열람, 한글 조합 입력과 모바일 레이아웃을 검사한다. 실제 모델 검증은 별도 승인을 받은 질문으로 서버에 실행한다.
+
+[설계·검증 기록](../docs/plans/chat-client.md)
