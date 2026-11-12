@@ -4,8 +4,7 @@ from fastapi import APIRouter, Body, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
-from app.observability.run_store import RequestRunStoreError
-from app.rag.admission import RequestBusyError, RequestUnavailableError
+from app.api.errors import QUERY_EXECUTION_ERRORS, query_error
 from shared.contracts import QueryRequest, QueryResponse
 from shared.exceptions import ServiceError
 
@@ -85,20 +84,6 @@ async def ready(request: Request) -> JSONResponse:
     )
 
 
-def _busy_error(error: RequestBusyError) -> ServiceError:
-    return ServiceError(
-        "요청이 몰려 처리 대기열이 가득 찼습니다. 잠시 후 다시 시도해 주세요.",
-        429,
-        response_headers={"Retry-After": str(error.retry_after)},
-    )
-
-
-def _unavailable_error() -> ServiceError:
-    return ServiceError(
-        "질의 서비스를 사용할 수 없습니다. 잠시 후 다시 시도해 주세요.", 503
-    )
-
-
 @router.post(
     "/query",
     response_model=QueryResponse,
@@ -154,8 +139,6 @@ async def query(
     if table_service is None:
         raise ServiceError(request.app.state.readiness_reason, 503)
 
-    from app.rag.service import RagContextBudgetError, RagModelError
-
     if payload.retrieval_mode is not None:
         raise ServiceError(
             "이 서버는 DB 우선 TableRAG 검색을 사용합니다. 검색 방식 없이 질문을 보내 주세요.",
@@ -164,29 +147,10 @@ async def query(
 
     try:
         run = await table_service.ainvoke(payload.question, request_id=request_id)
-    except RequestBusyError as error:
-        raise _busy_error(error) from error
-    except RequestUnavailableError as error:
-        raise _unavailable_error() from error
-    except RequestRunStoreError as error:
-        raise ServiceError(
-            "실행 기록을 저장하지 못했습니다. 서버 저장 공간을 확인해 주세요.", 503
-        ) from error
-    except RagContextBudgetError as error:
-        raise ServiceError(
-            "질문의 복잡도가 현재 처리 한도를 넘었습니다. 범위를 좁혀 다시 시도해 주세요.",
-            502,
-        ) from error
-    except TimeoutError as error:
-        raise ServiceError(
-            "답변 처리 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.",
-            504,
-        ) from error
-    except RagModelError as error:
-        raise ServiceError(
-            "답변 생성 서비스에 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
-            502,
-        ) from error
+    except QUERY_EXECUTION_ERRORS as error:
+        public_error = query_error(error)
+        assert public_error is not None
+        raise public_error from error
 
     if run.response.request_id != request_id:
         raise ServiceError("요청 식별 정보를 확인하지 못했습니다.", 502)

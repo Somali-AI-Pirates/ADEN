@@ -349,7 +349,7 @@ def grade_saved_runs(
 
 def _run_command(args: Any) -> None:
     from app.rag.config import load_table_rag_settings
-    from app.rag.service import load_service
+    from app.rag.bootstrap import load_service
 
     settings = load_table_rag_settings(data_directory=args.data_directory, config_path=getattr(args, "config", None))
     langfuse_base_url = _validated_langfuse_base_url(

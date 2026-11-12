@@ -2,13 +2,15 @@
 
 import asyncio
 import json
-from contextlib import contextmanager
 
-from langchain_core.messages import AIMessage
+from langchain_core.callbacks import BaseCallbackHandler
+from langchain_core.messages import AIMessage, ToolMessage
+from langchain_core.runnables import RunnableConfig
 import pytest
 
 import app.rag.graph as graph_module
 from app.rag.graph import TableRagGraph
+from app.rag.model_usage import ModelCalls
 from app.rag.models import SearchResult, SourceRef, make_document
 
 
@@ -24,6 +26,49 @@ def _call(name, call_id, args):
     return AIMessage(
         content="", tool_calls=[{"name": name, "id": call_id, "args": args}]
     )
+
+
+class _FakeTableModel:
+    def __init__(self, script):
+        self.script = script
+        self.requests = []
+
+    async def plan(
+        self, history, *, finish_only: bool, calls: ModelCalls, config: RunnableConfig
+    ):
+        self.requests.append(
+            {
+                "history": list(history),
+                "finish_only": finish_only,
+                "calls": calls,
+                "config": config,
+            }
+        )
+        return await self.script(history, finish_only=finish_only)
+
+
+class _NodeCallback(BaseCallbackHandler):
+    def __init__(self):
+        self.nodes = []
+
+    def on_chain_start(
+        self,
+        serialized,
+        inputs,
+        *,
+        run_id,
+        parent_run_id=None,
+        tags=None,
+        metadata=None,
+        **kwargs,
+    ):
+        if (
+            metadata
+            and metadata.get("langgraph_node")
+            and tags
+            and any(tag.startswith("graph:step:") for tag in tags)
+        ):
+            self.nodes.append(metadata["langgraph_node"])
 
 
 class _Store:
@@ -71,7 +116,7 @@ def _finish(summary, source):
     )
 
 
-def test_concurrent_runs_keep_planner_stage_trace_and_state_request_local():
+def test_concurrent_runs_keep_model_calls_and_state_request_local():
     pages = {
         "질문 A": _document(1, "synthetic evidence A"),
         "질문 B": _document(2, "synthetic evidence B"),
@@ -80,45 +125,41 @@ def test_concurrent_runs_keep_planner_stage_trace_and_state_request_local():
         f"SYN001:p{page:04d}": document
         for page, document in ((1, pages["질문 A"]), (2, pages["질문 B"]))
     }
-    stage_events = {"A": [], "B": []}
+    progress_events = {"A": [], "B": []}
     planner_events = []
 
     def search(question):
         return SearchResult((pages[question],), (), {"query": question})
 
+    async def script(history, *, finish_only):
+        assert not finish_only
+        initial = json.loads(history[0].content)
+        label = initial["question"][-1]
+        planner_events.append((label, initial["question"]))
+        await asyncio.sleep(0.01)
+        return _finish(
+            label,
+            by_source[
+                initial["initial_evidence"][0]["passages"][0]["source_id"]
+            ].metadata["source_id"],
+        )
+
     graph = TableRagGraph(
+        model=_FakeTableModel(script),
         search=search,
         table_store=_Store(),
         page_lookup=by_source.get,
     )
 
     async def run_one(label, question, request_id, trace_id):
-        async def planner(history, *, finish_only):
-            assert not finish_only
-            initial = json.loads(history[0].content)
-            planner_events.append((label, initial["question"]))
-            await asyncio.sleep(0.01)
-            return _finish(
-                label,
-                by_source[
-                    initial["initial_evidence"][0]["passages"][0]["source_id"]
-                ].metadata["source_id"],
-            )
-
-        @contextmanager
-        def stage(name, **kwargs):
-            current = {
-                "name": name,
-                "request_id": kwargs.get("input", {}).get("request_id"),
-            }
-            yield current
-            stage_events[label].append(current)
+        async def event_sink(event):
+            progress_events[label].append(event)
 
         return await graph.run(
             question,
-            planner=planner,
+            calls=ModelCalls(),
             request_id=request_id,
-            stage=stage,
+            event_sink=event_sink,
             trace_id=trace_id,
         )
 
@@ -139,8 +180,11 @@ def test_concurrent_runs_keep_planner_stage_trace_and_state_request_local():
     assert result_b.diagnostics["trace_id"] == "trace-B"
     assert result_b.evidence.source_ids == ("SYN001:p0002",)
     assert result_b.finish.interim_summary == "B"
-    assert all(event["request_id"] == "request-A" for event in stage_events["A"])
-    assert all(event["request_id"] == "request-B" for event in stage_events["B"])
+    assert all(
+        event["stage"] == "reviewing"
+        for label in progress_events
+        for event in progress_events[label]
+    )
 
 
 def test_invalid_tool_arguments_are_recorded_without_running_handler():
@@ -171,12 +215,13 @@ def test_invalid_tool_arguments_are_recorded_without_running_handler():
 
     document = _document(1)
     graph = TableRagGraph(
+        model=_FakeTableModel(planner),
         search=lambda _query: SearchResult((document,), (), {}),
         table_store=_Store(),
         page_lookup=lambda source: document if source == "SYN001:p0001" else None,
     )
     result = asyncio.run(
-        graph.run("synthetic question", planner=planner, request_id="invalid-args")
+        graph.run("synthetic question", calls=ModelCalls(), request_id="invalid-args")
     )
 
     assert planner_calls == 2
@@ -212,12 +257,13 @@ def test_reading_an_unobserved_source_is_rejected_as_invalid_arguments():
 
     document = _document(1)
     graph = TableRagGraph(
+        model=_FakeTableModel(planner),
         search=lambda _query: SearchResult((document,), (), {}),
         table_store=_Store(),
         page_lookup=lambda source: document if source == "SYN001:p0001" else None,
     )
     result = asyncio.run(
-        graph.run("synthetic question", planner=planner, request_id="read-unseen")
+        graph.run("synthetic question", calls=ModelCalls(), request_id="read-unseen")
     )
 
     assert planner_calls == 2
@@ -254,12 +300,13 @@ def test_sql_rejection_remains_a_structured_tool_result():
     document = _document(1)
     store = _Store()
     graph = TableRagGraph(
+        model=_FakeTableModel(planner),
         search=lambda _query: SearchResult((document,), ("t_cost",), {}),
         table_store=store,
         page_lookup=lambda source: document if source == "SYN001:p0001" else None,
     )
     result = asyncio.run(
-        graph.run("synthetic question", planner=planner, request_id="sql-rejected")
+        graph.run("synthetic question", calls=ModelCalls(), request_id="sql-rejected")
     )
 
     assert calls == 2
@@ -280,6 +327,7 @@ def test_unexpected_storage_failure_still_propagates():
 
     document = _document(1)
     graph = TableRagGraph(
+        model=_FakeTableModel(planner),
         search=lambda _query: SearchResult((document,), ("t_cost",), {}),
         table_store=_Store(query_error=OSError("synthetic storage failure")),
         page_lookup=lambda source: document if source == "SYN001:p0001" else None,
@@ -287,370 +335,127 @@ def test_unexpected_storage_failure_still_propagates():
 
     with pytest.raises(OSError, match="synthetic storage failure"):
         asyncio.run(
-            graph.run("synthetic question", planner=planner, request_id="sql-failure")
-        )
-
-CODE = "EV-SH-00660-D"
-
-
-class _Records:
-    def __init__(self):
-        self.calls = []
-
-    def lookup(self, targets):
-        self.calls.append(targets)
-        return {
-            "targets": [
-                {
-                    "status": "matched",
-                    "candidate_count": 1,
-                    "truncated": False,
-                    "entities": [
-                        {
-                            "id": "HG:synthetic",
-                            "family": "HG",
-                            "kind": "booking",
-                            "label": "synthetic reservation",
-                            "sources": [
-                                {
-                                    "source": "SYN001:p0002",
-                                    "role": "events",
-                                    "ordinal": 1,
-                                }
-                            ],
-                            "attributes": [],
-                            "identifiers": [
-                                {
-                                    "value": CODE,
-                                    "kind": "booking",
-                                    "relation": "exact",
-                                }
-                            ],
-                        }
-                    ],
-                }
-            ],
-            "seconds": 0.001,
-        }
-
-    def discover(self, _query, _limit=6):
-        return ["t_cost"]
-
-
-def _trace_stage(events, *, active=None):
-    @contextmanager
-    def stage(name, **kwargs):
-        event = {"name": name, "input": kwargs.get("input")}
-        if active is not None:
-            active.add(name)
-        try:
-            yield event
-        except BaseException as error:
-            event.update(level="ERROR", status_message=type(error).__name__)
-            raise
-        finally:
-            if active is not None:
-                active.discard(name)
-            events.append(event)
-
-    return stage
-
-
-@pytest.mark.parametrize(
-    ("case", "tool_name", "args", "question", "expected_span"),
-    [
-        (
-            "ungrounded_record",
-            "lookup_records",
-            {
-                "targets": [
-                    {
-                        "identifiers": [CODE],
-                        "constraints": [],
-                        "roles": ["events"],
-                    }
-                ]
-            },
-            "synthetic question",
-            "rag.lookup_records",
-        ),
-        (
-            "unobserved_table",
-            "query_tables",
-            {"table_ids": ["t_unobserved"], "sql": "SELECT amount FROM t_unobserved"},
-            "synthetic question",
-            "rag.sql",
-        ),
-        (
-            "unobserved_source",
-            "read_sources",
-            {"source_ids": ["SYN001:p9999"]},
-            "synthetic question",
-            "rag.read_sources",
-        ),
-        (
-            "missing_original_source",
-            "read_sources",
-            {"source_ids": ["SYN001:p9999"]},
-            "synthetic question",
-            "rag.read_sources",
-        ),
-    ],
-)
-def test_rejected_state_checks_do_not_create_tool_spans(
-    case, tool_name, args, question, expected_span
-):
-    events = []
-    if case == "missing_original_source":
-        initial_pages = tuple(_document(page) for page in range(1, 21)) + (
-            _document(9999),
-        )
-
-        def page_lookup(source):
-            return None if source == "SYN001:p9999" else _document(
-                int(source.rsplit("p", 1)[1])
+            graph.run(
+                "synthetic question", calls=ModelCalls(), request_id="sql-failure"
             )
+        )
 
-    else:
-        initial_pages = (_document(1),)
-        def page_lookup(source):
-            return initial_pages[0] if source == "SYN001:p0001" else None
 
+def test_unknown_planner_tool_is_rejected_then_replanned():
+    page = _document(1)
     planner_calls = 0
 
-    async def planner(history, *, finish_only):
+    async def script(history, *, finish_only):
         nonlocal planner_calls
         planner_calls += 1
+        assert not finish_only
         if planner_calls == 1:
-            assert not finish_only
-            return _call(tool_name, f"invalid-{case}", args)
-        observed = json.loads(history[-1].content)
-        assert observed["status"] == "invalid_arguments"
-        return _call(
-            "finish",
-            f"finish-{case}",
-            {
-                "status": "insufficient",
-                "selected_sources": [],
-                "interim_summary": "synthetic",
-                "conflicts": [],
-            },
-        )
+            return _call("unsupported_tool", "unsupported-1", {"value": "ignored"})
+        assert isinstance(history[-1], ToolMessage)
+        assert history[-1].tool_call_id == "unsupported-1"
+        rejected = json.loads(history[-1].content)
+        assert rejected == {
+            "status": "invalid_arguments",
+            "error_class": "ValueError",
+            "error": "Unsupported planner tool",
+        }
+        return _finish("complete", "")
 
+    callback = _NodeCallback()
     graph = TableRagGraph(
-        search=lambda _query: SearchResult(initial_pages, (), {}),
+        model=_FakeTableModel(script),
+        search=lambda _query: SearchResult((page,), (), {}),
         table_store=_Store(),
-        page_lookup=page_lookup,
+        page_lookup=lambda source: page if source == "SYN001:p0001" else None,
     )
     result = asyncio.run(
         graph.run(
-            question,
-            planner=planner,
-            request_id=f"trace-reject-{case}",
-            stage=_trace_stage(events),
-            trace_id=f"trace-{case}",
+            "synthetic question",
+            calls=ModelCalls(),
+            request_id="unsupported-tool",
+            config={"callbacks": [callback]},
         )
     )
 
     assert planner_calls == 2
     assert result.diagnostics["solve_calls"] == 1
-    assert expected_span not in {event["name"] for event in events}
-    assert not any(event.get("level") == "ERROR" for event in events)
+    assert result.diagnostics["turns"][1]["status"] == "invalid_arguments"
+    assert callback.nodes == [
+        "initial_search",
+        "plan_next_step",
+        "reject_tool",
+        "plan_next_step",
+        "assemble_evidence",
+    ]
 
 
-def test_valid_tool_spans_keep_their_names_inputs_and_outputs(monkeypatch):
-    pages = {
-        "SYN001:p0001": _document(1, "synthetic table source"),
-        "SYN001:p0002": _document(2, "synthetic record source"),
-        "SYN001:p0003": _document(3, "synthetic policy source"),
-    }
-    store = _Store(
-        query_result={
-            "status": "ok",
-            "columns": ["amount"],
-            "rows": [{"amount": "1200"}],
-            "sources": [{"book_id": "SYN001", "page": 1}],
-            "tables": ["t_cost"],
-            "preview_truncated": False,
-        }
-    )
-    records = _Records()
-    events = []
-    active_spans = set()
-    read_handler_seconds = []
-    original_read_sources = graph_module.read_sources
-
-    async def tracked_read_sources(*args, **kwargs):
-        assert "rag.read_sources" in active_spans
-        delta = await original_read_sources(*args, **kwargs)
-        read_handler_seconds.append(delta.span_output["seconds"])
-        return delta
-
-    monkeypatch.setattr(graph_module, "read_sources", tracked_read_sources)
-
-    def search(query):
-        assert query == "운영 규정"
-        return SearchResult((pages["SYN001:p0003"],), (), {"query": query})
-
-    graph = TableRagGraph(
-        search=search,
-        table_store=store,
-        page_lookup=pages.get,
-        record_index=records,
-    )
+def test_runnable_config_observes_tool_nodes_and_review_progress():
+    page = _document(1)
     planner_calls = 0
+    progress_events = []
 
-    async def planner(history, *, finish_only):
+    async def script(history, *, finish_only):
         nonlocal planner_calls
         planner_calls += 1
         if planner_calls == 1:
             assert not finish_only
-            initial = json.loads(history[0].content)
-            assert initial["initial_route"] == "records"
-            return _call(
-                "lookup_records",
-                "lookup-span",
-                {
-                    "targets": [
-                        {
-                            "identifiers": [CODE],
-                            "constraints": [],
-                            "roles": ["events"],
-                        }
-                    ]
-                },
-            )
-        if planner_calls == 2:
             return _call(
                 "search_evidence",
-                "search-span",
-                {"query": "운영 규정", "kind": "documents"},
+                "search-1",
+                {"query": "synthetic follow-up", "kind": "documents"},
             )
-        if planner_calls == 3:
-            return _call(
-                "read_sources",
-                "read-span",
-                {"source_ids": ["SYN001:p0003"]},
-            )
-        if planner_calls == 4:
-            return _call(
-                "search_evidence",
-                "tables-span",
-                {"query": "운임", "kind": "tables"},
-            )
-        if planner_calls == 5:
-            return _call(
-                "query_tables",
-                "sql-span",
-                {"table_ids": ["t_cost"], "sql": "SELECT amount FROM t_cost"},
-            )
-        assert finish_only
-        return _call(
-            "finish",
-            "finish-all-tools",
-            {
-                "status": "sufficient",
-                "selected_sources": [
-                    "SYN001:p0002",
-                    "SYN001:p0003",
-                    "SYN001:p0001",
-                ],
-                "interim_summary": "all synthetic tools completed",
-                "conflicts": [],
-            },
-        )
+        assert isinstance(history[-1], ToolMessage)
+        return _finish("complete", "SYN001:p0001")
 
-    result = asyncio.run(
-        graph.run(
-            f"{CODE} 예약의 근거와 운영 규정을 확인해줘",
-            planner=planner,
-            request_id="trace-valid",
-            stage=_trace_stage(events, active=active_spans),
-            trace_id="trace-valid",
-        )
-    )
-
-    tool_events = {
-        event["name"]: event
-        for event in events
-        if event["name"]
-        in {"rag.lookup_records", "rag.search_evidence", "rag.read_sources", "rag.sql"}
-    }
-    search_events = [
-        event for event in events if event["name"] == "rag.search_evidence"
-    ]
-
-    assert result.status == "sufficient"
-    assert set(tool_events) == {
-        "rag.lookup_records",
-        "rag.search_evidence",
-        "rag.read_sources",
-        "rag.sql",
-    }
-    assert len(search_events) == 2
-    assert tool_events["rag.lookup_records"]["input"]["request_id"] == "trace-valid"
-    assert tool_events["rag.lookup_records"]["input"]["targets"][0]["identifiers"] == [
-        CODE
-    ]
-    assert set(tool_events["rag.lookup_records"]) == {"name", "input", "output"}
-    assert set(tool_events["rag.lookup_records"]["output"]) == {
-        "target_statuses",
-        "source_count",
-        "seconds",
-        "observation",
-    }
-    assert {
-        event["input"]["kind"]: event["input"]["query"] for event in search_events
-    } == {"documents": "운영 규정", "tables": "운임"}
-    for event in search_events:
-        assert event["input"]["request_id"] == "trace-valid"
-        assert set(event["output"]) == {
-            "candidate_count",
-            "table_count",
-            "seconds",
-            "observation",
-        }
-    assert tool_events["rag.read_sources"]["input"] == {
-        "request_id": "trace-valid",
-        "source_ids": ["SYN001:p0003"],
-    }
-    assert set(tool_events["rag.read_sources"]["output"]) == {
-        "source_count",
-        "observation",
-        "seconds",
-    }
-    assert len(read_handler_seconds) == 1
-    assert (
-        tool_events["rag.read_sources"]["output"]["seconds"]
-        >= read_handler_seconds[0]
-    )
-    assert not active_spans
-    assert tool_events["rag.sql"]["input"] == {
-        "request_id": "trace-valid",
-        "table_ids": ["t_cost"],
-        "sql": "SELECT amount FROM t_cost",
-    }
-    assert tool_events["rag.sql"]["output"]["status"] == "ok"
-    assert tool_events["rag.sql"]["output"]["source_count"] == 1
-
-
-def test_read_sources_handler_error_is_recorded_in_its_span(monkeypatch):
-    events = []
-    active_spans = set()
-
-    async def failing_read_sources(*_args, **_kwargs):
-        assert "rag.read_sources" in active_spans
-        raise RuntimeError("synthetic source formatting failure")
-
-    monkeypatch.setattr(graph_module, "read_sources", failing_read_sources)
-    page = _document(1)
+    callback = _NodeCallback()
     graph = TableRagGraph(
+        model=_FakeTableModel(script),
         search=lambda _query: SearchResult((page,), (), {}),
         table_store=_Store(),
         page_lookup=lambda source: page if source == "SYN001:p0001" else None,
     )
 
-    async def planner(_history, *, finish_only):
+    async def event_sink(event):
+        progress_events.append(event)
+
+    result = asyncio.run(
+        graph.run(
+            "synthetic question",
+            calls=ModelCalls(),
+            request_id="tool-node-callback",
+            event_sink=event_sink,
+            config={
+                "callbacks": [callback],
+                "metadata": {"task": "tool-node-callback"},
+            },
+        )
+    )
+
+    assert result.status == "sufficient"
+    assert callback.nodes == [
+        "initial_search",
+        "plan_next_step",
+        "search_evidence",
+        "plan_next_step",
+        "assemble_evidence",
+    ]
+    assert [event["stage"] for event in progress_events] == [
+        "reviewing",
+        "reviewing",
+    ]
+    assert result.diagnostics["turns"][1]["tool_seconds"] >= 0
+
+
+def test_read_sources_handler_error_is_observed_by_node_callback(monkeypatch):
+    page = _document(1)
+    callback = _NodeCallback()
+
+    async def failing_read_sources(*_args, **_kwargs):
+        raise RuntimeError("synthetic source formatting failure")
+
+    monkeypatch.setattr(graph_module, "read_sources", failing_read_sources)
+
+    async def script(_history, *, finish_only):
         assert not finish_only
         return _call(
             "read_sources",
@@ -658,22 +463,21 @@ def test_read_sources_handler_error_is_recorded_in_its_span(monkeypatch):
             {"source_ids": ["SYN001:p0001"]},
         )
 
+    graph = TableRagGraph(
+        model=_FakeTableModel(script),
+        search=lambda _query: SearchResult((page,), (), {}),
+        table_store=_Store(),
+        page_lookup=lambda source: page if source == "SYN001:p0001" else None,
+    )
+
     with pytest.raises(RuntimeError, match="synthetic source formatting failure"):
         asyncio.run(
             graph.run(
                 "synthetic question",
-                planner=planner,
-                request_id="trace-read-failure",
-                stage=_trace_stage(events, active=active_spans),
-                trace_id="trace-read-failure",
+                calls=ModelCalls(),
+                request_id="read-source-error",
+                config={"callbacks": [callback]},
             )
         )
 
-    read_event = next(event for event in events if event["name"] == "rag.read_sources")
-    assert read_event["input"] == {
-        "request_id": "trace-read-failure",
-        "source_ids": ["SYN001:p0001"],
-    }
-    assert read_event["level"] == "ERROR"
-    assert read_event["status_message"] == "RuntimeError"
-    assert not active_spans
+    assert "read_sources" in callback.nodes

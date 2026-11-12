@@ -84,6 +84,75 @@ def test_record_rejects_trace_that_does_not_match_http_response(row, observation
         http_records.run_record(row, QUESTION, observations, experiment_id="http-x-records")
 
 
+def test_official_langchain_message_shape_restores_visible_inputs_tools_and_usage():
+    schema = {"type": "function", "function": {"name": "lookup_records", "parameters": {}}}
+    by_name = {
+        "answer-2": {
+            "model": "gpt-6-luna",
+            "input": json.dumps([
+                {"role": "user", "content": [
+                    {"type": "text", "text": "visible answer prompt"},
+                    {"type": "reasoning", "summary": "hidden thought"},
+                ], "response_metadata": {"provider": "private"}},
+            ]),
+            "output": json.dumps({"role": "assistant", "content": [
+                {"type": "output_text", "text": "visible answer"},
+                {"type": "reasoning", "summary": "hidden thought"},
+            ], "additional_kwargs": {"private": True}}),
+            "usageDetails": {"input": 40, "output": 9},
+            "metadata": {"role": "answer", "attempt": 2,
+                          "usage_known": {"input": True, "output": False}},
+        },
+        "planner-1": {
+            "model": "gpt-6-luna",
+            "input": json.dumps([
+                {"role": "user", "content": "visible planner prompt"},
+                {"role": "tool", "content": schema},
+            ]),
+            "output": json.dumps({"role": "assistant", "content": "visible plan"}),
+            "usageDetails": {"input": 20},
+            "metadata": {"role": "planner", "attempt": 1, "tool_schema": [schema]},
+        },
+    }
+
+    attempts = http_records._attempts(by_name)
+
+    assert [attempt["role"] for attempt in attempts] == ["planner", "answer"]
+    assert attempts[0]["model_input"] == {
+        "messages": [{"role": "user", "content": "visible planner prompt"}]
+    }
+    assert attempts[0]["tool_schema"] == [schema]
+    assert attempts[0]["model_output"] == {
+        "role": "assistant", "content": "visible plan"
+    }
+    assert attempts[0]["input_tokens"] == 20 and attempts[0]["output_tokens"] is None
+    assert attempts[1]["model_input"] == {
+        "messages": [{"role": "user", "content": "visible answer prompt"}]
+    }
+    assert attempts[1]["model_output"] == {
+        "role": "assistant", "content": "visible answer"
+    }
+    assert attempts[1]["input_tokens"] == 40 and attempts[1]["output_tokens"] is None
+
+
+def test_official_langchain_tool_schema_can_be_restored_from_tool_message():
+    schema = {"type": "function", "function": {"name": "lookup_records"}}
+    attempt = http_records._attempts({
+        "planner-1": {
+            "model": "gpt-6-luna",
+            "input": json.dumps([
+                {"role": "user", "content": QUESTION},
+                {"role": "tool", "content": schema},
+            ]),
+            "output": json.dumps({"role": "assistant", "content": "plan"}),
+            "metadata": {"role": "planner", "attempt": 1},
+        }
+    })[0]
+
+    assert attempt["tool_schema"] == [schema]
+    assert attempt["model_input"] == {"messages": [{"role": "user", "content": QUESTION}]}
+
+
 def test_table_rag_trace_keeps_planner_answer_usage_and_included_sql():
     sql_result = {
         "status": "ok",
@@ -130,6 +199,89 @@ def test_table_rag_trace_keeps_planner_answer_usage_and_included_sql():
         (250, 20), (300, 30)
     ]
     assert record["included_sql_results"] == [sql_result]
+
+
+def test_attempts_use_aggregate_usage_including_cached_and_reasoning_tokens():
+    attempts = http_records._attempts({
+        "planner-1": {
+            "model": "gpt-6-luna",
+            "input": {"request": {"question": QUESTION}},
+            "inputUsage": 7693,
+            "outputUsage": 86,
+            "usageDetails": {
+                "input": 126,
+                "input_cache_read": 7567,
+                "input_cache_creation": 0,
+                "output": 26,
+                "output_reasoning": 60,
+                "total": 7779,
+            },
+            "metadata": {"role": "planner", "usage_known": True},
+        }
+    })
+
+    assert (attempts[0]["input_tokens"], attempts[0]["output_tokens"]) == (7693, 86)
+
+
+def test_attempts_sum_disjoint_cached_and_reasoning_details_without_aggregates():
+    attempts = http_records._attempts({
+        "planner-1": {
+            "model": "gpt-6-luna",
+            "input": {"request": {"question": QUESTION}},
+            "usageDetails": {
+                "input": 126,
+                "input_cache_read": 7567,
+                "input_cache_creation": 0,
+                "output": 26,
+                "output_reasoning": 60,
+                "total": 7779,
+            },
+            "metadata": {"role": "planner", "usage_known": True},
+        }
+    })
+
+    assert (attempts[0]["input_tokens"], attempts[0]["output_tokens"]) == (7693, 86)
+
+
+def test_attempts_keep_unknown_usage_null_when_aggregates_are_present():
+    attempts = http_records._attempts({
+        "planner-1": {
+            "model": "gpt-6-luna",
+            "input": {"request": {"question": QUESTION}},
+            "inputUsage": 7693,
+            "outputUsage": 86,
+            "usageDetails": {"input": 126, "output": 26},
+            "metadata": {"role": "planner", "usage_known": False},
+        }
+    })
+
+    assert (attempts[0]["input_tokens"], attempts[0]["output_tokens"]) == (None, None)
+
+
+@pytest.mark.parametrize(
+    "metadata,usage_details,expected",
+    [
+        ({}, {}, (None, None)),
+        ({"usage_known": False}, {"input": 0, "output": 0}, (None, None)),
+        ({}, {"input": 0, "output": 0}, (0, 0)),
+        ({"usage_known": True}, {}, (0, 0)),
+    ],
+)
+def test_attempts_do_not_treat_default_zero_aggregates_as_measured(
+    metadata, usage_details, expected
+):
+    attempts = http_records._attempts({
+        "planner-1": {
+            "model": "gpt-6-luna",
+            "input": {"request": {"question": QUESTION}},
+            "inputUsage": 0,
+            "outputUsage": 0,
+            "usageDetails": usage_details,
+            "metadata": {"role": "planner", **metadata},
+        }
+    })
+
+    assert (attempts[0]["input_tokens"], attempts[0]["output_tokens"]) == expected
 
 
 def test_attempts_support_boolean_usage_known_metadata():

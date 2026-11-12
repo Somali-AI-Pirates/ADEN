@@ -6,7 +6,7 @@ import json
 from uuid import uuid4
 
 from app.rag.config import load_table_rag_settings
-from app.rag.service import load_service
+from app.rag.bootstrap import load_service
 
 
 def main() -> None:

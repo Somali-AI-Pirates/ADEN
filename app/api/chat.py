@@ -4,20 +4,27 @@ import asyncio
 import json
 import logging
 import re
+from collections.abc import AsyncIterator
+from typing import TYPE_CHECKING
 
 from fastapi import APIRouter, Request
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-from app.observability.run_store import RequestRunStoreError
+from app.api.errors import query_error
 from app.rag.admission import (
     RequestBusyError,
     RequestDeadlineExceeded,
+    RequestReservation,
     RequestUnavailableError,
 )
 from app.rag.lifecycle import await_to_completion
-from app.rag.model import RagContextBudgetError, RagModelError
+from app.rag.model import RagModelError
+from app.rag.streaming import EventSink
 from shared.exceptions import ServiceError
+
+if TYPE_CHECKING:
+    from app.rag.service import RagService
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -42,18 +49,9 @@ def _event(payload: dict) -> str:
 
 
 def _public_error(error: Exception) -> str:
-    if isinstance(error, RequestBusyError):
-        return "요청이 몰려 처리 대기열이 가득 찼습니다. 잠시 후 다시 시도해 주세요."
-    if isinstance(error, RequestUnavailableError):
-        return "질의 서비스를 사용할 수 없습니다. 잠시 후 다시 시도해 주세요."
-    if isinstance(error, RequestRunStoreError):
-        return "실행 기록을 저장하지 못했습니다. 잠시 후 다시 시도해 주세요."
-    if isinstance(error, TimeoutError):
-        return "답변 처리 시간이 초과되었습니다. 질문 범위를 좁혀 다시 시도해 주세요."
-    if isinstance(error, RagContextBudgetError):
-        return "질문의 복잡도가 처리 한도를 넘었습니다. 범위를 좁혀 주세요."
-    if isinstance(error, RagModelError):
-        return "답변을 검증하지 못했습니다. 잠시 후 다시 시도해 주세요."
+    public_error = query_error(error, stream=True)
+    if public_error is not None:
+        return str(public_error)
     return "질문을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요."
 
 
@@ -129,7 +127,7 @@ async def _reserve_before_stream(service, request: Request, request_id: str):
         504: {"description": "대기 또는 요청 처리 시간이 초과되었습니다."},
     },
 )
-async def query_stream(payload: ChatRequest, request: Request):
+async def query_stream(payload: ChatRequest, request: Request) -> StreamingResponse:
     service = request.app.state.table_service
     if service is None:
         raise ServiceError(
@@ -139,125 +137,22 @@ async def query_stream(payload: ChatRequest, request: Request):
     request_id = request.state.request_id
     try:
         reservation = await _reserve_before_stream(service, request, request_id)
-    except RequestBusyError as error:
-        raise ServiceError(
-            _public_error(error),
-            429,
-            response_headers={"Retry-After": str(error.retry_after)},
-        ) from error
-    except RequestUnavailableError as error:
-        raise ServiceError(_public_error(error), 503) from error
-    except RequestDeadlineExceeded as error:
-        raise ServiceError(_public_error(error), 504) from error
-
-    async def events():
-        queue: asyncio.Queue = asyncio.Queue(maxsize=64)
-
-        async def emit(event: dict):
-            await queue.put({**event, "request_id": request_id})
-
-        async def run():
-            try:
-                await emit({"type": "start"})
-                result = await service.ainvoke(
-                    payload.question,
-                    request_id=request_id,
-                    on_event=emit,
-                    reservation=reservation,
-                )
-                if result.response.request_id != request_id:
-                    raise RagModelError("Mismatched request identity")
-                await emit(
-                    {
-                        "type": "final",
-                        "response": result.response.model_dump(mode="json"),
-                    }
-                )
-            except asyncio.CancelledError:
-                raise
-            except Exception as error:
-                logger.warning(
-                    "chat_stream_failed request_id=%s error_type=%s",
-                    request_id,
-                    type(error).__name__,
-                )
-                await emit({"type": "error", "message": _public_error(error)})
-
-        task = asyncio.create_task(run())
-        try:
-            while True:
-                if queue.empty() and task.done():
-                    if task.cancelled():
-                        logger.info("chat_stream_cancelled request_id=%s", request_id)
-                        terminal = {
-                            "type": "error",
-                            "message": "서버가 요청 처리를 종료했습니다. 다시 시도해 주세요.",
-                            "request_id": request_id,
-                        }
-                    else:
-                        error = task.exception()
-                        if error is not None:
-                            logger.warning(
-                                "chat_stream_failed request_id=%s error_type=%s",
-                                request_id,
-                                type(error).__name__,
-                            )
-                        terminal = {
-                            "type": "error",
-                            "message": "질문을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.",
-                            "request_id": request_id,
-                        }
-                    yield _event(terminal)
-                    break
-
-                if queue.empty():
-                    get_event = asyncio.create_task(queue.get())
-                    try:
-                        done, _ = await asyncio.wait(
-                            (get_event, task),
-                            timeout=10,
-                            return_when=asyncio.FIRST_COMPLETED,
-                        )
-                    except asyncio.CancelledError:
-                        get_event.cancel()
-                        try:
-                            await await_to_completion(get_event)
-                        except asyncio.CancelledError:
-                            pass
-                        raise
-                    if get_event not in done:
-                        get_event.cancel()
-                        try:
-                            await await_to_completion(get_event)
-                        except asyncio.CancelledError:
-                            pass
-                        if task.done():
-                            continue
-                        # Comments keep proxies alive; clients do not render them.
-                        yield ": keep-alive\n\n"
-                        continue
-                    event = get_event.result()
-                else:
-                    event = queue.get_nowait()
-
-                yield _event(event)
-                if event["type"] in {"final", "error"}:
-                    break
-        finally:
-            task.cancel()
-            cancellation_requested = False
-            try:
-                _, cancellation_requested = await await_to_completion(task)
-            except asyncio.CancelledError:
-                # The child was cancelled; its service cleanup has completed.
-                pass
-            finally:
-                reservation.release()
-            if cancellation_requested:
-                raise asyncio.CancelledError
+    except (
+        RequestBusyError,
+        RequestUnavailableError,
+        RequestDeadlineExceeded,
+    ) as error:
+        public_error = query_error(error, stream=True)
+        assert public_error is not None
+        raise public_error from error
 
     return _ReservedStreamingResponse(
-        events(),
+        _stream_query_events(
+            service,
+            question=payload.question,
+            request_id=request_id,
+            reservation=reservation,
+        ),
         media_type="text/event-stream",
         reservation=reservation,
         headers={
@@ -266,6 +161,137 @@ async def query_stream(payload: ChatRequest, request: Request):
             "X-Request-ID": request_id,
         },
     )
+
+
+async def _stream_query_events(
+    service: "RagService",
+    *,
+    question: str,
+    request_id: str,
+    reservation: RequestReservation,
+) -> AsyncIterator[str]:
+    """Send queued SSE events and clean up the request task on exit."""
+    queue: asyncio.Queue[dict] = asyncio.Queue(maxsize=64)
+
+    async def event_sink(event: dict) -> None:
+        await queue.put({**event, "request_id": request_id})
+
+    task = asyncio.create_task(
+        _produce_query_events(
+            service,
+            question=question,
+            request_id=request_id,
+            reservation=reservation,
+            event_sink=event_sink,
+        )
+    )
+    try:
+        while True:
+            if queue.empty() and task.done():
+                if task.cancelled():
+                    logger.info("chat_stream_cancelled request_id=%s", request_id)
+                    terminal = {
+                        "type": "error",
+                        "message": "서버가 요청 처리를 종료했습니다. 다시 시도해 주세요.",
+                        "request_id": request_id,
+                    }
+                else:
+                    error = task.exception()
+                    if error is not None:
+                        logger.warning(
+                            "chat_stream_failed request_id=%s error_type=%s",
+                            request_id,
+                            type(error).__name__,
+                        )
+                    terminal = {
+                        "type": "error",
+                        "message": "질문을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.",
+                        "request_id": request_id,
+                    }
+                yield _event(terminal)
+                break
+
+            if queue.empty():
+                get_event = asyncio.create_task(queue.get())
+                try:
+                    done, _ = await asyncio.wait(
+                        (get_event, task),
+                        timeout=10,
+                        return_when=asyncio.FIRST_COMPLETED,
+                    )
+                except asyncio.CancelledError:
+                    get_event.cancel()
+                    try:
+                        await await_to_completion(get_event)
+                    except asyncio.CancelledError:
+                        pass
+                    raise
+                if get_event not in done:
+                    get_event.cancel()
+                    try:
+                        await await_to_completion(get_event)
+                    except asyncio.CancelledError:
+                        pass
+                    if task.done():
+                        continue
+                    # Comments keep proxies alive; clients do not render them.
+                    yield ": keep-alive\n\n"
+                    continue
+                event = get_event.result()
+            else:
+                event = queue.get_nowait()
+
+            yield _event(event)
+            if event["type"] in {"final", "error"}:
+                break
+    finally:
+        task.cancel()
+        cancellation_requested = False
+        try:
+            _, cancellation_requested = await await_to_completion(task)
+        except asyncio.CancelledError:
+            # The child was cancelled; its service cleanup has completed.
+            pass
+        finally:
+            reservation.release()
+        if cancellation_requested:
+            raise asyncio.CancelledError
+
+
+async def _produce_query_events(
+    service: "RagService",
+    *,
+    question: str,
+    request_id: str,
+    reservation: RequestReservation,
+    event_sink: EventSink,
+) -> None:
+    """Run one reserved request and emit its final response or error."""
+    try:
+        await event_sink({"type": "start"})
+        result = await service.ainvoke(
+            question,
+            request_id=request_id,
+            event_sink=event_sink,
+            reservation=reservation,
+        )
+        if result.response.request_id != request_id:
+            raise RagModelError("Mismatched request identity")
+        await event_sink(
+            {
+                "type": "final",
+                "response": result.response.model_dump(mode="json"),
+            }
+        )
+    except asyncio.CancelledError:
+        raise
+    except Exception as error:
+        logger.warning(
+            "chat_stream_failed request_id=%s error_type=%s",
+            request_id,
+            type(error).__name__,
+        )
+        await event_sink({"type": "error", "message": _public_error(error)})
 
 
 @router.get("/documents/{book_id}", summary="원본 PDF 열람")

@@ -249,9 +249,6 @@ def test_model_failure_preserves_usage_and_trace_metadata(tmp_path):
 def test_run_command_persists_questions_without_loading_references(
     tmp_path, monkeypatch
 ):
-    import sys
-    from types import ModuleType
-
     from app.evaluation.table_rag_a import _run_command
     from app.rag.config import load_table_rag_settings as resolve_settings
 
@@ -289,14 +286,11 @@ def test_run_command_persists_questions_without_loading_references(
     monkeypatch.setattr(
         "app.rag.config.load_table_rag_settings", resolve_test_settings
     )
-    loader_module = ModuleType("app.rag.service")
-
     async def load_fake_service(*, settings):
         assert settings.data_directory == data_directory.resolve()
         return service
 
-    loader_module.load_service = load_fake_service
-    monkeypatch.setitem(sys.modules, "app.rag.service", loader_module)
+    monkeypatch.setattr("app.rag.bootstrap.load_service", load_fake_service)
 
     args = parse_args(
         [

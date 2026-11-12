@@ -144,7 +144,7 @@ def test_real_langchain_responses_stream_uses_one_call_and_keeps_usage(monkeypat
         async def emit(v):
             events.append(v)
 
-        calls = ModelCalls(None, on_event=emit)
+        calls = ModelCalls(event_sink=emit)
         try:
             answer = await model.answer("질문과 근거", context_hash="test", calls=calls)
         finally:

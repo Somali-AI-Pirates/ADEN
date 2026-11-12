@@ -46,11 +46,11 @@ class Service:
         self.reservations.append((request_id, reservation))
         return reservation
 
-    async def ainvoke(self, question, *, request_id, on_event=None, reservation=None):
-        await on_event(
+    async def ainvoke(self, question, *, request_id, event_sink=None, reservation=None):
+        await event_sink(
             {"type": "progress", "stage": "answering", "message": "답변 작성 중"}
         )
-        await on_event({"type": "answer_delta", "delta": question})
+        await event_sink({"type": "answer_delta", "delta": question})
         if self.error:
             raise self.error
         return SimpleNamespace(
