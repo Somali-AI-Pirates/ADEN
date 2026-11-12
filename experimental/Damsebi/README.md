@@ -46,7 +46,7 @@
 - 공식 비교·제출: `reports/<실험 ID>/`
 - 기준 변경과 점수 변화: [채점 기준 이력](../../docs/guides/judge-rubric.md)
 - 날짜별 결과: [2026-11-10 Langfuse 검증·1문항 점검·v1·v2 비교](results-2026-11-10.md), [2026-11-10 PR #40 통합과 실제 검증](pr40-integration-2026-11-10.md), [2026-11-10 공통 실행 경로와 평가 세트별 점수 게시](common-path-2026-11-10.md), [2026-11-11 Judge v3·B/C 통합 검증](judge-v3-bc-2026-11-11.md), [2026-11-12 c4 검수·B 수정 재평가 준비·HTTP 채점 연결](c-followup-2026-11-12.md), [2026-11-12 TableRAG additional 최종 평가(3회 채점 다수결)](table-rag-additional-2026-11-12.md)
-- 도구: `check_langfuse.py`(저장된 trace의 관측·구간·내용과 게시 점수의 수신·중복 확인), `compare_scores.py`(재채점 결과 나란히 비교), `evidence_sources.py`(공통 자원 로더에 연결하는 검증용 색인 복사·저장 후보 재생), `republish_scores.py`(저장된 채점 결과를 다시 채점하지 않고 재게시), `fix_compare.py`(수정 전후 채점 결과를 같은 비교 항목으로 정리, 반복 채점 다수결과 사람 검수 목록, `--table-rag-run`으로 TableRAG 채점 폴더 지원), `strip_run_text.py`(TableRAG 실행 기록에서 원본 문서 본문을 뺀 공유용 상세 로그), `bfix-baseline-20261112.sha256`(B 수정 전 기준선 해시)
+- 도구: `check_langfuse.py`(저장된 trace의 관측·구간·내용과 게시 점수의 수신·중복 확인), `compare_scores.py`(재채점 결과 나란히 비교), `evidence_sources.py`(공통 자원 로더에 연결하는 검증용 색인 복사·저장 후보 재생), `republish_scores.py`(저장된 채점 결과를 다시 채점하지 않고 재게시), `fix_compare.py`(수정 전후 채점 결과를 같은 비교 항목으로 정리, 반복 채점 다수결과 사람 검수 목록, `--table-rag-run`으로 TableRAG 채점 폴더 지원), `strip_run_text.py`(TableRAG 실행 기록에서 원본 문서 본문을 뺀 공유용 상세 로그), `fact_support.py`·`fact-support/prompt-v1.txt`(필수 사실 근거 평가: 질문·필수 사실·후보 또는 최종 문맥으로 사실별 충족·출처·구절·사유 판정, 답변 제외. 필수 사실 v1은 검수 후 추가), `bfix-baseline-20261112.sha256`(B 수정 전 기준선 해시)
 
 ## 진행 상황
 
