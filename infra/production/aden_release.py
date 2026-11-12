@@ -615,6 +615,10 @@ class ReleaseManager:
         if (pdf.status != 206 or not _header(pdf.headers, "content-type").lower().startswith("application/pdf") or
             not re.fullmatch(r"bytes 0-7/[1-9][0-9]*", content_range) or not pdf.body.startswith(b"%PDF-")):
             raise ReleaseError("public_pdf_range_smoke_failed")
+        worker = self.http_get(PUBLIC + "/pdf-assets/pdf.worker.min.mjs", {"Range": "bytes=0-0"})
+        worker_mime = _header(worker.headers, "content-type").split(";", 1)[0].strip().lower()
+        if worker.status not in (200, 206) or worker_mime != "text/javascript":
+            raise ReleaseError("public_pdf_worker_smoke_failed")
         ready = self.http_get(PUBLIC + "/api/health/ready", {})
         if 200 <= ready.status < 300:
             raise ReleaseError("readiness_publicly_exposed")

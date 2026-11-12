@@ -287,13 +287,25 @@ FP32는 6GiB 상한에 도달했고 cgroup memory.events의 max가 9,017회 증�
 
 전체 명령·종료 코드·검사 로그·리뷰·코드 지문은 로컬 artifacts/verification/refactor-followup/의 final-checks.json, reviews.json, final-content.json과 연결된다. 구조상 후속 개선인 순수 토큰 함수의 모듈 이동은 이번 결함 수정에 포함하지 않았다.
 
-## 승인된 CPU FP32 전환 — 2026-11-12
+## CPU 질의 임베딩 FP32 전환 — 2026-11-12
 
-사용자가 보류된 FP32 전환을 승인했다. CPU 질의 임베더는 float32, CUDA는 기존 bfloat16이며 혼합 장치는 CPU float32 임베더와 CUDA float32 리랭커를 사용한다. 리랭커·모델·문서 벡터·검색 정책은 유지한다.
+상태: 코드·로컬 검사·OCI 별도 컨테이너 검증 완료. 운영 배포는 main 검사·이미지 게시 뒤 진행한다. 사용자가 이전 메모리 한도 측정 결과를 확인한 뒤 FP32 전환을 지시했다. 기준은 main b28f8e8이며 원래 작업 폴더의 미커밋 감사 보완은 보존한다.
+
+지원 계약: CPU 질의 임베더를 float32로 로드하고 CUDA 질의 임베더는 bfloat16을 유지한다. 혼합 장치 cpu_gpu_rerank의 CPU 임베더도 float32다. 리랭커는 기존 float32, 모델 리비전·문서 벡터·BM25·RRF·SQLite·후보/문맥 예산·HTTP/SSE는 그대로다. 실행 manifest에 실제 선택한 질의 dtype을 남긴다. 새 튜닝 옵션과 문서 재임베딩은 추가하지 않는다. 운영 전환은 기존 main 검사·게시된 ARM64 이미지·고정 배포 명령 경로를 사용하며 1 CPU·6GiB 한도를 유지한다.
+
+직전 동일 이미지·동일 표본 비교에서는 검색 326.57초(BF16)와 108.28초(FP32), 최종 8쪽·문맥 지문 일치, vector Top 50 집합 일치 및 내부 순서 차이가 관측됐다. FP32 메모리 peak는 6GiB, OOM은 0이었다. 이는 한 표본이며 전체 정확도·메모리 여유·처리량 보장을 의미하지 않는다. 원시 증거는 원래 작업 폴더의 artifacts/verification/refactor-followup/cpu-comparison.json이다.
+
+검증 계획: 세 장치의 loader/manifest 경계와 기존 검색 회귀, 독립 리뷰, 필수 검사, 실제 OCI 제한의 새로운 제품 코드 검색, CI 통과 이미지의 기동·readiness·기존 서비스 유지 확인. 운영 검증 실패 시 이전 릴리스로 복구한다.
 
 CPU 변경만 별도 fix/cpu-fp32-runtime worktree에서 커밋 d168ddb로 푸시하고 [PR #64](https://github.com/Somali-AI-Pirates/ADEN/pull/64)를 열었다. 이전 감사 보완의 미커밋 변경은 원래 작업 폴더에 보존했다. 같은 제품 코드·테스트를 원래 작업 폴더에도 반영했다.
 
-독립 리뷰 두 건, CPU 전환 브랜치의 전체 655 tests·11 subtests 및 Ruff·lock·11 CLI·가상 평가 2건·패키지 검사가 통과했다. OCI 별도 컨테이너에서 실제 제품 loader/manifest의 float32와 readiness를 확인했다. 같은 1 CPU·6GiB에서 준비 60.43초, 질문 임베딩 2.09초, 전체 검색 116.31초였고 기존 BF16과 최종 8쪽·문맥 지문이 같았다. 메모리 상한 사용과 압박은 남으며 한 표본으로 전체 여유를 보장하지 않는다.
+### 전환 코드 검사
+
+독립 리뷰 두 건에서 조치할 결함이 없었다. 세 장치 loader 검사를 포함한 집중 7개, Ruff, 전체 655 tests·11 subtests, uv lock --check, CLI 11개, 가상 평가 2건, sdist·wheel와 리소스 검사가 통과했다. 모델이나 외부 연결은 공통 테스트에서 가짜 경계로 대체했다.
+
+OCI 별도 컨테이너에 새 제품 소스를 읽기 전용으로 연결했다. runtime manifest가 CPU float32임을 확인했고 readiness가 통과했다. 서비스 로딩 60.43초, 질문 임베딩 2.09초, 전체 검색 116.31초, 리랭킹 113.50초였다. 기존 BF16 표본과 최종 8쪽·문맥 지문이 같았고 6,124토큰이었다. 메모리 peak는 6GiB, OOM 0회이며 memory.events max는 15,748회로 메모리 압박은 남는다. 이 결과는 한 표본이며 실제 답변 생성·긴 질문·동시 처리의 여유를 보장하지 않는다.
+
+이 검사는 기존 게시 이미지 위에 두 제품 소스만 별도 mount한 사전 확인이다. 운영 적용은 CI에서 빌드·검사한 새 ARM64 이미지로 수행한다. 기존 모델·번들·벡터·서버 정책은 변경하지 않았다. 원시 증거와 재현 스크립트는 원래 작업 폴더의 artifacts/verification/cpu-fp32-switch/에 보관한다.
 
 ### OCI 적용 — 2026-11-13
 

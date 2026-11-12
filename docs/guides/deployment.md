@@ -75,6 +75,6 @@ ADEN_DEPLOY_ENABLED가 false이면 실제 배포 단계는 실행하지 않는�
 
 ## 배포와 복구
 
-main의 모든 검사가 통과하면 같은 SHA에서 검사한 ARM64 API·웹 이미지를 GHCR에 게시한다. 배포 job은 활성화된 `production`에서 이미지 digest·SHA·실행 번호를 고정 SSH 명령 `aden-deploy`에 보낸다. 서버에서 자산 지문과 이미지 출처를 대조하고, loopback readiness가 준비되면 웹 경로를 전환해 HTTPS·API·PDF Range를 확인한다.
+main의 모든 검사가 통과하면 같은 SHA에서 검사한 ARM64 API·웹 이미지를 GHCR에 게시한다. 배포 job은 활성화된 `production`에서 이미지 digest·SHA·실행 번호를 고정 SSH 명령 `aden-deploy`에 보낸다. 서버에서 자산 지문과 이미지 출처를 대조하고, loopback readiness가 준비되면 웹 경로를 전환해 HTTPS·API·PDF Range와 PDF.js worker의 HTTP 응답을 확인한다. Worker의 `Content-Type`은 `text/javascript`여야 하며, [ADEN Nginx 설정](../../infra/production/aden.conf)이 해당 경로에 이 타입을 지정한다.
 
 상태는 배포 키의 `aden-status`로 확인한다. 배포 클라이언트는 `infra/deploy.sh RELEASE_JSON`, 복구 클라이언트는 `infra/rollback.sh`다. 둘 다 `ADEN_DEPLOY_HOST`, `ADEN_DEPLOY_USER`, `ADEN_DEPLOY_KEY_FILE`, `ADEN_SSH_KNOWN_HOSTS`를 사용하며 키와 known_hosts는 파일 경로로 전달한다. 관리자가 복구를 지시하면 `aden-rollback`으로 이전 이미지·Compose·YAML을 적용한다. 실패 자동 복구와 수동 복구는 이전 릴리스에 필요한 데이터 지문을 검증한다. 릴리스는 `/srv/aden/releases/`, 활성 웹은 `/srv/aden/current`, 배포 상태와 이력은 `/var/lib/aden/deploy/`에 저장된다. 복구가 실패하면 상태와 로그를 보존한 뒤 자산·권한·readiness를 확인한다. 새 배포와 실행 기록 정리를 별도로 관리한다.
