@@ -42,6 +42,9 @@ jobs:
       - name: 실행 명령 연결 확인
         run: |
           python -m app.ingestion.scripts.curate --help
+          python -m app.ingestion.scripts.prepare_table_rag --help
+          python -m app.rag.cli --help
+          python -m app.evaluation.scripts.run_table_rag --help
           python -m app.ingestion.scripts.prepare_knowledge --help
           python -m app.indexing.scripts.build_index --help
           python -m app.evaluation.scripts.eval_retrieval --help
@@ -64,6 +67,8 @@ jobs:
               names = set(wheel.namelist())
               required = {
                   'app/api/main.py',
+                  'app/rag/prompts/plan.txt',
+                  'app/rag/prompts/answer.txt',
                   'app/ingestion/catalogs/basic.json',
                   'app/generation/prompts/shipping_qa.txt',
                   'app/generation/prompts/defense.txt',

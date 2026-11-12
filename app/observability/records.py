@@ -14,6 +14,7 @@ from collections.abc import Mapping, Sequence
 from typing import Any
 
 RETRIEVAL_MODES = ("naive", "hybrid", "hybrid_rerank")
+SUPPORTED_RETRIEVAL_MODES = RETRIEVAL_MODES + ("table_rag_a", "table_rag")
 STATUSES = ("answered", "needs_clarification", "abstained", "error")
 CANDIDATE_FIELDS = ("chunk_id", "book_id", "file_name", "page", "text")
 FINAL_CHUNK_FIELDS = CANDIDATE_FIELDS + ("source_id",)
@@ -135,8 +136,8 @@ def normalize_run_record(raw: Mapping[str, Any]) -> dict[str, Any]:
     for f in ("experiment_id", "question_id", "request_id", "dataset_id", "config_hash", "question"):
         if not isinstance(rec[f], str) or not rec[f]:
             raise RunRecordError(f"{f}는 비어 있지 않은 문자열이어야 한다")
-    if rec["retrieval_mode"] not in RETRIEVAL_MODES:
-        raise RunRecordError(f"retrieval_mode는 {RETRIEVAL_MODES} 중 하나: {rec['retrieval_mode']!r}")
+    if rec["retrieval_mode"] not in SUPPORTED_RETRIEVAL_MODES:
+        raise RunRecordError(f"retrieval_mode는 {SUPPORTED_RETRIEVAL_MODES} 중 하나: {rec['retrieval_mode']!r}")
     if rec["status"] not in STATUSES:
         raise RunRecordError(f"status는 {STATUSES} 중 하나: {rec['status']!r}")
     is_error = rec["status"] == "error"
@@ -193,8 +194,26 @@ def normalize_run_record(raw: Mapping[str, Any]) -> dict[str, Any]:
     else:
         last_model_output = None
     rec.setdefault("model_output", last_model_output)
-    _check_model_context(rec, called_model=bool(attempts))
-    rec["usage"] = summarize_usage(attempts)
+    answer_call = any(a.get("role") == "answer" for a in attempts)
+    legacy_call = any(a.get("role") is None for a in attempts)
+    _check_model_context(rec, called_model=answer_call or legacy_call)
+    raw_usage = rec.get("usage")
+    usage = summarize_usage(attempts)
+    if isinstance(raw_usage, Mapping):
+        if not attempts:
+            for key in ("input_tokens", "output_tokens"):
+                value = raw_usage.get(key)
+                if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+                    usage[key] = value
+            if raw_usage.get("status") in {
+                "complete", "partial", "unknown", "no_attempts"
+            }:
+                usage["status"] = raw_usage["status"]
+        for key in ("logical_calls", "provider_attempts", "missing_usage"):
+            value = raw_usage.get(key)
+            if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+                usage[key] = value
+    rec["usage"] = usage
     rec.setdefault("error_type", None)
     if is_error and not rec["error_type"]:
         rec["error_type"] = "unspecified"

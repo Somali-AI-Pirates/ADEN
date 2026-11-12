@@ -55,6 +55,14 @@ def chunk_text(chunk: Mapping[str, Any]) -> str:
         return chunk["text"]
 
 
+def included_sql_contexts(record: Mapping[str, Any]) -> list[str]:
+    """Return only SQL results that survived into the final answer context."""
+    return [
+        "SQL 조회 결과\n" + json.dumps(result, ensure_ascii=False, sort_keys=True)
+        for result in record.get("included_sql_results") or []
+    ]
+
+
 def _timed(fn: Callable[[], Mapping[str, Any]]) -> tuple[Mapping[str, Any] | None, dict[str, Any]]:
     start = time.perf_counter()
     try:
@@ -73,6 +81,7 @@ def build_judge_prompt(template: str, record: Mapping[str, Any],
     context_blocks = []
     for chunk in record.get("final_context_chunks") or []:
         context_blocks.append(f"[{chunk['source_id']}] {chunk['file_name']} p.{chunk['page']}\n{chunk_text(chunk)}")
+    context_blocks.extend(included_sql_contexts(record))
     context = "\n\n".join(context_blocks)
     ref = {}
     for field, field_value in reference.items():
@@ -258,6 +267,7 @@ def grade_faithfulness(record: Mapping[str, Any], has_claims: bool | None,
     contexts = []
     for chunk in record.get("final_context_chunks") or []:
         contexts.append(chunk_text(chunk))
+    contexts.extend(included_sql_contexts(record))
     if not contexts:
         if has_claims:
             return score(0.0, "scored", "최종 문맥 없이 사실 주장을 함"), None

@@ -104,3 +104,27 @@ def test_missing_trace_does_not_claim_a_score_was_sent():
     result = publish_evaluation_scores(Tracer(client), runs, scores, manifest)
     assert result["status"] == "no_scores"
     assert client.scores == []
+
+
+def test_http_score_namespace_includes_server_config_snapshot(tmp_path):
+    _, _, manifest = inputs()
+    manifest["http_records"] = {"server_config_hashes": ["runtime-a"]}
+    used = plan_publication(manifest, evaluation_set="http-v1", artifacts_dir=tmp_path)
+    save_experiment(tmp_path, manifest | {"langfuse_scores": used}, ["r1"])
+
+    same = manifest | {
+        "experiment_id": "http-same-runtime",
+        "http_records": {"server_config_hashes": ["runtime-a", "runtime-a"]},
+    }
+    assert plan_publication(
+        same, evaluation_set="http-v1", artifacts_dir=tmp_path, request_ids=["r2"]
+    )["evaluation_hash"] == used["evaluation_hash"]
+
+    different = manifest | {
+        "experiment_id": "http-different-runtime",
+        "http_records": {"server_config_hashes": ["runtime-b"]},
+    }
+    with pytest.raises(ValueError, match="다른 채점 조건"):
+        plan_publication(
+            different, evaluation_set="http-v1", artifacts_dir=tmp_path, request_ids=["r3"]
+        )

@@ -28,6 +28,11 @@ class ApiTests(unittest.TestCase):
         self.resources = make_query_resources()
         self.environment_root = Path(self.enterContext(TemporaryDirectory()))
         self.enterContext(patch("app.api.lifespan.PROJECT_ROOT", self.environment_root))
+        legacy_config = yaml.safe_load(DEFAULT_CONFIG.read_text(encoding="utf-8"))
+        legacy_config["rag_backend"] = "legacy"
+        config_path = self.environment_root / "legacy.yaml"
+        config_path.write_text(yaml.safe_dump(legacy_config), encoding="utf-8")
+        self.enterContext(patch("app.api.lifespan.DEFAULT_CONFIG", config_path))
 
     def test_startup_loads_root_environment_and_preserves_existing_values(self):
         (self.environment_root / ".env").write_text(
@@ -208,6 +213,7 @@ class ApiTests(unittest.TestCase):
 
     def test_configured_default_and_explicit_mode_reach_the_real_pipeline(self):
         config = yaml.safe_load(DEFAULT_CONFIG.read_text(encoding="utf-8"))
+        config["rag_backend"] = "legacy"
         config["dataset"] = "custom-dataset"
         config["retrieval"]["default_mode"] = "hybrid"
         point = self.resources.qdrant.query_points.return_value.points[0]

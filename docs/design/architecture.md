@@ -7,7 +7,8 @@
 | 경계 | 책임 |
 | --- | --- |
 | `app/api/` | 앱 조립, 요청 검증, 준비 상태, 응답과 오류 변환 |
-| `app/service/` | 요청 처리 순서, 외부 자원 준비·정리, 평가용 연결 |
+| `app/service/` | 기존 검색의 요청 처리 순서, 외부 자원 준비·정리, 평가용 연결 |
+| `app/rag/` | Advanced TableRAG의 스냅샷·검색·읽기 전용 SQL·LangGraph 계획·답변 |
 | `app/ingestion/` · `app/indexing/` | PDF 추출, 페이지 단위 청킹, 임베딩·색인 |
 | `app/retrieval/` · `app/generation/` | 검색, 최종 문맥, 답변 생성, 출처 검증 |
 | `app/observability/` · `app/evaluation/` | 요청 추적·기록 정규화, 일반·보안 평가 |
@@ -29,6 +30,10 @@ FastAPI CLI는 [패키지 진입점](../../pyproject.toml)의 `app.api.main:app`
 `/query` → `answer_query()` → 검색 → 문맥 구성 → 생성 → 출처 검증 → 응답
 
 라우트는 동기 서비스를 작업 스레드에서 호출한다. 서버 시작 단계에서 Uvicorn 접근 로그를 끄고 요청 ID가 담긴 앱 로그를 요청당 한 줄 남긴다. 요청 ID와 로그·평가 시간의 의미는 [기록 계약](contracts.md#기록-형식과-측정-범위)을 따른다.
+
+### Advanced TableRAG
+
+기본 Advanced 앱은 [TableRAG 서비스](../../app/rag/service.py)를 시작할 때 한 번 준비한다. 공통 SQLite에서 HG·HA·IS 코드를 먼저 조회하고, 유일한 대상의 원본을 찾으면 그 근거로 계획을 시작한다. 그 외에는 페이지·표 BM25·벡터 Top 50을 5:5 RRF로 합쳐 20쪽을 KURE nano로 리랭킹한다. Luna는 lookup_records, search_evidence, read_sources, query_tables, finish를 사용한다. 선택 출처를 보존해 최대 8쪽·SQL 포함 8,000토큰을 답변 모델에 제공한다. API와 CLI는 같은 서비스를 호출하고 로컬 실행 기록을 남긴다. [빠른 시작](../guides/quickstart.md)
 
 ## 검색과 답변
 

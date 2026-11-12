@@ -45,15 +45,9 @@ def _write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
 def summarize(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[str, Any]]) -> dict:
     """방식별 평가 요약·운영 지표. 평가 호출 사용량은 grading으로 분리한다."""
     summary = {}
-    modes_with_runs = []
-    for retrieval_mode in RETRIEVAL_MODES:
-        has_runs = False
-        for run in runs:
-            if run["retrieval_mode"] == retrieval_mode:
-                has_runs = True
-                break
-        if has_runs:
-            modes_with_runs.append(retrieval_mode)
+    present = {run["retrieval_mode"] for run in runs}
+    modes_with_runs = [mode for mode in RETRIEVAL_MODES if mode in present]
+    modes_with_runs.extend(sorted(present - set(RETRIEVAL_MODES)))
     for mode in modes_with_runs:
         s = []
         for score_row in scores:
@@ -89,6 +83,17 @@ def summarize(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[str, A
             if run["retrieval_mode"] == mode:
                 mode_runs.append(run)
         mode_summary["operations"] = operational_summary(mode_runs)
+
+        table_metrics = [row["table_rag_metrics"] for row in s if "table_rag_metrics" in row]
+        if table_metrics:
+            mode_summary["table_rag_metrics"] = {
+                name: aggregate(row[name] for row in table_metrics)
+                for name in table_metrics[0]
+            }
+            for key in ("logical_calls", "provider_attempts", "missing_usage"):
+                counts = [run["usage"].get(key) for run in mode_runs]
+                known = [count for count in counts if count is not None]
+                mode_summary["operations"][key] = sum(known) if known else None
 
         failed_calls = 0
         for usage in grading:

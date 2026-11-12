@@ -2,6 +2,8 @@
 
 현재 TableRAG 선택과 종료 근거는 [종료 기록](records/advanced-table-rag-closeout-20261112/README.md)에 있다. 통합 DB 우선·요청별 인용 검사 OFF이며, 아래 과거 검색 구성과 구분한다.
 
+제품 연결에 사용할 설정과 구현 기록은 [2026-11-12 제품 적용 기준](records/decisions.md#2026-11-12-제품-적용-기준)에 정리한다.
+
 새 검색 비교 결과는 [평가·결과 보고 기준](evaluation-policy.md)에 따라 실패 문항의 대체 근거 검수까지 마친 뒤 확정한다. 지정 점수와 검수 반영 점수를 함께 남긴다.
 
 ## 현재 Advanced 구성

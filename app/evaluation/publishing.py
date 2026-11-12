@@ -5,6 +5,7 @@ import math
 import re
 import uuid
 from collections import Counter
+from datetime import datetime
 from pathlib import Path
 
 GROUPS = ("retrieval", "faithfulness", "judge", "evidence")  # 지표군 = 지표 이름의 첫 마디
@@ -16,7 +17,31 @@ def expected_observations(run):
         names.append("retrieval")
     if run.get("final_context_chunks") is not None:
         names.append("final-context")
-    return names + [f"generation-attempt-{a['attempt']}" for a in run.get("attempts", [])]
+    attempts = []
+    for attempt in run.get("attempts", []):
+        role = attempt.get("role")
+        if role in {"planner", "answer"}:
+            attempts.append(f"{role}-{attempt['attempt']}")
+        else:
+            attempts.append(f"generation-attempt-{attempt['attempt']}")
+    return names + attempts
+
+
+def expected_payload_observations(run):
+    """Observations expected to contain the actual input and output payloads."""
+    names = ["rag-query"]
+    if run.get("retrieved_candidates") is not None:
+        names.append("retrieval")
+    if run.get("final_context_chunks") is not None:
+        names.append("final-context")
+    for attempt in run.get("attempts", []):
+        if attempt.get("error") is None and attempt.get("model_output") is not None:
+            role = attempt.get("role")
+            if role in {"planner", "answer"}:
+                names.append(f"{role}-{attempt['attempt']}")
+            else:
+                names.append(f"generation-attempt-{attempt['attempt']}")
+    return names
 
 
 def score_items(row, groups=GROUPS):
@@ -27,6 +52,10 @@ def score_items(row, groups=GROUPS):
              "faithfulness": row["faithfulness"],
              **{f"judge.{key}": value for key, value in row["judge"].items()},
              **{f"evidence.{key}": value for key, value in row.get("evidence_diagnostics", {}).items()}}
+    items.update({
+        f"evidence.table_rag.{key}": value
+        for key, value in row.get("table_rag_metrics", {}).items()
+    })
     selected = {}
     for name, item in items.items():
         if name.split(".")[0] in groups:
@@ -37,57 +66,78 @@ def score_items(row, groups=GROUPS):
 def conditions(manifest):
     """한 평가 세트가 공유해야 하는 채점 조건. 실험 ID와 원본 실험은 세트 안에서 달라도 된다."""
     bench = manifest.get("benchmark") or {}
-    return {"dataset_id": manifest.get("dataset_id"), "config_hash": manifest["config_hash"],
-            "sample": bool(manifest.get("sample")),
-            **{key: bench.get(key) for key in
-               ("k", "judge", "faithfulness", "judge_prompt", "judge_schema", "references_sha256")}}
+    result = {"dataset_id": manifest.get("dataset_id"), "config_hash": manifest["config_hash"],
+              "sample": bool(manifest.get("sample")),
+              **{key: bench.get(key) for key in
+                 ("k", "judge", "faithfulness", "judge_prompt", "judge_schema", "references_sha256")}}
+    http_records = manifest.get("http_records")
+    if isinstance(http_records, dict):
+        result["server_config_hashes"] = sorted(set(http_records.get("server_config_hashes") or []))
+    return result
 
 
-def plan_publication(manifest, *, evaluation_set=None, groups=None, artifacts_dir=None,
-                     request_ids=()):
-    """게시할 평가 세트와 지표군을 정한다. 점수 이름은 `<세트>.<지표>`라 세트끼리 집계가 섞이지 않는다.
+def plan_publication(
+    manifest,
+    *,
+    evaluation_set=None,
+    groups=None,
+    artifacts_dir=None,
+    request_ids=(),
+    skip_same_experiment=True,
+    exclude_manifest=None,
+):
+    """Validate a score namespace against locally saved publication plans.
 
-    같은 세트 이름을 쓴 다른 실험이 있으면 채점 조건이 같고 요청이 겹치지 않아야 한다
-    (v1·v2는 조건이 달라서, 반복 회차는 요청이 겹쳐서 다른 세트가 된다).
-    shortcut: artifacts_dir에 저장된 실험만 대조한다. 다른 PC의 게시와 겹치는지는 서버 점수의
-    metadata(evaluation_hash)를 조회해 확인한다.
+    Local manifests and scores are checked for matching conditions and duplicate request IDs.
+    Other workspaces or remote Langfuse scores are outside this preflight; use a unique
+    evaluation_set across machines unless the remote metadata has been checked separately.
     """
     evaluation_set = evaluation_set or manifest["experiment_id"]
     if not re.fullmatch(r"[A-Za-z0-9_-]+", evaluation_set):
         raise ValueError(f"평가 세트 이름은 영문·숫자·'-'·'_'만 쓴다: {evaluation_set}")
-    version = hashlib.sha256(json.dumps(conditions(manifest), sort_keys=True).encode()).hexdigest()
+    version = hashlib.sha256(
+        json.dumps(conditions(manifest), sort_keys=True).encode()
+    ).hexdigest()
+    excluded = Path(exclude_manifest).resolve() if exclude_manifest else None
     if artifacts_dir:
-        manifest_paths = Path(artifacts_dir).glob("*/manifest.json")
+        manifest_paths = Path(artifacts_dir).rglob("manifest.json")
     else:
         manifest_paths = ()
     for path in manifest_paths:
+        if excluded is not None and path.resolve() == excluded:
+            continue
         other = json.loads(path.read_text(encoding="utf-8"))
         used = other.get("langfuse_scores") or {}
-        if (used.get("evaluation_set") != evaluation_set
-                or other.get("experiment_id") == manifest["experiment_id"]):
+        if used.get("evaluation_set") != evaluation_set:
+            continue
+        if skip_same_experiment and other.get("experiment_id") == manifest["experiment_id"]:
             continue
         if used.get("evaluation_hash") != version:
-            raise ValueError(f"평가 세트 '{evaluation_set}'는 실험 {other.get('experiment_id')}에서 다른 "
-                             "채점 조건으로 게시됐다. 조건이 다르면 다른 세트 이름을 쓴다")
+            raise ValueError(
+                f"평가 세트 '{evaluation_set}'는 {path.parent}에서 다른 채점 조건으로 "
+                "게시 또는 예약됐다. 조건이 다르면 다른 세트 이름을 쓴다"
+            )
         graded = path.with_name("scores.jsonl")
         if graded.exists():
             lines = graded.read_text(encoding="utf-8").splitlines()
         else:
             lines = []
-        graded_request_ids = set()
-        for line in lines:
-            if line.strip():
-                graded_request_ids.add(json.loads(line)["request_id"])
+        graded_request_ids = {
+            json.loads(line)["request_id"] for line in lines if line.strip()
+        }
         if graded_request_ids & set(request_ids):
-            raise ValueError(f"평가 세트 '{evaluation_set}'에 실험 {other.get('experiment_id')}가 같은 요청을 "
-                             "이미 채점해 게시했다. 반복 회차는 다른 세트 이름을 쓴다")
-    selected_groups = []
-    for group in GROUPS:
-        if group in (groups or GROUPS):
-            selected_groups.append(group)
-    return {"status": "incomplete",  # 게시가 끝나면 실제 상태로 바뀐다. 남아 있으면 게시 중 중단된 것
-            "evaluation_set": evaluation_set, "groups": selected_groups,
-            "evaluation_hash": version, "sample": bool(manifest.get("sample"))}
+            raise ValueError(
+                f"평가 세트 '{evaluation_set}'에 같은 요청이 이미 채점됐다. "
+                "반복 회차는 다른 세트 이름을 쓴다"
+            )
+    selected_groups = [group for group in GROUPS if group in (groups or GROUPS)]
+    return {
+        "status": "incomplete",
+        "evaluation_set": evaluation_set,
+        "groups": selected_groups,
+        "evaluation_hash": version,
+        "sample": bool(manifest.get("sample")),
+    }
 
 
 def publish_evaluation_scores(tracer, runs, scores, manifest):
@@ -99,6 +149,8 @@ def publish_evaluation_scores(tracer, runs, scores, manifest):
                 "source_experiment_id": (manifest.get("regrade") or {}).get("source_experiment_id")
                 or manifest["experiment_id"],
                 "evaluation_set": plan["evaluation_set"], "evaluation_hash": plan["evaluation_hash"]}
+    timestamp = manifest.get("langfuse_score_timestamp")
+    score_options = {"timestamp": datetime.fromisoformat(timestamp)} if timestamp else {}
     by_request = {r["request_id"]: r for r in runs}
     counts = Counter()
     for row in scores:
@@ -114,12 +166,14 @@ def publish_evaluation_scores(tracer, runs, scores, manifest):
                 statuses["no_trace_id"] += 1
                 continue
             name = f"{plan['evaluation_set']}.{metric}"
-            # 세트·trace·지표가 같으면 같은 ID다. 다시 게시해도 서버에는 한 건만 남는다
+            # TableRAG 재게시는 저장된 ID, 지표 이름, timestamp를 함께 사용한다
             score_id = str(uuid.uuid5(uuid.NAMESPACE_URL, f"aden:{trace_id}:{name}"))
             comment = f"{'SAMPLE; ' if manifest.get('sample') else ''}evaluation={manifest['experiment_id']}; {item.get('reason', '')}"
+            if timestamp:
+                comment = f"evaluation={manifest['experiment_id']}; grade={manifest['grade_id']}"
             try:
                 result = tracer.record_score(trace_id, name, value, comment=comment, score_id=score_id,
-                                             metadata=metadata)
+                                             metadata=metadata, **score_options)
                 statuses[result["status"]] += 1
                 if result["status"] == "recorded_unverified":  # 수신 조회에 쓸 ID
                     row.setdefault("langfuse_score_ids", {})[name] = score_id

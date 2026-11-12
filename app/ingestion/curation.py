@@ -64,6 +64,15 @@ def read_rows(path):
             yield json.loads(line)
 
 
+def curation_environment():
+    extractor = (
+        subprocess.run(["pdftotext", "-v"], capture_output=True, check=True)
+        .stderr.decode()
+        .splitlines()[0]
+    )
+    return {"extractor": extractor, "pydantic_version": version("pydantic")}
+
+
 @dataclass
 class LayoutDocument:
     book_id: str
@@ -81,11 +90,19 @@ def load_layout(path, cache, tool_version):
     valid = False
     if text_path.exists() and meta_path.exists():
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
-        valid = meta.get("identity") == identity and meta.get("text_sha256") == sha(text_path.read_bytes())
+        valid = meta.get("identity") == identity and meta.get("text_sha256") == sha(
+            text_path.read_bytes()
+        )
     if not valid:
-        result = subprocess.run(["pdftotext", "-layout", str(path), "-"], capture_output=True, check=True)
+        result = subprocess.run(
+            ["pdftotext", "-layout", str(path), "-"], capture_output=True, check=True
+        )
         text_path.write_bytes(result.stdout)
-        meta_path.write_text(json_text({"identity": identity, "text_sha256": sha(result.stdout)}), encoding="utf-8", newline="\n")
+        meta_path.write_text(
+            json_text({"identity": identity, "text_sha256": sha(result.stdout)}),
+            encoding="utf-8",
+            newline="\n",
+        )
     pages = text_path.read_text(encoding="utf-8").split("\f")
     if not pages[-1].strip():
         pages.pop()
@@ -99,10 +116,19 @@ def basic_rules():
     catalog = json.loads(DEFAULT_CATALOG.read_text(encoding="utf-8"))
     result = {}
     for item in catalog["rules"]:
-        sources = sorted({f"basic:{a['book_id']}:p{a['page']}" for a in item["anchors"]})
+        sources = sorted(
+            {f"basic:{a['book_id']}:p{a['page']}" for a in item["anchors"]}
+        )
         result[item["rule_id"]] = CuratedRule(
-            rule_id=item["rule_id"], text=item["text"], kind="business_rule", sources=sources,
-            parameters={key: item[key] for key in ("scope", "conditions", "effect", "exceptions") if key in item},
+            rule_id=item["rule_id"],
+            text=item["text"],
+            kind="business_rule",
+            sources=sources,
+            parameters={
+                key: item[key]
+                for key in ("scope", "conditions", "effect", "exceptions")
+                if key in item
+            },
             review_status="source_checked",
         )
     return result
@@ -113,27 +139,48 @@ def related_basic_rules(text, rule_ids):
     topics = []
     for pattern, names in (
         (r"SI|선적지시서", ("si-deadline", "si-submission")),
-        (r"VGM", ("vgm-",)), (r"예약", ("booking-confirmation",)),
-        (r"반입", ("gate-", "actual-gate",)), (r"초안|발행", ("draft-approval",)),
-        (r"실제 출항|출항 완료", ("actual-departure",)), (r"도착|인도", ("eta-vs",)),
+        (r"VGM", ("vgm-",)),
+        (r"예약", ("booking-confirmation",)),
+        (
+            r"반입",
+            (
+                "gate-",
+                "actual-gate",
+            ),
+        ),
+        (r"초안|발행", ("draft-approval",)),
+        (r"실제 출항|출항 완료", ("actual-departure",)),
+        (r"도착|인도", ("eta-vs",)),
     ):
         if re.search(pattern, text):
             topics.extend(names)
-    return sorted(rule_id for rule_id in rule_ids if any(name in rule_id for name in topics))
+    return sorted(
+        rule_id for rule_id in rule_ids if any(name in rule_id for name in topics)
+    )
 
 
 def split_page(dataset, document, page_number, rules):
     text = document.pages[page_number - 1]
     source_id = f"{dataset}:{document.book_id}:p{page_number}"
     heading, parts = page_body(text, document.book_id, page_number, len(document.pages))
-    source = CuratedSource(source_id=source_id, dataset=dataset, book_id=document.book_id,
-                           file_name=document.file_name, file_sha256=document.file_sha256,
-                           page=page_number, heading=heading)
+    source = CuratedSource(
+        source_id=source_id,
+        dataset=dataset,
+        book_id=document.book_id,
+        file_name=document.file_name,
+        file_sha256=document.file_sha256,
+        page=page_number,
+        heading=heading,
+    )
     # 단일 거래가 제목에 명시된 경우에만 페이지의 개별 행에 그 거래 맥락을 연결한다.
     heading_cases = [item for item in identifiers(heading) if CASE_ID.match(item)]
     inherited = heading_cases if len(heading_cases) == 1 else []
     records, stats, covered = [], Counter(), set()
-    context_rules = {key for key, rule in rules.items() if source_id in rule.sources} if dataset == "basic" else set()
+    context_rules = (
+        {key for key, rule in rules.items() if source_id in rule.sources}
+        if dataset == "basic"
+        else set()
+    )
     section, index = heading, 0
 
     def cover(block):
@@ -147,13 +194,25 @@ def split_page(dataset, document, page_number, rules):
         ids = identifiers(content + " " + section)
         cases = sorted({*inherited, *(item for item in ids if CASE_ID.match(item))})
         dates, amounts, states = field_values(fields or {})
-        records.append(CuratedRecord(
-            record_id=f"{source_id}:l{block['start']}", kind=kind, source_id=source_id,
-            line_start=block["start"], line_end=block["end"], section=section,
-            fields=fields or {}, text=raw_text, identifiers=ids, case_ids=cases,
-            dates=dates, amounts=amounts, states=states, cost_terms=cost_terms(fields or {}),
-            review_status="parsed" if parsed else "needs_review",
-        ))
+        records.append(
+            CuratedRecord(
+                record_id=f"{source_id}:l{block['start']}",
+                kind=kind,
+                source_id=source_id,
+                line_start=block["start"],
+                line_end=block["end"],
+                section=section,
+                fields=fields or {},
+                text=raw_text,
+                identifiers=ids,
+                case_ids=cases,
+                dates=dates,
+                amounts=amounts,
+                states=states,
+                cost_terms=cost_terms(fields or {}),
+                review_status="parsed" if parsed else "needs_review",
+            )
+        )
 
     while index < len(parts):
         part = parts[index]
@@ -164,19 +223,38 @@ def split_page(dataset, document, page_number, rules):
             part["start"] += 1
             stats["inline_section_lines"] += 1
         raw = "\n".join(part["lines"])
-        if index == 0 and inherited and inherited[0].startswith("HG") and "화주 " in readable(raw):
+        if (
+            index == 0
+            and inherited
+            and inherited[0].startswith("HG")
+            and "화주 " in readable(raw)
+        ):
             terms = identifiers(raw)
             context = heading.rsplit(" > ", 1)[-1].split(" / ")
             contracts = [item for item in terms if item.startswith("CT-")]
             if len(context) == 4 and len(contracts) == 1:
-                record(part, "case_context", fields={"예약": context[0], "화주": context[1],
-                       "장비": context[2], "계약": contracts[0], "기록 종류": context[3]},
-                       raw_text=readable(raw), parsed=True)
+                record(
+                    part,
+                    "case_context",
+                    fields={
+                        "예약": context[0],
+                        "화주": context[1],
+                        "장비": context[2],
+                        "계약": contracts[0],
+                        "기록 종류": context[3],
+                    },
+                    raw_text=readable(raw),
+                    parsed=True,
+                )
                 stats["case_contexts"] += 1
                 cover(part)
                 index += 1
                 continue
-        if (len(part["lines"]) == 1 and index + 1 < len(parts) and header_cells(parts[index + 1])):
+        if (
+            len(part["lines"]) == 1
+            and index + 1 < len(parts)
+            and header_cells(parts[index + 1])
+        ):
             section = readable(part["lines"][0])
             source.sections.append(section)
             stats["section_blocks"] += 1
@@ -185,10 +263,14 @@ def split_page(dataset, document, page_number, rules):
             continue
         if header_cells(part):
             end = index + 1
-            while end < len(parts) and looks_like_row(parts[end]) and not header_cells(parts[end]):
+            while (
+                end < len(parts)
+                and looks_like_row(parts[end])
+                and not header_cells(parts[end])
+            ):
                 end += 1
             if end > index + 1:
-                row_blocks = parts[index + 1:end]
+                row_blocks = parts[index + 1 : end]
                 cover(part)
                 for row in row_blocks:
                     cover(row)
@@ -212,14 +294,22 @@ def split_page(dataset, document, page_number, rules):
         if match:
             rule_id = f"{dataset}.rule.{sha(compact(raw).encode())[:16]}"
             if rule_id not in rules:
-                rules[rule_id] = CuratedRule(rule_id=rule_id, sources=[source_id],
-                                            review_status="source_matched", **match)
+                rules[rule_id] = CuratedRule(
+                    rule_id=rule_id,
+                    sources=[source_id],
+                    review_status="source_matched",
+                    **match,
+                )
             elif source_id not in rules[rule_id].sources:
                 rules[rule_id].sources.append(source_id)
             context_rules.add(rule_id)
             stats["factored_rule_blocks"] += 1
         else:
-            record(part, "external_quotation" if external else "narrative", raw_text=readable(raw))
+            record(
+                part,
+                "external_quotation" if external else "narrative",
+                raw_text=readable(raw),
+            )
             stats["narrative_blocks"] += 1
             if looks_like_row(part):
                 stats["unparsed_layout_blocks"] += 1
@@ -230,7 +320,9 @@ def split_page(dataset, document, page_number, rules):
     for item in records:
         item.context_rule_ids = sorted(context_rules)
         if dataset == "basic":
-            item.related_rule_ids = related_basic_rules(item.text + " ".join(item.fields.values()), rules)
+            item.related_rule_ids = related_basic_rules(
+                item.text + " ".join(item.fields.values()), rules
+            )
     stats["body_blocks"] = len(parts)
     stats["records"] = len(records)
     stats["contract_rows"] = sum(bool(item.cost_terms) for item in records)
@@ -246,7 +338,9 @@ def transform_documents(dataset, documents, output):
     for document in documents:
         records = []
         for page_number in range(1, len(document.pages) + 1):
-            source, page_records, page_counts = split_page(dataset, document, page_number, rules)
+            source, page_records, page_counts = split_page(
+                dataset, document, page_number, rules
+            )
             sources.append(source)
             counts.update(page_counts)
             records.extend(page_records)
@@ -256,20 +350,44 @@ def transform_documents(dataset, documents, output):
         write_rows(output / "records" / f"{document.book_id}.jsonl", records)
     write_rows(output / "sources.jsonl", sources)
     write_rows(output / "rules.jsonl", [rules[key] for key in sorted(rules)])
-    write_rows(output / "cases.jsonl", [CuratedCase(case_id=key, record_ids=sorted(set(value))) for key, value in sorted(cases.items())])
-    report = {"dataset": dataset, "documents": len(documents), "pages": len(sources), "rules": len(rules),
-              "cases": len(cases), **dict(counts), "review": "행·원문 구조와 참조를 검증함. 업무 효력 판정과 전체 의미 검토는 별도 필요"}
-    report["quality_gate"] = {"source_coverage": "passed", "references": "passed",
-                              "full_semantic_review": "pending", "runtime_rag": "not_run"}
-    (output / "validation_report.json").write_text(json_text(report), encoding="utf-8", newline="\n")
+    write_rows(
+        output / "cases.jsonl",
+        [
+            CuratedCase(case_id=key, record_ids=sorted(set(value)))
+            for key, value in sorted(cases.items())
+        ],
+    )
+    report = {
+        "dataset": dataset,
+        "documents": len(documents),
+        "pages": len(sources),
+        "rules": len(rules),
+        "cases": len(cases),
+        **dict(counts),
+        "review": "행·원문 구조와 참조를 검증함. 업무 효력 판정과 전체 의미 검토는 별도 필요",
+    }
+    report["quality_gate"] = {
+        "source_coverage": "passed",
+        "references": "passed",
+        "full_semantic_review": "pending",
+        "runtime_rag": "not_run",
+    }
+    (output / "validation_report.json").write_text(
+        json_text(report), encoding="utf-8", newline="\n"
+    )
     return report
 
 
 def validate_curated(path):
     """원본 PDF 없이도 Git의 정제본 스키마와 참조를 확인한다."""
     path = Path(path)
-    source_rows, rule_rows = list(read_rows(path / "sources.jsonl")), list(read_rows(path / "rules.jsonl"))
-    sources = {row["source_id"]: CuratedSource.model_validate(row) for row in source_rows}
+    source_rows, rule_rows = (
+        list(read_rows(path / "sources.jsonl")),
+        list(read_rows(path / "rules.jsonl")),
+    )
+    sources = {
+        row["source_id"]: CuratedSource.model_validate(row) for row in source_rows
+    }
     rules = {row["rule_id"]: CuratedRule.model_validate(row) for row in rule_rows}
     if len(sources) != len(source_rows) or len(rules) != len(rule_rows):
         raise ValueError("중복 출처 또는 규칙 ID가 있습니다.")
@@ -278,14 +396,21 @@ def validate_curated(path):
     for file in sorted((path / "records").glob("*.jsonl")):
         for row in read_rows(file):
             record = CuratedRecord.model_validate(row)
-            if record.record_id in ids or record.source_id not in sources or record.line_end < record.line_start:
+            if (
+                record.record_id in ids
+                or record.source_id not in sources
+                or record.line_end < record.line_start
+            ):
                 raise ValueError(f"중복·출처·행 범위 오류: {record.record_id}")
             ids.add(record.record_id)
             record_count += 1
             for case_id in record.case_ids:
                 memberships[case_id].add(record.record_id)
             for rule_id in record.context_rule_ids:
-                if rule_id not in rules or record.source_id not in rules[rule_id].sources:
+                if (
+                    rule_id not in rules
+                    or record.source_id not in rules[rule_id].sources
+                ):
                     raise ValueError(f"다른 출처 맥락의 규칙 참조: {record.record_id}")
             if any(rule_id not in rules for rule_id in record.related_rule_ids):
                 raise ValueError(f"없는 관련 규칙: {record.record_id}")
@@ -295,7 +420,10 @@ def validate_curated(path):
     case_ids = set()
     for row in read_rows(path / "cases.jsonl"):
         case = CuratedCase.model_validate(row)
-        if case.case_id in case_ids or set(case.record_ids) != memberships[case.case_id]:
+        if (
+            case.case_id in case_ids
+            or set(case.record_ids) != memberships[case.case_id]
+        ):
             raise ValueError(f"사례와 기록의 연결이 일치하지 않습니다: {case.case_id}")
         case_ids.add(case.case_id)
     if case_ids != set(memberships):
@@ -303,21 +431,51 @@ def validate_curated(path):
     return {"sources": len(sources), "rules": len(rules), "records": record_count}
 
 
-def curate_dataset(dataset, data_root, output_root, cache_root, *, progress=None):
+def resolve_documents_directory(data_root, dataset, documents_directory=None):
+    """Choose the explicitly supplied PDF directory or the dataset default."""
+    return Path(
+        documents_directory or (Path(data_root) / dataset / "documents")
+    ).resolve()
+
+
+def curate_dataset(
+    dataset,
+    data_root,
+    output_root,
+    cache_root,
+    *,
+    documents_directory=None,
+    progress=None,
+):
     """고정된 난이도 원본 전체를 정제한다. 기존 검토 스냅샷을 덮어쓰지 않는다."""
     if dataset not in EXPECTED:
         raise ValueError(f"지원하지 않는 데이터셋: {dataset}")
     if not shutil.which("pdftotext"):
-        raise RuntimeError("Poppler pdftotext가 필요합니다. 이미 생성한 정제본은 원본 없이 검증할 수 있습니다.")
-    data_root, output_root, cache_root = (Path(p).resolve() for p in (data_root, output_root, cache_root))
-    if output_root == data_root or output_root.is_relative_to(data_root / dataset) or cache_root.is_relative_to(data_root / dataset):
+        raise RuntimeError(
+            "Poppler pdftotext가 필요합니다. 이미 생성한 정제본은 원본 없이 검증할 수 있습니다."
+        )
+    data_root, output_root, cache_root = (
+        Path(p).resolve() for p in (data_root, output_root, cache_root)
+    )
+    if (
+        output_root == data_root
+        or output_root.is_relative_to(data_root / dataset)
+        or cache_root.is_relative_to(data_root / dataset)
+    ):
         raise ValueError("정제본·캐시는 원본 데이터셋 폴더 바깥에 두세요.")
-    pdfs = sorted((data_root / dataset / "documents").glob("*.pdf"))
+    documents_directory = resolve_documents_directory(
+        data_root, dataset, documents_directory
+    )
+    pdfs = sorted(documents_directory.glob("*.pdf"))
     expected_docs, expected_pages = EXPECTED[dataset]
-    names = {f"{PREFIX[dataset]}{number:0{3 if dataset == 'advanced' else 2}d}.pdf" for number in range(1, expected_docs + 1)}
+    names = {
+        f"{PREFIX[dataset]}{number:0{3 if dataset == 'advanced' else 2}d}.pdf"
+        for number in range(1, expected_docs + 1)
+    }
     if {p.name for p in pdfs} != names:
         raise ValueError(f"{dataset} PDF 목록이 예상한 {expected_docs}개와 다릅니다.")
-    tool = subprocess.run(["pdftotext", "-v"], capture_output=True, check=True).stderr.decode().splitlines()[0]
+    environment = curation_environment()
+    tool = environment["extractor"]
     cache = cache_root / dataset
     cache.mkdir(parents=True, exist_ok=True)
     with ThreadPoolExecutor(max_workers=4) as pool:
@@ -334,33 +492,70 @@ def curate_dataset(dataset, data_root, output_root, cache_root, *, progress=None
             for anchor in rule["anchors"]:
                 page_text = by_book[anchor["book_id"]].pages[anchor["page"] - 1]
                 if compact(anchor["quote"]) not in compact(page_text):
-                    raise ValueError(f"Basic 규칙 근거를 확인할 수 없습니다: {rule['rule_id']}")
-    identity = {"schema_version": 2, "dataset": dataset, "parser": PARSER_VERSION, "extractor": tool,
-                "pydantic_version": version("pydantic"),
-                "parser_sha256": sha(b"".join(Path(__file__).with_name(name).read_bytes() for name in
-                                             ("curation.py", "curated_schema.py", "layout.py", "common_rules.py"))),
-                "documents": [{"file_name": doc.file_name, "sha256": doc.file_sha256, "pages": len(doc.pages)} for doc in documents]}
+                    raise ValueError(
+                        f"Basic 규칙 근거를 확인할 수 없습니다: {rule['rule_id']}"
+                    )
+    identity = {
+        "schema_version": 2,
+        "dataset": dataset,
+        "parser": PARSER_VERSION,
+        **environment,
+        "parser_sha256": sha(
+            b"".join(
+                Path(__file__).with_name(name).read_bytes()
+                for name in (
+                    "curation.py",
+                    "curated_schema.py",
+                    "layout.py",
+                    "common_rules.py",
+                )
+            )
+        ),
+        "documents": [
+            {
+                "file_name": doc.file_name,
+                "sha256": doc.file_sha256,
+                "pages": len(doc.pages),
+            }
+            for doc in documents
+        ],
+    }
     if dataset == "basic":
         identity["basic_catalog_sha256"] = sha(DEFAULT_CATALOG.read_bytes())
     target = output_root / dataset
     if target.exists():
         manifest = json.loads((target / "manifest.json").read_text(encoding="utf-8"))
         if manifest["identity"] != identity:
-            raise FileExistsError(f"기존 검토본을 보존합니다. 새 --output 경로에서 생성·비교하세요: {target}")
+            raise FileExistsError(
+                f"기존 검토본을 보존합니다. 새 --output 경로에서 생성·비교하세요: {target}"
+            )
         for name, digest in manifest["outputs"].items():
             if sha((target / name).read_bytes()) != digest:
-                raise FileExistsError(f"수정된 검토본을 보존합니다. 새 --output 경로를 사용하세요: {target / name}")
+                raise FileExistsError(
+                    f"수정된 검토본을 보존합니다. 새 --output 경로를 사용하세요: {target / name}"
+                )
         validate_curated(target)
-        return target, json.loads((target / "validation_report.json").read_text(encoding="utf-8"))
+        return target, json.loads(
+            (target / "validation_report.json").read_text(encoding="utf-8")
+        )
     output_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".curating-", dir=output_root) as folder:
         stage = Path(folder) / dataset
         stage.mkdir()
         report = transform_documents(dataset, documents, stage)
         validate_curated(stage)
-        manifest = {"identity": identity, "snapshot_id": sha(json_text(identity).encode())[:16],
-                    "outputs": {str(p.relative_to(stage)): sha(p.read_bytes()) for p in sorted(stage.rglob("*")) if p.is_file()}}
-        (stage / "manifest.json").write_text(json_text(manifest), encoding="utf-8", newline="\n")
+        manifest = {
+            "identity": identity,
+            "snapshot_id": sha(json_text(identity).encode())[:16],
+            "outputs": {
+                str(p.relative_to(stage)): sha(p.read_bytes())
+                for p in sorted(stage.rglob("*"))
+                if p.is_file()
+            },
+        }
+        (stage / "manifest.json").write_text(
+            json_text(manifest), encoding="utf-8", newline="\n"
+        )
         stage.rename(target)
     if progress:
         progress(report)

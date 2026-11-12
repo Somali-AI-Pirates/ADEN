@@ -65,6 +65,10 @@ class ResourceTests(unittest.TestCase):
             )
         )
         self.settings = load_settings()
+        self.settings.rag_backend = "legacy"
+        stack.enter_context(
+            patch("app.api.lifespan.load_settings", return_value=self.settings)
+        )
 
     def test_startup_runs_real_pipeline_and_closes_shared_clients(self):
         chunk = Chunk(

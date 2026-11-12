@@ -25,7 +25,8 @@ from app.evaluation.dataset import load_questions, load_references
 from app.evaluation.graders import (JUDGE_SCHEMA_VERSION, PROMPTS_DIR, make_openai_judge,
                                     make_ragas_faithfulness)
 from app.evaluation.report import write_artifacts, write_report
-from app.evaluation.publishing import expected_observations, publish_evaluation_scores
+from app.evaluation.publishing import (expected_observations, expected_payload_observations,
+                                       publish_evaluation_scores)
 from app.evaluation.runner import grade_all, run_comparison
 from app.evaluation.scripts._common import (ROOT, add_publish_options, base_manifest, guard_overwrite,
                                       load_callable, load_config, load_env, now_id, publication_plan,
@@ -154,7 +155,8 @@ def main() -> None:
         r["langfuse_verification"] = (
             tracer.verify_trace(r.get("langfuse_trace_id"),
                                 timeout_s=max(0.0, deadline - time.monotonic()),
-                                expected_observations=expected_observations(r))["status"]
+                                expected_observations=expected_observations(r),
+                                require_payload_names=expected_payload_observations(r))["status"]
             if isinstance(tracer, Tracer) and tracer.enabled else None)
     verified = Counter()
     for run in runs:

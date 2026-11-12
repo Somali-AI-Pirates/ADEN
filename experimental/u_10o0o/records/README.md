@@ -2,6 +2,8 @@
 
 현재 TableRAG 선택과 종료 근거는 [종료 기록](advanced-table-rag-closeout-20261112/README.md)에 있다. 통합 DB 우선·요청별 인용 검사 OFF이며, 아래 과거 검색 구성과 구분한다.
 
+제품 연결에 사용할 설정과 구현 기록은 [2026-11-12 제품 적용 기준](decisions.md#2026-11-12-제품-적용-기준)에 정리한다.
+
 [개인 평가 기준](../evaluation-policy.md)에 따라 새 최종 결과에는 실패 검수를 포함한다. [KURE-v3 공식58·카테고리220 A/B](advanced-table-rag-official-category-20261111/report.md)에서 지정 점수와 대체 근거 보정, 남은 실제 누락·모호성을 나란히 비교한다.
 
 [BM25 코드 정규화 채택과 공식 누락 분석](advanced-normalized-baseline-20261111/report.md)은 2026-11-11 기준선 업데이트, 기본 실행 재현과 공식 문항의 검색·최종 선택 누락을 기록한다. 정규화 자체의 비교는 [별도 실험](advanced-bm25-code-normalization-20261111/report.md)에 있다.

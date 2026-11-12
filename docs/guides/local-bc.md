@@ -1,6 +1,8 @@
 # Advanced 로컬 B·C 개발
 
-현재 범위는 B의 생성·검증·추적과 C의 평가·보고서다. 최신 A 검색 이식, 실제 Advanced 색인 적재와 실제 품질 평가는 후속 작업이다. 설정 기본값은 `configs/advanced.yaml`이며 최종 최대 8개·8,000토큰을 사용한다.
+일반 서버의 기본값은 DB 우선 통합 TableRAG다. 이 문서는 기존 B·C 경로를 대상으로 하며, 직접 서버를 실행할 때 설정의 rag_backend를 legacy로 지정한다. create_app에 resources_loader를 전달하는 예제는 해당 로더를 사용한다. [기본 빠른 시작](quickstart.md)
+
+이 문서의 범위는 레거시 B의 생성·검증·추적과 C의 평가·보고서다. 새 기본 TableRAG 서버의 데이터 구축과 실행에는 이 문서의 근거 주입·Qdrant 절차를 적용하지 않는다. 설정 기본값은 `configs/advanced.yaml`이며 최종 최대 8개·8,000토큰을 사용한다.
 
 ## A 없이 연결하기
 
