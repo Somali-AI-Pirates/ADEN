@@ -1,0 +1,31 @@
+{
+  "basis_pr": 54,
+  "basis_commit": "284004bb18c8ca8408973acc51985bd2851651ed",
+  "test_command": "python -B -m pytest -q -p no:cacheprovider tests/generation/test_incomplete_consistency.py",
+  "tests_passed": 14,
+  "mock_only": true,
+  "new_model_calls": 0,
+  "judge_calls": 0,
+  "ragas_calls": 0,
+  "remote_trace_rechecked": false,
+  "inventory_evidence_rows": 615,
+  "inventory_dataset_id_pairs": 162,
+  "code_sha256": {
+    "app/generation/chain.py": "d68880c71ed8d58360ef16925e9fbe0ac8d1f908b31379a8bb66eb3f9519c4ab",
+    "app/generation/prompts/shipping_qa.txt": "83f0dfa50fd427a1e209603c3d769683343744427eb23e00b83e75dc9f9b7e03",
+    "configs/advanced.yaml": "0221d3af369d3dfdc8a8a7a48e5fb96cb5ab330898757b54c5231d8ade80b7be",
+    "app/evaluation/prompts/judge.txt": "5c29900bc2f7c590358c8fc4c545a96a2ac5e8226d6d9406e35dec35de049cc4",
+    "app/evaluation/graders.py": "27ad92772e0f60de87e5b642f166e9f77a36ec3969922b47b838a885776d0ef9",
+    "tests/generation/test_incomplete_consistency.py": "1fee4f35d7e4be4250446c6b0e00e334a39fe46f461bd23cf6f9ac90b4f89624"
+  },
+  "files_sha256": {
+    "handoff.md": "cdb273f7ad522e5a40ae7496bfe2cca2c1531ae7075b082f6393639a545d9ba6",
+    "README.md": "ecd420e1ec501931b3dbfefa3564683cc9396ae4368e1927b08d1b2b39882df0",
+    "reference-traces.json": "ad8c2c2718ea669e6ceb7909035a989e19b8491bfbf1a104d9fee2c8948e2622",
+    "review.md": "9682fce0dbd2cdb9f065f65adf56b95ee05b7b86d79a7b3a842e8b14cd99206a",
+    "usage-evidence.csv": "2e9322e1b3c7b46cacb084f44fe032c1cbeb5f3f69c32ec8564c2024c28adf61",
+    "used-questions.csv": "5d39a5ac008e19149b695b2c1899d6362b1187f1bb09b415ffe3f9bc3f0d78f3",
+    "checks/pytest.txt": "ee53d1d9a6e20c10c0f1373602f2f414822792e4c4a3a3ffe0772071992722c2",
+    "checks/requirements.md": "e34089fec03f749ff4713086c84f63486594a1c7c3745d1be51fd4177f389bd8"
+  }
+}
