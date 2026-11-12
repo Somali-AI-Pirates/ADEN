@@ -1,0 +1,42 @@
+{
+  "experiment_id": "table-rag-asdev19-connect-20261112",
+  "kind": "http_client",
+  "base_url": "http://127.0.0.1:8000",
+  "health": {
+    "http_status": 200,
+    "outcome": "success",
+    "error": null,
+    "latency_ms": 38,
+    "body": {
+      "status": "ok",
+      "dataset": "advanced",
+      "query_ready": true
+    }
+  },
+  "client_timeout_s": 300.0,
+  "condition": "TableRAG 기본 경로(#59 92e8c03), A 번들 corpus d6b746e5, 연결 검증(개발 문항)",
+  "questions_file": "development_questions.json",
+  "questions_sha256": "sha256:0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c",
+  "question_ids": [
+    "AS-DEV19"
+  ],
+  "modes": [
+    "(서버 기본)"
+  ],
+  "git_commit": "92e8c038a432c334400619ff38e603be5d863c2e",
+  "git_dirty": false,
+  "latency_scope": "http_client: 요청 직전~응답 본문 수신 완료. 채점·trace 조회 제외",
+  "summary": {
+    "(서버 기본)": {
+      "requests": 1,
+      "outcomes": {
+        "success": 1
+      },
+      "success_latency_ms": {
+        "mean": 17885.0,
+        "median": 17885,
+        "max": 17885
+      }
+    }
+  }
+}
