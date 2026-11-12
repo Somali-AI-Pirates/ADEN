@@ -1,0 +1,15 @@
+# Install as /etc/aden/runtime.yaml after setting the deployment endpoints.
+dataset: advanced
+documents_dir: /opt/aden/data/advanced/documents
+
+table_rag:
+  data_directory: /opt/aden/artifacts/advanced-table-rag
+  run_directory: /opt/aden/artifacts/rag-runs
+  device: cpu
+  vector_backend: qdrant
+  collection: advanced_table_rag
+  trace_enabled: true
+
+connections:
+  qdrant_url: https://example.cloud.qdrant.io:6333
+  langfuse_base_url: https://cloud.langfuse.com

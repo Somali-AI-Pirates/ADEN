@@ -1,0 +1,106 @@
+name: ADEN release
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      api_image: ${{ steps.images.outputs.api_image }}
+      web_image: ${{ steps.images.outputs.web_image }}
+    steps:
+      - name: Download the checked images
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: aden-release-images
+          path: release-images
+      - name: Authenticate to GHCR
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish checked images by commit
+        id: images
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$GITHUB_SHA" =~ ^[0-9a-f]{40}$ ]]
+          for kind in api web; do
+            docker load --input "release-images/$kind.tar"
+            image="aden-$kind:$GITHUB_SHA"
+            [[ "$(docker image inspect "$image" --format '{{.Os}}/{{.Architecture}}')" == linux/arm64 ]]
+            [[ "$(docker image inspect "$image" --format '{{index .Config.Labels "org.opencontainers.image.revision"}}')" == "$GITHUB_SHA" ]]
+            [[ "$(docker image inspect "$image" --format '{{index .Config.Labels "org.opencontainers.image.source"}}')" == "https://github.com/$GITHUB_REPOSITORY" ]]
+            repo="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/aden-$kind"
+            docker tag "$image" "$repo:$GITHUB_SHA"
+            docker push "$repo:$GITHUB_SHA"
+            digest_ref=$(docker image inspect "$repo:$GITHUB_SHA" --format '{{range .RepoDigests}}{{println .}}{{end}}' | awk -v prefix="$repo@sha256:" 'index($0,prefix)==1 {print}')
+            [[ "$digest_ref" =~ ^ghcr\.io/somali-ai-pirates/aden-(api|web)@sha256:[0-9a-f]{64}$ ]]
+            printf '%s_image=%s\n' "$kind" "$digest_ref" >> "$GITHUB_OUTPUT"
+          done
+
+  deploy:
+    needs: publish
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 30
+    concurrency:
+      group: aden-production
+      cancel-in-progress: false
+    steps:
+      - name: Record disabled deployment
+        if: vars.ADEN_DEPLOY_ENABLED != 'true'
+        run: echo "Production activation is disabled for this run." >> "$GITHUB_STEP_SUMMARY"
+      - name: Check out the tested release client
+        if: vars.ADEN_DEPLOY_ENABLED == 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Apply the verified release
+        if: vars.ADEN_DEPLOY_ENABLED == 'true'
+        env:
+          ADEN_SSH_KEY: ${{ secrets.ADEN_DEPLOY_SSH_KEY }}
+          ADEN_SSH_KNOWN_HOSTS: ${{ vars.ADEN_SSH_KNOWN_HOSTS }}
+          ADEN_DEPLOY_HOST: ${{ vars.ADEN_DEPLOY_HOST }}
+          ADEN_DEPLOY_PORT: ${{ vars.ADEN_DEPLOY_PORT }}
+          ADEN_DEPLOY_USER: ${{ vars.ADEN_DEPLOY_USER }}
+          ADEN_API_IMAGE: ${{ needs.publish.outputs.api_image }}
+          ADEN_WEB_IMAGE: ${{ needs.publish.outputs.web_image }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ -n "$ADEN_SSH_KEY" && -n "$ADEN_SSH_KNOWN_HOSTS" ]]
+          umask 077
+          scratch=$(mktemp -d)
+          trap 'rm -rf -- "$scratch"' EXIT
+          printf '%s\n' "$ADEN_SSH_KEY" > "$scratch/key"
+          printf '%s\n' "$ADEN_SSH_KNOWN_HOSTS" > "$scratch/known_hosts"
+          unset ADEN_SSH_KEY
+          python3 - <<'PY' > "$scratch/release.json"
+          import json
+          import os
+
+          print(json.dumps({
+              "schema_version": 1,
+              "operation": "deploy",
+              "commit_sha": os.environ["GITHUB_SHA"],
+              "run_number": int(os.environ["GITHUB_RUN_NUMBER"]),
+              "run_attempt": int(os.environ["GITHUB_RUN_ATTEMPT"]),
+              "api_image": os.environ["ADEN_API_IMAGE"],
+              "web_image": os.environ["ADEN_WEB_IMAGE"],
+          }))
+          PY
+          export ADEN_DEPLOY_KEY_FILE="$scratch/key"
+          export ADEN_SSH_KNOWN_HOSTS="$scratch/known_hosts"
+          sh infra/deploy.sh "$scratch/release.json"

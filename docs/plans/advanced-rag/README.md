@@ -2,7 +2,13 @@
 
 2026-11-12 사용자 확정 기준. 실험의 `table_rag_unified`에서 `db_first=True, verify_evidence=False`인 흐름을 제품으로 옮긴다. 요청별 요구 목록·인용 제출을 검사하는 기능과 ON/OFF 설정은 제품에 제공하지 않는다.
 
-실행은 [빠른 시작](../../guides/quickstart.md), 완료된 검사와 남은 범위는 [구현 기록](unified-implementation-log.md)을 따른다. [초기 A 설계](initial-table-rag-a-plan.md)와 [단계별 학습 로드맵](implementation-roadmap.md)은 이전 선택의 이력이다.
+실행은 [빠른 시작](../../guides/quickstart.md), 완료된 검사와 남은 범위는 [구현 기록](unified-implementation-log.md)을 따른다. 벡터 저장소 연결과 동등성 검사는 [Qdrant Cloud 적용 기록](qdrant-cloud-migration.md)에 남긴다. [초기 A 설계](initial-table-rag-a-plan.md)와 [단계별 학습 로드맵](implementation-roadmap.md)은 이전 선택의 이력이다.
+
+현재 승인된 로컬 구조 정리의 단계·검증 결과와 재개 지점은 [로컬 구조 정리 진행 기록](local-refactor-progress.md)을 따른다. 기존 Qdrant Cloud·Langfuse 연결과 검색·답변 계약은 유지한다.
+
+코드 가독성·설정·로컬 인프라·운영에 대한 후속 제안은 [구조·운영 검토](architecture-operations-review.md)에 정리한다. 해당 문서는 개선 검토이며 이 문서의 채택 기준이나 현재 실행 방법을 변경하지 않는다.
+
+후속 작업의 파일별 변경·로컬 환경·CI/CD·aden 서브도메인 배포는 [구조 정리·배포 구현 계획](architecture-operations-implementation-plan.md)을 따른다. 클라우드 대상과 완료 여부는 해당 문서에서 별도로 관리한다. 실제 적용한 DNS·HTTPS·GitHub 환경은 [클라우드 준비 기록](cloud-setup-record.md)에서 확인한다.
 
 ## 1. 범위와 호환 경계
 
@@ -10,7 +16,7 @@
 
 필요한 추가 문서·규정은 원문 페이지와 IS 표 검색 단위에 대해 BM25·벡터 검색을 5:5 RRF로 합치고 KURE nano로 정렬한다. KURE-v3 임베딩과 Luna medium을 사용한다. 모델 리비전·입력 길이·정규화·검색 조건은 번들 및 실행 manifest에 남긴다.
 
-기존 HTTP 응답 필드·요청 ID·답변 인용 검사를 유지한다. 별도로 남은 일반·보안 평가 및 B/C 주입 경로는 [레거시 B/C 가이드](../../guides/local-bc.md)의 범위다. 제품은 개인 실험 모듈이나 개인 DB 경로를 import하지 않는다.
+기존 HTTP 응답 필드·요청 ID·답변 인용 검사를 유지한다. 별도로 남은 일반·보안 평가 및 B/C 주입 경로는 [B/C 평가 가이드](../../guides/local-bc.md)의 범위다. 제품은 개인 실험 모듈이나 개인 DB 경로를 import하지 않는다.
 
 지원 범위에는 문서·표·공통 기록 조회와 읽기 전용 SQL만 포함한다. 쓰기 SQL, 웹 검색, 임의 코드 실행, 추가 답변 검증 에이전트, 요청별 근거 확인 토글은 포함하지 않는다.
 
@@ -38,13 +44,17 @@
 
 | 위치 | 책임 |
 | --- | --- |
-| app/ingestion/scripts/prepare_table_rag.py | build·check·models 진입점 |
-| app/ingestion/table_rag_builder.py | 원본 추출·기록/관계·표·벡터·검증과 재개 |
-| app/rag/corpus.py | 번들 지문·벡터 정렬·원본 출처 확인 |
+| app/ingestion/scripts/prepare_table_rag.py | build·check·models·upload-qdrant·check-qdrant 진입점 |
+| app/ingestion/table_rag_builder.py | 구축 조립·검증·잠금·재개 |
+| app/ingestion/table_rag/ | 원문 추출·기록/표 저장·벡터 구축·단계 지문 |
+| app/rag/config.py / shared/table_rag_policy.py | 공통 실행 설정 해석 / 고정 모델·검색 정책 |
+| app/rag/corpus.py | 페이지·표 파일 읽기, 번들 지문·벡터 정렬·원본 출처 확인 |
 | app/rag/records.py / table_store.py | 공통 기록 및 안전한 표 조회 |
 | app/rag/retrieval.py | 페이지·표 BM25/벡터/RRF/KURE |
-| app/rag/tools.py / graph.py | 도구 입력 검증·관측 경계·반복 종료 |
+| app/rag/tools.py / graph.py | 도구 입력 스키마·관측 경계·State 갱신·반복 종료 |
+| app/rag/state.py / tool_handlers.py | 요청 State·Runtime context / 상태를 변경하지 않는 네 도구 처리 |
 | app/rag/evidence.py / model.py / service.py | 최종 근거·모델 호출·API/CLI 공통 실행 |
+| app/rag/lifecycle.py | 취소 시 작업 완료 대기·한 번만 닫기 |
 | app/observability/run_store.py / tracing.py | 요청별 로컬 저장 및 Langfuse |
 | app/evaluation/table_rag_a.py | 저장된 통합 TableRAG 출력 채점 (기존 모듈 이름 유지) |
 

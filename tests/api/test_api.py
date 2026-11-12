@@ -1,327 +1,245 @@
-import asyncio
-from concurrent.futures import ThreadPoolExecutor
-from contextlib import contextmanager
-import os
-from pathlib import Path
-from tempfile import TemporaryDirectory
-from threading import Barrier
-import unittest
-from unittest.mock import MagicMock, Mock, patch
+import logging
+from types import SimpleNamespace
+from unittest.mock import Mock
 
-import httpx
-import yaml
 from fastapi.testclient import TestClient
-from openai import APITimeoutError
-from pydantic import ValidationError
+import pytest
 
-from app.api.main import app
-from app.indexing.keyword_store import KeywordIndex
-from app.observability.records import compute_context_hash
-from shared.contracts import Chunk
-from shared.exceptions import ServiceError
-from shared.settings import DEFAULT_CONFIG
-from tests.pipeline_fakes import FakeModel, make_query_resources
+from app.api.main import create_app
+from app.api import lifespan as lifespan_module
+from app.rag.config import load_table_rag_settings
+from shared.contracts import QueryResponse
 
 
-class ApiTests(unittest.TestCase):
-    def setUp(self):
-        self.resources = make_query_resources()
-        self.environment_root = Path(self.enterContext(TemporaryDirectory()))
-        self.enterContext(patch("app.api.lifespan.PROJECT_ROOT", self.environment_root))
-        legacy_config = yaml.safe_load(DEFAULT_CONFIG.read_text(encoding="utf-8"))
-        legacy_config["rag_backend"] = "legacy"
-        config_path = self.environment_root / "legacy.yaml"
-        config_path.write_text(yaml.safe_dump(legacy_config), encoding="utf-8")
-        self.enterContext(patch("app.api.lifespan.DEFAULT_CONFIG", config_path))
+class FakeTableRagService:
+    def __init__(self):
+        self.requests = []
+        self.error = None
+        self.close_count = 0
+        self.readiness_status = SimpleNamespace(ready=True, checks={"resources": True})
+        self.readiness_calls = 0
 
-    def test_startup_loads_root_environment_and_preserves_existing_values(self):
-        (self.environment_root / ".env").write_text(
-            "ADEN_TEST_LOADED=from-file\nADEN_TEST_EXISTING=from-file\n",
-            encoding="utf-8",
-        )
-        with (
-            patch.dict(os.environ, {"ADEN_TEST_EXISTING": "from-process"}, clear=True),
-            self.client(),
-        ):
-            self.assertEqual(os.environ.get("ADEN_TEST_LOADED"), "from-file")
-            self.assertEqual(os.environ["ADEN_TEST_EXISTING"], "from-process")
+    async def readiness(self):
+        self.readiness_calls += 1
+        return self.readiness_status
 
-    @contextmanager
-    def client(self, **options):
-        with (
-            patch("app.api.lifespan.load_resources", return_value=self.resources),
-            TestClient(app, **options) as client,
-        ):
-            yield client
-
-    def test_http_query_runs_real_pipeline_and_returns_citations(self):
-        question = "예약이 확정됐나요?"
-        with self.client() as client:
-            self.assertTrue(client.get("/health").json()["query_ready"])
-            response = client.post("/query", json={"question": question})
-        result = response.json()
-        self.assertEqual(response.status_code, 200, response.text)
-        self.assertEqual(result["status"], "answered")
-        self.assertEqual(result["answer"], "예약 접수와 확정은 별도입니다. [S1]")
-        self.assertEqual(result["request_id"], response.headers["X-Request-ID"])
-        self.assertEqual(
-            result["citations"],
-            [
-                {
-                    "source_id": "S1",
-                    "book_id": "DEMO",
-                    "file_name": "DEMO.pdf",
-                    "page": 1,
-                }
-            ],
-        )
-        self.resources.embedder.embed_query.assert_called_once_with(question)
-        self.resources.qdrant.query_points.assert_called_once_with(
-            self.resources.collection,
-            query=[0.1, 0.2],
-            limit=20,
-            with_payload=True,
-        )
-        self.assertIn(question, self.resources.model.messages[1].content)
-        self.resources.qdrant.close.assert_called_once()
-
-    def test_http_logs_cover_success_validation_unready_and_unexpected_errors(self):
-        with self.assertLogs("app.api.middleware", level="INFO") as logs:
-            with self.client(raise_server_exceptions=False) as client:
-                success = client.post("/query", json={"question": "예약 문의"})
-                invalid = client.post("/query", json={"question": " "})
-                with patch(
-                    "app.api.routes.answer_query",
-                    side_effect=RuntimeError("private failure"),
-                ):
-                    failed = client.post("/query", json={"question": "예약 문의"})
-            with (
-                patch(
-                    "app.api.lifespan.load_resources",
-                    side_effect=ServiceError("준비 중", 503),
-                ),
-                TestClient(app) as client,
-            ):
-                unready = client.post("/query", json={"question": "예약 문의"})
-        responses = [success, invalid, failed, unready]
-        self.assertEqual([r.status_code for r in responses], [200, 422, 500, 503])
-        self.assertEqual(len(logs.records), len(responses))
-        by_id = {record.request_id: record for record in logs.records}
-        for response in responses:
-            request_id = response.headers["X-Request-ID"]
-            self.assertEqual(response.json()["request_id"], request_id)
-            record = by_id[request_id]
-            self.assertEqual(record.status_code, response.status_code)
-            self.assertEqual(record.path, "/query")
-            self.assertEqual(record.latency_scope, "http")
-            self.assertGreaterEqual(record.latency_ms, 0)
-
-    def test_http_log_does_not_include_question_query_or_headers(self):
-        secret = "private-diagnostic-value"
-        with self.assertLogs("app.api.middleware", level="INFO") as logs:
-            with self.client() as client:
-                response = client.post(
-                    "/query?token=" + secret,
-                    json={"question": secret},
-                    headers={"Authorization": "Bearer " + secret},
-                )
-                unknown = client.get("/" + secret)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(unknown.status_code, 404)
-        self.assertNotIn(secret, "\n".join(logs.output))
-        self.assertEqual(logs.records[-1].path, "<unmatched>")
-
-    def test_each_start_prepares_and_closes_its_own_resources(self):
-        second = make_query_resources()
-        second.model = FakeModel(["S1"], answer="재시작 후 답변입니다. [S1]")
-        with patch(
-            "app.api.lifespan.load_resources", side_effect=[self.resources, second]
-        ):
-            with TestClient(app) as client:
-                first_response = client.post("/query", json={"question": "예약 문의"})
-            self.assertEqual(first_response.status_code, 200)
-            self.assertEqual(
-                first_response.json()["answer"], self.resources.model.answer
+    async def ainvoke(self, question, *, request_id):
+        self.requests.append((question, request_id))
+        if self.error is not None:
+            raise self.error
+        return SimpleNamespace(
+            response=QueryResponse(
+                request_id=request_id,
+                status="answered",
+                answer=f"확인했습니다. ({question})",
+                reason="검색 근거가 있습니다.",
+                citations=[
+                    {
+                        "source_id": "AS001:p0001",
+                        "book_id": "AS001",
+                        "file_name": "AS001.pdf",
+                        "page": 1,
+                    }
+                ],
             )
-            self.assertIsNone(app.state.resources)
-            self.resources.qdrant.close.assert_called_once()
-
-            with TestClient(app) as client:
-                second_response = client.post("/query", json={"question": "예약 문의"})
-            self.assertEqual(second_response.status_code, 200)
-            self.assertEqual(second_response.json()["answer"], second.model.answer)
-            self.assertIsNone(app.state.resources)
-            second.qdrant.close.assert_called_once()
-
-    def test_invalid_yaml_stops_startup_before_loading_resources(self):
-        invalid_config = self.environment_root / "invalid.yaml"
-        invalid_config.write_text("dataset: basic\n", encoding="utf-8")
-
-        with (
-            patch("app.api.lifespan.DEFAULT_CONFIG", invalid_config),
-            patch("app.api.lifespan.load_resources") as load,
-            self.assertRaises(ValidationError),
-            TestClient(app),
-        ):
-            pass
-
-        load.assert_not_called()
-
-    def test_empty_search_abstains_without_calling_model(self):
-        self.resources.qdrant.query_points.return_value.points = []
-        self.resources.model.invoke = Mock()
-        with self.client() as client:
-            response = client.post("/query", json={"question": "예약 문의"})
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["status"], "abstained")
-        self.resources.model.invoke.assert_not_called()
-
-    def test_request_id_connects_trace_retrieval_and_response(self):
-        self.resources.tracer = MagicMock()
-        trace = self.resources.tracer.start_request.return_value
-        with self.client() as client:
-            response = client.post("/query", json={"question": "예약 문의"})
-        request_id = response.json()["request_id"]
-        self.assertEqual(
-            self.resources.tracer.start_request.call_args.args[0], request_id
-        )
-        retrieval = trace.record_retrieval.call_args.kwargs
-        self.assertEqual(
-            retrieval["final_context_hash"],
-            compute_context_hash(retrieval["final_context_chunks"]),
-        )
-        self.assertEqual(trace.finish.call_args.kwargs["status"], "answered")
-
-    def test_preparation_failure_keeps_docs_available_and_query_unready(self):
-        with (
-            patch(
-                "app.api.lifespan.load_resources",
-                side_effect=ServiceError("서버 설정 확인", 503),
-            ),
-            TestClient(app) as client,
-        ):
-            self.assertEqual(client.get("/docs").status_code, 200)
-            self.assertEqual(client.get("/openapi.json").status_code, 200)
-            health = client.get("/health")
-            self.assertEqual(health.status_code, 200)
-            self.assertFalse(health.json()["query_ready"])
-            response = client.post("/query", json={"question": "예약 문의"})
-        self.assertEqual(response.status_code, 503)
-        self.assertEqual(
-            response.json()["request_id"], response.headers["X-Request-ID"]
         )
 
-    def test_configured_default_and_explicit_mode_reach_the_real_pipeline(self):
-        config = yaml.safe_load(DEFAULT_CONFIG.read_text(encoding="utf-8"))
-        config["rag_backend"] = "legacy"
-        config["dataset"] = "custom-dataset"
-        config["retrieval"]["default_mode"] = "hybrid"
-        point = self.resources.qdrant.query_points.return_value.points[0]
-        self.resources.retrieval.keyword_index = KeywordIndex([Chunk(**point.payload)])
-        self.resources.tracer = MagicMock()
-        with TemporaryDirectory() as temporary:
-            path = Path(temporary) / "custom.yaml"
-            path.write_text(yaml.safe_dump(config), encoding="utf-8")
-            with (
-                patch("app.api.lifespan.DEFAULT_CONFIG", path),
-                self.client() as client,
-            ):
-                for payload, expected in [
-                    ({"question": "예약 문의"}, "hybrid"),
-                    ({"question": "예약 문의", "retrieval_mode": "naive"}, "naive"),
-                ]:
-                    response = client.post("/query", json=payload)
-                    self.assertEqual(response.status_code, 200, response.text)
-                    call = self.resources.tracer.start_request.call_args
-                    self.assertEqual(call.kwargs["retrieval_mode"], expected)
-                    self.assertEqual(call.kwargs["dataset_id"], "custom-dataset")
+    async def aclose(self):
+        self.close_count += 1
 
-    def test_preparation_and_query_errors_do_not_expose_private_details(self):
-        with (
-            patch(
-                "app.api.lifespan.load_resources",
-                side_effect=RuntimeError("private startup"),
-            ),
-            self.assertLogs("app.api.lifespan", level="ERROR") as logs,
-            TestClient(app) as client,
-        ):
-            response = client.post("/query", json={"question": "예약 문의"})
-        self.assertEqual(response.status_code, 503)
-        self.assertNotIn("private startup", response.text + "\n".join(logs.output))
-        with (
-            self.client(raise_server_exceptions=False) as client,
-            patch(
-                "app.api.routes.answer_query", side_effect=RuntimeError("private query")
-            ),
-            self.assertLogs("app.api.errors", level="ERROR") as logs,
-        ):
-            response = client.post("/query", json={"question": "예약 문의"})
-        self.assertEqual(response.status_code, 500)
-        self.assertNotIn("private query", response.text + "\n".join(logs.output))
-        self.assertEqual(
-            response.json()["request_id"], response.headers["X-Request-ID"]
+
+def install_config_loader(tmp_path, monkeypatch, content, *, env_overrides=None):
+    config = tmp_path / "advanced.yaml"
+    config.write_text(content, encoding="utf-8")
+    environment = {"ADEN_CONFIG": str(config), **(env_overrides or {})}
+
+    def load_settings():
+        return load_table_rag_settings(
+            env=environment,
+            env_file=tmp_path / "missing.env",
+            project_root=tmp_path,
         )
 
-    def test_concurrent_requests_run_off_the_event_loop_and_keep_ids_separate(self):
-        barrier = Barrier(2)
-        points = self.resources.qdrant.query_points.return_value
+    monkeypatch.setattr(lifespan_module, "load_table_rag_settings", load_settings)
+    return config
 
-        def query_points(*args, **kwargs):
-            with self.assertRaises(RuntimeError):
-                asyncio.get_running_loop()
-            barrier.wait(timeout=5)
-            return points
 
-        self.resources.qdrant.query_points.side_effect = query_points
-        with self.assertLogs("app.api.middleware", level="INFO") as logs:
-            with self.client() as client, ThreadPoolExecutor(max_workers=2) as pool:
-                responses = list(
-                    pool.map(
-                        lambda question: client.post(
-                            "/query", json={"question": question}
-                        ),
-                        ["첫 번째 질문", "두 번째 질문"],
-                    )
-                )
-        self.assertEqual([response.status_code for response in responses], [200, 200])
-        ids = {response.headers["X-Request-ID"] for response in responses}
-        self.assertEqual(len(ids), 2)
-        self.assertEqual({record.request_id for record in logs.records}, ids)
-        for response in responses:
-            self.assertEqual(
-                response.json()["request_id"], response.headers["X-Request-ID"]
+def basic_config():
+    return """dataset: advanced
+documents_dir: documents
+retrieval:
+  default_mode: naive
+  k: 8
+  context_token_budget: 8000
+"""
+
+
+def test_json_query_uses_table_rag_service_and_preserves_request_id(
+    tmp_path, monkeypatch
+):
+    install_config_loader(tmp_path, monkeypatch, basic_config())
+    service = FakeTableRagService()
+    loader = Mock(return_value=service)
+    app = create_app(table_service_loader=loader)
+
+    with TestClient(app) as client:
+        health = client.get("/health").json()
+        response = client.post("/query", json={"question": " 예약 확인 "})
+
+    assert health == {"status": "ok", "dataset": "advanced", "query_ready": True}
+    assert response.status_code == 200
+    assert response.json()["answer"] == "확인했습니다. (예약 확인)"
+    assert response.json()["citations"][0]["book_id"] == "AS001"
+    assert response.json()["request_id"] == response.headers["X-Request-ID"]
+    assert service.requests == [("예약 확인", response.headers["X-Request-ID"])]
+    assert service.close_count == 1
+    assert not hasattr(app.state, "resources")
+
+
+def test_liveness_is_local_and_readiness_returns_component_checks(
+    tmp_path, monkeypatch
+):
+    install_config_loader(tmp_path, monkeypatch, basic_config())
+    service = FakeTableRagService()
+    app = create_app(table_service_loader=lambda _path: service)
+
+    with TestClient(app) as client:
+        live = client.get("/health/live")
+        assert live.status_code == 200
+        assert live.json() == {"status": "ok"}
+        assert service.readiness_calls == 0
+
+        ready = client.get("/health/ready")
+        assert ready.status_code == 200
+        assert ready.json() == {"ready": True, "checks": {"resources": True}}
+        assert service.readiness_calls == 1
+
+        service.readiness_status = SimpleNamespace(
+            ready=False, checks={"resources": True, "vector_store": False}
+        )
+        unready = client.get("/health/ready")
+
+    assert unready.status_code == 503
+    assert unready.json() == {
+        "ready": False,
+        "checks": {"resources": True, "vector_store": False},
+    }
+    assert unready.headers["X-Request-ID"]
+
+
+def test_uninitialized_readiness_has_safe_component_status(tmp_path, monkeypatch):
+    install_config_loader(tmp_path, monkeypatch, basic_config())
+    app = create_app(
+        table_service_loader=lambda _path: (_ for _ in ()).throw(
+            FileNotFoundError("private path")
+        )
+    )
+    with TestClient(app) as client:
+        response = client.get("/health/ready")
+
+    assert response.status_code == 503
+    assert response.json() == {"ready": False, "checks": {"service": False}}
+    assert "private path" not in response.text
+
+
+def test_http_logs_cover_success_validation_service_failure_and_unready(
+    tmp_path, monkeypatch, caplog
+):
+    install_config_loader(tmp_path, monkeypatch, basic_config())
+    service = FakeTableRagService()
+    app = create_app(table_service_loader=lambda _path: service)
+    with caplog.at_level(logging.INFO, logger="app.api.middleware"):
+        with TestClient(app, raise_server_exceptions=False) as client:
+            success = client.post("/query", json={"question": "예약 문의"})
+            invalid = client.post("/query", json={"question": " "})
+            service.error = RuntimeError("private failure")
+            failed = client.post("/query", json={"question": "예약 문의"})
+
+        unavailable = create_app(
+            table_service_loader=lambda _path: (_ for _ in ()).throw(
+                FileNotFoundError("private bundle path")
             )
+        )
+        with TestClient(unavailable, raise_server_exceptions=False) as client:
+            unready = client.post("/query", json={"question": "예약 문의"})
 
-    def test_processing_errors_keep_the_public_status_and_request_id(self):
-        cases = [
-            ("retrieval", NotImplementedError(), 501),
-            ("retrieval", RuntimeError("private retrieval"), 503),
-            (
-                "model",
-                APITimeoutError(request=httpx.Request("POST", "https://example.test")),
-                504,
-            ),
-            ("citation", None, 502),
-        ]
-        for kind, error, code in cases:
-            with self.subTest(code=code):
-                self.resources = make_query_resources()
-                if kind == "retrieval":
-                    self.resources.qdrant.query_points.side_effect = error
-                elif kind == "model":
-                    self.resources.model.invoke = Mock(side_effect=error)
-                else:
-                    self.resources.model.source_ids = ["S9"]
-                with self.client() as client:
-                    response = client.post("/query", json={"question": "예약 문의"})
-                self.assertEqual(response.status_code, code, response.text)
-                self.assertEqual(response.json()["status"], "error")
-                self.assertEqual(
-                    response.json()["request_id"], response.headers["X-Request-ID"]
-                )
-                self.assertNotIn("private retrieval", response.text)
-                self.resources.qdrant.close.assert_called_once()
+    responses = [success, invalid, failed, unready]
+    assert [response.status_code for response in responses] == [200, 422, 500, 503]
+    records = [
+        record for record in caplog.records if record.name == "app.api.middleware"
+    ]
+    assert len(records) == len(responses)
+    by_id = {record.request_id: record for record in records}
+    for response in responses:
+        request_id = response.headers["X-Request-ID"]
+        assert response.json()["request_id"] == request_id
+        record = by_id[request_id]
+        assert record.status_code == response.status_code
+        assert record.path == "/query"
+        assert record.latency_scope == "http"
+        assert record.latency_ms >= 0
+    assert "private failure" not in failed.text
+    assert "private bundle path" not in unready.text
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_http_logs_omit_question_query_and_auth_header(tmp_path, monkeypatch, caplog):
+    install_config_loader(tmp_path, monkeypatch, basic_config())
+    secret = "private-diagnostic-value"
+    app = create_app(table_service_loader=lambda _path: FakeTableRagService())
+    with caplog.at_level(logging.INFO, logger="app.api.middleware"):
+        with TestClient(app) as client:
+            response = client.post(
+                "/query?token=" + secret,
+                json={"question": secret},
+                headers={"Authorization": "Bearer " + secret},
+            )
+            unknown = client.get("/" + secret)
+
+    assert response.status_code == 200
+    assert unknown.status_code == 404
+    assert secret not in caplog.text
+    records = [
+        record for record in caplog.records if record.name == "app.api.middleware"
+    ]
+    assert records[-1].path == "<unmatched>"
+
+
+def test_api_uses_resolved_table_rag_yaml_and_environment(tmp_path, monkeypatch):
+    config = """dataset: advanced
+documents_dir: configured-documents
+retrieval:
+  default_mode: naive
+  k: 8
+  context_token_budget: 8000
+table_rag:
+  data_directory: configured-bundle
+"""
+    install_config_loader(
+        tmp_path,
+        monkeypatch,
+        config,
+        env_overrides={"ADEN_TABLE_RAG_DIR": "environment-bundle"},
+    )
+    service = FakeTableRagService()
+    loader = Mock(return_value=service)
+    app = create_app(table_service_loader=loader)
+
+    with TestClient(app) as client:
+        response = client.post("/query", json={"question": "예약 확인"})
+        settings = app.state.settings
+        assert settings.dataset == "advanced"
+        assert settings.documents_dir == (tmp_path / "configured-documents").resolve()
+
+    assert response.status_code == 200
+    loader.assert_called_once_with((tmp_path / "environment-bundle").resolve())
+
+
+def test_invalid_table_rag_yaml_stops_before_service_load(tmp_path, monkeypatch):
+    install_config_loader(tmp_path, monkeypatch, "[]\n")
+    loader = Mock()
+    app = create_app(table_service_loader=loader)
+
+    with pytest.raises(ValueError, match="YAML mapping"), TestClient(app):
+        pass
+
+    loader.assert_not_called()

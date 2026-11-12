@@ -7,10 +7,8 @@ from unittest.mock import Mock, patch
 import numpy as np
 import pytest
 import yaml
-from fastapi.testclient import TestClient
 from qdrant_client import QdrantClient, models
 
-from app.api.main import create_app
 from app.evaluation.samples import FakeLangfuseClient
 from app.generation.context import build_context
 from app.observability.tracing import Tracer
@@ -58,7 +56,7 @@ def generation_setup():
         yield stack, model
 
 
-def test_generation_only_api_preserves_supplied_context_without_qdrant(generation_setup):
+def test_generation_only_adapter_preserves_supplied_context_without_qdrant(generation_setup):
     stack, _ = generation_setup
     embedder = stack.enter_context(patch("app.service.resources.Embedder"))
     qdrant = stack.enter_context(patch("app.service.resources.QdrantClient"))
@@ -68,12 +66,11 @@ def test_generation_only_api_preserves_supplied_context_without_qdrant(generatio
     stack.callback(resources.close)
     stack.enter_context(patch("app.service.query.retrieve", side_effect=AssertionError("A called")))
     stack.enter_context(patch("app.service.query.build_context", side_effect=AssertionError("repacked")))
-    stack.enter_context(patch("app.api.lifespan.load_dotenv"))
-    with TestClient(create_app(resources_loader=lambda settings: resources)) as client:
-        assert client.get("/health").json()["dataset"] == "advanced"
-        response = client.post("/query", json={"question": "SAMPLE", "retrieval_mode": "hybrid"})
-    assert response.status_code == 200
-    assert response.json()["citations"][0]["book_id"] == "AS002"
+
+    record = make_query_adapter(resources, settings)("SAMPLE", "hybrid", "prepared-context")
+
+    assert record["status"] == "answered"
+    assert record["citations"][0]["book_id"] == "AS002"
     provider.assert_called_once_with("SAMPLE", "hybrid")
     embedder.assert_not_called()
     qdrant.assert_not_called()
@@ -172,13 +169,12 @@ def test_generation_only_requires_a_provider_before_opening_clients(generation_s
     ("ADEN_QDRANT_CLIENT", "loaded_client", False, "AS001"),
     ("ADEN_EVIDENCE_PROVIDER", "supplied_evidence", True, "AS002"),
 ])
-def test_api_and_evaluation_share_configured_settings_and_resources(
+def test_evaluation_bootstrap_uses_configured_resources(
         generation_setup, tmp_path, env_name, factory, provided, book):
-    """같은 환경변수로 API와 평가 어댑터가 같은 설정·자원을 쓰고 같은 문맥·출처를 낸다."""
+    """B/C 평가 bootstrap이 지정한 설정과 자원 연결을 사용한다."""
     stack, _ = generation_setup
     config = yaml.safe_load(DEFAULT_CONFIG.read_text(encoding="utf-8"))
     config["dataset"] = "shared-check"
-    config["rag_backend"] = "legacy"  # Explicit B/C adapter compatibility path.
     config["retrieval"].update(k=2, context_token_budget=500)
     path = tmp_path / "shared.yaml"
     path.write_text(yaml.safe_dump(config), encoding="utf-8")
@@ -186,7 +182,6 @@ def test_api_and_evaluation_share_configured_settings_and_resources(
         "ADEN_CONFIG": str(path), env_name: f"tests.service.test_prepared_context:{factory}"}))
     embedder = SimpleNamespace(dim=2, embed_query=lambda question: np.array([1.0, 0.0]))
     embedder_factory = stack.enter_context(patch("app.service.resources.Embedder", return_value=embedder))
-    stack.enter_context(patch("app.api.lifespan.load_dotenv"))
     stack.enter_context(patch("app.service.bootstrap.load_dotenv"))
     clients = []
 
@@ -195,16 +190,13 @@ def test_api_and_evaluation_share_configured_settings_and_resources(
         return Tracer(clients[-1])
 
     stack.enter_context(patch("app.service.resources.Tracer.from_env", side_effect=tracer))
-    with TestClient(create_app()) as api:
-        assert api.get("/health").json() == {"status": "ok", "dataset": "shared-check", "query_ready": True}
-        response = api.post("/query", json={"question": "SAMPLE"})
     service = ServiceBootstrap()
     record = _QueryAdapter(service)("SAMPLE", "naive", "evaluation-1")
     service.close()
 
-    assert response.status_code == 200 and record["status"] == "answered"
-    assert record["dataset_id"] == "shared-check" and record["provided_context"] is provided
-    assert response.json()["citations"] == record["citations"]
+    assert record["status"] == "answered"
+    assert record["dataset_id"] == "shared-check"
+    assert record["provided_context"] is provided
     assert record["citations"][0]["book_id"] == book
     api_root, api_context = (next(o for o in clients[0].observations if o["name"] == name)
                              for name in ("rag-query", "final-context"))

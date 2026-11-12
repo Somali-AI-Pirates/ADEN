@@ -11,13 +11,16 @@ from langchain_core.documents import Document
 from app.generation.context import build_context, validate_context
 from app.rag.models import EvidenceContext, SearchResult
 from shared.contracts import Chunk, RetrievedChunk
+from shared.table_rag_policy import (
+    CANDIDATE_LIMIT,
+    MAX_CONTEXT_PAGES,
+    MAX_CONTEXT_TOKENS,
+)
 
 ENCODING = tiktoken.get_encoding("o200k_base")
 MAX_OBSERVATION_TOKENS = 6500
 MAX_EXCERPT_TOKENS = 480
 MAX_SQL_TOKENS = 2000
-MAX_CONTEXT_PAGES = 8
-MAX_CONTEXT_TOKENS = 8000
 
 
 def token_count(text: str) -> int:
@@ -103,7 +106,7 @@ def build_observation(
 
 
 def merge_page_groups(
-    groups: Sequence[Sequence[Document]], *, limit: int = 20
+    groups: Sequence[Sequence[Document]], *, limit: int = CANDIDATE_LIMIT
 ) -> tuple[Document, ...]:
     merged: list[Document] = []
     seen: set[str] = set()
@@ -129,7 +132,7 @@ def assemble_evidence(
     sql_results: Sequence[dict[str, Any]],
     page_lookup: Callable[[str], Document | None],
     *,
-    candidate_limit: int = 20,
+    candidate_limit: int = CANDIDATE_LIMIT,
     page_limit: int = MAX_CONTEXT_PAGES,
     token_budget: int = MAX_CONTEXT_TOKENS,
 ) -> EvidenceContext:

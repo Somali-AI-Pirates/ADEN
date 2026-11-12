@@ -1,0 +1,71 @@
+name: aden
+services:
+  api:
+    image: ${ADEN_API_IMAGE:?set ADEN_API_IMAGE to the verified API image digest}
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 40s
+    env_file:
+      - ${ADEN_RUNTIME_ENV:?set ADEN_RUNTIME_ENV to the runtime secrets file}
+    environment:
+      ADEN_CONFIG: /etc/aden/runtime.yaml
+      HF_HOME: /opt/models
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+      TIKTOKEN_CACHE_DIR: /opt/aden/tokenizer-cache
+      TOKENIZERS_PARALLELISM: "false"
+    ports:
+      - target: 8000
+        published: "18010"
+        host_ip: 127.0.0.1
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: ${ADEN_RELEASE_CONFIG:?set ADEN_RELEASE_CONFIG to the immutable release YAML}
+        target: /etc/aden/runtime.yaml
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /srv/aden/shared/bundle
+        target: /opt/aden/artifacts/advanced-table-rag
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /srv/aden/shared/documents
+        target: /opt/aden/data/advanced/documents
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /srv/aden/shared/models
+        target: /opt/models
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: /srv/aden/shared/runs
+        target: /opt/aden/artifacts/rag-runs
+        bind:
+          create_host_path: false
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    cpus: 1.0
+    mem_limit: 6g
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen(\"http://127.0.0.1:8000/health/live\", timeout=2)"
+      interval: 30s
+      timeout: 3s
+      start_period: 60s
+      retries: 3

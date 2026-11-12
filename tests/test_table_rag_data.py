@@ -234,7 +234,7 @@ def test_vector_chunks_resume_after_interrupted_batch(tmp_path, monkeypatch):
     import numpy as np
     import pytest
     import torch
-    import app.ingestion.table_rag_builder as builder
+    import app.ingestion.table_rag.vectors as vector_builder
 
     class FakeModel:
         prompts = {"document": "passage: ", "query": "query: "}
@@ -271,7 +271,7 @@ def test_vector_chunks_resume_after_interrupted_batch(tmp_path, monkeypatch):
     progress = tmp_path / "progress"
     output = tmp_path / "vectors.npy"
     identity = {"fixture": "stable"}
-    original = builder._encode_document_batch
+    original = vector_builder._encode_document_batch
     calls = 0
 
     def interrupted(model, texts, *, batch_size=4):
@@ -281,7 +281,7 @@ def test_vector_chunks_resume_after_interrupted_batch(tmp_path, monkeypatch):
             raise RuntimeError("simulated interruption")
         return original(model, texts, batch_size=batch_size)
 
-    monkeypatch.setattr(builder, "_encode_document_batch", interrupted)
+    monkeypatch.setattr(vector_builder, "_encode_document_batch", interrupted)
     with pytest.raises(RuntimeError, match="simulated interruption"):
         build_vectors(
             pages_path,
@@ -290,7 +290,7 @@ def test_vector_chunks_resume_after_interrupted_batch(tmp_path, monkeypatch):
             progress_dir=progress,
             input_identity=identity,
         )
-    monkeypatch.setattr(builder, "_encode_document_batch", original)
+    monkeypatch.setattr(vector_builder, "_encode_document_batch", original)
     result = build_vectors(
         pages_path,
         chunks_path,
@@ -460,7 +460,9 @@ def test_output_build_lock_rejects_a_second_writer(tmp_path):
     assert not (tmp_path / ".bundle.build.lock").exists()
 
 
-def test_completed_bundle_from_different_pipeline_requires_new_output(tmp_path, monkeypatch):
+def test_completed_bundle_from_different_pipeline_requires_new_output(
+    tmp_path, monkeypatch
+):
     import hashlib
     import pytest
 
@@ -468,8 +470,11 @@ def test_completed_bundle_from_different_pipeline_requires_new_output(tmp_path, 
     documents.mkdir()
     pdf = documents / "AS001.pdf"
     pdf.write_bytes(b"not parsed because output conflict is checked first")
+    import app.ingestion.table_rag.fingerprints as fingerprints
+
     monkeypatch.setattr(
-        "app.ingestion.table_rag_builder.curation_environment",
+        fingerprints,
+        "curation_environment",
         lambda: {"extractor": "pdftotext fixture", "pydantic_version": "fixture"},
     )
     source_identity = [{"file_name": pdf.name, "sha256": digest(pdf)}]
@@ -491,21 +496,124 @@ def test_completed_bundle_from_different_pipeline_requires_new_output(tmp_path, 
         build_bundle(documents, output)
 
 
+def test_stale_work_directory_source_pdf_fingerprint_is_rejected(tmp_path):
+    import hashlib
+    import json
+    import pytest
+    from app.ingestion.table_rag_builder import _assert_work_dir_compatible
+
+    work = tmp_path / "work"
+    stage = work / "bundle"
+    stage.mkdir(parents=True)
+    old_pdf = b"old synthetic PDF"
+    new_pdf = b"new synthetic PDF"
+    old_identity = [
+        {"file_name": "AS001.pdf", "sha256": hashlib.sha256(old_pdf).hexdigest()}
+    ]
+    new_identity = [
+        {"file_name": "AS001.pdf", "sha256": hashlib.sha256(new_pdf).hexdigest()}
+    ]
+    old_pages = b"old generated pages"
+    (stage / "pages.json").write_bytes(old_pages)
+    (stage / "pages-input.json").write_text(
+        json.dumps({"inputs": old_identity, "builder_sha256": "pages-v2"}),
+        encoding="utf-8",
+    )
+    stage_codes = {"pages": "pages-v2", "overall": "pipeline-v2"}
+
+    with pytest.raises(ValueError, match="source PDF input fingerprint changed"):
+        _assert_work_dir_compatible(work, stage_codes, new_identity, "new-source")
+
+    assert (stage / "pages.json").read_bytes() == old_pages
+
+
+def test_unidentified_vector_progress_is_preserved_and_rejected(tmp_path):
+    import pytest
+    from app.ingestion.table_rag_builder import _assert_work_dir_compatible
+
+    work = tmp_path / "work"
+    progress = work / "bundle" / ".vectors-old"
+    progress.mkdir(parents=True)
+    old_chunk = progress / "pages-00000-00001.npy.tmp"
+    old_chunk.write_bytes(b"partial old vector output")
+
+    with pytest.raises(ValueError, match="vector progress has no build identity"):
+        _assert_work_dir_compatible(
+            work,
+            {
+                "pages": "pages",
+                "physical": "physical",
+                "records": "records",
+                "vectors": "vectors",
+                "overall": "overall",
+            },
+            [],
+            "source",
+        )
+
+    assert old_chunk.read_bytes() == b"partial old vector output"
+
+
 def test_curation_stage_fingerprint_tracks_external_parser_identity(monkeypatch):
     import app.ingestion.table_rag_builder as builder
+    import app.ingestion.table_rag.fingerprints as fingerprints
 
     monkeypatch.setattr(
-        builder,
+        fingerprints,
         "curation_environment",
         lambda: {"extractor": "pdftotext fixture", "pydantic_version": "fixture"},
     )
     before = builder.stage_fingerprints()
-    environment = builder.curation_environment()
+    environment = fingerprints.curation_environment()
     monkeypatch.setattr(
-        builder,
+        fingerprints,
         "curation_environment",
         lambda: {**environment, "extractor": "pdftotext changed"},
     )
     after = builder.stage_fingerprints()
     assert after["curation"] != before["curation"]
     assert after["overall"] != before["overall"]
+
+
+def test_stale_work_directory_is_preserved_and_rejected(tmp_path, monkeypatch):
+    import pytest
+    import app.ingestion.table_rag_builder as builder
+
+    documents = tmp_path / "documents"
+    documents.mkdir()
+    (documents / "AS001.pdf").write_bytes(b"synthetic input")
+    work = tmp_path / "work"
+    stage = work / "bundle"
+    stage.mkdir(parents=True)
+    old_pages = b"old generated pages"
+    old_identity = b'{"builder_sha256":"old-pages"}\n'
+    (stage / "pages.json").write_bytes(old_pages)
+    (stage / "pages-input.json").write_bytes(old_identity)
+    output = tmp_path / "output"
+
+    monkeypatch.setattr(
+        builder,
+        "stage_fingerprints",
+        lambda: {
+            "curation": "new-curation",
+            "pages": "new-pages",
+            "physical": "new-physical",
+            "records": "new-records",
+            "vectors": "new-vectors",
+            "orchestration": "new-orchestration",
+            "overall": "new-overall",
+        },
+    )
+    monkeypatch.setattr(
+        builder,
+        "curate_dataset",
+        lambda *args, **kwargs: pytest.fail("stale work must fail before curation"),
+    )
+
+    with pytest.raises(ValueError, match="pages stage fingerprint changed"):
+        builder.build_bundle(documents, output, work_dir=work)
+
+    assert (stage / "pages.json").read_bytes() == old_pages
+    assert (stage / "pages-input.json").read_bytes() == old_identity
+    assert not (work / ".table-rag-pipeline.json").exists()
+    assert not output.exists()

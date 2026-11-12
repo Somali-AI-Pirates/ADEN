@@ -1,6 +1,6 @@
 # 정제 지식 데이터
 
-Basic, Intermediate, Advanced 정제본은 원본 PDF에서 생성하는 오프라인 산출물이다. 기본 경로는 `artifacts/knowledge/curated/<dataset>/`이다. 현재 서비스는 [기존 Basic PDF 색인](../guides/data.md#qdrant-색인)을 사용한다.
+Basic, Intermediate, Advanced 정제본은 원본 PDF에서 생성하는 오프라인 산출물이다. 기본 경로는 `artifacts/knowledge/curated/<dataset>/`이다. 기존 Basic 검색은 [Basic PDF 색인](../guides/data.md#qdrant-색인)을 사용한다. 기본 Advanced 서버의 SQLite·페이지·표 검색 자료는 [TableRAG 데이터 번들](../guides/data.md#advanced-tablerag-데이터)로 준비한다.
 
 ## 파일 구조와 사용 규칙
 

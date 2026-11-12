@@ -1,0 +1,18 @@
+#!/bin/sh
+# Forced SSH command. No shell, Docker, sudo arguments, or user-controlled command reaches root.
+set -eu
+case "${SSH_ORIGINAL_COMMAND:-}" in
+    aden-status)
+        printf '%s\n' '{"schema_version":1,"operation":"status"}' | /usr/bin/sudo -n /usr/local/sbin/aden-release
+        ;;
+    aden-deploy)
+        exec /usr/bin/sudo -n /usr/local/sbin/aden-release
+        ;;
+    aden-rollback)
+        printf '%s\n' '{"schema_version":1,"operation":"rollback"}' | /usr/bin/sudo -n /usr/local/sbin/aden-release
+        ;;
+    *)
+        printf '%s\n' 'ADEN accepts only aden-status, aden-deploy, or aden-rollback.' >&2
+        exit 64
+        ;;
+esac

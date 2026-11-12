@@ -181,7 +181,7 @@ def test_responses_tool_roundtrip_and_answer_scope(monkeypatch):
     _transport(monkeypatch, handle)
 
     async def run():
-        gateway = load_model()
+        gateway = await load_model()
         client = _TraceClient()
         trace = Tracer(client).start_request(
             "trace-test",
@@ -262,7 +262,7 @@ def test_timeout_counts_one_attempt_and_unknown_usage(monkeypatch):
     _transport(monkeypatch, handle)
 
     async def run():
-        gateway = load_model()
+        gateway = await load_model()
         calls = ModelCalls(None)
         try:
             with pytest.raises(TimeoutError):
@@ -274,5 +274,130 @@ def test_timeout_counts_one_attempt_and_unknown_usage(monkeypatch):
             assert calls.calls[0]["status"] == "timeout"
         finally:
             await gateway.aclose()
+
+    asyncio.run(run())
+
+
+def test_load_model_passes_explicit_api_key_to_client(monkeypatch):
+    captured = {}
+    client = object()
+
+    def create_client(**kwargs):
+        captured.update(kwargs)
+        return client
+
+    monkeypatch.setattr(model_module, "DefaultHttpxClient", lambda **kwargs: object())
+    monkeypatch.setattr(model_module, "DefaultAsyncHttpxClient", lambda **kwargs: object())
+    monkeypatch.setattr(model_module, "ChatOpenAI", create_client)
+    monkeypatch.setattr(model_module, "TableModel", lambda model: model)
+
+    gateway = asyncio.run(load_model(api_key="explicit-test-key"))
+
+    assert gateway is client
+    assert captured["api_key"] == "explicit-test-key"
+
+
+def test_load_model_rejects_empty_explicit_api_key():
+    with pytest.raises(ValueError, match="explicit OpenAI API key"):
+        asyncio.run(load_model(api_key=""))
+
+@pytest.mark.parametrize("failure_stage", ["async_transport", "client", "prompts"])
+def test_model_partial_initialization_closes_each_owned_transport(monkeypatch, failure_stage):
+    from types import SimpleNamespace
+
+    closed = []
+
+    class SyncTransport:
+        def close(self):
+            closed.append("sync")
+
+    class AsyncTransport:
+        async def aclose(self):
+            closed.append("async")
+
+    sync = SyncTransport()
+    asynchronous = AsyncTransport()
+    monkeypatch.setattr(model_module, "DefaultHttpxClient", lambda: sync)
+
+    def async_transport(**kwargs):
+        if failure_stage == "async_transport":
+            raise ValueError("construction failed")
+        return asynchronous
+
+    def client(**kwargs):
+        if failure_stage == "client":
+            raise ValueError("construction failed")
+        return SimpleNamespace(
+            root_client=sync,
+            root_async_client=SimpleNamespace(close=asynchronous.aclose),
+        )
+
+    def prompts(model):
+        raise ValueError("construction failed")
+
+    monkeypatch.setattr(model_module, "DefaultAsyncHttpxClient", async_transport)
+    monkeypatch.setattr(model_module, "ChatOpenAI", client)
+    monkeypatch.setattr(model_module, "TableModel", prompts)
+    with pytest.raises(ValueError, match="construction failed"):
+        asyncio.run(load_model(api_key="offline-test"))
+    assert closed == (["sync"] if failure_stage == "async_transport" else ["async", "sync"])
+
+
+def test_model_close_is_idempotent_and_closes_sync_after_async_error():
+    from types import SimpleNamespace
+
+    closed = []
+
+    async def close_async():
+        closed.append("async")
+        raise RuntimeError("async close failed")
+
+    wrapper = object.__new__(model_module.TableModel)
+    wrapper._closed = False
+    wrapper.model = SimpleNamespace(
+        root_async_client=SimpleNamespace(close=close_async),
+        root_client=SimpleNamespace(close=lambda: closed.append("sync")),
+    )
+
+    async def run():
+        with pytest.raises(RuntimeError, match="async close failed"):
+            await wrapper.aclose()
+        await wrapper.aclose()
+
+    asyncio.run(run())
+    assert closed == ["async", "sync"]
+
+
+def test_model_close_completes_after_repeated_cancellation():
+    from types import SimpleNamespace
+
+    async def run():
+        started = asyncio.Event()
+        release = asyncio.Event()
+        closed = []
+
+        async def close_async():
+            started.set()
+            await release.wait()
+            closed.append("async")
+
+        wrapper = object.__new__(model_module.TableModel)
+        wrapper._closed = False
+        wrapper.model = SimpleNamespace(
+            root_async_client=SimpleNamespace(close=close_async),
+            root_client=SimpleNamespace(close=lambda: closed.append("sync")),
+        )
+        task = asyncio.create_task(wrapper.aclose())
+        await started.wait()
+        task.cancel()
+        await asyncio.sleep(0)
+        task.cancel()
+        await asyncio.sleep(0)
+        assert not task.done()
+        release.set()
+        with pytest.raises(asyncio.CancelledError):
+            await task
+        await wrapper.aclose()
+        assert closed == ["async", "sync"]
 
     asyncio.run(run())

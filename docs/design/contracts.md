@@ -2,9 +2,9 @@
 
 ## HTTP
 
-`POST /query`는 `question`과 선택 필드 `retrieval_mode`를 받는다. 질문은 양끝 공백을 제거한 뒤 빈 값이면 거부한다. 방식은 `naive`, `hybrid`, `hybrid_rerank`이며 생략하거나 `null`이면 서비스 설정을 사용한다.
+`POST /query`는 `question`과 선택 필드 `retrieval_mode`를 받는다. 질문은 양끝 공백을 제거한 뒤 빈 값이면 거부한다. Advanced TableRAG API에서는 검색 방식을 생략하거나 `null`로 보내야 한다. `naive`, `hybrid`, `hybrid_rerank`처럼 지원되는 B/C 평가 방식을 명시하면 501을 반환하고, 알 수 없는 값은 422로 거부한다.
 
-기본 Advanced 서버는 DB 우선 통합 TableRAG로 질문을 처리한다. 검색 경로는 서버 설정으로 고정되며 기존 검색 방식을 명시한 요청에는 501을 반환한다. 인용 source_id는 AS001:p0001처럼 원본 문서와 쪽 번호를 나타낸다. 성공 요청과 모델 오류 기록은 artifacts/rag-runs/<request_id>에 저장한다. 기록 저장 실패는 503이다.
+서버는 DB 우선 통합 TableRAG로 질문을 처리한다. 검색 경로는 고정돼 있다. 인용 `source_id`는 `AS001:p0001`처럼 원본 문서와 쪽 번호를 나타낸다. 성공 요청과 모델 오류 기록은 `artifacts/rag-runs/<request_id>`에 저장한다. 기록 저장 실패는 503이다.
 
 응답은 `request_id`, `status`, `answer`, `reason`, `citations`를 반환한다. `X-Request-ID`와 본문의 요청 ID로 로그를 연결한다.
 
@@ -18,7 +18,17 @@
 | 504 | 모델 호출 시간 초과 |
 | 500 | 예상 밖 처리 오류 |
 
-오류 응답은 `status="error"`, 빈 답변과 출처 목록, 안내 문구를 반환한다. `GET /health`는 `status="ok"`, `dataset`, `query_ready`를 반환한다. 자원 초기화가 실패해도 `/health`, `/docs`, `/openapi.json`은 열리며, 유효한 질의에는 `503`을 반환한다.
+오류 응답은 `status="error"`, 빈 답변과 출처 목록, 안내 문구를 반환한다. `GET /health`는 `status="ok"`, `dataset`, `query_ready`를 반환한다. TableRAG 번들·모델 초기화가 실패해도 `/health`, `/docs`, `/openapi.json`은 열리며, 유효한 질의에는 `503`을 반환한다. 설정 문법 오류는 시작 단계에서 거부한다.
+
+### TableRAG 준비·수용·시간 제한
+
+`GET /health/live`는 `{"status":"ok"}`를 반환하며 모델·저장소를 호출하지 않는다. `GET /health/ready`는 `{"ready":true,"checks":{...}}` 형식으로 구성요소별 boolean만 반환한다. 모두 준비되면 200, 초기화 실패·저장소 장애·기록 저장 불가·종료 중이면 503이다. 경로·인증값·예외 원문은 응답에 넣지 않는다. `/health` 계약은 유지한다.
+
+준비 검사는 성공·실패를 10초 캐시하고 진행 중 검사를 공유한다. SQLite를 읽기 전용으로 확인하고, 선택한 벡터 저장소와 결과 저장 위치를 검사한다. Qdrant의 상태·호환 정보 조회는 연결·요청 제한 2초를 사용한다. Langfuse·LLM 가용성·혼잡 여부는 준비 조건이 아니다.
+
+공통 `RagService`는 FIFO 실행 1개·대기 2개·대기 최대 10초·전체 요청 예산 300초·종료 유예 30초를 기본값으로 사용한다. 설정과 지원 범위는 [실행 가이드](../guides/quickstart.md#상태-확인과-요청-제한)를 따른다. 준비·수용 실패 시 모델과 검색은 호출하지 않는다. 대기열 초과·대기 만료는 기존 오류 본문에 429와 `Retry-After: 10`을, 미준비·종료는 503을, 처리 예산 초과는 504를 반환하며 요청 ID를 보존한다.
+
+SSE도 헤더 전에 수용한다. 시작 이후 실패는 `error`로 종료하고 `final`을 보내지 않는다. 취소된 실행의 동기 작업은 완료까지 추적하고 슬롯·자원을 유지한다. 300초와 종료 유예는 강제 스레드 종료 시각이나 응답 반환 상한이 아니다.
 
 ## 데이터 객체
 
@@ -38,7 +48,9 @@
 
 ## 설정과 함수
 
-[Advanced 설정](../../configs/advanced.yaml)은 [Settings](../../shared/settings.py)로 검증한다. 기본 TableRAG 경로의 모델·검색 조건은 [채택한 구현 기준](../plans/advanced-rag/README.md)에 맞춰 제품 상수와 번들 manifest로 고정한다. 아래 함수 표와 YAML의 검색·모델·색인 세부 설정은 기존 B/C 레거시 경로에 해당한다. `Resources`는 클라이언트, 토큰 계산기, 추적기, 검색 상태와 정리 콜백을 소유한다.
+API 런타임은 [TableRagSettings](../../app/rag/config.py)의 `load_table_rag_settings()`로 설정을 읽고, `documents_dir`와 `dataset`도 같은 설정 객체에서 제공한다. 기본 TableRAG 경로의 모델·검색 조건은 [채택한 구현 기준](../plans/advanced-rag/README.md)에 맞춰 제품 상수와 번들 manifest로 고정한다. `shared.Settings`와 아래 B/C 서비스 함수는 평가 어댑터에서 계속 사용한다. `Resources`는 해당 평가 실행의 클라이언트, 토큰 계산기, 추적기, 검색 상태와 정리 콜백을 소유한다.
+
+아래 `Resources` 기반 함수 표는 B/C 평가 CLI와 내부 어댑터의 계약이다. API 서버는 이 경로를 사용하지 않는다.
 
 | 진입점 | 호출과 반환 |
 | --- | --- |
@@ -70,6 +82,7 @@
 | 기록 | 소비자와 범위 |
 | --- | --- |
 | HTTP `http_request` | 운영 로그. 요청 ID, 메서드, 라우트, 상태 코드, `latency_ms`와 `latency_scope="http"`를 기록한다. 경로가 없으면 `<unmatched>`를 쓴다. 질문·헤더·쿼리 문자열·모델 원문은 제외한다 |
+| `rag_admission` / `rag_request` | 서비스 운영 로그. 요청 ID, 대기·실행·전체 시간, 거절·취소·정리 상태를 기록한다. 검색·모델 지연과 별도 범위다 |
 | `RunRecord` | 평가 입력과 결과 재현. 서비스 직접 호출은 `service`, 일반 평가 어댑터는 `in_process_adapter`, 고정 문맥 생성은 `fixed_context_generation` |
 | Langfuse | 요청 ID로 질문·검색·최종 문맥·모델 시도·응답을 연결한다. 저장 확인은 [평가 가이드](../guides/c-module-guide.md#langfuse)를 따른다 |
 
@@ -107,9 +120,9 @@ HTTP 요청을 서버 trace로 복원한 기록(`app.evaluation.scripts.http_rec
 
 ### 로컬 B·C 연결
 
-기본 설정은 `configs/advanced.yaml`이다. `Resources.evidence_provider(question, mode)`가 있으면 `(후보 목록, ContextBundle)`을 받아 최종 문맥을 보존하고, `(후보 목록, None)`이면 공통 문맥 구성기로 최종 문맥을 만든다. provider가 없으면 기존 검색과 공통 문맥 구성기를 호출한다. 제공된 문맥도 설정의 k·토큰 한도를 넘을 수 없으며, 넘으면 `503`이다. 최종 문맥은 `build_context`의 자료 블록 형식과 같은 본문을 사용한다. 모델 호출 전에 최종 청크 순서의 자료 ID·문서·페이지와 `source_map`, 청크로 구성한 본문, 본문의 UTF-8 SHA-256, 현재 토큰 계산기로 센 `token_count`를 대조한다. 하나라도 다르면 문맥을 고치거나 재선택하지 않고 `503`으로 중단한다. 제공자는 같은 토큰 계산기를 사용해야 한다. 이 경로는 내부 실행 코드용이며 HTTP 입력 계약은 바뀌지 않는다.
+기본 설정은 `configs/advanced.yaml`이다. `Resources.evidence_provider(question, mode)`가 있으면 `(후보 목록, ContextBundle)`을 받아 최종 문맥을 보존하고, `(후보 목록, None)`이면 공통 문맥 구성기로 최종 문맥을 만든다. provider가 없으면 기존 검색과 공통 문맥 구성기를 호출한다. 제공된 문맥도 설정의 k·토큰 한도를 넘을 수 없으며, 넘으면 평가 기록에 오류를 남긴다. 최종 문맥은 `build_context`의 자료 블록 형식과 같은 본문을 사용한다. 모델 호출 전에 최종 청크 순서의 자료 ID·문서·페이지와 `source_map`, 청크로 구성한 본문, 본문의 UTF-8 SHA-256, 현재 토큰 계산기로 센 `token_count`를 대조한다. 하나라도 다르면 문맥을 고치거나 재선택하지 않고 해당 평가 실행을 중단한다. 제공자는 같은 토큰 계산기를 사용해야 한다. 이 경로는 B/C 평가 어댑터 전용이며 API 입력 계약의 일부가 아니다.
 
-`load_generation_resources(settings, *, evidence_provider)`는 검색·임베더 없이 생성·추적 자원을 준비한다. `create_app(resources_loader=...)`와 기존 `ServiceBootstrap(resources_loader=...)`로 같은 로더를 사용할 수 있다. 메모리 Qdrant는 같은 실행에서 적재한 클라이언트를 `load_resources(..., qdrant_client=...)`로 넘기며 반환 자원이 종료 책임을 맡는다. API와 표준 bootstrap의 기본 로더 `load_resources(settings)`는 환경변수 `ADEN_QDRANT_CLIENT`·`ADEN_EVIDENCE_PROVIDER`(`모듈:이름`, `settings`를 받는 팩터리)로 같은 연결을 받고, 설정 파일은 `ADEN_CONFIG`로 고른다. 상세 실행 범위는 [로컬 B·C 안내](../guides/local-bc.md)를 따른다.
+`load_generation_resources(settings, *, evidence_provider)`는 검색·임베더 없이 생성·추적 자원을 준비한다. B/C 평가에서는 `ServiceBootstrap(resources_loader=...)`로 같은 로더를 사용한다. 메모리 Qdrant는 같은 평가 프로세스에서 적재한 클라이언트를 `load_resources(..., qdrant_client=...)`로 넘기며 반환 자원이 종료 책임을 맡는다. `ServiceBootstrap`의 기본 `load_resources(settings)`는 환경변수 `ADEN_QDRANT_CLIENT`·`ADEN_EVIDENCE_PROVIDER`(`모듈:이름`, `settings`를 받는 팩터리)로 연결하고, 설정 파일은 `ADEN_CONFIG`로 고른다. 이 자원 로더와 근거 주입은 API 서버에서 지원하지 않는다. 상세 실행 범위는 [로컬 B·C 안내](../guides/local-bc.md)를 따른다.
 
 모델 시도에는 실제 체인 호출의 `latency_ms`를 추가한다. `provided_context`는 provider(주입한 후보 또는 후보·문맥) 사용 여부다. 최종 문맥의 토큰 수와 예산 제외 ID는 Langfuse에도 기록한다. 평가 진단과 점수 게시는 별도 채점 단계에서만 수행한다.
 
@@ -123,4 +136,4 @@ SQL 결과에는 실행한 쿼리문도 보존한다. 최종 근거에 남은 �
 
 ## 브라우저 스트리밍과 원본 문서
 
-기존 `POST /query` JSON 계약은 유지한다. TableRAG 전용 `POST /query/stream`은 질문을 받아 SSE로 진행 상태·임시 텍스트·검증 및 저장 완료 응답을 보낸다. `GET /documents/{book_id}`는 설정된 원본 PDF를 열람한다. 이벤트·오류·문서 경로의 상세 계약과 실행은 [클라이언트 가이드](../../web/README.md#스트림과-오류)를 따른다.
+`POST /query`는 기존 JSON 경로와 `QueryResponse` 모양을 유지하고 TableRAG 서비스만 호출한다. `retrieval_mode`는 생략하거나 `null`이어야 한다. TableRAG 전용 `POST /query/stream`은 같은 서비스에서 SSE 진행 상태·임시 텍스트·검증 및 저장 완료 응답을 보낸다. `GET /documents/{book_id}`는 `TableRagSettings.documents_dir`에 설정된 원본 PDF를 열람한다. 이벤트·오류·문서 경로의 상세 계약과 실행은 [클라이언트 가이드](../../web/README.md#스트림과-오류)를 따른다.

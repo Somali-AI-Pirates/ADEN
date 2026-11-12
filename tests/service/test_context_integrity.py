@@ -3,9 +3,7 @@ from hashlib import sha256
 from unittest.mock import Mock
 
 import pytest
-from fastapi.testclient import TestClient
 
-from app.api.main import create_app
 from app.generation.context import build_context
 from app.service.adapters import make_security_adapters
 from app.service.query import answer_query
@@ -77,17 +75,6 @@ def test_valid_supplied_context_preserves_order_and_input(resources):
     assert record["model_context_hash"] == context.context_hash
     assert record["model_context_token_count"] == context.token_count
     assert record["model_input"][1]["content"].endswith(context.text)
-
-
-def test_api_returns_503_for_bad_context_without_model_call(resources, monkeypatch):
-    resources, context = resources
-    corrupt(context, "hash")
-    monkeypatch.setattr("app.api.lifespan.load_dotenv", lambda *args, **kwargs: None)
-    with TestClient(create_app(resources_loader=lambda settings: resources)) as api:
-        response = api.post("/query", json={"question": "예약 확정 조건을 알려 주세요."})
-    assert response.status_code == 503
-    assert response.json()["status"] == "error" and response.json()["citations"] == []
-    resources.model.invoke.assert_not_called()
 
 
 def test_security_prepare_rejects_bad_context_before_comparison(resources):

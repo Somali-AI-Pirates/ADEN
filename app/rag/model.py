@@ -14,7 +14,7 @@ from langchain_core.exceptions import OutputParserException
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
-from openai import APIError, APITimeoutError, DefaultAsyncHttpxClient
+from openai import APIError, APITimeoutError, DefaultAsyncHttpxClient, DefaultHttpxClient
 from pydantic import BaseModel, ConfigDict, ValidationError
 
 from app.rag.streaming import EventSink, stream_answer
@@ -26,14 +26,14 @@ from app.rag.tools import (
     ReadSourcesRequest,
     SearchEvidenceRequest,
 )
-
-MODEL = "gpt-6-luna"
-CONTEXT_WINDOW = 1_050_000
-PLAN_OUTPUT_TOKENS = 3500
-ANSWER_OUTPUT_TOKENS = 2200
-TIMEOUT_SECONDS = 30.0
-REASONING_EFFORT = "medium"
-BASE_URL = "https://api.openai.com/v1"
+from shared.table_rag_policy import (
+    ANSWER_OUTPUT_TOKENS,
+    BASE_URL,
+    MODEL,
+    PLAN_OUTPUT_TOKENS,
+    REASONING_EFFORT,
+    TIMEOUT_SECONDS,
+)
 
 _active_call: ContextVar[dict[str, Any] | None] = ContextVar(
     "table_rag_call", default=None
@@ -347,6 +347,7 @@ class ModelCalls:
 class TableModel:
     def __init__(self, model: ChatOpenAI) -> None:
         self.model = model
+        self._closed = False
         self.plan_prompt = _prompt("plan")
         self.answer_prompt = _prompt("answer")
         self.tools = [
@@ -488,26 +489,71 @@ class TableModel:
         return answer
 
     async def aclose(self) -> None:
-        try:
-            await self.model.root_async_client.close()
-        finally:
-            await asyncio.to_thread(self.model.root_client.close)
+        if self._closed:
+            return
+        self._closed = True
+        from app.rag.lifecycle import await_to_completion
+
+        _, cancelled = await await_to_completion(_close_model_clients(self.model))
+        if cancelled:
+            raise asyncio.CancelledError
 
 
-def load_model() -> TableModel:
-    model = ChatOpenAI(
-        model=MODEL,
-        base_url=BASE_URL,
-        use_responses_api=True,
-        output_version="responses/v1",
-        use_previous_response_id=False,
-        store=False,
-        reasoning={"effort": REASONING_EFFORT},
-        timeout=TIMEOUT_SECONDS,
-        max_retries=0,
-        cache=False,
-        http_async_client=DefaultAsyncHttpxClient(
+async def _close_model_clients(model: ChatOpenAI) -> None:
+    try:
+        await model.root_async_client.close()
+    finally:
+        await asyncio.to_thread(model.root_client.close)
+
+
+async def _close_transports(async_client, sync_client) -> None:
+    try:
+        if async_client is not None:
+            await async_client.aclose()
+    finally:
+        if sync_client is not None:
+            await asyncio.to_thread(sync_client.close)
+
+
+async def load_model(*, api_key: str | None = None) -> TableModel:
+    """Create clients with explicit ownership, including construction failures."""
+    from app.rag.lifecycle import await_to_completion
+
+    if api_key is not None and not api_key.strip():
+        raise ValueError("An explicit OpenAI API key cannot be empty")
+    sync_client = None
+    async_client = None
+    model = None
+    try:
+        sync_client = DefaultHttpxClient()
+        async_client = DefaultAsyncHttpxClient(
             event_hooks={"request": [_record_http_attempt]}
-        ),
-    )
-    return TableModel(model)
+        )
+        model_options = {
+            "model": MODEL,
+            "base_url": BASE_URL,
+            "use_responses_api": True,
+            "output_version": "responses/v1",
+            "use_previous_response_id": False,
+            "store": False,
+            "reasoning": {"effort": REASONING_EFFORT},
+            "timeout": TIMEOUT_SECONDS,
+            "max_retries": 0,
+            "cache": False,
+            "http_client": sync_client,
+            "http_async_client": async_client,
+        }
+        if api_key is not None:
+            model_options["api_key"] = api_key
+        model = ChatOpenAI(**model_options)
+        return TableModel(model)
+    except BaseException:
+        cleanup = (
+            _close_model_clients(model)
+            if model is not None
+            else _close_transports(async_client, sync_client)
+        )
+        _, cancelled = await await_to_completion(cleanup)
+        if cancelled:
+            raise asyncio.CancelledError
+        raise

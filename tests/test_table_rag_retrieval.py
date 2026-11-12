@@ -114,3 +114,61 @@ def test_search_runs_one_rerank_and_returns_page_deduplicated_search_result():
         "constant": 60,
     }
     assert retriever.manifest["retrieval"]["native_hg_enrichment"] is False
+
+
+def test_remote_dense_provider_preserves_hybrid_and_reranking():
+    from app.rag.retrieval import rank_dense
+
+    corpus = _corpus()
+
+    class RemoteDense:
+        manifest = {"backend": "qdrant", "exact": True}
+        closed = 0
+        queries = []
+
+        def search(self, vector, *, top_k):
+            self.queries.append((vector.copy(), top_k))
+            return rank_dense(corpus, vector, top_k=top_k)
+
+        def close(self):
+            self.closed += 1
+
+    remote = RemoteDense()
+    local_retriever = TableRetriever(
+        corpus, embedder=FakeEmbedder(), reranker=FakeReranker(),
+    )
+    cloud_reranker = FakeReranker()
+    cloud_retriever = TableRetriever(
+        corpus, embedder=FakeEmbedder(), reranker=cloud_reranker, dense_index=remote,
+    )
+    local = local_retriever.search("예약 비용 청구")
+    cloud = cloud_retriever.search("예약 비용 청구")
+    assert cloud.pages == local.pages
+    assert cloud.table_ids == local.table_ids
+    for stage in ("bm25_top", "dense_top", "rrf_candidates", "reranker", "ordered_source_ids"):
+        assert cloud.diagnostics[stage] == local.diagnostics[stage]
+    assert cloud.diagnostics["dense_backend"] == remote.manifest
+    assert cloud_reranker.calls == 1
+    assert remote.queries[0][1] == 50
+    cloud_retriever.close()
+    cloud_retriever.close()
+    assert remote.closed == 1
+    with pytest.raises(RuntimeError, match="closed"):
+        cloud_retriever.search("예약 비용 청구")
+
+
+def test_remote_dense_failure_does_not_fall_back_to_local_vectors():
+    class UnavailableDense:
+        manifest = {"backend": "qdrant", "exact": True}
+
+        def search(self, vector, *, top_k):
+            raise RuntimeError("Qdrant unavailable")
+
+    reranker = FakeReranker()
+    retriever = TableRetriever(
+        _corpus(), embedder=FakeEmbedder(), reranker=reranker,
+        dense_index=UnavailableDense(),
+    )
+    with pytest.raises(RuntimeError, match="Qdrant unavailable"):
+        retriever.search("예약 비용 청구")
+    assert reranker.calls == 0

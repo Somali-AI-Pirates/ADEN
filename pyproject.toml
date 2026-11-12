@@ -39,6 +39,30 @@ eval = [
     # ragas 0.4.3이 import하는 chat_models.vertexai가 langchain-community 0.4.2에서 제거됨
     "langchain-community==0.4.1",
 ]
+# uv sync --extra cpu is the locked Linux server/CI runtime; local CUDA work uses --extra cuda.
+cpu = ["torch==2.15.0"]
+cuda = ["torch==2.15.0"]
+
+[tool.uv]
+conflicts = [
+    [{ extra = "cpu" }, { extra = "cuda" }],
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", extra = "cpu" },
+    { index = "pytorch-cu132", extra = "cuda" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu132"
+url = "https://download.pytorch.org/whl/cu132"
+explicit = true
 
 [tool.setuptools.packages.find]
 where = ["."]

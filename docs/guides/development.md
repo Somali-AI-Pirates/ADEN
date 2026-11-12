@@ -18,25 +18,31 @@ VS Code에서 저장소 루트를 열고 [권장 확장](../../.vscode/extension
 
 ## 서버 실행
 
-처음 준비하는 환경은 [빠른 시작](quickstart.md)을 순서대로 실행한다. 기본 Advanced 설정은 DB 우선 통합 TableRAG다. 기존 Qdrant 경로를 직접 선택할 때는 설정 파일의 rag_backend를 legacy로 지정한다.
+처음 준비하는 환경은 [빠른 시작](quickstart.md)을 순서대로 실행한다. 기본 Advanced API는 DB 우선 통합 TableRAG다. dense 검색 선택은 YAML의 `table_rag.vector_backend`로 선택한다. API는 B/C 레거시 자원 로더를 사용하지 않는다.
 
-[설치](#설치) 후 [환경변수 예시](../../.env.example)를 참고해 로컬 `.env`와 Advanced 설정을 준비한다. A 없이 B·C를 먼저 확인하는 방법과 메모리 색인의 같은 프로세스 적재 조건은 [로컬 B·C 안내](local-bc.md)를 따른다. 기본 앱은 색인 미준비 시 503과 원인을 반환하며 임의의 가상 근거로 답변하지 않는다. 다른 설정 파일과 색인·근거 연결은 `ADEN_CONFIG`, `ADEN_QDRANT_CLIENT`, `ADEN_EVIDENCE_PROVIDER`로 지정한다.
+[설치](#설치) 후 [환경변수 예시](../../.env.example)를 참고해 로컬 `.env`와 Advanced 설정을 준비한다. TableRAG API는 기본 Advanced YAML에 `configs/local.yaml`의 개인 설정을 적용한다. 기존 `ADEN_CONFIG`와 `ADEN_TABLE_RAG_*` 환경변수는 우선 적용할 수 있다. B/C 평가 CLI의 색인·근거 연결은 `ADEN_CONFIG`, `ADEN_QDRANT_CLIENT`, `ADEN_EVIDENCE_PROVIDER`로 지정하며, [로컬 B·C 안내](local-bc.md)를 따른다. 기본 API는 번들·모델 준비에 실패하면 `/health`의 `query_ready=false`와 질의의 503을 반환한다.
 
 ```bash
 uv run fastapi dev
 ```
 
-자동 재시작 없이 로컬에서 실행하려면 `uv run fastapi run --host 127.0.0.1`을 사용한다. pip 환경에서는 `fastapi dev`를 직접 실행한다. [Swagger UI](http://127.0.0.1:8000/docs)에서 질문하고 `GET /health`의 `query_ready`로 질의 준비 여부를 확인한다.
+자동 재시작 없이 로컬에서 실행하려면 `uv run fastapi run --host 127.0.0.1`을 사용한다. pip 환경에서는 `fastapi dev`를 직접 실행한다. [Swagger UI](http://127.0.0.1:8000/docs)에서 질문하고 `GET /health/ready`의 HTTP 200과 `ready=true`로 현재 질의 준비 여부를 확인한다. `/health`는 기존 초기화 표시를 유지한다.
 
-키는 로컬 `.env`, 환경변수, 승인된 CI 비밀 설정으로 주입한다. 키를 Git·로그·문서·채팅에 기록하지 않는다. 노출이 의심되면 제공자에서 폐기·교체하고 팀에 알린다.
+키는 로컬 `.env`, 환경변수, 승인된 CI 비밀 설정으로 주입한다. Advanced TableRAG의 Cloud 벡터 검색에는 YAML의 `connections.qdrant_url`과 `.env`의 `QDRANT_API_KEY`를 설정한다. 키를 Git·로그·문서·채팅에 기록하지 않는다. 노출이 의심되면 제공자에서 폐기·교체하고 팀에 알린다.
 
 ## Advanced TableRAG 실행
 
-[데이터 번들](data.md#advanced-tablerag-데이터)을 준비한 뒤 uv run --locked fastapi dev로 실행한다. 기본 경로는 artifacts/advanced-table-rag다. ADEN_TABLE_RAG_DIR로 다른 번들을 지정하고, ADEN_TABLE_RAG_DEVICE=cpu_gpu_rerank로 CUDA 리랭킹을 선택할 수 있다.
+[데이터 번들](data.md#advanced-tablerag-데이터)을 준비한 뒤 `uv run --locked fastapi dev`로 실행한다. 공유 기본값은 CPU와 NumPy다. GPU가 있는 환경은 개인 YAML에서 `table_rag.device: cuda`를 선택한다. Qdrant Cloud를 쓰려면 `table_rag.vector_backend: qdrant`를 지정하고 [업로드·검사](data.md#advanced-tablerag-qdrant-cloud-벡터-검색)를 먼저 완료한다.
 
-서버는 공통 기록 DB와 물리 표 DB를 읽기 전용으로 열고 모델을 한 번 준비한다. /health의 query_ready로 준비 상태를 확인한다. 질문은 POST /query에 question으로 전달한다.
+서버는 공통 기록 DB와 물리 표 DB를 읽기 전용으로 열고 모델을 한 번 준비한다. `/health/ready`로 현재 준비 상태를 확인한다. 질문은 POST /query에 question으로 전달한다.
 
 Langfuse 키가 있으면 상세 추적을 전송한다. 저장된 요청의 Faithfulness·Judge 채점과 점수 조회는 [빠른 시작](quickstart.md#4-저장된-swagger-답변-평가)을 따른다.
+
+### 요청 수용과 종료
+
+공통 서비스가 FIFO 대기열·실행 슬롯·요청 예산을 소유한다. HTTP와 SSE뿐 아니라 RAG CLI와 TableRAG 평가 `run`에도 같은 `TableRagSettings`가 적용된다. 기본 한도, HTTP 오류 및 동기 작업 정리의 시간 제약은 [빠른 시작](quickstart.md#상태-확인과-요청-제한)을 따른다. 준비 검사는 Langfuse나 유료 모델을 호출하지 않는다.
+
+운영 로그 `rag_admission`은 수용·거절과 대기 시간을, `rag_request`는 실행·취소·정리 결과와 예산 초과 시간을 요청 ID로 연결한다. 기존 검색·모델 지연과 대기 시간을 합쳐 비교하지 않는다. 이 제한은 서비스 인스턴스 단위이며 여러 서버 프로세스 전체의 합계 제한이 아니다. 통제된 가짜 작업으로 검사한 지연은 실제 모델 처리량을 뜻하지 않는다.
 
 ## 검사
 

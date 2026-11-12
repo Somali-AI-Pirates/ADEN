@@ -12,8 +12,11 @@ ADEN은 Advanced 해운 PDF의 기록·규정·표를 조회해 답변과 원본
 | 작업 브랜치, PR, 리뷰, 개인 실험 | [기여 가이드](CONTRIBUTING.md) |
 | 코드 배치, 의존 방향, 요청 흐름 | [시스템 설계](design/architecture.md) |
 | Advanced TableRAG의 설계·구현 단계·평가 | [Advanced RAG 구현 계획](plans/advanced-rag/README.md) |
+| 모듈 가독성·로컬 인프라·운영 개선 제안 | [TableRAG 구조·운영 검토](plans/advanced-rag/architecture-operations-review.md) |
+| 구조 정리·로컬 환경·CI/CD·클라우드 배포 계획 | [TableRAG 구현·배포 계획](plans/advanced-rag/architecture-operations-implementation-plan.md) |
 | HTTP, 타입, 함수, 실행 기록 | [공통 계약](design/contracts.md) |
 | 설치, 실행, 검사 | [개발 가이드](guides/development.md) |
+| 로컬 컨테이너와 운영 배포 | [배포 가이드](guides/deployment.md) |
 | 원본 배치, TableRAG 구축, 기존 Qdrant 색인 | [데이터 가이드](guides/data.md) |
 | 정제본 구조와 서비스 연결 범위 | [지식 데이터 설계](design/knowledge-data.md) |
 | 일반·보안 평가, 공식 실행과 검증 상태 | [평가 가이드](guides/c-module-guide.md) |

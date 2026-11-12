@@ -1,0 +1,8 @@
+# Copy to configs/local.yaml for this machine. Keep credentials in .env.
+table_rag:
+  device: cuda
+  vector_backend: numpy
+
+connections:
+  # qdrant_url: https://example.cloud.qdrant.io:6333
+  langfuse_base_url: https://cloud.langfuse.com

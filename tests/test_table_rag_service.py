@@ -69,7 +69,7 @@ class _Model:
         self.closed += 1
 
 
-def _service(model):
+def _service(model, close_search=None, before_search=None, **options):
     sources = {
         question: make_document(
             f"자료 {page}",
@@ -81,13 +81,20 @@ def _service(model):
     page_lookup = {
         document.metadata["source_id"]: document for document in sources.values()
     }
+    def search(question):
+        if before_search is not None:
+            before_search(question)
+        return SearchResult((sources[question],), (), {})
+
     return RagService(
-        search=lambda question: SearchResult((sources[question],), (), {}),
+        search=search,
         page_lookup=page_lookup.get,
         table_store=_Store(),
         model=model,
         tracer=Tracer(),
         manifest={"policy": "table_rag_a"},
+        close_search=close_search,
+        **options,
     )
 
 
@@ -161,6 +168,619 @@ def test_answer_cannot_upgrade_an_insufficient_retrieval():
             with pytest.raises(RagModelError, match="contradicts"):
                 await service.ainvoke("첫 질문", request_id="status-check")
         finally:
+            await service.aclose()
+
+    asyncio.run(run())
+
+
+def test_service_closes_search_client_even_if_model_close_fails():
+    closed = []
+
+    class FailingModel(_Model):
+        async def aclose(self):
+            raise RuntimeError("model close failed")
+
+    async def run():
+        service = _service(FailingModel(), close_search=lambda: closed.append(True))
+        with pytest.raises(RuntimeError, match="model close failed"):
+            await service.aclose()
+        await service.aclose()
+        assert closed == [True]
+
+    asyncio.run(run())
+
+
+def test_cloud_client_is_closed_when_model_loading_fails(monkeypatch, tmp_path):
+    from types import SimpleNamespace
+
+    from app.rag import qdrant_index, retrieval, service
+
+    closed = []
+    corpus = SimpleNamespace()
+    dense = SimpleNamespace(close=lambda: closed.append(True))
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("QDRANT_URL", "https://qdrant.example.invalid")
+    monkeypatch.setenv("QDRANT_API_KEY", "qdrant-test-key")
+    monkeypatch.setenv("ADEN_TABLE_RAG_VECTOR_BACKEND", "qdrant")
+    monkeypatch.setenv("ADEN_TABLE_RAG_COLLECTION", "advanced_table_rag_test")
+    monkeypatch.setattr(service, "load_corpus", lambda directory: corpus)
+    settings = service.load_table_rag_settings(data_directory=tmp_path)
+
+    def open_index(directory, loaded, *, collection, credentials):
+        assert directory == tmp_path
+        assert loaded is corpus
+        assert collection == "advanced_table_rag_test"
+        assert credentials.qdrant_url == "https://qdrant.example.invalid"
+        assert credentials.qdrant_api_key == "qdrant-test-key"
+        return dense
+
+    def fail_to_load(loaded, *, device, dense_index):
+        assert dense_index is dense
+        raise ValueError("local model missing")
+
+    monkeypatch.setattr(qdrant_index, "open_qdrant_index", open_index)
+    monkeypatch.setattr(retrieval, "load_retriever", fail_to_load)
+    with pytest.raises(ValueError, match="local model missing"):
+        asyncio.run(service.load_service(settings=settings))
+    assert closed == [True]
+
+
+def test_invalid_vector_backend_does_not_select_a_different_backend(monkeypatch, tmp_path):
+    from app.rag import service
+
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("ADEN_TABLE_RAG_VECTOR_BACKEND", "typo")
+    monkeypatch.setattr(service, "load_corpus", lambda directory: object())
+    with pytest.raises(ValueError, match="Unsupported TableRAG vector backend"):
+        asyncio.run(service.load_service(tmp_path))
+
+
+def test_explicit_missing_langfuse_keys_disable_tracing_even_when_env_is_set(monkeypatch):
+    monkeypatch.setenv("LANGFUSE_PUBLIC_KEY", "ambient-public-key")
+    monkeypatch.setenv("LANGFUSE_SECRET_KEY", "ambient-secret-key")
+
+    tracer = Tracer.from_credentials(
+        public_key=None,
+        secret_key=None,
+        base_url=None,
+    )
+
+    assert tracer.enabled is False
+
+
+def test_tracer_uses_explicit_langfuse_credentials(monkeypatch):
+    import langfuse
+
+    captured = {}
+    client = object()
+
+    def create_client(**kwargs):
+        captured.update(kwargs)
+        return client
+
+    monkeypatch.setattr(langfuse, "Langfuse", create_client)
+    tracer = Tracer.from_credentials(
+        public_key="explicit-public-key",
+        secret_key="explicit-secret-key",
+        base_url="https://langfuse.example.invalid",
+    )
+
+    assert tracer.enabled is True
+    assert tracer._client is client
+    assert captured == {
+        "public_key": "explicit-public-key",
+        "secret_key": "explicit-secret-key",
+        "base_url": "https://langfuse.example.invalid",
+    }
+
+
+def _patch_async_service_startup(monkeypatch, tmp_path, *, failure=None, fail_close=False):
+    from types import SimpleNamespace
+
+    from app.rag import qdrant_index, records, retrieval, service
+    from app.rag.config import RuntimeCredentials, TableRagSettings
+
+    (tmp_path / "corpus.json").write_text("{}", encoding="utf-8")
+    events = []
+
+    class FakeMap:
+        closed = False
+
+        def close(self):
+            if not self.closed:
+                self.closed = True
+                events.append("corpus")
+
+    class DenseIndex:
+        def close(self):
+            events.append("dense")
+
+    dense = DenseIndex()
+    corpus = SimpleNamespace(
+        vectors=SimpleNamespace(_mmap=FakeMap()),
+        embedding={"model_id": "test"},
+        pages_by_source={},
+        table_store=_Store(),
+    )
+
+    class Retriever:
+        manifest = {"retrieval": {"dense": "qdrant"}}
+
+        def search(self, question):
+            raise AssertionError("search is not part of initialization")
+
+        def close(self):
+            events.append("retriever")
+            dense.close()
+
+    retriever = Retriever()
+
+    class RecordIndex:
+        def __init__(self, directory):
+            if failure == "records":
+                raise RuntimeError("records failed")
+
+        def close(self):
+            events.append("records")
+
+    class Model:
+        def planner_overhead(self, count_tokens):
+            return 1
+
+        def prompt_hashes(self):
+            return {"plan": "a", "answer": "b"}
+
+        async def aclose(self):
+            events.append("model")
+            if fail_close:
+                raise RuntimeError("model close failed")
+
+    model = Model()
+
+    class FakeTracer:
+        def __init__(self):
+            pass
+
+        @classmethod
+        def from_credentials(cls, **kwargs):
+            return cls()
+
+        def shutdown(self):
+            events.append("tracer")
+
+    monkeypatch.setattr(service, "load_corpus", lambda directory: corpus)
+
+    def open_index(directory, loaded, *, collection, credentials):
+        assert loaded is corpus
+        assert collection == "advanced_table_rag"
+        assert credentials.qdrant_api_key == "qdrant-test"
+        if failure == "qdrant":
+            raise RuntimeError("qdrant failed")
+        return dense
+
+    monkeypatch.setattr(qdrant_index, "open_qdrant_index", open_index)
+
+    def load_retriever(loaded, *, device, dense_index):
+        assert loaded is corpus
+        assert device == "cpu"
+        assert dense_index is dense
+        if failure == "retriever":
+            raise RuntimeError("retriever failed")
+        return retriever
+
+    monkeypatch.setattr(retrieval, "load_retriever", load_retriever)
+    monkeypatch.setattr(records, "RecordIndex", RecordIndex)
+
+    async def load_model(*, api_key):
+        assert api_key == "table-rag-test"
+        if failure == "model":
+            raise RuntimeError("model failed")
+        return model
+
+    monkeypatch.setattr(service, "load_model", load_model)
+    monkeypatch.setattr(service, "Tracer", FakeTracer)
+    settings = TableRagSettings(
+        data_directory=tmp_path,
+        vector_backend="qdrant",
+        credentials=RuntimeCredentials(
+            openai_api_key="table-rag-test",
+            qdrant_url="https://qdrant.example.invalid",
+            qdrant_api_key="qdrant-test",
+        ),
+    )
+    return service, settings, events, dense, retriever, model, corpus
+
+
+def test_async_service_transfers_one_resource_stack_and_closes_once(
+    monkeypatch, tmp_path
+):
+    service_module, settings, events, dense, retriever, model, corpus = (
+        _patch_async_service_startup(monkeypatch, tmp_path)
+    )
+
+    async def run():
+        service = await service_module.load_service(settings=settings)
+        await service.aclose()
+        await service.aclose()
+
+    asyncio.run(run())
+
+    assert events == ["tracer", "model", "records", "retriever", "dense", "corpus"]
+    assert corpus.vectors._mmap.closed is True
+
+
+@pytest.mark.parametrize(
+    ("failure", "expected_events"),
+    [
+        ("qdrant", ["corpus"]),
+        ("retriever", ["dense", "corpus"]),
+        ("records", ["retriever", "dense", "corpus"]),
+        ("model", ["records", "retriever", "dense", "corpus"]),
+    ],
+)
+def test_async_service_initialization_failure_closes_acquired_resources(
+    monkeypatch, tmp_path, failure, expected_events
+):
+    service_module, settings, events, *_ = _patch_async_service_startup(
+        monkeypatch, tmp_path, failure=failure
+    )
+
+    with pytest.raises(RuntimeError, match=failure):
+        asyncio.run(service_module.load_service(settings=settings))
+
+    assert events == expected_events
+
+
+def test_async_service_constructor_failure_keeps_local_stack_for_cleanup(
+    monkeypatch, tmp_path
+):
+    service_module, settings, events, *_ = _patch_async_service_startup(
+        monkeypatch, tmp_path
+    )
+
+    def fail_to_construct(**kwargs):
+        raise RuntimeError("graph construction failed")
+
+    monkeypatch.setattr(service_module, "RagService", fail_to_construct)
+    with pytest.raises(RuntimeError, match="graph construction failed"):
+        asyncio.run(service_module.load_service(settings=settings))
+
+    assert events == ["tracer", "model", "records", "retriever", "dense", "corpus"]
+
+
+def test_async_service_close_runs_remaining_callbacks_after_one_close_error(
+    monkeypatch, tmp_path
+):
+    service_module, settings, events, *_ = _patch_async_service_startup(
+        monkeypatch, tmp_path, fail_close=True
+    )
+    service = asyncio.run(service_module.load_service(settings=settings))
+
+    async def close():
+        with pytest.raises(RuntimeError, match="model close failed"):
+            await service.aclose()
+        await service.aclose()
+
+    asyncio.run(close())
+    assert events == ["tracer", "model", "records", "retriever", "dense", "corpus"]
+
+
+def test_async_service_repeated_cancellation_joins_acquisition_then_cleans_resource():
+    from threading import Event
+    from contextlib import AsyncExitStack
+
+    from app.rag.service import _close_sync_resource, _run_sync_acquiring
+
+    started = Event()
+    release = Event()
+    closed = []
+
+    class Resource:
+        def close(self):
+            closed.append("closed")
+
+    def create_resource():
+        started.set()
+        release.wait()
+        return Resource()
+
+    async def initialize():
+        async with AsyncExitStack() as resources:
+            await _run_sync_acquiring(
+                create_resource,
+                on_acquired=lambda resource: resources.push_async_callback(
+                    _close_sync_resource, resource.close
+                ),
+            )
+
+    async def run():
+        owner = asyncio.create_task(initialize())
+        await asyncio.to_thread(started.wait)
+        owner.cancel()
+        await asyncio.sleep(0)
+        owner.cancel()
+        release.set()
+        with pytest.raises(asyncio.CancelledError):
+            await owner
+
+    asyncio.run(run())
+    assert closed == ["closed"]
+
+
+def test_explicit_tracer_defaults_do_not_read_later_environment(monkeypatch):
+    import langfuse
+
+    captured = {}
+    monkeypatch.setenv("LANGFUSE_BASE_URL", "https://unrelated.example.invalid")
+    monkeypatch.setattr(
+        langfuse, "Langfuse",
+        lambda **kwargs: captured.update(kwargs) or object(),
+    )
+    Tracer.from_credentials(public_key="snapshot-public", secret_key="snapshot-secret")
+    assert captured["base_url"] == "https://cloud.langfuse.com"
+
+
+def test_cancelled_request_joins_sync_search_before_resources_close():
+    from threading import Event
+
+    async def run():
+        started, release, finished = Event(), Event(), Event()
+        closed = []
+        page = make_document(
+            "자료", SourceRef(book_id="AS001", file_name="AS001.pdf", page=1),
+            "AS001:p0001:page",
+        )
+
+        def search(question):
+            started.set()
+            release.wait()
+            finished.set()
+            return SearchResult((page,), (), {})
+
+        def close_search():
+            assert finished.is_set()
+            closed.append("search")
+
+        service = RagService(
+            search=search, page_lookup=lambda source: page,
+            table_store=_Store(), model=_Model(), tracer=Tracer(),
+            manifest={"policy": "test"}, close_search=close_search,
+        )
+        task = asyncio.create_task(service.ainvoke("질문", request_id="cancel-test"))
+        await asyncio.to_thread(started.wait)
+        task.cancel()
+        await asyncio.sleep(0)
+        assert not task.done()
+        release.set()
+        with pytest.raises(asyncio.CancelledError):
+            await task
+        await service.aclose()
+        assert closed == ["search"]
+
+    asyncio.run(run())
+
+
+def test_busy_and_wait_timeout_do_not_call_search_or_model():
+    from app.rag.admission import RequestBusyError
+    from app.rag.config import TableRagSettings
+
+    async def run():
+        started = asyncio.Event()
+        finish = asyncio.Event()
+
+        class WaitingModel(_Model):
+            plans = 0
+
+            async def plan(self, *args, **kwargs):
+                self.plans += 1
+                started.set()
+                await finish.wait()
+                return await super().plan(*args, **kwargs)
+
+        model = WaitingModel()
+        service = _service(
+            model,
+            settings=TableRagSettings(max_waiting_requests=1, queue_timeout_seconds=0.03),
+        )
+        first = asyncio.create_task(service.ainvoke("첫 질문", request_id="active"))
+        await asyncio.wait_for(started.wait(), timeout=2)
+        waiting = asyncio.create_task(service.ainvoke("둘째 질문", request_id="waiting"))
+        await asyncio.sleep(0)
+        with pytest.raises(RequestBusyError):
+            await service.ainvoke("둘째 질문", request_id="overflow")
+        with pytest.raises(RequestBusyError):
+            await waiting
+        assert model.plans == 1
+        finish.set()
+        assert (await first).response.answer == "첫 질문"
+        await service.aclose()
+
+    asyncio.run(run())
+
+
+def test_deadline_cancels_model_and_records_operational_outcome(caplog):
+    from app.rag.admission import RequestDeadlineExceeded
+    from app.rag.config import TableRagSettings
+
+    async def run():
+        stopped = asyncio.Event()
+
+        class WaitingModel(_Model):
+            answers = 0
+
+            async def plan(self, *args, **kwargs):
+                try:
+                    await asyncio.Event().wait()
+                finally:
+                    stopped.set()
+
+            async def answer(self, *args, **kwargs):
+                self.answers += 1
+                return await super().answer(*args, **kwargs)
+
+        model = WaitingModel()
+        service = _service(model, settings=TableRagSettings(request_timeout_seconds=0.1))
+        with pytest.raises(RequestDeadlineExceeded):
+            await service.ainvoke("첫 질문", request_id="deadline")
+        assert stopped.is_set()
+        assert model.answers == 0
+        assert service._admission.active_count == 0
+        await service.aclose()
+
+    caplog.set_level("INFO", logger="app.rag.service")
+    asyncio.run(run())
+    assert any("request_id=deadline outcome=deadline_exceeded" in r.message for r in caplog.records)
+
+
+def test_deadline_holds_slot_until_sync_worker_finishes_without_followup_model():
+    from threading import Event
+
+    from app.rag.admission import RequestDeadlineExceeded
+    from app.rag.config import TableRagSettings
+
+    async def run():
+        started = Event()
+        release = Event()
+        search_calls = []
+
+        def before_search(question):
+            search_calls.append(question)
+            started.set()
+            assert release.wait(3)
+
+        service = _service(
+            _Model(), before_search=before_search,
+            settings=TableRagSettings(
+                request_timeout_seconds=0.2, queue_timeout_seconds=1
+            ),
+        )
+        first = asyncio.create_task(service.ainvoke("첫 질문", request_id="slow-worker"))
+        try:
+            assert await asyncio.to_thread(started.wait, 2)
+            await asyncio.sleep(0.25)
+            assert not first.done()
+            assert service._admission.active_count == 1
+            assert search_calls == ["첫 질문"]
+        finally:
+            release.set()
+        with pytest.raises(RequestDeadlineExceeded):
+            await first
+        assert service._admission.active_count == 0
+        await service.aclose()
+
+    asyncio.run(run())
+
+
+def test_shutdown_drains_worker_before_closing_resources_and_rejects_queue():
+    from threading import Event
+
+    from app.rag.admission import RequestUnavailableError
+    from app.rag.config import TableRagSettings
+
+    async def run():
+        started = Event()
+        release = Event()
+        order = []
+        def before_search(question):
+            started.set()
+            assert release.wait(3)
+            order.append("worker_finished")
+
+        service = _service(
+            _Model(), before_search=before_search,
+            close_search=lambda: order.append("resources_closed"),
+            settings=TableRagSettings(shutdown_grace_seconds=0),
+        )
+        first = asyncio.create_task(service.ainvoke("첫 질문", request_id="active"))
+        assert await asyncio.to_thread(started.wait, 2)
+        waiting = asyncio.create_task(service.ainvoke("둘째 질문", request_id="waiting"))
+        await asyncio.sleep(0)
+        closing = asyncio.create_task(service.aclose())
+        try:
+            with pytest.raises(RequestUnavailableError):
+                await waiting
+            await asyncio.sleep(0.01)
+            assert not closing.done()
+            assert order == []
+            assert not (await service.readiness()).ready
+        finally:
+            release.set()
+        with pytest.raises(asyncio.CancelledError):
+            await first
+        await closing
+        await service.aclose()
+        assert order == ["worker_finished", "resources_closed"]
+
+    asyncio.run(run())
+
+
+def test_unready_service_never_starts_the_pipeline():
+    from app.rag.admission import RequestUnavailableError
+    from app.rag.readiness import ReadinessProbe
+
+    class UnusedModel(_Model):
+        async def plan(self, *args, **kwargs):
+            raise AssertionError("Unready request called the planner")
+
+    async def run():
+        service = _service(
+            UnusedModel(), readiness_probe=ReadinessProbe({"records": lambda: False})
+        )
+        with pytest.raises(RequestUnavailableError):
+            await service.ainvoke("첫 질문", request_id="unready")
+        assert service._admission.active_count == 0
+        await service.aclose()
+
+    asyncio.run(run())
+
+
+def test_request_deadline_stops_readiness_wait_without_cancelling_shared_probe():
+    from threading import Event
+
+    from app.rag.admission import RequestDeadlineExceeded
+    from app.rag.config import TableRagSettings
+    from app.rag.readiness import ReadinessProbe
+
+    class UnusedModel(_Model):
+        async def plan(self, *args, **kwargs):
+            raise AssertionError("Expired request called the planner")
+
+    async def run():
+        started = Event()
+        release = Event()
+        probe_calls = []
+
+        def check():
+            probe_calls.append("check")
+            started.set()
+            assert release.wait(3)
+
+        def no_search(question):
+            raise AssertionError("Expired request called search")
+
+        service = _service(
+            UnusedModel(),
+            before_search=no_search,
+            settings=TableRagSettings(request_timeout_seconds=0.03),
+            readiness_probe=ReadinessProbe({"records": check}),
+        )
+        request = asyncio.create_task(
+            service.ainvoke("질문", request_id="readiness-deadline")
+        )
+        try:
+            assert await asyncio.to_thread(started.wait, 1)
+            with pytest.raises(RequestDeadlineExceeded):
+                await asyncio.wait_for(request, 0.5)
+            assert not release.is_set()
+            assert service._admission.active_count == 0
+            health = asyncio.create_task(service.readiness())
+            await asyncio.sleep(0)
+            assert not health.done()
+            release.set()
+            assert (await health).ready
+            assert probe_calls == ["check"]
+        finally:
+            release.set()
             await service.aclose()
 
     asyncio.run(run())

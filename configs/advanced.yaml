@@ -1,5 +1,8 @@
+# TableRAG uses the fixed policy in shared/table_rag_policy.py.
+# The model/retrieval keys below configure B/C evaluation adapters.
+# Runtime YAML can be overridden by the workstation profile configs/local.yaml.
+# Explicit config selection bypasses the workstation profile.
 dataset: advanced
-rag_backend: table_rag
 documents_dir: data/advanced/documents
 generation_model: gpt-6-luna
 qdrant_collection: advanced_snowflake_ko_pages
@@ -16,3 +19,20 @@ retrieval:
   k: 8
   context_token_budget: 8000
   candidate_count: 20
+
+
+table_rag:
+  data_directory: artifacts/advanced-table-rag
+  run_directory: artifacts/rag-runs
+  device: cpu
+  vector_backend: numpy
+  collection: advanced_table_rag
+  trace_enabled: true
+  max_active_requests: 1
+  max_waiting_requests: 2
+  queue_timeout_seconds: 10
+  request_timeout_seconds: 300
+  shutdown_grace_seconds: 30
+
+connections:
+  langfuse_base_url: https://cloud.langfuse.com

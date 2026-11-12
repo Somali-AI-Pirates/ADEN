@@ -3,7 +3,7 @@
     python -m app.indexing.scripts.build_index               # 저장소 루트에서 실행
     python -m app.indexing.scripts.build_index --recreate    # 같은 이름의 컬렉션을 지우고 다시 만들 때
 
-입력: data/basic/documents/*.pdf 만 읽는다 (평가 JSON은 읽지 않음), .env의 QDRANT_URL·QDRANT_API_KEY
+입력: data/basic/documents/*.pdf 만 읽는다 (평가 JSON은 읽지 않음), YAML의 Qdrant 주소와 .env의 QDRANT_API_KEY
 출력: artifacts/basic/pages.jsonl, chunks.jsonl, ingestion_report.json, index_manifest.json
       Qdrant Cloud 컬렉션 (기본 이름: basic_multilingual-e5-small_p800)
 """
