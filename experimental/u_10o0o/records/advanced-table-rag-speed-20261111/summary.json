@@ -1,0 +1,1014 @@
+{
+  "external_api_calls": 0,
+  "latency": {
+    "1": {
+      "A": {
+        "n": 45,
+        "question_seconds": {
+          "n": 45,
+          "p50": 1.2407501269990462,
+          "p95": 5.349357865599444
+        },
+        "round_wall_seconds": [
+          31.697670296998695,
+          31.7677591449974,
+          33.44854272199882
+        ],
+        "same_A_final": 45
+      },
+      "B": {
+        "n": 45,
+        "question_seconds": {
+          "n": 45,
+          "p50": 1.3448053280008025,
+          "p95": 5.447980110198836
+        },
+        "round_wall_seconds": [
+          32.27630124400093,
+          32.41443683200123,
+          32.96202645299854
+        ],
+        "same_A_final": 45
+      },
+      "C": {
+        "n": 45,
+        "question_seconds": {
+          "n": 45,
+          "p50": 1.046172492999176,
+          "p95": 5.2035683798007035
+        },
+        "round_wall_seconds": [
+          30.40954006299944,
+          30.45524952499909,
+          30.01298629399753
+        ],
+        "same_A_final": 45
+      }
+    },
+    "4": {
+      "A": {
+        "n": 45,
+        "question_seconds": {
+          "n": 45,
+          "p50": 5.155193066999345,
+          "p95": 21.20216794240111
+        },
+        "round_wall_seconds": [
+          32.69140938900091,
+          32.787903805001406,
+          33.786504456998955
+        ],
+        "same_A_final": 45
+      },
+      "B": {
+        "n": 45,
+        "question_seconds": {
+          "n": 45,
+          "p50": 3.1271528049983317,
+          "p95": 12.255719196601406
+        },
+        "round_wall_seconds": [
+          19.508909189000406,
+          19.313245951998397,
+          21.21676952099733
+        ],
+        "same_A_final": 45
+      },
+      "C": {
+        "n": 45,
+        "question_seconds": {
+          "n": 45,
+          "p50": 2.887648020998313,
+          "p95": 11.507000975397371
+        },
+        "round_wall_seconds": [
+          18.242738240998733,
+          18.644618914000603,
+          19.414967264998268
+        ],
+        "same_A_final": 45
+      }
+    }
+  },
+  "protocol": {
+    "api_calls": 0,
+    "arms": {
+      "A": [
+        "coarse",
+        1
+      ],
+      "B": [
+        "split",
+        1
+      ],
+      "C": [
+        "split",
+        4
+      ],
+      "D": [
+        "split",
+        8
+      ]
+    },
+    "cpu_threads": 2,
+    "gpu_contention_threshold_mib": 2200,
+    "gpu_fraction": 0.12,
+    "gpu_start": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1066, 1",
+    "inherited": {
+      "directory": "artifacts/u_10o0o/advanced-table-rag-speed-20261111/v1",
+      "failure": {
+        "completed_questions": {
+          "A": 220,
+          "B": 220,
+          "C": 220,
+          "D": 220
+        },
+        "failed_arm": "D",
+        "performance_comparison": "Blocks 9-10 also show other GPU usage; do not use these for isolated latency claims",
+        "reason": "GPU memory cap 978.07 MiB exceeded by a long padded batch; process exited 1",
+        "status": "interrupted",
+        "timing_not_started": true
+      },
+      "files": {
+        "artifacts/u_10o0o/advanced-table-rag-speed-20261111/v1/quality-A.json": "a0dc9797bff7c9f91dc18a635844ba46f2f7f6fcea1bf628f964fedfbcba26b9",
+        "artifacts/u_10o0o/advanced-table-rag-speed-20261111/v1/quality-B.json": "06781aaf00c32a21246172e1b9f894e5da630b401370c261145ff780f99600a2",
+        "artifacts/u_10o0o/advanced-table-rag-speed-20261111/v1/quality-C.json": "38d233f63631a7dc46e76eb2b5bedcea60ffd601eb7a5c7bcb13b377702c23e6"
+      },
+      "protocol_sha256": "23e05ef8d9c3853f4f408b97f5daa08544b53b4940a5774eb89efb51010343f2",
+      "quality_only": true,
+      "timings_inherited": false
+    },
+    "ordered_ids": [
+      "official_development:AS-DEV29",
+      "scenarios:AS-S02-15",
+      "scenarios:AS-S02-18",
+      "official_additional:AS-ADD02",
+      "negative_control:AS-S08-17",
+      "semantic_queries:AS-SEM-14",
+      "negative_control:AS-S08-11",
+      "scenarios:AS-S06-16",
+      "semantic_queries:AS-SEM-25",
+      "scenarios:AS-S01-11",
+      "work_rules:AS-WR-07",
+      "scenarios:AS-S03-12",
+      "semantic_queries:AS-SEM-08",
+      "scenarios:AS-S02-05",
+      "semantic_queries:AS-SEM-15",
+      "scenarios:AS-S02-09",
+      "official_development:AS-DEV28",
+      "scenarios:AS-S05-16",
+      "scenarios:AS-S06-15",
+      "official_development:AS-DEV19",
+      "scenarios:AS-S03-01",
+      "scenarios:AS-S06-19",
+      "scenarios:AS-S05-18",
+      "negative_control:AS-S08-14",
+      "scenarios:AS-S07-15",
+      "scenarios:AS-S05-07",
+      "scenarios:AS-S04-20",
+      "negative_control:AS-S08-08",
+      "scenarios:AS-S01-17",
+      "official_development:AS-DEV12",
+      "semantic_queries:AS-SEM-06",
+      "semantic_queries:AS-SEM-12",
+      "scenarios:AS-S01-18",
+      "work_rules:AS-WR-12",
+      "official_development:AS-DEV16",
+      "scenarios:AS-S07-18",
+      "official_development:AS-DEV07",
+      "official_additional:AS-ADD10",
+      "work_rules:AS-WR-14",
+      "scenarios:AS-S03-11",
+      "scenarios:AS-S07-02",
+      "scenarios:AS-S04-12",
+      "scenarios:AS-S01-02",
+      "scenarios:AS-S05-14",
+      "semantic_queries:AS-SEM-30",
+      "work_rules:AS-WR-18",
+      "scenarios:AS-S05-01",
+      "work_rules:AS-WR-09",
+      "official_development:AS-DEV25",
+      "work_rules:AS-WR-03",
+      "scenarios:AS-S01-09",
+      "semantic_queries:AS-SEM-31",
+      "scenarios:AS-S01-07",
+      "work_rules:AS-WR-08",
+      "negative_control:AS-S08-18",
+      "work_rules:AS-WR-15",
+      "semantic_queries:AS-SEM-27",
+      "official_development:AS-DEV10",
+      "scenarios:AS-S07-05",
+      "scenarios:AS-S02-06",
+      "negative_control:AS-S08-12",
+      "official_additional:AS-ADD21",
+      "scenarios:AS-S01-12",
+      "semantic_queries:AS-SEM-21",
+      "scenarios:AS-S07-11",
+      "scenarios:AS-S04-14",
+      "official_development:AS-DEV15",
+      "scenarios:AS-S04-09",
+      "official_additional:AS-ADD29",
+      "official_additional:AS-ADD14",
+      "scenarios:AS-S02-20",
+      "official_development:AS-DEV21",
+      "scenarios:AS-S05-09",
+      "scenarios:AS-S07-14",
+      "scenarios:AS-S07-10",
+      "official_additional:AS-ADD19",
+      "scenarios:AS-S06-02",
+      "scenarios:AS-S05-05",
+      "scenarios:AS-S02-13",
+      "work_rules:AS-WR-06",
+      "scenarios:AS-S06-12",
+      "scenarios:AS-S03-08",
+      "scenarios:AS-S03-14",
+      "work_rules:AS-WR-17",
+      "official_additional:AS-ADD09",
+      "scenarios:AS-S04-10",
+      "scenarios:AS-S05-15",
+      "semantic_queries:AS-SEM-40",
+      "semantic_queries:AS-SEM-37",
+      "semantic_queries:AS-SEM-17",
+      "official_development:AS-DEV20",
+      "official_development:AS-DEV23",
+      "scenarios:AS-S07-06",
+      "scenarios:AS-S03-06",
+      "scenarios:AS-S06-14",
+      "scenarios:AS-S07-16",
+      "semantic_queries:AS-SEM-13",
+      "official_additional:AS-ADD13",
+      "scenarios:AS-S05-11",
+      "scenarios:AS-S07-20",
+      "official_additional:AS-ADD05",
+      "work_rules:AS-WR-10",
+      "official_additional:AS-ADD23",
+      "official_additional:AS-ADD08",
+      "official_additional:AS-ADD30",
+      "scenarios:AS-S07-13",
+      "scenarios:AS-S02-08",
+      "official_additional:AS-ADD25",
+      "scenarios:AS-S06-13",
+      "work_rules:AS-WR-13",
+      "work_rules:AS-WR-05",
+      "semantic_queries:AS-SEM-07",
+      "scenarios:AS-S03-05",
+      "semantic_queries:AS-SEM-28",
+      "scenarios:AS-S05-06",
+      "negative_control:AS-S08-01",
+      "scenarios:AS-S05-17",
+      "scenarios:AS-S04-06",
+      "scenarios:AS-S07-04",
+      "scenarios:AS-S04-07",
+      "scenarios:AS-S05-19",
+      "official_development:AS-DEV06",
+      "work_rules:AS-WR-01",
+      "negative_control:AS-S08-02",
+      "scenarios:AS-S01-03",
+      "scenarios:AS-S04-04",
+      "negative_control:AS-S08-06",
+      "semantic_queries:AS-SEM-35",
+      "official_development:AS-DEV02",
+      "work_rules:AS-WR-02",
+      "scenarios:AS-S02-07",
+      "semantic_queries:AS-SEM-04",
+      "official_additional:AS-ADD03",
+      "scenarios:AS-S01-16",
+      "official_additional:AS-ADD07",
+      "scenarios:AS-S03-17",
+      "scenarios:AS-S07-09",
+      "scenarios:AS-S06-10",
+      "official_additional:AS-ADD12",
+      "scenarios:AS-S02-14",
+      "official_additional:AS-ADD11",
+      "semantic_queries:AS-SEM-18",
+      "scenarios:AS-S07-12",
+      "scenarios:AS-S01-04",
+      "scenarios:AS-S06-20",
+      "scenarios:AS-S06-11",
+      "scenarios:AS-S07-17",
+      "official_development:AS-DEV05",
+      "work_rules:AS-WR-20",
+      "official_development:AS-DEV03",
+      "scenarios:AS-S02-17",
+      "official_additional:AS-ADD22",
+      "scenarios:AS-S04-17",
+      "official_development:AS-DEV18",
+      "official_development:AS-DEV14",
+      "scenarios:AS-S03-09",
+      "scenarios:AS-S06-04",
+      "scenarios:AS-S01-05",
+      "official_additional:AS-ADD17",
+      "semantic_queries:AS-SEM-38",
+      "negative_control:AS-S08-15",
+      "official_development:AS-DEV26",
+      "negative_control:AS-S08-19",
+      "scenarios:AS-S06-01",
+      "negative_control:AS-S08-05",
+      "official_additional:AS-ADD18",
+      "scenarios:AS-S03-10",
+      "negative_control:AS-S08-20",
+      "semantic_queries:AS-SEM-36",
+      "semantic_queries:AS-SEM-23",
+      "scenarios:AS-S03-18",
+      "scenarios:AS-S01-06",
+      "official_additional:AS-ADD20",
+      "semantic_queries:AS-SEM-01",
+      "semantic_queries:AS-SEM-19",
+      "scenarios:AS-S03-13",
+      "scenarios:AS-S03-15",
+      "official_additional:AS-ADD27",
+      "official_additional:AS-ADD15",
+      "scenarios:AS-S03-07",
+      "scenarios:AS-S01-08",
+      "work_rules:AS-WR-11",
+      "official_additional:AS-ADD26",
+      "scenarios:AS-S06-07",
+      "scenarios:AS-S02-19",
+      "scenarios:AS-S06-05",
+      "scenarios:AS-S05-08",
+      "scenarios:AS-S01-19",
+      "semantic_queries:AS-SEM-39",
+      "negative_control:AS-S08-13",
+      "scenarios:AS-S04-13",
+      "scenarios:AS-S07-03",
+      "scenarios:AS-S03-16",
+      "semantic_queries:AS-SEM-24",
+      "official_development:AS-DEV08",
+      "scenarios:AS-S02-10",
+      "scenarios:AS-S01-13",
+      "scenarios:AS-S01-14",
+      "official_development:AS-DEV04",
+      "scenarios:AS-S03-19",
+      "official_development:AS-DEV01",
+      "scenarios:AS-S07-01",
+      "scenarios:AS-S04-02",
+      "semantic_queries:AS-SEM-32",
+      "official_development:AS-DEV11",
+      "negative_control:AS-S08-03",
+      "scenarios:AS-S04-05",
+      "negative_control:AS-S08-04",
+      "scenarios:AS-S05-03",
+      "scenarios:AS-S07-08",
+      "official_development:AS-DEV30",
+      "scenarios:AS-S01-01",
+      "scenarios:AS-S05-13",
+      "scenarios:AS-S06-18",
+      "scenarios:AS-S03-20",
+      "official_development:AS-DEV09",
+      "scenarios:AS-S06-03",
+      "official_development:AS-DEV17",
+      "work_rules:AS-WR-19",
+      "scenarios:AS-S03-04",
+      "semantic_queries:AS-SEM-34",
+      "scenarios:AS-S04-08",
+      "official_development:AS-DEV13",
+      "scenarios:AS-S04-11",
+      "official_development:AS-DEV22",
+      "scenarios:AS-S07-07",
+      "work_rules:AS-WR-04",
+      "scenarios:AS-S07-19",
+      "official_additional:AS-ADD28",
+      "semantic_queries:AS-SEM-02",
+      "scenarios:AS-S04-18",
+      "negative_control:AS-S08-10",
+      "scenarios:AS-S03-03",
+      "scenarios:AS-S02-11",
+      "scenarios:AS-S02-04",
+      "semantic_queries:AS-SEM-16",
+      "semantic_queries:AS-SEM-29",
+      "work_rules:AS-WR-16",
+      "semantic_queries:AS-SEM-09",
+      "semantic_queries:AS-SEM-33",
+      "semantic_queries:AS-SEM-10",
+      "semantic_queries:AS-SEM-03",
+      "scenarios:AS-S06-17",
+      "scenarios:AS-S02-02",
+      "semantic_queries:AS-SEM-22",
+      "official_additional:AS-ADD16",
+      "semantic_queries:AS-SEM-11",
+      "scenarios:AS-S05-02",
+      "scenarios:AS-S01-20",
+      "scenarios:AS-S05-10",
+      "scenarios:AS-S04-19",
+      "scenarios:AS-S05-04",
+      "scenarios:AS-S04-01",
+      "scenarios:AS-S02-01",
+      "official_development:AS-DEV24",
+      "scenarios:AS-S04-16",
+      "semantic_queries:AS-SEM-05",
+      "scenarios:AS-S06-06",
+      "negative_control:AS-S08-16",
+      "scenarios:AS-S05-20",
+      "official_additional:AS-ADD06",
+      "official_development:AS-DEV27",
+      "negative_control:AS-S08-09",
+      "scenarios:AS-S01-15",
+      "semantic_queries:AS-SEM-26",
+      "scenarios:AS-S02-16",
+      "scenarios:AS-S05-12",
+      "official_additional:AS-ADD01",
+      "scenarios:AS-S06-09",
+      "scenarios:AS-S04-03",
+      "scenarios:AS-S02-12",
+      "scenarios:AS-S06-08",
+      "scenarios:AS-S01-10",
+      "scenarios:AS-S02-03",
+      "official_additional:AS-ADD04",
+      "negative_control:AS-S08-07",
+      "scenarios:AS-S03-02",
+      "scenarios:AS-S04-15",
+      "semantic_queries:AS-SEM-20",
+      "official_additional:AS-ADD24"
+    ],
+    "quality_workers": 4,
+    "query_device": "cpu",
+    "query_dtype": "bfloat16",
+    "questions": 280,
+    "references_read": false,
+    "reranker_device": "cuda",
+    "reranker_dtype": "float32",
+    "runtime_files": [
+      {
+        "path": "app/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "app/evaluation/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "app/evaluation/dataset.py",
+        "sha256": "40badadc10b3888aae459addce2d67555a2597c779ef96b7643d35fbc1126778"
+      },
+      {
+        "path": "app/evaluation/metrics.py",
+        "sha256": "bab74bc09b4e61d95230e61b654d4ba4eaabfb64e35faa1270c8737f9c8c02b0"
+      },
+      {
+        "path": "app/generation/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "app/generation/context.py",
+        "sha256": "28fc992c1246e27eb675ec7050ff05b6de4d11dbc4801c1baed0b1ace23748aa"
+      },
+      {
+        "path": "app/ingestion/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "app/ingestion/chunker.py",
+        "sha256": "ffee817fa7b5ff305b5a5ec4bc03708bbc5ee629b55b98357b72f235a5040995"
+      },
+      {
+        "path": "app/ingestion/common_rules.py",
+        "sha256": "aeb5aef94608f3cad19fa4806f0711b9c4dff7bce8c42b71698586d6008171f1"
+      },
+      {
+        "path": "app/ingestion/curated_schema.py",
+        "sha256": "2a49e91e901405a2741d5d9f59b66a742e2e05a719e74f4a76d800c72823dd91"
+      },
+      {
+        "path": "app/ingestion/curation.py",
+        "sha256": "57d69571045e1f51ad94a29d5d522cc1edecbd723b75abd2890841198699dda4"
+      },
+      {
+        "path": "app/ingestion/knowledge.py",
+        "sha256": "783b66de73e5419c6ad4028a28e9a833cd0b037b8cb049d787adcc54e0016904"
+      },
+      {
+        "path": "app/ingestion/knowledge_schema.py",
+        "sha256": "a071e8f169c762b1681191dbcd942aa4eacb812e0f9c922ce301685746e8fd5c"
+      },
+      {
+        "path": "app/ingestion/layout.py",
+        "sha256": "2d9a9af01a9982e7c958dc1e49767bbdd69cf50a3d808d5c28ded2b48e5aff7c"
+      },
+      {
+        "path": "app/ingestion/loader.py",
+        "sha256": "d073c1bc6dd72517175df1b8dc7dec77f3f120bfad46093b27be3ea18a22c8a3"
+      },
+      {
+        "path": "experimental/u_10o0o/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_case_lookup.py",
+        "sha256": "49f474c21b00ac24f4fbaa575df33d6c958a4f0b6ab9b3ce996e937097d2b17a"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_case_sources.py",
+        "sha256": "59b54af436e2a84a7b4b5788c7628cc836914dd3e13bee1c9bc7491714e404eb"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_clarify_lookup.py",
+        "sha256": "1a44997e4f7d4f07b1aed9d4dc14da94544e75e78325288e55fff808f43b9641"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_clause_binding.py",
+        "sha256": "55e416500a2b3fdabf59ee21de15195fd3d5fa90946eee9ff231b1eacbe6ca6e"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_experiment_eval.py",
+        "sha256": "32373b7f95f0f49bda864eafb10353dbc1223146f5aecbe689e234fb37ffcab1"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_fast_bm25.py",
+        "sha256": "6af87be3a769543cc8785251e2481eb36e091aa17b4534d8c1dbd78d7314e2a8"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_field_roles.py",
+        "sha256": "a324ad508102659ea31cbe55d27c0dd6c0e82b9f7928e0fb1e172d2ee61804cf"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_format_extension.py",
+        "sha256": "aed343381b87e8ca41c45a1b8acc84bd57de06c457116b0d507fd3a4cc3af3a5"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_full_metrics.py",
+        "sha256": "6d43e8321663af7e26acf725a24dd621e8380131eb6a8531126bb41f60210ac8"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_hg_lookup.py",
+        "sha256": "759daeb89f0b2c9ec5d108746febf426a9d1c7b8a490aa504e3975de541c0067"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_is_lookup_ab.py",
+        "sha256": "cb5d4bbf2fc2e1b20cf82900bb7b9f3e12cb18203e5fcb734a2b6c2e51fed8e2"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_is_record_lookup.py",
+        "sha256": "edf2b41b61b1fe3659090615962dacdd7d20ee52d6efa987d4ea7025099c0f11"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_luna_interpreter.py",
+        "sha256": "05735602bc8a5d19b32b146601c91dc16598ef25dabcf2ab4eade1f4685b1d1b"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_pair_context.py",
+        "sha256": "27a753106606dcd36664d9ea53c011303b9ab5790028ad6eabe08267c652812e"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_pair_source_lookup.py",
+        "sha256": "767beadd12111d0b34e387ea350ebdd7e7fd625572a528da9c51cbc1ec9cedf4"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_pattern_full.py",
+        "sha256": "a9d50f2763b1d6a767bdbb0e1908b643adf22e8fb2f3ef9650c5770991d02ddf"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_patterns.py",
+        "sha256": "d5f68cfda94da046077f6e95ef61512672d614ae4d6878649ef708aca71fd662"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_question_router.py",
+        "sha256": "457d7e82be6aea97c5733d534df8bad1bb6771c8b54339bbfe990436476ad415"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_role_context.py",
+        "sha256": "59bd4057032cc469b118da4b02e449949357642d20f8efd92efc56de18bea5dc"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_routing_rules.py",
+        "sha256": "bb89798f32d127149a17c99685588ae7a1d2736486b3f2de1e4e98ba80362c3c"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_schema_query.py",
+        "sha256": "fc91b466c3e0d5fe518ec5ec94968270e47152dd1bfc1dfa8f7c44348a3ab4c7"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_search.py",
+        "sha256": "44623acd460df4bd0a3c25229d8e2089fde9596a7d8dc93af66b03678b3ccd60"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_snapshots.py",
+        "sha256": "4f5d473d2a1b0605e7ac2c9628723cd7968ed612ddbafe73b4711a609612ba1a"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_source_lookup.py",
+        "sha256": "95165a3b1634c72c395e37c035189ea581fe332aada90416cd80fe3cd0b2d3a7"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_structured_curation.py",
+        "sha256": "a7fd12f3323137ec8e65ff2c661cd0ec9c40f8027fbac6c409c6b64fac0dbc02"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_structured_luna.py",
+        "sha256": "860f18c4643c6dfa4ecd3fb87e4b8549da16c322a74de2654dde2845403a0b8f"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_structured_store.py",
+        "sha256": "c2f364bc2f84f83fa5cdcc2d23c90d58785adc2dc41aa697d8075655a4f1ba4d"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_table_views.py",
+        "sha256": "4f217d8bf493dea6d9630f066497bbb035aa6120772199865849f811acb5d3f9"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_target_benchmark.py",
+        "sha256": "4ddffbbeca7f21d69960d981a49462d7dfb46cd5798c56273ce501607bad6ff2"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_target_lookup.py",
+        "sha256": "2470ecdf5cfbdb7765ba97406a42c838ab8df1dda2422c86f9fcf073b7bfb2ff"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_target_metrics.py",
+        "sha256": "643c3faeb8a2df51fdc63ac3874dfad63490c164fae73afca6bb10ea6d6486d9"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_usage_blind.py",
+        "sha256": "36b1baf5cb3c421a7c000463397751f6f2e74c5ca3f306fc5a63f81124ede4c0"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_validity.py",
+        "sha256": "b48f4b78719ab7245d61570ee741057080922ac03baf98a80f687cb4249679bc"
+      },
+      {
+        "path": "experimental/u_10o0o/advanced_workflow_eval.py",
+        "sha256": "f45c9a9f54d3b8b725771cfd4a90ede0f3a2c05708807229d41a1ecd786c3436"
+      },
+      {
+        "path": "experimental/u_10o0o/bm25.py",
+        "sha256": "271d4c0cdda721d91185bccabd15f7e8110ca4a40e07862a5b65699c56085d94"
+      },
+      {
+        "path": "experimental/u_10o0o/context_evidence.py",
+        "sha256": "3bbacbfbee9b196ae82389dc0a79163c1c633ce56674b91547059e1563baf365"
+      },
+      {
+        "path": "experimental/u_10o0o/embedding_ablation/__init__.py",
+        "sha256": "542b2af075758decdb93d1c9e93b14dfdeba53de2163ca2c5324b17ee7b8097e"
+      },
+      {
+        "path": "experimental/u_10o0o/embedding_ablation/__main__.py",
+        "sha256": "9442af520b60ccccd341a3f0ff78141290667677e769c335162f93214352ccc1"
+      },
+      {
+        "path": "experimental/u_10o0o/embedding_ablation/assets.py",
+        "sha256": "919433ec9a82a4b265f99a07f0d44c5c52e14ce6c094e30b342699aa4bd9274a"
+      },
+      {
+        "path": "experimental/u_10o0o/embeding.py",
+        "sha256": "94ffa7f3eb39cb16c71abb0aa331ecf3df9e02ea4a0544ff2dfae287cb3ece92"
+      },
+      {
+        "path": "experimental/u_10o0o/evaluate.py",
+        "sha256": "e31a10cfb537077fb06ad1bcdaa51e43d5a7498fdc5b4266a6b2b47603bdc6eb"
+      },
+      {
+        "path": "experimental/u_10o0o/hybrid.py",
+        "sha256": "b2f3f483ecd3db6c3ce853e12446224f2a05558934a6dc49bc7d0aa967592181"
+      },
+      {
+        "path": "experimental/u_10o0o/pattern_retrieval/__init__.py",
+        "sha256": "9d1057b69f577e114d8ed40701fa09e092f7c56eb7c14ed56ee13eb42734564c"
+      },
+      {
+        "path": "experimental/u_10o0o/pattern_retrieval/common.py",
+        "sha256": "867e658e7c34d43fa50ea770f21331788b6900e7d67116ab61cf69f82b31b81a"
+      },
+      {
+        "path": "experimental/u_10o0o/pattern_retrieval/established_retrieve.py",
+        "sha256": "cdbe3a379dc767ad948a5bf4452d41b7b8719587188150b14b701ad4ea5e37c1"
+      },
+      {
+        "path": "experimental/u_10o0o/pattern_retrieval/established_score.py",
+        "sha256": "a47c70d4fa4e95959f009ac1385d496dda5a6596a924ec4782055e5737cb373d"
+      },
+      {
+        "path": "experimental/u_10o0o/pattern_retrieval/legacy_baseline.py",
+        "sha256": "a64113f4916919d1224b4bdf60e2cfe72166fab6d7ad7a851bd093f5cfb86828"
+      },
+      {
+        "path": "experimental/u_10o0o/prepare.py",
+        "sha256": "04fdc28ef6a5039f75a8c2a88aa422c14799e69e2f37bb66eac288f7161455c4"
+      },
+      {
+        "path": "experimental/u_10o0o/rerank.py",
+        "sha256": "423208e08d018a0abfcf9df096e7b7d2df3abfd4e57e9dfb6c6e34d49a6e0727"
+      },
+      {
+        "path": "experimental/u_10o0o/search.py",
+        "sha256": "4d6546d272444d9b09262b718e1d42393d540eb6d087555a56a88acab7ffe4c5"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/__init__.py",
+        "sha256": "f092d785d2f8f34f8340f77efd573b5029d1b30c7016d74b6592f9a9bf7cb624"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/__main__.py",
+        "sha256": "1457fb5f20501d64d9d5edaf9262b77731350c42ba1b3e3d4b84815b4fedbe05"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/agent.py",
+        "sha256": "8890165f8862fcc1cfa29c47ee48c1c0f5d1353e488d1c1406e77b9c9f3c8ef7"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/benchmark.py",
+        "sha256": "eac1193b1a5d2cae61acac8904ef85d80ecd8c6d960985a1f3afb7576c5092a3"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/evidence.py",
+        "sha256": "4144b46d9b7a970282dae395c4533708e04a068466ec288baabda03c3cdaf80b"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/hg.py",
+        "sha256": "91a4715115f230d6abf48cdab325a978b0f9e805dbea69956df225d974fd8085"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/oracle.py",
+        "sha256": "74b94d543be193881a30fcb0b55680a3a60bf2f2d8996c6db58ec0394d12fdd3"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/report.py",
+        "sha256": "2e26ac4022445dbad0f837d6495e2d337c8af7c7af1a7d7c96841bdaddef4897"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/retrieval.py",
+        "sha256": "eb8f592af0c4757d8fab3d8f7a404d912ea005cd2d25de35fe5dbb5fb6685de8"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/speed.py",
+        "sha256": "38633373a2d157eb9772dc10581d14c6310b81e92c3de436c683d978c6d5f421"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/store.py",
+        "sha256": "525afb18cb17d5fe79be8d5a186071ec994fe8e8fa522b9db315e6e59ec82c2c"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/workflow.py",
+        "sha256": "36365126ad7ed99f1810e75e8ab7435b7095a9f54935e571ccec2f6c4aac62ea"
+      },
+      {
+        "path": "experimental/u_10o0o/table_rag/workflow_experiment.py",
+        "sha256": "ece8633cc82725a2d1abe6f83d0fb385c107f872850a07fe8d5ae5ec0b9d0cd8"
+      },
+      {
+        "path": "shared/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "shared/contracts.py",
+        "sha256": "c6f0211e33ec8dbed16619e414745c5e2e703a994f085edd32a1df9406028938"
+      }
+    ],
+    "searches": 494,
+    "sql_timing_metadata": "Executed values verified; saved seconds used only in evidence packing",
+    "timing_ids": [
+      "official_development:AS-DEV29",
+      "official_development:AS-DEV28",
+      "official_development:AS-DEV19",
+      "official_additional:AS-ADD02",
+      "official_additional:AS-ADD10",
+      "official_additional:AS-ADD21",
+      "scenarios:AS-S02-15",
+      "scenarios:AS-S02-18",
+      "scenarios:AS-S06-16",
+      "semantic_queries:AS-SEM-14",
+      "semantic_queries:AS-SEM-25",
+      "semantic_queries:AS-SEM-08",
+      "work_rules:AS-WR-07",
+      "work_rules:AS-WR-12",
+      "work_rules:AS-WR-14"
+    ],
+    "timing_repeats": 3,
+    "timing_workers": [
+      1,
+      4
+    ],
+    "v5_run_sha256": "8d685e2afc3a5d40b4a6de98ada56d9cc86eba70e1531f2bda84b8449e07611c"
+  },
+  "quality": {
+    "A": {
+      "questions": 280,
+      "request_seconds": {
+        "n": 280,
+        "p50": 6.127336899500733,
+        "p95": 17.327810623648848
+      },
+      "same_A_final": 280,
+      "same_A_search_questions": 280,
+      "same_saved_context": 280,
+      "same_saved_searches": 494,
+      "same_saved_sql": 280,
+      "search_seconds": {
+        "n": 494,
+        "p50": 4.1459246080012235,
+        "p95": 6.571531483501713
+      },
+      "searches": 494,
+      "stage_totals": {
+        "bm25": 1.3332073430538003,
+        "dense": 2.879764745965076,
+        "diagnostic_tokenization": 3.279477632011549,
+        "embedding": 237.83299130003797,
+        "fusion": 0.07737509092476103,
+        "hg_and_sources": 0.7734223180123081,
+        "outer_wait": 1511.5868746500055,
+        "rerank": 309.7258144000152
+      },
+      "stages": {
+        "bm25": {
+          "n": 494,
+          "p50": 0.002683753500605235,
+          "p95": 0.004053678351738199
+        },
+        "dense": {
+          "n": 494,
+          "p50": 0.005664446001901524,
+          "p95": 0.00670890385063103
+        },
+        "diagnostic_tokenization": {
+          "n": 494,
+          "p50": 0.006584596500033513,
+          "p95": 0.008263517449086065
+        },
+        "embedding": {
+          "n": 494,
+          "p50": 0.4579893585014361,
+          "p95": 0.7466444973499163
+        },
+        "fusion": {
+          "n": 494,
+          "p50": 0.000148248500408954,
+          "p95": 0.00022366720077116034
+        },
+        "hg_and_sources": {
+          "n": 494,
+          "p50": 0.0007341985001403373,
+          "p95": 0.004492379400653589
+        },
+        "outer_wait": {
+          "n": 494,
+          "p50": 3.1161969834993215,
+          "p95": 4.956221100499351
+        },
+        "rerank": {
+          "n": 494,
+          "p50": 0.5586983414996212,
+          "p95": 1.1576266827973085
+        }
+      }
+    },
+    "B": {
+      "questions": 280,
+      "request_seconds": {
+        "n": 280,
+        "p50": 3.375214343499465,
+        "p95": 9.220403381000324
+      },
+      "same_A_final": 280,
+      "same_A_search_questions": 280,
+      "same_saved_context": 280,
+      "same_saved_searches": 494,
+      "same_saved_sql": 280,
+      "search_seconds": {
+        "n": 494,
+        "p50": 2.2431978869990417,
+        "p95": 2.7605435059505883
+      },
+      "searches": 494,
+      "stage_totals": {
+        "bm25": 1.6861559600183682,
+        "dense": 3.142074375969969,
+        "diagnostic_tokenization": 3.334861297000316,
+        "embedding": 260.17681686902506,
+        "embedding_wait": 236.90874707897456,
+        "fusion": 0.07745642403824604,
+        "hg_and_sources": 0.6492274519841885,
+        "rerank": 278.73832342202877,
+        "reranker_wait": 324.2359055799352
+      },
+      "stages": {
+        "bm25": {
+          "n": 494,
+          "p50": 0.00328086450099363,
+          "p95": 0.005814563299463767
+        },
+        "dense": {
+          "n": 494,
+          "p50": 0.005981438500384684,
+          "p95": 0.008304840101118312
+        },
+        "diagnostic_tokenization": {
+          "n": 494,
+          "p50": 0.006565678999322699,
+          "p95": 0.008661794298132007
+        },
+        "embedding": {
+          "n": 494,
+          "p50": 0.501138006000474,
+          "p95": 0.8173206970497631
+        },
+        "embedding_wait": {
+          "n": 494,
+          "p50": 0.3505068195008789,
+          "p95": 1.3916423949509404
+        },
+        "fusion": {
+          "n": 494,
+          "p50": 0.0001447080012439983,
+          "p95": 0.0002355931488636995
+        },
+        "hg_and_sources": {
+          "n": 494,
+          "p50": 0.0007396310011245077,
+          "p95": 0.0033628630990278907
+        },
+        "rerank": {
+          "n": 494,
+          "p50": 0.5390884270018432,
+          "p95": 0.6937379781491472
+        },
+        "reranker_wait": {
+          "n": 494,
+          "p50": 0.6505834990002768,
+          "p95": 1.3673238261990264
+        }
+      }
+    },
+    "C": {
+      "questions": 280,
+      "request_seconds": {
+        "n": 280,
+        "p50": 3.3264021994982613,
+        "p95": 8.935261069751688
+      },
+      "same_A_final": 280,
+      "same_A_search_questions": 280,
+      "same_saved_context": 280,
+      "same_saved_searches": 494,
+      "same_saved_sql": 280,
+      "search_seconds": {
+        "n": 494,
+        "p50": 2.1155000040016603,
+        "p95": 4.148027409597307
+      },
+      "searches": 494,
+      "stage_totals": {
+        "bm25": 1.6536897140103974,
+        "dense": 3.059307596027793,
+        "diagnostic_tokenization": 3.654092210919771,
+        "embedding": 260.38433872299356,
+        "embedding_wait": 327.64307384795757,
+        "fusion": 0.08060717600164935,
+        "hg_and_sources": 0.8787057980225654,
+        "rerank": 266.06181484398985,
+        "reranker_wait": 238.20038818894318
+      },
+      "stages": {
+        "bm25": {
+          "n": 494,
+          "p50": 0.003160305499477545,
+          "p95": 0.005677877150628772
+        },
+        "dense": {
+          "n": 494,
+          "p50": 0.006032263499946566,
+          "p95": 0.007257735101302383
+        },
+        "diagnostic_tokenization": {
+          "n": 494,
+          "p50": 0.007066221998684341,
+          "p95": 0.009911305499008446
+        },
+        "embedding": {
+          "n": 494,
+          "p50": 0.5105258385010529,
+          "p95": 0.837029685649395
+        },
+        "embedding_wait": {
+          "n": 494,
+          "p50": 0.6458097295017069,
+          "p95": 1.4864997240476439
+        },
+        "fusion": {
+          "n": 494,
+          "p50": 0.00014986900168878492,
+          "p95": 0.00023054999965097517
+        },
+        "hg_and_sources": {
+          "n": 494,
+          "p50": 0.0008431934984400868,
+          "p95": 0.005873793750106414
+        },
+        "rerank": {
+          "n": 494,
+          "p50": 0.4861893289980799,
+          "p95": 0.9964481332008288
+        },
+        "reranker_wait": {
+          "n": 494,
+          "p50": 0.26503429249896726,
+          "p95": 2.3735008052994067
+        }
+      }
+    }
+  },
+  "reference_labels_read": false,
+  "run_sha256": "fea32f0c196cc3c6dc33bce396ce0c9f6e8d14ddfbac212b3ed300000fdf0f16",
+  "unsupported": {
+    "D": "GPU memory cap 978.07 MiB exceeded by a long padded batch; process exited 1"
+  }
+}

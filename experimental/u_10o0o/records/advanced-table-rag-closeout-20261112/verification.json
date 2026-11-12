@@ -1,0 +1,320 @@
+{
+  "checked_at": "2026-11-12T03:46:00.883078+00:00",
+  "base_commit": "2741989f6217eed6251dee135026207ea4e12eb5",
+  "new_paid_calls": 0,
+  "independent_agent_review": false,
+  "checks": [
+    {
+      "name": "ruff_common",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.026,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/ruff_common.log",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "name": "cli_table_rag",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "experimental.u_10o0o.table_rag",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.019,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/cli_table_rag.log",
+      "log_sha256": "c6c09ac613dd5a114d3bdfcfb20e7ed751ac2ba94fb1a3586d618fb5dffadf92"
+    },
+    {
+      "name": "cli_unified",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "experimental.u_10o0o.table_rag_unified",
+        "query",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 4.471,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/cli_unified.log",
+      "log_sha256": "636b20ea2fb284f1c150ddb9f2898165b08dd5a1f49b33cbfa896fe4450d18fc"
+    },
+    {
+      "name": "cli_workflow",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "experimental.u_10o0o.table_rag_workflow",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 4.411,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/cli_workflow.log",
+      "log_sha256": "e576e30a879661eb783ad5eb82f595ea2cfefc6e9258988dc516e0673cde2839"
+    },
+    {
+      "name": "app.ingestion.scripts.curate",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "app.ingestion.scripts.curate",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.177,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/app.ingestion.scripts.curate.log",
+      "log_sha256": "d7c6aa018065cc1e269bd3bf01af96143fdcde2ab8957da732bd95a7386e324d"
+    },
+    {
+      "name": "app.ingestion.scripts.prepare_knowledge",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "app.ingestion.scripts.prepare_knowledge",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.168,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/app.ingestion.scripts.prepare_knowledge.log",
+      "log_sha256": "2aa143c97788bd3764b5cde9d2418d1712295859a3b43474cb0fff1e3285aa5c"
+    },
+    {
+      "name": "app.indexing.scripts.build_index",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "app.indexing.scripts.build_index",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.595,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/app.indexing.scripts.build_index.log",
+      "log_sha256": "29ca3376db823c80a381cee99c0db4793d8a7035a223a2ec748b4ed2cdef56ca"
+    },
+    {
+      "name": "app.evaluation.scripts.eval_retrieval",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "app.evaluation.scripts.eval_retrieval",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.523,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/app.evaluation.scripts.eval_retrieval.log",
+      "log_sha256": "647101d75df48cc54342647cb38b32a6b312c26a777904111b0e03cb2ccda69d"
+    },
+    {
+      "name": "app.evaluation.scripts.run_benchmark",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "app.evaluation.scripts.run_benchmark",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.111,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/app.evaluation.scripts.run_benchmark.log",
+      "log_sha256": "ab169ec749be8ff841419e0dc98f2ec4bcd2407d69466cd11a94f5b4656ee66c"
+    },
+    {
+      "name": "app.evaluation.scripts.run_security",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "app.evaluation.scripts.run_security",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.109,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/app.evaluation.scripts.run_security.log",
+      "log_sha256": "fdb70fad91d21a7ea1c7fd6b421cf415676ca415da652c17045dc42f61ee513f"
+    },
+    {
+      "name": "sample_benchmark",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "app.evaluation.scripts.run_benchmark",
+        "--sample",
+        "--experiment-id",
+        "sample-table-rag-closeout"
+      ],
+      "exit_code": 0,
+      "seconds": 0.142,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/sample_benchmark-final.log",
+      "log_sha256": "27adb6fdcf4dcaf8269aea3e60e0c3a6f7144a5dd892df9adfc727d18a9d638b"
+    },
+    {
+      "name": "sample_security",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "app.evaluation.scripts.run_security",
+        "--sample",
+        "--experiment-id",
+        "sample-table-rag-closeout-security"
+      ],
+      "exit_code": 0,
+      "seconds": 0.138,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/sample_security-final.log",
+      "log_sha256": "70f06d3a7035b27d10529d7c849bbee3ba970776d65e93b4612de3ee815fc93e"
+    },
+    {
+      "name": "build",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "build",
+        "--no-isolation",
+        "--outdir",
+        "/home/jake/workspace/projects/kant/ADEN-table-rag-closeout/artifacts/u_10o0o/table-rag-closeout-20261112/dist"
+      ],
+      "exit_code": 0,
+      "seconds": 0.774,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/build-final.log",
+      "log_sha256": "fa6175ed58078f26d51e71ad340fd4accf4f896ebda56fb1edf6ac56298d5d9f"
+    }
+  ],
+  "pytest": {
+    "passed": 462,
+    "subtests": 15,
+    "seconds": 11.14,
+    "command": "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python -B -m pytest -q tests experimental/u_10o0o/table_rag experimental/u_10o0o/table_rag_unified experimental/u_10o0o/table_rag_workflow"
+  },
+  "resolved_attempts": [
+    {
+      "name": "sample_benchmark",
+      "command": [
+        "/home/jake/workspace/projects/kant/ADEN/.venv/bin/python",
+        "-B",
+        "-m",
+        "app.evaluation.scripts.run_benchmark",
+        "--sample",
+        "--experiment-id",
+        "table-rag-closeout-sample"
+      ],
+      "exit_code": 1,
+      "seconds": 0.104,
+      "log": "artifacts/u_10o0o/table-rag-closeout-20261112/sample_benchmark.log",
+      "log_sha256": "55c4b12e5d1c5ac6a96df6bed6083186e9f3e802779a819a91195abf7d65dfd7",
+      "resolution": "Sample ID corrected to required sample- prefix; no source change."
+    }
+  ],
+  "wheel_resources_passed": true,
+  "experiment_packages_excluded_from_wheel": true,
+  "experiment_lint": {
+    "command": "ruff check --isolated --select E4,E7,E9,F experimental/u_10o0o/table_rag experimental/u_10o0o/table_rag_unified experimental/u_10o0o/table_rag_workflow experimental/u_10o0o/records/advanced-table-rag*",
+    "passed": true
+  },
+  "documentation_links": {
+    "checked": true,
+    "missing": 0
+  },
+  "publication_data": {
+    "json_files_checked": 194,
+    "private_question_quote_fields": 0,
+    "raw_metric_files_unchanged": true,
+    "one_flow_export_redacted": true
+  },
+  "self_review": {
+    "independent_review": false,
+    "reason": "Side conversation prohibits subagents",
+    "focus": [
+      "Saved results and source provenance",
+      "Read-only DB/tool boundaries and original lifecycle retained",
+      "Archived run identities and final selection not conflated",
+      "Public data and dependency/package boundaries"
+    ]
+  },
+  "changed_after_snapshot": [
+    {
+      "path": "experimental/u_10o0o/evaluation-policy.md",
+      "source_sha256": "0843b863b9b8516a5a39c7df962d1a8197f24bcee5db840c60aea7a79b1bdd48",
+      "published_sha256": "860a593b33a7b3c7694db8a8d451340ab5725d7f106c2e2d6be0dd857013dec1"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-bounded-workflow-20261112/difference-flows.json",
+      "source_sha256": "ec8a008353592ac999f0b69ab34547ef7221a1a5f94e55807b4384d2a42c74a0",
+      "published_sha256": "054f4137daafcc4417f34f0b79125149928bf848c351784066ae51b7131b7d9a"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-bounded-workflow-20261112/render_report.py",
+      "source_sha256": "389eb84aaac763c74c248ac6172d758a654c3cff50f989c526a8808455112e86",
+      "published_sha256": "5a252cb42bdc1b48dd0e838e7ace6e722fab546378b6587a8f62d55b66f8983e"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-bounded-workflow-20261112/report.md",
+      "source_sha256": "dd877c00b7806234b17fe74b99881d731913932cc7e69f61acfeddd809e6f0af",
+      "published_sha256": "c5a5293dcfd5b7b003ca45bd594c9b0da07bd461de727586c998e9267bc94828"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-official-category-20261111/score.py",
+      "source_sha256": "f299c69c38ea3d50ff7443bbdbb85a200c45f8b9ac6718d22196fbc5c717ab1d",
+      "published_sha256": "76d7c75bcd5c68bc6d9ffb9683a21d15cc26242e54a281f7e624f85bf003820b"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-preservation-20261111/baseline.md",
+      "source_sha256": "e2aa1b16d1ad79d8698c66bf8e0fbcf31d27c73468fd3bce1aa368beacf992b9",
+      "published_sha256": "c31b022968fa3cc37613acf57b427a293b91c20a33a5f74b5dac7c752d72ef55"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-request-evidence-20261112/render_report.py",
+      "source_sha256": "981ca018aaa5aa0fac8e03ae30584485b1517632bd4d05db0cd0dec591f0e607",
+      "published_sha256": "1bd6209be6bbab1930caed9f7a4611b27bbc83df7781362822b8e0a1aa924ba9"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-request-evidence-20261112/report.md",
+      "source_sha256": "98b3f8214071b21f3807b6741d2b49643ecca37c2eade6c36f7bac8681b506f2",
+      "published_sha256": "5cd577ca648efe957610d81c195db105ca69fca58cd01ba7ff3d9b40fb77eb33"
+    },
+    {
+      "path": "experimental/u_10o0o/records/advanced-table-rag-request-evidence-20261112/score.py",
+      "source_sha256": "7f2ba1ca1121a33c43bc7cccfe09fe7d3c1dfce8b0a3805f9cf3b01d8dfb20e2",
+      "published_sha256": "6faada72872abfd5b9281276ebfda266f6ecf134dbf39903ae4a6b5823a0cb4a"
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag/README.md",
+      "source_sha256": "36d8587aa1f24fc9298f64bdf1275173a1758e1b27af6ba24d9973d4bfba7ac9",
+      "published_sha256": "a24d04205b524402181f19024ace6d829b3a2bb2491b4893f5a35867c6c34f74"
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag_unified/README.md",
+      "source_sha256": "2ab55ad9f360a9d59da2876b6b0a6c30b228bb192266bf800df6df07a988d7fe",
+      "published_sha256": "c818783cb0982aaaf416595b1e22d276387d03234f3d0c15f038b2e6229d9d40"
+    },
+    {
+      "path": "experimental/u_10o0o/table_rag_workflow/README.md",
+      "source_sha256": "bd2968fb4f07cee66a5df435d974576e8eaf58c1c220bda34dc8be8accf2d8fe",
+      "published_sha256": "0bdf367063d853fcc90079514ddb3dceca5976f59e5e8f6b75a9be4d10d26e01"
+    },
+    {
+      "path": "experimental/u_10o0o/README.md",
+      "source_sha256": "22ed6c9142bbbe028adf42a8188af1c319e04a515dbae2d5b80a14b66a9b04cf",
+      "published_sha256": "4a4f9a557688dab45d7c35622bfb86d4437324c96e0d733c3b288968c6c9ee52"
+    },
+    {
+      "path": "experimental/u_10o0o/records/README.md",
+      "source_sha256": "1818ce46b3a27b17492ed075504e878ef86c7c795a5455be8d5a54ab31915438",
+      "published_sha256": "d4786606c7c12ba7eb0d176ce36bf8e4e53ce80b0be2a786f59e29f788d7d520"
+    }
+  ]
+}

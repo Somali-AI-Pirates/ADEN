@@ -1,0 +1,62 @@
+[
+  {
+    "arm": "A",
+    "change": "잘못된 출처를 가리킨 인용은 제거하고 실제 반환된 SI 정정 연락처 표 행을 유지했다.",
+    "id": "official_additional:AS-ADD06"
+  },
+  {
+    "arm": "B",
+    "change": "열이 섞인 SI 정정 연락처를 실제 원문 행에서 확인했다. 이어 붙인 주소를 새 인용으로 만들지 않았다.",
+    "id": "official_additional:AS-ADD06"
+  },
+  {
+    "arm": "A",
+    "change": "질문 밖 상세 정정 절차를 필수 요구로 확대한 판정을 바로잡았다.",
+    "id": "official_additional:AS-ADD10"
+  },
+  {
+    "arm": "A",
+    "change": "문장 끝을 바꾸어 인용한 부분을 실제 반환 원문으로 교체했다.",
+    "id": "official_development:AS-DEV08"
+  },
+  {
+    "arm": "B",
+    "change": "짧은 표 셀 인용에 실제 열 머리말과 앞 행을 포함해 방향과 적용 범위를 보존했다.",
+    "id": "official_development:AS-DEV26"
+  },
+  {
+    "arm": "B",
+    "change": "다른 쪽 문구처럼 인용한 부분을 반환 원문의 승인 규칙과 수신만 확인된 기록으로 교체했다.",
+    "id": "semantic_queries:AS-SEM-26"
+  },
+  {
+    "arm": "A",
+    "change": "새 접수 화면 사용 여부를 묻는 질문에 대응하는 기존 기록 제외 규칙을 인정했다.",
+    "id": "semantic_queries:AS-SEM-24"
+  },
+  {
+    "arm": "A",
+    "change": "기존에 확인한 날짜 산입 범위 모호성을 재확인하고 성공으로 세지 않았다.",
+    "id": "semantic_queries:AS-SEM-32"
+  },
+  {
+    "arm": "B",
+    "change": "새 접수 화면 사용 여부를 묻는 질문에 대응하는 기존 기록 제외 규칙을 인정했다.",
+    "id": "semantic_queries:AS-SEM-24"
+  },
+  {
+    "arm": "B",
+    "change": "기존에 확인한 날짜 산입 범위 모호성을 재확인하고 성공으로 세지 않았다.",
+    "id": "semantic_queries:AS-SEM-32"
+  },
+  {
+    "arm": "A",
+    "change": "장비·일수 승인 한정 규칙과 금액 감액의 별도 계산을 함께 인정했다.",
+    "id": "semantic_queries:AS-SEM-36"
+  },
+  {
+    "arm": "B",
+    "change": "반환된 원문에 명시된 미발행 초안과 발행 통지의 관계를 인정했다. 특정 사건의 금액은 전용하지 않았다.",
+    "id": "semantic_queries:AS-SEM-37"
+  }
+]

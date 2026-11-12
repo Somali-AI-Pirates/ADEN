@@ -1,0 +1,450 @@
+[
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD13",
+    "input_and_source_hash": "a6e375a88886b2cbb1043e9da28d8a66ba6e5c9498a7c48e30257d290675d93d",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD13"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD23",
+    "input_and_source_hash": "8b3eb25e0a1158445929ade086ad707cb9ecb0fa52282f864292fd119f13825d",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD23"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD15",
+    "input_and_source_hash": "7b216f6167e505b291db76868a377ea6c0baea4285cd014c975a53548f293b98",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD15"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV28",
+    "input_and_source_hash": "54dd7e0e6b3983ead0327345150f7cf23284d95fff2724ef4842dc4d7be2709e",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV28"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV23",
+    "input_and_source_hash": "7e434969481fee75f95b7f96667c371bbc0a085e34c8898661ae998039811d3e",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV23"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV05",
+    "input_and_source_hash": "5700baf6cf65ac638f2400132220298a1f1ca01a393c62b09ca44bd710bd34e2",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV05"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV15",
+    "input_and_source_hash": "9fce2d41f7476c63dd6562add71276a685dba500714e35cefc46ac888f32cc71",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV15"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV10",
+    "input_and_source_hash": "4e42f219da30d4b7b19aa125ce02b20e6d0a1d8f43bd0b0c47cd9f1c2c23a7bd",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV10"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-db-first-20261112/v1",
+    "id": "official_development:AS-DEV24",
+    "input_and_source_hash": "f7e07fcdf584c0595d0d62e2ad4ea4e31e0cf0f9203c6c9a536f233b01c1dbd7",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV24"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD08",
+    "input_and_source_hash": "6eacdc929ff8de73f5d0e32f2b81bb42aa8174ca35455d463154101873b70887",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD08"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV21",
+    "input_and_source_hash": "4f09ea222b82107db2a9adeac80033002f12b00c4e9234e0dfd79a020cb88457",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV21"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV18",
+    "input_and_source_hash": "67aaae4922804114c143b1301755f5bbf159b1519f07462dbb0f54dcd263eb2b",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV18"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD25",
+    "input_and_source_hash": "a6878f40e8b017ad4fea0a7b16a719bdba1db65de73924eaa20a5ca167344ce1",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD25"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD28",
+    "input_and_source_hash": "5a2810f2e5dab5e6975f91eec94787164c71b391dd60f62c44e3c611f3ba0e34",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD28"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD17",
+    "input_and_source_hash": "7d04574cd1412810f3612fb509acf8f9bff7e8227b828a1afa647c34341f04ca",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD17"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-unified-20261112/v3",
+    "id": "semantic_queries:AS-SEM-21",
+    "input_and_source_hash": "3936d5b82175c13c740ab745d549deb6e20915c2131e6cd4555c4c1bf65ef792",
+    "source_arm": "B",
+    "source_id": "semantic_queries:AS-SEM-21"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD14",
+    "input_and_source_hash": "f491b0a85e3367a7fb7b36009f5dabc5fcf8abcf0667dc62b08ce189a989038c",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD14"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV29",
+    "input_and_source_hash": "22b2993e4f32cdebadf10d5b31f752f5ddc0228c5d0c64c473e6dd6fdf24bc01",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV29"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV30",
+    "input_and_source_hash": "3451e478add9d5a8b0fc0f938be4a592418c5c8ace7ed8fb0284f40ba4e86040",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV30"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV04",
+    "input_and_source_hash": "30ec9f8daa374d0d8b31e9c898e498de08c3cea2f4ce02929428de507f916d0b",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV04"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV14",
+    "input_and_source_hash": "5c8b215904a34130fe80d4f712666b8aac7a9b473799d955855e2fd995d07d20",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV14"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV25",
+    "input_and_source_hash": "7a4f39b2ca77efe9eba6cbb18d334ed29c6b38d9b6a180e5a0997cae8d73459d",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV25"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-db-first-20261112/v1",
+    "id": "scenarios:AS-S06-20",
+    "input_and_source_hash": "dc2c66722d38091ff4b8ec109c045d2a74c7d2c6eb80b7607a0ce6af932eab63",
+    "source_arm": "B",
+    "source_id": "scenarios:AS-S06-20"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV16",
+    "input_and_source_hash": "44e0360817df39894c9d109f33ff9813a329c09fe627cf77ac581f4865941a96",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV16"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-unified-20261112/v3",
+    "id": "semantic_queries:AS-SEM-13",
+    "input_and_source_hash": "d210a32dba777e6e271e1c30379161807fbb1b18a23d4328c374554884fbc414",
+    "source_arm": "B",
+    "source_id": "semantic_queries:AS-SEM-13"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD07",
+    "input_and_source_hash": "64921bd92aa85c66f07de50ae91196227ed554138c2461b7196df9179ca18fe2",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD07"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD21",
+    "input_and_source_hash": "e555e4bb7fc3fbfbc9524c3b745a7463f4562fef967fb259f2bace453929b02a",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD21"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD03",
+    "input_and_source_hash": "17b1976cd6a6a550f2d5ac101f0677655e20c5a261f5cbea43d5b49b49f81234",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD03"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV26",
+    "input_and_source_hash": "22b77b39e54ceb406f3a47a56c7fceacf6c2e9655c1b64e6e4ea4f80a0872951",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV26"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD24",
+    "input_and_source_hash": "bc9e01fac8bb5394a864915b12cd6062fab73620c5970eca4cd16126252c8187",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD24"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD19",
+    "input_and_source_hash": "e507647e5ff8eaadddf9db837910fb0ab20459f1d1c1ca64bcd4860de6cecb0d",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD19"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV27",
+    "input_and_source_hash": "699d3b86537636001e21f5b1f8ba491cce603f19fdc99a7735de7696757d2a08",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV27"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-db-first-20261112/v1",
+    "id": "semantic_queries:AS-SEM-34",
+    "input_and_source_hash": "dff379ad9025a10fd6c33c6b265396230687cf3c544efdfe8c8cfff8ccb4a2ae",
+    "source_arm": "B",
+    "source_id": "semantic_queries:AS-SEM-34"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD30",
+    "input_and_source_hash": "3d98687dad45265281c47a0607be5bc5a94553d08cb33f72603f8636fe99431a",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD30"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV11",
+    "input_and_source_hash": "3a887c7d89cca106677e2e90baffd40dd5be27b254cd89937f55483638064f66",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV11"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD16",
+    "input_and_source_hash": "a954e9468b33e9011151823a1aa673ec42786bc3ce932d172ed8ffe3adfdfa56",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD16"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV01",
+    "input_and_source_hash": "8053f6f187e48837784f50c984d92652ff83cc7527b5e5b5d95ef4a1a1cbde14",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV01"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV03",
+    "input_and_source_hash": "6a555f55b6a8760ab4af3adb278f3d16a726e993382ab172293c96eea1a446f1",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV03"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-db-first-20261112/v1",
+    "id": "official_development:AS-DEV09",
+    "input_and_source_hash": "516022eafcc96f0586f18f801400a04716daba25181c4377f6af4f996b10988b",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV09"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD18",
+    "input_and_source_hash": "9ee60fe6e14f69cb399d949079a433f85efd953d4fac8677c7f8e62d4fee983e",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD18"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD11",
+    "input_and_source_hash": "829b52079ff5e761f299be2cd1dbc17b0238900ac4ed2a2eee705f8528de6f65",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD11"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV20",
+    "input_and_source_hash": "2cb0426875662d38ff8822b758e4e8dbee604f970b1a92e32e484d006c5e1aaf",
+    "source_arm": "B",
+    "source_id": "official_development:AS-DEV20"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV22",
+    "input_and_source_hash": "94c003daed20b26b57ab276df5bd187173ab002216da1183d17aef24f3dc55f5",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV22"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV19",
+    "input_and_source_hash": "e9389fd0fc8e282297e9e69ab2853af124c05b5265c2a778dde5e101c4fc6e63",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV19"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV17",
+    "input_and_source_hash": "4f60d89ea31597767148797b8f1e720a3680131b7bc5f020351bb4b7eff4b784",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV17"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-unified-20261112/v3",
+    "id": "semantic_queries:AS-SEM-15",
+    "input_and_source_hash": "0fa83d429d07e5fc96b45732f4d988067f165b54226b941b89edbb641e52ae6a",
+    "source_arm": "B",
+    "source_id": "semantic_queries:AS-SEM-15"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD22",
+    "input_and_source_hash": "75d40d422bfda4595bd36ef7c650dd1655ccc29fc1f7d67cbaa54fa0ade4a649",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD22"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-unified-20261112/v3",
+    "id": "semantic_queries:AS-SEM-38",
+    "input_and_source_hash": "1c7ecf105787db98b2052095563c3248edafc782f97b6afef92daca9e4fc5a3b",
+    "source_arm": "B",
+    "source_id": "semantic_queries:AS-SEM-38"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD26",
+    "input_and_source_hash": "0e3c02b72220cffde6b95c3ceaf0e3359341dab6c7c9dcf5f61ab5ebee4bec62",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD26"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD27",
+    "input_and_source_hash": "4476f5eb67350fe32eb65622bf3209040d4abb3e088ed17e9328f2df3b0f4d40",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD27"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD20",
+    "input_and_source_hash": "2fe65d794b68d606ef64fcde4efc04c3eb66da7e643a499fe6f60a03ee397059",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD20"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV07",
+    "input_and_source_hash": "b9ddb686e1efc303c46baa30f4e3a9d8dba09484c8377544c1f8857d1aac9d64",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV07"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_development:AS-DEV06",
+    "input_and_source_hash": "ee176bace2c4433cb49ba854c15de6e6cc0dacf0fc196bfda3ffdffca583f043",
+    "source_arm": "A",
+    "source_id": "official_development:AS-DEV06"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD29",
+    "input_and_source_hash": "e32046d9025e48a82384e728478affc5c1a210ad7696627e873ee46af166ab61",
+    "source_arm": "B",
+    "source_id": "official_additional:AS-ADD29"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD01",
+    "input_and_source_hash": "bd238d35f2ac36d467fe366553b75a4edda069cadb6f5ac9e3be82af1dfe5533",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD01"
+  },
+  {
+    "arm": "A",
+    "from": "artifacts/u_10o0o/advanced-table-rag-request-evidence-20261112/v1",
+    "id": "official_additional:AS-ADD04",
+    "input_and_source_hash": "4475a6e80e21ace0f8f32eeff87347f7957322e4ab99d9539a8d9eea5aff22c0",
+    "source_arm": "A",
+    "source_id": "official_additional:AS-ADD04"
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "categories": 220,
+  "count": 278,
+  "excluded_official": [
+    "official_additional:AS-ADD12",
+    "official_development:AS-DEV12"
+  ],
+  "exclusion_reason": "Existing established evaluation marks these two questions without reference evidence; preserve established 58-question denominator.",
+  "official": 58,
+  "question_text_changed": false,
+  "questions_sha256": "4b4a10e041b1cf0d5179d4a7885e19cc7516084f797c0ac587b27ab6a0b8240c",
+  "sources": [
+    {
+      "questions": "data/advanced/evaluation/development_questions.json",
+      "questions_sha256": "0d386545dbafbf7059b721520c87f0c5463acff21bed556869e98e80d6b44b7c",
+      "references": "data/advanced/evaluation/development.json",
+      "references_sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39",
+      "suite": "official_development"
+    },
+    {
+      "questions": "data/advanced/evaluation/additional_questions.json",
+      "questions_sha256": "7ada38ca0380e3477770b360a8ee83df6b60753b90ff3fe46328bc7fab9fc63f",
+      "references": "data/advanced/evaluation/additional.json",
+      "references_sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e",
+      "suite": "official_additional"
+    },
+    {
+      "questions": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_questions.json",
+      "questions_sha256": "612cc0422657a1dc4d175165ea850c6635361b6c6f2de867159402a7c928f39b",
+      "references": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_references.json",
+      "references_sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309",
+      "suite": "scenarios"
+    },
+    {
+      "questions": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_questions.json",
+      "questions_sha256": "f490c928dd3298629229b008b1cade8b166966fb01ccc328c2cff843f6760404",
+      "references": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_references.json",
+      "references_sha256": "100ec141d87ab3dba5878af0ecacecd192f1bb5c3092917f57d0cbe63221d466",
+      "suite": "negative_control"
+    },
+    {
+      "questions": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/questions.json",
+      "questions_sha256": "b7b569df66a0912ed1c5c6b8e7544cf7ae1bf802e45df3d2bc7e852b98567935",
+      "references": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/references.json",
+      "references_sha256": "2de9b0da7f1f052c912716d3eb5132653a81e44e8288403a329f49a3772fa280",
+      "suite": "work_rules"
+    },
+    {
+      "questions": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/questions.json",
+      "questions_sha256": "b6347f69fe72b4ead5147aed367f03bf5110286eb52d364df460269421959d82",
+      "references": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "references_sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a",
+      "suite": "semantic_queries"
+    }
+  ]
+}

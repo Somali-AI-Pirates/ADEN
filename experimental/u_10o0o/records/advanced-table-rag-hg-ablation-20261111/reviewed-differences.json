@@ -1,0 +1,110 @@
+[
+  {
+    "category": "official_development",
+    "hg_off": false,
+    "hg_on": true,
+    "id": "official_development:AS-DEV09",
+    "initial_hg_changes_order": false,
+    "reason_off": "정정 메일의 예약 식별정보와 첨부 정정본 표시 등 요청한 기재사항 근거 일부가 빠졌다.",
+    "reason_on": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다."
+  },
+  {
+    "category": "official_additional",
+    "hg_off": true,
+    "hg_on": false,
+    "id": "official_additional:AS-ADD09",
+    "initial_hg_changes_order": false,
+    "reason_off": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reason_on": "봉인 변경을 운송사에도 전달해야 한다는 근거가 최종 문맥에 부족하다."
+  },
+  {
+    "category": "S02",
+    "hg_off": false,
+    "hg_on": true,
+    "id": "scenarios:AS-S02-17",
+    "initial_hg_changes_order": true,
+    "reason_off": "대상의 현장 기록은 찾았지만 같은 사건의 확정 보관료 명세가 남지 않았다.",
+    "reason_on": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다."
+  },
+  {
+    "category": "S03",
+    "hg_off": false,
+    "hg_on": true,
+    "id": "scenarios:AS-S03-11",
+    "initial_hg_changes_order": true,
+    "reason_off": "계약·승인·청구는 남았으나 질문이 직접 요청한 실제 적입 반출일을 확인할 기록이 빠졌다.",
+    "reason_on": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다."
+  },
+  {
+    "category": "S06",
+    "hg_off": false,
+    "hg_on": true,
+    "id": "scenarios:AS-S06-02",
+    "initial_hg_changes_order": true,
+    "reason_off": "동일 단서에 해당하는 두 후보 중 한 사건의 근거가 빠졌다.",
+    "reason_on": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다."
+  },
+  {
+    "category": "S06",
+    "hg_off": false,
+    "hg_on": true,
+    "id": "scenarios:AS-S06-08",
+    "initial_hg_changes_order": true,
+    "reason_off": "질문의 두 후보를 뒷받침할 사건 기록을 찾지 못하고 다른 사건의 자료가 반환됐다.",
+    "reason_on": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다."
+  },
+  {
+    "category": "S06",
+    "hg_off": false,
+    "hg_on": true,
+    "id": "scenarios:AS-S06-10",
+    "initial_hg_changes_order": true,
+    "reason_off": "두 후보의 해당 사건 원문과 비용을 확보하지 못했다.",
+    "reason_on": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다."
+  },
+  {
+    "category": "S06",
+    "hg_off": false,
+    "hg_on": true,
+    "id": "scenarios:AS-S06-11",
+    "initial_hg_changes_order": true,
+    "reason_off": "두 후보 중 한 사건만 남아 모호성을 충분히 확인할 근거가 부족하다.",
+    "reason_on": "동일 단서의 두 후보와 각 청구 근거를 모두 반환했다. 추가 확인을 요구하는 정상 문항이므로 질문 결함으로 처리하지 않는다."
+  },
+  {
+    "category": "S06",
+    "hg_off": false,
+    "hg_on": true,
+    "id": "scenarios:AS-S06-20",
+    "initial_hg_changes_order": true,
+    "reason_off": "두 후보 중 한 사건의 실제 대상·비용 근거가 빠졌다.",
+    "reason_on": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다."
+  },
+  {
+    "category": "semantic_queries/cross_document_workflow",
+    "hg_off": true,
+    "hg_on": false,
+    "id": "semantic_queries:AS-SEM-22",
+    "initial_hg_changes_order": false,
+    "reason_off": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reason_on": "장비 변경과 SI 정정의 분리는 확인되지만 장비 변경 때 전달할 정보의 근거가 부족하다."
+  },
+  {
+    "category": "semantic_queries/cross_document_workflow",
+    "hg_off": false,
+    "hg_on": true,
+    "id": "semantic_queries:AS-SEM-23",
+    "initial_hg_changes_order": false,
+    "reason_off": "중량 구분은 있으나 질문의 신규 검증 중량 제출 경로가 최종 문맥에 없다.",
+    "reason_on": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다."
+  },
+  {
+    "category": "semantic_queries/cross_document_rule",
+    "hg_off": true,
+    "hg_on": false,
+    "id": "semantic_queries:AS-SEM-35",
+    "initial_hg_changes_order": false,
+    "reason_off": "실제 반환 원문·유지 SQL의 인용과 질문 범위를 대조해 필수 근거 충족을 확인했다.",
+    "reason_on": "개별 계약 무료일수가 기본표를 대체하는지 더하는지 판단할 근거가 빠졌다."
+  }
+]

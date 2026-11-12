@@ -1,0 +1,14 @@
+{
+  "ambiguous": 13,
+  "failure_classes": {
+    "absent_before_reranker": 3,
+    "candidate_present_outside_visible_top8": 5
+  },
+  "new_api_calls": 0,
+  "reviewed_failed": 21,
+  "selected_source_losses": 0,
+  "true_insufficient": 8,
+  "truncated_target_pairs": 0,
+  "visible_missing_target_passages": 0,
+  "visible_missing_target_schemas": 0
+}

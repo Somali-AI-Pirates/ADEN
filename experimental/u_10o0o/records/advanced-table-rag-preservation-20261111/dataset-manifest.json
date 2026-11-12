@@ -1,0 +1,1972 @@
+{
+  "changes": [
+    {
+      "id": "peer_multi_doc:SY3-adv-001",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "3a381bf3bc5c3551e952b1c5b148480eaf24b344d32cc8b7ca389fd162582a98",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "3a381bf3bc5c3551e952b1c5b148480eaf24b344d32cc8b7ca389fd162582a98",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-002",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "8825405460db2317630a955d213050fb01b69cb4bf01da54c17b1d6ded7e4c8c",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "8825405460db2317630a955d213050fb01b69cb4bf01da54c17b1d6ded7e4c8c",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-003",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "b0bea8413dde69be651d979bbba96cbe457b6ea92812cf09a983284aa542a04f",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "b0bea8413dde69be651d979bbba96cbe457b6ea92812cf09a983284aa542a04f",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-004",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "d5f526a37570b7cceffa6537d2a8e7f041eaec381fcf13a798731be1bea1108f",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "d5f526a37570b7cceffa6537d2a8e7f041eaec381fcf13a798731be1bea1108f",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-005",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "2c390057ea5d7ba8f0022019c4b70a33542a598c243c76f77168b99b646b396a",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "2c390057ea5d7ba8f0022019c4b70a33542a598c243c76f77168b99b646b396a",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-006",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "7a738354c2db551cf022caff51da8f8633a829e1097a3376cc48e4b5d603a104",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "7a738354c2db551cf022caff51da8f8633a829e1097a3376cc48e4b5d603a104",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-007",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "cb9c138be22fe91342c8cb1479a3f4818ecf619ac48406fbc1b758306397b438",
+      "prior_ambiguous_normal": true,
+      "question_sha256": "cb9c138be22fe91342c8cb1479a3f4818ecf619ac48406fbc1b758306397b438",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-008",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "fa21f497ae9c4be990ffb934e3ef4ba37e9adecf211d1778f6d9ef29469ccd55",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "fa21f497ae9c4be990ffb934e3ef4ba37e9adecf211d1778f6d9ef29469ccd55",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-009",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "cffd3eedb3a892734094e292a74a885869c153012b26d2f4dcc75a37e28d8ab0",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "cffd3eedb3a892734094e292a74a885869c153012b26d2f4dcc75a37e28d8ab0",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-010",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "2238b0f6df47f3741da505ab2802c4a97bd03ff6ae202c1204d516ca9b4a9a67",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "2238b0f6df47f3741da505ab2802c4a97bd03ff6ae202c1204d516ca9b4a9a67",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-011",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "1a36e66a6b45f8fbd80d6570ba591e14c0a69194a3414634ce4589559275bc31",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "1a36e66a6b45f8fbd80d6570ba591e14c0a69194a3414634ce4589559275bc31",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-012",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "64ab197564ba476e49de844fa397c3ceba99856f6218ecdabf09df43d9046bdb",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "64ab197564ba476e49de844fa397c3ceba99856f6218ecdabf09df43d9046bdb",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-013",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "c3080dd54f56ab02257a77b3a6fe8579f8f6bc8f5606a54d06e68ad06b96b722",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "c3080dd54f56ab02257a77b3a6fe8579f8f6bc8f5606a54d06e68ad06b96b722",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-014",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "7189e20447e175c1eeb63c11b16b0333d36a19237e4d7ce33ce70f293afa9b0f",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "7189e20447e175c1eeb63c11b16b0333d36a19237e4d7ce33ce70f293afa9b0f",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-015",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "dc7ae103d53e88dde22ba8d7ff6bdf2abe7d774deb6348a7586556dfa9ab7209",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "dc7ae103d53e88dde22ba8d7ff6bdf2abe7d774deb6348a7586556dfa9ab7209",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-016",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "bd342d2f4b6e6cda53352e4977ebdd33ab91c19311e1f42efb6a167a073bd92e",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "bd342d2f4b6e6cda53352e4977ebdd33ab91c19311e1f42efb6a167a073bd92e",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-017",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "1d3d6bf7f9fa9cd32f13f830b27712a42e5c280822335ef94324777ab5abb45c",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "1d3d6bf7f9fa9cd32f13f830b27712a42e5c280822335ef94324777ab5abb45c",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-018",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "5590ac6d982757d2b7ebea3554d4978f36bdf751c9259ce7eaa449e1e23860f3",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "5590ac6d982757d2b7ebea3554d4978f36bdf751c9259ce7eaa449e1e23860f3",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-019",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "c641c972af72ee07f4cfcde747d26417470dbcc70d97dd8cc6a4e3889a5ad239",
+      "prior_ambiguous_normal": true,
+      "question_sha256": "c641c972af72ee07f4cfcde747d26417470dbcc70d97dd8cc6a4e3889a5ad239",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-020",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "eee76ef32aba006e5692e38e426e2cbe52d3f0005d9410a48c8a23968f96e417",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "eee76ef32aba006e5692e38e426e2cbe52d3f0005d9410a48c8a23968f96e417",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-021",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "976d34af7c3a49925cbc1623061a53fd13b3e95bc4953e43d490c91c887d2e98",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "976d34af7c3a49925cbc1623061a53fd13b3e95bc4953e43d490c91c887d2e98",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-022",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "d209901a6dec2c907fcd488402efc9d43ebc7898049e0f6ff2c8ae35a8d072eb",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "d209901a6dec2c907fcd488402efc9d43ebc7898049e0f6ff2c8ae35a8d072eb",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-023",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "bb1843d213276246249826c9a1503427b15d927cc4142eb456581e8de89ad065",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "bb1843d213276246249826c9a1503427b15d927cc4142eb456581e8de89ad065",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-024",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "46ddc341ecde76534fd1a816521b49fb0580720e23b0e2b782780308d5f061c0",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "46ddc341ecde76534fd1a816521b49fb0580720e23b0e2b782780308d5f061c0",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-025",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "961c00721c726a244ca0af7a76ffbc8830dda48dccaa3c068a9886f887e8f84c",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "961c00721c726a244ca0af7a76ffbc8830dda48dccaa3c068a9886f887e8f84c",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-026",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "9aa32e764eb4fb9655ff3e3bc42138d0595caffc827561c1833ce537a8f86630",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "9aa32e764eb4fb9655ff3e3bc42138d0595caffc827561c1833ce537a8f86630",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-027",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "4d66016e40bb02b4a89e2b9dadf015970c4aa132cb08c78171ff3a8f5515222a",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "4d66016e40bb02b4a89e2b9dadf015970c4aa132cb08c78171ff3a8f5515222a",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-028",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "110a515b1e99a40ed7a9f2691ca64b5fc65544a9619e9edef8f94da065df100e",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "110a515b1e99a40ed7a9f2691ca64b5fc65544a9619e9edef8f94da065df100e",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-029",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "b1bfc18c05ea44c583951d0cc69e7eeb10651a767f01ae63789dec63deaebc44",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "b1bfc18c05ea44c583951d0cc69e7eeb10651a767f01ae63789dec63deaebc44",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-030",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "fe2cea3dc3fa3de5621a49cce6cf4070c669c9c1aabd21ec6d404af11d15a02d",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "fe2cea3dc3fa3de5621a49cce6cf4070c669c9c1aabd21ec6d404af11d15a02d",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-031",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "da5ea1e3174876f3d9b969ac1f8a85e25b81b50a6dec72eef9374c8c08ff248a",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "da5ea1e3174876f3d9b969ac1f8a85e25b81b50a6dec72eef9374c8c08ff248a",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-032",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "86a421d9202d914feeeefe9a28d5f226a0c18ec8922e7be9545e3100c177a5e1",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "86a421d9202d914feeeefe9a28d5f226a0c18ec8922e7be9545e3100c177a5e1",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-033",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "3c1001a65b4b9941ce51aac142a5128020d3e7da75f3ec125881e744b5a4c1ce",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "3c1001a65b4b9941ce51aac142a5128020d3e7da75f3ec125881e744b5a4c1ce",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-034",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "61d320dcda7698243b59ac88ebb24b5631e305ae557f9f064b58a22df0ac6871",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "61d320dcda7698243b59ac88ebb24b5631e305ae557f9f064b58a22df0ac6871",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-035",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "585095e8f797e07f14c70757df2230acc942cf4f486d050ba582ef757280f13c",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "585095e8f797e07f14c70757df2230acc942cf4f486d050ba582ef757280f13c",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-036",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "931353cba90f5ff6956a8979f3259b5fc08f51c5f21763c1a3448e058891402b",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "931353cba90f5ff6956a8979f3259b5fc08f51c5f21763c1a3448e058891402b",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-037",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "3f321162d373ca2c07a697c731f290acfb9e7e81c7e01b4f68229d8721f11a11",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "3f321162d373ca2c07a697c731f290acfb9e7e81c7e01b4f68229d8721f11a11",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-038",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "46b654830a03d114cf3e532f9d980f77e8c1ec8273eb3f3612b52d90ce4c592c",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "46b654830a03d114cf3e532f9d980f77e8c1ec8273eb3f3612b52d90ce4c592c",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-039",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "dd3298a541d28db0ad41001b9480ae6236e03e119e98a2651ba8a85d0f9dcac6",
+      "prior_ambiguous_normal": true,
+      "question_sha256": "dd3298a541d28db0ad41001b9480ae6236e03e119e98a2651ba8a85d0f9dcac6",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-040",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "0ca65bfdd5191ed62c0b20902fdef955f04fd6eacbee8328943ed8ba80ce5dd7",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "0ca65bfdd5191ed62c0b20902fdef955f04fd6eacbee8328943ed8ba80ce5dd7",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-041",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "401ab3524613d5f23b98d2233e691a28f6a2b6c004778352cb62fe50c5f18f19",
+      "prior_ambiguous_normal": true,
+      "question_sha256": "401ab3524613d5f23b98d2233e691a28f6a2b6c004778352cb62fe50c5f18f19",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-042",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "713297b87b65a37e1e96fd0fd9447ef0f76b701f7db4461dd59849570552de52",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "713297b87b65a37e1e96fd0fd9447ef0f76b701f7db4461dd59849570552de52",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-043",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "9c17f9a60a6dac68ba65c7fe10163c64c004b5bc3b5b9a26cfe03b1b45676f0e",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "9c17f9a60a6dac68ba65c7fe10163c64c004b5bc3b5b9a26cfe03b1b45676f0e",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-044",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "382348f395c7f62dd17ce623873258f2f6327005a0f9f5d8d714257d2997b062",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "382348f395c7f62dd17ce623873258f2f6327005a0f9f5d8d714257d2997b062",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-045",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "302d2882f83569c53f62a9db58fa251c86cbefcff688c4d836990730078a8e02",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "302d2882f83569c53f62a9db58fa251c86cbefcff688c4d836990730078a8e02",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY3-adv-046",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "9041a5378d5f76460a9eb7e17a95008fbea8ec4e5963ff5e0bf17916df0e76ed",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "9041a5378d5f76460a9eb7e17a95008fbea8ec4e5963ff5e0bf17916df0e76ed",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-001",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "d94a553209c1edb06102ac2a3444f6a1feacd4e61c835d6f48e14a5d8368945f",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "d94a553209c1edb06102ac2a3444f6a1feacd4e61c835d6f48e14a5d8368945f",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-002",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "dbb2f0860f536afd5d4ffc3230619b447775453badd1bff8782eac3b14371030",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "dbb2f0860f536afd5d4ffc3230619b447775453badd1bff8782eac3b14371030",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-003",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "f7d8fbf5e9aefb966ced72c2132351a3ec0fedd16f7b96e36ad12181e6443fe6",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "f7d8fbf5e9aefb966ced72c2132351a3ec0fedd16f7b96e36ad12181e6443fe6",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-004",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "a9599579167c8d15ca4590dddd667d6629b72b6af9766d3c3da31ae9ef4dbc68",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "a9599579167c8d15ca4590dddd667d6629b72b6af9766d3c3da31ae9ef4dbc68",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-005",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "f8fd0b16ed387fdff9885417201460343a1c303b2612ac1fa5d8fe72bc3273dc",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "f8fd0b16ed387fdff9885417201460343a1c303b2612ac1fa5d8fe72bc3273dc",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-006",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "0606d984d06116024b9aa860599487fd74229d01ca1ccf315424c4a062ab7ab0",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "0606d984d06116024b9aa860599487fd74229d01ca1ccf315424c4a062ab7ab0",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-007",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "c3e4e5848ae60b7ae8020a6778f6d712e92be0a733a235b09b26656ddec2a67a",
+      "prior_ambiguous_normal": true,
+      "question_sha256": "c3e4e5848ae60b7ae8020a6778f6d712e92be0a733a235b09b26656ddec2a67a",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-008",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "9164dafdab87283dbe140d1861b9dcb830da560780d55c5e4ade3044d349cfd5",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "9164dafdab87283dbe140d1861b9dcb830da560780d55c5e4ade3044d349cfd5",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-009",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "7d028e245783e0e1e7812796cd9de1c5158c2c1e6b5317b99e0090df0a84c10b",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "7d028e245783e0e1e7812796cd9de1c5158c2c1e6b5317b99e0090df0a84c10b",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-010",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "497d33f30beb440e66c7ab7b8676fefbf027580cc8fe8fdb26b00098f09878fb",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "497d33f30beb440e66c7ab7b8676fefbf027580cc8fe8fdb26b00098f09878fb",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-011",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "6827a8cfd2ed1c0c4545125b3830b8e3687974511ae8d0db8543f20049ac5e3b",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "6827a8cfd2ed1c0c4545125b3830b8e3687974511ae8d0db8543f20049ac5e3b",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-012",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "969fdfb0f3d900a7ff45863fc5adf96998fdca7463668efd58b8193c5ab6dbe9",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "969fdfb0f3d900a7ff45863fc5adf96998fdca7463668efd58b8193c5ab6dbe9",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-013",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "871d5893325d38291bc94ecba640b5368de7bb46c012511807ef14b1baea95f5",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "871d5893325d38291bc94ecba640b5368de7bb46c012511807ef14b1baea95f5",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-014",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "1cbadd21acaba86bdf2c3f4198ceed9ee0fb154e43cff393da27221289d23a7f",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "1cbadd21acaba86bdf2c3f4198ceed9ee0fb154e43cff393da27221289d23a7f",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-015",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "52f130429c151fc62f39b426c23b4e8716073b6282a67789f79843e8de3df8f6",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "52f130429c151fc62f39b426c23b4e8716073b6282a67789f79843e8de3df8f6",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-016",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "bc756c33d0c280b97128ddba061bf5978700c0d061a5fd6e17e5c3e0866f71c2",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "bc756c33d0c280b97128ddba061bf5978700c0d061a5fd6e17e5c3e0866f71c2",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-017",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "b86a2d54d492785c0cb36782b029dfa2e4c7d99a0f0c8ea74839537da9928b77",
+      "prior_ambiguous_normal": true,
+      "question_sha256": "b86a2d54d492785c0cb36782b029dfa2e4c7d99a0f0c8ea74839537da9928b77",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-018",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "659b4e6cbd546ab5dac069da94e12397aeb4eba2311e8492a778ac975eba2522",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "659b4e6cbd546ab5dac069da94e12397aeb4eba2311e8492a778ac975eba2522",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-019",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "d638a05401bc1ca45ac8bbb1ac55b7efe500f5fc77a76d3c26648a74bc6cb776",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "d638a05401bc1ca45ac8bbb1ac55b7efe500f5fc77a76d3c26648a74bc6cb776",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-020",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "9b4bb511afcd110423ae56688330f29ebe51e72d1c9d8440d87d159ade5bc432",
+      "prior_ambiguous_normal": true,
+      "question_sha256": "9b4bb511afcd110423ae56688330f29ebe51e72d1c9d8440d87d159ade5bc432",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-021",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "861e8557689a416d9c1e3aae4285f758418a9d6dfbaa601fce343a2b055d625d",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "861e8557689a416d9c1e3aae4285f758418a9d6dfbaa601fce343a2b055d625d",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-022",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "c898a3e465daae81b6fafa424c1496a9a341b0cb27a12f82c7a096155bf67a04",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "c898a3e465daae81b6fafa424c1496a9a341b0cb27a12f82c7a096155bf67a04",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-023",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "5a25552e622ea4dabdce4ec25fc80dd18c8edd965e9f468047d3f13613003748",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "5a25552e622ea4dabdce4ec25fc80dd18c8edd965e9f468047d3f13613003748",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-024",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "3b61fe1c4242616c4ca80c3f58c0b5bd5771b2252ccb9e0144ece1172013ea37",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "3b61fe1c4242616c4ca80c3f58c0b5bd5771b2252ccb9e0144ece1172013ea37",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-025",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "51fc10568d62efa02eeb66e134c5b4734a3e9f4b30991c1feac30f734a910a25",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "51fc10568d62efa02eeb66e134c5b4734a3e9f4b30991c1feac30f734a910a25",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-026",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "ad802ceb5bbd48513d6b759bb2cdd87142ab71f7f9f2ad5ee7acc8584f45532c",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "ad802ceb5bbd48513d6b759bb2cdd87142ab71f7f9f2ad5ee7acc8584f45532c",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-027",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "fb47641567409c1fbc81c833ea846efbe305781bd4695e7235e4c28c8b1a8fcc",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "fb47641567409c1fbc81c833ea846efbe305781bd4695e7235e4c28c8b1a8fcc",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-028",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "7599e739807d5a90bc9ea8754030baf682d86b8a9628704eb4bc9d3dd9c2c59f",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "7599e739807d5a90bc9ea8754030baf682d86b8a9628704eb4bc9d3dd9c2c59f",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-029",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "f9bb772ef499a8c9c8c10c3e5e463c774910d0b98fc5896f5635eca17eef3927",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "f9bb772ef499a8c9c8c10c3e5e463c774910d0b98fc5896f5635eca17eef3927",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-030",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "ae61ce720166778626a34aa086c31523e73c463c8c3a0c6dc89d750093d6ec7d",
+      "prior_ambiguous_normal": true,
+      "question_sha256": "ae61ce720166778626a34aa086c31523e73c463c8c3a0c6dc89d750093d6ec7d",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-031",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "8fdc126ec10cb6c1036481c56e1fcef962652266c3e42271d4cf9f33ea0446e6",
+      "prior_ambiguous_normal": true,
+      "question_sha256": "8fdc126ec10cb6c1036481c56e1fcef962652266c3e42271d4cf9f33ea0446e6",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-032",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "8a7f7d730d784b6ca7d06ad819fcf7718cd36a4acbbf10126b60072a0667b792",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "8a7f7d730d784b6ca7d06ad819fcf7718cd36a4acbbf10126b60072a0667b792",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-033",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "aae213a58e6e1dd54862ce8f87fc02c8b8d309e2bf6b04ff4cf59f25a7c0bfd4",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "aae213a58e6e1dd54862ce8f87fc02c8b8d309e2bf6b04ff4cf59f25a7c0bfd4",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-034",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "2100e3e26e175ccb94c64f33a835668b829f33223a18f25fac1d7cf6ed18d02f",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "2100e3e26e175ccb94c64f33a835668b829f33223a18f25fac1d7cf6ed18d02f",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-035",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "4d3070cccdfc1762e47477b5a2582c7821f555182762792f99b32a8cfaaca5bf",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "4d3070cccdfc1762e47477b5a2582c7821f555182762792f99b32a8cfaaca5bf",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-036",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "bb8bb434f72cb4ead2f0b9fdbc8e1fc6b20ec06368d1d2b817c708db9652ceb8",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "bb8bb434f72cb4ead2f0b9fdbc8e1fc6b20ec06368d1d2b817c708db9652ceb8",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-037",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "af8a37dc134ee316ba84d3be6895e12b8dae9054ed4319e23ea082ba73cd65b3",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "af8a37dc134ee316ba84d3be6895e12b8dae9054ed4319e23ea082ba73cd65b3",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-038",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "11353d984edb4f1fa0a7b6e966caf53c3c018180e20a3a14e2a87685fe806394",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "11353d984edb4f1fa0a7b6e966caf53c3c018180e20a3a14e2a87685fe806394",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SY4-adv-039",
+      "identifier_count": 0,
+      "kind": "normal",
+      "original_question_sha256": "80e1ebb735be83f503a6ee93f021a2c591d4742a94a5c1973f389c2db5c26b20",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "80e1ebb735be83f503a6ee93f021a2c591d4742a94a5c1973f389c2db5c26b20",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-001",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "cb2719907db179a53bd8bd2fa17c34359ce5573f9c70378222ef0f80fd7e0ad1",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "cb2719907db179a53bd8bd2fa17c34359ce5573f9c70378222ef0f80fd7e0ad1",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-002",
+      "identifier_count": 8,
+      "kind": "false_premise",
+      "original_question_sha256": "58c51fab21e6bfa9e732e20baf44190b5aac73239dc030c8efe1f05317884320",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "8a90dc91889e6da87a0930f2836ff41fed5ec0102f65458eed0cab4f88ec8d6f",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-003",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "8594c2075f79e16844c964ad40e1f5e3c9690c1580bc8bb0df83038be86f335a",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "8594c2075f79e16844c964ad40e1f5e3c9690c1580bc8bb0df83038be86f335a",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-004",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "8ab8782ad710404ac4e2618f4721fc957e7b031f0dd0b89898beee4c29b9b7b3",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "8ab8782ad710404ac4e2618f4721fc957e7b031f0dd0b89898beee4c29b9b7b3",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-005",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "21406c31a806ed456e1a74c715491c541acc461c0572ea0e646c8b3c74ffa67e",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "69ba7f256d47b42cc4943df9618a6b0f318af127cf921482d768bba84bf8d0e7",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-006",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "06a6a46bb1b7f4681e85617f00dd1aebbe7645b9cbdabbe2ed778b09d2c3f47b",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "5ce211f27d0b708f94cb441ac536cde79fb7ab6a2e15b9be3ee8d9bfe50dd197",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-007",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "81c8a075c41adc1f1c2d17947e0ccad3f7fd5f6db2182b4464aee29eb75364ff",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "07e2bed82b828af149ee9d72ce7589f8fd354e8cf5c8c41dcbc15091762dcec9",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-008",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "197dc6009ce676619626a0e887425c44a7963ed1c3f2f588c7dfc59c38423015",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "197dc6009ce676619626a0e887425c44a7963ed1c3f2f588c7dfc59c38423015",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-009",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "2ad421f1d21e4d5885b335ca8d2a0384241208d7b297fb5d51848ddb3b706685",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "2ad421f1d21e4d5885b335ca8d2a0384241208d7b297fb5d51848ddb3b706685",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-010",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "d1499dd9732a91341908e774a52d081168939f3d559929634705fcc362f10f3d",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "d1499dd9732a91341908e774a52d081168939f3d559929634705fcc362f10f3d",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-011",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "705ecfd7212dbf3cd711117968748788127e36d5a910c37c264cfa73915a2dc3",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "d35bebde0c7f2d1c6365684e1aabf79668976d93601aacab4a56ed6987536b23",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-012",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "5516f93631b0f690265cf143e2f0b26e992d0b6cade70f2c2494760ee9381881",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "5516f93631b0f690265cf143e2f0b26e992d0b6cade70f2c2494760ee9381881",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-013",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "e9f01b9219a9f2870cb7a2d2ab5078d2b0773f018e2010c616d2cda7b2a0bfa8",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "87a98f00887fe3f6e9e34c83c852f0a293ec7e26e912cbd08433cc5c02c5527a",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-014",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "67b585d1acab7d56c0e4bc03ab1b8b8404e8406cbcbd205beba5513c6fc839a6",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "67b585d1acab7d56c0e4bc03ab1b8b8404e8406cbcbd205beba5513c6fc839a6",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-015",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "610283fe9443192b94a33bd76d472a57104db7c31ba2fed8f8af4453f26bde6d",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "66359d02dd897dd17a989f1bac58b2ad6168fd65753b5c69ced776a7b586c877",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-016",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "a6f5374a8e64a4105cc6c74c4b518902dce3c074631a639a226090185bb42f22",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "80f278d1cda2f9114c4584b473b52d82b0b305309b19cc20a049134772cb273d",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-017",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "efd1e1e687e10f5b4f49746778ec8942103951ef93aaf750f593559210906e01",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "efd1e1e687e10f5b4f49746778ec8942103951ef93aaf750f593559210906e01",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-018",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "3a40be74eeb93909a73ec077619332282cdd5d7bdd243bc309e149a09cac14d1",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "46b6b1076e0fdc4f83df9646b35647ccc022b925ebfa2b7bd103b90cf248bbda",
+      "repair_reason": "missing_calculation_input_and_hypothetical_scope",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-019",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "a7d6c79e2c8eb9a3f7ea8533d15f82eff12a76d09905b8b035758372a09b6146",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "3d7ab4ae1b353b462db2fb5213d2e066dec0f1cb26ba9d89ec645eb83eb3a0d1",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-020",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "6cec4c6704f66536ffe900aaf5d7f5ac88e4090c3dfe409cee5b08a72af04247",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "8a85b40fce7bff591308fc44ca224784fddfa5c8cddd99a1ad53496d20214cc5",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-021",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "94b838e90d7fd56924a47192c2bd5dd5416727403ce283640daf15bdfbb24cd1",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "94b838e90d7fd56924a47192c2bd5dd5416727403ce283640daf15bdfbb24cd1",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-022",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "a0e79b3588beba9a0d5ab1399869d797b812a76256b44db8927f4a79386fdfdc",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "783f5d139f2bc98709a6a60d772ea1b417ff9051c968781b681a7c74d4d5a799",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-023",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "90a693f5bc7d361eda7f680977ef8355af2226e9996838e09f803d58f5bd7375",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "5d5fac1a99bf4ad953cd837b25c5d9edbebeb591feb674fae2d888eb5e6cf83d",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-024",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "2827b49d0b5916a39af912ebdcae0e1f317887dee5c22f69f159ebb1c98182c8",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "2827b49d0b5916a39af912ebdcae0e1f317887dee5c22f69f159ebb1c98182c8",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-025",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "e96df2aecacc87e7c14d79503c4ff5409ce02c35aa003a87ad2b48e4638d4342",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "dfcf03437663ecdafba3e6be15976a5cd3efa60470e54e171304c3af2de5f3ae",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-026",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "026b51006dc13de0e5ad5ba023539762d2273c3dd1ea1ce0c0167eec1871f445",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "5c159619b6ab0f33f8d14ac687186ac7133378d0694b70768932ef95cd54447d",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-027",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "04dc238b4f13aef06e6c08d5ff221b6c4d8b688d77b8384ffd3314adbbf4e947",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "04dc238b4f13aef06e6c08d5ff221b6c4d8b688d77b8384ffd3314adbbf4e947",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-028",
+      "identifier_count": 2,
+      "kind": "false_premise",
+      "original_question_sha256": "1922e6fc220a298db969ee3d784313a7740e90d0fd4f659c805d338bf829300d",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "665e0b19c39e3f6202444fdc687fd3975e512f5d98080ec554d98dafeea1ec61",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-029",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "38eaa1d56cbda3174891a5e84b888bb95482b589dcf7cab2f800fc470f5348d4",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "38eaa1d56cbda3174891a5e84b888bb95482b589dcf7cab2f800fc470f5348d4",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-030",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "119d56cf85358dcf3a9068b9cd619afdc523f5ad19cc753e4e2d664b37d4125e",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "119d56cf85358dcf3a9068b9cd619afdc523f5ad19cc753e4e2d664b37d4125e",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-031",
+      "identifier_count": 2,
+      "kind": "false_premise",
+      "original_question_sha256": "af510a1b6596681ecce316f6aea913c9c370854636b88701b7c5afffc0a9a97e",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "e0d28e08c9c8c87bea932b185d362b5276d0ed3a900ba6686e6419530a711fa7",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-032",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "47477504fd3364b311bb2991cbf885b809f145450d4f23cc97f3bfcc9d06ebae",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "47477504fd3364b311bb2991cbf885b809f145450d4f23cc97f3bfcc9d06ebae",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-033",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "a3a564c202c952fd2d413829e114d9d0db056a1bc357b10d12d8615bf96900e8",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "a3a564c202c952fd2d413829e114d9d0db056a1bc357b10d12d8615bf96900e8",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-034",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "38a5f39490bcd662b921dcaee11534323b14f36e4f2952c2257259e21251c2f9",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "38a5f39490bcd662b921dcaee11534323b14f36e4f2952c2257259e21251c2f9",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-035",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "cd6597bde0a3397e112ee8d1cdf57eac1e92b1640a97d48bf4c5fe752dd93e95",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "cd6597bde0a3397e112ee8d1cdf57eac1e92b1640a97d48bf4c5fe752dd93e95",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-036",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "86a722af01daaad78f84e61c50d8398cdc6afff8931e1d4841e37cc466af2ca5",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "5cc36a2f0bc379b70e0127d99b0f2a0217796d0088ef1e5ef213bca31fecf974",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-037",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "e0fa5df4f8dcca543168536f6b82b2150dbf71fadf5c3611f8a6f93efaec4d5d",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "ab3eda17ef13ac243f0710acca25a50b044927cad803f4efae7b88e66ba3adcc",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-038",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "d91dfe53c188de82d692a915c56357214eeb97ee0ea36e9ff6cb794d60ca6742",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "c3671613e92ccb771147d20da72a3a61943bfb1bbbf7388a998a6fe474183882",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-039",
+      "identifier_count": 1,
+      "kind": "false_premise",
+      "original_question_sha256": "33a9e2025fb9aaacf3e7c4722b3d7e1ecf406f95fbbf2813cf2b985b20fd993b",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "bc252ad89232180f25bc9dc0db6af903ba4f9bd7752a8f15a99383648348b3fd",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-040",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "a145fd1678c0c3dc843359fd679b71d5cfddc202bfb52be79be93977bb14b974",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "a145fd1678c0c3dc843359fd679b71d5cfddc202bfb52be79be93977bb14b974",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-041",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "e82648912f343c0da6b15b1816d2ee4898d2ce9fbd6ca9387d6d15ecfd09aaf2",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "6af98dd7a917ca6415a471b9059da40183521c2c7ea64d3004fcaad107b62bfd",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-042",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "5c5c09fd0b5de17c299e9bbd4c449b67d7f6cc18572fe425b90cd92b5589f3fa",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "750c38e61e569d7ed7a141c388457c1b716ee195103e96ac4f65d2a825ea8ab3",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-043",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "fa5abc6d8ffad863c723e5cba09ba1658f2f4326805c76f3c08a000e0ef8994b",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "c80b3c7eb53776d03e9d8d04d4a39d80a1010f2bdd59799112e24f1bcb20d4bf",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-044",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "866f73e1caa1cf9011d7475ca057e947a783ef59b80b07512476f9006c561e85",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "3c567273d6fb21b6c26f622386f01c89715ec1ae6b6767f9484f4a344d758bc2",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-045",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "f7530f2cd0736eba0b74e0d97f28bdb7a3bab8f91b7d12323097086d05d9dcf2",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "009a825630017e60ea0d4cf515ee7149ed8e97a07a8570f9963254c03e26d554",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF3-adv-046",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "ed0be97d57737791a39ac93757f24a4cbae17a16d42f3fc7aa955c41769292aa",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "ed0be97d57737791a39ac93757f24a4cbae17a16d42f3fc7aa955c41769292aa",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-001",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "3bef19c3f48d49e179710543d748403e63bc2ff9d1147510ba8b80c07ee8a884",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "3bef19c3f48d49e179710543d748403e63bc2ff9d1147510ba8b80c07ee8a884",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-002",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "122d05cb47285222ac84c14389003f3c3041af6b0359fd8a2b9f983a6653989d",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "122d05cb47285222ac84c14389003f3c3041af6b0359fd8a2b9f983a6653989d",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-003",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "6376cb1a530c53ee5384614d81fb2327ffb5b64a2cb8de01643d7139369364ad",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "07a669cc7790615c7f128069dd12badc5e7a0591907e330bcc2b27ab273e054e",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-004",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "b96f49c58fe57376a868bd40b03f3d7f74748c5f4919df4fb7866b302eeb2988",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "6b09c17d184d90e6b929fef0ab8c5f73d93cc37e66cbc3df4df1927ce45fbadd",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-005",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "72ebd8ee661f07aa4e8fb3239b6938cb597e8b874b2f69d34a878e3ea69b2057",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "72ebd8ee661f07aa4e8fb3239b6938cb597e8b874b2f69d34a878e3ea69b2057",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-006",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "bc13fc8b8d421fc784866db2933bcffe71516a05fa8ca62ed77233313f1c1c11",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "83ef76a8ca5cc536365cf9fe0ce39be90c9fc6a8805f1f6a23f610b2ee3d6694",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-007",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "5ec20e1869accd32ab2329cecad363a77d2aac37fa39e859e6e5943cfc4c667e",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "340801a4c27b781f3dceddb7a4cdc8af947b5b1f966efaa97339a5c23dc7bd46",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-008",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "8f5f719b651f72fb4910eb6e7f1d55c2591a22a9a7e35885eb24d1a96c5cc9cb",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "8f5f719b651f72fb4910eb6e7f1d55c2591a22a9a7e35885eb24d1a96c5cc9cb",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-009",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "7b0667eb0a32fc48b9b5d87ce93ac855702c4e2924601fe088eea1384a797262",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "7b0667eb0a32fc48b9b5d87ce93ac855702c4e2924601fe088eea1384a797262",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-010",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "e4cd49ac0d8968a54ef1c75e5a2dee624b14f3d318c18d87b52fdb3cf411099a",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "1ba6caa6456b16acdbb9699097a76eed6bcd699f322faff7706b70f69ad2edcc",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-011",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "0fdcdb9cea795a2acc6867df44c443ee227099f54eae06110ee35f17a23a158e",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "57169cdff52953dd26d6424ad4f3d68ce3ebb8238fb7484826a6bb2ec3267dea",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-012",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "7cf40116d31389dbfd5a32c9e043c0beee55372dbefce41757ed974a7d91c574",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "7cf40116d31389dbfd5a32c9e043c0beee55372dbefce41757ed974a7d91c574",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-013",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "edef9d2a798dd441c8f7352952b9e6a62312a299c8e087248bc78bf4e732f44e",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "edef9d2a798dd441c8f7352952b9e6a62312a299c8e087248bc78bf4e732f44e",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-014",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "2f02e5ca3486981d04e505151d4768c5751cc5d967a7c6898b344a9147c303bb",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "2f02e5ca3486981d04e505151d4768c5751cc5d967a7c6898b344a9147c303bb",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-015",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "11626970f638b0398421de68017fe7b9bf64e93fbf9b9dbd5465e563ddf9d65a",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "77d2469e7a84faceda6a03e303c01adeb9451bf5b10e57ed4dcd04551782d9e9",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-016",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "a4a96160794faee7d54ff2e0211a409cd9986cf753e6068d221a42cc06fab3f8",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "c5c92c10b61bf6acec943f89561e468010361d1f22a06376fa0e17f8cdee6062",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-017",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "f34ce403747e020bd5f5d33cd7042c25358fc95801acdd361f6a7d9a3e3927f9",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "01a547f1e8a6524ff36eccb6c44567eff94223ac36ad958f07d957dbff20be21",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-018",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "ba35bf6ccb7973fd949df92636b997b87a792a9a624331dd5e9f4700bf746f5c",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "ba35bf6ccb7973fd949df92636b997b87a792a9a624331dd5e9f4700bf746f5c",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-019",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "4120c895f84b4e3becf6a6409220c814d9d6044bf6105c783e8ebb6f358d9501",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "4120c895f84b4e3becf6a6409220c814d9d6044bf6105c783e8ebb6f358d9501",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-020",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "1af57a8379a43aa2b278fcceda2c3b34272ea68db7433fc16d93ba291f1c6536",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "6e9a5d732a980cbacec17e891d3d8708686964dcae022eb2b7aa0b7209c46881",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-021",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "28ea6c43f49f6d5b04d69dc47cae2f340f86f4896138e9675f175e19a22b55c3",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "28ea6c43f49f6d5b04d69dc47cae2f340f86f4896138e9675f175e19a22b55c3",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-022",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "ca89f41b5ab51bd1081ffedf9242edcae26648d8be6acc0c1e0a74cbe4cca6f9",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "128b3e371c1e4c4d3bc14bc522a0dd9acd57d35e224a322eaa0eaad1d0a1bd85",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-023",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "d10100069e38c2c98266ebe79b47fd5f215912cfb1cef3e2657cd646a0f7f3b1",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "d10100069e38c2c98266ebe79b47fd5f215912cfb1cef3e2657cd646a0f7f3b1",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-024",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "b01309d8792330d0a0898330832044c3e4d8897649fcbd7fadaf4b22e2a9e016",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "b5251caa1832cf5e4617f1632f82f75db1dcc0137a513b07658c69994deef3cb",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-025",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "7f76a358158377a9100e31a4e232beed756bec12cc05c6975851b31a0634ed02",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "165aeea6388f34a1ef398834a181a0e928e783408b2d9bcf86d33e959c88456a",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-026",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "9c5b166b86dc7727874e968038341043c18d9828e3be9a3baee24b4e840bae90",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "9c5b166b86dc7727874e968038341043c18d9828e3be9a3baee24b4e840bae90",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-027",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "40231f2f3a411f4c22cde28e50049166266ea379103e6b869e235e2ad52e9909",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "7dc6605855f557ee9e26c86930c08d9daf200ec7970fa8e1735ee8d6e8b62d00",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-028",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "cbdc1319cb3bf003c2ba50144352ef983e071c4eec1b98be927bf557092cda87",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "cbdc1319cb3bf003c2ba50144352ef983e071c4eec1b98be927bf557092cda87",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-029",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "4241cd142d89092a8a6c8759bb1b8faa6fe669a302fac64ffdbe30718d1162fc",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "4241cd142d89092a8a6c8759bb1b8faa6fe669a302fac64ffdbe30718d1162fc",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-030",
+      "identifier_count": 3,
+      "kind": "false_premise",
+      "original_question_sha256": "2ca5f81de880949602d7b26a07b75dcd5cb9b21401842073874e07cc03df4ca1",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "1d4c9dcccc7407d295af78e54defb84ed97e1fc9141beb41ad6ef84b2b0f82d6",
+      "repair_reason": "restore_targets_and_define_actual_balance_scope",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-031",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "eccec5e504955b94953cc1bd16460049a9df8e58e9ce24d93d3987ab72eb514c",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "eccec5e504955b94953cc1bd16460049a9df8e58e9ce24d93d3987ab72eb514c",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-032",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "b96a698a408988203f3b1ed56f76dc290129808e9f0b4bbdb5390ae31364c139",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "cb09efd5518e2ff8ee80f483713fcfca34a55fa5196d1b3ab38cf2455f0b8ad3",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-033",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "9693596538b600f4f14d686737f364c98048c7a666065caa2880753c0e95bd1a",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "7ca2bc570231434f6303717c33843a263a94a60173d230677fb28abab84ec2a2",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-034",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "e0e20ce699545f3d23dae7a476c89236d3a0014dee29580e23996256ca9886a7",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "e0e20ce699545f3d23dae7a476c89236d3a0014dee29580e23996256ca9886a7",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-035",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "20571cd7920ba7cdf2490a0458aaf4f9883bdd61f6f1ad8af456bf094f936495",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "712f560ab73f0c7fb1fa8d20e72f6c12a04f7ecb158f04ff3b2d5b273299e7a1",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-036",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "1b70b8001cad451bc2537df2f43728c73dafd0171331898599da9dd9ccbbc821",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "1b70b8001cad451bc2537df2f43728c73dafd0171331898599da9dd9ccbbc821",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-037",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "05c54553f2639dcde74d0869aab4140ac454c40a306af61897731225880a00b7",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "a9a1ffca2ce74404b765e6c9ff20219d1eee97dc54c39f971715c8c1aad5cdbb",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-038",
+      "identifier_count": 4,
+      "kind": "false_premise",
+      "original_question_sha256": "c7e0f84bc5e5ee8946ce605735c89c9c8afaf57771b1026bc6b981719f1131bd",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "d3829d54182b66499aba175bb6d9b5093d2e1558d6b7782ef18181a028384adf",
+      "repair_reason": "restore_explicit_target_list_only",
+      "repaired": true
+    },
+    {
+      "id": "peer_multi_doc:SYF4-adv-039",
+      "identifier_count": 0,
+      "kind": "false_premise",
+      "original_question_sha256": "b59cb95a3bcbe734800b28de2bc6d8de9a9e90f7892ba8926055422981516eb1",
+      "prior_ambiguous_normal": false,
+      "question_sha256": "b59cb95a3bcbe734800b28de2bc6d8de9a9e90f7892ba8926055422981516eb1",
+      "repair_reason": null,
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-005",
+      "kind": "clarification",
+      "question_sha256": "21406c31a806ed456e1a74c715491c541acc461c0572ea0e646c8b3c74ffa67e",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-006",
+      "kind": "clarification",
+      "question_sha256": "06a6a46bb1b7f4681e85617f00dd1aebbe7645b9cbdabbe2ed778b09d2c3f47b",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-007",
+      "kind": "clarification",
+      "question_sha256": "81c8a075c41adc1f1c2d17947e0ccad3f7fd5f6db2182b4464aee29eb75364ff",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-011",
+      "kind": "clarification",
+      "question_sha256": "705ecfd7212dbf3cd711117968748788127e36d5a910c37c264cfa73915a2dc3",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-013",
+      "kind": "clarification",
+      "question_sha256": "e9f01b9219a9f2870cb7a2d2ab5078d2b0773f018e2010c616d2cda7b2a0bfa8",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-015",
+      "kind": "clarification",
+      "question_sha256": "610283fe9443192b94a33bd76d472a57104db7c31ba2fed8f8af4453f26bde6d",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-016",
+      "kind": "clarification",
+      "question_sha256": "a6f5374a8e64a4105cc6c74c4b518902dce3c074631a639a226090185bb42f22",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-019",
+      "kind": "clarification",
+      "question_sha256": "a7d6c79e2c8eb9a3f7ea8533d15f82eff12a76d09905b8b035758372a09b6146",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-020",
+      "kind": "clarification",
+      "question_sha256": "6cec4c6704f66536ffe900aaf5d7f5ac88e4090c3dfe409cee5b08a72af04247",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-022",
+      "kind": "clarification",
+      "question_sha256": "a0e79b3588beba9a0d5ab1399869d797b812a76256b44db8927f4a79386fdfdc",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-023",
+      "kind": "clarification",
+      "question_sha256": "90a693f5bc7d361eda7f680977ef8355af2226e9996838e09f803d58f5bd7375",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-025",
+      "kind": "clarification",
+      "question_sha256": "e96df2aecacc87e7c14d79503c4ff5409ce02c35aa003a87ad2b48e4638d4342",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-026",
+      "kind": "clarification",
+      "question_sha256": "026b51006dc13de0e5ad5ba023539762d2273c3dd1ea1ce0c0167eec1871f445",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-028",
+      "kind": "clarification",
+      "question_sha256": "1922e6fc220a298db969ee3d784313a7740e90d0fd4f659c805d338bf829300d",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-031",
+      "kind": "clarification",
+      "question_sha256": "af510a1b6596681ecce316f6aea913c9c370854636b88701b7c5afffc0a9a97e",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-036",
+      "kind": "clarification",
+      "question_sha256": "86a722af01daaad78f84e61c50d8398cdc6afff8931e1d4841e37cc466af2ca5",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-037",
+      "kind": "clarification",
+      "question_sha256": "e0fa5df4f8dcca543168536f6b82b2150dbf71fadf5c3611f8a6f93efaec4d5d",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-038",
+      "kind": "clarification",
+      "question_sha256": "d91dfe53c188de82d692a915c56357214eeb97ee0ea36e9ff6cb794d60ca6742",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-039",
+      "kind": "clarification",
+      "question_sha256": "33a9e2025fb9aaacf3e7c4722b3d7e1ecf406f95fbbf2813cf2b985b20fd993b",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-041",
+      "kind": "clarification",
+      "question_sha256": "e82648912f343c0da6b15b1816d2ee4898d2ce9fbd6ca9387d6d15ecfd09aaf2",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-042",
+      "kind": "clarification",
+      "question_sha256": "5c5c09fd0b5de17c299e9bbd4c449b67d7f6cc18572fe425b90cd92b5589f3fa",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-043",
+      "kind": "clarification",
+      "question_sha256": "fa5abc6d8ffad863c723e5cba09ba1658f2f4326805c76f3c08a000e0ef8994b",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-044",
+      "kind": "clarification",
+      "question_sha256": "866f73e1caa1cf9011d7475ca057e947a783ef59b80b07512476f9006c561e85",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF3-adv-045",
+      "kind": "clarification",
+      "question_sha256": "f7530f2cd0736eba0b74e0d97f28bdb7a3bab8f91b7d12323097086d05d9dcf2",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-003",
+      "kind": "clarification",
+      "question_sha256": "6376cb1a530c53ee5384614d81fb2327ffb5b64a2cb8de01643d7139369364ad",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-004",
+      "kind": "clarification",
+      "question_sha256": "b96f49c58fe57376a868bd40b03f3d7f74748c5f4919df4fb7866b302eeb2988",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-006",
+      "kind": "clarification",
+      "question_sha256": "bc13fc8b8d421fc784866db2933bcffe71516a05fa8ca62ed77233313f1c1c11",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-007",
+      "kind": "clarification",
+      "question_sha256": "5ec20e1869accd32ab2329cecad363a77d2aac37fa39e859e6e5943cfc4c667e",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-010",
+      "kind": "clarification",
+      "question_sha256": "e4cd49ac0d8968a54ef1c75e5a2dee624b14f3d318c18d87b52fdb3cf411099a",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-011",
+      "kind": "clarification",
+      "question_sha256": "0fdcdb9cea795a2acc6867df44c443ee227099f54eae06110ee35f17a23a158e",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-015",
+      "kind": "clarification",
+      "question_sha256": "11626970f638b0398421de68017fe7b9bf64e93fbf9b9dbd5465e563ddf9d65a",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-016",
+      "kind": "clarification",
+      "question_sha256": "a4a96160794faee7d54ff2e0211a409cd9986cf753e6068d221a42cc06fab3f8",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-017",
+      "kind": "clarification",
+      "question_sha256": "f34ce403747e020bd5f5d33cd7042c25358fc95801acdd361f6a7d9a3e3927f9",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-020",
+      "kind": "clarification",
+      "question_sha256": "1af57a8379a43aa2b278fcceda2c3b34272ea68db7433fc16d93ba291f1c6536",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-022",
+      "kind": "clarification",
+      "question_sha256": "ca89f41b5ab51bd1081ffedf9242edcae26648d8be6acc0c1e0a74cbe4cca6f9",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-024",
+      "kind": "clarification",
+      "question_sha256": "b01309d8792330d0a0898330832044c3e4d8897649fcbd7fadaf4b22e2a9e016",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-025",
+      "kind": "clarification",
+      "question_sha256": "7f76a358158377a9100e31a4e232beed756bec12cc05c6975851b31a0634ed02",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-027",
+      "kind": "clarification",
+      "question_sha256": "40231f2f3a411f4c22cde28e50049166266ea379103e6b869e235e2ad52e9909",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-032",
+      "kind": "clarification",
+      "question_sha256": "b96a698a408988203f3b1ed56f76dc290129808e9f0b4bbdb5390ae31364c139",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-033",
+      "kind": "clarification",
+      "question_sha256": "9693596538b600f4f14d686737f364c98048c7a666065caa2880753c0e95bd1a",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-035",
+      "kind": "clarification",
+      "question_sha256": "20571cd7920ba7cdf2490a0458aaf4f9883bdd61f6f1ad8af456bf094f936495",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-037",
+      "kind": "clarification",
+      "question_sha256": "05c54553f2639dcde74d0869aab4140ac454c40a306af61897731225880a00b7",
+      "repaired": false
+    },
+    {
+      "id": "clarify:SYF4-adv-038",
+      "kind": "clarification",
+      "question_sha256": "c7e0f84bc5e5ee8946ce605735c89c9c8afaf57771b1026bc6b981719f1131bd",
+      "repaired": false
+    }
+  ],
+  "clarification": 43,
+  "count": 213,
+  "false_premise": 85,
+  "independent_human_review": false,
+  "normal": 85,
+  "note": "Repaired development set, not unseen validation. No page IDs or answer values added to questions.",
+  "preparation_used_original_questions_and_references": true,
+  "questions_sha256": "16c761f3da050a8ba958d84bdd89795fb67b5f1ef01da276470127a5002c619f",
+  "references_sha256": "1e5d9ea5aafc903fd3960c1679fce0bba2dc1e910e9942de2d661ffa4cb0a7ef",
+  "repaired": 46
+}

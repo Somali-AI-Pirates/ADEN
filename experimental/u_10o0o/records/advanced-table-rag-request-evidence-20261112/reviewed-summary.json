@@ -1,0 +1,133 @@
+{
+  "official_all": {
+    "A": {
+      "all_query_candidate_complete": 42,
+      "candidate": 41,
+      "page_recall": 0.8376436781609194,
+      "reviewed": 56,
+      "strict": 39,
+      "timing": {
+        "api_per_question": {
+          "p50": 4.775953013999697,
+          "p95": 15.508331773449928
+        },
+        "api_status": {
+          "complete": 84
+        },
+        "end_to_end": {
+          "p50": 5.499799752999479,
+          "p95": 17.99653725759994
+        },
+        "finish": {
+          "sufficient": 58
+        },
+        "hybrid_per_question": {
+          "p50": 1.0239149184999405,
+          "p95": 2.8543279019994308
+        },
+        "hybrid_search_calls": 59,
+        "n": 58,
+        "planner_calls": 84,
+        "record_lookup_calls": 21,
+        "record_lookup_per_call": {
+          "p50": 0.007594527000037488,
+          "p95": 0.009477123000579013
+        },
+        "record_resolution": {
+          "conflict": 1,
+          "matched": 34,
+          "not_found": 1
+        },
+        "sql_calls": 0,
+        "sql_kept": 0,
+        "sql_ok": 0,
+        "table_discovery_calls": 0,
+        "table_discovery_per_call": {
+          "p50": 0,
+          "p95": 0
+        },
+        "tool_statuses": {
+          "executed": 26,
+          "finished": 58
+        },
+        "tools": {
+          "finish": 58,
+          "lookup_records": 6,
+          "read_sources": 4,
+          "search_evidence": 16
+        },
+        "usage": {
+          "input_tokens": 907425,
+          "output_tokens": 22171,
+          "reasoning_tokens": 8676
+        }
+      }
+    },
+    "B": {
+      "all_query_candidate_complete": 39,
+      "candidate": 39,
+      "page_recall": 0.824712643678161,
+      "reviewed": 57,
+      "strict": 36,
+      "timing": {
+        "api_per_question": {
+          "p50": 8.367428688000473,
+          "p95": 24.064784744400413
+        },
+        "api_status": {
+          "complete": 130
+        },
+        "end_to_end": {
+          "p50": 9.416979780500242,
+          "p95": 25.707406490299395
+        },
+        "finish": {
+          "insufficient": 2,
+          "sufficient": 56
+        },
+        "hybrid_per_question": {
+          "p50": 1.0190774524999142,
+          "p95": 2.261268879050567
+        },
+        "hybrid_search_calls": 48,
+        "n": 58,
+        "planner_calls": 130,
+        "record_lookup_calls": 19,
+        "record_lookup_per_call": {
+          "p50": 0.007429635000335111,
+          "p95": 0.008512098199844331
+        },
+        "record_resolution": {
+          "matched": 34
+        },
+        "sql_calls": 0,
+        "sql_kept": 0,
+        "sql_ok": 0,
+        "table_discovery_calls": 0,
+        "table_discovery_per_call": {
+          "p50": 0,
+          "p95": 0
+        },
+        "tool_statuses": {
+          "executed": 45,
+          "finished": 56,
+          "invalid_arguments": 29
+        },
+        "tools": {
+          "finish": 85,
+          "lookup_records": 4,
+          "read_sources": 36,
+          "search_evidence": 5
+        },
+        "usage": {
+          "input_tokens": 1500613,
+          "output_tokens": 71732,
+          "reasoning_tokens": 21729
+        }
+      }
+    },
+    "improved": 2,
+    "n": 58,
+    "regressed": 1
+  }
+}

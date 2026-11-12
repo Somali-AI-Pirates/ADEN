@@ -1,0 +1,116 @@
+{
+  "A": {
+    "api_per_question": {
+      "p50": 4.934682487999453,
+      "p95": 15.997258552700075
+    },
+    "api_status": {
+      "complete": 451
+    },
+    "end_to_end": {
+      "p50": 5.741189778000262,
+      "p95": 21.19148957845045
+    },
+    "finish": {
+      "insufficient": 26,
+      "needs_clarification": 30,
+      "sufficient": 222
+    },
+    "hybrid_per_question": {
+      "p50": 0.9830397075002111,
+      "p95": 4.078991108900663
+    },
+    "hybrid_search_calls": 254,
+    "n": 278,
+    "planner_calls": 451,
+    "record_lookup_calls": 168,
+    "record_lookup_per_call": {
+      "p50": 0.004516359999797714,
+      "p95": 0.011663311200027239
+    },
+    "record_resolution": {
+      "ambiguous": 19,
+      "matched": 173,
+      "not_found": 3
+    },
+    "sql_calls": 0,
+    "sql_kept": 0,
+    "sql_ok": 0,
+    "table_discovery_calls": 2,
+    "table_discovery_per_call": {
+      "p50": 0.14861399949950282,
+      "p95": 0.25385618034906654
+    },
+    "tool_statuses": {
+      "executed": 172,
+      "finished": 278,
+      "invalid_arguments": 1
+    },
+    "tools": {
+      "finish": 278,
+      "lookup_records": 60,
+      "read_sources": 26,
+      "search_evidence": 87
+    },
+    "usage": {
+      "input_tokens": 4732165,
+      "output_tokens": 109384,
+      "reasoning_tokens": 49605
+    }
+  },
+  "B": {
+    "api_per_question": {
+      "p50": 17.362521819500216,
+      "p95": 37.21367609510206
+    },
+    "api_status": {
+      "complete": 704
+    },
+    "end_to_end": {
+      "p50": 19.526308319000236,
+      "p95": 40.89475351965028
+    },
+    "finish": {
+      "insufficient": 132,
+      "needs_clarification": 63,
+      "sufficient": 83
+    },
+    "hybrid_per_question": {
+      "p50": 2.145257496999875,
+      "p95": 6.4241249093997785
+    },
+    "hybrid_search_calls": 457,
+    "n": 278,
+    "planner_calls": 704,
+    "record_lookup_calls": 173,
+    "record_lookup_per_call": {
+      "p50": 0.00473584000064875,
+      "p95": 0.007819534999725875
+    },
+    "record_resolution": {
+      "conflict": 5,
+      "matched": 127,
+      "not_found": 55
+    },
+    "sql_calls": 6,
+    "sql_kept": 6,
+    "sql_ok": 6,
+    "table_discovery_calls": 0,
+    "table_discovery_per_call": {
+      "p50": 0,
+      "p95": 0
+    },
+    "tool_statuses": {
+      "executed": 704
+    },
+    "tools": {
+      "plan_requests": 278,
+      "select_evidence": 426
+    },
+    "usage": {
+      "input_tokens": 8673285,
+      "output_tokens": 497094,
+      "reasoning_tokens": 265021
+    }
+  }
+}

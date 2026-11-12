@@ -1,0 +1,298 @@
+{
+  "device": "cpu_gpu_rerank",
+  "rows": [
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "official_development:AS-DEV29",
+      "search_calls": 1,
+      "seconds": 2.575705506002123
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "official_development:AS-DEV29",
+      "search_calls": 1,
+      "seconds": 1.9788263039990852
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "scenarios:AS-S02-15",
+      "search_calls": 1,
+      "seconds": 1.831258775000606
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "scenarios:AS-S02-15",
+      "search_calls": 1,
+      "seconds": 2.001896227000543
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "scenarios:AS-S02-18",
+      "search_calls": 1,
+      "seconds": 1.8945379719989432
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "scenarios:AS-S02-18",
+      "search_calls": 1,
+      "seconds": 2.031017850000353
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "official_additional:AS-ADD02",
+      "search_calls": 5,
+      "seconds": 10.692467680000846
+    },
+    {
+      "arm": "baseline",
+      "final_identical": false,
+      "id": "official_additional:AS-ADD02",
+      "search_calls": 1,
+      "seconds": 2.470623909997812
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "negative_control:AS-S08-17",
+      "search_calls": 4,
+      "seconds": 7.703756742001133
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "negative_control:AS-S08-17",
+      "search_calls": 1,
+      "seconds": 1.3882604020000144
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "semantic_queries:AS-SEM-14",
+      "search_calls": 3,
+      "seconds": 6.4070256000013615
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "semantic_queries:AS-SEM-14",
+      "search_calls": 1,
+      "seconds": 2.2052334809995955
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "negative_control:AS-S08-11",
+      "search_calls": 2,
+      "seconds": 3.02736917799848
+    },
+    {
+      "arm": "baseline",
+      "final_identical": false,
+      "id": "negative_control:AS-S08-11",
+      "search_calls": 1,
+      "seconds": 1.627827119998983
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "scenarios:AS-S06-16",
+      "search_calls": 1,
+      "seconds": 1.7296830910017889
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "scenarios:AS-S06-16",
+      "search_calls": 1,
+      "seconds": 1.9047395320012583
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "semantic_queries:AS-SEM-25",
+      "search_calls": 3,
+      "seconds": 5.800681519998761
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "semantic_queries:AS-SEM-25",
+      "search_calls": 1,
+      "seconds": 1.7679151830016053
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "scenarios:AS-S01-11",
+      "search_calls": 2,
+      "seconds": 4.0640300159975595
+    },
+    {
+      "arm": "baseline",
+      "final_identical": false,
+      "id": "scenarios:AS-S01-11",
+      "search_calls": 1,
+      "seconds": 1.739335635000316
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "work_rules:AS-WR-07",
+      "search_calls": 1,
+      "seconds": 1.8487428769985854
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "work_rules:AS-WR-07",
+      "search_calls": 1,
+      "seconds": 1.917164660000708
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "scenarios:AS-S03-12",
+      "search_calls": 2,
+      "seconds": 3.7412358910005423
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "scenarios:AS-S03-12",
+      "search_calls": 1,
+      "seconds": 1.9063384179971763
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "semantic_queries:AS-SEM-08",
+      "search_calls": 2,
+      "seconds": 3.658045829000912
+    },
+    {
+      "arm": "baseline",
+      "final_identical": false,
+      "id": "semantic_queries:AS-SEM-08",
+      "search_calls": 1,
+      "seconds": 1.718582122000953
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "scenarios:AS-S02-05",
+      "search_calls": 1,
+      "seconds": 1.727599646001181
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "scenarios:AS-S02-05",
+      "search_calls": 1,
+      "seconds": 1.897315130001516
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "semantic_queries:AS-SEM-15",
+      "search_calls": 2,
+      "seconds": 3.670595396997669
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "semantic_queries:AS-SEM-15",
+      "search_calls": 1,
+      "seconds": 1.730107761999534
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "scenarios:AS-S02-09",
+      "search_calls": 2,
+      "seconds": 4.015889669000899
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "scenarios:AS-S02-09",
+      "search_calls": 1,
+      "seconds": 1.879767187001562
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "official_development:AS-DEV28",
+      "search_calls": 1,
+      "seconds": 1.8449500919996353
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "official_development:AS-DEV28",
+      "search_calls": 1,
+      "seconds": 1.9992887459993653
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "scenarios:AS-S05-16",
+      "search_calls": 1,
+      "seconds": 1.7205448130007426
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "scenarios:AS-S05-16",
+      "search_calls": 1,
+      "seconds": 1.7567016430002695
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "scenarios:AS-S06-15",
+      "search_calls": 1,
+      "seconds": 1.671996732999105
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "scenarios:AS-S06-15",
+      "search_calls": 1,
+      "seconds": 1.831117980000272
+    },
+    {
+      "arm": "table_rag",
+      "final_identical": true,
+      "id": "official_development:AS-DEV19",
+      "search_calls": 2,
+      "seconds": 4.629357837999123
+    },
+    {
+      "arm": "baseline",
+      "final_identical": true,
+      "id": "official_development:AS-DEV19",
+      "search_calls": 1,
+      "seconds": 2.0882352309999987
+    }
+  ],
+  "scope": "20 fixed ID-hash sample; local computations replayed serially; API excluded; shared machine",
+  "summary": {
+    "baseline": {
+      "p50": 1.9010273310013872,
+      "p95": 2.2185030024495065,
+      "same_final": 16
+    },
+    "table_rag": {
+      "p50": 3.342707503499696,
+      "p95": 7.853192288901121,
+      "same_final": 20
+    }
+  }
+}

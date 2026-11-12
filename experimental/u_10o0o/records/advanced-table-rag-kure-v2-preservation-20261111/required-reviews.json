@@ -1,0 +1,2842 @@
+[
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV02"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV02"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV02"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV02"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV04"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV04"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV04"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV04"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV06"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV06"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV06"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV06"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV08"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV08"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV08"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV08"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV09"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV09"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV09"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV09"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV14"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV14"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_development:AS-DEV14"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_development:AS-DEV14"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD01"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD01"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD01"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD01"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD02"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD02"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD02"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD02"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD03"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD03"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD03"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD03"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD06"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD06"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD06"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD06"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD07"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD07"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD07"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD07"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD10"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD10"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD10"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD10"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD14"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD14"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD14"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD14"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD15"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD15"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD15"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "official_additional:AS-ADD15"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "work_rules:AS-WR-12"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "work_rules:AS-WR-12"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "work_rules:AS-WR-12"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "work_rules:AS-WR-12"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "work_rules:AS-WR-20"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "work_rules:AS-WR-20"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "work_rules:AS-WR-20"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "work_rules:AS-WR-20"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-06"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-06"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-06"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-06"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-08"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-08"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-08"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-08"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-09"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-09"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-09"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-09"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-10"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-10"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-10"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-10"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-13"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-13"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-13"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-13"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-14"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-14"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-14"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-14"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-15"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-15"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-15"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-15"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-18"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-18"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-18"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-18"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-21"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-21"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-21"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-21"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-22"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-22"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-22"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-22"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-23"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-23"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-23"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-23"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-26"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-26"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-26"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-26"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-28"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-28"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-28"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-28"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-30"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-30"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-30"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-30"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-31"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-31"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-31"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-31"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-32"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-32"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-32"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-32"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-33"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-33"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-33"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-33"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-34"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-34"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-34"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-34"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-35"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-35"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-35"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-35"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-36"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-36"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-36"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-36"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-37"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-37"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-37"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-37"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-38"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-38"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-38"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-38"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-40"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-40"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-40"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "core",
+    "id": "semantic_queries:AS-SEM-40"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-004"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-004"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-004"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-004"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-007"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-007"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-007"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-007"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-014"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-014"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-014"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-014"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-019"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-019"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-019"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-019"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-021"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-021"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-021"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-021"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-027"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-027"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-027"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-027"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-031"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-031"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-031"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-031"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-039"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-039"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-039"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-039"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-041"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-041"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-041"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY3-adv-041"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-001"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-001"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-001"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-001"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-007"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-007"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-007"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-007"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-011"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-011"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-011"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-011"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-017"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-017"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-017"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-017"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-018"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-018"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-018"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-018"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-020"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-020"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-020"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-020"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-021"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-021"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-021"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-021"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-030"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-030"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-030"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-030"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-031"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-031"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-031"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SY4-adv-031"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-001"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-001"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-001"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-001"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-002"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-002"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-002"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-002"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-003"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-003"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-003"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-003"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-004"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-004"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-004"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-004"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-005"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-005"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-005"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-005"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-006"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-006"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-006"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-006"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-007"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-007"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-007"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-007"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-008"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-008"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-008"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-008"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-009"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-009"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-009"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-009"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-010"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-010"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-010"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-010"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-011"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-011"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-011"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-011"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-012"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-012"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-012"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-012"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-013"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-013"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-013"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-013"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-014"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-014"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-014"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-014"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-015"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-015"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-015"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-015"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-016"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-016"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-016"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-016"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-017"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-017"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-017"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-017"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-018"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-018"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-018"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-018"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-019"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-019"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-019"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-019"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-020"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-020"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-020"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-020"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-021"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-021"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-021"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-021"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-022"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-022"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-022"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-022"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-023"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-023"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-023"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-023"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-024"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-024"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-024"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-024"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-025"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-025"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-025"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-025"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-026"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-026"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-026"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-026"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-027"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-027"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-027"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-027"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-028"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-028"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-028"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-028"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-029"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-029"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-029"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-029"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-030"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-030"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-030"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-030"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-031"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-031"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-031"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-031"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-032"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-032"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-032"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-032"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-033"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-033"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-033"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-033"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-034"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-034"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-034"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-034"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-035"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-035"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-035"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-035"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-036"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-036"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-036"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-036"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-037"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-037"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-037"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-037"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-038"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-038"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-038"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-038"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-039"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-039"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-039"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-039"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-040"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-040"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-040"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-040"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-041"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-041"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-041"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-041"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-042"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-042"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-042"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-042"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-043"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-043"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-043"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-043"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-044"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-044"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-044"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-044"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-045"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-045"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-045"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-045"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-046"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-046"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-046"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF3-adv-046"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-001"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-001"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-001"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-001"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-002"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-002"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-002"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-002"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-003"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-003"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-003"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-003"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-004"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-004"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-004"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-004"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-005"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-005"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-005"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-005"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-006"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-006"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-006"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-006"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-007"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-007"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-007"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-007"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-008"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-008"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-008"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-008"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-009"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-009"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-009"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-009"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-010"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-010"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-010"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-010"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-011"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-011"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-011"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-011"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-012"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-012"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-012"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-012"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-013"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-013"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-013"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-013"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-014"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-014"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-014"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-014"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-015"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-015"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-015"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-015"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-016"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-016"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-016"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-016"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-017"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-017"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-017"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-017"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-018"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-018"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-018"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-018"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-019"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-019"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-019"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-019"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-020"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-020"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-020"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-020"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-021"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-021"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-021"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-021"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-022"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-022"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-022"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-022"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-023"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-023"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-023"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-023"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-024"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-024"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-024"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-024"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-025"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-025"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-025"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-025"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-026"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-026"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-026"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-026"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-027"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-027"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-027"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-027"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-028"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-028"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-028"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-028"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-029"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-029"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-029"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-029"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-030"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-030"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-030"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-030"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-031"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-031"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-031"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-031"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-032"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-032"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-032"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-032"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-033"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-033"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-033"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-033"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-034"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-034"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-034"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-034"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-035"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-035"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-035"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-035"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-036"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-036"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-036"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-036"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-037"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-037"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-037"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-037"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-038"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-038"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-038"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-038"
+  },
+  {
+    "arm": "v2_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-039"
+  },
+  {
+    "arm": "v2_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-039"
+  },
+  {
+    "arm": "v3_A",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-039"
+  },
+  {
+    "arm": "v3_B",
+    "cohort": "peer",
+    "id": "peer_multi_doc:SYF4-adv-039"
+  }
+]

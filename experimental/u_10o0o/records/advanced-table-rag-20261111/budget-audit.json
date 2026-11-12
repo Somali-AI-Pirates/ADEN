@@ -1,0 +1,20 @@
+{
+  "archived_execution_files": 77,
+  "archived_hashes_match_original": true,
+  "arms": {
+    "baseline": {
+      "pages": 8,
+      "payload_tokens": 7506
+    },
+    "table_rag": {
+      "pages": 8,
+      "payload_tokens": 6813
+    }
+  },
+  "budget_passed": true,
+  "candidate20_passed": true,
+  "count": 280,
+  "retrieval_or_answers_modified": false,
+  "run_sha256": "8d685e2afc3a5d40b4a6de98ada56d9cc86eba70e1531f2bda84b8449e07611c",
+  "sql_provenance_passed": true
+}

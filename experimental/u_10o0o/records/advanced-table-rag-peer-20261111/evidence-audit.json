@@ -1,0 +1,4044 @@
+[
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "N1-1245의 재송부·참조번호 확인 상태는 최종 근거에서 확인되지 않고, 청구서 미발행 및 발행 원문 확인 필요만 확인된다. 또한 세 건 전체에 대한 비용 승인 결론과 구체적인 후속 확인 절차를 뒷받침하는 근거가 부족하다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY3-adv-004",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/68950181681c451a390b96e66ea6bd45354c48322aef2fddae7b57d121dafa7b.json",
+    "proof_sources": [
+      "AS021:p0006",
+      "AS026:p0066",
+      "AS049:p0072"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "N1-1245가 재송부 요청 상태라는 점과 원문 대조 미완료 여부는 최종 근거에 직접 나타나지 않는다. 또한 세 대상 각각의 계약 적용 범위 및 비용 승인 상태를 확정할 근거가 부족하다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY3-adv-004",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/71d425cbff9f91d214b38c266aa765727fe61e2d101dbca68a695ac763ef5b02.json",
+    "proof_sources": [
+      "AS021:p0006",
+      "AS026:p0066",
+      "AS049:p0072"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문은 ‘송학산업의 세 건’이라고만 하여 계약·장비 또는 사건 시점으로 대상을 식별하지 않는다. 최종 근거에는 송학산업의 여러 다른 건이 있어 의도한 세 건을 확정할 수 없다. 예약일과 실제 반납일을 포함한 해당 세 건의 사건 원문도 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SY3-adv-007",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/0203604876b62750afc261c4b157047c1ed0eeaa02eaf9fcb54122926dff64d0.json",
+    "proof_sources": [
+      "AS052:p0105"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "reason": "질문에는 화주와 세 건이라는 수만 있고 계약·기간·장비 식별 단서가 없다. 한 건이 우연히 맞아도 참고답의 세 건을 확정할 수 없음.",
+      "verdict": "ambiguous_question"
+    },
+    "automatic_reason": "두 건(2029년 7월, 2030년 8월)의 필수 사건일·예약일 근거가 최종문맥에 없어 요청한 세 건 전체를 검증할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SY3-adv-007",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/def8a928c43fca2b315cb3e35f699c7e2470a25ca3b016b938ebbaf0e4f84526.json",
+    "proof_sources": [
+      "AS082:p0015"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "GR27-F03965의 재송부 요청 여부가 최종문맥에서 확인되지 않는다. 반환된 기록은 편집본 연결과 오연결 정정으로 서로 다르게 나타나므로 재송부 요청 단계라고 확정할 근거도 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY3-adv-014",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c514bfeea03747b743951104e8e65ecae5c08cb7c40113aeae3cfec3102b82ae.json",
+    "proof_sources": [
+      "AS007:p0066",
+      "AS037:p0003",
+      "AS039:p0039",
+      "AS056:p0016"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "reason": "질문에서 날짜를 가정한 계산으로 읽더라도 HG2029-00220의 계약 산입 조건이 최종 근거에 없어 세 계약 계산을 모두 지원하지 못함. 실제 사건일 불일치만으로 실패 판정하지 않음.",
+      "sources": [
+        "AS099:p0072",
+        "AS106:p0040",
+        "AS019:p0085"
+      ],
+      "verdict": "insufficient"
+    },
+    "automatic_reason": "세 계약 모두 질문에서 제공한 날짜와 원본 실제 사건일이 불일치한다. HG2029-01666은 지정 장치장 실제 반납 증빙도 없고, HG2029-00220은 요청 날짜에 적용할 계약상 산입 기준이 제시된 자료에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY3-adv-018",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/da4ec891326581f4e5488b5fa7d9b1494489b6bf65114e0d64deae00d3ad8f02.json",
+    "proof_sources": [
+      "AS017:p0080",
+      "AS019:p0085",
+      "AS099:p0072",
+      "AS100:p0072",
+      "AS102:p0072",
+      "AS106:p0040",
+      "AS107:p0040"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문이 장비번호·계약을 특정하지 않아 요청된 세 건을 확정할 수 없다. 최종 근거의 세 기록은 각각 HL-20GP-00039, HL-20GP-00231, HL-20GP-02031이며, 참고답에 제시된 세 HL-40GP 장비의 이력·날짜를 뒷받침하지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SY3-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/45912c6b061137277a4999061ff58ef0483c02e8ed88295d55b42a518f555be0.json",
+    "proof_sources": [
+      "AS072:p0002"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "reason": "화주와 세 건만 제시됐고 장비 목록이 없어 참고답의 특정 세 계약을 유일하게 식별할 수 없음.",
+      "verdict": "ambiguous_question"
+    },
+    "automatic_reason": "요청한 세 장비 HL-40GP-01084, HL-40GP-00922, HL-40GP-01630의 양하·반출·반납 및 예약 예정일이 반환 근거에 없다. 제시된 자료는 서로 다른 장비 기록이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SY3-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/3b49714ec7a9d0d1f216780d15757c4cab5f44bc9f0cf45974d26f8f7eb5da37.json",
+    "proof_sources": [
+      "AS057:p0090"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "2030년 4월 대신공구 대조 건의 계약번호 또는 대조 기준일이 없어 CT-00422와 CT-00614 중 대상이 불명확하다. 따라서 그 건의 금액과 두 건 합계를 확정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_multi_doc:SY3-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f1e5cace8b1c6fcbc9b6c39a5f32cf08678b80bc3824ceb5d4a93957d87a5fd8.json",
+    "proof_sources": [
+      "AS058:p0006",
+      "AS059:p0006",
+      "AS060:p0006",
+      "AS068:p0018",
+      "AS069:p0026",
+      "AS070:p0018"
+    ],
+    "quote_validation_error_count": 1,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "첫 건의 원문 확정액은 참고답과 다르며, 2030년 4월 건도 반환된 계약 자료의 금액·미수액이 참고답과 불일치한다. 두 번째 건의 계약 식별 및 합계 정답을 확정할 수 없다.",
+    "automatic_verdict": "uncertain",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_multi_doc:SY3-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/cde6e6440e7baa423c56c9a1c764e423ba9b3f9ecac80ff1539b23b0a476efef.json",
+    "proof_sources": [
+      "AS058:p0006",
+      "AS059:p0006",
+      "AS060:p0006",
+      "AS118:p0094",
+      "AS119:p0094"
+    ],
+    "quote_validation_error_count": 2,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대상 예약 또는 장비 식별자가 없어 예림무역의 어느 건인지 확인이 필요하다. 최종문맥에는 여러 별도 장비·계약의 자료만 있으며, 질문의 해당 건에 연결되는 실제 사건일·요율 자료는 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SY3-adv-039",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d8b1fb6b25265ec33ddc094333bd9bb91671830d699a11ba70324b5dfe0d1cd3.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대상 계약 CT-01983/장비 HL-40GP-01983의 실제 양하·반출·반납 사건 기록과 해당 건의 개정 B 효력일 및 적용 판단 근거가 최종문맥에 없다. 따라서 실제 일수, 각 비용 및 합계를 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY3-adv-039",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c07a33114ed325d901d1dfcd69e0c655aeea373470b14208accd3fef42306a07.json",
+    "proof_sources": [
+      "AS093:p0092"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 장비는 특정되어 있으나, 최종문맥에는 세 장비 모두의 원문 정산 근거가 없다. 참고답이나 참고인용만으로는 누락된 사실을 보완할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY3-adv-041",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/73c763457d13c87464d97065b00942b78a861b72be4be7a5cf7c2bab255e9786.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "요청된 세 장비 HL-20GP-01669, HL-20GP-01477, HL-20GP-01315에 대한 근거가 최종문맥에 없다. 반환된 원문은 서로 다른 HL-40GP 장비 건이므로 개별 정산값과 세 건 합계를 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY3-adv-041",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/65f96722f3f1abad826659ece0683f70875ee440d16e45cc3ef9e0268c46baf3.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HG2030-00931의 근거가 없고, 따라서 네 건 전체 합계도 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-001",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1e0ab52535ddc14cbc39684ee6d532184fc6938bda849ffab689a1c7c0664520.json",
+    "proof_sources": [
+      "AS061:p0063",
+      "AS064:p0040",
+      "AS109:p0010"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대상 네 예약의 인계일·계약번호·화물·수량·보관료 및 각 건의 미결 상태를 뒷받침하는 근거가 없다. 최종 근거는 모두 다른 예약이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-007",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c65451bcbb14797eefe5b7a50b269c5b25fb5a1e652d657860772b2b433bbf17.json",
+    "proof_sources": [
+      "AS095:p0100"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "요청된 네 예약 각각의 인계일·계약·화물·수량·보관료와 그에 연결된 미결/인계 주의사항을 확인할 근거가 없다. 제시된 문서와 SQL은 다른 예약을 다룬다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-007",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/646e3a1ba674a8055be841dd5cecdedc29572e71b406291896331e80e7854a9c.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "다른 세 건의 확정 합계 및 비용별 금액을 뒷받침하는 근거가 최종문맥에 없다. 포함된 다른 예약의 금액은 해당 건들에 전용할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-017",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/aaaa6e8f72d38340c68d26e1d3344ee7b5f4c397fbc555edce7c606b3cf5b97a.json",
+    "proof_sources": [
+      "AS099:p0002"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "다른 세 건(HG2029-02198, HG2029-00398, HG2030-02036)의 비용별 확정액과 합계를 뒷받침하는 최종 근거가 누락됐다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-017",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c97d9934745ac7d16ed9360b8c7f25a320a9ed13170bf36a3a5d34350253198c.json",
+    "proof_sources": [
+      "AS099:p0002"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "GR27-F03769의 92USD 요청 및 실제일 확인서 도착 후 반려라는 사실을 뒷받침하는 최종 근거가 없다. 반환 근거에는 같은 예약의 32USD 보완 요청 기록만 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/7aba18554bbee41fe004ccdd1fa22bd9665cf12167a17bd1d7725bde27698e91.json",
+    "proof_sources": [
+      "AS025:p0015",
+      "AS025:p0017",
+      "AS040:p0017",
+      "AS050:p0049"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "네 예약 각각의 화주·계약·장비·대조 시각, 비용 조건 및 변경 여부를 뒷받침하는 대상 일치 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/6e9bf0c5a3d99421b4eb18ffaf803b4021827560170d46f59121ce3164109ec7.json",
+    "proof_sources": [
+      "AS092:p0139"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대상 네 예약의 계약 식별 정보, 기준 시각, 현지 시각·통화·비용 산입 방식 및 변경 여부를 입증하는 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/3cb660d83cf5853e1591119fa4ffaceced179a3e4bfc0a2176e77b027ca48459.json",
+    "proof_sources": [
+      "AS018:p0096"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "GR27-F02526의 처리 상태가 AS026에서는 재송부 요청, AS045에서는 원문 확보로 상충한다. 어느 기록 맥락을 뜻하는지 식별할 정보가 필요하다. 또한 GR27-F02200은 최종 근거상 참조번호 확인으로 기재되어 참고답의 원문 확보 주장과 일치하지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SY4-adv-021",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/469eb1174de86967d2e5a27e83afa24cc586bedde8d52f4a7dc4bf339a8203b1.json",
+    "proof_sources": [
+      "AS026:p0056",
+      "AS032:p0006",
+      "AS045:p0014",
+      "AS045:p0022",
+      "AS056:p0016"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HL-20GP-01434와 HL-40GP-02223의 정산 근거 및 두 문서의 기준시점이 최종문맥에 없다. 따라서 세 건의 미수액 단순 합산액도 확인되지 않는다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/df4a5d2d73f0870a6d7f0a1a3198cc2e089e891ef566eabf744224571e33f1d8.json",
+    "proof_sources": [
+      "AS044:p0121",
+      "AS045:p0121"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HL-40GP-00969의 명세와 정산 대사는 지원되지만, 나머지 두 건(HL-20GP-01434, HL-40GP-02223)의 비용·합계·미수 및 기준시점 근거가 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/41791c5d423a3027b63971b731ccde0331a233cf04c7753a16d00c9df3ab5fcf.json",
+    "proof_sources": [
+      "AS043:p0126",
+      "AS044:p0121",
+      "AS045:p0121"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "요청된 네 장비번호 각각에 해당하는 현장 기록이 최종 근거에 포함되지 않았다. 따라서 항구, 사건일, 예약일, 실제 반납일 및 날짜 차이를 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SY4-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/18ea5b0e1e73fbeb764dbf63d3e1c08f57ed20aeaf2c5de4b05aa4aecf377d65.json",
+    "proof_sources": [
+      "AS039:p0123",
+      "AS051:p0144"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문은 이든상공의 어떤 네 건인지 장비번호, 예약번호, 기간 등 식별 기준을 제시하지 않는다. 최종문맥에는 이든상공의 여러 다른 장비 기록이 있어 대상 네 건을 질문만으로 확정할 수 없다. 참고답의 나머지 세 장비 기록도 최종문맥에 반환되지 않았다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SY4-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5df1ac743139dc3e6a254b90abb3cb7f5057815f843cf07150ea7cc9f9d40674.json",
+    "proof_sources": [
+      "AS007:p0091"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "reason": "반납 미수신 상태를 같은 장비의 현장 기록 AS097:135로 확인. 나머지 두 장비의 연장 효력·규격별 요율과 실제 요율도 최종 원문에 있음.",
+      "sources": [
+        "AS097:p0135",
+        "AS104:p0081",
+        "AS013:p0147",
+        "AS008:p0147"
+      ],
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "세 질문 항목 각각에 대해 사건·장비가 맞는 최종 근거가 있고, 반환 상태·연장 효력·규격별 요율을 확인할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF3-adv-001",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/904b835e51652957dc598b23a98dbba27e54de160e2889b1f92b294e58cff1e0.json",
+    "proof_sources": [
+      "AS013:p0147",
+      "AS097:p0135",
+      "AS104:p0081"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "N1 여덟 건 각각의 청구 상태를 확인할 근거가 없어 청구 완료 처리가 가능한지 판단할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-002",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/630aa250e15bd162ac22d545911fba383f21cb602815c68c9d6fb7eedc73487c.json",
+    "proof_sources": [
+      "AS019:p0068",
+      "AS023:p0065"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "N1 여덟 건의 청구가 공지 수신 확인만으로 완료되는지 판단할 청구별 상태 또는 수신 확인과 청구 완료를 구분하는 원문 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-002",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5ed49a569e54a386e959ab3c0b8459aeae20e332dedb452deef361b8af932c5b.json",
+    "proof_sources": [
+      "AS019:p0069",
+      "AS023:p0065",
+      "AS036:p0060"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "최종 근거는 AS101의 HL-20GP-00093, AS099의 HL-40GP-01997 및 다른 예약·장비 조건을 다룬다. 참고답에 언급된 세 장비의 요율은 최종 근거에서 확인되지 않는다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-005",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1315cd5095a159d38ad51269242d02bb3cf7fb5a38aec3384ca10d54426b2434.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "최종문맥의 모든 계약은 질문 및 참고답에 등장하는 세 장비(HL-20GP-02437, HL-20GP-00637, HL-20GP-01857)와 식별이 일치하지 않아, 일괄 등록 여부를 뒷받침할 대상별 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-005",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e225ed0426e4677c4ec8532fbbeb5c04187bdcfff457df1670da5b017b9f15f0.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 건의 개별 비용·합계·미수·수납액을 확인할 대상별 원문이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-006",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/3a041db3ad37911cf0dc154eb0efa4bee3855141fd414305f814e2cdf9cef250.json",
+    "proof_sources": [
+      "AS071:p0096"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 건의 지정 예약(HL-20GP-02156, HL-20GP-02510, HL-20GP-00356)에 대한 비용·수납 원문이 최종문맥에 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-006",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/ce9ec953afac54f93984ce4e56cde08834513c9a5df0acfe401768a4f37257fd.json",
+    "proof_sources": [
+      "AS095:p0037"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문 대상 세 건 각각의 장비번호에 대응하는 실제 양하일, 실제 반출일, 실제 지정 장치장 반납일 및 반납 예약일을 뒷받침하는 최종 근거가 누락되어 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-007",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/7437aa1816a6033e965ca23972cecfa0526ab00bb27e68e111808042aafa9f38.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 대상 사건의 실제 양하·반출·반납 및 예약일을 확인할 일치하는 원문 근거가 최종문맥에 없다. 제시된 송학산업 자료는 서로 다른 장비·계약 건이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-007",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/8d46ab07231c35e726edf66506b073b0095382a4cc511b2741a59f4245286767.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 예약 모두에 대해 장비번호·상자 수 및 최초 계약 조건을 확인할 근거가 최종문맥에 없다. 제시된 문서는 다른 예약의 계약 조건이므로 이를 대상 예약에 적용할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-011",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d07dd7dee6641bc3d552670a749c3453648583d81e3695ec03db886259108227.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문이 지칭하는 세 예약의 장비번호·상자 수와 최초 계약상 보관료 및 반납지연료 요율을 뒷받침하는 원문이 최종문맥에 없다. 최종문맥의 예약들은 모두 다른 사건이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-011",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/10c5b87a4f7ebb88d0594b9940618ebb8220622deb863408bcdbfa4b39a2e779.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "최종 근거의 세 장비가 질문의 대상 세 장비와 일치하지 않으며, 대상 세 건의 실제 반납 증빙 및 비용 산입 종료 근거가 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-013",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/363449323c1a963cfe3d9fe58020d411e3d5c733db61a21a13db5f0bf83635a7.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "최종문맥의 사례들은 질문에서 말하는 세 건과 장비·계약이 일치하지 않는다. 해당 세 건의 실제 지정 장치장 반납 인수 원본, 지정 외 야드 증빙, 예약 예정일 및 적용 계약 조건이 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-013",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f8f8af3cdc700656f09a155e0d9857d74a2a368a8fceaab1e33cf0892219b9d2.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "질문은 세 건을 모두 완료 처리해도 되는지 묻는다. 두 명시 대상의 재송부·원문 미수신 근거만으로 일괄 완료 전제를 반박할 수 있다. 세 건의 개별 완료 상태를 모두 확인했다는 뜻은 아님.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "F02170의 재송부·원문 수신 상태와 항차의 실제 진행 여부는 이 자료에서 확인되지 않는다. 다만 두 건이 미완료이므로 세 건 모두 완료 처리할 수 없다는 질문의 핵심 판단에는 영향이 없다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF3-adv-014",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/4dae2f1e3fc9daf182202dd30fc027f45a5f109e46485597a974703842c87a33.json",
+    "proof_sources": [
+      "AS007:p0066",
+      "AS056:p0003"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HG2029-02316 및 HG2029-01738의 비용 내역이 최종문맥에 없어 세 건에 대한 결론을 검증할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-015",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c2461be788315807eec8163f2f548a02485ca4b20a88f2a32688c4bf6b287dd0.json",
+    "proof_sources": [
+      "AS079:p0076"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에 특정된 세 예약의 비용을 보여 주는 최종문맥 근거가 누락되어 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-015",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/92a9414cfdd0f4e5c9333d990a458f9bba47d3c5cd58ad639186794871050897.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "둘째 건(HL-20GP-02146)의 반납 예약일 및 지정 장치장 실제 반납 상태를 확인할 사건 원문이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-016",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/81e46346ffb92e32b32156f88890b4271707545c96bfedfce88223f995be1df2.json",
+    "proof_sources": [
+      "AS047:p0090",
+      "AS119:p0052"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "2030-02-25 및 2029-11-17 대상 건에 해당하는 최종 근거가 없다. 비슷한 예정일의 다른 장비·계약 기록은 대체 근거가 될 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-016",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/588750faa761620cd42f9921fae6c67e02e1eee9b3ff45c942aebefea813fa7d.json",
+    "proof_sources": [
+      "AS077:p0105"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "보관료 산입기간의 시작점을 정할 실제 양하일이 누락되어 있으며, 최종문맥의 실제 사건 기록은 질문에 제시된 날짜와도 다르다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-018",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/702c598a9d2e1ded43fa032f27810527fcdbdff38217c01d733ee965263fc559.json",
+    "proof_sources": [
+      "AS016:p0085"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "보관료 산정에 필요한 질문 시나리오의 실제 양하일이 확인되지 않는다. 또한 계약의 실제 사건 기록은 반출 2029-11-19, 반납 2029-11-28로 질문에 제시된 날짜와 불일치한다.",
+    "automatic_verdict": "uncertain",
+    "final_verdict": "uncertain",
+    "id": "peer_multi_doc:SYF3-adv-018",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/7adcf1c9091042236918a3e4f03967be1d0797d98e3f90921216b4fa593e755a.json",
+    "proof_sources": [
+      "AS016:p0085",
+      "AS017:p0080"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 번째와 세 번째 장비의 사건 이력 및 반납 예약일 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/568354d773654f657e0101edd66dbc5be678f595b9f6ca32e9520df1b0ef6234.json",
+    "proof_sources": [
+      "AS017:p0116"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 장비 중 HL-40GP-00922와 HL-40GP-01630의 요청된 사건 날짜 및 반납 예약일을 뒷받침하는 최종 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/b6a745312ff580431c8e0c62f6f5725a700f8ab510e0182abf993602dd974fb1.json",
+    "proof_sources": [
+      "AS017:p0116"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 HL-40GP 장비의 적용 요율과 두 건의 반납지연료 변경 여부를 확인할 원문 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/920fcb001efad54d52f3c0e47d94ff50af9142659a3220be70420bddf00d58fc.json",
+    "proof_sources": [
+      "AS113:p0005"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 번째·세 번째 장비에 대한 적용 보관료 요율 및 반납지연료 변경 여부를 입증하는 장비별 원문이 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f3a71243f0da92466deb07adbed1d4527b64b3366317733f8ad37987f8b937b7.json",
+    "proof_sources": [
+      "AS113:p0005"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 건의 예약·계약 식별 정보가 없고, 2029-06-25 인계일 기록도 복수 계약으로 나타난다. 세 건을 특정할 ID 또는 화주/계약 정보를 확인해야 하며, 의도된 건의 ‘합계’ 및 USD 0 근거도 최종문맥에 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF3-adv-022",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/82aed8a29b6822e082bed662d5d8587ab2a0e112e74246de1dc66cbe1617bd85.json",
+    "proof_sources": [
+      "AS060:p0017",
+      "AS095:p0022"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "‘세 건’의 계약/사건 식별정보가 없고, 2029-06-25 인계 건도 복수 후보가 있으며 충당 기준이 서로 다릅니다. 해당 세 계약의 번호나 화주·장비 등 식별정보가 필요합니다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_multi_doc:SYF3-adv-022",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d970e6f305cf3e2a99e17680faae8e343713729967655772cef27fffe35c5e8b.json",
+    "proof_sources": [
+      "AS060:p0017",
+      "AS095:p0022",
+      "AS112:p0107"
+    ],
+    "quote_validation_error_count": 1,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 대상 장비 각각의 실제 공장비 반납일과 반납 예약 예정일을 뒷받침하는 원문 근거가 없다. 반출일 관련 근거도 질문의 세 장비와 일치하지 않는다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-023",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1c8679df4580354910c4e661d50fb113043ce8656b8c759f116b0f62248d78cf.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 세 장비 HL-40GP-00673, HL-40GP-01219, HL-20GP-02200에 대응하는 실제 반납일·예약 예정일·실제 반출일 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-023",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f1c252029f577020a1c87bb8dd7b05b92a9581eaf6665701e32bcc0a3f728021.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "최종문맥에는 질문 및 참고답에 명시된 HL-40GP-00127, HL-40GP-01219, HL-40GP-00481의 계약 조건이 없다. 다른 예약·장비의 요율은 이 세 건의 근거로 전용할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-025",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/31462a42a7a8f35008dcc96748330a2bd272e7507c3fbc4a208e5cf5f79e78b0.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "요청된 세 장비(HL-40GP-00127, HL-40GP-01219, HL-40GP-00481)의 반납지연료 조건을 확인할 수 있는 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-025",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/72ebb376419b0dea804904aa4a8ec2330121151552f1c75a8c94977d455d30f7.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 건 중 HG2029-02056의 확정액·미결 상태를 뒷받침하는 최종문맥 원문이 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-026",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5280fe3624e194c10666f4963722b9c62a3d9f651b08ace104b74d33b62e6780.json",
+    "proof_sources": [
+      "AS054:p0144",
+      "AS079:p0011"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HG2029-02056에 관한 건별 확정액과 합계 상태를 뒷받침하는 최종 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-026",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e7c695f3cf91ee261d4b6b2f7c094427df6d1c8de8ae2d6ad23735ed6cef475f.json",
+    "proof_sources": [
+      "AS054:p0144",
+      "AS079:p0011"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "가온수출 창고용 손잡이의 예약·장비번호·수량·중량 및 변경 반영 상태를 뒷받침하는 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-027",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/9945b431f42cb06c216859a79447e8617acb635b8fc3f204fac5a3b66b202554.json",
+    "proof_sources": [
+      "AS029:p0041",
+      "AS030:p0081"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대상 40GP의 예약·계약 또는 장비 식별자가 필요하다. 최종 근거에는 합계 USD 540인 서로 다른 계약이 여러 개이며 비용별 금액도 다르다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF3-adv-028",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c4eb04c6153169111fd61336dc1c1f8b6b906b8785895850cb7fb76183440fb1.json",
+    "proof_sources": [
+      "AS065:p0013",
+      "AS100:p0013",
+      "AS120:p0003"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "40GP만으로는 대상 계약을 특정할 수 없다. 확인할 예약/계약 번호 또는 화주와 기준일이 필요하다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF3-adv-028",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/37acff055d441cac47b68198d4c6ccb4cb2fdfbedba05de93a1a959a414745e5.json",
+    "proof_sources": [
+      "AS064:p0013",
+      "AS065:p0013",
+      "AS085:p0014"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "질문에 명시된 두 GR 코드의 접수·이관 상태와 승인 미확정을 최종 IS 원문에서 각각 확인. 원래 합성 기준의 세 번째 문서는 이번 질문의 필수 대상이 아님.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 두 대상과 각 상태가 반환 근거의 대상별 원문과 일치하며, 승인 완료·확정이 아니라는 근거가 직접 제시되어 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF3-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/462c928672515490813dc3e41b7cfe7968153d04df06b374ce1407e942ae64c9.json",
+    "proof_sources": [
+      "AS048:p0058",
+      "AS054:p0047"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "질문에 명시된 두 GR 코드의 접수·이관 상태와 승인 미확정을 최종 IS 원문에서 각각 확인. 원래 합성 기준의 세 번째 문서는 이번 질문의 필수 대상이 아님.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "최종문맥에 두 대상의 상태와 승인 완료 여부를 반박하는 원문 근거가 각각 포함되어 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF3-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5aeb1fa01eca44f1ba0002a55645fdaa5494bdb12f034946392b55aa6ef7cc1f.json",
+    "proof_sources": [
+      "AS048:p0058",
+      "AS054:p0047"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 두 건에 대한 예약·계약 식별자가 없어 어떤 사건의 감액 조건과 미수액을 합산해야 하는지 확정할 수 없다. 최종 근거에는 서로 다른 2030년 계약들이 제시되어 있고, 질문에서 지칭하는 2029년 3월 건은 확인되지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF3-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f0e1cdef99cede9e214c6639db3aad72f4bea602f5cd11f2797ded01d3fa946b.json",
+    "proof_sources": [
+      "AS028:p0135",
+      "AS030:p0130",
+      "AS096:p0096"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "첫 번째 건과 별도 2030년 계약의 예약·계약 식별자가 없다. 반환 자료에는 2030년 계약 CT-00231과 CT-02031 등 복수의 후보가 있으며, 질문의 첫 번째 건에 해당하는 미수 내역도 확인되지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_multi_doc:SYF3-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/11c7a54890205c41960c4800d903d1b266cae151c5511b11f07de1b79f6e0919.json",
+    "proof_sources": [
+      "AS074:p0010",
+      "AS075:p0010",
+      "AS080:p0096",
+      "AS081:p0096",
+      "AS102:p0109"
+    ],
+    "quote_validation_error_count": 2,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 산식 180과 최종 확정 0, 보관료 및 합계 480을 같은 청구 원문에서 확인. 다른 두 사건 자료는 이 질문에 필요하지 않음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "최종문맥에 동일 대상 건의 비용 명세와 전액 면제 승인 근거가 있어 질문의 잘못된 전제와 올바른 합계를 모두 판정할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF3-adv-033",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/8c1e4c9a9c6d42ac7cec621ef461f1292e6dbd27df4d7ed1c72cca16e9af58f5.json",
+    "proof_sources": [
+      "AS073:p0022",
+      "AS074:p0022"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 산식 180과 최종 확정 0, 보관료 및 합계 480을 같은 청구 원문에서 확인. 다른 두 사건 자료는 이 질문에 필요하지 않음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 잘못된 전제를 반박하고 처리해야 할 확정액과 합계를 뒷받침하는 동일 대상의 원문 근거가 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF3-adv-033",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e6f6a1bd2573d47363619a78d7554cf0840742d566a71bf7f48cf8ef0fc0f338.json",
+    "proof_sources": [
+      "AS074:p0022"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "F03513의 감액 미승인·출항 변경 요청, F03830의 대조 완료와 원문 수정 구분이 각각 최종 원문에 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 세 전제에 대해 동일 예약·문서의 상태 원문이 제공되며, 정산 대체는 미승인, 출항일은 변경 요청, F03830은 대조 완료만 확인된다. 따라서 그대로 반영하면 안 된다는 결론을 뒷받침하기에 충분하다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF3-adv-034",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/12c5cf7dfc699fcb6cfbb598a4c8e09fc1c79b17bb4bd5e69832af138cd4eb0c.json",
+    "proof_sources": [
+      "AS025:p0034",
+      "AS030:p0036",
+      "AS056:p0034"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 평일 산입 및 주말 제외를 계약·대조 회신에서 확인. 다른 두 건의 값은 요청하지 않았음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문에서 제안한 달력일 정산 기준은 해당 장비의 계약 및 대조 회신과 다르며, 주말 제외와 공휴일 처리까지 직접 근거가 확인된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF3-adv-035",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/69363c5401f83768d41212ae9b3627c7b9274f2856ee4949b5eae87a1730c5dd.json",
+    "proof_sources": [
+      "AS081:p0067",
+      "AS083:p0067"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 평일 산입 및 주말 제외를 계약·대조 회신에서 확인. 다른 두 건의 값은 요청하지 않았음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 대상 장비와 계약이 원문에서 특정되고, 제안한 달력일 기준을 거부하는 데 필요한 산입 규칙과 공휴일 처리 근거가 모두 확인된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF3-adv-035",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/9717696ee797af79b2b452d48a85350d7cc584dc618a93423779b6dde04b3a57.json",
+    "proof_sources": [
+      "AS081:p0067",
+      "AS083:p0067"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문이 묻는 세 건의 장비·비용·미수액과 전체 합계를 뒷받침하는 원문 근거가 최종문맥에 없다. 최종문맥의 다른 장비 기록은 이 세 건의 근거로 전용할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-036",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c011e140d5a1c3c5561b27436aac6f04eba3d174a2da6599052ec6c701eb46bf.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "요청된 세 장비의 금액과 미수 내역을 뒷받침하는 원문이 최종 근거에 없다. 제시된 문서는 다른 장비(예: HL-40GP-02293, HL-40GP-02286, HL-40GP-02288)에 관한 것이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-036",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/ea761ad270d0a2dd43b2271e9daf64bf668e108797d0ac2ba9989959a2dba05a.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 확인해야 하는 세 건(우리기재, 바른물류, 연우기공)의 비용·수납 대사 및 환급/추가 청구 처리 근거가 최종문맥에 없다. 최종문맥의 자료는 다른 화주와 계약의 사건이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-037",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/701fde45f3a936b85bd4b8c14a6b0ec12e793508c6325cfb03e854abe640484d.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문 대상 세 건의 식별자와 그에 대응하는 정산 원문이 최종문맥에 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF3-adv-037",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/30e68b9a79d099097fa7eebcced06d147e826f5c068ea3ccff398eda621602bc.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "GR27-N1-1454, GR27-F02027, GR27-F02789의 상태 및 승인 여부 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-038",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2f7354f9b5108066ae770534f8b3da32f37105116b7ee79fff2477638936ebb0.json",
+    "proof_sources": [
+      "AS041:p0058"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 네 예약번호 각각에 대한 처리 상태와 승인·무료일수 반영 여부를 확인할 관련 원문이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-038",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/fc6ab4343809f7ab13826153e646c1403aa06a607dc40c79fb396d7921e2d8eb.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 “이 건”을 식별할 예약·계약·장비 등의 정보가 없고, 최종문맥에는 서로 다른 계약의 비용 기록만 있다. 어느 사건의 일정과 요율을 적용할지 확정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF3-adv-039",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/84269002a56f7e1e33e59470bbde4cb6a9e593ecdbccace250492bf664b1d974.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에 예약·장비·화주·계약 식별자가 없다. 최종문맥에는 여러 계약의 사건 및 비용 기록이 있으나 어느 것이 ‘이 건’인지 특정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF3-adv-039",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2d3cd1acc61da07aa73eff65c6f94cb1dc9a6a0c7d51b8738ad6590c27ef71d0.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "최종문맥에서 확인되는 것은 HL-20GP-01477 건뿐이다. HL-20GP-01669 및 HL-20GP-01315의 해당 원문 근거가 없어 세 장비 전체 정산과 합계를 검증할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-041",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/6e3c06a92cfc2a4956ee9f96edf016f994773ca8bdc8e3bd7ac7d996443cc15d.json",
+    "proof_sources": [
+      "AS062:p0063"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HL-20GP-01669 및 HL-20GP-01315의 해당 예약에 연결된 원문 정산·수납 기록과 전체 합계를 확인할 근거가 누락되어 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-041",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/b619bcd54d7c1bd982d1ace80823fbdbd75f7bc1e0180ee7c89cd47f8f10e98d.json",
+    "proof_sources": [
+      "AS062:p0063"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 지정한 세 장비의 반출·반납 실제 일자 또는 기간 근거가 최종문맥에 모두 누락되어 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-042",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/62347df605e1603f5f7aafe813b4b50da8d3d6d813bed8a547f6bccbfffb30ea.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 장비의 실제 적입 장비 반출일 및 지정 장치장 실제 공장비 반납일에 관한 근거가 최종문맥에 없습니다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-042",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/9043fd9b71a4d5c335fb7b5c4d370ff5a8718a09cf68ee515bb85d1a53814280.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 건(HL-20GP-02218, HL-20GP-00226)의 실제 반납일 또는 미확인 상태를 뒷받침하는 최종 근거가 누락됐다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-043",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f2cb4e4488a41f944390fbb9bb6370945b578d0c38a947a1b39ee1cb16cf08f9.json",
+    "proof_sources": [
+      "AS064:p0082"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HL-20GP-02218의 2030-09-03 실제 반납일 및 HL-20GP-00226의 실제 반납일 미확인 상태를 뒷받침하는 원문 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-043",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/98a33c8e4bbefa68275143a51f6b666ee71c8b90e3a75df6fd350e2e68277c44.json",
+    "proof_sources": [
+      "AS064:p0082"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 세 예약에 해당하는 원문 근거가 최종문맥에 포함되지 않았다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-044",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/8614681c45e9c570be0cc75b1080a8355b4a0e88143ac328650ddbf4efadca41.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 잘못된 전제를 바로잡고 합산액을 제시하는 데 필요한 대상 예약별 비용 기록이 최종 근거에 포함되지 않았다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-044",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d39edd13bd126f15323f22ce5b15b6bcc0a691c1d2cc48e8046c5c01437b373d.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HL-20GP-00349와 HL-20GP-00895의 실제 양하·반출·공장비 반납일을 확인할 최종 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-045",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/16cf3472fb754c483328071b5a1676375f64a80f90b3d845642883bdec398c3f.json",
+    "proof_sources": [
+      "AS047:p0135"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 건 중 HL-20GP-00349와 HL-20GP-00895의 실제 양하·반출·공장비 반납일을 뒷받침하는 최종 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF3-adv-045",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/7969d0f6072b210eaa2918923703ab2b58c3bf8530a1222b65659513340489dd.json",
+    "proof_sources": [
+      "AS047:p0135"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "질문은 HG2030-00949 한 건의 청구 대상과 금액만 요구. 같은 사건의 청구 원문 AS064:40에 보관료 400(화주), 지연료 210(운송사), 합계 610이 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "예약 식별자와 계약·장비가 일치하는 청구 명세가 청구 주체와 두 비용의 확정액 및 합계를 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-001",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c2d94be769d4cef085700ce8249f8133c8e39528fa7b43620a4a901e5c294339.json",
+    "proof_sources": [
+      "AS064:p0040"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "질문은 HG2030-00949 한 건의 청구 대상과 금액만 요구. 같은 사건의 청구 원문 AS064:40에 보관료 400(화주), 지연료 210(운송사), 합계 610이 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "최종문맥에 해당 예약·장비·계약의 비용 명세와 비용별 청구 주체가 있으며, 금액 및 거래 전체 합계가 직접 확인된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-001",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/964c69a43119b4ad6898fa470196215cb16306cd02a902774e450f5cbda2f2d6.json",
+    "proof_sources": [
+      "AS064:p0040"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 감액 변경의 대상 예약과 최종 USD 35를 확인할 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-003",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/8b6e039bf9316f3fdc929008cbdc9f43ec412ade2ba668ee95aca3778268a17b.json",
+    "proof_sources": [
+      "AS058:p0035",
+      "AS102:p0071"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 건의 감액 변경에 관한 대상 예약 및 금액 근거가 최종문맥에 없어 해당 변경을 완결적으로 정리할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-003",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c729306e179cb07966c780b9d0720a2ea428e0f36dc5941b84b4020ab9e0c8b7.json",
+    "proof_sources": [
+      "AS058:p0035",
+      "AS102:p0071"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reject_automatic_sufficient",
+      "reason": "상한 오류는 반박할 근거가 있으나 합산해야 할 나머지 세 건은 질문에서 특정되지 않는다. 반환된 다른 세 건의 금액으로 합계를 만들었다는 이유만으로 전체 요청 충족으로 보정하지 않음.",
+      "verdict": "ambiguous_question"
+    },
+    "automatic_reason": "예약 식별이 명확하고 상한과 각 청구액이 원문으로 확인된다. 요청된 가정의 합계도 반환 근거의 금액으로 계산 가능하며, 실제 청구는 상한 때문에 가정과 다르다는 점을 구분했다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF4-adv-004",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/470f5cfa0fd75b6e59e479c27e06fab9de6028b93c6b09676fa8d93d8d9b061d.json",
+    "proof_sources": [
+      "AS074:p0081",
+      "AS075:p0081",
+      "AS080:p0081",
+      "AS085:p0081",
+      "AS090:p0081"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "USD 2,070 합계에 필요한 나머지 세 건의 기존 금액이 최종 근거에 없다. 최종문맥에 수록된 세 문서의 합계는 USD 310, USD 310, USD 205로, 대상 건의 USD 255와 합산하면 USD 1,080이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_multi_doc:SYF4-adv-004",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/b16e5d93442e3b6393d771e9a6c4a094881def408e8e6e99c68f99449a07ff2b.json",
+    "proof_sources": [
+      "AS074:p0081",
+      "AS075:p0081",
+      "AS080:p0081",
+      "AS085:p0081",
+      "AS090:p0081"
+    ],
+    "quote_validation_error_count": 5,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "질문은 명시 HG 한 건의 유예일수만 요구. 같은 사건의 대조 회신 AS083:20에서 3일이 아닌 2일 및 이후 무료 순번 시작을 확인.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "필수 판단과 정정된 유예 일수 및 순번 시작 시점이 대상 건에 연결된 최종 근거로 모두 뒷받침된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-005",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f06bf709ac746fd5feab7f139bca5c15481d16daacc728983edc036c09e5aab2.json",
+    "proof_sources": [
+      "AS083:p0020"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "질문은 명시 HG 한 건의 유예일수만 요구. 같은 사건의 대조 회신 AS083:20에서 3일이 아닌 2일 및 이후 무료 순번 시작을 확인.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "필수 사실이 대상 계약과 일치하는 최종문맥의 직접 인용으로 확인된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-005",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/ca4c58b9f6b2ca32c3e74ca8953b5512fed8edf07b8321772886a866b02f11dc.json",
+    "proof_sources": [
+      "AS083:p0020"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "다른 세 건의 예약별 적용 내용을 뒷받침하는 최종 근거가 누락됐다. 최종 근거에 있는 다른 예약의 유사한 조건은 이 세 건에 전용할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-006",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/81a56b3e005db20ebb27f615c3c2eb83db0da3dd0792ad3faebda686996c51b5.json",
+    "proof_sources": [
+      "AS063:p0009"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "다른 세 건의 적용 내용(HG2030-00367, HG2029-02167, HG2029-00832)을 뒷받침하는 최종 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-006",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/27d18bc236836bb392059ec7ba59145f0993439611966e2e5345fed640a402dd.json",
+    "proof_sources": [
+      "AS063:p0009",
+      "AS064:p0009"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "네 건 가운데 최종문맥으로 금액을 확인할 수 있는 것은 AS040 및 AS070의 USD 580 두 건뿐이다. 나머지 두 건의 해당 원문과 금액이 없어 네 건 합계 및 전체 미수 여부를 판단할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-007",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/9383eae0446aa604294ed96dc20d44628f404339731c325cab53f71bf040680c.json",
+    "proof_sources": [
+      "AS040:p0095",
+      "AS070:p0105"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 네 건을 식별할 예약·계약 번호가 필요하다. 최종문맥의 네 건은 별도 계약이므로 그 금액과 상태를 전용할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF4-adv-007",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5125130d740cad1147b7fc3753d997a5587ff3aae8611e58a7383f0ba78f7f54.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 예약의 현장 원문 AS070:113에서 예정 8/14와 실제 반출 8/9·반납 8/20을 구분할 수 있어 날짜 차이 11일도 산출 가능.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문 대상 HG2029-02247이 원문과 일치하고, 실제 반출·반납일 및 예약 예정일 구분이 반환 근거에 명시되어 있다. 경과 일수는 두 날짜의 단순 차이로 계산 가능하다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-008",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/3a0ffc3a60b160794a0f08781dcaf778f94f331639c61e758dc874ed1a679595.json",
+    "proof_sources": [
+      "AS070:p0113"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 예약의 현장 원문 AS070:113에서 예정 8/14와 실제 반출 8/9·반납 8/20을 구분할 수 있어 날짜 차이 11일도 산출 가능.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문 대상이 HG2029-02247로 특정되며, 동일 사건 수신대장에 예정일·실제 반출일·실제 반납일이 모두 확인된다. 경과 일수는 확인된 두 날짜의 차이로 계산 가능하다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-008",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/583ffe83284bcc7621181384d762877c6390db495f658399f3333a8ac0e37c94.json",
+    "proof_sources": [
+      "AS070:p0113"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "화주와 두 기준일에 대응하는 AS064:125·AS114:25에서 각각 840과 900의 합계 및 구성 금액을 확인. 요청한 두 건을 비교할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 날짜와 화주가 특정되며, 최종문맥에 해당 각 날짜의 원문 비용 명세가 있어 잘못된 청구 전제와 두 건의 금액 차이를 모두 확인할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-009",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f10d851010d7b71acdd3d1d29cbe78e74f41e056f255467d6bb22a38ba7e6fc3.json",
+    "proof_sources": [
+      "AS064:p0125",
+      "AS114:p0025"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "화주와 두 기준일에 대응하는 AS064:125·AS114:25에서 각각 840과 900의 합계 및 구성 금액을 확인. 요청한 두 건을 비교할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 두 날짜별 건을 식별하는 원문이 반환되어 각 비용, 계산 결과 및 합계가 모두 직접 뒷받침된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-009",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/a4aafead0b1edf3c06fff60f293204a5e7694b34b17d9fda5b9b715f776e42c6.json",
+    "proof_sources": [
+      "AS064:p0125",
+      "AS114:p0025"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "최종문맥의 문서들은 질문의 네 대상(HL-20GP-02517, HL-20GP-02679, HL-20GP-00171, HL-20GP-01971)이 아니라 다른 예약·장비의 약정이다. 따라서 해당 네 건의 비용 조건을 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-010",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/892d6a856a9fa0bdc2ee92867e4f596e92c717d4e6b244117d5ee0922c836351.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 ‘네 건’의 예약·장비 식별자가 빠져 있어 대상 원문을 특정할 수 없다. 최종문맥에는 다른 식별자의 계약만 있어 요구된 네 건의 비용 조건도 확인되지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF4-adv-010",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/6de519fe647727f486632e114cb8296bc54d0a96976a2f390c238f0bcec270f6.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문은 대상 네 건의 예약·계약·화주 등 식별자를 제시하지 않았다. 최종 근거에는 각각 USD 610인 다른 네 record_id만 있어, 질문 대상과 동일한지 확정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF4-adv-011",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d73d543a94d12e3de25ac2edec55cef35856e1ac5f4b7f4fddf326097c69d7e9.json",
+    "proof_sources": [
+      "SQL0"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 네 건을 구별할 예약번호·장비번호·계약번호 등 식별 정보가 없다. 최종문맥의 다수 계약 중 어느 네 건인지 확인이 필요하다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_multi_doc:SYF4-adv-011",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/76801bc0c0cd3e67884feb79ea051c8fa78c846cca5a909416126db2a5e409de.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 예약의 청구 원문 AS020:133이 보관료만 확정, 지연료·합계 미확정을 명시해 잘못된 청구 전제를 반박할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 대상 예약에 대한 청구 명세와 혼동된 금액의 다른 예약 명세가 모두 최종문맥에 있어, 청구 가능 여부와 잘못된 전제를 판단하기에 충분하다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-013",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/7720fb37a9af84bd98e867bc50c3a8bb4f445ee75f025b888be3f463bb505dc1.json",
+    "proof_sources": [
+      "AS020:p0133",
+      "AS039:p0071"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 예약의 청구 원문 AS020:133이 보관료만 확정, 지연료·합계 미확정을 명시해 잘못된 청구 전제를 반박할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 대상 예약에 대한 청구 명세가 반환되어 있으며, 이를 통해 청구 가능 금액의 확정 여부와 현재 확정된 보관료를 확인할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-013",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5234fa3368136b116602d38ccbf887bd1091f3a5c4fba3b1d46ce7d48ea7dacc.json",
+    "proof_sources": [
+      "AS020:p0133"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 GR 코드의 SI 마감과 제출처를 AS014:3 표와 본문에서 확인. 네 문서 전부를 요구할 질문이 아님.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "최종문맥에 대상 예약의 정확한 마감일과 제출처가 있으며, 잘못 제시된 11월 4일 정오 전제를 바로잡기에 충분하다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-014",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/cbc1ae28d747c2818a690f48444b0df7b22ecdf1f39af6e541c68799df156d24.json",
+    "proof_sources": [
+      "AS014:p0003"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 GR 코드의 SI 마감과 제출처를 AS014:3 표와 본문에서 확인. 네 문서 전부를 요구할 질문이 아님.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 예약번호·출항 예정일·오류 전제에 대한 정정 마감·제출처가 최종 근거에 모두 확인된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-014",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e40f8b704d1511badb01d3e8be331bbc1c5221bd73dceeb1b2ffb4de49436a66.json",
+    "proof_sources": [
+      "AS014:p0003"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "최장 여부를 검증할 네 건의 식별 정보와 각 건의 실제 반출·반납 날짜가 최종 근거에 충분히 제시되지 않았다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-015",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d916e4d86564f5903c1e65faade691e0da84b0392c6a98f66cd92fa85ba653fa.json",
+    "proof_sources": [
+      "AS097:p0069",
+      "AS102:p0069",
+      "AS107:p0069"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "네 건 중 나머지 세 건의 실제 반출일·반납일 근거가 없어 최장 반납 구간을 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-015",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/503b6b8aa5ea85adc7176e373eca5e6678885d8fb82a461aed50f39d2bd95638.json",
+    "proof_sources": [
+      "AS097:p0069"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "요청된 나머지 세 예약의 청구 금액 및 네 건 합계를 뒷받침하는 원문 근거가 최종문맥에 누락되어 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_multi_doc:SYF4-adv-016",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d0d9b8d1b7393cd398cbf836bf9c34c716d8ffedc7412c3592ffdd9fcdfeeb14.json",
+    "proof_sources": [
+      "AS083:p0027",
+      "AS084:p0027"
+    ],
+    "quote_validation_error_count": 1,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HG2029-00641의 청구액은 원문으로 확인되지만, 질문이 지칭하는 나머지 세 건을 특정할 수 없고 해당 세 건의 비용 근거도 최종문맥에 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_multi_doc:SYF4-adv-016",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f5bd111d386828f331bcc07e31e45e9e3187c6614d397e000aad717b7a1b7fcf.json",
+    "proof_sources": [
+      "AS083:p0027",
+      "AS084:p0027"
+    ],
+    "quote_validation_error_count": 1,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HG2029-00398의 USD 590 및 HG2030-02036의 USD 660 확정 합계 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-017",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e03f355cb20b2daaa8f46479b85b60a30c7c36827a31b63ba76adbfd276e3fdb.json",
+    "proof_sources": [
+      "AS083:p0109",
+      "AS099:p0002"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "나머지 두 예약의 확정 합계(USD 590, USD 660)를 확인할 최종문맥 근거가 누락됐다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-017",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/4ac4d66c5cb0437609e1c2523c6857c03053754f3f2100d134e9c3acfd13ab50.json",
+    "proof_sources": [
+      "AS083:p0109",
+      "AS099:p0002"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 예약의 청구 AS054:67과 수납 AS055:77이 실제 지연료·합계·수납·미수·충당 순서를 모두 제공.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "최종문맥의 비용 명세와 수납 대사 자료가 HG2030-00035에 연결되어 있고, 질문이 요구한 잘못된 금액의 정정, 거래 합계, 수납 후 미수액 및 충당 순서를 모두 직접 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-018",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/288e3d91b6df35157250703a4b0904f73bffe8811868f45f7c6cbb14b2c0301c.json",
+    "proof_sources": [
+      "AS054:p0067",
+      "AS055:p0077"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 예약의 청구 AS054:67과 수납 AS055:77이 실제 지연료·합계·수납·미수·충당 순서를 모두 제공.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "대상 예약이 명확하고, 해당 예약의 비용 명세 및 수납 대사 원문이 요구된 금액과 충당 순서를 모두 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-018",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/301c38da899d74d1f46548d636a5e9e04f0ffd1f8b7b3057a615fd2b6074a28e.json",
+    "proof_sources": [
+      "AS054:p0067",
+      "AS055:p0077"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "GR27-F03769 중 92USD·실제일 확인서 건을 AS042:28에서 특정. 반려·유효 승인 없음과 감액 규칙으로 차감 불가를 판단할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 특정 예약·금액에 대한 상태와 확인서 도착 경위가 직접 확인되고, 승인 없는 금액은 청구 감액으로 적용할 수 없다는 규칙도 반환 근거에 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f1b26c5e27bb281607b2561413e43ceabe9ce869ddaf3c33ae5784c9662ba84c.json",
+    "proof_sources": [
+      "AS025:p0007",
+      "AS042:p0028"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "GR27-F03769 중 92USD·실제일 확인서 건을 AS042:28에서 특정. 반려·유효 승인 없음과 감액 규칙으로 차감 불가를 판단할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "필수 사실과 청구 처리 판단을 대상별 기록 및 적용 가능한 차감 규칙이 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/005f1deb923c2bf0a68bc75224f255f3583c9df01bb28f3630fe00e5f6fb6637.json",
+    "proof_sources": [
+      "AS025:p0007",
+      "AS042:p0028"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 네 예약에 해당하는 원문 약정 및 변경 대조 기록이 최종문맥에 없어 산입 기준과 변경 여부를 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e56b67a78fdeea397b23c357f088598b81d454ed7fc52d452753092cd84a682f.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 말하는 네 예약과 일치하는 원계약 및 비용별 변경·승인 기록이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/a61d44ecb789ec26e2a46e0b9213841bec6a8df8a1a65a490a175f4561d8b1dc.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "AS026:56은 재송부 요청만으로 수신·갱신을 추정할 수 없고 별도 확인이 필요함을 명시. 이 보정은 현재 모든 관련 기록이 미수신이라는 확정 판정이 아님.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "최종문맥에 해당 대상의 재송부 요청 상태와 새 원문 수신·등록 갱신 여부 및 별도 수신 확인 필요성이 모두 직접 기재되어 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-021",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/0a7aabef8439c61ca94d469512c09e1c49977290dd7b350729b15569a10aa82e.json",
+    "proof_sources": [
+      "AS026:p0056"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "AS026:56은 재송부 요청만으로 수신·갱신을 추정할 수 없고 별도 확인이 필요함을 명시. 이 보정은 현재 모든 관련 기록이 미수신이라는 확정 판정이 아님.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 대상 GR27-F02526과 직접 연결된 원문 근거가 재송부 요청 상태, 미확정인 수신·갱신, 별도 수신 확인 필요를 모두 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-021",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/857037d4df3586cd27bed1c33b19075becb0478a3e14480844b05a87e2b67a21.json",
+    "proof_sources": [
+      "AS026:p0056"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 말한 네 건의 대상 예약에 관한 정산 기록이 최종문맥에 없어, 충당 방식과 비용별 미수액을 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-022",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/13631424925585f8e999aeecee1d501f973dc3b49ebcc6fa3a378b6f4275fc10.json",
+    "proof_sources": [
+      "AS065:p0031"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "네 건의 비용별 미수액 및 해당 건별 수납 충당 기준을 뒷받침하는 자료가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-022",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2066f482410a58c618998b252f2cbf9253ae6664cf4defe99efafca0feafbe73.json",
+    "proof_sources": [
+      "AS115:p0130"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 AS051:140 약정에 주말 제외와 산입 시작·종료일이 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 장비와 일치하는 계약 원문이 주말 제외 및 보관료 산입 기간을 모두 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-023",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1fa23ef923b868296df82c6cbef2263e9097bfad9b972a797abf431079d9c69d.json",
+    "proof_sources": [
+      "AS051:p0140"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 AS051:140 약정에 주말 제외와 산입 시작·종료일이 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문이 지정한 장비의 계약 원문에서 비용 기준을 직접 확인할 수 있고, 질문의 달력일 전제를 바로잡을 근거가 충분하다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-023",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e05c297c75aab43e155f2b6c6ed91b693a420475fa1e5cbaf08971556cb864ce.json",
+    "proof_sources": [
+      "AS051:p0140"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 요구한 네 예약의 실제 보관료, 장비반납지연료, 개별 합계와 전체 합계 및 상한 적용 여부를 입증하는 대상별 원문 기록이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-024",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/dbc3581e3a13775a1d439007b7ec67c93deeb2d3c4cb7d9a1c4635fc53e1f147.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "필요한 네 예약의 비용·상한 기록 및 전체 합계 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-024",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/840cd672d30d39ff7c7d4de2c5900701c3d0e90d8a2426880d3dd539a6322f83.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에 해당하는 네 예약의 비용별 정산 및 수납 근거가 최종문맥에 없다. 제시된 네 건의 금액·상태를 질문 대상에 적용할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-025",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/9997183085d71d5cade2324dd8ce7a9bda3e2a6f744fb66b6343da6b86a8acd4.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문 대상 네 건의 예약·장비에 대응하는 보관료 명세, 반납지연료 확정/미결 상태, 수납 대사 자료가 최종문맥에 없다. 따라서 네 건의 반납지연료가 0인지, USD 1,575가 확정 보관료 합계인지, 전체 미수액이 얼마인지는 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-025",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/84437d984a09002fddf8a15eb95dd4dbff52a71b28fe0a49f6853c0181d05f8d.json",
+    "proof_sources": [
+      "AS078:p0094",
+      "AS079:p0094"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "질문에 명시된 두 장비의 AS098:68·AS083:89에서 연장과 상한의 비용별 적용 범위를 각각 확인.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 두 장비별 비용 조건 모두 최종문맥의 해당 계약 원문으로 뒷받침되며, 요청된 확대 적용이 허용되지 않는다는 결론을 충분히 지원한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-026",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/02a65283854b4cf4e6afcb3ef8657249d6388abc446ff0f5e08719ecb514c4fd.json",
+    "proof_sources": [
+      "AS083:p0089",
+      "AS098:p0068"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "질문에 명시된 두 장비의 AS098:68·AS083:89에서 연장과 상한의 비용별 적용 범위를 각각 확인.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문에서 지정한 두 장비 각각의 조건과 적용 비용을 최종문맥의 식별 가능한 원문이 직접 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-026",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/4502479462076e1bc078f4c800222d52b9e9c43ab5014d7c35e8d848a3074ba5.json",
+    "proof_sources": [
+      "AS083:p0089",
+      "AS098:p0068"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "네 건 각각의 원문 상태와 발행 원문 확인 여부를 보여주는 근거가 최종문맥에 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-027",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1b0a850540138d98e6cc7abfe654a6b16e2182fded1e66e408156ddbbb070b54.json",
+    "proof_sources": [
+      "AS047:p0001"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "네 건 각각의 미발행 및 발행 원문 확인 상태를 입증하는 최종문맥 근거가 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-027",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/77d2210c84e076cee74951ad7527d00cd84ca5e537625ae65a3a6e673c68be8b.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 예약의 비용 원문 AS015:141에 청구 주체와 비용별 확정액이 있어 화주 청구액과 전체 합계를 구분할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "최종문맥에 질문의 예약과 일치하는 비용 명세가 있으며, 필수 금액·청구 주체·합계의 의미를 모두 직접 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-029",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/289113d06c6836c9c6b356820d9beeca51b2e7bdc893426ef9c0aa0a8e86e530.json",
+    "proof_sources": [
+      "AS015:p0141"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 예약의 비용 원문 AS015:141에 청구 주체와 비용별 확정액이 있어 화주 청구액과 전체 합계를 구분할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "필수 사실이 모두 최종문맥의 해당 예약 원문으로 뒷받침된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-029",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2ff71c482e9eaab176518f6e3e62ee469dee4e71aadeb67f0364743cde3b12e7.json",
+    "proof_sources": [
+      "AS015:p0141"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reject_other_event_amount_match",
+      "reason": "자동 검수가 금액이 같은 다른 사건의 원장을 대체 근거로 사용하여 그 판단은 기각. 명시 장비의 미수 320은 지원되고 질문이 준 795·655를 가정하면 1770 계산은 가능하지만, 나머지 두 사건의 실제 잔액까지 검증한 것으로는 인정하지 않음.",
+      "verdict": "uncertain"
+    },
+    "automatic_reason": "필수 금액, 반납지연료의 산식과 최종 확정액 구분, 합계 및 기준시점 차이를 모두 최종문맥의 원문 인용으로 확인할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "uncertain",
+    "id": "peer_multi_doc:SYF4-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/096ced7d219a7d0fada7fdccb22162eb42c3e5f9c6be2e4cd1992b3424738e8a.json",
+    "proof_sources": [
+      "AS043:p0126",
+      "AS044:p0121",
+      "AS045:p0121",
+      "AS059:p0061",
+      "AS068:p0113"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reject_other_event_amount_match",
+      "reason": "자동 검수가 금액이 같은 다른 사건의 원장을 대체 근거로 사용하여 그 판단은 기각. 명시 장비의 미수 320은 지원되고 질문이 준 795·655를 가정하면 1770 계산은 가능하지만, 나머지 두 사건의 실제 잔액까지 검증한 것으로는 인정하지 않음.",
+      "verdict": "uncertain"
+    },
+    "automatic_reason": "질문의 잘못된 전제를 반박하는 확정액 및 미수액, 나머지 두 미수액과 합산 결과를 모두 최종문맥의 원문으로 확인했다. 조회 기준일 차이도 명시할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "uncertain",
+    "id": "peer_multi_doc:SYF4-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/0d487bf36f8a42c3df30a4216590e529d34a16174c6dc230aa358efe84e6cedd.json",
+    "proof_sources": [
+      "AS044:p0121",
+      "AS045:p0121",
+      "AS080:p0005",
+      "AS095:p0145"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 현장 원문 AS096:109가 실제 반출·실제 반납·예약 예정일을 모두 제공하여 두 날짜 차이를 계산할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "최종문맥에 해당 장비의 실제 반출일, 실제 반납일 및 예약 예정일이 모두 명시되어 있어 잘못된 반납일 전제를 바로잡고 실제 기록 기준 계산을 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/883d293c406b8ba5b1ac391ef04bfe79b860e3b331aebce808988bc76f720027.json",
+    "proof_sources": [
+      "AS096:p0109"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 현장 원문 AS096:109가 실제 반출·실제 반납·예약 예정일을 모두 제공하여 두 날짜 차이를 계산할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "최종 근거는 질문 대상 장비의 실제 반출일, 실제 반납일, 반납 예약 예정일을 모두 직접 구분해 뒷받침한다. 질문의 2030-02-23 실제 반납 전제는 원문 기록과 다르므로 실제 기록을 정정해 산출하는 답변이 근거에 부합한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/6c6bb6759cc615eea0868fe67cf97079ca9f4980186d9a8361fa1644f02197a6.json",
+    "proof_sources": [
+      "AS096:p0109"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "최종문맥에 있는 현장 기록은 HL-20GP 장비들에 관한 것으로, 질문의 HL-40GP 장비 네 대와 일치하지 않는다. 해당 네 장비의 실제 날짜와 예약일 근거가 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-032",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f8a57f700823ed8fd85df976cc60a1a23635e563dc4ace2ad2b0d820a2f9505e.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "요청한 네 장비의 예약 반납일 및 실제 반출·반납일이 최종문맥에 제시되지 않았다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-032",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/fd2cfa8402de004eaed6a756ec426115f38b0ddb00bba434275c2e99c6479793.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "GR26-P0599, GR27-F03215, P26-20-0198의 상태를 뒷받침하는 최종 근거가 누락됐다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-033",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/36ed41a821723c00f98bf3120ec08f7f98708bdeaf0727db444cd07e5807cb78.json",
+    "proof_sources": [
+      "AS007:p0037"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "GR26-P0599, GR27-F03215, P26-20-0198의 상태와 확정 범위·후속 확인 사항을 뒷받침하는 최종 근거가 누락되어 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-033",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2f659bc90f339356345477abe94d5b3a86dc853f5f94a5ad688b6d290f6ebaa6.json",
+    "proof_sources": [
+      "AS007:p0037"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 현장 원문 AS007:109에서 예약일과 실제 반납 증빙 미수신을 구분할 수 있어 확정 정산 불가를 판단할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 거짓 전제는 동일 장비의 사건 대장으로 반박되며, 예약일과 실제 반납 증빙의 상태가 구분되어 있다. 필요한 모든 결론이 최종문맥의 원문 인용으로 뒷받침된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-034",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f525eeb263b8ef3ca3f09993c611cd5dede9a7246e1cdbf9e7abc21a2f5e0872.json",
+    "proof_sources": [
+      "AS007:p0109"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reference_scope_exceeds_question",
+      "reason": "명시 장비의 현장 원문 AS007:109에서 예약일과 실제 반납 증빙 미수신을 구분할 수 있어 확정 정산 불가를 판단할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "동일 장비·계약에 관한 원문에서 실제 반출일, 반납 예정일, 실제 반납 증빙 미수신 상태가 확인된다. 따라서 실제 반납일을 전제로 한 7일 정산은 확정할 수 없다는 판단을 직접 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_multi_doc:SYF4-adv-034",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c9a884050a121530f5301c378d4d6c8a9016ed2efca5dc01193b38df22cb56d6.json",
+    "proof_sources": [
+      "AS006:p0139",
+      "AS007:p0109"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "네 건 합계의 검증에 필요한 나머지 세 거래의 일치하는 원문 대사 금액이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-035",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/cc993e77ba1ff968a46c180dcefffdfc21582ab03aa285ea19009e1551b9f5bb.json",
+    "proof_sources": [
+      "AS019:p0123",
+      "AS020:p0113"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "기준시점 대상 건과 나머지 세 건의 정산 원문이 최종문맥에 없어 개별 금액 및 합계를 검증할 수 없다. 수납 충당 기준도 제시된 다른 계약들 사이에 차이가 있어 대상 건의 원칙을 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-035",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/059c1846b586fe876e5cd834ded61571372dedab1fa5546b538303c5f6501911.json",
+    "proof_sources": [
+      "AS065:p0031",
+      "AS073:p0053",
+      "AS115:p0026"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "세 정산(HG2029-01880, HG2030-00626, HG2029-00980)의 해당 예약별 비용 근거가 최종문맥에 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_multi_doc:SYF4-adv-037",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/8b07708470bd26b9f53dc811cc4c905708846586181496c896380df70967fc86.json",
+    "proof_sources": [
+      "AS113:p0139"
+    ],
+    "quote_validation_error_count": 1,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "나머지 세 정산의 예약 식별자와 비용별 확정액·합계를 뒷받침하는 최종문맥 근거가 누락됐다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_multi_doc:SYF4-adv-037",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/87c6a2e5d639042c79a03250a2a6b91c96d48f23c3a14eb44d92639df27787a5.json",
+    "proof_sources": [
+      "AS113:p0139"
+    ],
+    "quote_validation_error_count": 1,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "요청된 네 장비의 실제 반출일·실제 반납일과 각 예약일·전산 입력일을 확인할 기록이 반환되지 않았다. 최종문맥의 장비와 SQL 행은 모두 다른 건이므로 대체 근거로 사용할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-038",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/50764f9dcb4bcc4d694fa874927e147da77fe0574cea6b323678047b2458d71c.json",
+    "proof_sources": [
+      "AS079:p0117"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "네 장비 각각의 실제 반출일과 지정 장치장 실제 반납일을 확인할 수 있는 원문 또는 해당 장비를 포함하는 유지 SQL 결과가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_multi_doc:SYF4-adv-038",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e04cf2109cafd51fb648fdf948b3b0d3680034cef70b84cb17ca4db7eef384cf.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "한솔자재의 어느 예약·계약과 어느 조회 기준일을 비교할지 식별이 필요하다. 가람자재 건의 대응 정산 내역도 최종 문맥에 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-001",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/fc7d9d0af335b250f6a6463d280581a5d6493f3b1700513462fa00f96be3e155.json",
+    "proof_sources": [
+      "AS004:p0118",
+      "AS099:p0046"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 화주 모두 여러 계약·예약이 제시되어 있습니다. 비교할 예약/계약 번호 또는 조회 기준일이 필요합니다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-001",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/4cf038b4328bfd773f2a29506488c8e6a86647e13ccce890b547af7e07f4522a.json",
+    "proof_sources": [
+      "AS024:p0095",
+      "AS049:p0076",
+      "AS074:p0100",
+      "AS081:p0058",
+      "AS084:p0012",
+      "AS105:p0126",
+      "AS109:p0046",
+      "AS116:p0127"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "가람자재와 삼경공업 모두 이름만으로 특정되지 않는 복수 계약/장비 기록이 있다. 예약번호, 계약번호 또는 장비번호 등 식별 정보가 필요하며, 가람자재 건의 계근확인서 조건 및 제출 확인 여부도 반환 근거에 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-002",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/15a8e40e9eb38564cfc4328d4c3daae9047998e303154df84c35de8256226e86.json",
+    "proof_sources": [
+      "AS033:p0112",
+      "AS048:p0136",
+      "AS061:p0128",
+      "AS063:p0027",
+      "AS111:p0108",
+      "AS117:p0054"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 화주 이름만으로는 각 건의 예약·계약을 확정할 수 없다. 가람자재는 연장 미승인 및 승인 사례가 모두 있고, 삼경공업도 여러 종료일·금액·반납지연료 사례가 있다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-002",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/ed8be9072a8820b1a112a5f13ac6aec4e1391d6551d17d1ebe54da3ab06a9c43.json",
+    "proof_sources": [
+      "AS033:p0112",
+      "AS063:p0027",
+      "AS077:p0056",
+      "AS111:p0108",
+      "AS117:p0054"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "한림철재의 대상 예약·장비 또는 계약 식별정보가 필요하다. 제시된 한림철재 계약들은 보관료 조건이 서로 다르고, 참고답의 무료 3일 조건은 최종문맥에서 확인되지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-004",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e8c7cb3967ba2d1a1b3f28304b2c2713853c124146cf321085901931b1d61f45.json",
+    "proof_sources": [
+      "AS015:p0123",
+      "AS048:p0079",
+      "AS075:p0129",
+      "AS118:p0092"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "한림철재의 계약번호, 예약번호 또는 장비번호가 없어 날짜 제외의 적용 여부와 해당 계약의 무료기간·요율을 특정할 수 없다. 최종문맥에는 무료 2일/35·65 USD, 무료 2일/30·60 USD, 무료 4일/30·60 USD 등 서로 다른 조건이 제시되어 있다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-004",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1427bf48916690565de7a48af96b78abbd055c1103cf7aa210561634e975e78e.json",
+    "proof_sources": [
+      "AS015:p0123",
+      "AS048:p0079",
+      "AS075:p0119",
+      "AS118:p0092"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 대상 예약을 식별할 예약번호 또는 계약번호가 필요하다. 현재 문맥은 다른 소담산업 예약과 윤슬자재 계약만 보여 주며, 질문 대상에 대한 확정 금액도 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-008",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5b1a48fb68cce4ea8f2985fd8c6084cffc7ee68a87239957f8716cc68efd2e34.json",
+    "proof_sources": [
+      "AS026:p0090",
+      "AS039:p0120",
+      "AS069:p0017"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "소담산업 예약 식별 정보(예: 예약번호 또는 계약번호)가 빠져 있다. 해당 예약과 윤슬자재 계약의 조건 문서 및 그 예약의 기준일 청구 명세도 최종문맥에 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-008",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/0df0f2b5c3b977dfcd52698088bfe598351fbe3cbc7da2b6ba0abe4fff1d7bde.json",
+    "proof_sources": [
+      "AS034:p0119",
+      "AS059:p0108",
+      "AS075:p0074",
+      "AS102:p0108"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "한림철재의 명시 장비 실제·예약일은 일치. 범진테크 다른 계약의 비용부담 조건을 옮기면 안 된다는 판단은 AS093:1 및 대상 계약 회신의 범위 제한으로 지원됨. 다른 사건의 비용 값을 가져와 적용한 보정이 아님.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "필수 사실은 최종문맥의 사건 기록과 비용 조건 회신으로 뒷받침되며, 범진테크 회신의 적용 범위와 한림철재 계약의 별도 식별도 확인된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SY-adv-010",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/a032cf3188144982e87204d026aacda89de2c0d896d7f776faa3d821711cf965.json",
+    "proof_sources": [
+      "AS051:p0070",
+      "AS052:p0080",
+      "AS053:p0075",
+      "AS093:p0001"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에 송학산업 계약과 범진테크 건의 예약·장비·계약번호가 없어 최종문맥의 여러 계약 중 지칭 대상을 확정할 수 없다. 참고답의 식별정보는 최종 근거로 사용할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-012",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/702ae71c1a39bf0e0cbbbb7d47790776632e8eff8222afba6b87d89060ffc1ff.json",
+    "proof_sources": [
+      "AS063:p0016",
+      "AS068:p0060",
+      "AS118:p0047"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에 해당하는 송학산업 HL-40GP-00434/CT-00434 및 범진테크 HL-20GP-00100/CT-00100 원문이 최종 근거에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SY-adv-012",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2d1d8966900ef5c5fa59dcb27d5b9af5166d20693df0e1f78dc0a15b8acdbb2d.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "회사명만으로는 대상 장비·계약을 특정할 수 없다. 최종문맥에는 한림철재의 서로 다른 계약·장비 기록이 있고 나루기전 대상 기록은 없어, 의도한 두 건의 원문을 확정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-016",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1ce6b07129de870d197688c3490b9805a3c5a0c43b789339f0e1402ed3c65bab.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에는 회사명만 있고 예약·장비·계약 식별자가 없다. 최종문맥에는 각 회사의 복수 계약 기록이 있으며, 제시된 2029-02-17, 2029-10-10, 2029-10-08을 확인할 근거도 없다. 대상 거래를 식별할 정보가 필요하다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-016",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d02bb4e26d711bec631c5742ac772b64894a106f3313ecd069f1693ae7d2ff34.json",
+    "proof_sources": [
+      "AS017:p0074",
+      "AS105:p0053"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 사건을 2월 N1 양하로 전제하지만, 해당 장비의 사건 원문에는 실제 양하일이 2029-09-25로 기재되어 있고 N1 터미널 표기도 없다. N1 변경 자료는 2027년 2월 기록이다. 따라서 2월 터미널 요율을 이 특정 사건에 적용할 수 있는지 확정할 수 없다.",
+    "automatic_verdict": "uncertain",
+    "final_verdict": "uncertain",
+    "id": "peer_two_doc:SY-adv-018",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/af177072f1932ad8467786380602f1c034015a4ed9b7b092440344021b128931.json",
+    "proof_sources": [
+      "AS023:p0001",
+      "AS116:p0060",
+      "AS117:p0060",
+      "AS118:p0060"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "2월 N1 개정의 대상 규격과 효력, 그리고 그 개정이 CT-01425의 계약 조건에 미치는 영향을 확인할 원문이 빠져 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SY-adv-018",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e50c78db8bd5a3ab671fb69256eb8c028629d2124818d4ca2aa253bef24feebf.json",
+    "proof_sources": [
+      "AS018:p0009",
+      "AS116:p0060"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "해강기재의 20GP·40GP 건이 각각 여러 건으로 나타난다. 어느 계약·장비번호 또는 기준 시점의 두 건을 비교할지 식별 정보가 필요하다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5c96e98c88388982e309699c7f3952fc2e2cecffbb8eee1ea18f328ab5cc2b1d.json",
+    "proof_sources": [
+      "AS002:p0101",
+      "AS057:p0055",
+      "AS080:p0108",
+      "AS087:p0017"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문은 해강기재의 20GP 및 40GP 건이라고만 특정해 장비번호·계약번호를 제시하지 않는다. 최종 근거에는 동일 화주의 여러 규격·계약 기록이 있으나, 참고답에 등장하는 HL-20GP-02330과 HL-40GP-02411에 대한 기록은 없다. 따라서 어느 원문이 질문 대상인지 확정할 수 없고, 해당 건들의 날짜·기간·비교 및 예약일 구분을 뒷받침할 근거도 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/6b6d012c37d90b67700ba9f053a474dbb54bfbd4e5112e59217629a4ef5211b6.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "해당 계약의 승인 권한·부분 정정 유지 항목·수납 및 미결 인계 원문이 모두 반환됨. 지정된 IS 일반 설명을 못 찾았어도 확인서 도착만으로 승인·입금 충당을 처리할 수 없다는 판단을 계약 원문으로 지원함.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문에서 요구한 금액·수납 상태, 미결 서류의 인계, 운영 확인과 승인·수납 배분의 구분, 원본 수신 후 갱신 및 유지 비용 처리까지 대상 계약의 최종 근거가 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SY-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/a5af770b51db07e83ccf73a5ea8e97a3fb99c9559e514d6e4d6fec05972dcc60.json",
+    "proof_sources": [
+      "AS091:p0024",
+      "AS093:p0024",
+      "AS094:p0024",
+      "AS095:p0024"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "proof_from_arm": "A",
+      "reason": "A에서 인정한 해당 계약의 다섯 원문이 B에도 동일하게 있음. 승인 권한·부분 정정·수납·미결 인계 근거를 재확인하여 자동 부족 판정을 수정함.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "확인서 도착만으로 승인·입금 배분이 완료되지 않는다는 규칙과, 확인서만으로 미수금에 입금 충당할 수 없다는 직접 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SY-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/3a3d3e222ee2b0538f13aa36dc68633a4b58930105b6b80bc825ace52dd8b8ba.json",
+    "proof_sources": [
+      "AS093:p0024",
+      "AS094:p0024",
+      "AS095:p0024"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "윤슬자재의 계약·예약·장비 식별자가 없어 대상 건을 특정할 수 없다. 최종문맥에는 윤슬자재의 서로 다른 계약과 날짜 기록이 여럿 있으나 요청된 날짜 조합은 확인되지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-027",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d67ad7a02723b2c0b5d3b558d467386f9fb96e41b36f88b336f1d06558cea8bf.json",
+    "proof_sources": [
+      "AS077:p0032"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "윤슬자재의 동일 화주에 여러 계약·장비 사건이 있어, 질문의 날짜들이 어느 건에 해당하는지 확인할 식별자(예: 계약번호, 장비번호 또는 화물)를 추가로 확인해야 한다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-027",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/646689b810c8293888ab87f6bd59853dc55cdc289ad9227af759e0e27cc17d0b.json",
+    "proof_sources": [
+      "AS002:p0144"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "요청된 N1 새봄유통 건(예정 2027-02-17, 수신 2027-02-20)의 실제 미확인·대기 상태를 직접 확인할 수 있는 원문 근거가 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SY-adv-028",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/b0c7cf5ab6e029185c3214d8b5ccdc90fcb3699415526ca7ce1b51745d05b0a2.json",
+    "proof_sources": [
+      "AS033:p0077",
+      "AS036:p0032"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "N1 새봄유통 건의 예정일(2027-02-17), 2월 20일 수신, 실제 미확인·확인 대기 상태를 뒷받침하는 해당 기록이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SY-adv-028",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c8bfe67fbb369caacd5b9c46717fb12aced4ae343375cd56776647e1c93ef4d1.json",
+    "proof_sources": [
+      "AS033:p0077",
+      "AS036:p0032"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "선진기공 계약의 계약번호 또는 대상 예약·장비를 확인해야 적용 여부를 확정할 수 있다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-029",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/98a2f022867975dc86843db486640a69e18945e22f5ebe3697552889603c1cbb.json",
+    "proof_sources": [
+      "AS039:p0021",
+      "AS042:p0129",
+      "AS057:p0129",
+      "AS108:p0066"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에 계약번호나 대상 장비가 없어 어느 선진기공 세라믹 링 계약을 가리키는지 확정할 수 없다. 최종 근거의 계약 장비도 참고답의 HL-20GP-01003과 일치하지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-029",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/466117c6bbe2c919648f0e3bf215a8c515d22009e2cb539948d9d9745946b171.json",
+    "proof_sources": [
+      "AS039:p0021",
+      "AS078:p0016",
+      "AS103:p0086"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문은 대상 장비번호나 계약을 특정하지 않고 ‘한솔자재의 두 40GP 건’이라고만 한다. 최종 근거에는 한솔자재의 여러 40GP 건이 있어 어느 두 건을 뜻하는지 식별할 수 없으며, 참고답에 등장한 HL-40GP-00972와 HL-40GP-02064의 원문도 최종 근거에 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/13b6611202695d48fd6f2a3c06b88b6992c30f5a1add660bda72f4a36aaa8cae.json",
+    "proof_sources": [
+      "AS114:p0093"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 대상 장비의 실제 반출·반납일 및 각 건의 반납 예약 예정일·전산 입력일 기록이 최종 근거에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SY-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/4ff0268cffc8eea6816254696ae2cdef4930fdff6855cdedfc2db58e47c04a5a.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "명시 CT 계약과 장비를 같은 사건의 현장 원문 AS097:59에서 확인하고, HA 조건표 AS001:86의 적용 대상이 다름을 확인. 지정 회신 페이지 대신 같은 사건 식별 원문을 인정.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "필수 사실과 적용 가능 여부 판단을 뒷받침하는 최종문맥의 원문 근거가 있다. 특정 유성기재 조건표를 율곡산업 건에 그대로 적용할 수 없다는 판단은 대상 범위와 예약·장비 식별이 다른 점에 근거한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SY-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/62cdd33f99baed46316835b6c7bde29d7668267aa297ae0bf0a0aafa207e6619.json",
+    "proof_sources": [
+      "AS001:p0086",
+      "AS097:p0059"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "한림철재의 현장 사실은 확인된다. 가온상공에는 서로 다른 예약·계약과 조회 기준이 있어 질문만으로 어느 건을 뜻하는지 특정할 수 없다. 가온상공 건의 예약/장비번호 또는 조회 기준일이 필요하다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-033",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/94124f0a27a226a0af1d9eff158e8cf6d8f6d5e7b9c6cabedded26d3c8532d02.json",
+    "proof_sources": [
+      "AS067:p0031",
+      "AS069:p0036",
+      "AS082:p0077"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "한림철재 장비의 날짜와 반납 확인 상태는 지원된다. 가온상공에는 반환된 근거상 복수 예약·계약이 있으나 질문에서 대상 예약, 계약 또는 조회 기준일을 특정하지 않았고, 요청된 USD 640·USD 120·USD 760을 뒷받침하는 원문도 최종 근거에 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-033",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/74ac49d073086d189e400db9885b915becaaa5ad376efae5fc09086bca476a2f.json",
+    "proof_sources": [
+      "AS024:p0090",
+      "AS054:p0067",
+      "AS067:p0031"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "송학산업의 해당 원장과 주원부품의 같은 사건 수납 원장 AS095:47에 충당 기준이 있어, 지정 회신이 없어도 두 계약의 비용 조건 전용 불가를 판단할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "대상 송학산업 계약의 수납액·미수액·충당 기준과 비용별 청구액이 최종 문맥에 있고, 주원부품의 순서도 별도 계약의 기록으로 확인된다. 질문의 판단에 필요한 사실이 지원된다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SY-adv-035",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/335a54f484549366bc3fcf393fcf17971d92e4941e487836e86343dd5b850e5a.json",
+    "proof_sources": [
+      "AS014:p0133",
+      "AS095:p0047"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "N1 대장의 1월 8일 원문 번호 오기 정정 내용과 그 기록이 조건·요율에 미치는 범위를 직접 확인하는 원문이 최종문맥에 없다. 따라서 그 기록이 해당 예약의 조건을 확정하지 않는다는 세부 근거 및 조건·요율 확정 여부는 확인 불가하다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SY-adv-037",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5ba57ebe699243a6ae4925183d92436b9deddc89f8e3f6f2a0a3695236f16a85.json",
+    "proof_sources": [
+      "AS031:p0083",
+      "AS045:p0080"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "1월 8일 오기 정정의 해당 예약 원문과 그 정정이 조건·요율을 바꾸지 않았다는 기록이 최종 문맥에 없다. 조건·요율 확인 후 청구액 산출까지의 구체 절차도 충분히 확인되지 않는다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SY-adv-037",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/9a5b41d6ebbc7e389d5d6430c4a471dbfc22433e809ca5f40446d07cf41c3e50.json",
+    "proof_sources": [
+      "AS033:p0072",
+      "AS036:p0049",
+      "AS045:p0080"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문은 수안부품의 예약·계약·장비 또는 기준시점을 제시하지 않는다. 최종문맥에는 수안부품의 여러 계약이 있어 어느 건의 현재 비용을 묻는지 확정할 수 없다. 또한 참고답의 삼경공업 계약 CT-00937과 최종문맥에 나온 CT-00037이 일치하지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-040",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e8644b9db1d4e84b790d0c1a68dda473a96c06e05c5d9c54677190a48b593a0b.json",
+    "proof_sources": [
+      "AS063:p0002"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에는 수안부품 예약·계약 식별자가 없고, 최종문맥에 서로 다른 수안부품 계약이 여럿 있어 어느 정산 건의 비용인지 확정할 수 없다. 특정 비용 수치도 최종문맥에서 확인되지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-040",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/6e317ac9d246c7f063edb6a73f7ad65eb5a0d6e374d48d77c6d18a873ad9bc48.json",
+    "proof_sources": [
+      "AS003:p0140",
+      "AS049:p0088",
+      "AS093:p0008"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대신공구에 여러 계약·장비 기록이 있으나 질문에 계약번호나 장비번호가 없다. 최종 근거에서 확인되는 CT-00277의 최초 조건은 보관료 2일, 장비반납지연료 1일로, 참고답의 3일·2일을 뒷받침하지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-043",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/46e49fc52dd45632b562fdde7b93b24062209f1c270d1224ca290a9ef02eee40.json",
+    "proof_sources": [
+      "AS057:p0114",
+      "AS061:p0012"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대신공구의 어느 계약/예약/장비를 묻는지 식별자가 필요하다. 반환 자료에는 CT-00277, CT-01177, CT-02077 등 여러 대신공구 계약이 있으며, 어느 것을 기준으로 하는지에 따라 보관료·반납지연료 기본 무료기간을 특정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SY-adv-043",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/0fc5530ea7807437d52f767b2a13f1fdd23c283937d43e8dd1c8bb928dd4ead4.json",
+    "proof_sources": [
+      "AS001:p0150",
+      "AS057:p0114",
+      "AS061:p0012",
+      "AS115:p0099"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "두 명시 장비의 계약 원문과 수납 원장이 양하일 산입 및 초과 수납 환급 검토를 지원. 지정된 대조 회신 대신 해당 계약·원장 근거를 인정.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "두 건의 보관료 산입 기준과 각 건의 수납 대사 결과가 해당 장비·계약 원문으로 확인된다. 특히 초과 수납은 HL-20GP-02580에만 있고, HL-20GP-01296은 미수 상태이므로 이를 혼동하지 않으면 질문의 필수 사항을 모두 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SY-adv-046",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/49aad0a5c4b8fccdbd6ab856233e96bed42b1582d95f82942d8ce3d04fe5a360.json",
+    "proof_sources": [
+      "AS026:p0130",
+      "AS030:p0145",
+      "AS070:p0139",
+      "AS074:p0139"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "두 명시 장비의 계약 원문과 수납 원장이 양하일 산입 및 초과 수납 환급 검토를 지원. 지정된 대조 회신 대신 해당 계약·원장 근거를 인정.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문에서 요구하는 두 건의 보관료 산입 기준과 초과 수납 대조가 각각의 계약·회계 원문으로 뒷받침된다. 첫 건은 초과 수납이 아니라 750 USD 미수이며, 둘째 건의 50 USD 초과분은 환급 검토로 명시되어 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SY-adv-046",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/192de3bb1341882fb1bee24b5cc376a7a702d425abc03fa14c4869b6b58fd2ec.json",
+    "proof_sources": [
+      "AS026:p0130",
+      "AS030:p0145",
+      "AS070:p0139",
+      "AS074:p0139"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "별도 확인 필요성의 직접 근거가 없고, 질문에서 지칭한 범진테크 사례도 예약·계약으로 특정되지 않아 최종문맥의 여러 범진테크 케이블 브래킷 기록 중 어느 건인지 확정할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SY-adv-055",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d0ea75b6b4941a90031e6252a6efbcc15dca5e7bba12fffc0379062e737219f9.json",
+    "proof_sources": [
+      "AS035:p0090",
+      "AS039:p0121",
+      "AS047:p0018"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "가람자재 건을 특정할 예약번호, 계약번호 또는 조회 기준일이 필요하다. 최종 근거에 제시된 다른 가람자재 예약의 금액을 질문 대상에 전용할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-001",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/404106fd84e3997e7ad05ba7360c916284c20b5e6c4dc8b1eb23624d4159763f.json",
+    "proof_sources": [
+      "AS014:p0070",
+      "AS063:p0104",
+      "AS084:p0012",
+      "AS105:p0131"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "삼경공업 건의 보관료 종료일 2029-04-14, 정정액 USD 330, 반납지연료 USD 260 유지 여부를 뒷받침하는 최종 근거가 없다. 최종 자료에는 더 이른 조회 기준의 금액만 나타난다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-002",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e1f869677eba692decd4d56330148fc5052282f7783dae251bc6b521efd3f081.json",
+    "proof_sources": [
+      "AS101:p0083"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "삼경공업 건을 예약·장비·계약 등으로 특정할 정보가 없다. 최종문맥의 삼경공업 기록은 참고답에 적힌 종료일·금액과 다른 별도 계약일 수 있으므로 그 값을 질문의 건에 적용할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-002",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2c5e347c28d0b10527484815d581f8c5e1781c8a3ee00958eb3abff7ff8468e0.json",
+    "proof_sources": [
+      "AS008:p0072",
+      "AS117:p0054"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "한림철재의 어느 예약·계약을 뜻하는지 식별할 정보가 필요하다. 최종문맥에는 무료 2일·USD 30/60 요율 계약과 무료 4일·USD 35/65 요율 계약 등이 함께 있다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-004",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/80c7120ddc23db1e1e4bcaa8580534e43b2ed0c76a5cbc1ac523920f67095368.json",
+    "proof_sources": [
+      "AS015:p0123",
+      "AS048:p0079",
+      "AS075:p0129",
+      "AS086:p0004"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "한림철재의 예약번호, 계약번호 또는 장비번호가 필요하다. 제시된 한림철재 문서들에는 서로 다른 계약 조건이 있어 하나를 임의로 선택할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-004",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/09dfd0b1ca8cf41c3d67bf250430792f7c96579ca5491dd65e38e26f5807e351.json",
+    "proof_sources": [
+      "AS015:p0123",
+      "AS048:p0079",
+      "AS075:p0119",
+      "AS075:p0129"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "의도된 2029년 조회 건의 금액 근거가 없고, 2030년 금액으로 제시된 유사 날짜의 기록도 다른 예약이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-005",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1698da007128d773cf4d329f3dcc73b12973ee3c4e25665d00dd612185c9775f.json",
+    "proof_sources": [
+      "AS070:p0005"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 두 조회 건에 해당하는 원문 금액 근거가 최종문맥에 없다. 표시된 USD 455 기록은 다른 예약·계약 및 조회 기준시점의 것이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-005",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/5a778273189a1477884a1be95aa4aae1b5de64139bef7287fa8429266991e7cb.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대신공구 CT-00823에 대한 2030-11-01 16:00 KST 기준 계약 변경 여부와 최초 계약 적용 근거가 누락됐다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-006",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c57805b97e5aa7dd26367dc2fd6d45583a6bd7ff349c746f9b599b8ab0d190af.json",
+    "proof_sources": [
+      "AS032:p0120",
+      "AS047:p0087",
+      "AS048:p0082"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "소담산업 건의 예약·계약 식별정보가 없어 해당 청구액을 특정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-008",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/177e6c1172b1ea476beb5ac460e503810286762670171f62b37b2d764568c29c.json",
+    "proof_sources": [
+      "AS026:p0137",
+      "AS062:p0108",
+      "AS074:p0039"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "어느 윤슬자재 계약 및 어느 소담산업 청구인지 예약/계약 식별자가 특정되지 않았다. 요청된 USD 515, USD 165 및 USD 680을 뒷받침하는 해당 청구 원문도 최종 근거에 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-008",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f98483d6c5ec52d195e5ec4b71ac0eaf057959dbe69a1dbe4fb5869b829849e8.json",
+    "proof_sources": [
+      "AS021:p0092",
+      "AS062:p0108",
+      "AS099:p0093"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "2030년 정산 건을 식별할 날짜, 예약번호, 장비번호 또는 계약번호가 필요하다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-009",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f7d1c19d1225588465669c1b375db36912770e7594bc9a9398ab53d9cf0b7e54.json",
+    "proof_sources": [
+      "AS073:p0054",
+      "AS109:p0008"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "2030년 정산 건을 식별할 예약·장비·계약 번호 또는 조회 기준일이 필요하다. 최종문맥에는 2030년 장비반납지연료가 7/1/6이면서 USD 190인 건과 USD 150인 건이 모두 있다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-009",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c0bcc35e893004d8c7db5e6749cb4228d822b957cd6a1b95e7868f7d23df6b83.json",
+    "proof_sources": [
+      "AS073:p0054",
+      "AS088:p0129",
+      "AS109:p0008"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "대상 장비의 실제·예약일과 별도 계약의 적용 범위 제한이 있어, 다른 화주 회신이 항구 전체에 공통 적용된다는 전제를 반박할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문은 범진테크의 비용 부담 기준을 한림철재 건에 적용해도 되는지 묻는다. 최종 근거는 범진 회신의 계약·장비 범위를 특정하고 다른 장비 조건의 무단 적용을 배제하며, 한림 계약의 별도 비용 조건도 제시한다. 따라서 공통 적용 전제는 반박되고, 적용 불가 판단을 뒷받침한다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SYF-adv-010",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/04f3c14f1a5476a2867c3742c24dc3c0a792ae658dab4aa479154faee154341a.json",
+    "proof_sources": [
+      "AS051:p0070",
+      "AS052:p0080",
+      "AS093:p0001"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 말하는 두 건의 예약·장비·계약번호가 특정되지 않아 해당 거래끼리 같은 계약 대상인지 확인할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-012",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/cb68f6f379222be87f1be09a5950b38ab68e2ec5aafeec62d9c0dcbca6c69369.json",
+    "proof_sources": [
+      "AS078:p0066",
+      "AS093:p0001"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "‘두 건’의 예약번호·장비번호·계약번호 등 식별 정보가 필요하다. 최종 근거에 나온 계약들은 질문의 두 건으로 특정되지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-012",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/b730194b8fd951f083836c6054005faad1a566ea0853c47e586926bbccdbdd22.json",
+    "proof_sources": [
+      "AS053:p0100",
+      "AS058:p0010",
+      "AS079:p0042"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 예약·장비번호, 계약 또는 화주/화물 등 두 대상 사건을 식별할 정보가 부족하다. 최종문맥에는 날짜가 비슷하거나 규격이 같은 다른 사건들이 있으나 질문의 대상과 연결되지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_two_doc:SYF-adv-017",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/a7736226ad6d2826dee58d048f27762029e2942c8579e5dc4ece4d63b7bcb100.json",
+    "proof_sources": [
+      "AS011:p0122",
+      "AS012:p0127"
+    ],
+    "quote_validation_error_count": 2,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문 대상인 2029년 40GP·20GP 기록의 실제 반납일 및 해당 계약의 비용 산입 조건이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-017",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/b822232b0e040331b36d6d3a10cc9e86524b4d5d404612315cd34a3063344644.json",
+    "proof_sources": [
+      "AS027:p0101"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reject_unverified_temporal_scope",
+      "reason": "계약 요율과 N1 규정은 반환됐지만 질문의 2월 양하 전제와 해당 장비의 실제 원문 시점·장소 연결이 불명확함. 서로 다른 연도·범위의 터미널 공지를 이 계약 시점에 적용한 것으로 인정하지 않고 범위 확인 항목으로 남김.",
+      "verdict": "uncertain"
+    },
+    "automatic_reason": "없음",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "uncertain",
+    "id": "peer_two_doc:SYF-adv-018",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2d7980f31aa3ab547779a2b9bffd5c23b6a396858b634e390fd0e8a2a71216f9.json",
+    "proof_sources": [
+      "AS023:p0001",
+      "AS116:p0060",
+      "AS118:p0060"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reject_unverified_temporal_scope",
+      "reason": "계약 요율과 N1 규정은 반환됐지만 질문의 2월 양하 전제와 해당 장비의 실제 원문 시점·장소 연결이 불명확함. 서로 다른 연도·범위의 터미널 공지를 이 계약 시점에 적용한 것으로 인정하지 않고 범위 확인 항목으로 남김.",
+      "verdict": "uncertain"
+    },
+    "automatic_reason": "질문의 핵심인 20GP 터미널 조건 변경의 부정, 해당 계약의 독립된 보관료 구간, 추가 변경 승인 부재가 최종 근거에 모두 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "uncertain",
+    "id": "peer_two_doc:SYF-adv-018",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/f8538e9f40e1a481f9e13c61b036b0717c59b9ec3bd400a1671e91cce1e4e249.json",
+    "proof_sources": [
+      "AS023:p0007",
+      "AS116:p0060",
+      "AS118:p0060"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "20GP와 40GP라는 규격만으로는 어느 두 예약·계약을 뜻하는지 식별되지 않는다. 두 대상의 예약번호, 장비번호 또는 관련 원문을 지정해야 한다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/14d08b07d3e77a890e1617c96031a8bf095072c7e901a048ca9a7ad7fd0de8ac.json",
+    "proof_sources": [
+      "AS002:p0101",
+      "AS012:p0074",
+      "AS102:p0017"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문 대상 두 건의 날짜와 식별 정보가 최종문맥에 없어 기간과 비교를 확인할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-019",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1688549a02820a1a57195b233b5ea4c44a8a7792ecf9874d0a76c0ee13d2acc7.json",
+    "proof_sources": [
+      "AS078:p0096"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "판단 대상 예약/장비를 특정할 식별자가 없다. 따라서 390달러 비용 및 400/790달러 잔액이 질문의 사건에 해당하는지, 현재 수납·미수액이 얼마인지 확인할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/56fbba38bd2a02127083c3d14e8ee04bca9475003bc32fe51a954912b055a70d.json",
+    "proof_sources": [
+      "AS042:p0063",
+      "AS054:p0090"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에 정산 대상의 예약·장비 또는 계약 식별자가 없어 확인서 기록과 금액 대사 기록을 동일 사건으로 묶을 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_two_doc:SYF-adv-020",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/11937b634ea649d41ce0b9cc993137e9e2b32efb5a48f7e28fb5d299a44d6f8c.json",
+    "proof_sources": [
+      "AS025:p0023",
+      "AS095:p0024",
+      "AS100:p0025"
+    ],
+    "quote_validation_error_count": 1,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 두 건을 특정할 예약·장비·계약 번호나 기준시점이 없어 최종문맥의 여러 유사 금액 사례 중 어느 원문인지 확정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-024",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/4afcb20def54e10b0a91663671f7145273d17fb65c6455e85c250bbf07c145bf.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 말하는 두 건의 예약·계약·화주 또는 원문 식별자가 제시되지 않았다. 반환 문맥에는 USD 320 및 USD 395의 다른 계약 기록도 있어 대상 두 건을 특정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-024",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d18cfce653e2ba1932c018269f826502065e832c8443034574e626095de187d7.json",
+    "proof_sources": [
+      "AS010:p0074",
+      "AS119:p0056"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대상인 HG2029-02502와 HG2029-00702의 계약 조건이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-025",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/95297ec161b411ebe4a5b293a8bc8116f201a336a8d25046f9d6066d1c6a9462.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 ‘두 계약’은 본문에서 특정되지 않지만 참고답으로 대상 계약을 HG2029-02502와 HG2029-00702로 보완해 검토했다. 최종문맥에는 두 계약 모두 나타나지 않아 요율 차이와 무료기간을 입증할 수 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-025",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/571c257974f6c16356d7025a33082e274d1f294c7d6a35184f8001a120c15bb2.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에서 두 건의 식별자가 직접 제시되지는 않지만 참고답은 두 계약을 특정한다. 그러나 최종 근거에는 그 계약들의 조건이 없어 필요한 요율 및 금액을 뒷받침하지 못한다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-026",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/cce140f57f0470895cc6a3e1a8c60034672f69052f44c1b39a317471c1892b66.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 계약의 요율 및 계약 식별을 확인할 수 있는 원문 근거가 반환되지 않았다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-026",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/0cd5dc9d21aafe85f0b143417750a8d94f48957e182d7506fb2ae5e9e167f884.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "윤슬자재는 여러 예약·계약이 가능하며, 질문의 2029-06-29 예약 예정일과 일치하는 대상을 final_evidence에서 식별할 수 없다. 실제 반납일과 단계별 양하·반출 날짜를 확정할 계약 또는 장비번호가 필요하다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-027",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/4ca9fc624acef43b2a5fdf35628fc38207ddf39ceb0a1a1f468293d439458a51.json",
+    "proof_sources": [
+      "AS002:p0144"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reject_wrong_event_and_date_role",
+      "reason": "질문 단서는 반납 예약일이 6/29인 윤슬자재 건인데 반환된 계약은 예약 6/23·실제 6/29인 다른 건이다. 같은 화주와 같은 날짜 문자열만으로 날짜 역할이 다른 사건을 대체할 수 없음.",
+      "verdict": "insufficient"
+    },
+    "automatic_reason": "필수 사실은 모두 질문 대상과 일치하는 동일 계약·장비의 원문으로 뒷받침된다. 질문의 예약일 전제는 틀렸지만, 실제 반납일 및 단계별 정산 날짜는 확인 가능하다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-027",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/cec2ee34ac7865d8098b527581f32fdac67df76224cabc073d5abd9d19bbc976.json",
+    "proof_sources": [
+      "AS002:p0144"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "N1 새봄유통 건의 식별 가능한 원문 및 실제 양하 상태가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-028",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/9bcc0df5252573bb8aaab294f0c1f0eeceedc51972dd40e0c992834648386746.json",
+    "proof_sources": [
+      "AS036:p0032"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "N1 건을 고유하게 식별할 예약번호·원문번호 등이 최종 근거에 없고, 질문이 전제한 2월 20일 수신 기록도 확인되지 않는다. 또한 S2 반출 완료는 실제 양하 완료와 동일하다고 입증되지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-028",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/831a1bbd1aad5592e059f00eb448f39b0e899ceaa0a7dc3df423f2344719ad75.json",
+    "proof_sources": [
+      "AS033:p0057",
+      "AS033:p0063",
+      "AS033:p0080",
+      "AS036:p0032"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "질문은 서로 다른 화주·예약의 계약 조건을 규격만으로 전용할 수 있는지 묻는다. 지정 유림물산 예약 원문과 별도 선진기공 계약의 대상 제한으로 적용 불가 판단이 가능하며 다른 계약의 수치를 적용한 것은 아님.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 핵심인 동일 규격만으로 계약 적용 범위가 같아지지 않는다는 판단과 두 건의 대상 구분이 최종 근거에 명시되어 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SYF-adv-029",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/a2571384f82b4a9f23cc28b00ae90b6a18f815341ec179120047c351187985da.json",
+    "proof_sources": [
+      "AS029:p0037",
+      "AS057:p0129"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "proof_from_arm": "A",
+      "reason": "A에서 인정한 두 출처와 인용이 B에도 그대로 있음. 질문은 다른 화주 계약의 전용 가능성을 물으며 참고답에만 등장하는 선진기공 장비번호를 재현할 필요는 없어 자동 uncertain 판정을 수정함.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "참고답은 선진기공 계약 대상 장비를 HL-20GP-01003으로 제시하지만, 최종문맥의 관련 계약 원문은 HL-20GP-02449로 기록한다. 01003에 관한 근거가 없어 참고답의 구체 식별값은 검증할 수 없다.",
+    "automatic_verdict": "uncertain",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SYF-adv-029",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/8d8635a073b77068735b0d682f61b5dc8fbc9cd6772bc850c08f535a2187ac18.json",
+    "proof_sources": [
+      "AS029:p0037",
+      "AS057:p0129"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 대상 장비의 예약 및 실제 사건 기록이 최종 근거에 포함되어 있지 않다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/16c16fff5807760fe15713cbcb72a8a26ae1b6124cf04bad2efdc6e1bccebd85.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문의 두 장비에 대한 예약 상태 및 실제 반출·반납일 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-030",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/82ac0c36a1337d3c98fbb2f089cdef5856345ae1c4dd1f432f46a12f0c950708.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "명시 CT-01399의 실제 대조 회신에 추가 변경 없음·최초 계약 적용이 있어 승인 확대 전제를 뒷받침할 수 없음을 확인. 다른 HA 표를 지정 정답 표와 동일시한 것은 아니며 해당 CT의 자체 기록을 근거로 인정.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "승인 확대 적용 전제는 CT-01399 대조 기록으로 뒷받침되지 않으며, 최종 근거에는 해당 계약의 실제 화주 청구액이 명시돼 있다. 따라서 요청 조건의 적용을 부인하면서 확인된 실제 청구액을 제시할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SYF-adv-031",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/7876bd1692d059f6ac577b74a6a4692de1fc75fc4d88865a71d21f6cbd55a69e.json",
+    "proof_sources": [
+      "AS001:p0032",
+      "AS099:p0059",
+      "AS100:p0059"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HA28-C008의 산출액과 적용 요율은 확인되지만, N1 해당 40GP 건의 실제 양하일이 2027-01-31이라는 필수 사실은 반환 근거로 입증되지 않는다. 제시된 N1 행의 2027-01-31은 반출일이다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-032",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2d744152d85278c27bdd69dd9eb9518041e965dc475e9506844833f1aa5158dd.json",
+    "proof_sources": [
+      "AS001:p0009",
+      "AS003:p0009",
+      "AS017:p0044"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HA28-C008의 금액과 계약 요율, 그리고 N1 요율을 HA28에 그대로 적용하지 않는다는 점은 지원된다. 다만 질문·참고답에 제시된 특정 N1 건의 실제 양하일(2027-01-31)과 그 건에 대한 기존 조건 적용은 최종 근거로 확인되지 않는다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-032",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/2455cfc4bc937d8b8d065aca8fe550cdd92dc406eacba4dddcf0cb45ad629b24.json",
+    "proof_sources": [
+      "AS003:p0009"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 건 모두 화주명과 날짜·금액만으로 특정 계약을 식별하기 어렵다. 장비번호나 예약/계약번호가 필요하다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-033",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/25ecd429b49fba072bfe384b2acd69493015e38b76a636a86f99e420b509fa2b.json",
+    "proof_sources": [
+      "AS067:p0031",
+      "AS076:p0124",
+      "AS094:p0070",
+      "AS102:p0062"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 화주 모두 식별에 필요한 계약·장비·예약 또는 조회 기준이 빠져 있다. 최종문맥에는 동일 화주의 여러 계약이 있어 한 건을 임의로 선택해 질문의 확인 사항과 청구액으로 확정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-033",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/be2deb6c37e2c71abc324c6d74f4915553e771ee360a92d3004c64307506265c.json",
+    "proof_sources": [
+      "AS027:p0119",
+      "AS067:p0031",
+      "AS076:p0124",
+      "AS094:p0070",
+      "AS102:p0062"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HG2029-01657 및 HG2029-01849의 원문 근거가 최종문맥에 없다. HG2029-01848 기록은 예약번호가 달라 요청된 사실을 뒷받침하지 않는다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-034",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/a55a253933f5618ffe4d31f9dadfe00ae9a585808da84f09faacf49d1d58276e.json",
+    "proof_sources": [
+      "AS058:p0083"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에는 두 예약의 ID나 구별 정보가 없다. 여러 예약 기록이 존재하므로 어느 두 건을 대사할지 질문만으로 확정할 수 없다. 또한 최종문맥은 참고답에 등장하는 두 ID의 근거를 제공하지 않는다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-034",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/ddce846693106871bf46bd26930e4f8646e09cd802c6433fc6ab818cebac169d.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reject_other_event_and_amount_role",
+      "reason": "자동 검수가 질문의 미수 330을 다른 송학산업 계약의 거래 합계 330·미수 165로 바꾸어 판단했다. 미수와 거래 합계 역할이 달라 같은 사건의 대체 근거가 아니며 비용별 배분 요청도 충족하지 못함.",
+      "verdict": "insufficient"
+    },
+    "automatic_reason": "질문의 교차 계약 적용 전제와 송학산업 미수액은 반환된 송학산업·주원부품 원문으로 판정할 수 있다. 송학산업의 자체 비용·충당 기준도 확인되므로 요청된 배분을 정정해 설명할 근거가 충분하다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-035",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/877468769990f2843b9613158c0c0575752dbf449c207748f9a29babbb157aaa.json",
+    "proof_sources": [
+      "AS071:p0063",
+      "AS072:p0063",
+      "AS095:p0047"
+    ],
+    "quote_validation_error_count": 2,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "원문은 합계 충당 기준, 비용별 확정 청구액, 수납 0을 모두 기록한다. 이로부터 비용별 미수액을 확정해도 되는지 참고답과 원문이 일치하지 않는다.",
+    "automatic_verdict": "uncertain",
+    "final_verdict": "uncertain",
+    "id": "peer_two_doc:SYF-adv-035",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/e6485dca022a49173a002ccbd7d92d34b81958bd69ad4f18966663c4dea80938.json",
+    "proof_sources": [
+      "AS014:p0133",
+      "AS095:p0047"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "1월 8일로 특정된 원문 번호 오기 정정 기록의 시행 조건 및 세림상사 적용 범위를 확인할 근거가 없다. 반환 근거에는 2월 8일 기록만 있다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-037",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/9c13c3d34686a94042659b15e7954b4d7303e1d0c3d57155dfc19dbe9fb92d97.json",
+    "proof_sources": [
+      "AS023:p0069",
+      "AS045:p0080"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에 나온 삼경공업 건을 계약·장비 등으로 특정할 수 없다. 최종문맥에는 삼경공업의 서로 다른 계약 기록이 있으며, 확인 가능한 2일 승인 건은 참고답이 가리키는 CT-00937이 아니다. 따라서 그 조건의 정정 여부와 수안부품에 적용할 수 있는지는 확정할 수 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-040",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/aa54bc732030caa9dfb998ba13af7fd96c9e4ba4f43e251c76c02ab9aebe4fe9.json",
+    "proof_sources": [
+      "AS063:p0002",
+      "AS115:p0097",
+      "AS116:p0097"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "11월 6일 예약일이라는 사실과 비용 대조를 완료해도 되는지에 대한 근거가 최종문맥에 없다. 실제 반납 인수증 미수신은 확인되므로 실제 반납 완료로 간주할 수 없다는 판단은 지원된다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-041",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/9abdfe73d19ab1a423ed096e5dff5911ab813228924ff67ae2fdf0d759736b36.json",
+    "proof_sources": [
+      "AS068:p0036"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "11월 6일이 실제로 반납 예약 예정일이었다는 사실을 확인하는 해당 건의 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-041",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/1860e652f4849ab20c5722f62223e826a7c8876b48391571bb51adae9e7530df.json",
+    "proof_sources": [
+      "AS068:p0036"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reject_unspecified_event_selection",
+      "reason": "화주·항구·규격만으로 대신공구 계약을 특정할 수 없다. 자동 검수는 참고 대상과 다른 계약의 무료기간·별도 승인을 사용했으므로 충분 판정을 기각하고 대상 확인이 필요한 질문으로 남김.",
+      "verdict": "ambiguous_question"
+    },
+    "automatic_reason": "최종문맥에 대신공구의 정확한 계약·장비, 최초 비용조건, 그리고 해당 계약에 대한 승인 내용이 있다. 제안된 5일 및 반납지연료 2일 연장은 뒷받침되지 않는다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-043",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/7b4e1b41c8aa822d7eba8b2e9b058eb4075b8113e6e6f7814a989de4334613b8.json",
+    "proof_sources": [
+      "AS061:p0012",
+      "AS063:p0012",
+      "AS111:p0057"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대신공구의 예약번호·장비번호 또는 계약번호와 기준시점이 필요하다. 최종문맥에는 질문의 기본 무료기간 3일을 뒷받침하는 근거도 없다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "uncertain_quote_validation",
+    "id": "peer_two_doc:SYF-adv-043",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/81d269190cb9884784485ba5553adb0c742484ff9cd11f478060444dfebcd856.json",
+    "proof_sources": [
+      "AS003:p0150",
+      "AS063:p0012",
+      "AS111:p0057",
+      "AS117:p0099"
+    ],
+    "quote_validation_error_count": 1,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "reject_wrong_event_and_date",
+      "reason": "질문의 4/15 반납 단서 대신 6월에 반납된 다른 금오부품 계약을 골라 해당 건의 면제·확정액을 사용했다. 별도 계약 전용 불가라는 일반 판단만으로 원래 반납 상태 확인까지 충족한 것으로 보정하지 않음.",
+      "verdict": "insufficient"
+    },
+    "automatic_reason": "질문의 핵심인 실제 반납 전제, 삼경공업 금액의 적용 여부, 금오부품의 확정 청구액을 모두 최종문맥의 원문으로 확인할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-045",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/40c3bd8343c21dddbd2867d2f9e08aaaa3dbcc66940178642b02b96df533559f.json",
+    "proof_sources": [
+      "AS011:p0080",
+      "AS012:p0085",
+      "AS013:p0080",
+      "AS014:p0080",
+      "AS114:p0019"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "HL-20GP-01296의 보관료 첫 산입일에 실제 양하일이 포함되는지 확인할 원문 근거가 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-046",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/adf66bd5f8d4ea7ba19278bf0ffe29dba4014ac084488dba5e4f1c722a4adc0a.json",
+    "proof_sources": [
+      "AS072:p0139"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "명시 GR 예약의 무료일 미승인과 특정 율곡산업 계약 상한의 대상 제한을 확인. 모든 예약으로의 확대 적용이라는 질문 전제를 반박할 수 있음.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "질문의 두 핵심 전제 모두 최종문맥의 원문으로 반박되며, 예약 식별과 계약 범위도 대조할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SYF-adv-047",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/df19aea4e553a52e15555f5067b078f66f880b5c876a9721da0df3ad0157d026.json",
+    "proof_sources": [
+      "AS008:p0073",
+      "AS022:p0010",
+      "AS049:p0030"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "질문에 계약번호가 없어 어떤 두 계약을 뜻하는지 특정할 수 없다. 예림무역의 여러 계약이 최종문맥에 나오며 조건도 서로 다르다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-049",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d48cc174d4e3cec556d09c99d5c0124be6da2fc3cbee5acd7e2eb9b4da222eab.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "어느 두 계약인지 계약 ID 또는 예약·장비 식별 정보가 필요하다.",
+    "automatic_verdict": "ambiguous_question",
+    "final_verdict": "ambiguous_question",
+    "id": "peer_two_doc:SYF-adv-049",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/c91c35921ddad1b5b57edd1642698b973259b5770b2310ba86038bb58162ee5d.json",
+    "proof_sources": [
+      "AS036:p0115",
+      "AS116:p0027"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "2030-02-18 예약 예정일에 해당하는 두 번째 건의 식별 근거와 실제 반납일이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-050",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/fa6f7187d92d1bd630ca39290b6d21ce3dd9165a29616456eec382f8552aaa4c.json",
+    "proof_sources": [
+      "AS069:p0142",
+      "SQL0"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "명시 장비와 기준일의 회신에 추가 변경 없음이 있고, 명시 북성물산 예약은 별도 대상임을 원문으로 확인. 지정 페이지가 아닌 동일 예약의 식별 원문을 인정.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "필수 판단인 연장 승인 여부와 북성물산 건으로의 조건 이전 가능성을 모두 원문 근거로 확인할 수 있다.",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SYF-adv-053",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/746b3e7e4c71e4dfd19fc5040dae472c6cd6ddd1c6b74a4c868de0328d928de8.json",
+    "proof_sources": [
+      "AS027:p0036",
+      "AS078:p0026"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": {
+      "correction_type": "alternative_source_same_required_fact",
+      "reason": "명시 장비와 기준일의 회신에 추가 변경 없음이 있고, 명시 북성물산 예약은 별도 대상임을 원문으로 확인. 지정 페이지가 아닌 동일 예약의 식별 원문을 인정.",
+      "verdict": "sufficient"
+    },
+    "automatic_reason": "없음",
+    "automatic_verdict": "sufficient",
+    "final_verdict": "sufficient",
+    "id": "peer_two_doc:SYF-adv-053",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/138c7dd7fdff563a0f573f3cea53f6ab2c3412245e77c5fb5384d903121c1dfe.json",
+    "proof_sources": [
+      "AS027:p0036",
+      "AS078:p0026"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": true
+  },
+  {
+    "arm": "A",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "두 대상 장비( HL-40GP-01047 및 HL-40GP-02109 )에 해당하는 비용 확정액과 수납/미수액 기록이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-054",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/bbb125e7aa7d1dc3ec0ed0b854f2c21e7976c2b3b59d228e3800a88e504966f2.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "대상 두 건의 비용 및 미수액을 식별·입증할 원문이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-054",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/304732aded3dfbed6a4ec03a652f250015719e5f1ae810acf4892963727571d0.json",
+    "proof_sources": [],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  },
+  {
+    "arm": "B",
+    "assistant_override_or_confirmation": null,
+    "automatic_reason": "GR27-F02724의 환급 관련 청구 대조, 승인 및 처리 상태를 확인하는 원문이 최종문맥에 없다.",
+    "automatic_verdict": "insufficient",
+    "final_verdict": "insufficient",
+    "id": "peer_two_doc:SYF-adv-055",
+    "private_review_file": "artifacts/u_10o0o/advanced-table-rag-peer-20261111/v2/evidence-review/d916be7efc06012f7a3d55616e90b828a9006da135ad55d9b588800aac08e492.json",
+    "proof_sources": [
+      "AS020:p0011",
+      "AS038:p0080",
+      "AS058:p0018"
+    ],
+    "quote_validation_error_count": 0,
+    "recovered": false
+  }
+]

@@ -1,0 +1,921 @@
+{
+  "answered": 6,
+  "api_calls": 22,
+  "api_usage": {
+    "cached_input_tokens": 158751,
+    "input_tokens": 297383,
+    "output_tokens": 7156,
+    "reasoning_tokens": 3368
+  },
+  "gold_scored_after_all_responses": true,
+  "old_population": {
+    "n": 280,
+    "total_p50": 12.305978828500884,
+    "total_p95": 33.52517853740065
+  },
+  "reference_files": [
+    {
+      "path": "data/advanced/evaluation/development_questions.json",
+      "references": "data/advanced/evaluation/development.json",
+      "sha256": "d3bc5a84831205ac7ca920e37f893291966db0d7f980e569986fdcc7a83e8f39",
+      "suite": "official_development"
+    },
+    {
+      "path": "data/advanced/evaluation/additional_questions.json",
+      "references": "data/advanced/evaluation/additional.json",
+      "sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e",
+      "suite": "official_additional"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_questions.json",
+      "references": "experimental/u_10o0o/evaluation/advanced_scenarios/retrieval_references.json",
+      "sha256": "a33285ae5390a9645994145a01d49e029978a7200900647c117ba9bcebd78309",
+      "suite": "scenarios"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_questions.json",
+      "references": "experimental/u_10o0o/evaluation/advanced_scenarios/negative_control_references.json",
+      "sha256": "100ec141d87ab3dba5878af0ecacecd192f1bb5c3092917f57d0cbe63221d466",
+      "suite": "negative_control"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/questions.json",
+      "references": "experimental/u_10o0o/evaluation/advanced_scenarios/work_rules/references.json",
+      "sha256": "2de9b0da7f1f052c912716d3eb5132653a81e44e8288403a329f49a3772fa280",
+      "suite": "work_rules"
+    },
+    {
+      "path": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/questions.json",
+      "references": "experimental/u_10o0o/evaluation/advanced_scenarios/semantic_queries/references.json",
+      "sha256": "8fcdf0a21a84214e26f8fe14e379ac4b1a2bbd86271d2dea68aabc3e2b61313a",
+      "suite": "semantic_queries"
+    }
+  ],
+  "run_sha256": "1cd7c44cb241d9d6307084c267c5dadcb102b3a5df2ff3f1a41ffa6ba5e57e24",
+  "sample_rows": [
+    {
+      "actual_new_wall_seconds": 9.463229671997397,
+      "evidence": {
+        "new": {
+          "all_evidence": true,
+          "final": {
+            "all_groups": 1,
+            "all_pages": 1,
+            "document_recall": 1.0,
+            "group_recall": 1.0,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 0.5,
+            "ndcg": 0.6934264036172708,
+            "page_recall": 1.0,
+            "required_groups": 2,
+            "required_pages": 2
+          },
+          "metric": "all_groups",
+          "scored": true
+        },
+        "old": {
+          "all_evidence": true,
+          "final": {
+            "all_groups": 1,
+            "all_pages": 1,
+            "document_recall": 1.0,
+            "group_recall": 1.0,
+            "hit": 1,
+            "matched_groups": 2,
+            "matched_pages": 2,
+            "mrr": 0.3333333333333333,
+            "ndcg": 0.5706417189553201,
+            "page_recall": 1.0,
+            "required_groups": 2,
+            "required_pages": 2
+          },
+          "metric": "all_groups",
+          "scored": true
+        }
+      },
+      "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1619, 0",
+      "gpu_before": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1363, 71",
+      "group": "fast",
+      "id": "official_additional:AS-ADD08",
+      "new": {
+        "answer_seconds": 2.102309800000512,
+        "answer_status": "complete",
+        "finish_status": "sufficient",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.009839865000685677,
+        "planner_calls": 1,
+        "planner_seconds": 5.151574008999887,
+        "retrieval_seconds": 7.360433677000401,
+        "search_calls": 1,
+        "search_seconds": 2.1990198029998282,
+        "sql_calls": 0,
+        "total_seconds": 9.462743477000913
+      },
+      "new_final_sources": [
+        [
+          "AS013",
+          19
+        ],
+        [
+          "AS013",
+          20
+        ],
+        [
+          "AS013",
+          31
+        ],
+        [
+          "AS013",
+          32
+        ],
+        [
+          "AS013",
+          33
+        ],
+        [
+          "AS013",
+          35
+        ],
+        [
+          "AS013",
+          40
+        ],
+        [
+          "AS013",
+          42
+        ]
+      ],
+      "old": {
+        "answer_seconds": 1.5327293119989918,
+        "answer_status": "complete",
+        "finish_status": "sufficient",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.00825925600111077,
+        "planner_calls": 1,
+        "planner_seconds": 2.4568480149991956,
+        "retrieval_seconds": 3.238726861000032,
+        "search_calls": 1,
+        "search_seconds": 0.7736195899997256,
+        "sql_calls": 0,
+        "total_seconds": 4.771456172999024
+      },
+      "old_final_sources": [
+        [
+          "AS013",
+          19
+        ],
+        [
+          "AS013",
+          20
+        ],
+        [
+          "AS013",
+          31
+        ],
+        [
+          "AS013",
+          32
+        ],
+        [
+          "AS013",
+          33
+        ],
+        [
+          "AS013",
+          35
+        ],
+        [
+          "AS013",
+          40
+        ],
+        [
+          "AS013",
+          42
+        ]
+      ],
+      "same_final_context": false,
+      "same_query_sequence": true
+    },
+    {
+      "actual_new_wall_seconds": 14.025016283998411,
+      "evidence": {
+        "new": {
+          "all_evidence": true,
+          "final": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 1,
+            "required_facts": 1,
+            "required_facts_hit": 1,
+            "required_pages": 1
+          },
+          "metric": "all_facts",
+          "scored": true
+        },
+        "old": {
+          "all_evidence": true,
+          "final": {
+            "all_facts": 1,
+            "all_pages": 1,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 1.0,
+            "fact_recall": 1.0,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "primary_bundle_hits": 1,
+            "required_facts": 1,
+            "required_facts_hit": 1,
+            "required_pages": 1
+          },
+          "metric": "all_facts",
+          "scored": true
+        }
+      },
+      "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1619, 0",
+      "gpu_before": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1363, 71",
+      "group": "fast",
+      "id": "scenarios:AS-S01-19",
+      "new": {
+        "answer_seconds": 2.5062182580004446,
+        "answer_status": "complete",
+        "finish_status": "sufficient",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.2699326559959445,
+        "planner_calls": 2,
+        "planner_seconds": 7.9763268750029965,
+        "retrieval_seconds": 11.518127413000911,
+        "search_calls": 2,
+        "search_seconds": 3.2718678820019704,
+        "sql_calls": 1,
+        "total_seconds": 14.024345671001356
+      },
+      "new_final_sources": [
+        [
+          "AS021",
+          119
+        ],
+        [
+          "AS022",
+          104
+        ],
+        [
+          "AS023",
+          114
+        ],
+        [
+          "AS024",
+          109
+        ],
+        [
+          "AS025",
+          109
+        ],
+        [
+          "AS050",
+          136
+        ],
+        [
+          "AS084",
+          76
+        ],
+        [
+          "AS085",
+          6
+        ]
+      ],
+      "old": {
+        "answer_seconds": 1.7678003149994765,
+        "answer_status": "complete",
+        "finish_status": "sufficient",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.0052947109998058295,
+        "planner_calls": 1,
+        "planner_seconds": 2.477380661999632,
+        "retrieval_seconds": 3.2060375599994586,
+        "search_calls": 1,
+        "search_seconds": 0.7233621870000206,
+        "sql_calls": 0,
+        "total_seconds": 4.973837874998935
+      },
+      "old_final_sources": [
+        [
+          "AS005",
+          115
+        ],
+        [
+          "AS021",
+          119
+        ],
+        [
+          "AS022",
+          104
+        ],
+        [
+          "AS023",
+          114
+        ],
+        [
+          "AS024",
+          109
+        ],
+        [
+          "AS025",
+          109
+        ],
+        [
+          "AS050",
+          136
+        ],
+        [
+          "AS084",
+          76
+        ]
+      ],
+      "same_final_context": false,
+      "same_query_sequence": false
+    },
+    {
+      "actual_new_wall_seconds": 15.202238827001565,
+      "evidence": {
+        "new": {
+          "all_evidence": null,
+          "final": null,
+          "metric": "all_groups",
+          "scored": false
+        },
+        "old": {
+          "all_evidence": null,
+          "final": null,
+          "metric": "all_groups",
+          "scored": false
+        }
+      },
+      "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1619, 0",
+      "gpu_before": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1363, 71",
+      "group": "median",
+      "id": "official_development:AS-DEV12",
+      "new": {
+        "answer_seconds": 2.155303997998999,
+        "answer_status": "complete",
+        "finish_status": "needs_clarification",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.013699169998290017,
+        "planner_calls": 2,
+        "planner_seconds": 9.972701205002522,
+        "retrieval_seconds": 13.046344801001396,
+        "search_calls": 2,
+        "search_seconds": 3.059944426000584,
+        "sql_calls": 0,
+        "total_seconds": 15.201648799000395
+      },
+      "new_final_sources": [
+        [
+          "AS014",
+          1
+        ],
+        [
+          "AS014",
+          2
+        ],
+        [
+          "AS014",
+          9
+        ],
+        [
+          "AS014",
+          11
+        ],
+        [
+          "AS014",
+          12
+        ],
+        [
+          "AS014",
+          13
+        ],
+        [
+          "AS014",
+          14
+        ],
+        [
+          "AS014",
+          15
+        ]
+      ],
+      "old": {
+        "answer_seconds": 2.7137999369988393,
+        "answer_status": "complete",
+        "finish_status": "needs_clarification",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.012304743000640883,
+        "planner_calls": 2,
+        "planner_seconds": 7.43639714299934,
+        "retrieval_seconds": 9.53150092999931,
+        "search_calls": 2,
+        "search_seconds": 2.08279904399933,
+        "sql_calls": 0,
+        "total_seconds": 12.24530086699815
+      },
+      "old_final_sources": [
+        [
+          "AS014",
+          1
+        ],
+        [
+          "AS014",
+          2
+        ],
+        [
+          "AS014",
+          6
+        ],
+        [
+          "AS014",
+          8
+        ],
+        [
+          "AS014",
+          9
+        ],
+        [
+          "AS014",
+          11
+        ],
+        [
+          "AS014",
+          14
+        ],
+        [
+          "AS014",
+          15
+        ]
+      ],
+      "same_final_context": false,
+      "same_query_sequence": false
+    },
+    {
+      "actual_new_wall_seconds": 12.469523625000875,
+      "evidence": {
+        "new": {
+          "all_evidence": true,
+          "final": {
+            "all_groups": 1,
+            "all_pages": 1,
+            "document_recall": 1.0,
+            "group_recall": 1.0,
+            "hit": 1,
+            "matched_groups": 4,
+            "matched_pages": 4,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "required_groups": 4,
+            "required_pages": 4
+          },
+          "metric": "all_groups",
+          "scored": true
+        },
+        "old": {
+          "all_evidence": true,
+          "final": {
+            "all_groups": 1,
+            "all_pages": 1,
+            "document_recall": 1.0,
+            "group_recall": 1.0,
+            "hit": 1,
+            "matched_groups": 4,
+            "matched_pages": 4,
+            "mrr": 1.0,
+            "ndcg": 1.0,
+            "page_recall": 1.0,
+            "required_groups": 4,
+            "required_pages": 4
+          },
+          "metric": "all_groups",
+          "scored": true
+        }
+      },
+      "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1619, 0",
+      "gpu_before": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1363, 71",
+      "group": "median",
+      "id": "official_development:AS-DEV20",
+      "new": {
+        "answer_seconds": 3.5317491050009266,
+        "answer_status": "complete",
+        "finish_status": "sufficient",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.008831622006255202,
+        "planner_calls": 1,
+        "planner_seconds": 7.852654225996957,
+        "retrieval_seconds": 8.937291795002238,
+        "search_calls": 1,
+        "search_seconds": 1.0758059469990258,
+        "sql_calls": 0,
+        "total_seconds": 12.469040900003165
+      },
+      "new_final_sources": [
+        [
+          "AS051",
+          107
+        ],
+        [
+          "AS051",
+          115
+        ],
+        [
+          "AS052",
+          117
+        ],
+        [
+          "AS053",
+          112
+        ],
+        [
+          "AS054",
+          107
+        ],
+        [
+          "AS055",
+          117
+        ],
+        [
+          "AS103",
+          134
+        ],
+        [
+          "AS108",
+          58
+        ]
+      ],
+      "old": {
+        "answer_seconds": 4.264022966002813,
+        "answer_status": "complete",
+        "finish_status": "sufficient",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.008317406001879135,
+        "planner_calls": 1,
+        "planner_seconds": 3.88039856999967,
+        "retrieval_seconds": 8.102633824000804,
+        "search_calls": 1,
+        "search_seconds": 4.213917847999255,
+        "sql_calls": 0,
+        "total_seconds": 12.366656790003617
+      },
+      "old_final_sources": [
+        [
+          "AS051",
+          107
+        ],
+        [
+          "AS051",
+          115
+        ],
+        [
+          "AS052",
+          117
+        ],
+        [
+          "AS053",
+          112
+        ],
+        [
+          "AS054",
+          107
+        ],
+        [
+          "AS055",
+          117
+        ],
+        [
+          "AS103",
+          134
+        ],
+        [
+          "AS108",
+          58
+        ]
+      ],
+      "same_final_context": true,
+      "same_query_sequence": true
+    },
+    {
+      "actual_new_wall_seconds": 42.35548361799738,
+      "evidence": {
+        "new": {
+          "all_evidence": false,
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 1.0,
+            "ndcg": 0.6131471927654584,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "metric": "all_facts",
+          "scored": true
+        },
+        "old": {
+          "all_evidence": false,
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          },
+          "metric": "all_facts",
+          "scored": true
+        }
+      },
+      "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1628, 0",
+      "gpu_before": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1619, 0",
+      "group": "slow",
+      "id": "semantic_queries:AS-SEM-32",
+      "new": {
+        "answer_seconds": 7.163180101997568,
+        "answer_status": "complete",
+        "finish_status": "needs_clarification",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.0399340059957467,
+        "planner_calls": 5,
+        "planner_seconds": 29.131458083000325,
+        "retrieval_seconds": 35.19080922500143,
+        "search_calls": 5,
+        "search_seconds": 6.019417136005359,
+        "sql_calls": 0,
+        "total_seconds": 42.353989326999
+      },
+      "new_final_sources": [
+        [
+          "AS001",
+          16
+        ],
+        [
+          "AS001",
+          72
+        ],
+        [
+          "AS002",
+          51
+        ],
+        [
+          "AS002",
+          61
+        ],
+        [
+          "AS004",
+          1
+        ],
+        [
+          "AS020",
+          19
+        ],
+        [
+          "AS040",
+          145
+        ],
+        [
+          "AS111",
+          65
+        ]
+      ],
+      "old": {
+        "answer_seconds": 9.2985723769998,
+        "answer_status": "complete",
+        "finish_status": "needs_clarification",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.040219982005510246,
+        "planner_calls": 6,
+        "planner_seconds": 30.010471879995748,
+        "retrieval_seconds": 50.252575399001216,
+        "search_calls": 6,
+        "search_seconds": 20.201883536999958,
+        "sql_calls": 0,
+        "total_seconds": 59.55114777600102
+      },
+      "old_final_sources": [
+        [
+          "AS002",
+          46
+        ],
+        [
+          "AS005",
+          4
+        ],
+        [
+          "AS017",
+          42
+        ],
+        [
+          "AS017",
+          46
+        ],
+        [
+          "AS040",
+          145
+        ],
+        [
+          "AS056",
+          140
+        ],
+        [
+          "AS081",
+          80
+        ],
+        [
+          "AS111",
+          65
+        ]
+      ],
+      "same_final_context": false,
+      "same_query_sequence": false
+    },
+    {
+      "actual_new_wall_seconds": 34.068477947002975,
+      "evidence": {
+        "new": {
+          "all_evidence": false,
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.0,
+            "hit": 0,
+            "matched_pages": 0,
+            "mrr": 0.0,
+            "ndcg": 0.0,
+            "page_recall": 0.0,
+            "primary_bundle_hits": 0,
+            "required_facts": 2,
+            "required_facts_hit": 0,
+            "required_pages": 2
+          },
+          "metric": "all_facts",
+          "scored": true
+        },
+        "old": {
+          "all_evidence": false,
+          "final": {
+            "all_facts": 0,
+            "all_pages": 0,
+            "alternative_bundle_hits": 0,
+            "alternative_only_hits": 0,
+            "document_recall": 0.5,
+            "fact_recall": 0.5,
+            "hit": 1,
+            "matched_pages": 1,
+            "mrr": 0.3333333333333333,
+            "ndcg": 0.3065735963827292,
+            "page_recall": 0.5,
+            "primary_bundle_hits": 1,
+            "required_facts": 2,
+            "required_facts_hit": 1,
+            "required_pages": 2
+          },
+          "metric": "all_facts",
+          "scored": true
+        }
+      },
+      "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1628, 0",
+      "gpu_before": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151, 1619, 0",
+      "group": "slow",
+      "id": "semantic_queries:AS-SEM-30",
+      "new": {
+        "answer_seconds": 5.645901739000692,
+        "answer_status": "complete",
+        "finish_status": "sufficient",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.032913516006374266,
+        "planner_calls": 5,
+        "planner_seconds": 22.43178405999788,
+        "retrieval_seconds": 28.42108941100014,
+        "search_calls": 5,
+        "search_seconds": 5.956391834995884,
+        "sql_calls": 0,
+        "total_seconds": 34.06699115000083
+      },
+      "new_final_sources": [
+        [
+          "AS034",
+          55
+        ],
+        [
+          "AS035",
+          27
+        ],
+        [
+          "AS042",
+          39
+        ],
+        [
+          "AS042",
+          68
+        ],
+        [
+          "AS042",
+          72
+        ],
+        [
+          "AS054",
+          33
+        ],
+        [
+          "AS055",
+          58
+        ],
+        [
+          "AS087",
+          52
+        ]
+      ],
+      "old": {
+        "answer_seconds": 7.5153954880006495,
+        "answer_status": "complete",
+        "finish_status": "sufficient",
+        "invalid_citations": [],
+        "other_retrieval_seconds": 0.04266517100404599,
+        "planner_calls": 6,
+        "planner_seconds": 27.307855910999933,
+        "retrieval_seconds": 52.824272200999985,
+        "search_calls": 6,
+        "search_seconds": 25.473751118996006,
+        "sql_calls": 0,
+        "total_seconds": 60.339667689000635
+      },
+      "old_final_sources": [
+        [
+          "AS002",
+          37
+        ],
+        [
+          "AS017",
+          11
+        ],
+        [
+          "AS042",
+          39
+        ],
+        [
+          "AS042",
+          65
+        ],
+        [
+          "AS054",
+          33
+        ],
+        [
+          "AS055",
+          1
+        ],
+        [
+          "AS055",
+          58
+        ],
+        [
+          "AS087",
+          52
+        ]
+      ],
+      "same_final_context": false,
+      "same_query_sequence": false
+    }
+  ],
+  "script_sha256": "90336470292ae23d679e380695ea635672efa89276134ce60ffab4a51334b6cd",
+  "source_run_sha256": "8d685e2afc3a5d40b4a6de98ada56d9cc86eba70e1531f2bda84b8449e07611c"
+}

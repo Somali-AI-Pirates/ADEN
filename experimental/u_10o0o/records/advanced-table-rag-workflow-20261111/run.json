@@ -1,0 +1,426 @@
+{
+  "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2",
+  "protocol": {
+    "asset_store_sha256": "e626d8057912cb98c8b64be7f2942e865681b1b275e1187ceddab28fe3375ced",
+    "asset_vectors_sha256": "e9720db3b8f60dd486b2447e99afbd1f60bb7be93d3c55b5adaa51a86a8ef866",
+    "assets": "artifacts/u_10o0o/advanced-table-rag-20261111/v5",
+    "baseline_manifest_sha256": "053664b69e8507c66629203b1183b331cbbdc3ce2c05344eb593cecc535e7231",
+    "device": "cpu_gpu_rerank",
+    "effort": "medium",
+    "max_steps": 5,
+    "model": "gpt-6-luna",
+    "previous_run_sha256": "8d685e2afc3a5d40b4a6de98ada56d9cc86eba70e1531f2bda84b8449e07611c",
+    "questions_sha256": "238cfac25bc74734409248d295ccc46d5c591cfaefadadad69ca8cbf1685ddbc",
+    "raw_candidates": 20,
+    "raw_pages": 8,
+    "references_opened": false,
+    "runtime_files": [
+      {
+        "original_path": "app/__init__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "original_path": "app/evaluation/__init__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/evaluation/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "original_path": "app/evaluation/dataset.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/evaluation/dataset.py",
+        "sha256": "40badadc10b3888aae459addce2d67555a2597c779ef96b7643d35fbc1126778"
+      },
+      {
+        "original_path": "app/evaluation/metrics.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/evaluation/metrics.py",
+        "sha256": "bab74bc09b4e61d95230e61b654d4ba4eaabfb64e35faa1270c8737f9c8c02b0"
+      },
+      {
+        "original_path": "app/generation/__init__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/generation/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "original_path": "app/generation/context.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/generation/context.py",
+        "sha256": "28fc992c1246e27eb675ec7050ff05b6de4d11dbc4801c1baed0b1ace23748aa"
+      },
+      {
+        "original_path": "app/ingestion/__init__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/ingestion/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "original_path": "app/ingestion/chunker.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/ingestion/chunker.py",
+        "sha256": "ffee817fa7b5ff305b5a5ec4bc03708bbc5ee629b55b98357b72f235a5040995"
+      },
+      {
+        "original_path": "app/ingestion/common_rules.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/ingestion/common_rules.py",
+        "sha256": "aeb5aef94608f3cad19fa4806f0711b9c4dff7bce8c42b71698586d6008171f1"
+      },
+      {
+        "original_path": "app/ingestion/curated_schema.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/ingestion/curated_schema.py",
+        "sha256": "2a49e91e901405a2741d5d9f59b66a742e2e05a719e74f4a76d800c72823dd91"
+      },
+      {
+        "original_path": "app/ingestion/curation.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/ingestion/curation.py",
+        "sha256": "57d69571045e1f51ad94a29d5d522cc1edecbd723b75abd2890841198699dda4"
+      },
+      {
+        "original_path": "app/ingestion/knowledge.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/ingestion/knowledge.py",
+        "sha256": "783b66de73e5419c6ad4028a28e9a833cd0b037b8cb049d787adcc54e0016904"
+      },
+      {
+        "original_path": "app/ingestion/knowledge_schema.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/ingestion/knowledge_schema.py",
+        "sha256": "a071e8f169c762b1681191dbcd942aa4eacb812e0f9c922ce301685746e8fd5c"
+      },
+      {
+        "original_path": "app/ingestion/layout.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/ingestion/layout.py",
+        "sha256": "2d9a9af01a9982e7c958dc1e49767bbdd69cf50a3d808d5c28ded2b48e5aff7c"
+      },
+      {
+        "original_path": "app/ingestion/loader.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/app/ingestion/loader.py",
+        "sha256": "d073c1bc6dd72517175df1b8dc7dec77f3f120bfad46093b27be3ea18a22c8a3"
+      },
+      {
+        "original_path": "experimental/u_10o0o/__init__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_case_lookup.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_case_lookup.py",
+        "sha256": "49f474c21b00ac24f4fbaa575df33d6c958a4f0b6ab9b3ce996e937097d2b17a"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_case_sources.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_case_sources.py",
+        "sha256": "59b54af436e2a84a7b4b5788c7628cc836914dd3e13bee1c9bc7491714e404eb"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_clarify_lookup.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_clarify_lookup.py",
+        "sha256": "1a44997e4f7d4f07b1aed9d4dc14da94544e75e78325288e55fff808f43b9641"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_clause_binding.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_clause_binding.py",
+        "sha256": "55e416500a2b3fdabf59ee21de15195fd3d5fa90946eee9ff231b1eacbe6ca6e"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_experiment_eval.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_experiment_eval.py",
+        "sha256": "32373b7f95f0f49bda864eafb10353dbc1223146f5aecbe689e234fb37ffcab1"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_fast_bm25.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_fast_bm25.py",
+        "sha256": "6af87be3a769543cc8785251e2481eb36e091aa17b4534d8c1dbd78d7314e2a8"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_field_roles.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_field_roles.py",
+        "sha256": "a324ad508102659ea31cbe55d27c0dd6c0e82b9f7928e0fb1e172d2ee61804cf"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_format_extension.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_format_extension.py",
+        "sha256": "aed343381b87e8ca41c45a1b8acc84bd57de06c457116b0d507fd3a4cc3af3a5"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_full_metrics.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_full_metrics.py",
+        "sha256": "6d43e8321663af7e26acf725a24dd621e8380131eb6a8531126bb41f60210ac8"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_hg_lookup.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_hg_lookup.py",
+        "sha256": "759daeb89f0b2c9ec5d108746febf426a9d1c7b8a490aa504e3975de541c0067"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_is_lookup_ab.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_is_lookup_ab.py",
+        "sha256": "cb5d4bbf2fc2e1b20cf82900bb7b9f3e12cb18203e5fcb734a2b6c2e51fed8e2"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_is_record_lookup.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_is_record_lookup.py",
+        "sha256": "edf2b41b61b1fe3659090615962dacdd7d20ee52d6efa987d4ea7025099c0f11"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_luna_interpreter.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_luna_interpreter.py",
+        "sha256": "05735602bc8a5d19b32b146601c91dc16598ef25dabcf2ab4eade1f4685b1d1b"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_pair_context.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_pair_context.py",
+        "sha256": "27a753106606dcd36664d9ea53c011303b9ab5790028ad6eabe08267c652812e"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_pair_source_lookup.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_pair_source_lookup.py",
+        "sha256": "767beadd12111d0b34e387ea350ebdd7e7fd625572a528da9c51cbc1ec9cedf4"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_pattern_full.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_pattern_full.py",
+        "sha256": "a9d50f2763b1d6a767bdbb0e1908b643adf22e8fb2f3ef9650c5770991d02ddf"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_patterns.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_patterns.py",
+        "sha256": "d5f68cfda94da046077f6e95ef61512672d614ae4d6878649ef708aca71fd662"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_question_router.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_question_router.py",
+        "sha256": "457d7e82be6aea97c5733d534df8bad1bb6771c8b54339bbfe990436476ad415"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_role_context.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_role_context.py",
+        "sha256": "59bd4057032cc469b118da4b02e449949357642d20f8efd92efc56de18bea5dc"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_routing_rules.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_routing_rules.py",
+        "sha256": "bb89798f32d127149a17c99685588ae7a1d2736486b3f2de1e4e98ba80362c3c"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_schema_query.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_schema_query.py",
+        "sha256": "fc91b466c3e0d5fe518ec5ec94968270e47152dd1bfc1dfa8f7c44348a3ab4c7"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_search.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_search.py",
+        "sha256": "44623acd460df4bd0a3c25229d8e2089fde9596a7d8dc93af66b03678b3ccd60"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_snapshots.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_snapshots.py",
+        "sha256": "4f5d473d2a1b0605e7ac2c9628723cd7968ed612ddbafe73b4711a609612ba1a"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_source_lookup.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_source_lookup.py",
+        "sha256": "95165a3b1634c72c395e37c035189ea581fe332aada90416cd80fe3cd0b2d3a7"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_structured_curation.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_structured_curation.py",
+        "sha256": "a7fd12f3323137ec8e65ff2c661cd0ec9c40f8027fbac6c409c6b64fac0dbc02"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_structured_luna.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_structured_luna.py",
+        "sha256": "860f18c4643c6dfa4ecd3fb87e4b8549da16c322a74de2654dde2845403a0b8f"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_structured_store.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_structured_store.py",
+        "sha256": "c2f364bc2f84f83fa5cdcc2d23c90d58785adc2dc41aa697d8075655a4f1ba4d"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_table_views.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_table_views.py",
+        "sha256": "4f217d8bf493dea6d9630f066497bbb035aa6120772199865849f811acb5d3f9"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_target_benchmark.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_target_benchmark.py",
+        "sha256": "4ddffbbeca7f21d69960d981a49462d7dfb46cd5798c56273ce501607bad6ff2"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_target_lookup.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_target_lookup.py",
+        "sha256": "2470ecdf5cfbdb7765ba97406a42c838ab8df1dda2422c86f9fcf073b7bfb2ff"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_target_metrics.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_target_metrics.py",
+        "sha256": "643c3faeb8a2df51fdc63ac3874dfad63490c164fae73afca6bb10ea6d6486d9"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_usage_blind.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_usage_blind.py",
+        "sha256": "36b1baf5cb3c421a7c000463397751f6f2e74c5ca3f306fc5a63f81124ede4c0"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_validity.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_validity.py",
+        "sha256": "b48f4b78719ab7245d61570ee741057080922ac03baf98a80f687cb4249679bc"
+      },
+      {
+        "original_path": "experimental/u_10o0o/advanced_workflow_eval.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/advanced_workflow_eval.py",
+        "sha256": "f45c9a9f54d3b8b725771cfd4a90ede0f3a2c05708807229d41a1ecd786c3436"
+      },
+      {
+        "original_path": "experimental/u_10o0o/bm25.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/bm25.py",
+        "sha256": "271d4c0cdda721d91185bccabd15f7e8110ca4a40e07862a5b65699c56085d94"
+      },
+      {
+        "original_path": "experimental/u_10o0o/context_evidence.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/context_evidence.py",
+        "sha256": "3bbacbfbee9b196ae82389dc0a79163c1c633ce56674b91547059e1563baf365"
+      },
+      {
+        "original_path": "experimental/u_10o0o/embedding_ablation/__init__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/embedding_ablation/__init__.py",
+        "sha256": "542b2af075758decdb93d1c9e93b14dfdeba53de2163ca2c5324b17ee7b8097e"
+      },
+      {
+        "original_path": "experimental/u_10o0o/embedding_ablation/__main__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/embedding_ablation/__main__.py",
+        "sha256": "9442af520b60ccccd341a3f0ff78141290667677e769c335162f93214352ccc1"
+      },
+      {
+        "original_path": "experimental/u_10o0o/embedding_ablation/assets.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/embedding_ablation/assets.py",
+        "sha256": "919433ec9a82a4b265f99a07f0d44c5c52e14ce6c094e30b342699aa4bd9274a"
+      },
+      {
+        "original_path": "experimental/u_10o0o/embeding.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/embeding.py",
+        "sha256": "94ffa7f3eb39cb16c71abb0aa331ecf3df9e02ea4a0544ff2dfae287cb3ece92"
+      },
+      {
+        "original_path": "experimental/u_10o0o/evaluate.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/evaluate.py",
+        "sha256": "e31a10cfb537077fb06ad1bcdaa51e43d5a7498fdc5b4266a6b2b47603bdc6eb"
+      },
+      {
+        "original_path": "experimental/u_10o0o/hybrid.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/hybrid.py",
+        "sha256": "b2f3f483ecd3db6c3ce853e12446224f2a05558934a6dc49bc7d0aa967592181"
+      },
+      {
+        "original_path": "experimental/u_10o0o/pattern_retrieval/__init__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/pattern_retrieval/__init__.py",
+        "sha256": "9d1057b69f577e114d8ed40701fa09e092f7c56eb7c14ed56ee13eb42734564c"
+      },
+      {
+        "original_path": "experimental/u_10o0o/pattern_retrieval/common.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/pattern_retrieval/common.py",
+        "sha256": "867e658e7c34d43fa50ea770f21331788b6900e7d67116ab61cf69f82b31b81a"
+      },
+      {
+        "original_path": "experimental/u_10o0o/pattern_retrieval/established_retrieve.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/pattern_retrieval/established_retrieve.py",
+        "sha256": "cdbe3a379dc767ad948a5bf4452d41b7b8719587188150b14b701ad4ea5e37c1"
+      },
+      {
+        "original_path": "experimental/u_10o0o/pattern_retrieval/established_score.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/pattern_retrieval/established_score.py",
+        "sha256": "a47c70d4fa4e95959f009ac1385d496dda5a6596a924ec4782055e5737cb373d"
+      },
+      {
+        "original_path": "experimental/u_10o0o/pattern_retrieval/legacy_baseline.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/pattern_retrieval/legacy_baseline.py",
+        "sha256": "a64113f4916919d1224b4bdf60e2cfe72166fab6d7ad7a851bd093f5cfb86828"
+      },
+      {
+        "original_path": "experimental/u_10o0o/prepare.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/prepare.py",
+        "sha256": "04fdc28ef6a5039f75a8c2a88aa422c14799e69e2f37bb66eac288f7161455c4"
+      },
+      {
+        "original_path": "experimental/u_10o0o/rerank.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/rerank.py",
+        "sha256": "423208e08d018a0abfcf9df096e7b7d2df3abfd4e57e9dfb6c6e34d49a6e0727"
+      },
+      {
+        "original_path": "experimental/u_10o0o/search.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/search.py",
+        "sha256": "4d6546d272444d9b09262b718e1d42393d540eb6d087555a56a88acab7ffe4c5"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/__init__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/__init__.py",
+        "sha256": "f092d785d2f8f34f8340f77efd573b5029d1b30c7016d74b6592f9a9bf7cb624"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/__main__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/__main__.py",
+        "sha256": "1457fb5f20501d64d9d5edaf9262b77731350c42ba1b3e3d4b84815b4fedbe05"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/agent.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/agent.py",
+        "sha256": "8890165f8862fcc1cfa29c47ee48c1c0f5d1353e488d1c1406e77b9c9f3c8ef7"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/benchmark.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/benchmark.py",
+        "sha256": "eac1193b1a5d2cae61acac8904ef85d80ecd8c6d960985a1f3afb7576c5092a3"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/evidence.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/evidence.py",
+        "sha256": "4144b46d9b7a970282dae395c4533708e04a068466ec288baabda03c3cdaf80b"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/hg.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/hg.py",
+        "sha256": "91a4715115f230d6abf48cdab325a978b0f9e805dbea69956df225d974fd8085"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/oracle.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/oracle.py",
+        "sha256": "74b94d543be193881a30fcb0b55680a3a60bf2f2d8996c6db58ec0394d12fdd3"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/report.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/report.py",
+        "sha256": "2e26ac4022445dbad0f837d6495e2d337c8af7c7af1a7d7c96841bdaddef4897"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/retrieval.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/retrieval.py",
+        "sha256": "eb8f592af0c4757d8fab3d8f7a404d912ea005cd2d25de35fe5dbb5fb6685de8"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/store.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/store.py",
+        "sha256": "525afb18cb17d5fe79be8d5a186071ec994fe8e8fa522b9db315e6e59ec82c2c"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/workflow.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/workflow.py",
+        "sha256": "36365126ad7ed99f1810e75e8ab7435b7095a9f54935e571ccec2f6c4aac62ea"
+      },
+      {
+        "original_path": "experimental/u_10o0o/table_rag/workflow_experiment.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/experimental/u_10o0o/table_rag/workflow_experiment.py",
+        "sha256": "96c27c9d6482b91a75748eb870c981e54fd8ccf939936818e9a36b68321d5d4a"
+      },
+      {
+        "original_path": "shared/__init__.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/shared/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "original_path": "shared/contracts.py",
+        "path": "artifacts/u_10o0o/advanced-table-rag-workflow-20261111/v2/executed-code/shared/contracts.py",
+        "sha256": "c6f0211e33ec8dbed16619e414745c5e2e703a994f085edd32a1df9406028938"
+      }
+    ],
+    "source_references_can_exceed_eight": true,
+    "total_evidence_tokens": 8000,
+    "version": 1,
+    "workers": 4
+  },
+  "run_sha256": "f3c36795cb93096e569b1ce5c2df6f1286815ee7754de4239df65ebed2e8aa4b",
+  "source_score_sha256": "0cfa8288e5a867bbccfa8c8ea7033b0684d0d7f69db0209f71f0d20fac8fe8a7"
+}

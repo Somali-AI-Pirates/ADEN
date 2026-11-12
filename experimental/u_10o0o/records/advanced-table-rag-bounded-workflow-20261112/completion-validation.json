@@ -1,0 +1,93 @@
+{
+  "validated_at": "2026-11-12T03:13:52.916818+00:00",
+  "status": "completed_experiment_not_adopted",
+  "decision": "Keep existing A. New B is an experimental alternative only.",
+  "retrieval": {
+    "A": {
+      "count": 278,
+      "all_result_hashes_match": true,
+      "max_pages": 8,
+      "max_context_tokens": 6949,
+      "max_ranked_candidates": 20,
+      "api_calls": 451,
+      "run_manifest_sha256": "0afc7774f7c9867e8e5fb35dd94ab0a14f3250ae50a4fcb4c61fed41424dc263"
+    },
+    "B": {
+      "count": 278,
+      "all_result_hashes_match": true,
+      "max_pages": 8,
+      "max_context_tokens": 6680,
+      "max_ranked_candidates": 20,
+      "api_calls": 704,
+      "run_manifest_sha256": "cec6dc834cdac9e1a7faa241b39c0da9571a0a9e2faa7049b5f8bea453646e65"
+    }
+  },
+  "checks": {
+    "ruff_global": {
+      "passed": true,
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "output": "All checks passed!\n"
+    },
+    "ruff_task": {
+      "passed": true,
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "--isolated",
+        "experimental/u_10o0o/table_rag_workflow",
+        "experimental/u_10o0o/records/advanced-table-rag-bounded-workflow-20261112"
+      ],
+      "output": "All checks passed!\n"
+    },
+    "format_task": {
+      "passed": true,
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--isolated",
+        "--check",
+        "experimental/u_10o0o/table_rag_workflow",
+        "experimental/u_10o0o/records/advanced-table-rag-bounded-workflow-20261112"
+      ],
+      "output": "16 files already formatted\n"
+    }
+  },
+  "tests": {
+    "passed": 464,
+    "subtests_passed": 15,
+    "log": "artifacts/u_10o0o/advanced-table-rag-bounded-workflow-20261112/v2/tests.log",
+    "log_sha256": "5ba3880d9c2667f0001a4fa6c92c23b6f76041cbb1d62ad4b8e9212f0264798d",
+    "command": ".venv/bin/python -B -m pytest -q tests experimental/u_10o0o/table_rag experimental/u_10o0o/table_rag_unified experimental/u_10o0o/table_rag_workflow"
+  },
+  "package_build": {
+    "passed": true,
+    "log": "artifacts/u_10o0o/advanced-table-rag-bounded-workflow-20261112/v1/build.log",
+    "log_sha256": "09da9864e46052e8cea6f6d5b8059885df13997be22d9d98002913884342a4bd",
+    "scope": "wheel and sdist built during implementation; experimental package excluded from distribution"
+  },
+  "runtime_self_review_hashes_unchanged": true,
+  "runtime_file_exception": "runtime-audit.json records a concurrent unused replay_product.py edit; all executing runtime files matched at result finalization. Benchmark imports were sorted after completion; executed source is archived.",
+  "review_scope": {
+    "adjudications_sha256": "89ad51b78bcb780581dd55783f948f0c33eb417ce2cfd701071addf4a6551d1c",
+    "all_required_checked": true,
+    "assistant_checked_or_exact_reuse": 72,
+    "exact_reused_outputs": 56,
+    "independent_human_review": false,
+    "model_plus_source_checks": 164,
+    "review_inputs_sha256": "be1c476ec5776733a2b3a67553a8b4550c33ac707eed898be5e27e0ce2e09c97",
+    "reviewed_outputs": 236,
+    "scope": "All official contexts, symmetric category strict misses and prior ambiguous cases",
+    "source_quote_hash_checks": true
+  },
+  "protocol_sha256": "21daf064afeb57edc2e5717852526a7f935acafbdf39e27d88f0a003f79f5832",
+  "result_summary_sha256": "5f80781a19bbdddbd244c2ea8d4ca8e652e29835c65dad7d0253761be2999b6f",
+  "source_integrity": "source-index.json and real-fast-path-check.json",
+  "independent_human_review": false,
+  "independent_agent_review": false,
+  "production_or_default_promoted": false,
+  "commit_push_performed": false
+}

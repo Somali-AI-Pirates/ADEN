@@ -1,0 +1,20 @@
+{
+  "known_usage": {
+    "retrieval": {
+      "input_tokens": 19125948,
+      "output_tokens": 537548,
+      "reasoning_tokens": 227907
+    },
+    "review": {
+      "input_tokens": 1888378,
+      "output_tokens": 356428,
+      "reasoning_tokens": 145024
+    }
+  },
+  "new_planner_calls": 1458,
+  "new_planner_errors": 0,
+  "new_retrievals": 704,
+  "new_review_calls": 309,
+  "new_review_errors": 0,
+  "reused_reviews": 259
+}

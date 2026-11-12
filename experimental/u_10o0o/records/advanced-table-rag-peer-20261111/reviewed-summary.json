@@ -1,0 +1,462 @@
+{
+  "all": {
+    "arms": {
+      "A": {
+        "additional_recovered": 27,
+        "adjusted_complete": 198,
+        "adjusted_percent": 65.13157894736842,
+        "failure_review_categories": {
+          "ambiguous_question": 35,
+          "insufficient": 64,
+          "strict_pass_not_semantically_audited": 171,
+          "sufficient": 27,
+          "uncertain": 3,
+          "uncertain_quote_validation": 4
+        },
+        "strict_complete": 171,
+        "strict_percent": 56.25
+      },
+      "B": {
+        "additional_recovered": 24,
+        "adjusted_complete": 201,
+        "adjusted_percent": 66.11842105263158,
+        "failure_review_categories": {
+          "ambiguous_question": 31,
+          "insufficient": 60,
+          "strict_pass_not_semantically_audited": 177,
+          "sufficient": 24,
+          "uncertain": 4,
+          "uncertain_quote_validation": 8
+        },
+        "strict_complete": 177,
+        "strict_percent": 58.223684210526315
+      }
+    },
+    "count": 304
+  },
+  "excluding_preexisting_ambiguous": {
+    "arms": {
+      "A": {
+        "additional_recovered": 22,
+        "adjusted_complete": 183,
+        "adjusted_percent": 70.65637065637065,
+        "failure_review_categories": {
+          "ambiguous_question": 13,
+          "insufficient": 56,
+          "strict_pass_not_semantically_audited": 161,
+          "sufficient": 22,
+          "uncertain": 3,
+          "uncertain_quote_validation": 4
+        },
+        "strict_complete": 161,
+        "strict_percent": 62.16216216216216
+      },
+      "B": {
+        "additional_recovered": 21,
+        "adjusted_complete": 182,
+        "adjusted_percent": 70.27027027027027,
+        "failure_review_categories": {
+          "ambiguous_question": 14,
+          "insufficient": 53,
+          "strict_pass_not_semantically_audited": 161,
+          "sufficient": 21,
+          "uncertain": 3,
+          "uncertain_quote_validation": 7
+        },
+        "strict_complete": 161,
+        "strict_percent": 62.16216216216216
+      }
+    },
+    "count": 259
+  },
+  "multi_3_all": {
+    "arms": {
+      "A": {
+        "additional_recovered": 5,
+        "adjusted_complete": 59,
+        "adjusted_percent": 64.1304347826087,
+        "failure_review_categories": {
+          "ambiguous_question": 7,
+          "insufficient": 25,
+          "strict_pass_not_semantically_audited": 54,
+          "sufficient": 5,
+          "uncertain_quote_validation": 1
+        },
+        "strict_complete": 54,
+        "strict_percent": 58.69565217391305
+      },
+      "B": {
+        "additional_recovered": 4,
+        "adjusted_complete": 58,
+        "adjusted_percent": 63.04347826086956,
+        "failure_review_categories": {
+          "ambiguous_question": 5,
+          "insufficient": 25,
+          "strict_pass_not_semantically_audited": 54,
+          "sufficient": 4,
+          "uncertain": 1,
+          "uncertain_quote_validation": 3
+        },
+        "strict_complete": 54,
+        "strict_percent": 58.69565217391305
+      }
+    },
+    "count": 92
+  },
+  "multi_3_false": {
+    "arms": {
+      "A": {
+        "additional_recovered": 5,
+        "adjusted_complete": 20,
+        "adjusted_percent": 43.47826086956522,
+        "failure_review_categories": {
+          "ambiguous_question": 4,
+          "insufficient": 22,
+          "strict_pass_not_semantically_audited": 15,
+          "sufficient": 5
+        },
+        "strict_complete": 15,
+        "strict_percent": 32.608695652173914
+      },
+      "B": {
+        "additional_recovered": 4,
+        "adjusted_complete": 19,
+        "adjusted_percent": 41.30434782608695,
+        "failure_review_categories": {
+          "ambiguous_question": 3,
+          "insufficient": 21,
+          "strict_pass_not_semantically_audited": 15,
+          "sufficient": 4,
+          "uncertain": 1,
+          "uncertain_quote_validation": 2
+        },
+        "strict_complete": 15,
+        "strict_percent": 32.608695652173914
+      }
+    },
+    "count": 46
+  },
+  "multi_3_normal": {
+    "arms": {
+      "A": {
+        "additional_recovered": 0,
+        "adjusted_complete": 39,
+        "adjusted_percent": 84.78260869565217,
+        "failure_review_categories": {
+          "ambiguous_question": 3,
+          "insufficient": 3,
+          "strict_pass_not_semantically_audited": 39,
+          "uncertain_quote_validation": 1
+        },
+        "strict_complete": 39,
+        "strict_percent": 84.78260869565217
+      },
+      "B": {
+        "additional_recovered": 0,
+        "adjusted_complete": 39,
+        "adjusted_percent": 84.78260869565217,
+        "failure_review_categories": {
+          "ambiguous_question": 2,
+          "insufficient": 4,
+          "strict_pass_not_semantically_audited": 39,
+          "uncertain_quote_validation": 1
+        },
+        "strict_complete": 39,
+        "strict_percent": 84.78260869565217
+      }
+    },
+    "count": 46
+  },
+  "multi_4_all": {
+    "arms": {
+      "A": {
+        "additional_recovered": 14,
+        "adjusted_complete": 52,
+        "adjusted_percent": 66.66666666666667,
+        "failure_review_categories": {
+          "ambiguous_question": 2,
+          "insufficient": 21,
+          "strict_pass_not_semantically_audited": 38,
+          "sufficient": 14,
+          "uncertain": 1,
+          "uncertain_quote_validation": 2
+        },
+        "strict_complete": 38,
+        "strict_percent": 48.717948717948715
+      },
+      "B": {
+        "additional_recovered": 14,
+        "adjusted_complete": 51,
+        "adjusted_percent": 65.38461538461539,
+        "failure_review_categories": {
+          "ambiguous_question": 5,
+          "insufficient": 18,
+          "strict_pass_not_semantically_audited": 37,
+          "sufficient": 14,
+          "uncertain": 1,
+          "uncertain_quote_validation": 3
+        },
+        "strict_complete": 37,
+        "strict_percent": 47.43589743589744
+      }
+    },
+    "count": 78
+  },
+  "multi_4_false": {
+    "arms": {
+      "A": {
+        "additional_recovered": 14,
+        "adjusted_complete": 19,
+        "adjusted_percent": 48.717948717948715,
+        "failure_review_categories": {
+          "ambiguous_question": 2,
+          "insufficient": 15,
+          "strict_pass_not_semantically_audited": 5,
+          "sufficient": 14,
+          "uncertain": 1,
+          "uncertain_quote_validation": 2
+        },
+        "strict_complete": 5,
+        "strict_percent": 12.820512820512821
+      },
+      "B": {
+        "additional_recovered": 14,
+        "adjusted_complete": 19,
+        "adjusted_percent": 48.717948717948715,
+        "failure_review_categories": {
+          "ambiguous_question": 3,
+          "insufficient": 13,
+          "strict_pass_not_semantically_audited": 5,
+          "sufficient": 14,
+          "uncertain": 1,
+          "uncertain_quote_validation": 3
+        },
+        "strict_complete": 5,
+        "strict_percent": 12.820512820512821
+      }
+    },
+    "count": 39
+  },
+  "multi_4_normal": {
+    "arms": {
+      "A": {
+        "additional_recovered": 0,
+        "adjusted_complete": 33,
+        "adjusted_percent": 84.61538461538461,
+        "failure_review_categories": {
+          "insufficient": 6,
+          "strict_pass_not_semantically_audited": 33
+        },
+        "strict_complete": 33,
+        "strict_percent": 84.61538461538461
+      },
+      "B": {
+        "additional_recovered": 0,
+        "adjusted_complete": 32,
+        "adjusted_percent": 82.05128205128206,
+        "failure_review_categories": {
+          "ambiguous_question": 2,
+          "insufficient": 5,
+          "strict_pass_not_semantically_audited": 32
+        },
+        "strict_complete": 32,
+        "strict_percent": 82.05128205128206
+      }
+    },
+    "count": 39
+  },
+  "multi_false": {
+    "arms": {
+      "A": {
+        "additional_recovered": 19,
+        "adjusted_complete": 39,
+        "adjusted_percent": 45.88235294117647,
+        "failure_review_categories": {
+          "ambiguous_question": 6,
+          "insufficient": 37,
+          "strict_pass_not_semantically_audited": 20,
+          "sufficient": 19,
+          "uncertain": 1,
+          "uncertain_quote_validation": 2
+        },
+        "strict_complete": 20,
+        "strict_percent": 23.529411764705884
+      },
+      "B": {
+        "additional_recovered": 18,
+        "adjusted_complete": 38,
+        "adjusted_percent": 44.705882352941174,
+        "failure_review_categories": {
+          "ambiguous_question": 6,
+          "insufficient": 34,
+          "strict_pass_not_semantically_audited": 20,
+          "sufficient": 18,
+          "uncertain": 2,
+          "uncertain_quote_validation": 5
+        },
+        "strict_complete": 20,
+        "strict_percent": 23.529411764705884
+      }
+    },
+    "count": 85
+  },
+  "multi_normal": {
+    "arms": {
+      "A": {
+        "additional_recovered": 0,
+        "adjusted_complete": 72,
+        "adjusted_percent": 84.70588235294117,
+        "failure_review_categories": {
+          "ambiguous_question": 3,
+          "insufficient": 9,
+          "strict_pass_not_semantically_audited": 72,
+          "uncertain_quote_validation": 1
+        },
+        "strict_complete": 72,
+        "strict_percent": 84.70588235294117
+      },
+      "B": {
+        "additional_recovered": 0,
+        "adjusted_complete": 71,
+        "adjusted_percent": 83.52941176470588,
+        "failure_review_categories": {
+          "ambiguous_question": 4,
+          "insufficient": 9,
+          "strict_pass_not_semantically_audited": 71,
+          "uncertain_quote_validation": 1
+        },
+        "strict_complete": 71,
+        "strict_percent": 83.52941176470588
+      }
+    },
+    "count": 85
+  },
+  "peer_false_premise": {
+    "arms": {
+      "A": {
+        "additional_recovered": 0,
+        "adjusted_complete": 20,
+        "adjusted_percent": 100.0,
+        "failure_review_categories": {
+          "strict_pass_not_semantically_audited": 20
+        },
+        "strict_complete": 20,
+        "strict_percent": 100.0
+      },
+      "B": {
+        "additional_recovered": 0,
+        "adjusted_complete": 20,
+        "adjusted_percent": 100.0,
+        "failure_review_categories": {
+          "strict_pass_not_semantically_audited": 20
+        },
+        "strict_complete": 20,
+        "strict_percent": 100.0
+      }
+    },
+    "count": 20
+  },
+  "peer_multi_doc": {
+    "arms": {
+      "A": {
+        "additional_recovered": 19,
+        "adjusted_complete": 111,
+        "adjusted_percent": 65.29411764705883,
+        "failure_review_categories": {
+          "ambiguous_question": 9,
+          "insufficient": 46,
+          "strict_pass_not_semantically_audited": 92,
+          "sufficient": 19,
+          "uncertain": 1,
+          "uncertain_quote_validation": 3
+        },
+        "strict_complete": 92,
+        "strict_percent": 54.11764705882353
+      },
+      "B": {
+        "additional_recovered": 18,
+        "adjusted_complete": 109,
+        "adjusted_percent": 64.11764705882354,
+        "failure_review_categories": {
+          "ambiguous_question": 10,
+          "insufficient": 43,
+          "strict_pass_not_semantically_audited": 91,
+          "sufficient": 18,
+          "uncertain": 2,
+          "uncertain_quote_validation": 6
+        },
+        "strict_complete": 91,
+        "strict_percent": 53.529411764705884
+      }
+    },
+    "count": 170
+  },
+  "peer_two_doc": {
+    "arms": {
+      "A": {
+        "additional_recovered": 8,
+        "adjusted_complete": 67,
+        "adjusted_percent": 58.771929824561404,
+        "failure_review_categories": {
+          "ambiguous_question": 26,
+          "insufficient": 18,
+          "strict_pass_not_semantically_audited": 59,
+          "sufficient": 8,
+          "uncertain": 2,
+          "uncertain_quote_validation": 1
+        },
+        "strict_complete": 59,
+        "strict_percent": 51.75438596491228
+      },
+      "B": {
+        "additional_recovered": 6,
+        "adjusted_complete": 72,
+        "adjusted_percent": 63.1578947368421,
+        "failure_review_categories": {
+          "ambiguous_question": 21,
+          "insufficient": 17,
+          "strict_pass_not_semantically_audited": 66,
+          "sufficient": 6,
+          "uncertain": 2,
+          "uncertain_quote_validation": 2
+        },
+        "strict_complete": 66,
+        "strict_percent": 57.89473684210526
+      }
+    },
+    "count": 114
+  },
+  "preexisting_ambiguous": {
+    "arms": {
+      "A": {
+        "additional_recovered": 5,
+        "adjusted_complete": 15,
+        "adjusted_percent": 33.333333333333336,
+        "failure_review_categories": {
+          "ambiguous_question": 22,
+          "insufficient": 8,
+          "strict_pass_not_semantically_audited": 10,
+          "sufficient": 5
+        },
+        "strict_complete": 10,
+        "strict_percent": 22.22222222222222
+      },
+      "B": {
+        "additional_recovered": 3,
+        "adjusted_complete": 19,
+        "adjusted_percent": 42.22222222222222,
+        "failure_review_categories": {
+          "ambiguous_question": 17,
+          "insufficient": 7,
+          "strict_pass_not_semantically_audited": 16,
+          "sufficient": 3,
+          "uncertain": 1,
+          "uncertain_quote_validation": 1
+        },
+        "strict_complete": 16,
+        "strict_percent": 35.55555555555556
+      }
+    },
+    "count": 45
+  }
+}

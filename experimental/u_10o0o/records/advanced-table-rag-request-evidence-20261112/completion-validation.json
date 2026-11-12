@@ -1,0 +1,51 @@
+{
+  "all_json_finite": true,
+  "all_quotes_verified_by_report": true,
+  "answer_generation": false,
+  "cli_help": "passed",
+  "focused_ruff": "passed E4,E7,E9,F",
+  "format": "10 files checked",
+  "global_ruff": "passed on final check; parallel owner updated app/rag/cli.py independently",
+  "independent_agent_review": false,
+  "independent_human_review": false,
+  "index_snapshot_verified": true,
+  "local_links_checked": 10,
+  "owned_code": {
+    "/home/jake/workspace/projects/kant/ADEN/experimental/u_10o0o/records/advanced-table-rag-request-evidence-20261112/adjudicate.py": "ffa0bb7bdd5735760fd884e1756ac8b9527c62e829a530423c9b3c9613d56886",
+    "/home/jake/workspace/projects/kant/ADEN/experimental/u_10o0o/records/advanced-table-rag-request-evidence-20261112/analyze.py": "37f0a649a66b8fe1608a9300d68770293ad55cd2013176e5e71dff884e3b600d",
+    "/home/jake/workspace/projects/kant/ADEN/experimental/u_10o0o/records/advanced-table-rag-request-evidence-20261112/render_report.py": "981ca018aaa5aa0fac8e03ae30584485b1517632bd4d05db0cd0dec591f0e607",
+    "/home/jake/workspace/projects/kant/ADEN/experimental/u_10o0o/records/advanced-table-rag-request-evidence-20261112/review.py": "0a439694f200c80ddc6741e1d860bc1d6af3fcfc3195390b71a797449434970f",
+    "/home/jake/workspace/projects/kant/ADEN/experimental/u_10o0o/records/advanced-table-rag-request-evidence-20261112/run_benchmark.py": "642c06445cf9cae644b4df2bda3f0ca6131b066eb4b48dbcaa8e7b98dd25e150",
+    "/home/jake/workspace/projects/kant/ADEN/experimental/u_10o0o/records/advanced-table-rag-request-evidence-20261112/score.py": "7f2ba1ca1121a33c43bc7cccfe09fe7d3c1dfce8b0a3805f9cf3b01d8dfb20e2",
+    "experimental/u_10o0o/table_rag_unified/__main__.py": "48168ce08f9028f7d399c001c134a2eacf97e5dc540ee884b893115fa40f4e91",
+    "experimental/u_10o0o/table_rag_unified/agent.py": "bea3ea2e0b85999a90ad9e16ce31dbc5d2751d9feebcaab623f3db3485e2d3cb",
+    "experimental/u_10o0o/table_rag_unified/evidence.py": "09cdfef933c09c8e302bf2bf5cfaf56dc5d26b8c9709722bb9a86cfc24597b39",
+    "experimental/u_10o0o/table_rag_unified/test_evidence.py": "a7914c60ef733024d4cffc18425604423922619ff5f984c79fa2086c4c36a14b"
+  },
+  "report_sha256": "98b3f8214071b21f3807b6741d2b49643ecca37c2eade6c36f7bac8681b506f2",
+  "retrieval": {
+    "A": {
+      "api_calls": 84,
+      "api_status": {
+        "complete": 84
+      },
+      "max_context_tokens": 6187,
+      "max_pages": 8,
+      "questions": 58
+    },
+    "B": {
+      "api_calls": 130,
+      "api_status": {
+        "complete": 130
+      },
+      "max_context_tokens": 6187,
+      "max_pages": 8,
+      "questions": 58
+    }
+  },
+  "reviews": 116,
+  "runtime_fingerprints_verified": true,
+  "same_initial_candidates": 58,
+  "tests": "408 passed, 15 subtests passed (final rerun)",
+  "verdict_corrections": 8
+}

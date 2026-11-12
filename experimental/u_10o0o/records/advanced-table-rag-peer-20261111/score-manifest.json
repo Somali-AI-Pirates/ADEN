@@ -1,0 +1,34 @@
+{
+  "preexisting_ambiguous_file": "experimental/ysl727727/overnight/data/synth_adv_ambiguous.json",
+  "preexisting_ambiguous_sha256": "0669ac600025e4725fd5abe2304bb504814029fe044d85db7b2d2d6665967b98",
+  "references_read_after_both_runs": true,
+  "review_candidates": 260,
+  "runs": {
+    "A": "fb168708e42695bdd81bbd377e88006d0f9965e64fc682c9c4b0a720d5e0f842",
+    "B": "f33ef8627507fd7bdad30a7105dd51f0ed061bc47c9f900a34bf55f5d7ebdf89"
+  },
+  "script_sha256": "959dacb419bc4c92cffe507accbaa4338f64c062cde5a24c8d3075ce820b6233",
+  "sources": [
+    {
+      "questions": "experimental/ysl727727/overnight/data/false_premise_adv_questions.json",
+      "questions_sha256": "7814eea24550882be81471e73be625859ad77bc9b308df9c7d16a1eb246f3ab9",
+      "references": "experimental/ysl727727/overnight/data/false_premise_adv.json",
+      "references_sha256": "d8a21e14c50af0add036672b0c072c53b955a8de8087126000a819f34fb38322",
+      "split": "peer_false_premise"
+    },
+    {
+      "questions": "experimental/ysl727727/overnight/data/synth_adv_questions.json",
+      "questions_sha256": "886028ade17c18a5b8820319f29b5cd2f1716093802b6afb44a9a1c10254e9c0",
+      "references": "experimental/ysl727727/overnight/data/synth_adv.json",
+      "references_sha256": "94ac5d2e7906841675691b0511a8515efd11b3e03ceafda2d2527e6705bc4bd4",
+      "split": "peer_two_doc"
+    },
+    {
+      "questions": "experimental/ysl727727/overnight/data/synth_multi_adv_questions.json",
+      "questions_sha256": "ed7a6b2448a732448dea3ad9c772ddd0ff5cdfa983843cc5aa32022fcda07388",
+      "references": "experimental/ysl727727/overnight/data/synth_multi_adv.json",
+      "references_sha256": "7ead57097e66d072e0b5f2253220bc65bbcc8193b0926e2f174beb286ba67c9d",
+      "split": "peer_multi_doc"
+    }
+  ]
+}

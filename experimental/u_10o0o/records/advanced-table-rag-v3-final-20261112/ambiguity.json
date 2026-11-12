@@ -1,0 +1,66 @@
+{
+  "clarification_control_overconfirmations": [
+    {
+      "id": "clarify:SYF3-adv-045",
+      "status": "sufficient"
+    },
+    {
+      "id": "clarify:SYF4-adv-003",
+      "status": "sufficient"
+    }
+  ],
+  "scored_questions": [
+    {
+      "finish_status": "needs_clarification",
+      "id": "semantic_queries:AS-SEM-32"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SY3-adv-007"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SY3-adv-019"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SY3-adv-031"
+    },
+    {
+      "finish_status": "sufficient",
+      "id": "peer_multi_doc:SY3-adv-039"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SY3-adv-041"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SY4-adv-007"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SY4-adv-017"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SY4-adv-020"
+    },
+    {
+      "finish_status": "insufficient",
+      "id": "peer_multi_doc:SY4-adv-021"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SY4-adv-030"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SY4-adv-031"
+    },
+    {
+      "finish_status": "needs_clarification",
+      "id": "peer_multi_doc:SYF4-adv-039"
+    }
+  ]
+}

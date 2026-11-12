@@ -1,0 +1,51 @@
+{
+  "answer_generation": false,
+  "api_retries": 0,
+  "arms": {
+    "A": "legacy planner and round-robin merge",
+    "B": "clarification instruction and observed selected-source preservation"
+  },
+  "candidate_pages": 20,
+  "context_tokens": 8000,
+  "embedding": "nlpai-lab/KURE-v2",
+  "embedding_revision": "3431f86d399d666083890dbb882aced6708873bc",
+  "final_pages": 8,
+  "max_new_planner_calls": 4224,
+  "max_steps": 5,
+  "model": "gpt-6-luna",
+  "new_retrieval_count": 704,
+  "old_v2_run_sha256": "8095d170c9b1fdbed45210a390db95b20612c5445857af8a6c9655d8f2bfd543",
+  "preparation_used_references": false,
+  "prior_peer_question_repairs_used_references": true,
+  "prompts": {
+    "A": "b9d0a60be88f3c30d2ee70c46b0ce6086754361586c87688368472348d6ce796",
+    "B": "af2be1747de3c11409a8588ac33028e04f49df0e2a3a5bffdb37bb6eabfc7ac3"
+  },
+  "query_tokens": 128,
+  "question_metadata_sha256": "611a0c2097c24aad04b89927b471d747512e5be21e9cae33113c4af98783e56f",
+  "questions_sha256": "d5a7acfb6bc655862c6bcc19394484f92d7b1c960ea79fccea73f556b31d3299",
+  "reasoning": "medium",
+  "references_sha256": "10642b5f8085f518f29df20e084425ad35fcba5258b69ac70f17b7323ca31770",
+  "reranker": "KURE nano",
+  "reranker_tokens": 1024,
+  "retrieval_receives_question_only": true,
+  "rrf": [
+    0.5,
+    0.5,
+    60
+  ],
+  "store_sha256": "e626d8057912cb98c8b64be7f2942e865681b1b275e1187ceddab28fe3375ced",
+  "vectors_sha256": "f92f58d596c48a4b386c70676544d2e8c1c4b6dbebf3cc4b91625855ff16a005",
+  "workers": 4,
+  "question_count": 491,
+  "historical_core_A_count": 278,
+  "groups": {
+    "official": 58,
+    "categories": 220,
+    "peer_normal": 85,
+    "peer_false_premise": 85,
+    "original_ambiguous": 43
+  },
+  "artifact_path": "artifacts/u_10o0o/advanced-table-rag-kure-v2-preservation-20261111/v2",
+  "protocol_sha256": "6906a0f2adde9ef8fdf9a0a1a98084508018461305ee5942405464964f9a2844"
+}
