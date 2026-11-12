@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "operation", "commit_sha", "run_number", "run_attempt", "api_image", "web_image"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "operation": {"const": "deploy"},
+        "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "run_number": {"type": "integer", "minimum": 1, "maximum": 2147483647},
+        "run_attempt": {"type": "integer", "minimum": 1, "maximum": 2147483647},
+        "api_image": {"type": "string", "pattern": "^ghcr[.]io/somali-ai-pirates/aden-api@sha256:[0-9a-f]{64}$"},
+        "web_image": {"type": "string", "pattern": "^ghcr[.]io/somali-ai-pirates/aden-web@sha256:[0-9a-f]{64}$"}
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "operation"],
+      "properties": {"schema_version": {"const": 1}, "operation": {"const": "rollback"}}
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "operation"],
+      "properties": {"schema_version": {"const": 1}, "operation": {"const": "status"}}
+    }
+  ]
+}

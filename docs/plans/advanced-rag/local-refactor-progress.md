@@ -192,9 +192,39 @@ pytest 경고 1개는 메모리 Qdrant exact 검색에 search_params가 별도 �
 
 P4-1~4의 로컬 구현·검증을 완료했다. 런타임 코드는 수정 후 독립 재리뷰에서 고정한 지문과 일치한다. 마지막 변경은 완료 기록과 기준 계획의 상태 표시뿐이며, 링크/구조와 실제 증거를 다시 대조했다. 최종 파일 지문·명령·결과는 `final-content.json`과 `final-checks.json`에 있다.
 
-- 현재 HEAD와 푸시한 원격 브랜치는 `6acc5aa8f5ca067c17ed382706d4ff6df9cdbb70`다. **P4 변경은 로컬 미커밋 상태**다. main 병합·P4 추가 푸시는 하지 않았다.
+- P4 검증 당시 기준 커밋은 `6acc5aa8f5ca067c17ed382706d4ff6df9cdbb70`였다. 후속 요청으로 검증 지문을 대조한 뒤 P4 변경을 아래 커밋에 저장했다.
 - CPU 스레드·ONNX 결과는 앞선 실험 기록 커밋에만 포함했다. 제품 모델·스레드 정책에 채택하지 않았다.
 - 검증 환경은 WSL Ubuntu-26.04·Python 3.13이다. 실제 모델 처리량/운영 부하·Windows 네이티브·ARM 환경은 검증하지 않았다.
 - 유료 LLM 답변·Judge·Ragas와 Langfuse 원격 전송/점수 재조회는 실행하지 않았다. 기존 연결을 유지하고 가짜 외부 경계로 정상 실행·저장·추적 계약을 검사했다.
 - Docker·CI/CD·프록시·운영 서버 설정은 적용하지 않았다. 기존 Cloud 컬렉션·SQLite·벡터를 다시 만들거나 변경하지 않았다.
 - 재개 시 먼저 `git status`와 `final-content.json`을 대조한다. 변경이 없으면 이번 검증 증거를 사용하고, 달라진 코드가 있으면 해당 경계 검사를 다시 수행한다. 추가 커밋/푸시나 운영 후속 작업은 새로 요청된 범위에서 진행한다.
+
+## P4 저장과 P5~P7 후속 작업
+
+작업 브랜치는 `feat/advanced-hybrid-baseline`이며 [PR #60](https://github.com/Somali-AI-Pirates/ADEN/pull/60)에 반영한다. 이 단계의 완료 범위는 브랜치 코드와 검사다. 기존 OCI의 배포 적용 상태는 [클라우드 준비 기록](cloud-setup-record.md), 첫 운영 적용 조건은 [배포 가이드](../../guides/deployment.md)를 따른다.
+
+| 단위 | 상태 | 커밋과 확인 |
+| --- | --- | --- |
+| P4 요청 수명·준비 상태 | 완료 | `d9f910d`. 26개 파일이 앞선 검증 지문과 일치했고 푸시 SHA를 대조했다 |
+| YAML·로컬 CUDA | 완료 | `ea9f752`, CLI 검사 보강 `7209cc7`. 독립 리뷰 두 건, 집중 검사 107개, CLI 검사 3개, 실제 CUDA·Cloud readiness |
+| P5 컨테이너와 검색 | 완료 | `164f16d`. 로컬 Qdrant 전수 검증, CPU API·웹 이미지, 선택 Langfuse 검증 |
+| P6 CI | 완료 | `17c84b7`. Python·웹·통합·네이티브 ARM64 이미지·집계 checks 통과 |
+| P7 배포와 복구 | 완료 | 브랜치 구현과 두 독립 리뷰, 복구 집중 검사 18개, 실제 Docker 웹 추출·권한 검사 |
+
+실제 CUDA 확인은 로컬 RTX 5060의 KURE-v3 질문 임베딩과 KURE nano 리랭킹에서 수행했다. `/health/live`와 `/health/ready`는 200이고 실제 Cloud 검색을 거쳐 후보 20쪽을 얻었다. CUDA 최대 할당은 2,901MiB였다. 워크스테이션 `.env`를 인증 항목만 남기도록 옮겼으며 유효 주소·인증값은 전후 비교 결과가 같았다. 로컬 장치와 연결 주소는 Git에서 제외한 `configs/local.yaml`에 둔다.
+
+`aden-local`의 독립 컬렉션에 기존 벡터 21,750개를 적재했다. 전체 벡터·payload 검사와 재시작 후 데이터 유지가 확인됐다. 고정 질문 23개의 NumPy/로컬 Qdrant exact 후보·RRF·최종 출처·문맥이 같았다. 고정 질문 벡터와 KURE 점수를 사용했으며 재임베딩이나 LLM 호출은 없었다.
+
+로컬 이미지 확인에서는 CPU PyTorch, UID:GID 994:985, 읽기 전용 컨테이너에서의 tokenizer, 가짜 서비스의 API와 웹 정적 산출물을 검사했다. Langfuse v4.79.0의 로컬 선택 스택은 격리된 시험 프로젝트에서 health 200과 Docker healthy를 확인했다. 시험 스택을 정리한 뒤 `aden-local` Qdrant는 영속 볼륨을 사용해 실행 중이다.
+
+P6의 [GitHub Actions 실행](https://github.com/Somali-AI-Pirates/ADEN/actions/runs/43213205292)은 `17c84b7`의 검사를 모두 통과했다. Nginx는 앱의 429·504 및 Retry-After를 전달하고, upstream 연결 자체가 끊긴 경우에는 503을 반환한다. SSE·PDF Range와 외부 readiness 차단도 로컬 upstream으로 검사했다.
+
+로컬 검증 로그, 커밋 SHA, 재현 입력과 지문은 `artifacts/verification/p5-p7/`에 있다. 실제 운영에서 요구되는 서버 자산·권한·용량·복구 검증은 첫 배포 조건이다.
+
+### P7 검증 결과
+
+배포 도구는 상태·정책·pending 파일을 root 전용으로 읽고 공개 웹 릴리스에 필요한 읽기·탐색 권한을 적용한다. 독립 리뷰에서 확인한 권한, 설치 gate 경로, scratch 이미지 추출, JSON 스키마를 수정했다. 수정본은 두 리뷰어가 다시 확인했다. 기존 이미지가 캐시에 있는 경우 레지스트리 장애 중에도 digest를 검증하고 롤백할 수 있음을 회귀 검사했다.
+
+실패·복구 테스트 18개가 통과했다. 실제 로컬 Docker의 scratch 웹 추출과 UID 33 웹 파일 읽기, 비공개 릴리스 환경 파일의 접근 차단을 확인했다. 최종 전체 검사는 **652 passed, 11 subtests passed**이며 Ruff, lock, CLI 9개, 가상 평가 2건, sdist·wheel, Compose·Nginx·actionlint·셸 문법을 통과했다. 기존 번들 8개 파일과 corpus manifest 지문도 대조했다.
+
+이 기록의 P7 완료는 브랜치 구현·검증 기준이다. 첫 운영 적용은 승인된 서버 자산·비밀값, 디스크·모델 용량, 공개 GHCR 접근과 복구 점검을 준비한 뒤 [배포 가이드](../../guides/deployment.md)를 따른다. PR 실행의 release job은 main 배포 조건에서 제외된다. 최신 원격 커밋과 CI 결과는 [PR #60](https://github.com/Somali-AI-Pirates/ADEN/pull/60) 및 로컬 검증 디렉터리에 연결한다.

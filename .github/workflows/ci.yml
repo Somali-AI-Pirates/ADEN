@@ -217,3 +217,15 @@ jobs:
           test "$WEB_RESULT" = success
           test "$INTEGRATION_RESULT" = success
           test "$IMAGES_RESULT" = success
+
+  release:
+    name: Publish and deploy
+    needs: checks
+    if: >-
+      github.repository == 'Somali-AI-Pirates/ADEN' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/release.yml

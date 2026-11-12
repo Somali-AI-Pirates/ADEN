@@ -1,0 +1,4 @@
+#!/bin/sh
+# Sudoers permits this wrapper with no arguments only.
+[ "$#" -eq 0 ] || exit 64
+exec /usr/bin/python3 -I /usr/local/libexec/aden_release.py
