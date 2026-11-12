@@ -41,9 +41,15 @@ docker build --platform linux/arm64 -f infra/web.Dockerfile -t aden-web:local .
 API는 Python 3.13과 CPU PyTorch를 잠금 파일로 설치한다. 번들·PDF·모델 캐시는 실행 시 읽기 전용으로 마운트하고 요청 기록은 쓰기 가능한 영속 경로에 둔다. 운영 실행의 장치·경로·연결은 [CPU 런타임 YAML 예시](../../infra/production/runtime.example.yaml)를 기준으로 준비한다. 웹 이미지는 호스트 Nginx가 제공할 `/web` 정적 파일을 담는다. ARM64 실행은 CI의 ARM64 러너에서도 확인한다.
 
 
+## 자동 배포 비밀 전달
+
+CI의 재사용 release 호출은 ADEN_DEPLOY_SSH_KEY 하나만 이름으로 전달하고, release 워크플로는 이를 필수 입력으로 선언한다. 실제 값은 release job의 production 환경에서 선택된다. 필수 선언은 전달 여부만 검사하므로, 실행 단계의 빈 값 검사도 유지한다. [GitHub 재사용 워크플로 규칙](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows)
+
+ADEN_DEPLOY_ENABLED가 false이면 실제 배포 단계는 실행하지 않는다. 로컬 YAML/계약 검사 통과와 GitHub에서의 실제 비밀 주입·서버 적용 성공을 구분한다. 현재 서버·배포 활성 상태는 [클라우드 기록](../plans/advanced-rag/cloud-setup-record.md)을 따른다.
+
 ## 운영 첫 배포 준비
 
-배포 대상은 기존 OCI ARM64 서버의 ADEN 전용 경로다. 첫 적용 전 [클라우드 준비 기록](../plans/advanced-rag/cloud-setup-record.md)의 서버·HTTPS·배포 키와 현재 가용 자원을 대조한다. Docker 이미지의 실제 디스크 사용량, 번들·모델·이전 릴리스 보관 공간, 6GB·1 CPU에서의 모델 적재와 추론을 확인한다.
+배포 대상은 기존 OCI ARM64 서버의 ADEN 전용 경로다. 첫 적용 전 [클라우드 준비 기록](../plans/advanced-rag/cloud-setup-record.md)의 서버·HTTPS·배포 키와 현재 가용 자원을 대조한다. Docker 이미지의 실제 디스크 사용량, 번들·모델·이전 릴리스 보관 공간, 6GiB·1 CPU에서의 모델 적재와 추론을 확인한다. readiness는 실행 속도나 요청 예산 충족을 보장하지 않으므로 실제 검색 지연과 메모리 여유를 별도로 확인한다. 현재 OCI 측정과 FP32 미채택 근거는 [후속 검증 기록](../plans/advanced-rag/local-refactor-progress.md)에 있다.
 
 | 서버 경로 | 내용 |
 | --- | --- |
