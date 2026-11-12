@@ -100,6 +100,8 @@ SSE는 헤더 전까지 같은 준비·수용 검사를 한다. 스트림이 시
 
 한도를 변경하려면 [Advanced 설정](../../configs/advanced.yaml)의 `table_rag`에서 `max_active_requests`, `max_waiting_requests`, `queue_timeout_seconds`, `request_timeout_seconds`, `shutdown_grace_seconds`를 지정한다.
 
+CPU에서 질의 임베딩은 FP32, CUDA에서는 BF16을 사용한다. 리랭커는 기존 FP32다. 장치 선택은 기존 YAML 설정을 따르며 문서 벡터는 재생성하지 않는다. FP32는 CPU 임베딩 시간을 줄이지만 메모리 사용량이 늘므로 운영 장비에서 전체 검색의 메모리와 지연을 함께 확인한다. [전환·검증 기록](../plans/advanced-rag/local-refactor-progress.md)
+
 ## 4. 저장된 Swagger 답변 평가
 
 아래 REQUEST_ID를 응답의 request_id로 바꾼다. Faithfulness는 저장된 답변과 실제 최종 근거를 사용한다.

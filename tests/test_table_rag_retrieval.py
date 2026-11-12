@@ -116,6 +116,86 @@ def test_search_runs_one_rerank_and_returns_page_deduplicated_search_result():
     assert retriever.manifest["retrieval"]["native_hg_enrichment"] is False
 
 
+@pytest.mark.parametrize(
+    ("device", "expected_embedding_device", "expected_embedding_dtype"),
+    [
+        ("cpu", "cpu", "float32"),
+        ("cuda", "cuda", "bfloat16"),
+        ("cpu_gpu_rerank", "cpu", "float32"),
+    ],
+)
+def test_load_retriever_uses_device_specific_query_dtype_and_fp32_reranker(
+    device,
+    expected_embedding_device,
+    expected_embedding_dtype,
+    monkeypatch,
+):
+    import sys
+    from types import ModuleType
+
+    import torch
+
+    from app.rag.retrieval import load_retriever
+    from shared.table_rag_policy import (
+        CANDIDATE_LIMIT,
+        EMBEDDING_ID,
+        EMBEDDING_REVISION,
+        RERANKER_ID,
+        RERANKER_REVISION,
+    )
+
+    corpus = _corpus()
+    corpus.embedding.update(
+        {"model_id": EMBEDDING_ID, "revision": EMBEDDING_REVISION}
+    )
+    encoder_options = {}
+    reranker_options = {}
+
+    class FakeSentenceTransformer:
+        def __init__(self, model_id, **kwargs):
+            encoder_options.update(model_id=model_id, **kwargs)
+            self.max_seq_length = 512
+            self.prompts = {"query": "query: "}
+
+        def get_embedding_dimension(self):
+            return corpus.embedding["dimensions"]
+
+    class FakeCrossEncoder:
+        def __init__(self, model_id, **kwargs):
+            reranker_options.update(model_id=model_id, **kwargs)
+
+    sentence_transformers = ModuleType("sentence_transformers")
+    sentence_transformers.SentenceTransformer = FakeSentenceTransformer
+    sentence_transformers.CrossEncoder = FakeCrossEncoder
+    monkeypatch.setitem(sys.modules, "sentence_transformers", sentence_transformers)
+    monkeypatch.setattr(torch.cuda, "is_available", lambda: True)
+    monkeypatch.setattr(torch, "set_num_threads", lambda _count: None)
+
+    retriever = load_retriever(corpus, device=device)
+
+    assert encoder_options["device"] == expected_embedding_device
+    assert encoder_options["model_id"] == EMBEDDING_ID
+    assert encoder_options["revision"] == EMBEDDING_REVISION
+    assert encoder_options["model_kwargs"]["dtype"] is getattr(
+        torch, expected_embedding_dtype
+    )
+    assert retriever.manifest["retrieval"]["embedding_device"] == expected_embedding_device
+    assert (
+        retriever.manifest["retrieval"]["embedding"]["dtype"]
+        == expected_embedding_dtype
+    )
+    assert reranker_options["device"] == (
+        "cuda" if device == "cpu_gpu_rerank" else device
+    )
+    assert reranker_options["model_id"] == RERANKER_ID
+    assert reranker_options["revision"] == RERANKER_REVISION
+    assert reranker_options["model_kwargs"]["dtype"] is torch.float32
+    assert reranker_options["model_kwargs"]["attn_implementation"] == "sdpa"
+    assert reranker_options["max_length"] == 2048
+    assert retriever.manifest["retrieval"]["reranker"]["dtype"] == "float32"
+    assert retriever.manifest["retrieval"]["candidate_limit"] == CANDIDATE_LIMIT
+
+
 def test_remote_dense_provider_preserves_hybrid_and_reranking():
     from app.rag.retrieval import rank_dense
 

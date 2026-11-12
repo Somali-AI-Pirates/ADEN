@@ -17,6 +17,8 @@ TABLE_MAX_LENGTH = 2048
 QUERY_PREFIX = "query: "
 DOCUMENT_PREFIX = "passage: "
 EMBED_BATCH_SIZE = 1
+# CPU query inference uses FP32 while retaining the CUDA BF16 baseline.
+QUERY_EMBEDDING_DTYPE_BY_DEVICE = {"cpu": "float32", "cuda": "bfloat16"}
 # Build-time batching differs from single-question inference.
 EMBEDDING_BUILD_BATCH_SIZE = 4
 BUILD_CPU_THREADS = 8
