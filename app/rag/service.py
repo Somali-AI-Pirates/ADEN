@@ -181,6 +181,7 @@ class RagService:
         manifest: dict[str, Any],
         record_index: Any = None,
         run_directory: Path | None = None,
+        close_search: Callable[[], None] | None = None,
     ) -> None:
         self._page_lookup = page_lookup
         self._model = model
@@ -188,6 +189,7 @@ class RagService:
         self.manifest = manifest
         self._record_index = record_index
         self._run_directory = run_directory
+        self._close_search = close_search
         self.config_hash = _hash(
             json.dumps(manifest, ensure_ascii=False, sort_keys=True)
         )
@@ -348,7 +350,11 @@ class RagService:
                 if self._record_index is not None:
                     await self._run_sync(self._record_index.close)
             finally:
-                await asyncio.to_thread(self.tracer.shutdown)
+                try:
+                    if self._close_search is not None:
+                        await self._run_sync(self._close_search)
+                finally:
+                    await asyncio.to_thread(self.tracer.shutdown)
 
 
 def _check_termination(reason: str) -> None:
@@ -392,60 +398,84 @@ def load_service(directory: str | Path = DEFAULT_DATA_DIRECTORY) -> RagService:
     directory = Path(directory).resolve()
     started = perf_counter()
     corpus = load_corpus(directory)
-    device = os.environ.get("ADEN_TABLE_RAG_DEVICE", "cpu")
-    retriever = load_retriever(corpus, device=device)
-    record_index = RecordIndex(directory)
-    model = load_model()
-    tracer = Tracer()
-    if os.environ.get("ADEN_TABLE_RAG_TRACE", "1") == "1":
+    backend = os.environ.get("ADEN_TABLE_RAG_VECTOR_BACKEND", "numpy")
+    if backend not in {"numpy", "qdrant"}:
+        raise ValueError("ADEN_TABLE_RAG_VECTOR_BACKEND must be numpy or qdrant")
+    dense_index = None
+    if backend == "qdrant":
+        from app.rag.qdrant_index import DEFAULT_COLLECTION, open_qdrant_index
+
+        dense_index = open_qdrant_index(
+            directory,
+            corpus,
+            collection=os.environ.get("ADEN_TABLE_RAG_COLLECTION", DEFAULT_COLLECTION),
+        )
+    record_index = None
+    try:
+        device = os.environ.get("ADEN_TABLE_RAG_DEVICE", "cpu")
+        retriever = load_retriever(corpus, device=device, dense_index=dense_index)
+        record_index = RecordIndex(directory)
+        model = load_model()
+        tracer = Tracer()
+        if os.environ.get("ADEN_TABLE_RAG_TRACE", "1") == "1":
+            try:
+                tracer = Tracer.from_env()
+            except Exception as error:
+                logger.warning("TableRAG tracing unavailable (%s)", type(error).__name__)
+        corpus_manifest = (directory / "corpus.json").read_bytes()
+        manifest = {
+            "policy": RETRIEVAL_MODE,
+            "db_first": True,
+            "module_sha256": _runtime_fingerprints(),
+            "runtime_versions": {
+                name: version(name)
+                for name in (
+                    "langchain-core",
+                    "langchain-openai",
+                    "langgraph",
+                    "sentence-transformers",
+                    "torch",
+                    "numpy",
+                    "qdrant-client",
+                    "tiktoken",
+                    "pydantic",
+                    "openai",
+                    "anyio",
+                )
+            },
+            "sqlite_version": sqlite3.sqlite_version,
+            "snapshot_sha256": sha256(corpus_manifest).hexdigest(),
+            "embedding": corpus.embedding,
+            "retrieval": retriever.manifest,
+            "model": MODEL,
+            "reasoning_effort": REASONING_EFFORT,
+            "context_window": CONTEXT_WINDOW,
+            "plan_output_tokens": PLAN_OUTPUT_TOKENS,
+            "answer_output_tokens": ANSWER_OUTPUT_TOKENS,
+            "timeout_seconds": TIMEOUT_SECONDS,
+            "max_retries": 0,
+            "prompt_sha256": model.prompt_hashes(),
+            "candidate_pages": 20,
+            "final_pages": 8,
+            "evidence_tokens": 8000,
+        }
+        logger.info("DB-first TableRAG ready in %.2f seconds", perf_counter() - started)
+        return RagService(
+            search=retriever.search,
+            page_lookup=corpus.pages_by_source.get,
+            table_store=corpus.table_store,
+            model=model,
+            tracer=tracer,
+            manifest=manifest,
+            record_index=record_index,
+            run_directory=DEFAULT_RUN_DIRECTORY,
+            close_search=retriever.close,
+        )
+    except BaseException:
         try:
-            tracer = Tracer.from_env()
-        except Exception as error:
-            logger.warning("TableRAG tracing unavailable (%s)", type(error).__name__)
-    corpus_manifest = (directory / "corpus.json").read_bytes()
-    manifest = {
-        "policy": RETRIEVAL_MODE,
-        "db_first": True,
-        "module_sha256": _runtime_fingerprints(),
-        "runtime_versions": {
-            name: version(name)
-            for name in (
-                "langchain-core",
-                "langchain-openai",
-                "langgraph",
-                "sentence-transformers",
-                "torch",
-                "numpy",
-                "tiktoken",
-                "pydantic",
-                "openai",
-                "anyio",
-            )
-        },
-        "sqlite_version": sqlite3.sqlite_version,
-        "snapshot_sha256": sha256(corpus_manifest).hexdigest(),
-        "embedding": corpus.embedding,
-        "retrieval": retriever.manifest,
-        "model": MODEL,
-        "reasoning_effort": REASONING_EFFORT,
-        "context_window": CONTEXT_WINDOW,
-        "plan_output_tokens": PLAN_OUTPUT_TOKENS,
-        "answer_output_tokens": ANSWER_OUTPUT_TOKENS,
-        "timeout_seconds": TIMEOUT_SECONDS,
-        "max_retries": 0,
-        "prompt_sha256": model.prompt_hashes(),
-        "candidate_pages": 20,
-        "final_pages": 8,
-        "evidence_tokens": 8000,
-    }
-    logger.info("DB-first TableRAG ready in %.2f seconds", perf_counter() - started)
-    return RagService(
-        search=retriever.search,
-        page_lookup=corpus.pages_by_source.get,
-        table_store=corpus.table_store,
-        model=model,
-        tracer=tracer,
-        manifest=manifest,
-        record_index=record_index,
-        run_directory=DEFAULT_RUN_DIRECTORY,
-    )
+            if record_index is not None:
+                record_index.close()
+        finally:
+            if dense_index is not None:
+                dense_index.close()
+        raise

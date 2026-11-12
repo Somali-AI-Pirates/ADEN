@@ -33,7 +33,7 @@ FastAPI CLI는 [패키지 진입점](../../pyproject.toml)의 `app.api.main:app`
 
 ### Advanced TableRAG
 
-기본 Advanced 앱은 [TableRAG 서비스](../../app/rag/service.py)를 시작할 때 한 번 준비한다. 공통 SQLite에서 HG·HA·IS 코드를 먼저 조회하고, 유일한 대상의 원본을 찾으면 그 근거로 계획을 시작한다. 그 외에는 페이지·표 BM25·벡터 Top 50을 5:5 RRF로 합쳐 20쪽을 KURE nano로 리랭킹한다. Luna는 lookup_records, search_evidence, read_sources, query_tables, finish를 사용한다. 선택 출처를 보존해 최대 8쪽·SQL 포함 8,000토큰을 답변 모델에 제공한다. API와 CLI는 같은 서비스를 호출하고 로컬 실행 기록을 남긴다. [빠른 시작](../guides/quickstart.md)
+기본 Advanced 앱은 [TableRAG 서비스](../../app/rag/service.py)를 시작할 때 한 번 준비한다. 공통 SQLite에서 HG·HA·IS 코드를 먼저 조회하고, 유일한 대상의 원본을 찾으면 그 근거로 계획을 시작한다. 그 외에는 페이지·표 BM25와 벡터 Top 50(기본 NumPy, `ADEN_TABLE_RAG_VECTOR_BACKEND=qdrant` 선택 시 Qdrant Cloud exact 검색)을 5:5 RRF로 합쳐 20쪽을 KURE nano로 리랭킹한다. Qdrant Cloud는 dense 검색만 맡는다. 질문 임베딩과 KURE nano 추론, BM25, 원문·SQLite는 로컬에 남고, 원격 실패 시 자동 fallback은 없다. Luna는 lookup_records, search_evidence, read_sources, query_tables, finish를 사용한다. 선택 출처를 보존해 최대 8쪽·SQL 포함 8,000토큰을 답변 모델에 제공한다. API와 CLI는 같은 서비스를 호출하고 로컬 실행 기록을 남긴다. [빠른 시작](../guides/quickstart.md)과 [Qdrant Cloud 데이터 경계](../guides/data.md#advanced-tablerag-qdrant-cloud-벡터-검색)
 
 ## 검색과 답변
 

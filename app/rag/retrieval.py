@@ -152,12 +152,15 @@ class TableRetriever:
         device="cpu",
         embedding_device=None,
         reranker_device=None,
+        dense_index=None,
     ):
         from app.rag.keyword_retriever import _page_heading
 
         self.corpus = corpus
         self.embedder = embedder
         self.reranker = reranker
+        self._dense_index = dense_index
+        self._closed = False
         self.device = device
         self.embedding_device = embedding_device or device
         self.reranker_device = reranker_device or device
@@ -184,6 +187,11 @@ class TableRetriever:
                     "top_k": _BM25_TOP_K,
                 },
                 "dense_top_k": _DENSE_TOP_K,
+                "dense": (
+                    dense_index.manifest
+                    if dense_index is not None
+                    else {"backend": "numpy", "exact": True, "distance": "Cosine"}
+                ),
                 "rrf": {
                     "weights": list(_RRF_WEIGHTS),
                     "constant": _RRF_CONSTANT,
@@ -214,6 +222,13 @@ class TableRetriever:
             }
         }
 
+    def close(self):
+        if self._closed:
+            return
+        self._closed = True
+        if self._dense_index is not None:
+            self._dense_index.close()
+
     def _query_vector(self, question):
         import torch
         import torch.nn.functional as functional
@@ -229,7 +244,7 @@ class TableRetriever:
             vector = vector.detach().float().cpu().numpy()
         vector = np.asarray(vector, dtype=np.float32).reshape(-1)
         if (
-            vector.shape != (self.corpus.vectors.shape[1],)
+            vector.shape != (self.corpus.embedding["dimensions"],)
             or not np.isfinite(vector).all()
         ):
             raise ValueError(
@@ -302,6 +317,8 @@ class TableRetriever:
 
         from app.rag.models import SearchResult
 
+        if self._closed:
+            raise RuntimeError("TableRAG retriever is closed")
         question = question.strip()
         if not question:
             raise ValueError("질문을 입력해 주세요.")
@@ -310,7 +327,11 @@ class TableRetriever:
         embedded_at = perf_counter()
         bm25_ranked = self._bm25.fielded_search(question, top_k=_BM25_TOP_K)
         bm25_at = perf_counter()
-        dense_ranked = rank_dense(self.corpus, query_vector, top_k=_DENSE_TOP_K)
+        dense_ranked = (
+            rank_dense(self.corpus, query_vector, top_k=_DENSE_TOP_K)
+            if self._dense_index is None
+            else self._dense_index.search(query_vector, top_k=_DENSE_TOP_K)
+        )
         dense_at = perf_counter()
         candidates = _rrf(bm25_ranked, dense_ranked)
         fused_at = perf_counter()
@@ -335,6 +356,7 @@ class TableRetriever:
             return round((end - begin) * 1000, 3)
 
         diagnostics = {
+            "dense_backend": self.manifest["retrieval"]["dense"],
             "search_unit_count": len(self.corpus.documents),
             "page_count": self.corpus.page_count,
             "stages": {
@@ -372,7 +394,7 @@ class TableRetriever:
         )
 
 
-def load_retriever(corpus, *, device: str = "cpu") -> TableRetriever:
+def load_retriever(corpus, *, device: str = "cpu", dense_index=None) -> TableRetriever:
     """Load pinned local query and reranking models for the shared-record path."""
     import torch
     from sentence_transformers import CrossEncoder, SentenceTransformer
@@ -421,4 +443,5 @@ def load_retriever(corpus, *, device: str = "cpu") -> TableRetriever:
         device=device,
         embedding_device=embedding_device,
         reranker_device=reranker_device,
+        dense_index=dense_index,
     )

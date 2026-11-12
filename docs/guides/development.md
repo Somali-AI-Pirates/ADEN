@@ -18,7 +18,7 @@ VS Code에서 저장소 루트를 열고 [권장 확장](../../.vscode/extension
 
 ## 서버 실행
 
-처음 준비하는 환경은 [빠른 시작](quickstart.md)을 순서대로 실행한다. 기본 Advanced 설정은 DB 우선 통합 TableRAG다. 기존 Qdrant 경로를 직접 선택할 때는 설정 파일의 rag_backend를 legacy로 지정한다.
+처음 준비하는 환경은 [빠른 시작](quickstart.md)을 순서대로 실행한다. 기본 Advanced 설정은 DB 우선 통합 TableRAG다. 기존 전체 Qdrant 경로를 선택할 때는 설정 파일의 `rag_backend`를 `legacy`로 지정한다. Advanced TableRAG 안의 dense 검색 선택은 별도 설정인 `ADEN_TABLE_RAG_VECTOR_BACKEND=numpy|qdrant`로 제어한다. 이는 DB 우선 경로를 바꾸지 않는다.
 
 [설치](#설치) 후 [환경변수 예시](../../.env.example)를 참고해 로컬 `.env`와 Advanced 설정을 준비한다. A 없이 B·C를 먼저 확인하는 방법과 메모리 색인의 같은 프로세스 적재 조건은 [로컬 B·C 안내](local-bc.md)를 따른다. 기본 앱은 색인 미준비 시 503과 원인을 반환하며 임의의 가상 근거로 답변하지 않는다. 다른 설정 파일과 색인·근거 연결은 `ADEN_CONFIG`, `ADEN_QDRANT_CLIENT`, `ADEN_EVIDENCE_PROVIDER`로 지정한다.
 
@@ -28,11 +28,11 @@ uv run fastapi dev
 
 자동 재시작 없이 로컬에서 실행하려면 `uv run fastapi run --host 127.0.0.1`을 사용한다. pip 환경에서는 `fastapi dev`를 직접 실행한다. [Swagger UI](http://127.0.0.1:8000/docs)에서 질문하고 `GET /health`의 `query_ready`로 질의 준비 여부를 확인한다.
 
-키는 로컬 `.env`, 환경변수, 승인된 CI 비밀 설정으로 주입한다. 키를 Git·로그·문서·채팅에 기록하지 않는다. 노출이 의심되면 제공자에서 폐기·교체하고 팀에 알린다.
+키는 로컬 `.env`, 환경변수, 승인된 CI 비밀 설정으로 주입한다. Advanced TableRAG의 Cloud 벡터 검색에는 `QDRANT_URL`과 `QDRANT_API_KEY`를 로컬 환경에 설정한다. 키를 Git·로그·문서·채팅에 기록하지 않는다. 노출이 의심되면 제공자에서 폐기·교체하고 팀에 알린다.
 
 ## Advanced TableRAG 실행
 
-[데이터 번들](data.md#advanced-tablerag-데이터)을 준비한 뒤 uv run --locked fastapi dev로 실행한다. 기본 경로는 artifacts/advanced-table-rag다. ADEN_TABLE_RAG_DIR로 다른 번들을 지정하고, ADEN_TABLE_RAG_DEVICE=cpu_gpu_rerank로 CUDA 리랭킹을 선택할 수 있다.
+[데이터 번들](data.md#advanced-tablerag-데이터)을 준비한 뒤 `uv run --locked fastapi dev`로 실행한다. 기본 경로는 `artifacts/advanced-table-rag`다. 기존 로컬 dense 검색의 기본 backend는 `numpy`다. Qdrant Cloud를 쓰려면 `.env`에 `ADEN_TABLE_RAG_VECTOR_BACKEND=qdrant`, `QDRANT_URL`, `QDRANT_API_KEY`를 설정하고 [업로드·검사](data.md#advanced-tablerag-qdrant-cloud-벡터-검색)를 서버 실행 전에 완료한다. Cloud 연결·컬렉션 검증 실패 시 TableRAG 준비가 실패하며 로컬 검색으로 자동 전환하지 않는다. 로컬 경로를 선택하려면 `ADEN_TABLE_RAG_VECTOR_BACKEND=numpy`를 명시한다. `ADEN_TABLE_RAG_DIR`로 다른 번들을 지정하고, `ADEN_TABLE_RAG_DEVICE=cpu_gpu_rerank`로 CUDA 리랭킹을 선택할 수 있다.
 
 서버는 공통 기록 DB와 물리 표 DB를 읽기 전용으로 열고 모델을 한 번 준비한다. /health의 query_ready로 준비 상태를 확인한다. 질문은 POST /query에 question으로 전달한다.
 

@@ -2,7 +2,7 @@
 
 2026-11-12 사용자 확정 기준. 실험의 `table_rag_unified`에서 `db_first=True, verify_evidence=False`인 흐름을 제품으로 옮긴다. 요청별 요구 목록·인용 제출을 검사하는 기능과 ON/OFF 설정은 제품에 제공하지 않는다.
 
-실행은 [빠른 시작](../../guides/quickstart.md), 완료된 검사와 남은 범위는 [구현 기록](unified-implementation-log.md)을 따른다. [초기 A 설계](initial-table-rag-a-plan.md)와 [단계별 학습 로드맵](implementation-roadmap.md)은 이전 선택의 이력이다.
+실행은 [빠른 시작](../../guides/quickstart.md), 완료된 검사와 남은 범위는 [구현 기록](unified-implementation-log.md)을 따른다. 벡터 저장소 연결과 동등성 검사는 [Qdrant Cloud 적용 기록](qdrant-cloud-migration.md)에 남긴다. [초기 A 설계](initial-table-rag-a-plan.md)와 [단계별 학습 로드맵](implementation-roadmap.md)은 이전 선택의 이력이다.
 
 ## 1. 범위와 호환 경계
 
@@ -38,7 +38,7 @@
 
 | 위치 | 책임 |
 | --- | --- |
-| app/ingestion/scripts/prepare_table_rag.py | build·check·models 진입점 |
+| app/ingestion/scripts/prepare_table_rag.py | build·check·models·upload-qdrant·check-qdrant 진입점 |
 | app/ingestion/table_rag_builder.py | 원본 추출·기록/관계·표·벡터·검증과 재개 |
 | app/rag/corpus.py | 번들 지문·벡터 정렬·원본 출처 확인 |
 | app/rag/records.py / table_store.py | 공통 기록 및 안전한 표 조회 |

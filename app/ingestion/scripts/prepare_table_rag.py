@@ -3,7 +3,15 @@
 import argparse
 import json
 from pathlib import Path
+
 from app.ingestion.table_rag_builder import build_bundle, check_bundle, prefetch_models
+from app.rag.config import DEFAULT_DATA_DIRECTORY
+from app.rag.qdrant_index import (
+    DEFAULT_COLLECTION,
+    check_qdrant_index,
+    upload_qdrant_index,
+)
+from shared.settings import PROJECT_ROOT
 
 
 def main(argv=None):
@@ -34,6 +42,26 @@ def main(argv=None):
     check.add_argument(
         "--directory", type=Path, default=Path("artifacts/advanced-table-rag")
     )
+    upload_qdrant = commands.add_parser(
+        "upload-qdrant",
+        help="Upload the existing KURE vectors.npy to a dedicated Qdrant collection",
+    )
+    upload_qdrant.add_argument(
+        "--directory", type=Path, default=DEFAULT_DATA_DIRECTORY
+    )
+    upload_qdrant.add_argument("--collection", default=DEFAULT_COLLECTION)
+    check_qdrant = commands.add_parser(
+        "check-qdrant", help="Check a ready TableRAG Qdrant collection"
+    )
+    check_qdrant.add_argument(
+        "--directory", type=Path, default=DEFAULT_DATA_DIRECTORY
+    )
+    check_qdrant.add_argument("--collection", default=DEFAULT_COLLECTION)
+    check_qdrant.add_argument(
+        "--full",
+        action="store_true",
+        help="Read every point and compare its payload and vector to the local corpus",
+    )
     commands.add_parser(
         "models", help="Download the pinned embedding and reranker revisions"
     )
@@ -53,6 +81,22 @@ def main(argv=None):
             print(
                 json.dumps(check_bundle(args.directory), ensure_ascii=False, indent=2)
             )
+        elif args.command in {"upload-qdrant", "check-qdrant"}:
+            from dotenv import load_dotenv
+
+            load_dotenv(PROJECT_ROOT / ".env", override=False)
+            if args.command == "upload-qdrant":
+                result = upload_qdrant_index(
+                    args.directory,
+                    collection=args.collection,
+                )
+            else:
+                result = check_qdrant_index(
+                    args.directory,
+                    collection=args.collection,
+                    full=args.full,
+                )
+            print(json.dumps(result, ensure_ascii=False, indent=2))
         else:
             print(json.dumps(prefetch_models(), ensure_ascii=False, indent=2))
     except (OSError, ValueError, KeyError, TypeError, RuntimeError) as error:

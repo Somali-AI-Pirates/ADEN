@@ -164,3 +164,63 @@ def test_answer_cannot_upgrade_an_insufficient_retrieval():
             await service.aclose()
 
     asyncio.run(run())
+
+
+def test_service_closes_search_client_even_if_model_close_fails():
+    closed = []
+
+    class FailingModel(_Model):
+        async def aclose(self):
+            raise RuntimeError("model close failed")
+
+    async def run():
+        service = _service(FailingModel())
+        service._close_search = lambda: closed.append(True)
+        with pytest.raises(RuntimeError, match="model close failed"):
+            await service.aclose()
+        await service.aclose()
+        assert closed == [True]
+
+    asyncio.run(run())
+
+
+def test_cloud_client_is_closed_when_model_loading_fails(monkeypatch, tmp_path):
+    from types import SimpleNamespace
+
+    from app.rag import qdrant_index, retrieval, service
+
+    closed = []
+    corpus = SimpleNamespace()
+    dense = SimpleNamespace(close=lambda: closed.append(True))
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("ADEN_TABLE_RAG_VECTOR_BACKEND", "qdrant")
+    monkeypatch.setenv("ADEN_TABLE_RAG_COLLECTION", "advanced_table_rag_test")
+    monkeypatch.setattr(service, "load_dotenv", lambda *args, **kwargs: None)
+    monkeypatch.setattr(service, "load_corpus", lambda directory: corpus)
+
+    def open_index(directory, loaded, *, collection):
+        assert directory == tmp_path
+        assert loaded is corpus
+        assert collection == "advanced_table_rag_test"
+        return dense
+
+    def fail_to_load(loaded, *, device, dense_index):
+        assert dense_index is dense
+        raise ValueError("local model missing")
+
+    monkeypatch.setattr(qdrant_index, "open_qdrant_index", open_index)
+    monkeypatch.setattr(retrieval, "load_retriever", fail_to_load)
+    with pytest.raises(ValueError, match="local model missing"):
+        service.load_service(tmp_path)
+    assert closed == [True]
+
+
+def test_invalid_vector_backend_does_not_select_a_different_backend(monkeypatch, tmp_path):
+    from app.rag import service
+
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("ADEN_TABLE_RAG_VECTOR_BACKEND", "typo")
+    monkeypatch.setattr(service, "load_dotenv", lambda *args, **kwargs: None)
+    monkeypatch.setattr(service, "load_corpus", lambda directory: object())
+    with pytest.raises(ValueError, match="ADEN_TABLE_RAG_VECTOR_BACKEND"):
+        service.load_service(tmp_path)
