@@ -88,6 +88,7 @@ class Http:
         self.calls = []
         self.expose_ready = False
         self.fail_external = set()
+        self.bad_worker_mime = set()
 
     def get(self, url, headers):
         self.calls.append((url, dict(headers)))
@@ -101,6 +102,12 @@ class Http:
             return r.HttpResult(503 if fail else 200, {}, b'{"status":"ok"}')
         if url.endswith("/api/documents/AS102"):
             return r.HttpResult(206, {"content-type":"application/pdf", "content-range":"bytes 0-7/99"}, b"%PDF-123")
+        if url.endswith("/pdf-assets/pdf.worker.min.mjs"):
+            mime = (
+                "application/octet-stream" if self.docker.api in self.bad_worker_mime
+                else "text/javascript"
+            )
+            return r.HttpResult(206, {"Content-Type": mime}, b"/")
         if url.endswith("/api/health/ready"):
             return r.HttpResult(200 if self.expose_ready else 404, {}, b'{"ready":true}')
         raise AssertionError(url)
@@ -227,11 +234,15 @@ def test_disabled_and_first_release_failure_leave_no_active_release(tmp_path):
     assert docker.api is None
 
 
-def test_failed_upgrade_restores_previous_api_web_and_state(tmp_path):
+@pytest.mark.parametrize(("failure", "error"), [
+    ("fail_external", "public_web_smoke_failed"),
+    ("bad_worker_mime", "public_pdf_worker_smoke_failed"),
+])
+def test_failed_upgrade_restores_previous_api_web_and_state(tmp_path, failure, error):
     p, manager, docker, http = make(tmp_path)
     first = manager.execute(payload(10, "a" * 40, API_A, WEB_A))
-    http.fail_external.add(API_B)
-    with pytest.raises(r.ReleaseError, match="public_web_smoke_failed"):
+    getattr(http, failure).add(API_B)
+    with pytest.raises(r.ReleaseError, match=error):
         manager.execute(payload(11, "b" * 40, API_B, WEB_B))
     state = manager._state()
     assert state["active_release_id"] == first["release_id"]
