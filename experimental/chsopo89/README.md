@@ -1,6 +1,7 @@
 # chsopo89 실험 기록
 
 - [Advanced 평가 결과](advanced_test.md)
+- [PR #54 B 리뷰·사용 문항·C 인계](repro/pr54-b-review-20261112/README.md)
 - [Advanced 평가 기준 v2 초안](advanced-rubric-v2/README.md)
 
 ## 자료 공유와 업로드 범위
