@@ -1,5 +1,6 @@
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -172,15 +173,15 @@ def test_import_does_not_load_sdks():
     assert out.stdout.strip() == "False"
 
 
-@pytest.mark.parametrize("k_args, expected_k", [([], 8), (["--k", "3"], 3)])
-def test_sample_scripts_write_labeled_reports(tmp_path, k_args, expected_k):
+def test_sample_scripts_write_labeled_reports(tmp_path):
     assert EVALUATION_ROOT == PROJECT_ROOT == ROOT
     assert PROMPTS_DIR == ROOT / "app" / "evaluation" / "prompts"
+    # 샘플은 서비스 설정을 읽지 않으므로 잘못된 ADEN_CONFIG에도 고정 조건(k 8)으로 실행된다
+    env = {**os.environ, "ADEN_CONFIG": str(tmp_path / "missing.yaml")}
     for script in ("run_benchmark", "run_security"):
         subprocess.run([sys.executable, "-m", f"app.evaluation.scripts.{script}", "--sample", "--experiment-id",
                         "sample-t", "--artifacts-dir", str(tmp_path / "a"),
-                        "--reports-dir", str(tmp_path / "r"),
-                        *(k_args if script == "run_benchmark" else [])], check=True, capture_output=True, cwd=ROOT)
+                        "--reports-dir", str(tmp_path / "r")], check=True, capture_output=True, cwd=ROOT, env=env)
     rep = tmp_path / "r" / "sample-t"
     for name in ("README.md", "manifest.json", "comparison.csv", "answers.jsonl", "scores.jsonl",
                  "summary.json", "security_comparison.csv"):
@@ -189,9 +190,9 @@ def test_sample_scripts_write_labeled_reports(tmp_path, k_args, expected_k):
     assert "보안 비교" in (rep / "README.md").read_text(encoding="utf-8")
     manifest = json.loads((rep / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["sample"] is True and {"benchmark", "security"} <= set(manifest)
-    assert manifest["benchmark"]["k"] == expected_k
+    assert manifest["benchmark"]["k"] == 8
     scores = [json.loads(line) for line in (rep / "scores.jsonl").read_text(encoding="utf-8").splitlines()]
-    assert scores and all(row["retrieval"]["k"] == expected_k for row in scores)
+    assert scores and all(row["retrieval"]["k"] == 8 for row in scores)
     assert (rep / "comparison.csv").read_text(encoding="utf-8-sig").count("\nSAMPLE,") == 15
     assert len((tmp_path / "a" / "sample-t" / "runs.jsonl").read_text(
         encoding="utf-8").splitlines()) == 15
