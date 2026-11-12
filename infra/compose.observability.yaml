@@ -1,0 +1,151 @@
+# Optional Langfuse self-hosting based on upstream v4.79.0 Compose.
+# Pass generated secrets with --env-file .env.langfuse; do not reuse the app's .env.
+name: aden-observability
+services:
+  langfuse-web:
+    image: docker.langfuse.com/langfuse/langfuse:4.79.0@sha256:ab20d54ee3304ffc9f73965d9dde665eed64111ae32fca96b7449fc90d246bbe
+    restart: unless-stopped
+    depends_on: &langfuse-dependencies
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+    ports:
+      - target: 3000
+        published: "3300"
+        host_ip: 127.0.0.1
+        protocol: tcp
+    environment: &langfuse-environment
+      HOSTNAME: 0.0.0.0
+      NEXTAUTH_URL: http://localhost:3300
+      NEXTAUTH_SECRET: ${ADEN_LF_NEXTAUTH_SECRET:?generate ADEN_LF_NEXTAUTH_SECRET in .env.langfuse}
+      DATABASE_URL: postgresql://langfuse:${ADEN_LF_POSTGRES_PASSWORD:?generate ADEN_LF_POSTGRES_PASSWORD in .env.langfuse}@postgres:5432/langfuse
+      SALT: ${ADEN_LF_SALT:?generate ADEN_LF_SALT in .env.langfuse}
+      ENCRYPTION_KEY: ${ADEN_LF_ENCRYPTION_KEY:?set a 64-character hexadecimal key}
+      TELEMETRY_ENABLED: "false"
+      CLICKHOUSE_MIGRATION_URL: clickhouse://clickhouse:9000
+      CLICKHOUSE_URL: http://clickhouse:8123
+      CLICKHOUSE_USER: langfuse
+      CLICKHOUSE_PASSWORD: ${ADEN_LF_CLICKHOUSE_PASSWORD:?generate ADEN_LF_CLICKHOUSE_PASSWORD in .env.langfuse}
+      CLICKHOUSE_CLUSTER_ENABLED: "false"
+      LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse
+      LANGFUSE_S3_EVENT_UPLOAD_REGION: auto
+      LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: aden-langfuse
+      LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: ${ADEN_LF_MINIO_SECRET_KEY:?generate ADEN_LF_MINIO_SECRET_KEY in .env.langfuse}
+      LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+      LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: langfuse
+      LANGFUSE_S3_MEDIA_UPLOAD_REGION: auto
+      LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID: aden-langfuse
+      LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY: ${ADEN_LF_MINIO_SECRET_KEY:?generate ADEN_LF_MINIO_SECRET_KEY in .env.langfuse}
+      LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT: http://127.0.0.1:9090
+      LANGFUSE_S3_MEDIA_UPLOAD_INTERNAL_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE: "true"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_AUTH: ${ADEN_LF_REDIS_PASSWORD:?generate ADEN_LF_REDIS_PASSWORD in .env.langfuse}
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch(\"http://127.0.0.1:3000/api/public/health\").then((response) => { if (!response.ok) process.exit(1); }).catch(() => process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      start_period: 120s
+      retries: 10
+
+  langfuse-worker:
+    image: docker.langfuse.com/langfuse/langfuse-worker:4.79.0@sha256:35e1ff6578a7d43458bf45c92eb46fcefa753967008d58bd98c961a09b1b3f03
+    restart: unless-stopped
+    depends_on: *langfuse-dependencies
+    environment: *langfuse-environment
+
+  clickhouse:
+    image: docker.io/clickhouse/clickhouse-server:26.3.62.3@sha256:de3e47c64078aa196dae2349e048fc98ba81947f651f5c20e06e46baea8ae40a
+    restart: unless-stopped
+    user: "101:101"
+    environment:
+      CLICKHOUSE_DB: default
+      CLICKHOUSE_USER: langfuse
+      CLICKHOUSE_PASSWORD: ${ADEN_LF_CLICKHOUSE_PASSWORD:?generate ADEN_LF_CLICKHOUSE_PASSWORD in .env.langfuse}
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - clickhouse-logs:/var/log/clickhouse-server
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  minio:
+    image: cgr.dev/chainguard/minio:latest@sha256:786cb11d340b1a657de8dc899560e36e1d1fb371d3d6f3eb6c903a0bb0cec714
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - mkdir -p /data/langfuse && exec minio server --address :9000 --console-address :9001 /data
+    environment:
+      MINIO_ROOT_USER: aden-langfuse
+      MINIO_ROOT_PASSWORD: ${ADEN_LF_MINIO_SECRET_KEY:?generate ADEN_LF_MINIO_SECRET_KEY in .env.langfuse}
+    ports:
+      - target: 9000
+        published: "9090"
+        host_ip: 127.0.0.1
+        protocol: tcp
+      - target: 9001
+        published: "9091"
+        host_ip: 127.0.0.1
+        protocol: tcp
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  redis:
+    image: docker.io/library/redis:7@sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "${ADEN_LF_REDIS_PASSWORD:?generate ADEN_LF_REDIS_PASSWORD in .env.langfuse}", "--maxmemory-policy", "noeviction"]
+    environment:
+      REDIS_AUTH: ${ADEN_LF_REDIS_PASSWORD:?generate ADEN_LF_REDIS_PASSWORD in .env.langfuse}
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli --no-auth-warning -a \"$${REDIS_AUTH}\" ping | grep -q PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  postgres:
+    image: docker.io/library/postgres:17@sha256:ff87138949ad9a46f32ff23bd6852b52ce024a13dffe9b4087be98292cdd3b4f
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: ${ADEN_LF_POSTGRES_PASSWORD:?generate ADEN_LF_POSTGRES_PASSWORD in .env.langfuse}
+      POSTGRES_DB: langfuse
+      TZ: UTC
+      PGTZ: UTC
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langfuse -d langfuse"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  clickhouse-data:
+  clickhouse-logs:
+  minio-data:
+  redis-data:
+  postgres-data:

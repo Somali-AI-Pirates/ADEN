@@ -1,0 +1,12 @@
+dataset: advanced
+documents_dir: data/advanced/documents
+
+table_rag:
+  device: cpu
+  vector_backend: qdrant
+  collection: advanced_table_rag_local
+  trace_enabled: false
+
+connections:
+  qdrant_url: http://127.0.0.1:6333
+  qdrant_local: true

@@ -50,7 +50,7 @@ uv run --locked python -m app.ingestion.scripts.prepare_table_rag upload-qdrant 
 uv run --locked python -m app.ingestion.scripts.prepare_table_rag check-qdrant --directory artifacts/advanced-table-rag --full
 ```
 
-기본 컬렉션 이름은 `advanced_table_rag`다. 다른 이름을 쓸 때는 `advanced_table_rag` 또는 `advanced_table_rag_`로 시작하는 이름만 사용하고, YAML의 `table_rag.collection`을 설정한다. 업로드·검사 명령도 이 값을 읽으며, `--collection`을 명시하면 해당 실행에서만 우선한다. 업로드와 검사가 끝난 뒤 서버를 시작한다. [Qdrant Cloud 저장 범위와 검증](data.md#advanced-tablerag-qdrant-cloud-벡터-검색)
+기본 컬렉션 이름은 `advanced_table_rag`다. 다른 이름을 쓸 때는 `advanced_table_rag` 또는 `advanced_table_rag_`로 시작하는 이름만 사용하고, YAML의 `table_rag.collection`을 설정한다. 업로드·검사 명령도 이 값을 읽으며, `--collection`을 명시하면 해당 실행에서만 우선한다. 업로드와 검사가 끝난 뒤 서버를 시작한다. [Qdrant Cloud 저장 범위와 검증](data.md#advanced-tablerag-qdrant-cloud-벡터-검색) · [로컬 Qdrant와 선택 Langfuse](deployment.md#로컬-qdrant)
 
 ## 3. 서버와 Swagger
 

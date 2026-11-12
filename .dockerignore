@@ -1,0 +1,23 @@
+# Keep credentials, source PDFs, local indexes, and experiment data out of Docker contexts.
+**/.env
+**/.env.*
+**/configs/local.yaml
+.git
+.github
+.venv
+**/.venv
+**/node_modules
+**/.next
+**/out
+**/dist
+**/__pycache__
+**/*.py[cod]
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.pyright
+artifacts
+data
+experimental
+member_*
+reports

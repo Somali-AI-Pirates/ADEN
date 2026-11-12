@@ -156,11 +156,39 @@ def _connect(
         credentials = load_table_rag_settings().credentials
     url = getattr(credentials, "qdrant_url", None)
     api_key = getattr(credentials, "qdrant_api_key", None)
+    local = getattr(credentials, "qdrant_local", False)
     parsed_url = urlsplit(url or "")
+    if local:
+        if (
+            parsed_url.scheme != "http"
+            or parsed_url.hostname not in {"localhost", "127.0.0.1", "::1"}
+            or parsed_url.username is not None
+            or parsed_url.password is not None
+            or parsed_url.path not in {"", "/"}
+            or parsed_url.query
+            or parsed_url.fragment
+            or any(char.isspace() for char in (url or ""))
+        ):
+            raise QdrantIndexError(
+                "Local Qdrant requires an HTTP URL using localhost or a loopback address."
+            )
+        if api_key:
+            raise QdrantIndexError("Local Qdrant must not use a QDRANT_API_KEY.")
+        client_options = {"url": url, "timeout": timeout}
+        if check_compatibility is not None:
+            client_options["check_compatibility"] = check_compatibility
+        try:
+            return QdrantClient(**client_options), True
+        except Exception as error:
+            raise QdrantIndexError(
+                f"Qdrant connection failed ({type(error).__name__})."
+            ) from None
+
     if (
         parsed_url.scheme != "https" or not parsed_url.hostname
         or parsed_url.username is not None or parsed_url.password is not None
         or parsed_url.query or parsed_url.fragment
+        or any(char.isspace() for char in (url or ""))
     ):
         raise QdrantIndexError(
             "Advanced Qdrant Cloud requires an HTTPS QDRANT_URL without credentials or query parameters."

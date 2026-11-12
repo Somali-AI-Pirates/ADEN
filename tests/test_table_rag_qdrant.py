@@ -262,6 +262,80 @@ def test_explicit_missing_qdrant_key_does_not_fall_back_to_environment(monkeypat
     assert calls == []
 
 
+@pytest.mark.parametrize(
+    "url",
+    ["http://localhost:6333", "http://127.0.0.1:6333", "http://[::1]:6333"],
+)
+def test_local_qdrant_uses_loopback_http_without_api_key(monkeypatch, url):
+    from app.rag.config import RuntimeCredentials
+    from app.rag.qdrant_index import _connect
+
+    monkeypatch.setenv("QDRANT_API_KEY", "cloud-key-must-not-leak")
+    client = object()
+    calls = []
+    monkeypatch.setattr(
+        qdrant_index,
+        "QdrantClient",
+        lambda **kwargs: calls.append(kwargs) or client,
+    )
+    credentials = RuntimeCredentials(qdrant_url=url, qdrant_local=True)
+
+    connected, owned = _connect(None, credentials)
+
+    assert connected is client
+    assert owned is True
+    assert calls == [{"url": url, "timeout": 60}]
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "",
+        "https://localhost:6333",
+        "http://qdrant:6333",
+        "http://192.168.1.5:6333",
+        "http://localhost:6333?api_key=secret",
+        "http://user@127.0.0.1:6333",
+        "http://127.0.0.1:6333/path",
+    ],
+)
+def test_local_qdrant_rejects_non_loopback_or_credential_urls(monkeypatch, url):
+    from app.rag.config import RuntimeCredentials
+    from app.rag.qdrant_index import QdrantIndexError, _connect
+
+    calls = []
+    monkeypatch.setattr(
+        qdrant_index, "QdrantClient", lambda **kwargs: calls.append(kwargs)
+    )
+    credentials = RuntimeCredentials(qdrant_url=url, qdrant_local=True)
+
+    with pytest.raises(QdrantIndexError, match="loopback address"):
+        _connect(None, credentials)
+
+    assert calls == []
+
+
+def test_local_qdrant_rejects_an_explicit_api_key(monkeypatch):
+    from app.rag.config import RuntimeCredentials
+    from app.rag.qdrant_index import QdrantIndexError, _connect
+
+    calls = []
+    monkeypatch.setattr(
+        qdrant_index, "QdrantClient", lambda **kwargs: calls.append(kwargs)
+    )
+    credentials = RuntimeCredentials(
+        qdrant_url="http://localhost:6333",
+        qdrant_api_key="must-not-be-used",
+        qdrant_local=True,
+    )
+
+    with pytest.raises(QdrantIndexError, match="must not use") as error:
+        _connect(None, credentials)
+
+    assert calls == []
+    assert "must-not-be-used" not in str(error.value)
+
+
 def test_qdrant_uses_explicit_credentials(monkeypatch):
     from app.rag.config import RuntimeCredentials
     from app.rag.qdrant_index import _connect
