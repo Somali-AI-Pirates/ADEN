@@ -1,48 +1,18 @@
-"""같은 청크로 만드는 BM25 키워드 색인.
+"""Legacy BM25 index over Qdrant chunk payloads.
 
-토큰화 (질문과 문서에 같은 규칙):
-    한글      글자 2개씩 겹쳐 자른다(bigram). "무료기간" → 무료, 료기, 기간
-              PDF 줄바꿈으로 띄어쓰기가 틀린 곳("준비상태")에서도 같은 조각이 나온다.
-    영문·숫자 덩어리째 둔다. 예약번호·장비 코드(20GP)·날짜 숫자를 그대로 맞춘다.
-
-색인은 따로 저장하지 않는다. Qdrant 컬렉션의 payload(청크 전체)를 읽어 메모리에 만든다.
-그래서 Dense와 BM25가 항상 같은 청크를 본다. 620개 기준 1초 안팎이다.
+The tokenizer lives in ``shared.bm25_tokens``; its original function names
+remain importable here.
 """
 
 import math
-import re
 from collections import Counter
 
 from app.ingestion.chunker import index_text
-from shared.contracts import Chunk
-
-TOKEN = re.compile(r"[가-힣]+|[a-z0-9]+")
-
-
-def tokenize(text):
-    tokens = []
-    for part in TOKEN.findall(text.lower()):
-        if part.isascii() or len(part) == 1:
-            tokens.append(part)
-        else:
-            tokens.extend(part[i : i + 2] for i in range(len(part) - 1))
-    return tokens
-
-
-BM25_CODE_PATTERN = re.compile(
-    r"(?<![A-Za-z0-9])[A-Za-z][A-Za-z0-9]{0,6}"
-    r"(?:[ \t]*[-‐‑–—−－][ \t]*[A-Za-z0-9]{1,8}){1,4}(?![A-Za-z0-9])"
+from shared.bm25_tokens import (
+    tokenize as tokenize,
+    tokenize_for_bm25 as tokenize_for_bm25,
 )
-BM25_CODE_DASHES = str.maketrans({dash: "-" for dash in "‐‑–—−－"})
-
-
-def tokenize_for_bm25(text: str) -> list[str]:
-    """Add normalized full codes to the default bigram tokens."""
-    codes = [
-        re.sub(r"[ \t]*-[ \t]*", "-", match.group().translate(BM25_CODE_DASHES)).lower()
-        for match in BM25_CODE_PATTERN.finditer(text)
-    ]
-    return tokenize(text) + codes
+from shared.contracts import Chunk
 
 
 class KeywordIndex:

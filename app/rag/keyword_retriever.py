@@ -5,7 +5,7 @@ from collections.abc import Sequence
 
 from langchain_core.documents import Document
 
-from app.indexing.keyword_store import tokenize_for_bm25
+from shared.bm25_tokens import tokenize_for_bm25
 from shared.table_rag_policy import (
     BM25_K1 as _BM25_K1,
     BM25_B as _BM25_B,
