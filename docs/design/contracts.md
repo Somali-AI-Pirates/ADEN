@@ -87,7 +87,7 @@ HTTP 시간은 응답 생성까지이며 본문 전송·백그라운드 작업·
 | `latency_ms` | 0 이상의 정수 또는 미측정 `null` |
 | `attempts`, `langfuse_trace_id` | 시도 배열과 trace ID 또는 `null` |
 
-후보의 `rank`·`score`·`retriever`와 제목은 보존할 수 있다. 오류에는 `error_type`과 확인 가능한 이유를 남긴다. `latency_scope`, 실제 최종 청크 수, 문맥 토큰 수, 예산으로 제외한 ID는 선택 필드다. 모델 시도가 있으면 실제 `model_context_text`와 `model_context_hash`가 필수다. 보안 분석의 루트 모델 입출력은 마지막 시도의 값을 연결한다.
+HTTP 요청을 서버 trace로 복원한 기록(`app.evaluation.scripts.http_records`)은 `latency_ms`에 서버 처리 시간(`service`)을 두고 `http_experiment_id`, `http_status`, `http_outcome`, `http_latency_ms`(`http_client`), `prompt_hash`, `k`를 더한다. 후보의 `rank`·`score`·`retriever`와 제목은 보존할 수 있다. 오류에는 `error_type`과 확인 가능한 이유를 남긴다. `latency_scope`, 실제 최종 청크 수, 문맥 토큰 수, 예산으로 제외한 ID는 선택 필드다. 모델 시도가 있으면 실제 `model_context_text`와 `model_context_hash`가 필수다. 보안 분석의 루트 모델 입출력은 마지막 시도의 값을 연결한다.
 
 ### 문맥 해시
 

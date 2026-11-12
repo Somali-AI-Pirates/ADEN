@@ -87,7 +87,23 @@ python -m app.evaluation.scripts.http_benchmark --base-url http://127.0.0.1:8000
 - 시간(`latency_scope=http_client`)은 요청 직전부터 응답 본문 수신 완료까지다. Judge·RAGAS 채점, trace 조회, 서버 기동은 넣지 않는다. 평가 CLI의 `latency_ms`(`service`, HTTP 없이 서비스 함수 실행)와 다른 값이다.
 - `outcome`은 success, http_error(4xx·5xx, 응답 본문의 사유), timeout, connection_error, invalid_response다.
 - 기본 `--timeout`은 150초다. 서버는 모델 호출 제한(`model_timeout_seconds`)을 시도마다 적용하므로 클라이언트 제한은 `model_timeout_seconds × generation_max_attempts`(advanced.yaml 60초×2회)보다 길어야 한다. 짧으면 서버에서 재시도 끝에 성공한 요청이 클라이언트에는 timeout으로 남는다. 서버 설정을 바꾸면 함께 조정한다.
-- 응답의 `request_id`(없으면 `X-Request-ID`)로 서버와 같은 방식의 trace ID를 계산한다. API 응답에는 근거·최종 문맥·모델 입력이 없으므로 RunRecord를 만들지 않고, 필요하면 trace에서 조회한다.
+- 응답의 `request_id`(없으면 `X-Request-ID`)로 서버와 같은 방식의 trace ID를 계산한다. API 응답에는 근거·최종 문맥·모델 입력이 없으므로 `http_benchmark`는 RunRecord를 만들지 않는다. 채점이 필요하면 아래 `http_records`로 trace에서 복원한다.
+
+### HTTP 답변 채점
+
+HTTP로 받은 답변을 평가 CLI에서 다시 생성하지 않고 그대로 채점한다. `http_records`가 HTTP 기록의 request_id로 서버 trace(`rag-query`·`retrieval`·`final-context`·`generation-attempt-N`)를 읽어 그 요청의 RunRecord를 만들고, 그 폴더를 `regrade`의 원본으로 쓴다.
+
+```bash
+python -m app.evaluation.scripts.http_records --source <HTTP 실험 ID> --questions <질문 파일> \
+    --config <서버의 ADEN_CONFIG 파일>
+python -m app.evaluation.scripts.regrade --source <HTTP 실험 ID>-records --references <정답 파일> \
+    --judge-model <모델> --ragas-model <모델> --experiment-id <HTTP 실험 ID>-records-<기준>-e1
+```
+
+- 답변·상태·reason·인용·질문·검색 방식·request_id가 HTTP 응답과 trace 최종 출력에서 같을 때만 연결한다. 오류 응답은 API 오류 처리기가 문구를 정하므로 상태만 대조한다. 후보·최종 문맥·모델 시도·서버 처리 시간(`latency_ms`, `service`)은 trace에서, 클라이언트 시간은 `http_latency_ms`(`http_client`)로 옮긴다. 문맥·모델 문맥 해시는 RunRecord 정규화에서 다시 검사한다.
+- request_id가 없는 요청(timeout·연결 오류)과 trace를 읽지 못했거나 응답과 다른 요청은 `runs.jsonl`에 넣지 않고 manifest의 `http_records.unlinked`에 사유를 남긴다. 비교표에는 누락으로 센다.
+- `--config`는 서버가 쓴 설정 파일이다. 채점 `k`(trace의 `k`와 같아야 함)와 manifest의 설정 파일 해시에 쓴다. 한 HTTP 실험에 서로 다른 서버 실행 설정 해시가 섞이면 거부한다. 서버 코드 버전은 HTTP 실험 manifest의 커밋(`http_records.source_git_commit`)이므로 서버와 `http_benchmark`를 같은 checkout에서 실행한다.
+- 원본 HTTP 폴더는 수정하지 않는다. 채점 결과는 `regrade`의 새 실험 ID에 저장되며 점수 행의 `request_id`와 게시 점수의 trace가 HTTP 요청과 같다. 같은 답변을 다시 채점하면 새 실험 ID(`-e2`, `-e3` …)를 쓴다. 이 ID가 채점 회차 구분자이며 Langfuse 점수 metadata의 `experiment_id`에도 남는다.
 
 ### 평가 점수 게시
 

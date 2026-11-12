@@ -44,10 +44,12 @@ def _validate(result: dict, context: ContextBundle) -> ModelAnswer:
     if not answer.answer.strip() or not answer.reason.strip():
         raise ValueError("모델의 답변과 판단 이유는 비어 있을 수 없습니다.")
     incomplete = r"검산(?:은|이)?\s*미완료"
+    # '검산 미완료가 아닙니다'·'아니라 완료'·'상태가 아님'처럼 바로 부정한 본문 표현은 미완료 표시로 보지 않는다
+    shown = incomplete + r"(?!\s*(?:상태)?\s*[가는도이은]?\s*아[니닌님닙])"
     reason_text = answer.reason.replace("**", "").replace("`", "")
     answer_text = answer.answer.replace("**", "").replace("`", "")
     if (re.search(incomplete + r"(?:입니다|이며|임|\.|$)", reason_text)
-            and not re.search(incomplete, answer_text)):
+            and not re.search(shown, answer_text)):
         raise ValueError("검산 구분: 판단 이유에서 밝힌 검산 미완료를 답변 본문에도 표시해야 합니다.")
     resolve_citations(answer.source_ids, context.source_map)
     if answer.status == "answered" and not CITATION_MARK.search(answer.answer):
