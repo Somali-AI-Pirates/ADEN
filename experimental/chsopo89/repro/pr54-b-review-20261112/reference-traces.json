@@ -16,7 +16,11 @@
       "http_response_sha256": "ff0d102f2bcc235dcdd6f68e6204c3d57d6bffe8747666e6a1016009a244644f",
       "prior_record_comment": "https://github.com/Somali-AI-Pirates/ADEN/pull/53#issuecomment-6812598451",
       "usage": "이전 참고 답변; #54 수정 후 결과로 채점하지 않음",
-      "context_comparison": "C 문서의 부족 조건 해시 접두사와 일치"
+      "context_comparison": "C 문서의 부족 조건 해시 접두사와 일치",
+      "http_response_file": "raw/insufficient/http_response.json",
+      "run_record_file": "raw/insufficient/runs_from_trace.jsonl",
+      "execution_manifest_file": "raw/insufficient/manifest.json",
+      "trace_link_file": "raw/insufficient/trace_link.json"
     },
     {
       "condition": "sufficient",
@@ -33,8 +37,13 @@
       "http_response_sha256": "ecfa56ca4a88185521a7b7386123e77dbb4b6a31a7174096e334f61ad136e582",
       "prior_record_comment": "https://github.com/Somali-AI-Pirates/ADEN/pull/53#issuecomment-6812598451",
       "usage": "이전 참고 답변; #54 수정 후 결과로 채점하지 않음",
-      "context_comparison": "C 충분 조건 해시와 불일치하므로 같은 문맥의 전후 비교에서 제외"
+      "context_comparison": "C 충분 조건 해시와 불일치하므로 같은 문맥의 전후 비교에서 제외",
+      "http_response_file": "raw/sufficient/http_response.json",
+      "run_record_file": "raw/sufficient/runs_from_trace.jsonl",
+      "execution_manifest_file": "raw/sufficient/manifest.json",
+      "trace_link_file": "raw/sufficient/trace_link.json"
     }
   ],
-  "remote_rechecked_now": false
+  "remote_rechecked_now": false,
+  "local_originals_attached": true
 }
