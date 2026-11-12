@@ -7,13 +7,21 @@
     python -m experimental.Damsebi.fix_compare --references <정답 파일> --out <md> \
         before=<수정 전 채점 ID> after=<수정 후 채점 ID1>+<ID2>+<ID3>
 
+TableRAG 실행(`run_table_rag run`)의 채점은 `--table-rag-run <실행 폴더>`를 주고 ID에 그 폴더 `grades/` 아래의
+채점 ID를 쓴다. 묶은 회차는 같은 runs.jsonl(`runs_sha256`)을 채점한 것이어야 한다.
+
+    python -m experimental.Damsebi.fix_compare --references <정답 파일> --table-rag-run <실행 폴더> \
+        additional=<채점 ID1>+<ID2>+<ID3> --out <md>
+
 비교 항목: 조건(코드 버전·생성 프롬프트·평가 기준), Judge 항목별 점수, RAGAS Faithfulness, 출처 정확성(문맥 안 인용,
 참고 근거 쪽 인용), 상태·오류·재시도, 서비스·HTTP 시간, 토큰, 그리고 해당 없음·평가 불가·누락 건수.
+회차를 묶으면 Judge 항목이 회차마다 같지 않은 요청을 사람 검수 목록으로 따로 보인다.
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import statistics
 from collections import Counter
@@ -31,20 +39,29 @@ def _jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def load_group(base: Path, ids: list[str]) -> dict:
-    manifests = [json.loads((base / i / "manifest.json").read_text(encoding="utf-8")) for i in ids]
-    sources = {(m.get("regrade") or {}).get("source_experiment_id") or m["experiment_id"] for m in manifests}
-    if len(sources) != 1:
-        raise SystemExit(f"{ids}: 묶은 채점 회차의 답변 원본이 다르다 {sorted(sources)}")
+def load_group(base: Path, ids: list[str], run_dir: Path | None = None) -> dict:
+    """base/<채점 ID>(regrade·일반 평가) 또는 run_dir/grades/<채점 ID>(TableRAG)의 회차를 묶는다."""
+    grade_dirs = [run_dir / "grades" / i for i in ids] if run_dir else [base / i for i in ids]
+    manifests = [json.loads((d / "manifest.json").read_text(encoding="utf-8")) for d in grade_dirs]
+    if run_dir:
+        runs_sha = "sha256:" + hashlib.sha256((run_dir / "runs.jsonl").read_bytes()).hexdigest()
+        if any(m.get("runs_sha256") != runs_sha for m in manifests):
+            raise SystemExit(f"{ids}: 채점 회차의 runs_sha256이 현재 {run_dir / 'runs.jsonl'}와 다르다")
+        source, source_dir = run_dir.name, run_dir
+    else:
+        sources = {(m.get("regrade") or {}).get("source_experiment_id") or m["experiment_id"] for m in manifests}
+        if len(sources) != 1:
+            raise SystemExit(f"{ids}: 묶은 채점 회차의 답변 원본이 다르다 {sorted(sources)}")
+        source = sources.pop()
+        source_dir = base / source
     for key in SAME_GRADING:
         if len({str(m["benchmark"].get(key)) for m in manifests}) != 1:
             raise SystemExit(f"{ids}: 묶은 채점 회차의 {key}가 다르다")
-    source = sources.pop()
-    source_manifest = json.loads((base / source / "manifest.json").read_text(encoding="utf-8"))
-    runs = _jsonl(base / source / "runs.jsonl")
+    source_manifest = json.loads((source_dir / "manifest.json").read_text(encoding="utf-8"))
+    runs = _jsonl(source_dir / "runs.jsonl")
     scores = {}
-    for grading_id in ids:
-        for row in _jsonl(base / grading_id / "scores.jsonl"):
+    for grade_dir in grade_dirs:
+        for row in _jsonl(grade_dir / "scores.jsonl"):
             scores.setdefault(row["request_id"], []).append(row)
     http = source_manifest.get("http_records") or {}
     return {"ids": ids, "manifest": manifests[0], "source": source, "source_manifest": source_manifest,
@@ -85,19 +102,40 @@ def _median(values: list) -> str:
     return f"{statistics.median(values):.0f}" if values else "-"
 
 
+def _short(value, n: int = 8) -> str:
+    return str(value).removeprefix("sha256:")[:n]
+
+
+def _retried(run: dict) -> bool:
+    """재시도한 요청. TableRAG의 attempts에는 planner·answer 호출이 모두 있어 호출 수로 세지 않는다."""
+    roles = [attempt.get("role") for attempt in run["attempts"]]
+    if any(roles):
+        usage = run.get("usage") or {}
+        return roles.count("answer") > 1 or (usage.get("provider_attempts") or 0) > (usage.get("logical_calls") or 0)
+    return len(run["attempts"]) > 1
+
+
+def _mark(item: dict) -> str:
+    if item["status"] == "scored":
+        return str(int(item["value"]))
+    return "NA" if item["status"] == "not_applicable" else "UN"
+
+
 def render(groups: dict[str, dict], references: dict) -> str:
-    lines = ["## 조건", "", "| 라벨 | 채점 실험(회차) | 답변 원본 | 답변 생성 코드 | 생성 프롬프트 | 설정 파일 | "
+    lines = ["## 조건", "", "| 라벨 | 채점 실험(회차) | 답변 원본 | 답변 생성 코드 | 생성 프롬프트 | 설정 해시 | "
              "Judge 프롬프트·스키마 | Judge·Faithfulness 모델 | 정답 파일 |", "|---|---|---|---|---|---|---|---|---|"]
     for label, g in groups.items():
         b, sm = g["manifest"]["benchmark"], g["source_manifest"]
         http = sm.get("http_records") or {}
         commit = http.get("source_git_commit") or sm.get("git_commit")
         dirty = http.get("source_git_dirty") if http else sm.get("git_dirty")
-        prompts = http.get("server_prompt_hashes") or ["(기록 없음)"]
+        service_prompts = (sm.get("service") or {}).get("prompt_sha256") or {}
+        prompts = ([p[:8] for p in http.get("server_prompt_hashes") or []]
+                   or [f"{name} {value[:8]}" for name, value in service_prompts.items()] or ["(기록 없음)"])
         lines.append(f"| {label} | {' + '.join(g['ids'])} | {g['source']} | `{str(commit)[:8]}` 미커밋 {dirty} | "
-                     f"{', '.join(p[:8] for p in prompts)} | `{str(g['manifest']['config_hash'])[7:15]}` | "
-                     f"`{str(b.get('judge_prompt'))[7:15]}` {b.get('judge_schema')} | {b.get('judge')} · "
-                     f"{b.get('faithfulness')} | `{str(b.get('references_sha256'))[7:15]}` |")
+                     f"{', '.join(prompts)} | `{_short(g['manifest']['config_hash'])}` | "
+                     f"`{_short(b.get('judge_prompt'))}` {b.get('judge_schema')} | {b.get('judge')} · "
+                     f"{b.get('faithfulness')} | `{_short(b.get('references_sha256'))}` |")
     head = ["요청(연결)", "상태", "오류", "재시도 요청"] + [KO[c] for c in CRITERIA] + [
         "Faithfulness", "검산 진단", "인용(문맥 안/참고 쪽/전체)", "서비스 ms 중앙값", "HTTP ms 중앙값",
         "토큰 입력/출력(사용량 완전/부분/미확인)", "누락"]
@@ -132,7 +170,7 @@ def render(groups: dict[str, dict], references: dict) -> str:
             calc[calc_status] += 1
             n, in_ctx, on_ref = citation_check(run, references.get(run["question_id"], {}))
             cites = [cites[0] + in_ctx, cites[1] + on_ref, cites[2] + n]
-            rows_out.append((label, run, cells, values, calc_status, (in_ctx, on_ref, n)))
+            rows_out.append((label, run, rows, cells, values, calc_status, (in_ctx, on_ref, n)))
         judge_cells = []
         for c in CRITERIA:
             j = judge[c]
@@ -141,7 +179,7 @@ def render(groups: dict[str, dict], references: dict) -> str:
         tokens_in = sum(r["usage"]["input_tokens"] or 0 for r in runs)
         tokens_out = sum(r["usage"]["output_tokens"] or 0 for r in runs)
         cells = [f"{g['requests']} ({len(runs)})", ", ".join(f"{k} {v}" for k, v in sorted(statuses.items())),
-                 str(statuses.get("error", 0)), str(sum(len(r["attempts"]) > 1 for r in runs)), *judge_cells,
+                 str(statuses.get("error", 0)), str(sum(_retried(r) for r in runs)), *judge_cells,
                  f"{statistics.fmean(faith):.2f} ({len(faith)}/{faith_na}/{faith_un})" if faith
                  else f"- (0/{faith_na}/{faith_un})",
                  ", ".join(f"{k} {v}" for k, v in sorted(calc.items())) or "-",
@@ -150,21 +188,36 @@ def render(groups: dict[str, dict], references: dict) -> str:
                  f"{tokens_in}/{tokens_out} ({usage['complete']}/{usage['partial']}/{usage['unknown']})",
                  f"HTTP 미연결 {len(g['unlinked'])}, 채점 없음 {missing}"]
         lines.append(f"| {label} | " + " | ".join(cells) + " |")
-    lines += ["", "## 요청별", "", "| 라벨 | 문항 | 방식 | request_id | 상태 | 시도 | 사실·조건·근거·판단 | "
+    lines += ["", "## 요청별", "", "| 라벨 | 문항 | 방식 | request_id | 상태 | 모델 호출 | 사실·조건·근거·판단 | "
               "Faithfulness | 검산 | 인용(문맥 안/참고 쪽/전체) | 서비스 ms | HTTP ms | 토큰 입력/출력 | 문맥 해시 |",
               "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
-    for label, run, cells, values, calc_status, (in_ctx, on_ref, n) in rows_out:
+    for label, run, _, cells, values, calc_status, (in_ctx, on_ref, n) in rows_out:
         faith = "/".join(f"{v:.2f}" for v in values) or "-"
         lines.append(f"| {label} | {run['question_id']} | {run['retrieval_mode']} | `{run['request_id'][:12]}` | "
                      f"{run['status']} | {len(run['attempts'])} | {' · '.join(cells)} | {faith} | {calc_status} | "
                      f"{in_ctx}/{on_ref}/{n} | {run['latency_ms']} | {run.get('http_latency_ms') or '-'} | "
                      f"{run['usage']['input_tokens']}/{run['usage']['output_tokens']} | "
-                     f"`{str(run.get('final_context_hash'))[7:19]}` |")
+                     f"`{_short(run.get('final_context_hash'), 12)}` |")
     for label, g in groups.items():
         for item in g["unlinked"]:
             lines.append(f"| {label} | {item['question_id']} | {item['retrieval_mode']} | "
                          f"`{str(item.get('request_id'))[:12]}` | 미연결({item['outcome']}) | - | {item['reason']} "
                          "| - | - | - | - | - | - | - |")
+    review = []
+    for label, run, rows, cells, *_ in rows_out:
+        for index, c in enumerate(CRITERIA):
+            items = [row["judge"][c] for row in rows]
+            marks = [_mark(item) for item in items]
+            if len(rows) > 1 and len(set(marks)) > 1:
+                reasons = " / ".join(f"{n}회: " + str(item.get("reason") or "").replace("|", "\\|").replace("\n", " ")
+                                     for n, item in enumerate(items, 1))
+                review.append(f"| {label} | {run['question_id']} | {KO[c]} | {'/'.join(marks)} | {cells[index]} | "
+                              f"{reasons} |")
+    if any(g["rounds"] > 1 for g in groups.values()):
+        lines += ["", "## 사람 검수 대상", "", "Judge 항목의 회차별 값이 모두 같지 않은 요청이다(해당 없음 NA·평가 불가 UN "
+                  "회차 포함). 다수결 값을 쓰되 점수를 덮어쓰지 않고 사람이 사유를 검수한다.", ""]
+        lines += (["| 라벨 | 문항 | 항목 | 회차별 값 | 다수결 | 회차별 사유 |", "|---|---|---|---|---|---|", *review]
+                  if review else ["없음(모든 Judge 항목이 회차마다 같다)"])
     return "\n".join(lines) + "\n"
 
 
@@ -173,12 +226,14 @@ def main() -> None:
     parser.add_argument("groups", nargs="+", help="라벨=채점 실험 ID[+ID...]")
     parser.add_argument("--references", required=True, help="참고 정답 파일(출처 정확성 진단에만 사용)")
     parser.add_argument("--artifacts-dir", default=str(ROOT / "artifacts" / "experiments"))
+    parser.add_argument("--table-rag-run", help="TableRAG 실행 폴더. 주면 ID는 그 폴더 grades/ 아래 채점 ID다")
     parser.add_argument("--out", help="Markdown 출력 파일(생략 시 화면만)")
     args = parser.parse_args()
+    run_dir = Path(args.table_rag_run).resolve() if args.table_rag_run else None
     groups = {}
     for spec in args.groups:
         label, _, ids = spec.partition("=")
-        groups[label] = load_group(Path(args.artifacts_dir), ids.split("+"))
+        groups[label] = load_group(Path(args.artifacts_dir), ids.split("+"), run_dir)
     text = render(groups, load_references(args.references))
     if args.out:
         Path(args.out).write_text(text, encoding="utf-8")

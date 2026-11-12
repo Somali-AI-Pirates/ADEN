@@ -1,0 +1,188 @@
+{
+  "data_kind": "advanced",
+  "modes": {
+    "table_rag": {
+      "hit_at_k": {
+        "mean": 1.0,
+        "scored": 29,
+        "not_applicable": 1,
+        "unavailable": 0
+      },
+      "recall_at_k": {
+        "mean": 0.9022988505747127,
+        "scored": 29,
+        "not_applicable": 1,
+        "unavailable": 0
+      },
+      "faithfulness": {
+        "mean": 0.7818638768638769,
+        "scored": 30,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_fact": {
+        "mean": 0.7,
+        "scored": 30,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_condition": {
+        "mean": 0.8,
+        "scored": 30,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_evidence": {
+        "mean": 0.9,
+        "scored": 30,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "judge_decision": {
+        "mean": 0.9,
+        "scored": 30,
+        "not_applicable": 0,
+        "unavailable": 0
+      },
+      "operations": {
+        "requests": 30,
+        "errors": 0,
+        "error_rate": 0.0,
+        "error_types": [],
+        "status_counts": {
+          "answered": 28,
+          "needs_clarification": 1,
+          "abstained": 1,
+          "error": 0
+        },
+        "latency_ok": {
+          "mean_ms": 25235.733333333334,
+          "p50_ms": 22656.0,
+          "known": 30,
+          "count": 30
+        },
+        "latency_error": {
+          "mean_ms": null,
+          "p50_ms": null,
+          "known": 0,
+          "count": 0
+        },
+        "latency_all": {
+          "mean_ms": 25235.733333333334,
+          "p50_ms": 22656.0,
+          "known": 30,
+          "count": 30
+        },
+        "input_tokens": 791568,
+        "output_tokens": 18694,
+        "usage_complete": 30,
+        "usage_partial": 0,
+        "usage_unknown": 0,
+        "retry_attempts": 62,
+        "logical_calls": 92,
+        "provider_attempts": 92,
+        "missing_usage": 0
+      },
+      "table_rag_metrics": {
+        "candidate_page_recall": {
+          "mean": 0.7844827586206896,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "candidate_required_evidence_all": {
+          "mean": 0.5862068965517241,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "candidate_mrr": {
+          "mean": 0.896551724137931,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "candidate_ndcg": {
+          "mean": 0.7785339711678233,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "final_page_recall": {
+          "mean": 0.7471264367816093,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "final_required_evidence_all": {
+          "mean": 0.5172413793103449,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "final_mrr": {
+          "mean": 0.896551724137931,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "final_ndcg": {
+          "mean": 0.7636804905870413,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "final_sql_expected": {
+          "mean": null,
+          "scored": 0,
+          "not_applicable": 30,
+          "unavailable": 0
+        }
+      },
+      "grading": {
+        "calls": 60,
+        "failed_calls": 0,
+        "latency_ms": 699538,
+        "input_tokens": 210876,
+        "output_tokens": 32361
+      },
+      "evidence_diagnostics": {
+        "budget_lost_page_recall": {
+          "mean": 0.0,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "candidate_doc_recall": {
+          "mean": 0.9741379310344828,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "candidate_page_recall": {
+          "mean": 0.7931034482758621,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "context_lost_page_recall": {
+          "mean": 0.034482758620689655,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        },
+        "final_page_recall": {
+          "mean": 0.7586206896551724,
+          "scored": 29,
+          "not_applicable": 1,
+          "unavailable": 0
+        }
+      },
+      "calculation_checks": {
+        "not_applicable": 21,
+        "incomplete": 4,
+        "complete": 5
+      }
+    }
+  }
+}
