@@ -5,6 +5,10 @@ PR #59 이후 기본 TableRAG 경로의 최종 LLM 답변을 additional 30문항
 - 문항별 다수결과 사람 검수 대상: [reports/table-rag-additional-20261112/majority-e1-e3.md](reports/table-rag-additional-20261112/majority-e1-e3.md)
 - 회차별 채점 기록: `reports/table-rag-additional-20261112/additional-luna-e1~e3/`(README, answers, comparison, manifest, scores, summary)
 - 실행 manifest: [reports/table-rag-additional-20261112/manifest.json](reports/table-rag-additional-20261112/manifest.json)
+- 요청별 상세 실행 로그(본문 제거본): [reports/table-rag-additional-20261112/runs-no-text.jsonl](reports/table-rag-additional-20261112/runs-no-text.jsonl)
+  - 원본 `runs.jsonl`에서 원본 문서 본문만 뺐다. 검색 후보·최종 문맥·도구 발췌의 본문, 모델 문맥, 모델 호출 입력은 SHA-256과 글자 수로 바꿨다.
+  - 그대로 남은 것: 검색 경로, 후보·최종 출처, planner 도구 호출(인자·중간 요약)과 도구 결과의 출처·표 정보, DB 조회 결과 필드, 호출별 모델·시간·토큰·오류, 문맥 해시, SQL 결과, 진단 시간.
+  - 만드는 방법은 [strip_run_text.py](strip_run_text.py)에 있다. 표 제목(`heading`)과 구역 제목(`section`)은 식별용 제목이라 남겼다. 그 밖에 원문 줄이 남지 않았는지 두 방법으로 검사했다.
 - 전체 실행 기록 `runs.jsonl`(7MB, 원본 PDF 본문·모델 입력 포함)은 관례대로 Git에 올리지 않았다. Damsebi PC의 `artifacts/experiments/table-rag/table-rag-additional-20261112/`에 있다. SHA-256은 `53034192…ce273`이고, 세 채점 manifest의 `runs_sha256`과 같다. 재채점하려면 이 파일을 받아 같은 위치에 둔다.
 - 공유본의 manifest는 로컬 절대 경로(`data_directory`)를 저장소 기준 상대 경로로 바꿨다. 그 밖의 파일은 원본과 바이트 단위로 같다.
 
@@ -75,7 +79,7 @@ PR #59 이후 기본 TableRAG 경로의 최종 LLM 답변을 additional 30문항
 
 ## 사전 연결 검증: AS-DEV19 (개발 문항)
 
-본 평가 전에 HTTP 요청부터 채점까지의 연결을 1문항으로 확인했다. 연결 검증용이며 품질 근거가 아니다. 기록은 [reports/table-rag-asdev19-connect-20261112/](reports/table-rag-asdev19-connect-20261112/)에 있다(HTTP 측정 manifest·`http_runs.jsonl`, 서버 요청 manifest, 채점 1회).
+본 평가 전에 HTTP 요청부터 채점까지의 연결을 1문항으로 확인했다. 연결 검증용이며 품질 근거가 아니다. 기록은 [reports/table-rag-asdev19-connect-20261112/](reports/table-rag-asdev19-connect-20261112/)에 있다(HTTP 측정 manifest·`http_runs.jsonl`, 서버 요청 manifest, 본문을 뺀 요청 로그 `request-runs-no-text.jsonl`, 채점 1회).
 
 - 서버를 띄워 `/health` `query_ready=true`를 확인했다. 그다음 `http_benchmark`를 `--modes` 없이 1회 요청했다(200, 17.9초).
 - HTTP 응답, `artifacts/rag-runs/<request_id>/` 기록, Langfuse trace를 대조했다. request_id·질문·상태·답변·reason·인용, 두 종류의 문맥 해시, 호출별 토큰까지 28개 항목이 모두 일치했다.
