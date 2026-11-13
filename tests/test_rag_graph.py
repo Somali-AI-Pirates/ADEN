@@ -147,6 +147,7 @@ class _NodeCallback(BaseCallbackHandler):
         if (
             metadata
             and metadata.get("langgraph_node")
+            and metadata["langgraph_node"] != "__start__"
             and tags
             and any(tag.startswith("graph:step:") for tag in tags)
         ):

@@ -3,6 +3,7 @@
 import asyncio
 import json
 from collections.abc import Mapping, Sequence
+from functools import partial
 from time import perf_counter
 from typing import Any
 
@@ -13,6 +14,11 @@ from langgraph.runtime import Runtime
 from openai import APIError, APITimeoutError
 from pydantic import BaseModel, ValidationError
 
+from app.rag.conversation import (
+    EXCLUSION_MARKERS,
+    ConversationTurn,
+    resolve_conversation,
+)
 from app.rag.evidence import (
     assemble_evidence,
     build_observation,
@@ -139,7 +145,7 @@ def _turn(
 
 
 def _has_explicit_exclusion(question: str) -> bool:
-    return any(marker in question for marker in ("제외", "말고", "빼고", "아닌"))
+    return any(marker in question for marker in EXCLUSION_MARKERS)
 
 
 class TableRagGraph:
@@ -179,6 +185,7 @@ class TableRagGraph:
 
     def _compile(self):
         workflow = StateGraph(TableRagState, context_schema=TableRagRuntimeContext)
+        workflow.add_node("resolve_conversation", self._resolve_conversation)
         workflow.add_node("initial_search", self._initial_search)
         workflow.add_node("plan_next_step", self._plan_next_step)
         workflow.add_node("lookup_records", self._lookup_records)
@@ -187,7 +194,16 @@ class TableRagGraph:
         workflow.add_node("query_tables", self._query_tables)
         workflow.add_node("reject_tool", self._reject_tool)
         workflow.add_node("assemble_evidence", self._assemble_evidence)
-        workflow.add_edge(START, "initial_search")
+        workflow.add_conditional_edges(
+            START,
+            self._start_node,
+            {"resolve_conversation": "resolve_conversation", "initial_search": "initial_search"},
+        )
+        workflow.add_conditional_edges(
+            "resolve_conversation",
+            lambda state: state["next_step"],
+            {"initial_search": "initial_search", "assemble_evidence": "assemble_evidence"},
+        )
         workflow.add_edge("initial_search", "plan_next_step")
         workflow.add_conditional_edges(
             "plan_next_step",
@@ -212,6 +228,55 @@ class TableRagGraph:
         workflow.add_edge("assemble_evidence", END)
         return workflow.compile()
 
+    @staticmethod
+    def _start_node(
+        _state: TableRagState, runtime: Runtime[TableRagRuntimeContext]
+    ) -> str:
+        return (
+            "resolve_conversation"
+            if runtime.context["conversation_history"]
+            else "initial_search"
+        )
+
+    async def _resolve_conversation(
+        self,
+        state: TableRagState,
+        runtime: Runtime[TableRagRuntimeContext],
+        config: RunnableConfig,
+    ) -> dict[str, Any]:
+        history = runtime.context["conversation_history"]
+        started = perf_counter()
+        await emit_progress(
+            runtime.context["event_sink"],
+            "understanding",
+            "이전 대화에서 질문 대상을 확인하고 있습니다.",
+        )
+        context = await resolve_conversation(
+            state["question"],
+            history,
+            partial(
+                self.model.interpret_conversation,
+                calls=runtime.context["calls"],
+                config=config,
+            ),
+        )
+        update = {
+            "search_question": context.search_question,
+            "answer_history": context.turns,
+            "timings": {"conversation_seconds": perf_counter() - started},
+            "next_step": "initial_search",
+        }
+        if context.needs_clarification:
+            update.update(
+                initial_route="clarification",
+                finish=state["finish"].model_copy(
+                    update={"status": "needs_clarification"}
+                ),
+                termination_reason="finished",
+                next_step="assemble_evidence",
+            )
+        return update
+
     async def _initial_search(
         self,
         state: TableRagState,
@@ -219,7 +284,7 @@ class TableRagGraph:
         config: RunnableConfig,
     ) -> dict[str, Any]:
         started = perf_counter()
-        question = state["question"]
+        question = state["search_question"]
         groups = []
         searches = []
         observations = []
@@ -286,6 +351,7 @@ class TableRagGraph:
                 "question": question,
                 "initial_route": initial_route,
                 "initial_evidence": observations,
+                **({"original_question": state["question"]} if question != state["question"] else {}),
             }
         )
         return {
@@ -314,7 +380,7 @@ class TableRagGraph:
             "error_kind": None,
             "error_class": None,
             "termination_reason": "running",
-            "timings": {"search_seconds": elapsed, "sql_seconds": 0.0},
+            "timings": {**state["timings"], "search_seconds": elapsed, "sql_seconds": 0.0},
             "input_tokens": 0,
         }
 
@@ -553,12 +619,16 @@ class TableRagGraph:
         except (ValidationError, ValueError) as error:
             return self._invalid_tool_result(state, call_id, name, solve_count, error)
         try:
-            grounded(request, state["question"], state["observations"])
+            grounded(
+                request,
+                f"{state['question']}\n{state['search_question']}",
+                state["observations"],
+            )
         except ValueError as error:
             return self._invalid_tool_result(state, call_id, name, solve_count, error)
         delta = await lookup_records(
             request,
-            question=state["question"],
+            question=state["search_question"],
             dependencies=self.dependencies,
         )
         return self._apply_tool_result(
@@ -821,12 +891,15 @@ class TableRagGraph:
         event_sink: EventSink | None = None,
         trace_id: str | None = None,
         config: RunnableConfig | None = None,
+        conversation_history: tuple[ConversationTurn, ...] = (),
     ) -> RetrievalRun:
         state = await self.graph.ainvoke(
             {
                 "question": question,
+                "search_question": question,
                 "request_id": request_id,
                 "messages": [],
+                "answer_history": (),
                 "searches": [],
                 "groups": [],
                 "observations": [],
@@ -858,6 +931,7 @@ class TableRagGraph:
                 "calls": calls,
                 "event_sink": event_sink,
                 "trace_id": trace_id,
+                "conversation_history": conversation_history,
             },
             config={"recursion_limit": 32, **(config or {})},
         )
@@ -875,4 +949,6 @@ class TableRagGraph:
             sql_attempts=tuple(state["sql_attempts"]),
             termination_reason=state["termination_reason"],
             diagnostics=diagnostics,
+            search_question=state["search_question"] if state["search_question"] != question else None,
+            answer_history=state["answer_history"],
         )

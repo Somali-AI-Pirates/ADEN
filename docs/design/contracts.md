@@ -136,4 +136,4 @@ SQL 결과에는 실행한 쿼리문도 보존한다. 최종 근거에 남은 �
 
 ## 브라우저 스트리밍과 원본 문서
 
-`POST /query`는 기존 JSON 경로와 `QueryResponse` 모양을 유지하고 TableRAG 서비스만 호출한다. `retrieval_mode`는 생략하거나 `null`이어야 한다. TableRAG 전용 `POST /query/stream`은 같은 서비스에서 SSE 진행 상태·임시 텍스트·검증 및 저장 완료 응답을 보낸다. `GET /documents/{book_id}`는 `TableRagSettings.documents_dir`에 설정된 원본 PDF를 열람한다. 이벤트·오류·문서 경로의 상세 계약과 실행은 [클라이언트 가이드](../../web/README.md#스트림과-오류)를 따른다.
+`POST /query`는 기존 JSON 경로와 `QueryResponse` 모양을 유지하고 TableRAG 서비스만 호출한다. `retrieval_mode`는 생략하거나 `null`이어야 한다. TableRAG 전용 `POST /query/stream`은 같은 서비스에서 SSE 진행 상태·임시 텍스트·검증 및 저장 완료 응답을 보낸다. 본문은 `question`과 선택적인 `history`를 받는다. `history`는 같은 대화에서 완료된 `{question, answer}` 쌍을 시간순으로 최대 8개 담는다. 각 턴의 질문은 최대 800자, 답변은 최대 1,000자다. 최근 2턴으로 먼저 해석하고 모델이 더 필요하다고 판단하면 제공된 이전 턴까지 한 번 더 확인한다. `GET /documents/{book_id}`는 `TableRagSettings.documents_dir`에 설정된 원본 PDF를 열람한다. 이벤트·오류·문서 경로의 상세 계약과 실행은 [클라이언트 가이드](../../web/README.md#스트림과-오류)를 따른다.

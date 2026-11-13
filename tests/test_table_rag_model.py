@@ -6,6 +6,7 @@ import pytest
 from langchain_core.messages import HumanMessage, ToolMessage
 
 from app.rag import model as model_module
+from app.rag.conversation import ConversationTurn
 from app.rag.model import ModelCalls, load_model
 
 
@@ -50,6 +51,66 @@ def _transport(monkeypatch, handler):
             transport=httpx.MockTransport(handler), **kwargs
         ),
     )
+
+
+def test_conversation_and_answer_use_responses_message_roles(monkeypatch):
+    turn = ConversationTurn(
+        question="HG2029-00001 건 처리일은?", answer="5월 4일입니다."
+    )
+    payloads = []
+
+    def handle(request):
+        payload = json.loads(request.content)
+        payloads.append(payload)
+        if len(payloads) == 1:
+            assert payload["text"]["format"]["name"] == "ConversationDecision"
+            value = {
+                "status": "resolved",
+                "search_question": "HG2029-00001 건 청구액은?",
+                "turn_ids": [1],
+            }
+        else:
+            assert payload["text"]["format"]["name"] == "GeneratedAnswer"
+            assert [item["role"] for item in payload["input"]] == [
+                "system", "user", "assistant", "user"
+            ]
+            assert turn.question in json.dumps(payload["input"][1], ensure_ascii=False)
+            assert turn.answer in json.dumps(payload["input"][2], ensure_ascii=False)
+            value = {
+                "status": "insufficient", "answer": "근거 부족", "citations": [],
+            }
+        return _response(
+            [{
+                "type": "message",
+                "id": f"msg_{len(payloads)}",
+                "status": "completed",
+                "role": "assistant",
+                "content": [{"type": "output_text", "text": json.dumps(value), "annotations": []}],
+            }],
+            len(payloads),
+        )
+
+    _transport(monkeypatch, handle)
+
+    async def run():
+        model = await load_model(api_key="offline-test")
+        calls = ModelCalls()
+        try:
+            result = await model.interpret_conversation(
+                "그 건 청구액은?", {1: turn}, False, calls=calls
+            )
+            assert result.status == "resolved"
+            await model.answer(
+                '{"question":"그 건 청구액은?","retrieval_status":"insufficient"}',
+                context_hash="test",
+                conversation_history=(turn,),
+                calls=calls,
+            )
+            assert calls.summary()["provider_attempts"] == 2
+        finally:
+            await model.aclose()
+
+    asyncio.run(run())
 
 
 def test_responses_tool_roundtrip_and_answer_scope(monkeypatch):

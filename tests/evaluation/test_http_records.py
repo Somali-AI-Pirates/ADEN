@@ -201,6 +201,25 @@ def test_table_rag_trace_keeps_planner_answer_usage_and_included_sql():
     assert record["included_sql_results"] == [sql_result]
 
 
+def test_attempts_restore_conversation_before_planning_and_answer():
+    model = "gpt-6-luna"
+    conversation = [{"role": "user", "content": "그 건은?"}]
+    attempts = http_records._attempts({
+        "answer-3": {"model": model},
+        "planner-2": {"model": model},
+        "conversation-1": {
+            "model": model,
+            "input": json.dumps(conversation),
+            "usageDetails": {"input": 60, "output": 10},
+        },
+    })
+    assert [attempt["role"] for attempt in attempts] == [
+        "conversation", "planner", "answer",
+    ]
+    assert attempts[0]["model_input"] == {"messages": conversation}
+    assert (attempts[0]["input_tokens"], attempts[0]["output_tokens"]) == (60, 10)
+
+
 def test_attempts_use_aggregate_usage_including_cached_and_reasoning_tokens():
     attempts = http_records._attempts({
         "planner-1": {

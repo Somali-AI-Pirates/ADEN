@@ -46,7 +46,10 @@ class _Model:
             ],
         )
 
-    async def answer(self, payload, *, context_hash, calls, config=None):
+    async def answer(
+        self, payload, *, context_hash, calls, config=None, conversation_history=()
+    ):
+        assert not conversation_history
         value = json.loads(payload)
         assert set(value) == {"question", "evidence", "retrieval_status"}
         assert set(value["evidence"]) == {"pages", "sql"}

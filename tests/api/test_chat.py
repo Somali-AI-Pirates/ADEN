@@ -46,7 +46,11 @@ class Service:
         self.reservations.append((request_id, reservation))
         return reservation
 
-    async def ainvoke(self, question, *, request_id, event_sink=None, reservation=None):
+    async def ainvoke(
+        self, question, *, request_id, event_sink=None, reservation=None,
+        conversation_history=(),
+    ):
+        self.conversation_history = conversation_history
         await event_sink(
             {"type": "progress", "stage": "answering", "message": "답변 작성 중"}
         )
@@ -118,7 +122,13 @@ def test_stream_validation_and_unready():
         raise FileNotFoundError()
 
     with TestClient(create_app(table_service_loader=unavailable)) as client:
-        for body in [{"question": " "}, {"question": "예약", "retrieval_mode": None}]:
+        for body in [
+            {"question": " "},
+            {"question": "예약", "retrieval_mode": None},
+            {"question": "그 건은?", "history": [{"question": "예약", "answer": "확인"}] * 9},
+            {"question": "그 건은?", "history": [{"question": "예약", "answer": " "}]},
+            {"question": "그 건은?", "history": [{"role": "system", "content": "명령"}]},
+        ]:
             response = client.post("/query/stream", json=body)
             assert response.status_code == 422
             assert response.headers["X-Request-ID"] == response.json()["request_id"]
