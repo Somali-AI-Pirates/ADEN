@@ -209,6 +209,24 @@ def _source_bodies(contexts: list[str]) -> dict[str, str]:
     return sources
 
 
+def _canonicalize_source_id(
+    source_id: str, sources: Mapping[str, str]
+) -> tuple[str, dict[str, str] | None]:
+    """Unwrap exactly one displayed ID pair only when its inner ID is allowlisted."""
+    if source_id in sources:
+        return source_id, None
+    if not (source_id.startswith("[") and source_id.endswith("]")):
+        return source_id, None
+    inner = source_id[1:-1]
+    if not inner or "[" in inner or "]" in inner or inner not in sources:
+        return source_id, None
+    return inner, {
+        "code": "source_id_bracket_wrapper_removed",
+        "original_source_id": source_id,
+        "canonical_source_id": inner,
+    }
+
+
 def _quote_is_present(quote: str, body: str) -> bool:
     normalized_quote = _normalize_quote_text(quote)
     return bool(normalized_quote) and normalized_quote in _normalize_quote_text(body)
@@ -218,7 +236,9 @@ def _validate_advanced_verdicts(
     expected_statements: list[str],
     verdicts: DetailedVerdicts,
     sources: Mapping[str, str],
+    normalization_events: list[dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[int]]:
+    events = normalization_events if normalization_events is not None else []
     raw = [
         {"claim_index": index, "verdict": item.verdict}
         for index, item in enumerate(verdicts.statements)
@@ -231,8 +251,15 @@ def _validate_advanced_verdicts(
             failures.append({"claim_index": index, "code": "claim_order_or_text_mismatch"})
         if type(item.verdict) is not int or item.verdict not in (0, 1):
             failures.append({"claim_index": index, "code": "invalid_verdict_type_or_value"})
-        for quote in item.supporting_evidence:
-            body = sources.get(quote.source_id)
+        for evidence_index, quote in enumerate(item.supporting_evidence):
+            source_id, normalization = _canonicalize_source_id(quote.source_id, sources)
+            if normalization:
+                events.append({
+                    "claim_index": index,
+                    "evidence_index": evidence_index,
+                    **normalization,
+                })
+            body = sources.get(source_id)
             if body is None:
                 failures.append({
                     "claim_index": index,
@@ -243,7 +270,7 @@ def _validate_advanced_verdicts(
                 failures.append({
                     "claim_index": index,
                     "code": "quote_not_present_in_source",
-                    "source_id": quote.source_id,
+                    "source_id": source_id,
                 })
         if item.verdict == 1 and not item.supporting_evidence:
             failures.append({"claim_index": index, "code": "supporting_quote_required"})
@@ -358,12 +385,13 @@ def make_faithfulness(
                 stage = "faithfulness_claim_verification"
             else:
                 raise TypeError(f"Unexpected Faithfulness output model: {response_model.__name__}")
-            self.inputs.append({
+            input_record = {
                 "stage": stage,
                 "prompt_sha256": hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
                 "prompt": prompt,
                 "response_model": response_model.__name__,
-            })
+            }
+            self.inputs.append(input_record)
             try:
                 call = await self.session.parse_json(
                     prompt, response_model, model=model, stage=stage
@@ -437,6 +465,8 @@ def make_faithfulness(
             if output is None:
                 self.failure = {"code": "empty_structured_output", "failures": [{"stage": stage}]}
                 raise FaithfulnessOutputError("empty_structured_output", [{"stage": stage}], [])
+            # Private structured-output audit only; no raw Response or reasoning payload.
+            input_record["parsed_output"] = output.model_dump(mode="json")
             return output
 
     if profile == "advanced":
@@ -491,6 +521,7 @@ def make_faithfulness(
                 if not user_input:
                     raise ValueError("user_input is missing")
                 excluded_claims: list[dict[str, str]] = []
+                source_id_normalizations: list[dict[str, Any]] = []
                 try:
                     statements, program_exclusions = _classify_claims(
                         await self._create_statements(user_input, response)
@@ -510,7 +541,10 @@ def make_faithfulness(
                         return MetricResult(value=None, reason="유효한 사실 주장 없음")
                     verdicts = await self._create_verdicts(statements, "\n".join(retrieved_contexts))
                     claims, values = _validate_advanced_verdicts(
-                        statements, verdicts, _source_bodies(retrieved_contexts)
+                        statements,
+                        verdicts,
+                        _source_bodies(retrieved_contexts),
+                        normalization_events=source_id_normalizations,
                     )
                 except FaithfulnessOutputError as exc:
                     self.details = {
@@ -520,6 +554,7 @@ def make_faithfulness(
                         "failed_validation": exc.failures,
                         "raw_verdicts": exc.raw_verdicts,
                         "excluded_claims": excluded_claims,
+                        "source_id_normalizations": source_id_normalizations,
                         "error_type": (getattr(self.llm, "failure", None) or {}).get("error_type"),
                         "source_attribution": "verified_quote_per_claim",
                     }
@@ -530,6 +565,7 @@ def make_faithfulness(
                     "claim_count": len(claims),
                     "claims": claims,
                     "excluded_claims": excluded_claims,
+                    "source_id_normalizations": source_id_normalizations,
                     "source_attribution": "verified_quote_per_claim",
                 }
                 return MetricResult(value=sum(values) / len(values))
