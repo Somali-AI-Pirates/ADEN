@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from app.evaluation import benchmark
 from app.evaluation.benchmark import (
     FINAL_BENCHMARK_EVIDENCE_SIZE,
     FINAL_BENCHMARK_NO_EVIDENCE_IDS,
@@ -25,8 +26,64 @@ ROOT = Path(__file__).resolve().parents[2]
 SYNTHETIC_FIXTURE = ROOT / "tests/fixtures/faithfulness_calibration_synthetic.json"
 
 
-def test_final_benchmark_has_one_canonical_280_question_inventory() -> None:
-    inventory = load_final_benchmark()
+@pytest.fixture
+def benchmark_files(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> tuple[Path, Path]:
+    """Exercise the complete inventory shape without the local evaluation dataset."""
+    groups = [
+        ("AS-DEV", 30, {}),
+        ("AS-ADD", 30, {}),
+        *[
+            (f"AS-S0{number}-", 20, {
+                "scenario": number,
+                "scenario_name": benchmark.SCENARIO_NAMES[number],
+                "question_type": "synthetic question type",
+            })
+            for number in range(1, 8)
+        ],
+        ("AS-S08-", 20, {"scenario": 8}),
+        ("AS-WR-", 20, {"scenario": "work_rules", "topic": "synthetic topic"}),
+        ("S", 20, {}),
+        ("M", 20, {}),
+    ]
+    questions = []
+    references = []
+    for prefix, count, metadata in groups:
+        for number in range(1, count + 1):
+            question_id = f"{prefix}{number:02}"
+            questions.append({"id": question_id, "question": f"Synthetic question {question_id}?"})
+            reference = {
+                "id": question_id,
+                "reference_answer": "Synthetic reference.",
+                "evidence_groups": [] if question_id in FINAL_BENCHMARK_NO_EVIDENCE_IDS else [
+                    [{"book_id": "SYNTHETIC", "page": 1}]
+                ],
+                **metadata,
+            }
+            if prefix == "AS-S08-":
+                reference["variant"] = "unrelated" if number <= 10 else "near_domain"
+            if prefix == "AS-WR-":
+                reference["variant"] = "procedure" if number <= 10 else "applicability"
+            references.append(reference)
+
+    questions_path = tmp_path / "questions.json"
+    references_path = tmp_path / "references.json"
+    tasks_path = tmp_path / "security_tasks.json"
+    questions_path.write_text(json.dumps(questions), encoding="utf-8")
+    references_path.write_text(json.dumps(references), encoding="utf-8")
+    tasks_path.write_text(json.dumps([
+        {"id": f"security-{row['id']}", "question_id": row["id"], "question": row["question"]}
+        for row in questions
+        if row["id"] in {"AS-DEV14", "AS-ADD13"}
+    ]), encoding="utf-8")
+    load_links = benchmark.load_security_task_links
+    monkeypatch.setattr(
+        benchmark, "load_security_task_links", lambda inventory: load_links(inventory, tasks_path)
+    )
+    return questions_path, references_path
+
+
+def test_final_benchmark_has_one_canonical_280_question_inventory(benchmark_files: tuple[Path, Path]) -> None:
+    inventory = load_final_benchmark(*benchmark_files)
 
     assert len(inventory.questions) == FINAL_BENCHMARK_SIZE == 280
     assert sum(item.has_evidence for item in inventory.questions) == (
@@ -48,8 +105,8 @@ def test_final_benchmark_has_one_canonical_280_question_inventory() -> None:
     }
 
 
-def test_final_benchmark_category_groups_do_not_double_count_items() -> None:
-    inventory = load_final_benchmark()
+def test_final_benchmark_category_groups_do_not_double_count_items(benchmark_files: tuple[Path, Path]) -> None:
+    inventory = load_final_benchmark(*benchmark_files)
     groups = inventory.groups()
     primary = {
         key: value
@@ -65,25 +122,20 @@ def test_final_benchmark_category_groups_do_not_double_count_items() -> None:
     assert len(groups["custom_s"]) == len(groups["custom_m"]) == 20
 
 
-def test_final_benchmark_rejects_id_mismatch(tmp_path: Path) -> None:
-    questions = json.loads(
-        (ROOT / "data/advanced/evaluation/final_benchmark_questions.json").read_text()
-    )
-    references = json.loads(
-        (ROOT / "data/advanced/evaluation/final_benchmark.json").read_text()
-    )
+def test_final_benchmark_rejects_id_mismatch(benchmark_files: tuple[Path, Path]) -> None:
+    questions_path, references_path = benchmark_files
+    references = json.loads(references_path.read_text(encoding="utf-8"))
     references.pop()
-    questions_path = tmp_path / "questions.json"
-    references_path = tmp_path / "references.json"
-    questions_path.write_text(json.dumps(questions), encoding="utf-8")
     references_path.write_text(json.dumps(references), encoding="utf-8")
 
     with pytest.raises(ValueError, match="id가 일치하지 않습니다"):
         load_final_benchmark(questions_path, references_path)
 
 
-def test_benchmark_summary_reports_metrics_micro_macro_and_first_failure() -> None:
-    inventory = load_final_benchmark()
+def test_benchmark_summary_reports_metrics_micro_macro_and_first_failure(
+    benchmark_files: tuple[Path, Path],
+) -> None:
+    inventory = load_final_benchmark(*benchmark_files)
     runs = [
         {
             "question_id": "AS-DEV01",
@@ -163,8 +215,10 @@ def test_benchmark_summary_reports_metrics_micro_macro_and_first_failure() -> No
 
 
 
-def test_semantic_fact_diagnosis_is_separate_from_page_presence(tmp_path: Path) -> None:
-    inventory = load_final_benchmark()
+def test_semantic_fact_diagnosis_is_separate_from_page_presence(
+    tmp_path: Path, benchmark_files: tuple[Path, Path],
+) -> None:
+    inventory = load_final_benchmark(*benchmark_files)
     scores = [
         {
             "question_id": "AS-DEV01",
@@ -313,9 +367,9 @@ def test_nominal_faithfulness_request_count_is_fallback_not_actual() -> None:
     }
 
 def test_benchmark_report_writes_per_question_trace_without_private_text(
-    tmp_path: Path,
+    tmp_path: Path, benchmark_files: tuple[Path, Path],
 ) -> None:
-    inventory = load_final_benchmark()
+    inventory = load_final_benchmark(*benchmark_files)
     question = inventory.questions[0]
     run = {
         "question_id": question.question_id,
