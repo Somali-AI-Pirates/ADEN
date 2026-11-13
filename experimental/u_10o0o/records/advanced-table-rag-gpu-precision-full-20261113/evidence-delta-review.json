@@ -1,0 +1,526 @@
+{
+  "method": "AI 자체 검수. 최종 페이지 집합이 다른 지정 근거 미충족 26문항의 양쪽 문맥을 검수했다.",
+  "unreviewed_unchanged_set_failures": 79,
+  "scope_note": "같은 원문을 반환한 문항은 근거 차이가 없다. 지정 근거 미충족 전체의 보정 점수는 산출하지 않는다.",
+  "comparison_sha256": "7fc896c86db9fd864a21bf8af0ed91f8165cfac03ca93334f6a8a332faadda52",
+  "cases": [
+    {
+      "id": "official_development:AS-DEV02",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS008:p0001",
+        "AS014:p0001"
+      ],
+      "removed_in_bf16": [
+        "AS014:p0009"
+      ],
+      "added_in_bf16": [
+        "AS014:p0004"
+      ],
+      "reason": "공통 원문에 신청 항목과 SI 기한은 있으나 신규 예약을 받을 이메일이 없다. 교체된 쪽은 모두 SI 기록이다.",
+      "context_sha256": {
+        "fp32": "d94c8249a3d6483ab3532acbc018a9a33368d1818c66fd4d697e81b3771f00e9",
+        "bf16": "80ed9e0d572975dc1e061a27b2b8cfb71ee1076712042ed6dd3e882d473de871"
+      }
+    },
+    {
+      "id": "official_development:AS-DEV04",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS009:p0021"
+      ],
+      "removed_in_bf16": [
+        "AS009:p0047"
+      ],
+      "added_in_bf16": [
+        "AS009:p0030"
+      ],
+      "reason": "공통 쪽이 포장 포함 화물 중량과 적입 컨테이너 전체의 VGM을 구분하고 차이를 오류로 보지 말라고 명시한다.",
+      "context_sha256": {
+        "fp32": "3dabb8da9a59420404c72e01c3596c4f391db519ff03fabc72cfde702d8bf4cd",
+        "bf16": "77cc7e52b30995a2ffc738c70726b3a468f5afc6b59cce07de9e478959fa2fce"
+      }
+    },
+    {
+      "id": "official_development:AS-DEV08",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS013:p0007"
+      ],
+      "removed_in_bf16": [
+        "AS070:p0053",
+        "AS097:p0060"
+      ],
+      "added_in_bf16": [
+        "AS012:p0033",
+        "AS077:p0125"
+      ],
+      "reason": "공통 적재 기록은 초안 승인을 완료 근거로 삼지 않고 실제 운항팀 회신을 확인하라고 한다. BF16은 초안 승인 원문도 추가로 확보했다.",
+      "context_sha256": {
+        "fp32": "06807556a1fbef2e767eef5812c589b7f92cd59413f44780fe28ff091c48df5d",
+        "bf16": "0b400e944f1d75abcca0c0c78b252fab8c0aef597fa92391bcfbf5d39f406993"
+      }
+    },
+    {
+      "id": "official_development:AS-DEV16",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS032:p0092",
+        "AS033:p0102",
+        "AS034:p0092"
+      ],
+      "removed_in_bf16": [
+        "AS049:p0116"
+      ],
+      "added_in_bf16": [
+        "AS034:p0108"
+      ],
+      "reason": "공통 사건·정정 회신·청구가 대상, 기존과 변경 금액, 유지 비용과 합계를 확인한다. 교체된 청구는 둘 다 다른 사건이다.",
+      "context_sha256": {
+        "fp32": "119a3b62d0b446ec7334484fd7a11b904083f97f0bb93426cde7fa0febd2e243",
+        "bf16": "a954a238d1d0d5ab530e651815a5bdefe5acc67b931483a60690341d3ce32f3f"
+      }
+    },
+    {
+      "id": "official_development:AS-DEV22",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS078:p0060",
+        "AS079:p0060"
+      ],
+      "removed_in_bf16": [
+        "AS080:p0060"
+      ],
+      "added_in_bf16": [
+        "AS081:p0127"
+      ],
+      "reason": "공통 승인과 청구에서 보관료 무료일만 연장한 범위와 두 확정액을 확인한다. FP32에서만 남은 수납 인계는 같은 사건의 이미 확인된 금액을 반복한다.",
+      "context_sha256": {
+        "fp32": "7b878731bbdfcceb10a83148a2e80a0ff05858523d84c7931e40580ceecd5c21",
+        "bf16": "aba444c2fe26c6628abad9827bcafb12aff988ea1f59fd9c28bf75f411637579"
+      }
+    },
+    {
+      "id": "official_development:AS-DEV23",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS103:p0070",
+        "AS104:p0070"
+      ],
+      "removed_in_bf16": [
+        "AS078:p0039"
+      ],
+      "added_in_bf16": [
+        "AS068:p0135"
+      ],
+      "reason": "공통 회신이 서명 미등록 상태를, 청구가 두 확정액을 보여준다. 교체된 회신은 둘 다 다른 사건이다.",
+      "context_sha256": {
+        "fp32": "091d08b4dfb714f316bfd3db6ed83b0f7354190ce58edf2233a315269f11ead0",
+        "bf16": "09e4f99e565b396caacfb75a3c2c36b7ce3769e06c0d772ea4c977a2eebd4365"
+      }
+    },
+    {
+      "id": "official_development:AS-DEV25",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS110:p0097",
+        "AS111:p0097"
+      ],
+      "removed_in_bf16": [
+        "AS111:p0112"
+      ],
+      "added_in_bf16": [
+        "AS059:p0009"
+      ],
+      "reason": "공통 회신의 승인 미등록 상태 및 해당 사건 청구가 면제 불가와 두 비용 및 합계를 뒷받침한다.",
+      "context_sha256": {
+        "fp32": "1b7ed82d5aa5ccb9a2c9ebc1499b239006f41890367c37f4a13a57a8f347aebe",
+        "bf16": "3761479c05f0dc05797bb0496a4fc65000afa4f34559ca009e1d677f6941e361"
+      }
+    },
+    {
+      "id": "official_development:AS-DEV26",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS077:p0114",
+        "AS078:p0114"
+      ],
+      "removed_in_bf16": [
+        "AS024:p0093"
+      ],
+      "added_in_bf16": [
+        "AS069:p0023"
+      ],
+      "reason": "공통 승인 회신의 적용 단계와 해당 사건 청구의 비용별 금액·합계로 충분하다.",
+      "context_sha256": {
+        "fp32": "c1cd5d426e5e0a6797c9fee3984853c667c6cc5a75085b86ac5f33811167dc35",
+        "bf16": "aa0596f889a08431220d1c2021a85f66d3fd6d88f1cbade857517f943b32339d"
+      }
+    },
+    {
+      "id": "official_additional:AS-ADD05",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS014:p0001",
+        "AS014:p0009"
+      ],
+      "removed_in_bf16": [
+        "AS014:p0003"
+      ],
+      "added_in_bf16": [
+        "AS014:p0008"
+      ],
+      "reason": "양쪽에 제출 기한은 있지만 수하인과 착화 통지처의 차이가 없다. 교체된 두 쪽도 제출 기한 기록이다.",
+      "context_sha256": {
+        "fp32": "db276e02fc11be07feb60048910420c7f008e39e75a43245089d9afceefa4a78",
+        "bf16": "bf67c8878393667c3b0c9ddfdf202f4f37d02527e968d9b2077dec0e21cf206e"
+      }
+    },
+    {
+      "id": "official_additional:AS-ADD06",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS009:p0003",
+        "AS009:p0021",
+        "AS009:p0022"
+      ],
+      "removed_in_bf16": [
+        "AS009:p0032"
+      ],
+      "added_in_bf16": [
+        "AS009:p0005"
+      ],
+      "reason": "공통 원문으로 서류 제출처와 화물 중량은 확인할 수 있지만 VGM 제출 창구는 양쪽에 없다.",
+      "context_sha256": {
+        "fp32": "76018b71780a090f3060fcd0aff4092498c3b1b102306651e84067850221b2e3",
+        "bf16": "1fd1bbca24f2c4aca70327232502fdb43bed5b2ac734414a51dcca16e04492a4"
+      }
+    },
+    {
+      "id": "official_additional:AS-ADD20",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS034:p0146",
+        "AS037:p0136"
+      ],
+      "removed_in_bf16": [
+        "AS072:p0143"
+      ],
+      "added_in_bf16": [
+        "AS114:p0004"
+      ],
+      "reason": "같은 사건의 승인과 청구로 보관료만 상한을 적용한 범위 및 각 금액·합계를 확인할 수 있다.",
+      "context_sha256": {
+        "fp32": "37d5aff9d23a7c3026b762aed12d9ce9ef774b074edc1148fe74ee9e4282e13d",
+        "bf16": "13194bffa657eda51c7a51faeafccb4c2aedfd8a84dd5f9d0a37eb794a2f1695"
+      }
+    },
+    {
+      "id": "scenarios:AS-S02-14",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [],
+      "removed_in_bf16": [
+        "AS069:p0017"
+      ],
+      "added_in_bf16": [
+        "AS069:p0025"
+      ],
+      "reason": "양쪽 원문에 목표 사건이 없으며 교체된 기록은 다른 규격과 날짜의 비용 청구다.",
+      "context_sha256": {
+        "fp32": "8f045adedddddd79bb6ed39f8dd66314b619be047cdc3995cf215f85d8820bbe",
+        "bf16": "450c3936c1e0faee4fd732d90e28948236d35c6bf29bd640d0ea41cd9005c696"
+      }
+    },
+    {
+      "id": "scenarios:AS-S04-02",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS087:p0046",
+        "AS089:p0046",
+        "AS095:p0146"
+      ],
+      "removed_in_bf16": [
+        "AS109:p0012"
+      ],
+      "added_in_bf16": [
+        "AS087:p0148"
+      ],
+      "reason": "첫 사건의 반출과 청구, 둘째 사건의 청구는 공통이다. 둘째 사건의 실제 반출일은 양쪽 모두 확인할 수 없다.",
+      "context_sha256": {
+        "fp32": "8da8caa86247bdf5826d10bf3144656d5c87b4bcaccaee559cbda45de404d331",
+        "bf16": "82fb78da40abd4b2d7f5080e293073e3efa1c8f144fce4a73b9f0416fd139880"
+      }
+    },
+    {
+      "id": "scenarios:AS-S04-09",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS064:p0043"
+      ],
+      "removed_in_bf16": [
+        "AS049:p0100"
+      ],
+      "added_in_bf16": [
+        "AS066:p0073"
+      ],
+      "reason": "공통 문맥은 둘째 사건의 청구액만 확인한다. 교체된 두 청구는 두 목표 사건에 해당하지 않는다.",
+      "context_sha256": {
+        "fp32": "2ca035ea4af6f044e56eb2b923ffa035b3277c294e2706eba537dbb3be8d99ca",
+        "bf16": "edea59259812b759e6fe3c9ce53a621a3055db0f6d994715fad560191ccad892"
+      }
+    },
+    {
+      "id": "scenarios:AS-S04-10",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS107:p0031",
+        "AS109:p0031",
+        "AS115:p0096"
+      ],
+      "removed_in_bf16": [
+        "AS109:p0002"
+      ],
+      "added_in_bf16": [
+        "AS014:p0143"
+      ],
+      "reason": "공통 문맥에서 첫 사건 반출일과 두 청구액을 찾았다. 둘째 사건의 실제 반출일은 두 조건 모두 없다.",
+      "context_sha256": {
+        "fp32": "a30422e740dcc4d67ca3ef8a1f9ed3839dfbfeed939974a3491269825339b4f9",
+        "bf16": "a6af5ea3762d3101ec3d845bc18b32b6c0452dbc1babd284e5d95679c6d0da31"
+      }
+    },
+    {
+      "id": "scenarios:AS-S04-11",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS074:p0150"
+      ],
+      "removed_in_bf16": [
+        "AS099:p0086"
+      ],
+      "added_in_bf16": [
+        "AS109:p0070"
+      ],
+      "reason": "둘째 사건의 유료일수·금액이 공통이다. 첫 사건의 유료일수와 금액을 확인할 청구가 없고 교체된 두 쪽은 다른 사건이다.",
+      "context_sha256": {
+        "fp32": "3c9e105516925afd209172a6fe43f7f26ac222cadda0e973f309bb9293e5c816",
+        "bf16": "1834b6f5ab77617a00a2a76f4ab9ff6522c2e343886f460e1bd3c56515bbff93"
+      }
+    },
+    {
+      "id": "scenarios:AS-S06-02",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS015:p0116"
+      ],
+      "removed_in_bf16": [
+        "AS064:p0065"
+      ],
+      "added_in_bf16": [
+        "AS119:p0135"
+      ],
+      "reason": "한 후보의 청구만 공통이다. 질문의 실제 반출일에 해당하는 복수 후보를 입증할 현장 기록은 두 조건 모두 없다.",
+      "context_sha256": {
+        "fp32": "b1610de2b1f397747345ee681289b2a47ba50ca55497fca321d81ebad22d857b",
+        "bf16": "a92f32195f28422fc871ab99d8022755b0399bb26364eeb7cb86b9df9d0b1508"
+      }
+    },
+    {
+      "id": "scenarios:AS-S06-06",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [],
+      "removed_in_bf16": [
+        "AS058:p0071"
+      ],
+      "added_in_bf16": [
+        "AS013:p0142"
+      ],
+      "reason": "양쪽 모두 질문의 두 사건에 해당하는 원본 연결이 없다. 같은 화주의 다른 날짜·수량의 비용 청구는 대체 근거가 아니다.",
+      "context_sha256": {
+        "fp32": "a976b32bbbfaf5e40fbdbc3ecd68ea149ba7eaab40c34c896cf0a0c5baff98d2",
+        "bf16": "307797713c501450cfacd971c9c1ab6b590992390939059f40f2fbc2a856e6e3"
+      }
+    },
+    {
+      "id": "semantic_queries:AS-SEM-05",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS013:p0032"
+      ],
+      "removed_in_bf16": [
+        "AS013:p0035"
+      ],
+      "added_in_bf16": [
+        "AS013:p0031"
+      ],
+      "reason": "공통 기록이 예정 통지를 인도 승인으로 쓰지 말고 실제 도착과 인도 가능 여부를 따로 확인해야 함을 뒷받침한다. 교체된 쪽도 같은 취지다.",
+      "context_sha256": {
+        "fp32": "f703252c01dff04df976e8319d4d22b1a0a6faa9e7b2e7cbf9fd1122663e5300",
+        "bf16": "51af585a67eb0015328f8e45e5db5f6bd59c67c35bd423e53cfba9ab8c14c475"
+      }
+    },
+    {
+      "id": "semantic_queries:AS-SEM-09",
+      "fp32": "sufficient",
+      "bf16": "sufficient",
+      "shared_evidence_pages": [
+        "AS053:p0050",
+        "AS055:p0039"
+      ],
+      "removed_in_bf16": [
+        "AS053:p0038"
+      ],
+      "added_in_bf16": [
+        "AS053:p0036"
+      ],
+      "reason": "공통 원문에서 승인된 일부만 청구에 배분하고 나머지를 미배분으로 보존하며 임의 공제하지 않는다고 확인했다.",
+      "context_sha256": {
+        "fp32": "d2dd8debbc0b96609945963623962b1d94b49644759a33efd66d3ebb22c7b702",
+        "bf16": "16f00a8f996646ac6b3fdc03742c8689cc320b53b78ecf4a22a48a1ada3de4c2"
+      }
+    },
+    {
+      "id": "semantic_queries:AS-SEM-22",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS009:p0023"
+      ],
+      "removed_in_bf16": [
+        "AS009:p0026"
+      ],
+      "added_in_bf16": [
+        "AS009:p0032"
+      ],
+      "reason": "공통 원문에서 중량 정정에 필요한 값과 단위를 확인할 수 있다. 장비 변경 창구·수정 확인서는 두 조건 모두 근거가 없다.",
+      "context_sha256": {
+        "fp32": "271e131713b9819b5dc91474b25353f84a6973b772c467d5eb259763bd1f84fd",
+        "bf16": "32afa7cf5427bc2073b9bb15cd28f5a0de074f6b11f67c2981953e1beb1711c5"
+      }
+    },
+    {
+      "id": "semantic_queries:AS-SEM-28",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS013:p0048",
+        "AS017:p0055"
+      ],
+      "removed_in_bf16": [
+        "AS033:p0004"
+      ],
+      "added_in_bf16": [
+        "AS007:p0056"
+      ],
+      "reason": "원문 대조가 필요하다는 공통 단서는 있다. 대상과 바뀐 항목의 인계 및 기존 예정일 보존은 어느 쪽에서도 모두 확인되지 않는다.",
+      "context_sha256": {
+        "fp32": "cbac8461e692d9c66f3d1ce53b8ec2255f3cb249974e7c319e98bec1fc6a4e70",
+        "bf16": "804d0897290987cef313715fb24add644dfd16b4407e4a7f32bba2e170e70898"
+      }
+    },
+    {
+      "id": "semantic_queries:AS-SEM-30",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS055:p0028",
+        "AS055:p0058",
+        "AS042:p0013"
+      ],
+      "removed_in_bf16": [
+        "AS006:p0003"
+      ],
+      "added_in_bf16": [
+        "AS006:p0063"
+      ],
+      "reason": "공통 문맥이 청구와 감액 승인 상태 구분은 뒷받침하지만 질문의 예약·현장·서류·청구·배분을 한 인계 범위로 모두 뒷받침하지 못한다. 교체된 정산은 다른 사례다.",
+      "context_sha256": {
+        "fp32": "3538a2aeb1bafd3c686e49dfcfb9153e31592ca5f689b1cf7a4d62f8c43793f5",
+        "bf16": "9ce3f6317c727df58949d5061e1ba863066d9b9c771747e1ae55a62045fea113"
+      }
+    },
+    {
+      "id": "semantic_queries:AS-SEM-33",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS024:p0019",
+        "AS017:p0044",
+        "AS030:p0027"
+      ],
+      "removed_in_bf16": [
+        "AS024:p0001"
+      ],
+      "added_in_bf16": [
+        "AS024:p0036"
+      ],
+      "reason": "공통 문맥은 무료기간의 최초 확정 기준과 변경 후 유지, 양하 시점에 요율을 고르는 방식을 보여준다. 2월 N1 대상의 새 요율 공지가 없어 적용을 확정하지 않았다. FP32에서만 남은 문서는 요율 공지가 아닌 무료기간 갱신 규칙이다.",
+      "context_sha256": {
+        "fp32": "e8de640b93cd236eb872ca51ea4bcbb396a609d262a938b78979346e1df18bc2",
+        "bf16": "c586745a3f49040bdaf08cef4fe4d92d8a7f0b24a57b1048cf48959baa3e0a0f"
+      }
+    },
+    {
+      "id": "semantic_queries:AS-SEM-35",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS001:p0028",
+        "AS017:p0039",
+        "AS017:p0042"
+      ],
+      "removed_in_bf16": [
+        "AS001:p0047",
+        "AS004:p0048"
+      ],
+      "added_in_bf16": [
+        "AS001:p0077",
+        "AS004:p0006"
+      ],
+      "reason": "일요율 계산 뒤 고정액 차감은 공통으로 확인한다. 질문의 개별 계약 무료기간이 기본표를 대체하는 조건은 양쪽 교체 문서에도 없다.",
+      "context_sha256": {
+        "fp32": "651df82fa8098b145f79b0c943faf0989023c120095ea5e75bd1f0443bfa572b",
+        "bf16": "883e4e9020452cf70ffdae49cf30f7e5844d836c0f9611077a39f1aff3d4b792"
+      }
+    },
+    {
+      "id": "semantic_queries:AS-SEM-39",
+      "fp32": "insufficient",
+      "bf16": "insufficient",
+      "shared_evidence_pages": [
+        "AS017:p0044",
+        "AS017:p0013"
+      ],
+      "removed_in_bf16": [
+        "AS017:p0038"
+      ],
+      "added_in_bf16": [
+        "AS017:p0042"
+      ],
+      "reason": "양하 시점 기준이 공통이지만 고객 추정과 공식 요율 근거의 구분은 두 조건에 없다. 교체 쪽은 계산 순서의 사례다.",
+      "context_sha256": {
+        "fp32": "2af89f1f46b2c25354d6c60e5d96b2c70edcba00ea7117f09c4f87591dd6cd9c",
+        "bf16": "d82dfb9dc2615ed5eaa9362ae35830eaa815ab27b9c95c6608f680579296db79"
+      }
+    }
+  ]
+}

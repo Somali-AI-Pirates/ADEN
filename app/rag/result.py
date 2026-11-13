@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Any
 
@@ -11,7 +12,7 @@ from app.generation.citations import resolve_citations
 from app.observability.records import compute_context_hash
 from app.rag.config import RETRIEVAL_MODE
 from app.rag.model import GeneratedAnswer, RagModelError
-from app.rag.models import RetrievalRun
+from app.rag.models import RetrievalRun, SearchResult
 from shared.contracts import AnswerStatus, Citation, QueryResponse
 
 
@@ -24,6 +25,96 @@ def _source(document: Document) -> dict[str, Any]:
 
 def _page_record(document: Document) -> dict[str, Any]:
     return {**_source(document), "chunk_id": document.metadata["unit_id"]}
+
+
+def _observation_source_ids(observation: dict[str, Any]) -> list[str]:
+    identifiers = []
+    for key in ("candidate_sources", "final_candidate_sources", "source_ids"):
+        values = observation.get(key)
+        if isinstance(values, list):
+            identifiers.extend(value for value in values if isinstance(value, str))
+    for passage in observation.get("passages") or []:
+        if isinstance(passage, dict) and isinstance(passage.get("source_id"), str):
+            identifiers.append(passage["source_id"])
+    for source in (observation.get("sql") or {}).get("sources", []):
+        if isinstance(source, dict):
+            book_id, page = source.get("book_id"), source.get("page")
+            if isinstance(book_id, str) and type(page) is int and page > 0:
+                identifiers.append(f"{book_id}:p{page:04d}")
+    result = []
+    seen = set()
+    for identifier in identifiers:
+        if identifier not in seen:
+            result.append(identifier)
+            seen.add(identifier)
+    return result
+
+
+def retrieval_observations_record(
+    observations: tuple[dict[str, Any], ...],
+    included_sql_results: tuple[dict[str, Any], ...],
+    searches: Sequence[SearchResult] = (),
+    initial_route: str | None = None,
+) -> dict[str, Any]:
+    """Persist actual tool-visible evidence separately from the selected top-20."""
+    items = []
+    all_source_ids = []
+    seen_source_ids = set()
+    for index, observation in enumerate(observations, 1):
+        source_ids = _observation_source_ids(observation)
+        for identifier in source_ids:
+            if identifier not in seen_source_ids:
+                all_source_ids.append(identifier)
+                seen_source_ids.add(identifier)
+        passages = [
+            dict(passage)
+            for passage in observation.get("passages", [])
+            if isinstance(passage, dict)
+        ]
+        passage_ids = {
+            passage["source_id"]
+            for passage in passages
+            if isinstance(passage.get("source_id"), str)
+        }
+        sql = observation.get("sql")
+        items.append(
+            {
+                "index": index,
+                "kind": observation.get("kind")
+                or (initial_route if index == 1 and initial_route else "unknown"),
+                "subquery": observation.get("subquery"),
+                "source_ids": source_ids,
+                "ids_only_source_ids": [
+                    identifier
+                    for identifier in source_ids
+                    if identifier not in passage_ids
+                ],
+                "passages": passages,
+                "record_resolution": observation.get("record_resolution"),
+                "tables": observation.get("tables", []),
+                "sql": sql,
+                "sql_in_final_context": bool(
+                    isinstance(sql, dict) and sql in included_sql_results
+                ),
+            }
+        )
+    return {
+        "schema": "retrieval-observations-v1",
+        "source_ids": all_source_ids,
+        "items": items,
+        "search_results": [
+            {
+                "index": index,
+                "kind": search.diagnostics.get("kind", "unknown"),
+                "source_ids": [page.metadata["source_id"] for page in search.pages],
+                "pages": [
+                    {**_page_record(page), "text": page.page_content}
+                    for page in search.pages
+                ],
+            }
+            for index, search in enumerate(searches, 1)
+        ],
+    }
 
 
 def validate_answer(
@@ -68,6 +159,12 @@ def retrieval_record(
         "retrieved_candidates": [
             {**_page_record(page), "text": page.page_content} for page in candidates
         ],
+        "retrieval_observations": retrieval_observations_record(
+            retrieval.observations,
+            evidence.sql_results,
+            retrieval.searches,
+            retrieval.diagnostics.get("initial_route"),
+        ),
         "final_context_chunks": chunks,
         "candidate_source_ids": list(evidence.candidate_source_ids),
         "final_source_ids": list(evidence.source_ids),

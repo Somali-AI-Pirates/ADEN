@@ -25,6 +25,18 @@ Judge 출력 스키마는 프롬프트와 별도로 `benchmark.judge_schema`에 
 
 - 2026-11-09: Judge·RAGAS 문맥에 청크 제목(`heading`)을 넣었다. 생성 모델은 제목을 보는데 채점기는 보지 못해, 화주·예약번호가 제목에만 있는 Advanced에서 근거 점수가 깎였다.
 - 2026-11-10: RAGAS 출력 한도를 8,192토큰으로 고정했다. 기본 1,024에서는 실제 답변의 주장 추출·검증 출력이 잘려 Faithfulness가 평가 불가(`IncompleteOutputException`)였다. Judge 입력은 바뀌지 않았다.
+- 2026-11-13: TableRAG 일괄 채점에서 인용문 없이 문서·쪽 번호만 적힌 근거는 실행 번들의 원문을 Judge 참고 기준에 추가한다. 기존 인용과 실제 최종 문맥은 각각 원래 역할을 유지한다. 보완에 사용한 번들의 페이지 지문은 게시 조건에 포함한다.
+
+
+## 현재 Faithfulness 평가 설정 (2026-11-13, 준비 중)
+
+이 절은 네 항목 Judge의 과거 버전을 바꾸지 않고, 별도 지표인 Ragas Faithfulness의 현재 실행 설정을 기록한다. 평가 코드는 준비 중이며 프롬프트 교정과 280문항 본 실행은 아직 하지 않았다. 이 설정의 실험 점수는 아직 없다.
+
+- `default` 프로필은 고정된 Ragas 0.4.3 기본 프롬프트와 출력 구조를 사용한다. `advanced` 프로필은 한국어 업무 기록 지침, 주장별 인용 후보와 최종 문맥에서의 인용 검증을 추가한다. TableRAG 평가 CLI의 기본값은 `advanced`이며 `--faithfulness-profile default`로 바꿀 수 있다. 두 프로필 모두 참고 정답을 Faithfulness 입력에 전달하지 않는다.
+- Ragas는 저장된 질문·답변·실제 최종 문맥으로 자체 주장을 추출하고 검증한다. Judge의 `has_factual_claims=false`는 Faithfulness를 생략시키지 않는다. Ragas 자체 추출 결과 유효한 사실 주장이 없을 때 `not_applicable`이다. 네 항목 Judge의 사실 점수와 Faithfulness 점수는 목적과 분모를 구분해 읽는다.
+- 평가 Judge와 Ragas 호출은 `max` reasoning effort를 요청한다. 첫 요청에서 API가 reasoning effort의 미지원 또는 권한 거부를 명시하면 `xhigh`로 한 번 낮추고 그 채점 세션 전체에서 고정한다. 다른 API 오류는 자동으로 effort를 바꾸는 근거가 아니다. 이미 한 effort로 평가를 시작한 뒤 다른 제한이 드러나면 점수마다 설정이 섞이지 않도록 중단한다. 요청·실제 effort와 fallback 사유는 manifest에 남긴다.
+- 주장별 검증 프롬프트, 추출된 주장, 인용·판정 세부는 로컬 채점 폴더의 `evaluation-details.jsonl`에 저장된다. 이 파일은 질문·답변·문서 인용을 포함할 수 있으므로 공유나 Git 커밋 대상이 아니다. 요약 점수 파일과 보고서는 상세 원문과 분리된다.
+- 현재 평가 준비는 최종 세트 280문항(페이지 근거가 있는 문항 258개와 `evidence_groups`가 없는 22개), 별도 분류 합계 180문항, 12개 합성 교정 사례를 대상으로 한다. 데이터 교정과 본 280문항 실행이 끝난 뒤에만 프로필의 실제 점수·호출량·지연을 기록한다. 미실행 결과를 과거 Judge 버전별 점수표에 섞지 않는다.
 
 ## 버전별 점수 변화
 

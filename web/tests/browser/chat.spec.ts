@@ -5,6 +5,28 @@ const id = "a".repeat(32);
 const response = { request_id: id, status: "answered", answer: "확인된 기록입니다.\n\n| 구분 | 상태 |\n| --- | --- |\n| 예약 | 확인 |", reason: "근거 확인", citations: [{ source_id: "S1", book_id: "AS001", file_name: "AS001.pdf", page: 2 }] };
 const event = (data: object) => `data: ${JSON.stringify(data)}\n\n`;
 
+test("request information opens the corresponding Langfuse trace", async ({ page }) => {
+  const traceUrl = "https://traces.example.test/project/team/traces/" + "b".repeat(32);
+  await page.route("**/api/query/stream", route => route.fulfill({
+    contentType: "text/event-stream", headers: { "X-Request-ID": id },
+    body: event({ type: "start", request_id: id }) +
+      event({ type: "final", request_id: id, response, trace_url: traceUrl }),
+  }));
+  await page.goto("/");
+  await page.getByRole("textbox", { name: "질문", exact: true }).fill("예약 확인");
+  await page.getByRole("button", { name: "질문 전송" }).click();
+  await page.getByText("요청 정보", { exact: true }).click();
+  await expect(page.locator(".request-details code")).toHaveText(id);
+  const traceLink = page.getByRole("link", { name: "Langfuse에서 보기" });
+  await expect(traceLink).toBeVisible();
+  await expect(traceLink).toHaveAttribute("href", traceUrl);
+  await expect(traceLink).toHaveAttribute("target", "_blank");
+  await page.context().route(traceUrl, route => route.fulfill({ body: "Trace detail" }));
+  const popup = page.waitForEvent("popup");
+  await traceLink.click();
+  await expect(await popup).toHaveURL(traceUrl);
+});
+
 test("formatted Korean answers keep working inline and card citations", async ({ page }) => {
   const citedResponse = {
     ...response,

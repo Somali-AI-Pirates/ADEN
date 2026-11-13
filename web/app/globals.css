@@ -393,6 +393,7 @@ a { color: var(--accent); }
 .request-details { min-width: 0; margin: 6px 2px 0 0; text-align: right; color: var(--muted); font-size: 12px; }
 .request-details summary { cursor: pointer; }
 .request-details code { overflow-wrap: anywhere; }
+.request-trace-link { display: block; margin-top: 4px; text-decoration: underline; }
 
 .latest-control {
   position: sticky;

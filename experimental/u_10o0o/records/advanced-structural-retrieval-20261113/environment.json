@@ -1,0 +1,21 @@
+{
+  "python": "3.13.15 (main, Aug 14 2026, 15:34:59) [Clang 22.1.3 ]",
+  "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "packages": {
+    "openai": "2.54.0",
+    "langchain-openai": "1.7.4",
+    "langchain-core": "1.7.6",
+    "langgraph": "1.2.20",
+    "sentence-transformers": "6.2.0",
+    "torch": "2.15.0",
+    "transformers": "5.22.1",
+    "numpy": "2.5.4",
+    "pydantic": "2.14.3",
+    "tiktoken": "0.14.0"
+  },
+  "uv_lock_sha256": "708f8de87519429328d040cf3dd68f4dd0b1d2fa5fd5fdb245a53866f0e30de8",
+  "pyproject_sha256": "49a530e266c1b26e846a3a810339d5fcc62c1307a396e0833629242cd1ea0cd3",
+  "recorded_during_run": true,
+  "runtime_code_revision": "92e8c038a432c334400619ff38e603be5d863c2e",
+  "credentials_recorded": false
+}

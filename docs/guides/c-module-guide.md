@@ -55,7 +55,68 @@ uv run --locked python -m app.evaluation.scripts.run_table_rag publish --grade-d
 
 참고답 없이 grade --ragas-model gpt-6-luna를 실행하면 Faithfulness를 계산한다. 참고답 기반 지표는 unavailable 사유로 표시한다. 참고답이 있으면 실제 실행 question_id에 해당하는 항목을 사용하며 SQL 기대값은 expected_sql_results의 columns와 rows에 기록한다.
 
+개발·추가·커스텀 문항을 일괄 채점하려면 run에 해당 세트의 질문 파일, grade에 같은 세트의 참고 파일을 지정한다. 위 run 예시에서 --ids를 빼면 해당 세트의 전체 문항을 실행한다. 문항 ID로 연결하므로 요청별 참고 파일을 따로 만들 필요가 없다. grade --judge-model을 실행하면 기존 인용문은 그대로 전달하고, 인용문 없이 book_id와 page만 있는 근거는 실행에 사용한 TableRAG 번들의 pages.json에서 본문을 읽어 Judge의 참고 기준에 추가한다. 번들을 옮겼으면 grade --data-directory로 그 위치를 지정한다. 페이지가 없거나 번들 지문이 일치하지 않으면 채점 전에 오류를 표시한다. 보완에 사용한 페이지 파일의 지문은 채점 manifest에 기록한다.
+
+참고 페이지는 Judge의 참고 기준으로만 전달된다. 근거·인용·검산 평가는 서비스가 실제 사용한 최종 문맥을 기준으로 하며, Faithfulness도 같은 최종 문맥을 사용한다. 실행·참고 파일은 그대로 두고 새 채점 폴더에 결과를 저장한다. grade --publish-langfuse-scores로 채점 후 원래 trace에 점수를 게시할 수 있다.
+
 단일 Swagger 실행을 기존 데이터셋 질문과 연결할 때는 --reference-id AS-DEV01처럼 지정한다. 이 옵션은 저장된 질문을 다시 실행하지 않고 채점 ID만 연결하므로 실제 질문이 같은지 먼저 확인한다.
+
+
+## 최종 Advanced 평가 세트 준비
+
+**상태: 평가 코드와 집계 경로를 준비 중이며, 실제 프롬프트 교정과 280문항 실행은 아직 하지 않았다. 아래에는 결과 점수를 적지 않는다.** 질문과 참고 파일은 [`final_benchmark_questions.json`](../../data/advanced/evaluation/final_benchmark_questions.json)과 [`final_benchmark.json`](../../data/advanced/evaluation/final_benchmark.json)이며, ID로 연결한다. 최종 벤치마크는 각 질문을 한 번만 집계한다.
+
+| 구분 | 문항 수 |
+| --- | ---: |
+| Development | 30 |
+| Additional | 30 |
+| 시나리오 1–7 | 140 |
+| 부정 대조군(시나리오 8) | 20 |
+| 업무 규정 | 20 |
+| Custom S · Custom M | 각 20 |
+| **합계** | **280** |
+
+여기서 **카테고리 180문항**은 시나리오 1–8의 160문항과 업무 규정 20문항이다. Development, Additional, Custom S/M은 이 180문항에 다시 더하지 않고 별도 집계한다. 280개 중 258개에는 페이지 정답인 `evidence_groups`가 있고, 22개(AS-DEV12, AS-ADD12, AS-S08-01–20)에는 없다. 이 22개는 페이지 근거 충족률의 분모에서 제외하고 별도 건수를 표시한다. 보안 과제 두 개는 DEV14·ADD13의 질문을 재사용하므로 이 벤치마크에 섞지 않고 별도로 평가한다.
+
+먼저 전체 답변을 저장하고, 저장이 끝난 뒤 동일 실행을 채점한다. `--resume`은 중단된 기존 ID를 같은 입력·설정으로 이어갈 때만 사용한다. 새 실행이나 채점에는 새 ID를 사용한다. 답변 재개는 이미 저장된 문항 결과를 재사용한다. 다만 `generation-inflight.json`에 요청 전송 후 저장되지 않은 문항이 있으면 자동 재호출을 거부하므로, 기록된 요청을 확인·복구해야 한다. 채점 재개는 문항 단위로 완료된 체크포인트를 재사용하지만, 현재 문항의 저장 전 중단으로 일부 Judge/Ragas 호출이 다시 실행될 수 있어 API 과금의 정확히 한 번 실행을 보장하지 않는다.
+
+```bash
+RUN_ID="advanced-final-$(date +%Y%m%d-%H%M%S)"
+uv run --locked python -m app.evaluation.scripts.run_table_rag run \
+    --questions data/advanced/evaluation/final_benchmark_questions.json \
+    --experiment-id "$RUN_ID"
+
+# 답변 실행이 중단된 경우에만, 같은 ID로 재개한다.
+uv run --locked python -m app.evaluation.scripts.run_table_rag run \
+    --questions data/advanced/evaluation/final_benchmark_questions.json \
+    --experiment-id "$RUN_ID" --resume
+
+RUN_DIR="artifacts/experiments/table-rag/$RUN_ID"
+GRADE_ID="advanced-final-grade-01"
+# 독립 검수가 끝나 sidecar가 accepted 상태가 된 뒤에만 채점을 실행한다.
+uv run --locked --extra eval python -m app.evaluation.scripts.run_table_rag grade \
+    --run-directory "$RUN_DIR" \
+    --references data/advanced/evaluation/final_benchmark.json \
+    --grade-id "$GRADE_ID" --judge-model gpt-6-luna --ragas-model gpt-6-luna \
+    --derived-facts artifacts/experiments/advanced-final-benchmark-20261113-preparation/custom-required-facts.json \
+    --faithfulness-profile advanced --diagnose-failures --final-benchmark-report
+
+# 채점이 중단된 경우에만, 같은 ID와 같은 옵션으로 재개한다.
+uv run --locked --extra eval python -m app.evaluation.scripts.run_table_rag grade \
+    --run-directory "$RUN_DIR" \
+    --references data/advanced/evaluation/final_benchmark.json \
+    --grade-id "$GRADE_ID" --resume --judge-model gpt-6-luna --ragas-model gpt-6-luna \
+    --derived-facts artifacts/experiments/advanced-final-benchmark-20261113-preparation/custom-required-facts.json \
+    --faithfulness-profile advanced --diagnose-failures --final-benchmark-report
+```
+
+`--derived-facts`는 질문과 참고답만으로 별도 작성한 Custom S/M 필수 사실 파일을 읽는다. 파일은 원본 참고 파일 해시와 일치하고 독립 검토가 끝난 뒤에만 사용한다. 현재 준비 파일은 `draft` 상태이므로 채점에 넘기지 않는다. 원본 참고 파일은 수정하지 않으며 sidecar 해시를 manifest에 남긴다. `--final-benchmark-report`는 채점 폴더의 `final-benchmark/`에 전체·카테고리별 집계와 문항별 추적표를 만든다. `--diagnose-failures`는 저장된 검색 단계에서 근거가 처음 빠진 위치를 추적한다. 두 기능은 점수 결과를 미리 만들지 않는다. 실제 팀 평가를 시작하기 전에는 API 사용량·비용과 중단 기준을 확인한다.
+
+Faithfulness는 4축 Judge와 별도로, 질문·저장 답변·실제 최종 문맥을 평가한다. **Judge의 `has_factual_claims`가 `false`여도 Faithfulness를 건너뛰지 않는다.** Ragas가 자체적으로 사실 주장을 추출한 결과 유효한 주장이 없을 때만 `not_applicable`로 기록한다. `default` 프로필은 Ragas 기본 프롬프트·출력 구조를 사용하고, `advanced`는 한국어 업무 기록 지침과 주장별 인용 근거 검증을 추가한다. CLI의 기본 프로필은 `advanced`이며 `--faithfulness-profile default`로 바꿀 수 있다. 둘 다 참고 정답을 Faithfulness 입력에 넣지 않는다.
+
+평가 모델 호출은 `reasoning_effort=max`를 요청한다. API가 **처음부터** 해당 reasoning effort를 지원하지 않거나 허용하지 않는다고 명시적으로 거절하면 `xhigh`로 한 번 전환하고 해당 채점 세션에서 고정한다. 그 외 오류는 effort 변경 사유로 보지 않으며, 세션 도중 이미 고정된 effort가 거절되면 정책을 섞지 않고 평가를 중단한다. 실제 적용 effort와 전환 사유는 채점 manifest에 기록된다. 이 설정은 Judge·Ragas 평가 호출에 적용되며 답변 생성 설정과는 별도다.
+
+주장별 원문 인용, 검증 프롬프트와 판정 세부는 실행 폴더의 `grades/<채점 ID>/evaluation-details.jsonl`에 로컬 상세 기록으로 저장된다. `scores.jsonl`과 보고서에는 이 상세 원문을 복사하지 않는다. 이 파일에는 평가 입력과 문서 내용이 들어갈 수 있으므로 로컬에서만 보관하고 Git에 커밋하거나 외부로 공유하지 않는다.
 
 참고답 예시는 다음과 같다. Swagger의 question_id에는 응답의 request_id를 넣는다. 답변을 실행한 뒤 독립적으로 준비한 기대값과 원본 출처를 적는다.
 
@@ -71,7 +132,7 @@ Langfuse 점수는 원래 실행 trace에 연결된다. 재게시에는 첫 게�
 | --- | --- |
 | Hit@k · Recall@k | `evidence_groups`의 고유 문서와 실제 최종 문맥의 상위 k개 청크 문서를 비교한다. 근거 문서가 없으면 해당 없음, 빈 문맥이면 0, 실행 실패로 문맥을 모르면 평가 불가다 |
 | 근거 누락 진단 | `evidence_groups`의 쪽 단위 근거가 검색 후보, 최종 문맥 중 어디서 빠졌는지 센다(`candidate_page_recall`, `final_page_recall`, `context_lost_page_recall`). `budget_lost_page_recall`은 토큰 예산으로 제외한 ID가 기록된 경우만 센다. Recall@k는 문서 단위라 쪽 단위 진단보다 높게 나올 수 있다 |
-| Faithfulness | 질문, 생성 출력과 실제 최종 청크를 평가한다. 청크는 생성 모델 문맥처럼 제목(`heading`)을 본문 앞에 붙인다. 사실 주장이 없으면 해당 없음, 문맥 없이 사실을 주장하면 0, 평가기 오류는 평가 불가다 |
+| Faithfulness | 질문, 생성 출력과 실제 최종 청크를 평가한다. 청크는 생성 모델 문맥처럼 제목(`heading`)을 본문 앞에 붙인다. Judge의 `has_factual_claims`와 독립적으로 Ragas가 주장을 추출하며, Ragas가 유효한 사실 주장을 찾지 못하면 해당 없음, 문맥 없이 사실을 주장하면 0, 평가기 오류는 평가 불가다 |
 | Judge | 사실·조건·근거·판단을 각각 0/1과 이유로 기록한다. 최종 청크는 제목을 포함해 전달한다. 서비스 오류는 판단 0, 다른 항목은 평가 불가다. `has_factual_claims`와 네 항목의 status·score·reason이 빠지거나 맞지 않으면 네 항목을 모두 평가 불가로 두고 구조 오류를 사유에 남긴다(일부 항목만 골라 쓰지 않음). 기준 버전과 변경 이력은 [채점 기준 이력](judge-rubric.md)에 남긴다 |
 | 검산 진단 | 공식 점수가 아니라 Judge의 대상별 진단 `calculation_checks`(complete/incomplete/not_applicable/unavailable, `missing_evidence`, 실제 문맥의 `supporting_source_ids`)다. 계산·검산을 요구하지 않는 질문은 not_applicable, 요청받은 검산을 못 했으면 incomplete, 진단 자체를 못 했으면 unavailable이다. 근거 ID가 문맥에 없거나 상태와 배열이 모순되면 진단만 평가 불가로 두고 네 점수는 유지한다. 보고서에는 상태별 건수, `comparison.csv`에는 대상별 내역이 남는다. Langfuse에는 게시하지 않는다 |
 | 평균·운영 지표 | `scored`만 평균하며 0점은 포함한다. `not_applicable`·`unavailable`은 건수를 따로 센다. 오류율은 `error` 요청만 세며 서비스 시간·토큰과 평가기 사용량은 분리한다 |
@@ -86,7 +147,7 @@ python -m app.evaluation.scripts.regrade --source <원본 실험 ID> --reference
 ```
 
 - 원본 폴더는 수정하지 않고 새 실험 ID(기본 `<원본 ID>-regrade-<시각>`)로 저장한다. manifest의 `regrade`에 원본 ID·원본 Judge와 프롬프트 해시를, `benchmark.judge_prompt`에 새 프롬프트 해시를 남긴다.
-- 검색 지표는 원본 `k`로 다시 계산한다. Faithfulness는 `--ragas-model`이 없으면 원본 점수를 옮긴다. 원본 점수의 적용 여부는 원본 Judge의 `has_factual_claims`로 정해졌으므로, 새 Judge 판단과 맞춰야 하면 `--ragas-model`로 다시 계산한다.
+- 검색 지표는 원본 `k`로 다시 계산한다. Faithfulness는 `--ragas-model`이 없으면 원본 점수와 상태를 그대로 옮긴다. `--ragas-model`을 지정하면 Ragas가 저장된 질문·답변·최종 문맥을 독립적으로 다시 평가하며, Judge의 `has_factual_claims` 값은 평가 여부를 결정하지 않는다.
 - 채점이 끝나면 게시 전에 manifest와 `scores.jsonl`을 저장하고, 게시 뒤에 게시 상태와 점수 ID를 다시 저장한다. 게시가 실패하거나 중단돼도 채점 결과가 남는다.
 - 답변 규칙(생성 프롬프트)·검색 설정이 바뀌면 답변이 달라지므로 재채점이 아니라 `run_benchmark`로 새로 실행한다.
 - 가상 샘플 기록은 모의 Judge로만 재채점한다: `python -m app.evaluation.scripts.regrade --source <sample-ID> --references app/evaluation/samples/sample_eval.json`
@@ -163,3 +224,7 @@ python -m app.evaluation.scripts.regrade --source <HTTP 실험 ID>-records --ref
 - 같은 PC의 API와 평가 CLI는 실행 기록·trace의 `config_hash`로 대조할 수 있다. PC 사이에는 실행 커밋, `prompt_hash`, `final_context_hash`·`model_context_hash`와 함께 생성 모델, `reasoning_effort`, `max_output_tokens`, `model_timeout_seconds`, `generation_max_attempts`, `retrieval.k`, `context_token_budget`을 직접 비교한다. 해시 몇 개가 같다고 실행 조건 전체가 같은 것은 아니다.
 - 실행 명령, 질문·정답 파일과 색인 manifest의 SHA-256, 컬렉션, 유효 설정·프롬프트·의존성 버전, [시간 측정 범위](../design/contracts.md#기록-형식과-측정-범위)를 결과에 보충한다. 미커밋 코드로 실행했다면 해당 diff도 남긴다. 확인되지 않은 토큰은 `null`이다.
 - 전체 실행 기록은 `artifacts/experiments/<id>/`에, 선별한 공식 비교·제출 자료는 `reports/<id>/`에 둔다. 조건이 바뀌면 새 실험 ID로 저장한다. 제출 시 실제 실행 커밋을 태그하고 결과를 프로젝트 소개와 팀 작업에 연결한다.
+
+### 최종 벤치의 연결 표본 먼저 저장
+
+run 명령에 --stop-after 3을 붙이면 전체 질문 목록은 고정한 채 처음 세 답변만 저장하고 정상 종료한다. 상태는 partial이며 채점할 수 없다. 같은 experiment-id로 --resume을 실행하면 저장한 세 답변을 재사용하고 나머지를 이어간다. 이 연결 표본을 따로 재생성하지 않는다. 답변 생성 도중 입력 지문이 바뀌면 재개를 거절한다.

@@ -1,0 +1,25 @@
+{
+  "run_count": 1900,
+  "arms": {
+    "S": 380,
+    "V": 380,
+    "P": 380,
+    "R": 380,
+    "A": 380
+  },
+  "bounds_passed": true,
+  "max_context_tokens": 7269,
+  "fixed_candidate_comparisons": 760,
+  "V_literal_fragments_verified": 16902,
+  "execution_errors": 0,
+  "graph_terminations": {
+    "finished": 1139,
+    "planner_timeout": 1
+  },
+  "non_hybrid_source_groups": {
+    "records": 613,
+    "sql": 4,
+    "tables": 11
+  },
+  "answer_model_calls": 0
+}

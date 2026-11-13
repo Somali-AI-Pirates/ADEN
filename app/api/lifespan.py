@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from app.api.trace_links import load_trace_link_prefix
 from app.rag.config import load_table_rag_settings
 from shared.exceptions import ServiceError
 
@@ -25,6 +26,7 @@ async def lifespan(app: FastAPI):
     settings = load_table_rag_settings()
     app.state.settings = settings
     app.state.table_service = None
+    app.state.trace_link_prefix = None
     app.state.readiness_reason = "검색과 답변 생성 기능을 준비하고 있습니다."
 
     table_service = None
@@ -53,9 +55,12 @@ async def lifespan(app: FastAPI):
         app.state.table_service = table_service
 
     try:
+        if getattr(getattr(table_service, "langfuse", None), "enabled", False):
+            app.state.trace_link_prefix = await load_trace_link_prefix(settings)
         yield
     finally:
         app.state.table_service = None
+        app.state.trace_link_prefix = None
         app.state.settings = None
         if table_service is not None:
             await table_service.aclose()

@@ -1,0 +1,64 @@
+{
+  "unique_contexts": 53,
+  "scored_outputs": 174,
+  "raw_invalid_quote_contexts": 5,
+  "manual_contexts": 8,
+  "manual_affected_outputs": 26,
+  "claim_status_changes": [
+    {
+      "review_key": "4bbae7fa934411cceffb30fbb9949122707457b9d4fc31a74f468be2cf2c7330",
+      "runs": [
+        "r2-B-AS-ADD06"
+      ],
+      "requirement_id": "R2",
+      "before": "missing",
+      "after": "supported",
+      "reason": "동일 표의 요청 업무·담당·연락 창구 열과 서술을 함께 읽는다. 장비 식별자가 이메일 중간에 끼인 추출 형태지만 주소 조각과 업무의 연결은 명확하다. 연속 문자열로 완성 이메일이 없다는 이유만으로 누락 처리하지 않는다. 모든 ADD06 출력에 같은 기준을 적용."
+    },
+    {
+      "review_key": "4bbae7fa934411cceffb30fbb9949122707457b9d4fc31a74f468be2cf2c7330",
+      "runs": [
+        "r2-B-AS-ADD06"
+      ],
+      "requirement_id": "R1",
+      "before": "supported",
+      "after": "missing",
+      "reason": "AS007:p0019는 다른 사건의 VGM 접수 확인 담당 연락처다. 최초 제출 창구와 11월 5일·20GP 적용 조건을 뒷받침하지 않는다. 같은 최종 문맥의 나머지 쪽에도 그 규정은 없다. 연락처 값의 일치만으로 날짜·업무 범위가 같은 근거로 인정하지 않는다."
+    },
+    {
+      "review_key": "9c20156e71b8af239385010fc93eb6ba012f6c4e686bc9171065a67c149e42b7",
+      "runs": [
+        "r3-A-AS-ADD06"
+      ],
+      "requirement_id": "R2",
+      "before": "missing",
+      "after": "supported",
+      "reason": "동일 표의 요청 업무·담당·연락 창구 열과 서술을 함께 읽는다. 장비 식별자가 이메일 중간에 끼인 추출 형태지만 주소 조각과 업무의 연결은 명확하다. 연속 문자열로 완성 이메일이 없다는 이유만으로 누락 처리하지 않는다. 모든 ADD06 출력에 같은 기준을 적용."
+    },
+    {
+      "review_key": "bd1fe88c94e9a64ce91800fabfc6c3328e95a7851d37988cfd62660678143a39",
+      "runs": [
+        "r3-B-AS-ADD06"
+      ],
+      "requirement_id": "R3",
+      "before": "supported",
+      "after": "missing",
+      "reason": "SI가 포장을 포함하는 화물 총중량을 사용하고 순중량과 별도라는 부분은 지원된다. 그러나 반환한 쪽은 순중량이 포장 제외라는 정의를 직접 주지 않는다. 다른 최종 쪽에도 그 정의가 없어 고정 R3 전체를 충족하지 못한다. 같은 AS009:p0021/p0023을 가진 r1-B에도 같은 기준을 적용하며 외부 상식으로 보충하지 않는다."
+    }
+  ],
+  "usage": {
+    "input_tokens": 285016,
+    "output_tokens": 29161
+  },
+  "by_arm": {
+    "A": {
+      "raw_model_all_supported": 83,
+      "raw_pending_quote_check": 13
+    },
+    "B": {
+      "raw_model_all_supported": 84,
+      "raw_pending_quote_check": 10
+    }
+  },
+  "manual_claim_changes": 9
+}

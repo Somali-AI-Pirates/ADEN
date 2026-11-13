@@ -12,6 +12,7 @@ from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from app.api.errors import query_error
+from app.api.trace_links import completed_trace_url
 from app.rag.admission import (
     RequestBusyError,
     RequestDeadlineExceeded,
@@ -155,6 +156,7 @@ async def query_stream(payload: ChatRequest, request: Request) -> StreamingRespo
             conversation_history=payload.history,
             request_id=request_id,
             reservation=reservation,
+            trace_link_prefix=getattr(request.app.state, "trace_link_prefix", None),
         ),
         media_type="text/event-stream",
         reservation=reservation,
@@ -173,6 +175,7 @@ async def _stream_query_events(
     request_id: str,
     reservation: RequestReservation,
     conversation_history: tuple[ConversationTurn, ...] = (),
+    trace_link_prefix: str | None = None,
 ) -> AsyncIterator[str]:
     """Send queued SSE events and clean up the request task on exit."""
     queue: asyncio.Queue[dict] = asyncio.Queue(maxsize=64)
@@ -188,6 +191,7 @@ async def _stream_query_events(
             reservation=reservation,
             event_sink=event_sink,
             conversation_history=conversation_history,
+            trace_link_prefix=trace_link_prefix,
         )
     )
     try:
@@ -271,6 +275,7 @@ async def _produce_query_events(
     reservation: RequestReservation,
     event_sink: EventSink,
     conversation_history: tuple[ConversationTurn, ...] = (),
+    trace_link_prefix: str | None = None,
 ) -> None:
     """Run one reserved request and emit its final response or error."""
     try:
@@ -284,12 +289,12 @@ async def _produce_query_events(
         )
         if result.response.request_id != request_id:
             raise RagModelError("Mismatched request identity")
-        await event_sink(
-            {
-                "type": "final",
-                "response": result.response.model_dump(mode="json"),
-            }
-        )
+        final = {"type": "final", "response": result.response.model_dump(mode="json")}
+        if trace_link_prefix:
+            trace_url = completed_trace_url(trace_link_prefix, result.trace)
+            if trace_url:
+                final["trace_url"] = trace_url
+        await event_sink(final)
     except asyncio.CancelledError:
         raise
     except Exception as error:

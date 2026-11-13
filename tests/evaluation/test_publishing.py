@@ -128,3 +128,28 @@ def test_http_score_namespace_includes_server_config_snapshot(tmp_path):
         plan_publication(
             different, evaluation_set="http-v1", artifacts_dir=tmp_path, request_ids=["r3"]
         )
+
+
+def test_fresh_and_resumed_effort_share_publication_conditions():
+    from app.evaluation.publishing import conditions
+    fresh = {"config_hash": "same", "benchmark": {
+        "evaluation_policy": {"reasoning_effort": "max"},
+        "evaluation_effective": {"effective_reasoning_effort": "xhigh",
+                                 "fallback_reason": "requested_reasoning_effort_denied"},
+        "evaluator_code_sha256": "code", "evaluator_inputs_sha256": "run-one",
+    }}
+    resumed = {"config_hash": "same", "benchmark": {
+        **fresh["benchmark"],
+        "evaluation_effective": {"effective_reasoning_effort": "xhigh",
+                                 "fallback_reason": "restored_from_manifest"},
+        "evaluator_inputs_sha256": "run-two",
+    }}
+    assert conditions(fresh) == conditions(resumed)
+    resumed["benchmark"]["evaluation_effective"]["effective_reasoning_effort"] = "max"
+    assert conditions(fresh) != conditions(resumed)
+
+
+def test_explicit_reference_mapping_changes_publication_conditions():
+    from app.evaluation.publishing import conditions
+    assert conditions({"config_hash": "same", "benchmark": {"reference_id": "one"}}) != conditions(
+        {"config_hash": "same", "benchmark": {"reference_id": "two"}})

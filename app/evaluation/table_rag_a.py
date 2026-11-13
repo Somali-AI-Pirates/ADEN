@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import json
+import os
 import time
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
@@ -16,6 +17,11 @@ from app.rag.config import resolve_project_path
 from typing import Any, Protocol
 
 from app.evaluation.dataset import load_questions, load_references
+from app.evaluation.checkpoints import (
+    assert_inputs_unchanged, atomic_json, digest_json, evaluator_files, evaluation_lock,
+    fingerprint_files, load_grade_checkpoint, runtime_files, save_grade_checkpoint,
+    validate_run_prefix,
+)
 from app.evaluation.table_rag_metrics import table_rag_metrics
 from app.evaluation.graders import (
     CRITERIA,
@@ -28,7 +34,8 @@ from app.evaluation.graders import (
     make_ragas_faithfulness,
 )
 from app.evaluation.publishing import publish_evaluation_scores
-from app.evaluation.report import write_artifacts, write_json, write_report
+from app.evaluation.reference_context import attach_reference_pages
+from app.evaluation.report import write_artifacts, write_report
 from app.evaluation.runner import grade_all
 from app.evaluation.metrics import evidence_diagnostics, retrieval_metrics, score
 from app.evaluation.scripts._common import base_manifest, load_env, now_id, sha256_file
@@ -110,6 +117,7 @@ def _failure_record(
         "config_hash": config_hash,
         "question": question,
         "retrieved_candidates": metadata.get("retrieved_candidates"),
+        "retrieval_observations": metadata.get("retrieval_observations"),
         "final_context_chunks": metadata.get("final_context_chunks"),
         "final_context_hash": metadata.get("final_context_hash"),
         "model_context_text": metadata.get("model_context_text"),
@@ -236,7 +244,10 @@ def read_jsonl(path: str | Path) -> list[dict[str, Any]]:
     with Path(path).open(encoding="utf-8") as stream:
         for line_number, line in enumerate(stream, start=1):
             if line.strip():
-                row = json.loads(line)
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError:
+                    raise ValueError(f"{path}:{line_number}: incomplete saved row; recover the saved request before resuming") from None
                 if not isinstance(row, dict):
                     raise ValueError(f"{path}:{line_number}: expected a JSON object")
                 rows.append(row)
@@ -251,13 +262,52 @@ async def run_questions(
     dataset_id: str,
     config_hash: str,
     output_path: Path,
+    resume: bool = False,
+    input_guard=None,
+    stop_after: int | None = None,
 ) -> list[dict[str, Any]]:
     """Run only on question text and append each result before the next request."""
+    if stop_after is not None and stop_after < 1:
+        raise ValueError("stop_after must be positive")
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    records = []
-    with output_path.open("x", encoding="utf-8") as stream:
-        for question in questions:
+    records = read_jsonl(output_path) if resume and output_path.exists() else []
+    validate_run_prefix(records, questions, experiment_id=experiment_id, config_hash=config_hash)
+    # A complete last JSON object may survive a crash without its newline.
+    # Repair only that separator after parsing every saved row successfully.
+    if resume and output_path.exists() and output_path.stat().st_size:
+        with output_path.open("rb") as existing:
+            existing.seek(-1, os.SEEK_END)
+            needs_separator = existing.read(1) != b"\n"
+        if needs_separator:
+            with output_path.open("ab") as existing:
+                existing.write(b"\n")
+                existing.flush()
+                os.fsync(existing.fileno())
+    pending_path = output_path.with_name("generation-inflight.json")
+    if pending_path.exists():
+        pending = json.loads(pending_path.read_text(encoding="utf-8"))
+        completed = any(row["request_id"] == pending.get("request_id") for row in records)
+        if not completed:
+            raise ValueError(
+                "An interrupted generation has an uncertain outcome. Inspect the saved "
+                "request identified in generation-inflight.json before retrying; "
+                "automatic replay could charge for the same question twice."
+            )
+        pending_path.unlink()
+    mode = "a" if resume and output_path.exists() else "x"
+    with output_path.open(mode, encoding="utf-8") as stream:
+        remaining = questions[len(records):]
+        if stop_after is not None:
+            remaining = remaining[:stop_after]
+        for question in remaining:
+            if input_guard is not None:
+                input_guard()
             request_id = uuid.uuid4().hex
+            atomic_json(pending_path, {
+                "question_id": question["id"], "request_id": request_id,
+                "experiment_id": experiment_id, "config_hash": config_hash,
+                "state": "outcome_uncertain_until_saved",
+            })
             started = time.perf_counter()
             try:
                 result = await service.ainvoke(
@@ -286,11 +336,16 @@ async def run_questions(
                     latency_ms=round((time.perf_counter() - started) * 1000),
                     metadata=getattr(exc, "rag_metadata", None),
                 )
+            if input_guard is not None:
+                input_guard()
             stream.write(
                 json.dumps(record, ensure_ascii=False, default=_json_default) + "\n"
             )
             stream.flush()
+            os.fsync(stream.fileno())
             records.append(record)
+            pending_path.unlink()
+            print(f"Saved {len(records)}/{len(questions)}: {question['id']} ({record['status']})", flush=True)
     return records
 
 
@@ -301,6 +356,7 @@ def grade_saved_runs(
     k: int = 8,
     judge_fn: JudgeFn | None = None,
     faithfulness_fn: FaithfulnessFn | None = None,
+    diagnose_fn: JudgeFn | None = None,
 ) -> list[dict[str, Any]]:
     if references is not None:
         graded = grade_all(
@@ -309,6 +365,7 @@ def grade_saved_runs(
             k=k,
             judge_fn=judge_fn,
             faithfulness_fn=faithfulness_fn,
+            diagnose_fn=diagnose_fn,
         )
         for record, result in zip(records, graded, strict=True):
             result["table_rag_metrics"] = table_rag_metrics(
@@ -324,6 +381,7 @@ def grade_saved_runs(
         faithfulness, faithfulness_usage = grade_faithfulness(
             record, has_claims=None, faithfulness_fn=faithfulness_fn
         )
+        details = faithfulness_usage.pop("_details", {}) if faithfulness_usage else {}
         no_reference: dict[str, Any] = {}
         graded.append(
             {
@@ -342,12 +400,21 @@ def grade_saved_runs(
                 "grading_usage": {"judge": None, "faithfulness": faithfulness_usage},
                 "table_rag_metrics": table_rag_metrics(no_reference, record, k=k),
                 "reference_status": "not_provided",
+                "evaluation_details": {"faithfulness": details},
             }
         )
     return graded
 
 
 def _run_command(args: Any) -> None:
+    if getattr(args, "resume", False) and not args.experiment_id:
+        raise SystemExit("--resume requires the original --experiment-id")
+    args.experiment_id = args.experiment_id or now_id("table-rag")
+    with evaluation_lock(resolve_project_path(args.artifacts_dir), args.experiment_id):
+        _run_command_locked(args)
+
+
+def _run_command_locked(args: Any) -> None:
     from app.rag.config import load_table_rag_settings
     from app.rag.bootstrap import load_service
 
@@ -371,7 +438,17 @@ def _run_command(args: Any) -> None:
     artifact_dir = (artifact_root / experiment_id).resolve()
     if artifact_dir.parent != artifact_root:
         raise SystemExit("Experiment output must be inside the artifacts directory")
-    artifact_dir.mkdir(parents=True, exist_ok=False)
+    resume = getattr(args, "resume", False)
+    if resume and not args.experiment_id:
+        raise SystemExit("--resume requires the original --experiment-id")
+    previous = None
+    if resume:
+        previous_path = artifact_dir / "manifest.json"
+        if not previous_path.is_file():
+            raise SystemExit("The run to resume has no manifest")
+        previous = json.loads(previous_path.read_text(encoding="utf-8"))
+    else:
+        artifact_dir.mkdir(parents=True, exist_ok=False)
 
     manifest = base_manifest(
         experiment_id=experiment_id,
@@ -390,16 +467,40 @@ def _run_command(args: Any) -> None:
         "question_ids": [question["id"] for question in questions],
         "run_status": "running",
     }
-    write_json(artifact_dir / "manifest.json", manifest)
+    public_settings = settings.public_manifest()
+    frozen_inputs = fingerprint_files([*runtime_files(), questions_path, corpus_manifest_path])
+    if previous is not None:
+        old = previous.get("table_rag") or {}
+        if (old.get("questions_sha256") != manifest["table_rag"]["questions_sha256"]
+                or old.get("question_ids") != manifest["table_rag"]["question_ids"]
+                or old.get("runtime_settings") != public_settings
+                or old.get("frozen_inputs") != frozen_inputs):
+            raise SystemExit("Run inputs changed; use a new experiment ID")
+        manifest = previous
+    manifest["table_rag"]["frozen_inputs"] = frozen_inputs
+    manifest["table_rag"]["runtime_settings"] = public_settings
+    manifest["table_rag"]["run_status"] = "running"
+    atomic_json(artifact_dir / "manifest.json", manifest)
+
+    def input_guard():
+        assert_inputs_unchanged(frozen_inputs)
+        current = load_table_rag_settings(
+            data_directory=args.data_directory, config_path=getattr(args, "config", None)
+        )
+        if current.public_manifest() != public_settings:
+            raise ValueError("Runtime settings changed during the frozen benchmark")
 
     async def run() -> None:
         service = None
         try:
             service = await load_service(settings=settings)
-            manifest["service"] = dict(getattr(service, "manifest", {}))
+            service_manifest = dict(getattr(service, "manifest", {}))
+            if previous is not None and manifest.get("service") != service_manifest:
+                raise ValueError("Service/data/model fingerprint changed; start a new run")
+            manifest["service"] = service_manifest
             run_config_hash = getattr(service, "config_hash", config_hash)
             manifest["config_hash"] = run_config_hash
-            write_json(artifact_dir / "manifest.json", manifest)
+            atomic_json(artifact_dir / "manifest.json", manifest)
             records = await run_questions(
                 questions,
                 service,
@@ -407,8 +508,13 @@ def _run_command(args: Any) -> None:
                 dataset_id=dataset_id,
                 config_hash=run_config_hash,
                 output_path=artifact_dir / "runs.jsonl",
+                resume=resume,
+                input_guard=input_guard,
+                stop_after=getattr(args, "stop_after", None),
             )
-            manifest["table_rag"]["run_status"] = "complete"
+            manifest["table_rag"]["run_status"] = (
+                "complete" if len(records) == len(questions) else "partial"
+            )
             manifest["table_rag"]["run_count"] = len(records)
             manifest["table_rag"]["error_count"] = sum(
                 record["status"] == "error" for record in records
@@ -422,13 +528,21 @@ def _run_command(args: Any) -> None:
                 if service is not None:
                     await service.aclose()
             finally:
-                write_json(artifact_dir / "manifest.json", manifest)
+                atomic_json(artifact_dir / "manifest.json", manifest)
 
     asyncio.run(run())
     print(f"Question-only run saved to {artifact_dir}")
 
 
 def _grade_command(args: Any) -> None:
+    if getattr(args, "resume", False) and not args.grade_id:
+        raise SystemExit("--resume requires the original --grade-id")
+    args.grade_id = args.grade_id or now_id("grade")
+    with evaluation_lock(resolve_project_path(args.run_directory), "grade:" + args.grade_id):
+        _grade_command_locked(args)
+
+
+def _grade_command_locked(args: Any) -> None:
     artifact_dir = resolve_project_path(args.run_directory)
     manifest_path = artifact_dir / "manifest.json"
     runs_path = artifact_dir / "runs.jsonl"
@@ -467,6 +581,39 @@ def _grade_command(args: Any) -> None:
     if references is None and args.judge_model:
         raise SystemExit("Judge needs references. Pass --references or omit --judge-model.")
 
+    derived_facts_path = None
+    derived_facts_sha256 = None
+    if getattr(args, "derived_facts", None):
+        if references is None:
+            raise SystemExit("--derived-facts requires --references")
+        from app.evaluation.reference_facts import attach_reviewed_facts
+        derived_facts_path = resolve_project_path(args.derived_facts)
+        derived_facts_sha256 = attach_reviewed_facts(references, derived_facts_path, references_path)
+
+    reference_pages_sha256 = None
+    if args.judge_model and references is not None:
+        from app.rag.config import DEFAULT_DATA_DIRECTORY
+
+        references = {qid: references[qid] for qid in question_ids}
+        service = manifest.get("service") or {}
+        bundle_directory = (
+            args.data_directory
+            or run_metadata.get("data_directory")
+            or (service.get("runtime_settings") or {}).get("data_directory")
+            or DEFAULT_DATA_DIRECTORY
+        )
+        try:
+            reference_pages_sha256 = attach_reference_pages(
+                references,
+                resolve_project_path(bundle_directory),
+                snapshot_sha256=(
+                    service.get("snapshot_sha256")
+                    or run_metadata.get("corpus_manifest_sha256")
+                ),
+            )
+        except ValueError as error:
+            raise SystemExit(str(error)) from error
+
     publication_settings = (
         _resolve_publication_settings(manifest, config_path=args.config)
         if args.publish_langfuse_scores
@@ -479,17 +626,23 @@ def _grade_command(args: Any) -> None:
     grade_dir = (artifact_dir / "grades" / grade_id).resolve()
     if grade_dir.parent != artifact_dir / "grades":
         raise SystemExit("Grade output must be inside the run's grades directory")
-    grade_dir.mkdir(parents=True, exist_ok=False)
-    manifest["grade_id"] = grade_id
-    manifest["runs_sha256"] = sha256_file(runs_path)
+    from app.evaluation.model_runtime import EvaluationPolicy, EvaluationSession, load_evaluation_policy
 
     if args.judge_model or args.ragas_model:
         load_env()
-    judge_fn = make_openai_judge(args.judge_model) if args.judge_model else None
-    faithfulness_fn = (
-        make_ragas_faithfulness(args.ragas_model) if args.ragas_model else None
-    )
+        policy = load_evaluation_policy(args.config)
+    else:
+        policy = EvaluationPolicy()
+    manifest["grade_id"] = grade_id
+    manifest["runs_sha256"] = sha256_file(runs_path)
     k = args.k
+    profile = getattr(args, "faithfulness_profile", "advanced")
+    inputs = [*evaluator_files(), runs_path, manifest_path]
+    if references_path:
+        inputs.append(references_path)
+    if derived_facts_path:
+        inputs.append(derived_facts_path)
+    frozen_inputs = fingerprint_files(inputs)
     manifest["benchmark"] = {
         "k": k,
         "modes": [RETRIEVAL_MODE],
@@ -503,17 +656,85 @@ def _grade_command(args: Any) -> None:
         "references_sha256": sha256_file(references_path) if references_path else None,
         "reference_id": args.reference_id,
         "reference_status": "provided" if references else "not_provided",
+        "derived_facts_sha256": derived_facts_sha256,
+        "evaluation_policy": policy.to_mapping(),
+        "faithfulness_profile": profile,
+        "diagnose_failures": bool(getattr(args, "diagnose_failures", False)),
+        "frozen_inputs": frozen_inputs,
+        "evaluator_inputs_sha256": digest_json(frozen_inputs),
+        "evaluator_code_sha256": digest_json(fingerprint_files(evaluator_files())),
     }
-
-    scores = grade_saved_runs(
-        records,
-        references,
-        k=k,
-        judge_fn=judge_fn,
-        faithfulness_fn=faithfulness_fn,
-    )
+    if reference_pages_sha256 is not None:
+        manifest["benchmark"]["reference_pages_sha256"] = reference_pages_sha256
+    conditions_hash = digest_json({
+        "benchmark": manifest["benchmark"], "runs_sha256": manifest["runs_sha256"]
+    })
+    previous_grade = None
+    if getattr(args, "resume", False):
+        saved_manifest = grade_dir / "manifest.json"
+        if not saved_manifest.is_file():
+            raise SystemExit("The grade to resume has no manifest")
+        previous_grade = json.loads(saved_manifest.read_text(encoding="utf-8"))
+        if previous_grade.get("grading_conditions_sha256") != conditions_hash:
+            raise SystemExit("Grading inputs changed; use a new grade ID")
+    else:
+        grade_dir.mkdir(parents=True, exist_ok=False)
+    manifest["grading_conditions_sha256"] = conditions_hash
+    manifest["grading_status"] = "running"
+    scores = []
+    with EvaluationSession(policy) as session:
+        previous_effective = (
+            ((previous_grade or {}).get("benchmark") or {}).get("evaluation_effective") or {}
+        ).get("effective_reasoning_effort")
+        if previous_effective:
+            session.restore_effective_effort(previous_effective)
+        judge_fn = (
+            make_openai_judge(args.judge_model, session=session) if args.judge_model else None
+        )
+        faithfulness_fn = (
+            make_ragas_faithfulness(args.ragas_model, session=session, profile=profile)
+            if args.ragas_model else None
+        )
+        try:
+            atomic_json(grade_dir / "manifest.json", manifest)
+            for record in records:
+                assert_inputs_unchanged(frozen_inputs)
+                if (args.judge_model or args.ragas_model) and load_evaluation_policy(args.config) != policy:
+                    raise ValueError("Evaluator settings changed during grading")
+                saved = load_grade_checkpoint(grade_dir, record, conditions_hash)
+                if saved is None:
+                    graded = grade_saved_runs(
+                        [record], references, k=k, judge_fn=judge_fn,
+                        faithfulness_fn=faithfulness_fn,
+                        diagnose_fn=judge_fn if getattr(args, "diagnose_failures", False) else None,
+                    )
+                    if len(graded) != 1:
+                        raise ValueError("Each saved response must produce exactly one grade")
+                    saved = graded[0]
+                    assert_inputs_unchanged(frozen_inputs)
+                    # Persist the accepted effort before any durable score can exist.
+                    manifest["benchmark"]["evaluation_effective"] = session.to_manifest()
+                    atomic_json(grade_dir / "manifest.json", manifest)
+                    save_grade_checkpoint(grade_dir, record, conditions_hash, saved)
+                scores.append(saved)
+                manifest["graded_count"] = len(scores)
+                manifest["benchmark"]["evaluation_effective"] = session.to_manifest()
+                atomic_json(grade_dir / "manifest.json", manifest)
+                print(f"Graded {len(scores)}/{len(records)}: {record['question_id']}", flush=True)
+            manifest["grading_status"] = "complete"
+        except BaseException as error:
+            manifest["grading_status"] = "interrupted"
+            manifest["grading_error_type"] = type(error).__name__
+            raise
+        finally:
+            manifest["benchmark"]["evaluation_effective"] = session.to_manifest()
+            atomic_json(grade_dir / "manifest.json", manifest)
     write_artifacts(grade_dir, manifest, scores=scores)
     write_report(grade_dir, manifest, runs=records, scores=scores)
+    if getattr(args, "final_benchmark_report", False):
+        from app.evaluation.benchmark import load_final_benchmark, write_benchmark_report
+        inventory = load_final_benchmark()
+        write_benchmark_report(grade_dir / "final-benchmark", inventory, records, scores)
     if args.publish_langfuse_scores:
         _publish_grade(
             grade_dir,
@@ -702,6 +923,8 @@ def parse_args(argv: Sequence[str] | None = None) -> Any:
     run_parser.add_argument("--questions", required=True)
     run_parser.add_argument("--ids")
     run_parser.add_argument("--experiment-id")
+    run_parser.add_argument("--resume", action="store_true", help="Resume only unchanged frozen inputs.")
+    run_parser.add_argument("--stop-after", type=int, help="Save this many new responses, then pause the unchanged full selection.")
     run_parser.add_argument("--config", help="Runtime YAML (relative to the repository root).")
     run_parser.add_argument("--data-directory")
     run_parser.add_argument("--artifacts-dir", default=DEFAULT_ARTIFACTS_DIRECTORY)
@@ -713,10 +936,20 @@ def parse_args(argv: Sequence[str] | None = None) -> Any:
         "--references",
         help="Optional reference dataset for retrieval metrics and Judge",
     )
+    grade_parser.add_argument("--derived-facts", help="Independently reviewed evaluation-only fact sidecar.")
     grade_parser.add_argument(
         "--reference-id", help="Dataset question ID corresponding to one saved request"
     )
     grade_parser.add_argument("--grade-id", help="New grade directory name")
+    grade_parser.add_argument("--resume", action="store_true", help="Reuse completed, input-matched grades.")
+    grade_parser.add_argument("--faithfulness-profile", choices=("default", "advanced"), default="advanced")
+    grade_parser.add_argument("--diagnose-failures", action="store_true",
+                              help="Trace failed factual claims through recorded retrieval stages.")
+    grade_parser.add_argument("--final-benchmark-report", action="store_true",
+                              help="Validate and report the fixed Advanced 280-question suite.")
+    grade_parser.add_argument(
+        "--data-directory", help="Path to the saved run's TableRAG bundle if it moved."
+    )
     grade_parser.add_argument(
         "--config",
         help="Runtime YAML for Langfuse score publishing; must match the saved run target.",

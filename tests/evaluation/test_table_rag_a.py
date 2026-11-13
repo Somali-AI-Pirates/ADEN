@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+from hashlib import sha256
 
 import pytest
 
@@ -462,7 +463,7 @@ def test_grade_publish_resolves_process_alias_before_dotenv_is_loaded(
 
     monkeypatch.setattr(evaluation, "load_env", inject_dotenv_for_grader)
     monkeypatch.setattr(
-        evaluation, "make_ragas_faithfulness", lambda _model: lambda *_args: {}
+        evaluation, "make_ragas_faithfulness", lambda _model, **_kwargs: lambda *_args: {}
     )
     monkeypatch.setattr(evaluation, "grade_saved_runs", lambda *_args, **_kwargs: [])
     monkeypatch.setattr(evaluation, "write_artifacts", lambda *_args, **_kwargs: None)
@@ -490,8 +491,45 @@ def test_grade_publish_resolves_process_alias_before_dotenv_is_loaded(
 
 
 
-def test_grade_command_writes_report_from_saved_runs(tmp_path):
-    from app.evaluation.table_rag_a import _grade_command
+@pytest.mark.parametrize("tamper", [False, True])
+def test_grade_command_resolves_gold_pages_from_saved_bundle(tmp_path, monkeypatch, tamper):
+    import app.evaluation.table_rag_a as evaluation
+
+    gold = "gold-only page contents"
+    gold_page = {"book_id": "AS001", "page": 2, "text": gold}
+    bundle = tmp_path / "bundle"
+    bundle.mkdir()
+    page_bytes = json.dumps(
+        [{"file_name": "AS001.pdf", "page": 2, "text": gold}]
+    ).encode()
+    pages_hash = sha256(page_bytes).hexdigest()
+    (bundle / "pages.json").write_bytes(page_bytes if not tamper else b"[]")
+    corpus_bytes = json.dumps({"files": {"pages.json": pages_hash}}).encode()
+    (bundle / "corpus.json").write_bytes(corpus_bytes)
+
+    def judge(prompt):
+        actual, reference = prompt.split("[참고 정답·채점 기준]\n", 1)
+        assert gold not in actual
+        assert PAGE["text"] in actual
+        assert "{{reference}}" in actual
+        assert json.loads(reference)["reference_pages"] == [gold_page]
+        assert "verified excerpt" in reference
+        return {"text": json.dumps({
+            "has_factual_claims": True,
+            "criteria": {
+                key: {"score": 1, "status": "scored", "reason": "verified"}
+                for key in ("fact", "condition", "evidence", "decision")
+            },
+        })}
+
+    def faithfulness(_question, _response, contexts):
+        assert gold not in " ".join(contexts)
+        assert PAGE["text"] in " ".join(contexts)
+        return {"value": 1.0}
+
+    monkeypatch.setattr(evaluation, "load_env", lambda: None)
+    monkeypatch.setattr(evaluation, "make_openai_judge", lambda _model, **_kwargs: judge)
+    monkeypatch.setattr(evaluation, "make_ragas_faithfulness", lambda _model, **_kwargs: faithfulness)
 
     record = _evaluation_record(
         rag_result(),
@@ -502,6 +540,7 @@ def test_grade_command_writes_report_from_saved_runs(tmp_path):
         config_hash="snapshot",
         latency_ms=5,
     )
+    record["answer"] += " {{reference}}"
     experiment_directory = tmp_path / "artifacts" / "table-a-grade-test"
     experiment_directory.mkdir(parents=True)
     (experiment_directory / "manifest.json").write_text(
@@ -511,7 +550,12 @@ def test_grade_command_writes_report_from_saved_runs(tmp_path):
                 "dataset_id": "advanced",
                 "config_hash": "snapshot",
                 "sample": False,
-                "table_rag": {"run_status": "complete", "question_ids": ["q-1"]},
+                "table_rag": {
+                    "run_status": "complete",
+                    "question_ids": ["q-1"],
+                    "data_directory": str(bundle),
+                    "corpus_manifest_sha256": "sha256:" + sha256(corpus_bytes).hexdigest(),
+                },
             }
         ),
         encoding="utf-8",
@@ -527,7 +571,10 @@ def test_grade_command_writes_report_from_saved_runs(tmp_path):
                 {
                     "id": "q-1",
                     "reference_answer": "예약 번호",
-                    "evidence_groups": [[{"book_id": "AS001", "page": 1}]],
+                    "evidence_groups": [[
+                        {"book_id": "AS001", "page": 2},
+                        {"book_id": "AS001", "page": 3, "quote": "verified excerpt"},
+                    ]],
                 }
             ],
             ensure_ascii=False,
@@ -543,10 +590,24 @@ def test_grade_command_writes_report_from_saved_runs(tmp_path):
             str(references_path),
             "--grade-id",
             "first",
+            "--judge-model",
+            "gpt-6-luna",
+            "--ragas-model",
+            "gpt-6-luna",
         ]
     )
 
-    _grade_command(args)
+    original_run = (experiment_directory / "runs.jsonl").read_bytes()
+    original_references = references_path.read_bytes()
+    if tamper:
+        with pytest.raises(SystemExit, match="Reference pages do not match"):
+            evaluation._grade_command(args)
+        assert not (experiment_directory / "grades").exists()
+        return
+
+    evaluation._grade_command(args)
+    assert (experiment_directory / "runs.jsonl").read_bytes() == original_run
+    assert references_path.read_bytes() == original_references
 
     grade_directory = experiment_directory / "grades" / "first"
     summary = json.loads((grade_directory / "summary.json").read_text())
@@ -555,7 +616,10 @@ def test_grade_command_writes_report_from_saved_runs(tmp_path):
     assert "table_rag" in summary["modes"]
     assert scores["question_id"] == "q-1"
     assert scores["retrieval"]["recall_at_k"]["value"] == 1.0
-    assert grade_manifest["benchmark"]["judge_schema"] == "judge-output-v2"
+    assert scores["judge"]["fact"]["value"] == 1.0
+    assert scores["faithfulness"]["value"] == 1.0
+    assert grade_manifest["benchmark"]["judge_schema"] == "judge-output-v3-fact-trace"
+    assert grade_manifest["benchmark"]["reference_pages_sha256"] == f"sha256:{pages_hash}"
 
 
 def test_table_rag_metrics_separate_exact_pages_alternatives_and_sql():
@@ -708,7 +772,7 @@ def test_saved_request_without_references_can_be_graded_without_rerunning(
     monkeypatch.setattr(
         evaluation,
         "make_ragas_faithfulness",
-        lambda model: lambda question, response, contexts: {"value": 1.0},
+        lambda model, **_kwargs: lambda question, response, contexts: {"value": 1.0},
     )
 
     args = parse_args(

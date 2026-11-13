@@ -1,0 +1,20 @@
+{
+  "count": 40,
+  "types": {
+    "explicit_records": 5,
+    "indirect_case": 5,
+    "two_cases": 5,
+    "case_and_rule": 5,
+    "procedures": 5,
+    "effective_dates": 5,
+    "scope_and_exceptions": 5,
+    "ambiguity": 5
+  },
+  "questions_sha256": "fba505be4875bca5fd065401cead3eaff15e506677dc1e81a45ceea18fd6e318",
+  "rubric_sha256": "5e3a181aff7029a66fa33d3fbbbe12c734e83dec3bc6b48fef5a2e299cfc9a85",
+  "created_before_retrieval": true,
+  "source_overlap": "IS common rules share the known corpus; HG/HA seed keys excluded existing 280 questions. This is unseen questions, not unseen documents.",
+  "human_review": false,
+  "ambiguity_status_only": 5,
+  "preflight_correction": "5 ambiguity questions are evaluated as clarification, without requiring arbitrary sampled case values; one draft reviewer answer label was corrected before retrieval."
+}

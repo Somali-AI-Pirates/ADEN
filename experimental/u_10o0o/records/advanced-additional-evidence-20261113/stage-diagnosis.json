@@ -1,0 +1,1598 @@
+[
+  {
+    "key": "r1-A-AS-ADD02",
+    "status": "sufficient",
+    "planner_calls": 4,
+    "operation_sequence": [
+      "search_evidence",
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5751,
+    "selected_sources": [
+      "AS008:p0002",
+      "AS014:p0001"
+    ],
+    "final_sources": [
+      "AS008:p0002",
+      "AS014:p0001",
+      "AS014:p0007",
+      "AS008:p0028",
+      "AS030:p0044",
+      "AS014:p0010",
+      "AS008:p0020",
+      "AS030:p0045"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS008:p0008": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": null,
+        "selected_rank": null,
+        "final_rank": null
+      }
+    }
+  },
+  {
+    "key": "r1-A-AS-ADD06",
+    "status": "sufficient",
+    "planner_calls": 6,
+    "operation_sequence": [
+      "search_evidence",
+      "search_evidence",
+      "search_evidence",
+      "read_sources",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5917,
+    "selected_sources": [
+      "AS014:p0019",
+      "AS009:p0022",
+      "AS009:p0023",
+      "AS009:p0006",
+      "AS007:p0019"
+    ],
+    "final_sources": [
+      "AS014:p0019",
+      "AS009:p0022",
+      "AS009:p0023",
+      "AS009:p0006",
+      "AS007:p0019",
+      "AS009:p0021",
+      "AS007:p0013",
+      "AS010:p0009"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS014:p0019": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 28,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 50,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 8,
+            "kure_page_rank": 12
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": 23,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 5,
+            "kure_page_rank": 2
+          },
+          {
+            "search": 3,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          2,
+          4
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          4
+        ],
+        "merged_candidate_rank": 1,
+        "selected_rank": 1,
+        "final_rank": 1
+      },
+      "AS009:p0022": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 4,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 4
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 3,
+            "bm25_unit_rank": 43,
+            "dense_unit_rank": 36,
+            "rrf_unit_rank": 10,
+            "kure_page_rank": 17
+          }
+        ],
+        "observation_passages": [
+          0
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 2,
+        "selected_rank": 2,
+        "final_rank": 2
+      },
+      "AS007:p0013": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 26,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 1,
+            "dense_unit_rank": 4,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 2
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": 11,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 3,
+            "bm25_unit_rank": 19,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": 18,
+            "kure_page_rank": 9
+          }
+        ],
+        "observation_passages": [
+          1
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 7,
+        "selected_rank": null,
+        "final_rank": 7
+      }
+    }
+  },
+  {
+    "key": "r1-A-AS-ADD09",
+    "status": "sufficient",
+    "planner_calls": 3,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 6033,
+    "selected_sources": [
+      "AS009:p0053",
+      "AS014:p0019"
+    ],
+    "final_sources": [
+      "AS009:p0053",
+      "AS014:p0019",
+      "AS014:p0018",
+      "AS014:p0023",
+      "AS010:p0018",
+      "AS010:p0015",
+      "AS010:p0010",
+      "AS014:p0027"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS009:p0054": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 41,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 40,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": null,
+        "selected_rank": null,
+        "final_rank": null
+      }
+    }
+  },
+  {
+    "key": "r1-B-AS-ADD02",
+    "status": "sufficient",
+    "planner_calls": 5,
+    "operation_sequence": [
+      "search_evidence",
+      "search_evidence",
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5804,
+    "selected_sources": [
+      "AS008:p0008",
+      "AS014:p0001"
+    ],
+    "final_sources": [
+      "AS008:p0008",
+      "AS014:p0001",
+      "AS014:p0007",
+      "AS030:p0037",
+      "AS030:p0044",
+      "AS008:p0002",
+      "AS014:p0010",
+      "AS030:p0031"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS008:p0008": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 38,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 3,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 1
+          }
+        ],
+        "observation_passages": [
+          3,
+          4
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          4
+        ],
+        "merged_candidate_rank": 1,
+        "selected_rank": 1,
+        "final_rank": 1
+      }
+    }
+  },
+  {
+    "key": "r1-B-AS-ADD06",
+    "status": "sufficient",
+    "planner_calls": 5,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "read_sources",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5800,
+    "selected_sources": [
+      "AS014:p0019",
+      "AS007:p0019",
+      "AS009:p0023",
+      "AS014:p0001"
+    ],
+    "final_sources": [
+      "AS014:p0019",
+      "AS007:p0019",
+      "AS009:p0023",
+      "AS014:p0001",
+      "AS009:p0021",
+      "AS007:p0013",
+      "AS009:p0033",
+      "AS007:p0016"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS014:p0019": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 28,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 6,
+            "rrf_unit_rank": 19,
+            "kure_page_rank": 15
+          }
+        ],
+        "observation_passages": [
+          2
+        ],
+        "preview_calls": [
+          2
+        ],
+        "read_sources_operations": [
+          2
+        ],
+        "merged_candidate_rank": 1,
+        "selected_rank": 1,
+        "final_rank": 1
+      },
+      "AS009:p0022": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 4,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 4
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          0
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 9,
+        "selected_rank": null,
+        "final_rank": null
+      },
+      "AS007:p0013": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 26,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 1,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 3
+          }
+        ],
+        "observation_passages": [
+          1
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 6,
+        "selected_rank": null,
+        "final_rank": 6
+      }
+    }
+  },
+  {
+    "key": "r1-B-AS-ADD09",
+    "status": "sufficient",
+    "planner_calls": 4,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "search_evidence",
+      "finish"
+    ],
+    "context_tokens": 5733,
+    "selected_sources": [
+      "AS009:p0053",
+      "AS009:p0054",
+      "AS007:p0018",
+      "AS014:p0018",
+      "AS014:p0019"
+    ],
+    "final_sources": [
+      "AS009:p0053",
+      "AS009:p0054",
+      "AS007:p0018",
+      "AS014:p0018",
+      "AS014:p0019",
+      "AS014:p0023",
+      "AS011:p0025",
+      "AS010:p0042"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS009:p0054": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 41,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 39,
+            "dense_unit_rank": 6,
+            "rrf_unit_rank": 15,
+            "kure_page_rank": 11
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          2
+        ],
+        "preview_calls": [
+          2
+        ],
+        "read_sources_operations": [
+          2
+        ],
+        "merged_candidate_rank": 2,
+        "selected_rank": 2,
+        "final_rank": 2
+      }
+    }
+  },
+  {
+    "key": "r2-A-AS-ADD02",
+    "status": "sufficient",
+    "planner_calls": 5,
+    "operation_sequence": [
+      "search_evidence",
+      "search_evidence",
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5769,
+    "selected_sources": [
+      "AS008:p0008",
+      "AS014:p0001"
+    ],
+    "final_sources": [
+      "AS008:p0008",
+      "AS014:p0001",
+      "AS014:p0007",
+      "AS030:p0038",
+      "AS030:p0035",
+      "AS008:p0002",
+      "AS014:p0010",
+      "AS030:p0031"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS008:p0008": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 28,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 3,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 8,
+            "rrf_unit_rank": 16,
+            "kure_page_rank": 2
+          }
+        ],
+        "observation_passages": [
+          3,
+          4
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          4
+        ],
+        "merged_candidate_rank": 1,
+        "selected_rank": 1,
+        "final_rank": 1
+      }
+    }
+  },
+  {
+    "key": "r2-A-AS-ADD06",
+    "status": "sufficient",
+    "planner_calls": 5,
+    "operation_sequence": [
+      "search_evidence",
+      "search_evidence",
+      "read_sources",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5978,
+    "selected_sources": [
+      "AS014:p0019",
+      "AS007:p0019",
+      "AS009:p0022"
+    ],
+    "final_sources": [
+      "AS014:p0019",
+      "AS007:p0019",
+      "AS009:p0022",
+      "AS009:p0021",
+      "AS010:p0055",
+      "AS010:p0009",
+      "AS009:p0033",
+      "AS007:p0013"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS014:p0019": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 28,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": 17,
+            "kure_page_rank": 14
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": 33,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 5
+          }
+        ],
+        "observation_passages": [
+          2,
+          3
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          3
+        ],
+        "merged_candidate_rank": 1,
+        "selected_rank": 1,
+        "final_rank": 1
+      },
+      "AS009:p0022": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 4,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 4
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": 35,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          0,
+          4
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          4
+        ],
+        "merged_candidate_rank": 3,
+        "selected_rank": 3,
+        "final_rank": 3
+      },
+      "AS007:p0013": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 26,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 11,
+            "dense_unit_rank": 3,
+            "rrf_unit_rank": 2,
+            "kure_page_rank": 3
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": 15,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          1
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 8,
+        "selected_rank": null,
+        "final_rank": 8
+      }
+    }
+  },
+  {
+    "key": "r2-A-AS-ADD09",
+    "status": "sufficient",
+    "planner_calls": 4,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5951,
+    "selected_sources": [
+      "AS009:p0053",
+      "AS009:p0054",
+      "AS014:p0018"
+    ],
+    "final_sources": [
+      "AS009:p0053",
+      "AS009:p0054",
+      "AS014:p0018",
+      "AS014:p0019",
+      "AS011:p0002",
+      "AS014:p0023",
+      "AS011:p0001",
+      "AS010:p0018"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS009:p0054": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 41,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 33,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": 12,
+            "kure_page_rank": 2
+          }
+        ],
+        "observation_passages": [
+          1,
+          3
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          3
+        ],
+        "merged_candidate_rank": 2,
+        "selected_rank": 2,
+        "final_rank": 2
+      }
+    }
+  },
+  {
+    "key": "r2-B-AS-ADD02",
+    "status": "sufficient",
+    "planner_calls": 6,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "search_evidence",
+      "search_evidence",
+      "finish"
+    ],
+    "context_tokens": 5772,
+    "selected_sources": [
+      "AS008:p0008",
+      "AS014:p0001"
+    ],
+    "final_sources": [
+      "AS008:p0008",
+      "AS014:p0001",
+      "AS014:p0007",
+      "AS008:p0030",
+      "AS008:p0002",
+      "AS014:p0010",
+      "AS008:p0020",
+      "AS008:p0022"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS008:p0008": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 3,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 3,
+            "kure_page_rank": 1
+          }
+        ],
+        "observation_passages": [
+          4
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 1,
+        "selected_rank": 1,
+        "final_rank": 1
+      }
+    }
+  },
+  {
+    "key": "r2-B-AS-ADD06",
+    "status": "insufficient",
+    "planner_calls": 6,
+    "operation_sequence": [
+      "search_evidence",
+      "search_evidence",
+      "search_evidence",
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5654,
+    "selected_sources": [
+      "AS007:p0019",
+      "AS009:p0021",
+      "AS009:p0023"
+    ],
+    "final_sources": [
+      "AS007:p0019",
+      "AS009:p0021",
+      "AS009:p0023",
+      "AS009:p0033",
+      "AS007:p0013",
+      "AS007:p0025",
+      "AS007:p0008",
+      "AS009:p0022"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS014:p0019": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 28,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 16,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 3,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 28,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 4,
+            "bm25_unit_rank": 38,
+            "dense_unit_rank": 41,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": null,
+        "selected_rank": null,
+        "final_rank": null
+      },
+      "AS009:p0022": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 4,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 4
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": 43,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 3,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 4,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          0
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 8,
+        "selected_rank": null,
+        "final_rank": 8
+      },
+      "AS007:p0013": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 26,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 15,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": 3,
+            "kure_page_rank": 2
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": 32,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": 8,
+            "kure_page_rank": 8
+          },
+          {
+            "search": 3,
+            "bm25_unit_rank": 1,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 2
+          },
+          {
+            "search": 4,
+            "bm25_unit_rank": 25,
+            "dense_unit_rank": 6,
+            "rrf_unit_rank": 6,
+            "kure_page_rank": 4
+          }
+        ],
+        "observation_passages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 5,
+        "selected_rank": null,
+        "final_rank": 5
+      }
+    }
+  },
+  {
+    "key": "r2-B-AS-ADD09",
+    "status": "sufficient",
+    "planner_calls": 4,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5951,
+    "selected_sources": [
+      "AS009:p0053",
+      "AS009:p0054",
+      "AS014:p0018"
+    ],
+    "final_sources": [
+      "AS009:p0053",
+      "AS009:p0054",
+      "AS014:p0018",
+      "AS014:p0019",
+      "AS011:p0002",
+      "AS014:p0023",
+      "AS011:p0001",
+      "AS010:p0018"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS009:p0054": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 41,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 33,
+            "dense_unit_rank": 44,
+            "rrf_unit_rank": 15,
+            "kure_page_rank": 10
+          }
+        ],
+        "observation_passages": [
+          2
+        ],
+        "preview_calls": [
+          2
+        ],
+        "read_sources_operations": [
+          2
+        ],
+        "merged_candidate_rank": 2,
+        "selected_rank": 2,
+        "final_rank": 2
+      }
+    }
+  },
+  {
+    "key": "r3-A-AS-ADD02",
+    "status": "sufficient",
+    "planner_calls": 4,
+    "operation_sequence": [
+      "search_evidence",
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5700,
+    "selected_sources": [
+      "AS008:p0008",
+      "AS008:p0002",
+      "AS014:p0010"
+    ],
+    "final_sources": [
+      "AS008:p0008",
+      "AS008:p0002",
+      "AS014:p0010",
+      "AS014:p0001",
+      "AS008:p0030",
+      "AS013:p0006",
+      "AS014:p0007",
+      "AS008:p0022"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS008:p0008": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": 3,
+            "kure_page_rank": 6
+          }
+        ],
+        "observation_passages": [
+          2,
+          3
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          3
+        ],
+        "merged_candidate_rank": 1,
+        "selected_rank": 1,
+        "final_rank": 1
+      }
+    }
+  },
+  {
+    "key": "r3-A-AS-ADD06",
+    "status": "sufficient",
+    "planner_calls": 5,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 6016,
+    "selected_sources": [
+      "AS014:p0019",
+      "AS014:p0001",
+      "AS007:p0019",
+      "AS009:p0022"
+    ],
+    "final_sources": [
+      "AS014:p0019",
+      "AS014:p0001",
+      "AS007:p0019",
+      "AS009:p0022",
+      "AS009:p0021",
+      "AS007:p0013",
+      "AS010:p0007",
+      "AS009:p0033"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS014:p0019": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 28,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": 18,
+            "kure_page_rank": 10
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": 35,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 3
+          }
+        ],
+        "observation_passages": [
+          3,
+          4
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          4
+        ],
+        "merged_candidate_rank": 1,
+        "selected_rank": 1,
+        "final_rank": 1
+      },
+      "AS009:p0022": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 4,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 4
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          0,
+          4
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          4
+        ],
+        "merged_candidate_rank": 4,
+        "selected_rank": 4,
+        "final_rank": 4
+      },
+      "AS007:p0013": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 26,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 14,
+            "dense_unit_rank": 4,
+            "rrf_unit_rank": 3,
+            "kure_page_rank": 3
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 10,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          1
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 6,
+        "selected_rank": null,
+        "final_rank": 6
+      }
+    }
+  },
+  {
+    "key": "r3-A-AS-ADD09",
+    "status": "sufficient",
+    "planner_calls": 3,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5907,
+    "selected_sources": [
+      "AS009:p0053",
+      "AS014:p0019"
+    ],
+    "final_sources": [
+      "AS009:p0053",
+      "AS014:p0019",
+      "AS014:p0018",
+      "AS014:p0023",
+      "AS011:p0004",
+      "AS010:p0018",
+      "AS010:p0001",
+      "AS010:p0015"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS009:p0054": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 41,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 9,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": null,
+        "selected_rank": null,
+        "final_rank": null
+      }
+    }
+  },
+  {
+    "key": "r3-B-AS-ADD02",
+    "status": "sufficient",
+    "planner_calls": 3,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5542,
+    "selected_sources": [
+      "AS008:p0024",
+      "AS014:p0001"
+    ],
+    "final_sources": [
+      "AS008:p0024",
+      "AS014:p0001",
+      "AS014:p0007",
+      "AS008:p0021",
+      "AS014:p0010",
+      "AS008:p0018",
+      "AS014:p0006",
+      "AS030:p0037"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS008:p0008": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": null,
+        "selected_rank": null,
+        "final_rank": null
+      }
+    }
+  },
+  {
+    "key": "r3-B-AS-ADD06",
+    "status": "sufficient",
+    "planner_calls": 4,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "search_evidence",
+      "finish"
+    ],
+    "context_tokens": 5631,
+    "selected_sources": [
+      "AS014:p0019",
+      "AS009:p0023",
+      "AS009:p0004"
+    ],
+    "final_sources": [
+      "AS014:p0019",
+      "AS009:p0023",
+      "AS009:p0004",
+      "AS009:p0021",
+      "AS007:p0019",
+      "AS009:p0001",
+      "AS009:p0033",
+      "AS007:p0013"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS014:p0019": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 28,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 2,
+            "rrf_unit_rank": 18,
+            "kure_page_rank": 15
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          2
+        ],
+        "preview_calls": [
+          2
+        ],
+        "read_sources_operations": [
+          2
+        ],
+        "merged_candidate_rank": 1,
+        "selected_rank": 1,
+        "final_rank": 1
+      },
+      "AS009:p0022": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 4,
+            "dense_unit_rank": 1,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 4
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 48,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          }
+        ],
+        "observation_passages": [
+          0
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 10,
+        "selected_rank": null,
+        "final_rank": null
+      },
+      "AS007:p0013": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": null,
+            "dense_unit_rank": 26,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 1,
+            "dense_unit_rank": 4,
+            "rrf_unit_rank": 1,
+            "kure_page_rank": 2
+          },
+          {
+            "search": 2,
+            "bm25_unit_rank": 13,
+            "dense_unit_rank": 14,
+            "rrf_unit_rank": 9,
+            "kure_page_rank": 9
+          }
+        ],
+        "observation_passages": [
+          1
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [],
+        "merged_candidate_rank": 8,
+        "selected_rank": null,
+        "final_rank": 8
+      }
+    }
+  },
+  {
+    "key": "r3-B-AS-ADD09",
+    "status": "sufficient",
+    "planner_calls": 3,
+    "operation_sequence": [
+      "search_evidence",
+      "read_sources",
+      "finish"
+    ],
+    "context_tokens": 5994,
+    "selected_sources": [
+      "AS009:p0053",
+      "AS009:p0054",
+      "AS014:p0018",
+      "AS014:p0019"
+    ],
+    "final_sources": [
+      "AS009:p0053",
+      "AS009:p0054",
+      "AS014:p0018",
+      "AS014:p0019",
+      "AS014:p0023",
+      "AS014:p0027",
+      "AS010:p0018",
+      "AS010:p0015"
+    ],
+    "missing_selected": [],
+    "targets": {
+      "AS009:p0054": {
+        "search_ranks": [
+          {
+            "search": 0,
+            "bm25_unit_rank": 41,
+            "dense_unit_rank": null,
+            "rrf_unit_rank": null,
+            "kure_page_rank": null
+          },
+          {
+            "search": 1,
+            "bm25_unit_rank": 12,
+            "dense_unit_rank": 43,
+            "rrf_unit_rank": 14,
+            "kure_page_rank": 8
+          }
+        ],
+        "observation_passages": [
+          1,
+          2
+        ],
+        "preview_calls": [],
+        "read_sources_operations": [
+          2
+        ],
+        "merged_candidate_rank": 2,
+        "selected_rank": 2,
+        "final_rank": 2
+      }
+    }
+  }
+]

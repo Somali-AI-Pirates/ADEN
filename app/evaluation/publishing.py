@@ -70,6 +70,17 @@ def conditions(manifest):
               "sample": bool(manifest.get("sample")),
               **{key: bench.get(key) for key in
                  ("k", "judge", "faithfulness", "judge_prompt", "judge_schema", "references_sha256")}}
+    if bench.get("reference_id"):
+        result["reference_id"] = bench["reference_id"]
+    if bench.get("reference_pages_sha256"):
+        result["reference_pages_sha256"] = bench["reference_pages_sha256"]
+    for key in ("evaluation_policy", "faithfulness_profile", "derived_facts_sha256",
+                "faithfulness_prompt_sha256", "evaluator_code_sha256"):
+        if key in bench:
+            result[key] = bench[key]
+    effective = bench.get("evaluation_effective")
+    if isinstance(effective, dict):
+        result["evaluation_effective_effort"] = effective.get("effective_reasoning_effort")
     http_records = manifest.get("http_records")
     if isinstance(http_records, dict):
         result["server_config_hashes"] = sorted(set(http_records.get("server_config_hashes") or []))

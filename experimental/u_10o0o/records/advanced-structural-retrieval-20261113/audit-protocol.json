@@ -1,0 +1,11 @@
+{
+  "script_sha256": "1bc292236b8dbdce3e9ca9d20cc99f6730f4d04429d46528717c0baeaab6a637",
+  "scope": "All semantically failing final contexts and all corresponding arm contexts for the same question and repeat. Invalid quotes are included.",
+  "model": "gpt-6-luna",
+  "reasoning": "medium",
+  "max_concurrency": 4,
+  "references_frozen": true,
+  "raw_first_pass_retained": true,
+  "human_review": false,
+  "defined_before_quality_scores": true
+}
