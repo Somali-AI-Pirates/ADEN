@@ -78,6 +78,7 @@ def test_conversation_and_answer_use_responses_message_roles(monkeypatch):
             assert turn.answer in json.dumps(payload["input"][2], ensure_ascii=False)
             value = {
                 "status": "insufficient", "answer": "근거 부족", "citations": [],
+                "reason": "이번 문맥에서 청구액을 확인하지 못했습니다.",
             }
         return _response(
             [{
@@ -199,6 +200,7 @@ def test_responses_tool_roundtrip_and_answer_scope(monkeypatch):
                             "text": json.dumps(
                                 {
                                     "answer": "확인했습니다.",
+                                    "reason": "대상의 원문 기록을 확인할 수 있습니다.",
                                     "citations": ["AS001:p0001"],
                                     "status": "answered",
                                 }

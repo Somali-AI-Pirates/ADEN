@@ -12,7 +12,8 @@ from app.rag.streaming import stream_answer
 def test_partial_json_escapes_and_reasoning_are_not_rendered():
     answer = '예약 "확인"\n한국어 😀'
     raw = json.dumps(
-        {"answer": answer, "citations": ["S1"], "status": "answered"}, ensure_ascii=True
+        {"answer": answer, "reason": "판단 이유는 final에만 포함", "citations": ["S1"],
+         "status": "answered"}, ensure_ascii=True
     )
 
     class Runnable:
@@ -41,6 +42,7 @@ def test_real_langchain_responses_stream_uses_one_call_and_keeps_usage(monkeypat
     text = json.dumps(
         {
             "answer": "원문 확인이 가능합니다.",
+            "reason": "대상을 식별할 원문 근거가 있습니다.",
             "citations": ["S1"],
             "status": "answered",
         },
@@ -151,6 +153,7 @@ def test_real_langchain_responses_stream_uses_one_call_and_keeps_usage(monkeypat
             await model.aclose()
         assert isinstance(answer, GeneratedAnswer)
         assert "".join(v["delta"] for v in events) == answer.answer
+        assert answer.reason == "대상을 식별할 원문 근거가 있습니다."
         assert len(events) > 1
         assert calls.summary()["provider_attempts"] == 1
         assert calls.summary()["logical_calls"] == 1

@@ -1,0 +1,1048 @@
+{
+  "groups": {
+    "official": {
+      "A": {
+        "count": 60,
+        "answer_status": {
+          "answered": 58,
+          "needs_clarification": 2
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.85,
+            "sum": 51.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "condition": {
+            "mean": 0.9666666666666667,
+            "sum": 58.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "evidence": {
+            "mean": 0.9322033898305084,
+            "sum": 55.0,
+            "scored": 59,
+            "status_counts": {
+              "scored": 59,
+              "not_applicable": 1
+            }
+          },
+          "decision": {
+            "mean": 1.0,
+            "sum": 60.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          }
+        },
+        "all_four_pass": 49,
+        "faithfulness": {
+          "mean": 0.7955985534932903,
+          "sum": 47.73591320959742,
+          "scored": 60,
+          "status_counts": {
+            "scored": 60
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 3.3547153975014226,
+          "p95_nearest_rank": 6.413900324998394
+        },
+        "answer_usage": {
+          "input_tokens": 282398,
+          "output_tokens": 18086,
+          "logical_calls": 60,
+          "provider_attempts": 60,
+          "missing_usage": 0
+        }
+      },
+      "B": {
+        "count": 60,
+        "answer_status": {
+          "answered": 57,
+          "needs_clarification": 2,
+          "abstained": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8,
+            "sum": 48.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "condition": {
+            "mean": 0.9333333333333333,
+            "sum": 56.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "evidence": {
+            "mean": 0.8833333333333333,
+            "sum": 53.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "decision": {
+            "mean": 0.9666666666666667,
+            "sum": 58.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          }
+        },
+        "all_four_pass": 44,
+        "faithfulness": {
+          "mean": 0.869447403087109,
+          "sum": 52.16684418522654,
+          "scored": 60,
+          "status_counts": {
+            "scored": 60
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 2.9946868315000756,
+          "p95_nearest_rank": 7.71808778400009
+        },
+        "answer_usage": {
+          "input_tokens": 356631,
+          "output_tokens": 18283,
+          "logical_calls": 60,
+          "provider_attempts": 60,
+          "missing_usage": 0
+        }
+      },
+      "C": {
+        "count": 60,
+        "answer_status": {
+          "answered": 54,
+          "needs_clarification": 2,
+          "abstained": 4
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.85,
+            "sum": 51.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "condition": {
+            "mean": 0.9833333333333333,
+            "sum": 59.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "evidence": {
+            "mean": 0.95,
+            "sum": 57.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "decision": {
+            "mean": 0.9666666666666667,
+            "sum": 58.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          }
+        },
+        "all_four_pass": 49,
+        "faithfulness": {
+          "mean": 0.8765704148792384,
+          "sum": 52.594224892754305,
+          "scored": 60,
+          "status_counts": {
+            "scored": 60
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 3.309079071999804,
+          "p95_nearest_rank": 7.761593184997764
+        },
+        "answer_usage": {
+          "input_tokens": 371451,
+          "output_tokens": 19154,
+          "logical_calls": 60,
+          "provider_attempts": 60,
+          "missing_usage": 0
+        }
+      },
+      "D": {
+        "count": 60,
+        "answer_status": {
+          "answered": 55,
+          "needs_clarification": 2,
+          "abstained": 3
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8,
+            "sum": 48.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "condition": {
+            "mean": 0.9666666666666667,
+            "sum": 58.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          },
+          "evidence": {
+            "mean": 0.9152542372881356,
+            "sum": 54.0,
+            "scored": 59,
+            "status_counts": {
+              "scored": 59,
+              "not_applicable": 1
+            }
+          },
+          "decision": {
+            "mean": 0.9333333333333333,
+            "sum": 56.0,
+            "scored": 60,
+            "status_counts": {
+              "scored": 60
+            }
+          }
+        },
+        "all_four_pass": 46,
+        "faithfulness": {
+          "mean": 0.8642140158316629,
+          "sum": 51.85284094989977,
+          "scored": 60,
+          "status_counts": {
+            "scored": 60
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 5.054157145999852,
+          "p95_nearest_rank": 10.877438620002067
+        },
+        "answer_usage": {
+          "input_tokens": 362198,
+          "output_tokens": 26390,
+          "logical_calls": 60,
+          "provider_attempts": 60,
+          "missing_usage": 0
+        }
+      }
+    },
+    "development": {
+      "A": {
+        "count": 30,
+        "answer_status": {
+          "answered": 29,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8666666666666667,
+            "sum": 26.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "condition": {
+            "mean": 1.0,
+            "sum": 30.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "evidence": {
+            "mean": 1.0,
+            "sum": 29.0,
+            "scored": 29,
+            "status_counts": {
+              "scored": 29,
+              "not_applicable": 1
+            }
+          },
+          "decision": {
+            "mean": 1.0,
+            "sum": 30.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          }
+        },
+        "all_four_pass": 26,
+        "faithfulness": {
+          "mean": 0.8005676438571175,
+          "sum": 24.017029315713526,
+          "scored": 30,
+          "status_counts": {
+            "scored": 30
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 3.2890157620004175,
+          "p95_nearest_rank": 7.055501620001451
+        },
+        "answer_usage": {
+          "input_tokens": 142701,
+          "output_tokens": 9749,
+          "logical_calls": 30,
+          "provider_attempts": 30,
+          "missing_usage": 0
+        }
+      },
+      "B": {
+        "count": 30,
+        "answer_status": {
+          "answered": 28,
+          "abstained": 1,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8,
+            "sum": 24.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "condition": {
+            "mean": 0.9333333333333333,
+            "sum": 28.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "evidence": {
+            "mean": 0.8333333333333334,
+            "sum": 25.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "decision": {
+            "mean": 0.9333333333333333,
+            "sum": 28.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          }
+        },
+        "all_four_pass": 21,
+        "faithfulness": {
+          "mean": 0.8499708135002252,
+          "sum": 25.499124405006757,
+          "scored": 30,
+          "status_counts": {
+            "scored": 30
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 3.2543994770003337,
+          "p95_nearest_rank": 9.030819832001725
+        },
+        "answer_usage": {
+          "input_tokens": 179938,
+          "output_tokens": 10380,
+          "logical_calls": 30,
+          "provider_attempts": 30,
+          "missing_usage": 0
+        }
+      },
+      "C": {
+        "count": 30,
+        "answer_status": {
+          "answered": 26,
+          "abstained": 3,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8666666666666667,
+            "sum": 26.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "condition": {
+            "mean": 0.9666666666666667,
+            "sum": 29.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "evidence": {
+            "mean": 0.9666666666666667,
+            "sum": 29.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "decision": {
+            "mean": 0.9333333333333333,
+            "sum": 28.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          }
+        },
+        "all_four_pass": 25,
+        "faithfulness": {
+          "mean": 0.8637637253813725,
+          "sum": 25.912911761441173,
+          "scored": 30,
+          "status_counts": {
+            "scored": 30
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 3.629594014500981,
+          "p95_nearest_rank": 8.913461236003059
+        },
+        "answer_usage": {
+          "input_tokens": 187348,
+          "output_tokens": 10937,
+          "logical_calls": 30,
+          "provider_attempts": 30,
+          "missing_usage": 0
+        }
+      },
+      "D": {
+        "count": 30,
+        "answer_status": {
+          "answered": 26,
+          "abstained": 3,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8,
+            "sum": 24.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "condition": {
+            "mean": 0.9666666666666667,
+            "sum": 29.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "evidence": {
+            "mean": 0.9310344827586207,
+            "sum": 27.0,
+            "scored": 29,
+            "status_counts": {
+              "scored": 29,
+              "not_applicable": 1
+            }
+          },
+          "decision": {
+            "mean": 0.9,
+            "sum": 27.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          }
+        },
+        "all_four_pass": 23,
+        "faithfulness": {
+          "mean": 0.8725646357999299,
+          "sum": 26.176939073997897,
+          "scored": 30,
+          "status_counts": {
+            "scored": 30
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 5.343302566499915,
+          "p95_nearest_rank": 14.685009971999534
+        },
+        "answer_usage": {
+          "input_tokens": 182601,
+          "output_tokens": 14756,
+          "logical_calls": 30,
+          "provider_attempts": 30,
+          "missing_usage": 0
+        }
+      }
+    },
+    "additional": {
+      "A": {
+        "count": 30,
+        "answer_status": {
+          "answered": 29,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8333333333333334,
+            "sum": 25.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "condition": {
+            "mean": 0.9333333333333333,
+            "sum": 28.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "evidence": {
+            "mean": 0.8666666666666667,
+            "sum": 26.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "decision": {
+            "mean": 1.0,
+            "sum": 30.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          }
+        },
+        "all_four_pass": 23,
+        "faithfulness": {
+          "mean": 0.7906294631294631,
+          "sum": 23.718883893883895,
+          "scored": 30,
+          "status_counts": {
+            "scored": 30
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 3.413230250500419,
+          "p95_nearest_rank": 6.286569031002728
+        },
+        "answer_usage": {
+          "input_tokens": 139697,
+          "output_tokens": 8337,
+          "logical_calls": 30,
+          "provider_attempts": 30,
+          "missing_usage": 0
+        }
+      },
+      "B": {
+        "count": 30,
+        "answer_status": {
+          "answered": 29,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8,
+            "sum": 24.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "condition": {
+            "mean": 0.9333333333333333,
+            "sum": 28.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "evidence": {
+            "mean": 0.9333333333333333,
+            "sum": 28.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "decision": {
+            "mean": 1.0,
+            "sum": 30.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          }
+        },
+        "all_four_pass": 23,
+        "faithfulness": {
+          "mean": 0.8889239926739927,
+          "sum": 26.66771978021978,
+          "scored": 30,
+          "status_counts": {
+            "scored": 30
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 2.814612913500241,
+          "p95_nearest_rank": 7.029563019001216
+        },
+        "answer_usage": {
+          "input_tokens": 176693,
+          "output_tokens": 7903,
+          "logical_calls": 30,
+          "provider_attempts": 30,
+          "missing_usage": 0
+        }
+      },
+      "C": {
+        "count": 30,
+        "answer_status": {
+          "answered": 28,
+          "needs_clarification": 1,
+          "abstained": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8333333333333334,
+            "sum": 25.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "condition": {
+            "mean": 1.0,
+            "sum": 30.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "evidence": {
+            "mean": 0.9333333333333333,
+            "sum": 28.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "decision": {
+            "mean": 1.0,
+            "sum": 30.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          }
+        },
+        "all_four_pass": 24,
+        "faithfulness": {
+          "mean": 0.8893771043771044,
+          "sum": 26.681313131313132,
+          "scored": 30,
+          "status_counts": {
+            "scored": 30
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 3.204147415999614,
+          "p95_nearest_rank": 6.2853603289986495
+        },
+        "answer_usage": {
+          "input_tokens": 184103,
+          "output_tokens": 8217,
+          "logical_calls": 30,
+          "provider_attempts": 30,
+          "missing_usage": 0
+        }
+      },
+      "D": {
+        "count": 30,
+        "answer_status": {
+          "answered": 29,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.8,
+            "sum": 24.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "condition": {
+            "mean": 0.9666666666666667,
+            "sum": 29.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "evidence": {
+            "mean": 0.9,
+            "sum": 27.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          },
+          "decision": {
+            "mean": 0.9666666666666667,
+            "sum": 29.0,
+            "scored": 30,
+            "status_counts": {
+              "scored": 30
+            }
+          }
+        },
+        "all_four_pass": 23,
+        "faithfulness": {
+          "mean": 0.8558633958633959,
+          "sum": 25.675901875901875,
+          "scored": 30,
+          "status_counts": {
+            "scored": 30
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 4.492030294499273,
+          "p95_nearest_rank": 10.766824975999043
+        },
+        "answer_usage": {
+          "input_tokens": 179597,
+          "output_tokens": 11634,
+          "logical_calls": 30,
+          "provider_attempts": 30,
+          "missing_usage": 0
+        }
+      }
+    },
+    "boundary": {
+      "A": {
+        "count": 20,
+        "answer_status": {
+          "abstained": 9,
+          "answered": 10,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.9285714285714286,
+            "sum": 13.0,
+            "scored": 14,
+            "status_counts": {
+              "scored": 14,
+              "not_applicable": 6
+            }
+          },
+          "condition": {
+            "mean": 0.9375,
+            "sum": 15.0,
+            "scored": 16,
+            "status_counts": {
+              "scored": 16,
+              "not_applicable": 4
+            }
+          },
+          "evidence": {
+            "mean": 1.0,
+            "sum": 15.0,
+            "scored": 15,
+            "status_counts": {
+              "scored": 15,
+              "not_applicable": 5
+            }
+          },
+          "decision": {
+            "mean": 0.9,
+            "sum": 18.0,
+            "scored": 20,
+            "status_counts": {
+              "scored": 20
+            }
+          }
+        },
+        "all_four_pass": 12,
+        "faithfulness": {
+          "mean": 0.6572916666666667,
+          "sum": 10.516666666666667,
+          "scored": 16,
+          "status_counts": {
+            "scored": 16,
+            "not_applicable": 4
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 2.0876248734984983,
+          "p95_nearest_rank": 3.477800503002072
+        },
+        "answer_usage": {
+          "input_tokens": 10014,
+          "output_tokens": 1992,
+          "logical_calls": 20,
+          "provider_attempts": 20,
+          "missing_usage": 0
+        }
+      },
+      "B": {
+        "count": 20,
+        "answer_status": {
+          "abstained": 10,
+          "answered": 9,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.9230769230769231,
+            "sum": 12.0,
+            "scored": 13,
+            "status_counts": {
+              "not_applicable": 7,
+              "scored": 13
+            }
+          },
+          "condition": {
+            "mean": 1.0,
+            "sum": 13.0,
+            "scored": 13,
+            "status_counts": {
+              "not_applicable": 7,
+              "scored": 13
+            }
+          },
+          "evidence": {
+            "mean": 1.0,
+            "sum": 14.0,
+            "scored": 14,
+            "status_counts": {
+              "not_applicable": 6,
+              "scored": 14
+            }
+          },
+          "decision": {
+            "mean": 1.0,
+            "sum": 20.0,
+            "scored": 20,
+            "status_counts": {
+              "scored": 20
+            }
+          }
+        },
+        "all_four_pass": 11,
+        "faithfulness": {
+          "mean": 0.5837092731829574,
+          "sum": 11.09047619047619,
+          "scored": 19,
+          "status_counts": {
+            "scored": 19,
+            "not_applicable": 1
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 2.368419028000062,
+          "p95_nearest_rank": 5.244190039000387
+        },
+        "answer_usage": {
+          "input_tokens": 31922,
+          "output_tokens": 2842,
+          "logical_calls": 20,
+          "provider_attempts": 20,
+          "missing_usage": 0
+        }
+      },
+      "C": {
+        "count": 20,
+        "answer_status": {
+          "abstained": 9,
+          "answered": 10,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 0.9333333333333333,
+            "sum": 14.0,
+            "scored": 15,
+            "status_counts": {
+              "not_applicable": 5,
+              "scored": 15
+            }
+          },
+          "condition": {
+            "mean": 0.9411764705882353,
+            "sum": 16.0,
+            "scored": 17,
+            "status_counts": {
+              "not_applicable": 3,
+              "scored": 17
+            }
+          },
+          "evidence": {
+            "mean": 1.0,
+            "sum": 17.0,
+            "scored": 17,
+            "status_counts": {
+              "not_applicable": 3,
+              "scored": 17
+            }
+          },
+          "decision": {
+            "mean": 0.95,
+            "sum": 19.0,
+            "scored": 20,
+            "status_counts": {
+              "scored": 20
+            }
+          }
+        },
+        "all_four_pass": 13,
+        "faithfulness": {
+          "mean": 0.5146616541353384,
+          "sum": 9.778571428571428,
+          "scored": 19,
+          "status_counts": {
+            "scored": 19,
+            "not_applicable": 1
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 2.7461080244993354,
+          "p95_nearest_rank": 3.472736817999248
+        },
+        "answer_usage": {
+          "input_tokens": 36862,
+          "output_tokens": 2998,
+          "logical_calls": 20,
+          "provider_attempts": 20,
+          "missing_usage": 0
+        }
+      },
+      "D": {
+        "count": 20,
+        "answer_status": {
+          "abstained": 9,
+          "answered": 10,
+          "needs_clarification": 1
+        },
+        "judge": {
+          "fact": {
+            "mean": 1.0,
+            "sum": 14.0,
+            "scored": 14,
+            "status_counts": {
+              "scored": 14,
+              "unavailable": 1,
+              "not_applicable": 5
+            }
+          },
+          "condition": {
+            "mean": 1.0,
+            "sum": 17.0,
+            "scored": 17,
+            "status_counts": {
+              "scored": 17,
+              "unavailable": 1,
+              "not_applicable": 2
+            }
+          },
+          "evidence": {
+            "mean": 1.0,
+            "sum": 15.0,
+            "scored": 15,
+            "status_counts": {
+              "not_applicable": 4,
+              "unavailable": 1,
+              "scored": 15
+            }
+          },
+          "decision": {
+            "mean": 1.0,
+            "sum": 19.0,
+            "scored": 19,
+            "status_counts": {
+              "scored": 19,
+              "unavailable": 1
+            }
+          }
+        },
+        "all_four_pass": 13,
+        "faithfulness": {
+          "mean": 0.6196428571428572,
+          "sum": 11.153571428571428,
+          "scored": 18,
+          "status_counts": {
+            "scored": 18,
+            "unavailable": 1,
+            "not_applicable": 1
+          }
+        },
+        "answer_latency_seconds": {
+          "p50": 2.8055169345025206,
+          "p95_nearest_rank": 4.211395512997115
+        },
+        "answer_usage": {
+          "input_tokens": 36722,
+          "output_tokens": 3150,
+          "logical_calls": 20,
+          "provider_attempts": 20,
+          "missing_usage": 0
+        }
+      }
+    }
+  },
+  "usage": {
+    "retrieval": {
+      "input_tokens": 1222291,
+      "output_tokens": 23345,
+      "logical_calls": 118,
+      "provider_attempts": 118,
+      "missing_usage": 0
+    },
+    "judge": {
+      "calls": 320,
+      "input_tokens": 1912003,
+      "output_tokens": 154427,
+      "missing_usage": 0
+    },
+    "faithfulness": {
+      "calls": 592,
+      "input_tokens": 1552076,
+      "output_tokens": 319012,
+      "missing_usage": 0
+    }
+  },
+  "identical_evidence_pairs": 80,
+  "cost_usd": null,
+  "cost_note": "단가 미확인; 별도 연결 시험 답변 2회는 집계 밖이며 로컬에 보존"
+}

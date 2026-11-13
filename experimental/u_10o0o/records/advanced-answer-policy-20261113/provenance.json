@@ -1,0 +1,57 @@
+{
+  "head": "6707a4dab8c6b49a1f1630ff296414a3a82d17d9",
+  "search_unchanged": {
+    "app/rag/graph.py": true,
+    "app/rag/retrieval.py": true,
+    "app/rag/evidence.py": true,
+    "app/rag/prompts/plan.txt": true,
+    "app/rag/records.py": true,
+    "app/rag/table_store.py": true,
+    "shared/table_rag_policy.py": true
+  },
+  "frozen_questions": 80,
+  "official_questions": 60,
+  "boundary_questions": 20,
+  "policy": {
+    "policy": "table_rag",
+    "db_first": true,
+    "embedding": {
+      "model_id": "nlpai-lab/KURE-v3",
+      "revision": "73d5e710bc0b1f324a60746922cbad6d38f480d4",
+      "dimensions": 2048,
+      "query_max_length": 2048,
+      "page_max_length": 8192,
+      "table_max_length": 2048,
+      "query_prefix": "query: ",
+      "document_prefix": "passage: ",
+      "normalized": true
+    },
+    "model": "gpt-6-luna",
+    "reasoning_effort": "medium",
+    "plan_output_tokens": 3500,
+    "answer_output_tokens": 2200,
+    "timeout_seconds": 30.0,
+    "max_retries": 0,
+    "candidate_pages": 20,
+    "final_pages": 8,
+    "evidence_tokens": 8000,
+    "snapshot_sha256": "d6b746e5e64ed5d0877593d060b0a6bd397ccb97d77dbcdffec1f945bc865828"
+  },
+  "product_and_test_sha256": {
+    "app/rag/prompts/answer.txt": "21e41e24c9edcab4fbefc397f43ce8b5580a11ff4a52b1901f4d58077400e0ab",
+    "app/rag/service.py": "acc4198680a4727b0e55883714408c8cd1463f15b742b051866cbefb76c51898",
+    "app/rag/model.py": "4b4ea048e7f70bda7b1f147c5dd66f95b221dbbf99a29c58abba37641fd2aa8c",
+    "app/rag/result.py": "07bd95d2129102a4b18c787d1d7a1b13f225e91e605553eff8e513dbcf0c46de",
+    "tests/test_table_rag_service.py": "9cd9d6949f043413cb07fc2eaf2d7ed4d672fdca710ce3bd88f560af09cd6170",
+    "tests/test_table_rag_model.py": "e04f72fe864cb0563d712103b416e019047e761ae6087cc32e7bde504073edd0",
+    "tests/test_answer_stream.py": "7d75bfd349c2b22c6d413583b7ae9d585538dba30da834b9d072c64ffdb019c6",
+    "tests/api/test_chat_conversation.py": "aa16d7dd6029205e910c3b828acf3baeb6e8786f49592fdf1a75d6d8b2a18915",
+    "experimental/u_10o0o/answer_policy_ab.py": "522da6362aa826eccc91b50ec6ba86b5e0cfae26f43b121560d48565d3d3811c"
+  },
+  "prompt_versions": {
+    "A": "1cef2f4ed0431aca91a8bb8fe3a776a4d4b0b343c83518720ff79953f3baf9c1",
+    "B": "f35b0891f39b983d8fef4d46dfea9861f47ec051487d7184b2b0229c821908db",
+    "C": "3eef4d4a5ecc07d783968648094441714ee1010b391cfef4994a827b9f020e2b",
+    "D": "21e41e24c9edcab4fbefc397f43ce8b5580a11ff4a52b1901f4d58077400e0ab"
+  }
+}
