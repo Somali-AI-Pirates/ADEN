@@ -1,0 +1,170 @@
+{
+  "dataset_id": "aden-faithfulness-synthetic-12-v1",
+  "provenance": "Fully synthetic examples; no project question, customer, document, code, amount, or citation is copied.",
+  "cases": [
+    {
+      "id": "SYN-FTH-01",
+      "category": "entity_match",
+      "question": "가상 대상 ZX-SYN-01의 접수 상태가 무엇인가요?",
+      "response": "ZX-SYN-01은 접수 완료 상태입니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-01",
+          "text": "ZX-SYN-01 상태: 접수 완료."
+        }
+      ],
+      "expected_supported": true
+    },
+    {
+      "id": "SYN-FTH-02",
+      "category": "entity_match",
+      "question": "가상 대상 ZX-SYN-01의 접수 상태가 무엇인가요?",
+      "response": "ZX-SYN-10은 접수 완료 상태입니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-01",
+          "text": "ZX-SYN-01 상태: 접수 완료."
+        }
+      ],
+      "expected_supported": false
+    },
+    {
+      "id": "SYN-FTH-03",
+      "category": "date_scope",
+      "question": "ZX-SYN-02의 실제 인계일은 언제인가요?",
+      "response": "실제 인계일은 2031-04-08입니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-02",
+          "text": "ZX-SYN-02 실제 인계일: 2031-04-08. 예정일: 2031-04-06."
+        }
+      ],
+      "expected_supported": true
+    },
+    {
+      "id": "SYN-FTH-04",
+      "category": "date_scope",
+      "question": "ZX-SYN-02의 실제 인계일은 언제인가요?",
+      "response": "실제 인계일은 예정된 2031-04-06입니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-02",
+          "text": "ZX-SYN-02 실제 인계일: 2031-04-08. 예정일: 2031-04-06."
+        }
+      ],
+      "expected_supported": false
+    },
+    {
+      "id": "SYN-FTH-05",
+      "category": "approval_effect",
+      "question": "ZX-SYN-03에 변경 승인이 적용됐나요?",
+      "response": "승인 문서에는 적용일이 2031-05-10으로 적혀 있어 2031-05-12 기준에는 적용됩니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-03",
+          "text": "ZX-SYN-03 변경 승인. 적용 시작일: 2031-05-10."
+        }
+      ],
+      "expected_supported": true
+    },
+    {
+      "id": "SYN-FTH-06",
+      "category": "approval_effect",
+      "question": "ZX-SYN-03의 변경 승인이 2031-05-08에 적용됐나요?",
+      "response": "승인은 2031-05-08부터 적용됩니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-03",
+          "text": "ZX-SYN-03 변경 승인. 적용 시작일: 2031-05-10."
+        }
+      ],
+      "expected_supported": false
+    },
+    {
+      "id": "SYN-FTH-07",
+      "category": "fee_scope",
+      "question": "ZX-SYN-04의 보관료와 지연료 상한 적용을 요약해 주세요.",
+      "response": "지연료에 상한 90을 적용하며 보관료에는 이 상한을 적용하지 않습니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-04",
+          "text": "ZX-SYN-04 계약: 지연료 상한 90. 보관료는 별도 산정하며 이 상한의 적용 대상이 아니다."
+        }
+      ],
+      "expected_supported": true
+    },
+    {
+      "id": "SYN-FTH-08",
+      "category": "fee_scope",
+      "question": "ZX-SYN-04의 보관료와 지연료 상한 적용을 요약해 주세요.",
+      "response": "지연료 상한 90을 보관료에도 적용합니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-04",
+          "text": "ZX-SYN-04 계약: 지연료 상한 90. 보관료는 별도 산정하며 이 상한의 적용 대상이 아니다."
+        }
+      ],
+      "expected_supported": false
+    },
+    {
+      "id": "SYN-FTH-09",
+      "category": "multi_source_calculation",
+      "question": "ZX-SYN-05의 두 비용 합계는 얼마인가요?",
+      "response": "두 비용의 합계는 USD 265입니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-05A",
+          "text": "ZX-SYN-05 보관료: USD 220."
+        },
+        {
+          "source_id": "SYN-DOC-05B",
+          "text": "ZX-SYN-05 지연료: USD 45."
+        }
+      ],
+      "expected_supported": true
+    },
+    {
+      "id": "SYN-FTH-10",
+      "category": "multi_source_calculation",
+      "question": "ZX-SYN-05의 두 비용 합계는 얼마인가요?",
+      "response": "두 비용의 합계는 USD 275입니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-05A",
+          "text": "ZX-SYN-05 보관료: USD 220."
+        },
+        {
+          "source_id": "SYN-DOC-05B",
+          "text": "ZX-SYN-05 지연료: USD 45."
+        }
+      ],
+      "expected_supported": false
+    },
+    {
+      "id": "SYN-FTH-11",
+      "category": "uncertain_status",
+      "question": "ZX-SYN-06 처리가 끝났나요?",
+      "response": "제공된 자료로는 처리 완료 여부를 확인할 수 없습니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-06",
+          "text": "ZX-SYN-06 예정 완료일: 2031-06-18. 완료 확인 기록은 등록되지 않음."
+        }
+      ],
+      "expected_supported": true
+    },
+    {
+      "id": "SYN-FTH-12",
+      "category": "uncertain_status",
+      "question": "ZX-SYN-06 처리가 끝났나요?",
+      "response": "ZX-SYN-06 처리는 2031-06-18에 완료됐습니다.",
+      "contexts": [
+        {
+          "source_id": "SYN-DOC-06",
+          "text": "ZX-SYN-06 예정 완료일: 2031-06-18. 완료 확인 기록은 등록되지 않음."
+        }
+      ],
+      "expected_supported": false
+    }
+  ]
+}

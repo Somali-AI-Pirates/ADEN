@@ -81,12 +81,12 @@ flowchart TD
 | 2 | [chat._stream_query_events](../../app/api/chat.py#L169) → [_produce_query_events](../../app/api/chat.py#L266) | 전송 큐를 만들고 서비스의 ainvoke를 호출한다. event_sink는 큐에 넣는 알림 함수다 |
 | 3 | [RagService.ainvoke](../../app/rag/service.py#L201) | 예약 소유권·기한·준비 상태를 확인하고 _answer_question으로 들어간다 |
 | 4 | [RagService._answer_question](../../app/rag/service.py#L266) | 요청 추적과 ModelCalls를 새로 만든다. langchain_config에 공식 콜백을 등록한다 |
-| 5 | [TableRagGraph.run](../../app/rag/graph.py#L885) → [_compile](../../app/rag/graph.py#L186) | run이 요청 State를 만들고 그래프를 호출한다. _compile에서 다음 노드로 가는 조건을 확인한다 |
-| 6 | [TableRagGraph._initial_search](../../app/rag/graph.py#L280) | 이력이 있으면 [_resolve_conversation](../../app/rag/graph.py#L241)이 먼저 실행된다. 해석한 질문에서 코드를 읽고 공통 DB 또는 하이브리드로 첫 근거를 얻는다 |
-| 7 | [TableRagGraph._plan_next_step](../../app/rag/graph.py#L423) → [TableModel.plan](../../app/rag/model.py#L261) | 계획용 메시지와 도구 스키마를 보내는 실제 LangChain ainvoke를 확인한다 |
-| 8 | [lookup_records](../../app/rag/graph.py#L609) · [search_evidence](../../app/rag/graph.py#L638) · [read_sources](../../app/rag/graph.py#L658) · [query_tables](../../app/rag/graph.py#L702) | 선택된 노드가 인자를 검증한 뒤 해당 처리 함수를 직접 호출한다. 결과를 한 번 반영하고 재계획한다 |
-| 9 | [TableRagGraph._assemble_evidence](../../app/rag/graph.py#L821) | finish가 고른 출처와 SQL을 예산 안에 조립하고 선택 출처의 유실을 검사한다 |
-| 10 | [TableModel.answer](../../app/rag/model.py#L359) | 서비스가 선택된 이전 대화 메시지, 현재 질문, 최종 근거를 넘긴다. SSE에서는 stream_answer가 astream을 읽는다 |
+| 5 | [TableRagGraph.run](../../app/rag/graph.py#L890) → [_compile](../../app/rag/graph.py#L191) | run이 요청 State를 만들고 그래프를 호출한다. _compile에서 다음 노드로 가는 조건을 확인한다 |
+| 6 | [TableRagGraph._initial_search](../../app/rag/graph.py#L285) | 이력이 있으면 [_resolve_conversation](../../app/rag/graph.py#L246)이 먼저 실행된다. 해석한 질문에서 코드를 읽고 공통 DB 또는 하이브리드로 첫 근거를 얻는다 |
+| 7 | [TableRagGraph._plan_next_step](../../app/rag/graph.py#L428) → [TableModel.plan](../../app/rag/model.py#L261) | 계획용 메시지와 도구 스키마를 보내는 실제 LangChain ainvoke를 확인한다 |
+| 8 | [lookup_records](../../app/rag/graph.py#L614) · [search_evidence](../../app/rag/graph.py#L643) · [read_sources](../../app/rag/graph.py#L663) · [query_tables](../../app/rag/graph.py#L707) | 선택된 노드가 인자를 검증한 뒤 해당 처리 함수를 직접 호출한다. 결과를 한 번 반영하고 재계획한다 |
+| 9 | [TableRagGraph._assemble_evidence](../../app/rag/graph.py#L826) | finish가 고른 출처와 SQL을 예산 안에 조립하고 선택 출처의 유실을 검사한다 |
+| 10 | [TableModel.answer](../../app/rag/model.py#L361) | 서비스가 선택된 이전 대화 메시지, 현재 질문, 최종 근거를 넘긴다. SSE에서는 stream_answer가 astream을 읽는다 |
 | 11 | [validate_answer](../../app/rag/result.py#L29) | 최종 근거에 없는 인용과 종료 상태에 어긋난 답변을 거절한다 |
 | 12 | [save_request_run](../../app/observability/run_store.py#L154) | 서비스가 원자적 저장을 마친 뒤 반환한다. _produce_query_events가 final을 큐에 넣는다 |
 
@@ -100,6 +100,8 @@ SSE의 큐는 서비스가 알린 진행 상태·답변 조각을 브라우저�
 | --- | --- |
 | 서비스의 요청 추적 시작 | rag-query 루트와 요청 ID |
 | 그래프의 실제 등록 노드 | 대화 해석, 초기 조회, 다음 작업 계획, 선택한 도구, 근거 조립 |
+| 계획 뒤 그래프 분기 | route_next_step에서 선택한 도구 또는 근거 조립으로 이동 |
+| 계획·답변 체인과 프롬프트 | plan-tool-call / planner-prompt, generate-answer / answer-prompt |
 | 모델의 plan / answer | planner-N / answer-N generation |
 | 서비스가 기록한 검색·최종 근거 | retrieval / final-context |
 | 별도 평가 CLI의 게시 | 원래 trace의 Ragas·Judge 점수 |

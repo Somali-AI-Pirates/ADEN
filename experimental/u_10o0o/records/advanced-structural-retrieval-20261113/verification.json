@@ -1,0 +1,41 @@
+{
+  "status": "complete",
+  "outputs": 1900,
+  "unique_questions": 320,
+  "evidence_questions": 293,
+  "state_only_questions": 27,
+  "semantic_validation_errors": 0,
+  "review_contexts": {
+    "final": 668,
+    "candidate": 90
+  },
+  "frozen_inputs_code_verified": true,
+  "candidate_and_context_bounds": "invariants.json",
+  "answer_generation_calls": 0,
+  "common_ruff_check": "passed",
+  "common_pytest": {
+    "passed": 685,
+    "subtests": 11,
+    "warnings": 1
+  },
+  "experimental_pytest": {
+    "passed": 12
+  },
+  "experimental_and_analysis_ruff": "passed",
+  "experimental_and_analysis_format": "passed",
+  "whole_repository_format": {
+    "status": "failed_outside_experiment_scope",
+    "files": 96,
+    "modified_by_this_experiment": false
+  },
+  "cli_help": "passed",
+  "package_build": "not_run; no production/package changes",
+  "independent_human_or_subagent_review": false,
+  "review_method": "Luna separate calls plus primary-assistant source inspection; raw and corrected judgments retained",
+  "post_scoring_judgment_corrections": "Literal/source errors and question-scope interpretation recorded explicitly; retrieval and reference files unchanged",
+  "baseline_promoted": false,
+  "commit_push_or_deployment": false,
+  "reference_files_changed_after_search": false,
+  "retrieval_conditions_changed_after_scoring": false,
+  "judgment_corrections_after_scoring": true
+}

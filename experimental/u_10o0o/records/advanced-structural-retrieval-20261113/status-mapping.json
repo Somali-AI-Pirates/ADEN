@@ -1,0 +1,13 @@
+{
+  "mapping": {
+    "answer": "sufficient",
+    "clarify": "needs_clarification",
+    "abstain": "insufficient",
+    "needs_clarification": "needs_clarification",
+    "insufficient": "insufficient"
+  },
+  "accepted_labels_source": "Frozen dataset reference inputs; official cases may allow both answer and abstain.",
+  "no_evidence_queries": "Only questions without evidence requirements are excluded from semantic scoring. Clarify/abstain questions with required evidence remain scored for evidence availability.",
+  "semantic_scores_changed": false,
+  "retrieval_outputs_changed": false
+}

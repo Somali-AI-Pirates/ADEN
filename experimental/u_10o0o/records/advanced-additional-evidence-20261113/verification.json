@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-13",
+  "status": "complete",
+  "commands": [
+    {
+      "command": ".venv/bin/ruff check .",
+      "result": "passed",
+      "log": "artifacts/u_10o0o/advanced-additional-evidence-20261113/common-ruff.log"
+    },
+    {
+      "command": ".venv/bin/pytest -q tests",
+      "result": "663 passed, 11 subtests passed, 1 warning, 10.76s",
+      "warning": "Qdrant local exact mode ignores search_params except idf",
+      "log": "artifacts/u_10o0o/advanced-additional-evidence-20261113/common-pytest.log"
+    },
+    {
+      "command": ".venv/bin/ruff check --no-force-exclude experimental/u_10o0o/additional_evidence_ab",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/bin/pytest -q -p no:cacheprovider experimental/u_10o0o/additional_evidence_ab/test_experiment.py",
+      "result": "4 passed, 0.27s"
+    },
+    {
+      "command": ".venv/bin/python -B -m experimental.u_10o0o.additional_evidence_ab.run --help",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/bin/python -B -m experimental.u_10o0o.additional_evidence_ab.evaluate --help",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/bin/python -B -m experimental.u_10o0o.additional_evidence_ab.evaluate summarize",
+      "result": "180 saved runs summarized; pending review 0"
+    }
+  ],
+  "live_execution": {
+    "retrieval_runs": 180,
+    "planner_api_calls": 380,
+    "review_api_calls": 53,
+    "answer_api_calls": 0,
+    "api_errors": 0
+  },
+  "review": "AI self-review only; no subagents or human review",
+  "production_mutations": false,
+  "baseline_replaced": false,
+  "commit_push": false,
+  "limitations": [
+    "Known 30-question development/regression set",
+    "No generated-answer evaluation",
+    "No human evidence adjudication",
+    "Two B changes bundled; individual causal effects not isolated",
+    "GPU reranker and concurrency 2; not production load test",
+    "No packaging dependency change; package build not run"
+  ],
+  "artifact_checks": {
+    "frozen_hashes": "passed",
+    "review_validations": 53,
+    "aggregate_consistency": "passed",
+    "local_markdown_links": "passed",
+    "key_pattern_scan": "passed",
+    "independent_review": "not performed; side-conversation restriction"
+  }
+}

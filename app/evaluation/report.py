@@ -19,8 +19,8 @@ JUDGE_LABELS = {"fact": "사실", "condition": "조건", "evidence": "근거", "
 
 
 def write_json(path: Path, data: Any) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    from app.evaluation.checkpoints import atomic_json
+    atomic_json(path, data)
 
 
 def write_jsonl(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
@@ -127,6 +127,20 @@ def summarize(runs: Sequence[Mapping[str, Any]], scores: Sequence[Mapping[str, A
                                    "latency_ms": grading_latency_ms,
                                    "input_tokens": grading_input_tokens,
                                    "output_tokens": grading_output_tokens}
+        mode_summary["grading"]["logical_calls"] = sum(
+            usage.get("logical_calls", 1) for usage in grading
+        )
+        attempts = [usage.get("provider_attempts") for usage in grading]
+        mode_summary["grading"]["provider_attempts"] = (
+            sum(attempts) if attempts and all(value is not None for value in attempts) else None
+        )
+        reasoning = [usage.get("reasoning_tokens") for usage in grading]
+        mode_summary["grading"]["reasoning_tokens"] = (
+            sum(reasoning) if reasoning and all(value is not None for value in reasoning) else None
+        )
+        mode_summary["grading"]["usage_incomplete_calls"] = sum(
+            usage.get("input_tokens") is None or usage.get("output_tokens") is None for usage in grading
+        )
         summary[mode] = mode_summary
     for mode, stats in summary.items():
         diagnostics = [s.get("evidence_diagnostics", {}) for s in scores if s["retrieval_mode"] == mode]
@@ -377,6 +391,11 @@ def render_readme(report_dir: Path) -> str:
     return "\n".join(lines)
 
 
+def public_score(row: Mapping[str, Any]) -> dict[str, Any]:
+    """Raw evaluator inputs and claim quotations stay in private local details."""
+    return {key: value for key, value in row.items() if key != "evaluation_details"}
+
+
 def write_artifacts(exp_dir: Path, manifest: Mapping[str, Any], *, runs=None, scores=None,
                     security=None) -> None:
     """로컬 전체 기록. 최종 문맥 텍스트·모델 입력까지 포함하므로 Git에 올리지 않는다."""
@@ -384,7 +403,14 @@ def write_artifacts(exp_dir: Path, manifest: Mapping[str, Any], *, runs=None, sc
     if runs is not None:
         write_jsonl(exp_dir / "runs.jsonl", runs)
     if scores is not None:
-        write_jsonl(exp_dir / "scores.jsonl", scores)
+        write_jsonl(exp_dir / "scores.jsonl", [public_score(row) for row in scores])
+        details = [
+            {"experiment_id": row["experiment_id"], "question_id": row["question_id"],
+             "request_id": row["request_id"], **row["evaluation_details"]}
+            for row in scores if row.get("evaluation_details")
+        ]
+        if details:
+            write_jsonl(exp_dir / "evaluation-details.jsonl", details)
     if security is not None:
         write_jsonl(exp_dir / "security_runs.jsonl", security)
 
@@ -414,7 +440,7 @@ def write_report(report_dir: Path, manifest: Mapping[str, Any], *,
                    {"data_kind": data_kind, "modes": summarize(runs, scores)})
         _write_csv(report_dir / "comparison.csv", comparison_rows(runs, scores, data_kind))
         write_jsonl(report_dir / "answers.jsonl", answer_rows(runs))
-        write_jsonl(report_dir / "scores.jsonl", scores)
+        write_jsonl(report_dir / "scores.jsonl", [public_score(row) for row in scores])
     if security is not None:
         _write_csv(report_dir / "security_comparison.csv", security_rows(security, data_kind))
         write_json(report_dir / "security_checks.json", security_checks or {})

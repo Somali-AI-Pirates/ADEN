@@ -59,7 +59,8 @@ def run_comparison(questions: Sequence[Mapping[str, str]], adapter: ServiceAdapt
 
 def grade_all(records: Sequence[Mapping[str, Any]], references: Mapping[str, Mapping[str, Any]],
               *, k: int, judge_fn: JudgeFn | None, faithfulness_fn: FaithfulnessFn | None,
-              judge_template: str | None = None) -> list[dict[str, Any]]:
+              judge_template: str | None = None,
+              diagnose_fn: JudgeFn | None = None) -> list[dict[str, Any]]:
     """저장된 기록에 참고 정답을 연결해 채점한다. 참고 정답이 없는 문항은 오류로 알린다.
     judge_template을 생략하면 기본 `judge.txt`를 쓴다(재채점은 다른 기준 파일을 넘길 수 있다)."""
     record_question_ids = set()
@@ -75,5 +76,6 @@ def grade_all(records: Sequence[Mapping[str, Any]], references: Mapping[str, Map
     graded = []
     for record in records:
         graded.append(grade_record(record, references[record["question_id"]], k=k, judge_fn=judge_fn,
-                                   faithfulness_fn=faithfulness_fn, judge_template=template))
+                                   faithfulness_fn=faithfulness_fn, judge_template=template,
+                                   diagnose_fn=diagnose_fn))
     return graded

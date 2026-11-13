@@ -66,3 +66,4 @@ class RetrievalRun:
     diagnostics: dict[str, Any]
     search_question: str | None = None
     answer_history: tuple[ConversationTurn, ...] = ()
+    observations: tuple[dict[str, Any], ...] = ()

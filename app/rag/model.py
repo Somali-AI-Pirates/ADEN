@@ -205,7 +205,7 @@ class TableModel:
         finish_tool = self.tools[-1]
         self._plan_prompt = ChatPromptTemplate.from_messages(
             [SystemMessage(content=self.plan_prompt), MessagesPlaceholder("history")]
-        )
+        ).with_config(run_name="planner-prompt")
         self._plan = {
             only_finish: model.bind_tools(
                 [finish_tool] if only_finish else self.tools,
@@ -222,7 +222,7 @@ class TableModel:
                 MessagesPlaceholder("conversation_history", optional=True),
                 ("human", "{payload}"),
             ]
-        )
+        ).with_config(run_name="answer-prompt")
         self._conversation_model = model.bind(
             response_format={
                 "type": "json_schema",
@@ -279,7 +279,9 @@ class TableModel:
         with calls.track_call("planner", model_input, tool_schema=tools) as call:
             request_config = calls.callback_config(config, call)
             model = self._plan[finish_only].with_config(calls.model_run_config(call))
-            runnable = self._plan_prompt | model
+            runnable = (self._plan_prompt | model).with_config(
+                run_name="plan-tool-call"
+            )
             try:
                 message = await runnable.ainvoke(inputs, config=request_config)
                 if (
@@ -392,7 +394,9 @@ class TableModel:
         with calls.track_call("answer", model_input) as call:
             request_config = calls.callback_config(config, call)
             model = self._answer_model.with_config(calls.model_run_config(call))
-            runnable = self._answer_prompt | model
+            runnable = (self._answer_prompt | model).with_config(
+                run_name="generate-answer"
+            )
             try:
                 if calls.event_sink is not None:
                     result = await stream_answer(

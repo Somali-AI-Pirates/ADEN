@@ -1,0 +1,29 @@
+{
+  "spec": {
+    "pages_sha256": "86bae0c440725598593c4c73ec5b34d3af4dec3d16594e3cdedcd64d051582cb",
+    "extract_code_sha256": "4ec7ac3b4ed53268ead1a132ed9ce80650166eb1d80459b4b893c010fb5fd455",
+    "embedding": {
+      "model_id": "nlpai-lab/KURE-v3",
+      "revision": "73d5e710bc0b1f324a60746922cbad6d38f480d4",
+      "dimensions": 2048,
+      "query_max_length": 2048,
+      "page_max_length": 8192,
+      "table_max_length": 2048,
+      "query_prefix": "query: ",
+      "document_prefix": "passage: ",
+      "normalized": true
+    },
+    "count": 8048,
+    "max_length": 2048,
+    "dtype": "bfloat16",
+    "batch_size": 2
+  },
+  "units_sha256": "ae56a2df0f9282e012bb5204680ef9b0e1b1532f1021af6f024a5bfa7d0f4274",
+  "vectors_sha256": "b1e174136521cdce0a66672d412e85603de1a6cd696dfab4433b58cd04cdf4fd",
+  "seconds": 115.26587411600485,
+  "source_spans_verified": 8048,
+  "deduplicated_rules": false,
+  "inferred_scope": false,
+  "pre_format_code_sha256": "79b7dd6400e7211160c7b35c228655498a33c139ebf4fbfa7bb14dec8a5963b1",
+  "formatting_ast_identical": true
+}

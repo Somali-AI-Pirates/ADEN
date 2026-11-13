@@ -3,6 +3,7 @@ import json
 
 import httpx
 import pytest
+from langchain_core.callbacks import BaseCallbackHandler
 from langchain_core.messages import HumanMessage, ToolMessage
 
 from app.rag import model as model_module
@@ -215,12 +216,28 @@ def test_responses_tool_roundtrip_and_answer_scope(monkeypatch):
 
     _transport(monkeypatch, handle)
 
+    class TraceNames(BaseCallbackHandler):
+        def __init__(self):
+            self.chains = []
+            self.generations = []
+
+        def on_chain_start(self, serialized, inputs, *, name=None, **kwargs):
+            self.chains.append(name)
+
+        def on_chat_model_start(self, serialized, messages, *, name=None, **kwargs):
+            self.generations.append(name)
+
+    trace = TraceNames()
+    config = {"callbacks": [trace]}
+
     async def run():
         gateway = await load_model()
         calls = ModelCalls()
         first_input = HumanMessage(content="planner-only-marker")
         try:
-            first = await gateway.plan([first_input], finish_only=False, calls=calls)
+            first = await gateway.plan(
+                [first_input], finish_only=False, calls=calls, config=config
+            )
             assert first.tool_calls[0]["id"] == "call_1"
             assert "opaque-reasoning" not in json.dumps(first.model_dump(mode="json"))
             second = await gateway.plan(
@@ -236,12 +253,14 @@ def test_responses_tool_roundtrip_and_answer_scope(monkeypatch):
                 ],
                 finish_only=True,
                 calls=calls,
+                config=config,
             )
             assert second.tool_calls[0]["name"] == "finish"
             answer = await gateway.answer(
                 '{"question":"질문","evidence":{"pages":[],"sql":[]}}',
                 context_hash="evidence-hash",
                 calls=calls,
+                config=config,
             )
             assert answer.citations == ["AS001:p0001"]
             assert calls.summary()["provider_attempts"] == 3
@@ -276,6 +295,15 @@ def test_responses_tool_roundtrip_and_answer_scope(monkeypatch):
             await gateway.aclose()
 
     asyncio.run(run())
+    assert trace.chains == [
+        "plan-tool-call",
+        "planner-prompt",
+        "plan-tool-call",
+        "planner-prompt",
+        "generate-answer",
+        "answer-prompt",
+    ]
+    assert trace.generations == ["planner-1", "planner-2", "answer-3"]
 
 
 def test_timeout_counts_one_attempt_and_unknown_usage(monkeypatch):

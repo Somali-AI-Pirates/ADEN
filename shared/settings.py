@@ -110,6 +110,16 @@ class RetrievalSettings(BaseModel):
     candidate_count: int = Field(default=20, gt=0)
 
 
+class EvaluationSettings(BaseModel):
+    """LLM-evaluator policy, independent from answer-generation settings."""
+
+    reasoning_effort: Literal["max"] = "max"
+    fallback_reasoning_effort: Literal["xhigh"] = "xhigh"
+    max_output_tokens: int = Field(default=128000, gt=0)
+    timeout_seconds: float = Field(default=600, gt=0)
+    max_retries: int = Field(default=2, ge=0)
+
+
 class Settings(BaseModel):
     dataset: str
     documents_dir: Path
@@ -124,6 +134,7 @@ class Settings(BaseModel):
     reasoning_effort: Literal["none", "low", "medium", "high"] | None = None
     generation_max_attempts: int = Field(default=2, ge=1)
     context_tokenizer: str = "o200k_base"
+    evaluation: EvaluationSettings = Field(default_factory=EvaluationSettings)
 
 
 def configured_path(default: Path = DEFAULT_CONFIG) -> Path:

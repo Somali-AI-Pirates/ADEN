@@ -1,0 +1,15 @@
+{
+  "python": "3.13.15",
+  "packages": {
+    "openai": "2.54.0",
+    "langchain-core": "1.7.6",
+    "langchain-openai": "1.7.4",
+    "langgraph": "1.2.20",
+    "torch": "2.15.0",
+    "sentence-transformers": "6.2.0",
+    "numpy": "2.5.4",
+    "tiktoken": "0.14.0",
+    "pydantic": "2.14.3"
+  },
+  "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU, 592.01, 8151 MiB"
+}

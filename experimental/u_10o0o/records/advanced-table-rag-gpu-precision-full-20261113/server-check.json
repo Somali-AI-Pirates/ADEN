@@ -1,0 +1,38 @@
+{
+  "http_readiness": 200,
+  "readiness": {
+    "ready": true,
+    "checks": {
+      "resources": true,
+      "records": true,
+      "tables": true,
+      "vector_store": true,
+      "run_store": true,
+      "accepting": true
+    }
+  },
+  "device": "cuda",
+  "backend": "qdrant",
+  "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "manifest": {
+    "model_id": "nlpai-lab/KURE-Reranker-nano",
+    "revision": "8514b9e113f3b27c441ed9c2b50f81d80388b2fd",
+    "max_length": 2048,
+    "batch_size": 4,
+    "dtype": "bfloat16"
+  },
+  "actual_reranker_parameter_device": "cuda:0",
+  "actual_reranker_parameter_dtype": "torch.bfloat16",
+  "sample_id": "official_development:AS-DEV01",
+  "sample_stages": {
+    "query_embedding_ms": 538.852,
+    "bm25_ms": 51.774,
+    "dense_ms": 665.697,
+    "rrf_ms": 0.077,
+    "reranker_ms": 273.738,
+    "page_deduplication_ms": 0.05,
+    "total_ms": 1530.188
+  },
+  "reranked_candidates": 20,
+  "llm_calls": 0
+}

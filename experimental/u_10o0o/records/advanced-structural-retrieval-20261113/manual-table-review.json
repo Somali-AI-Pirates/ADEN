@@ -1,0 +1,84 @@
+{
+  "corrections": [
+    {
+      "review_key": "3aab6e6daec825370560e5f905b87fa150eeec39a2a3e4d0d47c3cdecfec36c9",
+      "run_keys": [
+        "r1-A-STRUCT-HOLD-030",
+        "r1-S-STRUCT-HOLD-030",
+        "r1-V-STRUCT-HOLD-030"
+      ],
+      "requirement_id": "R1",
+      "source_id": "AS014:p0019",
+      "reason": "same table row; email split by another column; full original row cited"
+    },
+    {
+      "review_key": "6ab1c656beef0b4f173ae8c73cb12fceba0ed9ea626829107acf14949fff1bea",
+      "run_keys": [
+        "r1-A-official_additional:AS-ADD06",
+        "r1-S-official_additional:AS-ADD06",
+        "r1-V-official_additional:AS-ADD06"
+      ],
+      "requirement_id": "R2",
+      "source_id": "AS007:p0013",
+      "reason": "same table row; email split by another column; full original row cited"
+    },
+    {
+      "review_key": "d416fb2f82efc98f653558fb2f2e5f3a599278eecc1ab86cbcfcbcb2881979a2",
+      "run_keys": [
+        "r1-P-official_additional:AS-ADD06"
+      ],
+      "requirement_id": "R2",
+      "source_id": "AS007:p0013",
+      "reason": "same table row; email split by another column; full original row cited"
+    },
+    {
+      "review_key": "82caef73aab3a6551932dff6a586c3b69b852e4102c759954585f135d05b25ae",
+      "run_keys": [
+        "r1-R-official_additional:AS-ADD06"
+      ],
+      "requirement_id": "R2",
+      "source_id": "AS007:p0013",
+      "reason": "same table row; email split by another column; full original row cited"
+    },
+    {
+      "review_key": "a1dfb905f9c9e828ccdd34d69718f2fa39aef0c3b7152eb63ba626fbe562cf74",
+      "run_keys": [
+        "r2-A-official_additional:AS-ADD06",
+        "r2-S-official_additional:AS-ADD06",
+        "r2-V-official_additional:AS-ADD06"
+      ],
+      "requirement_id": "R2",
+      "source_id": "AS007:p0013",
+      "reason": "same table row; email split by another column; full original row cited"
+    },
+    {
+      "review_key": "50497e05f11f1840075a076ecf38c485bbeae182b8e202fa2c54a64f922f6cfd",
+      "run_keys": [
+        "r2-P-official_additional:AS-ADD06"
+      ],
+      "requirement_id": "R2",
+      "source_id": "AS007:p0013",
+      "reason": "same table row; email split by another column; full original row cited"
+    },
+    {
+      "review_key": "f1439f573475a3d47021e692348bf6470534882014979a8c9b3fb0fbf4409701",
+      "run_keys": [
+        "r2-R-official_additional:AS-ADD06"
+      ],
+      "requirement_id": "R2",
+      "source_id": "AS007:p0013",
+      "reason": "same table row; email split by another column; full original row cited"
+    },
+    {
+      "review_key": "9c20156e71b8af239385010fc93eb6ba012f6c4e686bc9171065a67c149e42b7",
+      "run_keys": [
+        "r3-A-official_additional:AS-ADD06"
+      ],
+      "requirement_id": "R2",
+      "source_id": "AS007:p0013",
+      "reason": "same table row; email split by another column; full original row cited"
+    }
+  ],
+  "human_review": false,
+  "scope": "Only inspected same-row email formatting; no new sources or reference facts"
+}

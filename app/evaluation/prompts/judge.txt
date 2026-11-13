@@ -57,10 +57,25 @@
 5. has_factual_claims: 서비스 출력(answer와 reason)이 문서 내용·수치·절차에 관한 사실 주장을 하나라도 하면 true, 조건만 되묻거나 "자료가 없다"는 수준이면 false.
 6. 각 이유는 한두 문장으로, 참고 기준과 출력의 어느 부분을 비교했는지 밝힌다. 0점이면 빠지거나 틀린 사실·조건·인용을 적는다. 이유는 비워 두지 않는다.
 
+필수 사실 추적(fact_checks)
+- 참고 기준에 required_facts가 있으면 원문 순서대로 F1, F2, ...를 부여하고 fact 문자열을 그대로 복사한다. origin은 reference다. 모든 필수 사실을 한 번씩 평가한다.
+- required_facts가 없고 reference_answer에 답해야 할 사실이 있으면 질문이 요구하는 최소 사실만 분해한다. origin은 derived_reference다. 질문이 요구하지 않은 사실을 추가하지 않는다.
+- 참고 기준이 사실 답변 없이 추가 확인·보류만 요구한다면 fact_checks는 []이다. 해당 판단의 적절성은 decision에서 별도로 평가한다.
+- final_support: 실제 최종 문맥이 그 사실을 충분히 뒷받침하면 supported, 그렇지 않으면 unsupported, 대상·시점·조건이나 참고 기준이 모호하면 uncertain.
+- answer_status: 답변과 reason이 해당 사실을 정확히 반영하면 correct, 빠뜨렸으면 missing, 잘못 단정·해석했으면 wrong, 판정하기 어려우면 uncertain.
+- supporting_evidence는 실제 최종 문맥의 source_id와 짧은 원문 인용 quote의 배열이다. 같은 대상에 관한 여러 페이지·SQL을 함께 인용할 수 있다. supported이면 인용이 반드시 있어야 한다.
+- 참고 정답·채점 기준의 인용은 실제 최종 문맥의 증거가 아니다. 실제 문맥에 없는 출처를 만들어 넣지 않는다.
+- answer_quote에는 답변 또는 reason의 해당 원문을 그대로 적는다. missing이면 빈 문자열이다.
+- reason에는 의미상 근거·답변 반영 판단을 짧게 설명한다. 내부 사고 과정을 쓰지 않는다.
+- [검색 종료 판단]이 insufficient/needs_clarification이면 시스템이 보류를 강제할 수 있다. 답변이 보류했다는 이유만으로 최종 생성 모델이 근거를 놓쳤다고 단정하지 않는다.
+
 JSON 하나만 출력한다. 다른 텍스트를 쓰지 않는다. 모든 필드는 필수다.
-{"has_factual_claims": true, "criteria": {"fact": {"score": 1, "status": "scored", "reason": "..."}, "condition": {"score": 0, "status": "scored", "reason": "..."}, "evidence": {"score": null, "status": "not_applicable", "reason": "..."}, "decision": {"score": 1, "status": "scored", "reason": "..."}}, "calculation_checks": [{"target": "보관료", "status": "incomplete", "missing_evidence": ["산입 시작일 포함 여부"], "supporting_source_ids": ["S2"], "reason": "..."}]}
+{"has_factual_claims": true, "criteria": {"fact": {"score": 1, "status": "scored", "reason": "..."}, "condition": {"score": 0, "status": "scored", "reason": "..."}, "evidence": {"score": null, "status": "not_applicable", "reason": "..."}, "decision": {"score": 1, "status": "scored", "reason": "..."}}, "fact_checks": [{"fact_id": "F1", "fact": "...", "origin": "reference", "final_support": "supported", "answer_status": "correct", "supporting_evidence": [{"source_id": "S2", "quote": "..."}], "answer_quote": "...", "reason": "..."}], "calculation_checks": [{"target": "보관료", "status": "incomplete", "missing_evidence": ["산입 시작일 포함 여부"], "supporting_source_ids": ["S2"], "reason": "..."}]}
 criteria의 status가 scored이면 score는 0 또는 1, 그 외(not_applicable, unavailable)이면 score는 null이다.
 calculation_checks의 supporting_source_ids에는 [실제 최종 문맥]에 있는 자료 ID만 쓴다.
+
+
+참고 자료에 required_facts_origin=derived_reference가 있으면 해당 목록은 독립 검수한 평가용 사실이다. 목록과 F1부터의 순서는 그대로 유지하고 fact_checks.origin을 derived_reference로 표시한다.
 
 [질문]
 {{question}}
@@ -70,6 +85,9 @@ status: {{status}}
 answer: {{answer}}
 reason: {{reason}}
 citations: {{citations}}
+
+[검색 종료 판단]
+{{retrieval_decision}}
 
 [실제 최종 문맥]
 {{final_context}}

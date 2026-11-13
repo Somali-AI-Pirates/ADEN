@@ -148,6 +148,11 @@ def _has_explicit_exclusion(question: str) -> bool:
     return any(marker in question for marker in EXCLUSION_MARKERS)
 
 
+def route_next_step(state: TableRagState) -> str:
+    """Read the next node selected by conversation resolution or planning."""
+    return state["next_step"]
+
+
 class TableRagGraph:
     """Compile once around request-shared retrieval and storage resources."""
 
@@ -201,13 +206,13 @@ class TableRagGraph:
         )
         workflow.add_conditional_edges(
             "resolve_conversation",
-            lambda state: state["next_step"],
+            route_next_step,
             {"initial_search": "initial_search", "assemble_evidence": "assemble_evidence"},
         )
         workflow.add_edge("initial_search", "plan_next_step")
         workflow.add_conditional_edges(
             "plan_next_step",
-            lambda state: state["next_step"],
+            route_next_step,
             {
                 "lookup_records": "lookup_records",
                 "search_evidence": "search_evidence",
@@ -951,4 +956,5 @@ class TableRagGraph:
             diagnostics=diagnostics,
             search_question=state["search_question"] if state["search_question"] != question else None,
             answer_history=state["answer_history"],
+            observations=tuple(state["observations"]),
         )

@@ -1,0 +1,115 @@
+{
+  "changes": [
+    {
+      "review_key": "f442a1b28fb01a435349bff5a5da1d23338f537d61e7b528fdb9033094ec8a73",
+      "donor_review_key": "7286686316b110431a2864b6aae4d08901cebbc9c50c971a5d19cd12f311941a",
+      "reason": "Identical service-scope paragraph; no invented procedure required; separate fee guidance is limited to the document service scope.",
+      "run_keys": [
+        "r1-V-STRUCT-HOLD-031"
+      ]
+    },
+    {
+      "review_key": "50b0d87196518b2efb39a01904ce8211b1e3be18460bf127f1abe1e1ec009f11",
+      "donor_review_key": "7286686316b110431a2864b6aae4d08901cebbc9c50c971a5d19cd12f311941a",
+      "reason": "Identical service-scope paragraph; no invented procedure required; separate fee guidance is limited to the document service scope.",
+      "run_keys": [
+        "r1-R-STRUCT-HOLD-031"
+      ]
+    },
+    {
+      "review_key": "b2f12e2ffe9a1c60e82da4ebad83066b3d2187a4fbf655094d4dae304709c3b7",
+      "donor_review_key": "50b0d87196518b2efb39a01904ce8211b1e3be18460bf127f1abe1e1ec009f11",
+      "reason": "Identical service-scope paragraph; no invented procedure required; separate fee guidance is limited to the document service scope.",
+      "run_keys": [
+        "r1-P-STRUCT-HOLD-031"
+      ]
+    },
+    {
+      "review_key": "0b811243558c950965ec671d4ac684f89a6c16d08e44934b48971cb12f3fe33c",
+      "donor_review_key": "6e0b7b8507ad80a1585a408b23cb7202fd79e90849ccf3f573bf83632018bed6",
+      "reason": "Request for both old and new seal identifiers supports providing both; carrier notification remains a separate requirement.",
+      "run_keys": [
+        "r3-A-official_additional:AS-ADD09",
+        "r3-S-official_additional:AS-ADD09"
+      ]
+    },
+    {
+      "review_key": "348340bd23088ff782316dc87ebec28efbca453fd7bb982abac395a95ec08e2a",
+      "donor_review_key": "31215d406042c50a126bbdd7ec123ed1b1f1a00be9cb49b15877ace1fc3918a5",
+      "reason": "Request for both old and new seal identifiers supports providing both; carrier notification remains a separate requirement.",
+      "run_keys": [
+        "r3-P-official_additional:AS-ADD09"
+      ]
+    },
+    {
+      "review_key": "62ec39d661b4c98b917fe48ce6137d2db592faa1692fb3748ee884b7c9237c0d",
+      "donor_review_key": "eeb40422077c66aedfa9d8a6d01eeb046f711db70ff029abf6eb341799df53e2",
+      "reason": "Same returned provenance and unapproved-correction rules; metadata arrival alone does not replace confirmed business values.",
+      "run_keys": [
+        "r1-R-semantic_queries:AS-SEM-28"
+      ]
+    },
+    {
+      "review_key": "370ea3fe6cc2d764b9237560609b10447e568753a073d6d0fdc830ed108549ca",
+      "donor_review_key": "eeb40422077c66aedfa9d8a6d01eeb046f711db70ff029abf6eb341799df53e2",
+      "reason": "Same returned provenance and unapproved-correction rules; metadata arrival alone does not replace confirmed business values.",
+      "run_keys": [
+        "r1-A-semantic_queries:AS-SEM-28",
+        "r1-V-semantic_queries:AS-SEM-28"
+      ]
+    },
+    {
+      "review_key": "7ea02b476e7fcddf1c83f3b54e59560366d0e5b025db9dbbc7f0d75a6efd2894",
+      "donor_review_key": "8b7e50c5aa27c1803d12409a7837b086d63d29f30ab4ef1db1bab004dcea5ff6",
+      "reason": "Question asks general calculation order; unrelated retrieved contract does not redefine its target or supersede returned applicable rule.",
+      "run_keys": [
+        "r1-R-semantic_queries:AS-SEM-35"
+      ]
+    },
+    {
+      "review_key": "4b8bad19a428c9997fac2a85579635da5a63148c60c071af3032ead31b662708",
+      "donor_review_key": null,
+      "reason": "Corrected false pass: SI correction is not evidence of initial submission.",
+      "run_keys": [
+        "r1-A-official_development:AS-DEV06",
+        "r1-S-official_development:AS-DEV06"
+      ]
+    },
+    {
+      "review_key": "dff75c4c886545d08a096b15d0bc3f2fa6c0fe772125f8301a2bfbc6fb228cc8",
+      "donor_review_key": "5a120b8dfd73777e7373fa03731ea199450710f65251555bfac5a9d35d945bc5",
+      "reason": "Identical submission-contact proof for explicit 40GP question; harmonized counterpart review.",
+      "run_keys": [
+        "r1-P-official_development:AS-DEV06"
+      ]
+    },
+    {
+      "review_key": "a6ea79402f2315d46687231fed4af97162d4669603d8533bf310912b40aa063b",
+      "donor_review_key": null,
+      "reason": "Applied same missing equipment/cargo scope rule as ADD02; no denominator removal.",
+      "run_keys": [
+        "r1-P-official_development:AS-DEV09"
+      ]
+    },
+    {
+      "review_key": "86d32a6df6b811c0b33b41b70d75006f20c17f2a2e7c979a4fc12f25987c613f",
+      "donor_review_key": null,
+      "reason": "Applied same missing equipment/cargo scope rule as ADD02; no denominator removal.",
+      "run_keys": [
+        "r1-R-official_development:AS-DEV09"
+      ]
+    },
+    {
+      "review_key": "b67f56b7e84a9331dbcd41f0d03b1a7e54eedc515764bfeedeadcd3eebb9312d",
+      "donor_review_key": null,
+      "reason": "Applied same missing equipment/cargo scope rule as ADD02; no denominator removal.",
+      "run_keys": [
+        "r1-A-official_development:AS-DEV09",
+        "r1-S-official_development:AS-DEV09",
+        "r1-V-official_development:AS-DEV09"
+      ]
+    }
+  ],
+  "human_review": false,
+  "raw_judgments_preserved": true
+}
