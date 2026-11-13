@@ -565,4 +565,3 @@ async def run_saved_security(
     _atomic_write(directory / "security_runs.jsonl", lines)
     _atomic_write(directory / "manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
     return {"manifest": manifest, "records": analyzed, "skipped": skipped, "output_directory": str(directory)}
-
