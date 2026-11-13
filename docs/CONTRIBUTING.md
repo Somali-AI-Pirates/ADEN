@@ -13,7 +13,7 @@
 
 - 담당·목표일·산출물·진행 상태·완료 증거는 [WBS & Tasks](https://app.notion.com/p/4b8b8d4a06f782039952010095ade408)에 기록한다. PR을 병합한 뒤 작업의 완료 기준을 확인하고 결과를 연결한다.
 - 역할·일정·비용에 관한 합의는 [팀 회의록](https://app.notion.com/p/0aab8d4a06f7833c99d181a4046c952d)에 남긴다. 부재 인계에는 진행 상태, 브랜치·PR, 확인 결과와 다음 조치를 적는다.
-- 교육 과정의 [개인 작업일지](https://app.notion.com/p/497b8d4a06f78349bf4c01df787dba65)와 [TIL](https://kant.spartaclub.kr/)은 각자 작성한다. [팀 홈](https://app.notion.com/p/6e9b8d4a06f782039952010095ade408)에서 팀 자료를 찾을 수 있다.
+- 교육 과정의 [개인 작업일지](https://app.notion.com/p/497b8d4a06f78349bf4c01df787dba65)와 [TIL](https://kant.spartaclub.kr/)은 각자 작성한다. [팀 홈](https://app.notion.com/p/teamsparta/KANT-_-AI-40f2dc3ef51480a2baa5d056d28dbc6f)에서 팀 자료를 찾을 수 있다.
 - 공식 비교와 제출에는 [평가 가이드의 실행 기준](guides/c-module-guide.md#팀-공식-실행)을 적용한다.
 
 ## 개인 실험

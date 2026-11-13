@@ -1,0 +1,1151 @@
+﻿group_type,group,question_count,metric,mean,scored,not_applicable,unavailable,missing,group_count
+overall,all_unique_questions,280,evidence_diagnostics.budget_lost_page_recall,0.0,258,22,0,0,
+overall,all_unique_questions,280,evidence_diagnostics.candidate_doc_recall,0.9809431524547804,258,22,0,0,
+overall,all_unique_questions,280,evidence_diagnostics.candidate_page_recall,0.954328165374677,258,22,0,0,
+overall,all_unique_questions,280,evidence_diagnostics.context_lost_page_recall,0.008527131782945736,258,22,0,0,
+overall,all_unique_questions,280,evidence_diagnostics.final_page_recall,0.9458010335917313,258,22,0,0,
+overall,all_unique_questions,280,faithfulness,0.8693993835269679,239,0,41,0,
+overall,all_unique_questions,280,judge.condition,0.9520295202952029,271,9,0,0,
+overall,all_unique_questions,280,judge.decision,0.95,280,0,0,0,
+overall,all_unique_questions,280,judge.evidence,0.8953068592057761,277,3,0,0,
+overall,all_unique_questions,280,judge.fact,0.8935361216730038,263,17,0,0,
+overall,all_unique_questions,280,retrieval.hit_at_k,0.9961240310077519,258,22,0,0,
+overall,all_unique_questions,280,retrieval.recall_at_k,0.9647932816537468,258,22,0,0,
+overall,all_unique_questions,280,semantic_answer_fact_all,0.8916666666666667,240,19,21,0,
+overall,all_unique_questions,280,semantic_final_fact_all,0.9676113360323887,247,19,14,0,
+overall,all_unique_questions,280,table_rag_metrics.candidate_mrr,0.955297157622739,258,22,0,0,
+overall,all_unique_questions,280,table_rag_metrics.candidate_ndcg,0.9314752332732484,258,22,0,0,
+overall,all_unique_questions,280,table_rag_metrics.candidate_page_recall,0.9531653746770026,258,22,0,0,
+overall,all_unique_questions,280,table_rag_metrics.candidate_required_evidence_all,0.9031007751937985,258,22,0,0,
+overall,all_unique_questions,280,table_rag_metrics.final_mrr,0.9549095607235143,258,22,0,0,
+overall,all_unique_questions,280,table_rag_metrics.final_ndcg,0.9279469386159781,258,22,0,0,
+overall,all_unique_questions,280,table_rag_metrics.final_page_recall,0.9437984496124031,258,22,0,0,
+overall,all_unique_questions,280,table_rag_metrics.final_required_evidence_all,0.8875968992248062,258,22,0,0,
+overall,all_unique_questions,280,table_rag_metrics.final_sql_expected,,0,280,0,0,
+all_group_macro,equal_weight_all_primary_groups,280,evidence_diagnostics.budget_lost_page_recall,0.0,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,evidence_diagnostics.candidate_doc_recall,0.9851679929266136,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,evidence_diagnostics.candidate_page_recall,0.96131741821397,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,evidence_diagnostics.context_lost_page_recall,0.007029177718832892,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,evidence_diagnostics.final_page_recall,0.9542882404951369,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,faithfulness,0.8752230098265841,14,,,0,14
+all_group_macro,equal_weight_all_primary_groups,280,judge.condition,0.9542207792207792,14,,,0,14
+all_group_macro,equal_weight_all_primary_groups,280,judge.decision,0.9523809523809524,14,,,0,14
+all_group_macro,equal_weight_all_primary_groups,280,judge.evidence,0.8911764705882353,14,,,0,14
+all_group_macro,equal_weight_all_primary_groups,280,judge.fact,0.9023809523809524,14,,,0,14
+all_group_macro,equal_weight_all_primary_groups,280,retrieval.hit_at_k,0.9961538461538461,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,retrieval.recall_at_k,0.9704022988505747,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,semantic_answer_fact_all,0.8960293312727389,14,,,0,14
+all_group_macro,equal_weight_all_primary_groups,280,semantic_final_fact_all,0.97,14,,,0,14
+all_group_macro,equal_weight_all_primary_groups,280,table_rag_metrics.candidate_mrr,0.9502917771883289,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,table_rag_metrics.candidate_ndcg,0.9335025123145185,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,table_rag_metrics.candidate_page_recall,0.9605216622458002,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,table_rag_metrics.candidate_required_evidence_all,0.920026525198939,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,table_rag_metrics.final_mrr,0.9499071618037136,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,table_rag_metrics.final_ndcg,0.9306841383836997,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,table_rag_metrics.final_page_recall,0.9529177718832891,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,table_rag_metrics.final_required_evidence_all,0.9082228116710875,13,,,1,14
+all_group_macro,equal_weight_all_primary_groups,280,table_rag_metrics.final_sql_expected,,0,,,14,14
+category_180_micro,scenario_1_to_8_plus_work_rules,180,evidence_diagnostics.budget_lost_page_recall,0.0,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,evidence_diagnostics.candidate_doc_recall,0.990625,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,evidence_diagnostics.candidate_page_recall,0.98125,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,evidence_diagnostics.context_lost_page_recall,0.00625,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,evidence_diagnostics.final_page_recall,0.975,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,faithfulness,0.847013187543053,155,0,25,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,judge.condition,0.9532163742690059,171,9,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,judge.decision,0.9388888888888889,180,0,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,judge.evidence,0.8813559322033898,177,3,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,judge.fact,0.9447852760736196,163,17,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,retrieval.hit_at_k,0.99375,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,retrieval.recall_at_k,0.98125,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,semantic_answer_fact_all,0.9407894736842105,152,19,9,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,semantic_final_fact_all,0.9681528662420382,157,19,4,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,table_rag_metrics.candidate_mrr,0.9497916666666667,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,table_rag_metrics.candidate_ndcg,0.9477811159995632,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,table_rag_metrics.candidate_page_recall,0.98125,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,table_rag_metrics.candidate_required_evidence_all,0.96875,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,table_rag_metrics.final_mrr,0.9491666666666667,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,table_rag_metrics.final_ndcg,0.9456668528003552,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,table_rag_metrics.final_page_recall,0.975,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,table_rag_metrics.final_required_evidence_all,0.9625,160,20,0,0,9
+category_180_micro,scenario_1_to_8_plus_work_rules,180,table_rag_metrics.final_sql_expected,,0,180,0,0,9
+category_180_macro,equal_weight_nine_groups,180,evidence_diagnostics.budget_lost_page_recall,0.0,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,evidence_diagnostics.candidate_doc_recall,0.990625,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,evidence_diagnostics.candidate_page_recall,0.98125,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,evidence_diagnostics.context_lost_page_recall,0.00625,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,evidence_diagnostics.final_page_recall,0.975,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,faithfulness,0.8607002906511665,9,,,0,9
+category_180_macro,equal_weight_nine_groups,180,judge.condition,0.951010101010101,9,,,0,9
+category_180_macro,equal_weight_nine_groups,180,judge.decision,0.9388888888888888,9,,,0,9
+category_180_macro,equal_weight_nine_groups,180,judge.evidence,0.8696078431372549,9,,,0,9
+category_180_macro,equal_weight_nine_groups,180,judge.fact,0.9500000000000001,9,,,0,9
+category_180_macro,equal_weight_nine_groups,180,retrieval.hit_at_k,0.99375,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,retrieval.recall_at_k,0.98125,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,semantic_answer_fact_all,0.9472222222222223,9,,,0,9
+category_180_macro,equal_weight_nine_groups,180,semantic_final_fact_all,0.9722222222222222,9,,,0,9
+category_180_macro,equal_weight_nine_groups,180,table_rag_metrics.candidate_mrr,0.9497916666666666,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,table_rag_metrics.candidate_ndcg,0.9477811159995632,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,table_rag_metrics.candidate_page_recall,0.98125,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,table_rag_metrics.candidate_required_evidence_all,0.96875,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,table_rag_metrics.final_mrr,0.9491666666666666,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,table_rag_metrics.final_ndcg,0.9456668528003553,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,table_rag_metrics.final_page_recall,0.975,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,table_rag_metrics.final_required_evidence_all,0.9625,8,,,1,9
+category_180_macro,equal_weight_nine_groups,180,table_rag_metrics.final_sql_expected,,0,,,9,9
+category_180_group,scenario_1,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_1,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_1,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,faithfulness,0.9632352941176471,17,0,3,0,9
+category_180_group,scenario_1,20,judge.condition,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,judge.decision,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,judge.evidence,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,judge.fact,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,retrieval.hit_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,retrieval.recall_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,semantic_answer_fact_all,1.0,18,0,2,0,9
+category_180_group,scenario_1,20,semantic_final_fact_all,1.0,18,0,2,0,9
+category_180_group,scenario_1,20,table_rag_metrics.candidate_mrr,0.975,20,0,0,0,9
+category_180_group,scenario_1,20,table_rag_metrics.candidate_ndcg,0.9815464876785729,20,0,0,0,9
+category_180_group,scenario_1,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,table_rag_metrics.final_mrr,0.975,20,0,0,0,9
+category_180_group,scenario_1,20,table_rag_metrics.final_ndcg,0.9815464876785729,20,0,0,0,9
+category_180_group,scenario_1,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_1,20,table_rag_metrics.final_sql_expected,,0,20,0,0,9
+category_180_group,scenario_2,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_2,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,9
+category_180_group,scenario_2,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_2,20,evidence_diagnostics.context_lost_page_recall,0.05,20,0,0,0,9
+category_180_group,scenario_2,20,evidence_diagnostics.final_page_recall,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,faithfulness,0.9678362573099415,19,0,1,0,9
+category_180_group,scenario_2,20,judge.condition,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,judge.decision,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,judge.evidence,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,judge.fact,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,retrieval.hit_at_k,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,retrieval.recall_at_k,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,semantic_answer_fact_all,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,semantic_final_fact_all,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,table_rag_metrics.candidate_mrr,0.9550000000000001,20,0,0,0,9
+category_180_group,scenario_2,20,table_rag_metrics.candidate_ndcg,0.9669141055936628,20,0,0,0,9
+category_180_group,scenario_2,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_2,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_2,20,table_rag_metrics.final_mrr,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,table_rag_metrics.final_ndcg,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,table_rag_metrics.final_page_recall,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,table_rag_metrics.final_required_evidence_all,0.95,20,0,0,0,9
+category_180_group,scenario_2,20,table_rag_metrics.final_sql_expected,,0,20,0,0,9
+category_180_group,scenario_3,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_3,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_3,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,faithfulness,0.9492929292929293,15,0,5,0,9
+category_180_group,scenario_3,20,judge.condition,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,judge.decision,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,judge.evidence,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,judge.fact,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,retrieval.hit_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,retrieval.recall_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,semantic_answer_fact_all,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,semantic_final_fact_all,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,table_rag_metrics.candidate_mrr,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,table_rag_metrics.candidate_ndcg,0.9906025435534682,20,0,0,0,9
+category_180_group,scenario_3,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,table_rag_metrics.final_mrr,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,table_rag_metrics.final_ndcg,0.9906025435534682,20,0,0,0,9
+category_180_group,scenario_3,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_3,20,table_rag_metrics.final_sql_expected,,0,20,0,0,9
+category_180_group,scenario_4,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_4,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_4,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,faithfulness,0.9861111111111112,17,0,3,0,9
+category_180_group,scenario_4,20,judge.condition,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,judge.decision,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,judge.evidence,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,judge.fact,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,retrieval.hit_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,retrieval.recall_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,semantic_answer_fact_all,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,semantic_final_fact_all,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,table_rag_metrics.candidate_mrr,0.9666666666666666,20,0,0,0,9
+category_180_group,scenario_4,20,table_rag_metrics.candidate_ndcg,0.9715338391559701,20,0,0,0,9
+category_180_group,scenario_4,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,table_rag_metrics.final_mrr,0.9666666666666666,20,0,0,0,9
+category_180_group,scenario_4,20,table_rag_metrics.final_ndcg,0.9715338391559701,20,0,0,0,9
+category_180_group,scenario_4,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_4,20,table_rag_metrics.final_sql_expected,,0,20,0,0,9
+category_180_group,scenario_5,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_5,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_5,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,faithfulness,0.9424382716049382,18,0,2,0,9
+category_180_group,scenario_5,20,judge.condition,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,judge.decision,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,judge.evidence,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,judge.fact,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,retrieval.hit_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,retrieval.recall_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,semantic_answer_fact_all,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,semantic_final_fact_all,1.0,19,0,1,0,9
+category_180_group,scenario_5,20,table_rag_metrics.candidate_mrr,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,table_rag_metrics.candidate_ndcg,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,table_rag_metrics.final_mrr,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,table_rag_metrics.final_ndcg,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_5,20,table_rag_metrics.final_sql_expected,,0,20,0,0,9
+category_180_group,scenario_6,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_6,20,evidence_diagnostics.candidate_doc_recall,0.925,20,0,0,0,9
+category_180_group,scenario_6,20,evidence_diagnostics.candidate_page_recall,0.9,20,0,0,0,9
+category_180_group,scenario_6,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_6,20,evidence_diagnostics.final_page_recall,0.9,20,0,0,0,9
+category_180_group,scenario_6,20,faithfulness,0.843358395989975,19,0,1,0,9
+category_180_group,scenario_6,20,judge.condition,0.7,20,0,0,0,9
+category_180_group,scenario_6,20,judge.decision,0.7,20,0,0,0,9
+category_180_group,scenario_6,20,judge.evidence,0.7,20,0,0,0,9
+category_180_group,scenario_6,20,judge.fact,0.7,20,0,0,0,9
+category_180_group,scenario_6,20,retrieval.hit_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_6,20,retrieval.recall_at_k,0.925,20,0,0,0,9
+category_180_group,scenario_6,20,semantic_answer_fact_all,0.7,20,0,0,0,9
+category_180_group,scenario_6,20,semantic_final_fact_all,0.85,20,0,0,0,9
+category_180_group,scenario_6,20,table_rag_metrics.candidate_mrr,0.9099999999999999,20,0,0,0,9
+category_180_group,scenario_6,20,table_rag_metrics.candidate_ndcg,0.8896737306509035,20,0,0,0,9
+category_180_group,scenario_6,20,table_rag_metrics.candidate_page_recall,0.9,20,0,0,0,9
+category_180_group,scenario_6,20,table_rag_metrics.candidate_required_evidence_all,0.85,20,0,0,0,9
+category_180_group,scenario_6,20,table_rag_metrics.final_mrr,0.9099999999999999,20,0,0,0,9
+category_180_group,scenario_6,20,table_rag_metrics.final_ndcg,0.8896737306509035,20,0,0,0,9
+category_180_group,scenario_6,20,table_rag_metrics.final_page_recall,0.9,20,0,0,0,9
+category_180_group,scenario_6,20,table_rag_metrics.final_required_evidence_all,0.85,20,0,0,0,9
+category_180_group,scenario_6,20,table_rag_metrics.final_sql_expected,,0,20,0,0,9
+category_180_group,scenario_7,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_7,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,scenario_7,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,faithfulness,0.9718236252566373,13,0,7,0,9
+category_180_group,scenario_7,20,judge.condition,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,judge.decision,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,judge.evidence,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,judge.fact,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,retrieval.hit_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,retrieval.recall_at_k,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,semantic_answer_fact_all,1.0,17,0,3,0,9
+category_180_group,scenario_7,20,semantic_final_fact_all,1.0,19,0,1,0,9
+category_180_group,scenario_7,20,table_rag_metrics.candidate_mrr,0.9,20,0,0,0,9
+category_180_group,scenario_7,20,table_rag_metrics.candidate_ndcg,0.8957106410917713,20,0,0,0,9
+category_180_group,scenario_7,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,table_rag_metrics.final_mrr,0.9,20,0,0,0,9
+category_180_group,scenario_7,20,table_rag_metrics.final_ndcg,0.8957106410917713,20,0,0,0,9
+category_180_group,scenario_7,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,9
+category_180_group,scenario_7,20,table_rag_metrics.final_sql_expected,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,evidence_diagnostics.budget_lost_page_recall,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,evidence_diagnostics.candidate_doc_recall,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,evidence_diagnostics.candidate_page_recall,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,evidence_diagnostics.context_lost_page_recall,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,evidence_diagnostics.final_page_recall,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,faithfulness,0.27365079365079364,20,0,0,0,9
+category_180_group,scenario_8_negative_control,20,judge.condition,0.9090909090909091,11,9,0,0,9
+category_180_group,scenario_8_negative_control,20,judge.decision,0.8,20,0,0,0,9
+category_180_group,scenario_8_negative_control,20,judge.evidence,0.17647058823529413,17,3,0,0,9
+category_180_group,scenario_8_negative_control,20,judge.fact,1.0,3,17,0,0,9
+category_180_group,scenario_8_negative_control,20,retrieval.hit_at_k,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,retrieval.recall_at_k,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,semantic_answer_fact_all,1.0,1,19,0,0,9
+category_180_group,scenario_8_negative_control,20,semantic_final_fact_all,1.0,1,19,0,0,9
+category_180_group,scenario_8_negative_control,20,table_rag_metrics.candidate_mrr,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,table_rag_metrics.candidate_ndcg,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,table_rag_metrics.candidate_page_recall,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,table_rag_metrics.candidate_required_evidence_all,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,table_rag_metrics.final_mrr,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,table_rag_metrics.final_ndcg,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,table_rag_metrics.final_page_recall,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,table_rag_metrics.final_required_evidence_all,,0,20,0,0,9
+category_180_group,scenario_8_negative_control,20,table_rag_metrics.final_sql_expected,,0,20,0,0,9
+category_180_group,work_rules,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,work_rules,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,9
+category_180_group,work_rules,20,evidence_diagnostics.candidate_page_recall,0.95,20,0,0,0,9
+category_180_group,work_rules,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,9
+category_180_group,work_rules,20,evidence_diagnostics.final_page_recall,0.95,20,0,0,0,9
+category_180_group,work_rules,20,faithfulness,0.8485559375265258,17,0,3,0,9
+category_180_group,work_rules,20,judge.condition,1.0,20,0,0,0,9
+category_180_group,work_rules,20,judge.decision,1.0,20,0,0,0,9
+category_180_group,work_rules,20,judge.evidence,1.0,20,0,0,0,9
+category_180_group,work_rules,20,judge.fact,0.9,20,0,0,0,9
+category_180_group,work_rules,20,retrieval.hit_at_k,1.0,20,0,0,0,9
+category_180_group,work_rules,20,retrieval.recall_at_k,0.975,20,0,0,0,9
+category_180_group,work_rules,20,semantic_answer_fact_all,0.875,16,0,4,0,9
+category_180_group,work_rules,20,semantic_final_fact_all,0.95,20,0,0,0,9
+category_180_group,work_rules,20,table_rag_metrics.candidate_mrr,0.8916666666666666,20,0,0,0,9
+category_180_group,work_rules,20,table_rag_metrics.candidate_ndcg,0.8862675802721564,20,0,0,0,9
+category_180_group,work_rules,20,table_rag_metrics.candidate_page_recall,0.95,20,0,0,0,9
+category_180_group,work_rules,20,table_rag_metrics.candidate_required_evidence_all,0.9,20,0,0,0,9
+category_180_group,work_rules,20,table_rag_metrics.final_mrr,0.8916666666666666,20,0,0,0,9
+category_180_group,work_rules,20,table_rag_metrics.final_ndcg,0.8862675802721564,20,0,0,0,9
+category_180_group,work_rules,20,table_rag_metrics.final_page_recall,0.95,20,0,0,0,9
+category_180_group,work_rules,20,table_rag_metrics.final_required_evidence_all,0.9,20,0,0,0,9
+category_180_group,work_rules,20,table_rag_metrics.final_sql_expected,,0,20,0,0,9
+category,additional,30,evidence_diagnostics.budget_lost_page_recall,0.0,29,1,0,0,
+category,additional,30,evidence_diagnostics.candidate_doc_recall,0.9741379310344828,29,1,0,0,
+category,additional,30,evidence_diagnostics.candidate_page_recall,0.82183908045977,29,1,0,0,
+category,additional,30,evidence_diagnostics.context_lost_page_recall,0.034482758620689655,29,1,0,0,
+category,additional,30,evidence_diagnostics.final_page_recall,0.7873563218390804,29,1,0,0,
+category,additional,30,faithfulness,0.9384353741496598,28,0,2,0,
+category,additional,30,judge.condition,0.9333333333333333,30,0,0,0,
+category,additional,30,judge.decision,0.9666666666666667,30,0,0,0,
+category,additional,30,judge.evidence,0.9666666666666667,30,0,0,0,
+category,additional,30,judge.fact,0.8333333333333334,30,0,0,0,
+category,additional,30,retrieval.hit_at_k,1.0,29,1,0,0,
+category,additional,30,retrieval.recall_at_k,0.9022988505747127,29,1,0,0,
+category,additional,30,semantic_answer_fact_all,0.7931034482758621,29,0,1,0,
+category,additional,30,semantic_final_fact_all,0.92,25,0,5,0,
+category,additional,30,table_rag_metrics.candidate_mrr,0.9137931034482759,29,1,0,0,
+category,additional,30,table_rag_metrics.candidate_ndcg,0.813007972280815,29,1,0,0,
+category,additional,30,table_rag_metrics.candidate_page_recall,0.8132183908045977,29,1,0,0,
+category,additional,30,table_rag_metrics.candidate_required_evidence_all,0.6206896551724138,29,1,0,0,
+category,additional,30,table_rag_metrics.final_mrr,0.9137931034482759,29,1,0,0,
+category,additional,30,table_rag_metrics.final_ndcg,0.798154491700033,29,1,0,0,
+category,additional,30,table_rag_metrics.final_page_recall,0.7758620689655172,29,1,0,0,
+category,additional,30,table_rag_metrics.final_required_evidence_all,0.5517241379310345,29,1,0,0,
+category,additional,30,table_rag_metrics.final_sql_expected,,0,30,0,0,
+category,custom_m,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+category,custom_m,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+category,custom_m,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+category,custom_m,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+category,custom_m,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,
+category,custom_m,20,faithfulness,0.9372391887162811,14,0,6,0,
+category,custom_m,20,judge.condition,0.95,20,0,0,0,
+category,custom_m,20,judge.decision,0.95,20,0,0,0,
+category,custom_m,20,judge.evidence,0.95,20,0,0,0,
+category,custom_m,20,judge.fact,0.7,20,0,0,0,
+category,custom_m,20,retrieval.hit_at_k,1.0,20,0,0,0,
+category,custom_m,20,retrieval.recall_at_k,1.0,20,0,0,0,
+category,custom_m,20,semantic_answer_fact_all,0.5714285714285714,14,0,6,0,
+category,custom_m,20,semantic_final_fact_all,1.0,20,0,0,0,
+category,custom_m,20,table_rag_metrics.candidate_mrr,1.0,20,0,0,0,
+category,custom_m,20,table_rag_metrics.candidate_ndcg,1.0,20,0,0,0,
+category,custom_m,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+category,custom_m,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+category,custom_m,20,table_rag_metrics.final_mrr,1.0,20,0,0,0,
+category,custom_m,20,table_rag_metrics.final_ndcg,1.0,20,0,0,0,
+category,custom_m,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,
+category,custom_m,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,
+category,custom_m,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,custom_s,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+category,custom_s,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+category,custom_s,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+category,custom_s,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+category,custom_s,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,
+category,custom_s,20,faithfulness,0.8576499118165786,18,0,2,0,
+category,custom_s,20,judge.condition,0.95,20,0,0,0,
+category,custom_s,20,judge.decision,1.0,20,0,0,0,
+category,custom_s,20,judge.evidence,0.8,20,0,0,0,
+category,custom_s,20,judge.fact,0.75,20,0,0,0,
+category,custom_s,20,retrieval.hit_at_k,1.0,20,0,0,0,
+category,custom_s,20,retrieval.recall_at_k,1.0,20,0,0,0,
+category,custom_s,20,semantic_answer_fact_all,0.8235294117647058,17,0,3,0,
+category,custom_s,20,semantic_final_fact_all,1.0,20,0,0,0,
+category,custom_s,20,table_rag_metrics.candidate_mrr,0.95,20,0,0,0,
+category,custom_s,20,table_rag_metrics.candidate_ndcg,0.9630929753571458,20,0,0,0,
+category,custom_s,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+category,custom_s,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+category,custom_s,20,table_rag_metrics.final_mrr,0.95,20,0,0,0,
+category,custom_s,20,table_rag_metrics.final_ndcg,0.9630929753571458,20,0,0,0,
+category,custom_s,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,
+category,custom_s,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,
+category,custom_s,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,development,30,evidence_diagnostics.budget_lost_page_recall,0.0,29,1,0,0,
+category,development,30,evidence_diagnostics.candidate_doc_recall,0.9080459770114943,29,1,0,0,
+category,development,30,evidence_diagnostics.candidate_page_recall,0.8752873563218391,29,1,0,0,
+category,development,30,evidence_diagnostics.context_lost_page_recall,0.006896551724137932,29,1,0,0,
+category,development,30,evidence_diagnostics.final_page_recall,0.8683908045977011,29,1,0,0,
+category,development,30,faithfulness,0.9026737942856364,24,0,6,0,
+category,development,30,judge.condition,0.9666666666666667,30,0,0,0,
+category,development,30,judge.decision,0.9666666666666667,30,0,0,0,
+category,development,30,judge.evidence,0.9333333333333333,30,0,0,0,
+category,development,30,judge.fact,0.9,30,0,0,0,
+category,development,30,retrieval.hit_at_k,1.0,29,1,0,0,
+category,development,30,retrieval.recall_at_k,0.8879310344827587,29,1,0,0,
+category,development,30,semantic_answer_fact_all,0.9285714285714286,28,0,2,0,
+category,development,30,semantic_final_fact_all,0.96,25,0,5,0,
+category,development,30,table_rag_metrics.candidate_mrr,1.0,29,1,0,0,
+category,development,30,table_rag_metrics.candidate_ndcg,0.8909152041821187,29,1,0,0,
+category,development,30,table_rag_metrics.candidate_page_recall,0.8735632183908045,29,1,0,0,
+category,development,30,table_rag_metrics.candidate_required_evidence_all,0.6896551724137931,29,1,0,0,
+category,development,30,table_rag_metrics.final_mrr,1.0,29,1,0,0,
+category,development,30,table_rag_metrics.final_ndcg,0.8860439292559177,29,1,0,0,
+category,development,30,table_rag_metrics.final_page_recall,0.8620689655172413,29,1,0,0,
+category,development,30,table_rag_metrics.final_required_evidence_all,0.6551724137931034,29,1,0,0,
+category,development,30,table_rag_metrics.final_sql_expected,,0,30,0,0,
+category,negative_control,20,evidence_diagnostics.budget_lost_page_recall,,0,20,0,0,
+category,negative_control,20,evidence_diagnostics.candidate_doc_recall,,0,20,0,0,
+category,negative_control,20,evidence_diagnostics.candidate_page_recall,,0,20,0,0,
+category,negative_control,20,evidence_diagnostics.context_lost_page_recall,,0,20,0,0,
+category,negative_control,20,evidence_diagnostics.final_page_recall,,0,20,0,0,
+category,negative_control,20,faithfulness,0.27365079365079364,20,0,0,0,
+category,negative_control,20,judge.condition,0.9090909090909091,11,9,0,0,
+category,negative_control,20,judge.decision,0.8,20,0,0,0,
+category,negative_control,20,judge.evidence,0.17647058823529413,17,3,0,0,
+category,negative_control,20,judge.fact,1.0,3,17,0,0,
+category,negative_control,20,retrieval.hit_at_k,,0,20,0,0,
+category,negative_control,20,retrieval.recall_at_k,,0,20,0,0,
+category,negative_control,20,semantic_answer_fact_all,1.0,1,19,0,0,
+category,negative_control,20,semantic_final_fact_all,1.0,1,19,0,0,
+category,negative_control,20,table_rag_metrics.candidate_mrr,,0,20,0,0,
+category,negative_control,20,table_rag_metrics.candidate_ndcg,,0,20,0,0,
+category,negative_control,20,table_rag_metrics.candidate_page_recall,,0,20,0,0,
+category,negative_control,20,table_rag_metrics.candidate_required_evidence_all,,0,20,0,0,
+category,negative_control,20,table_rag_metrics.final_mrr,,0,20,0,0,
+category,negative_control,20,table_rag_metrics.final_ndcg,,0,20,0,0,
+category,negative_control,20,table_rag_metrics.final_page_recall,,0,20,0,0,
+category,negative_control,20,table_rag_metrics.final_required_evidence_all,,0,20,0,0,
+category,negative_control,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,scenario_1,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+category,scenario_1,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+category,scenario_1,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_1,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+category,scenario_1,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,
+category,scenario_1,20,faithfulness,0.9632352941176471,17,0,3,0,
+category,scenario_1,20,judge.condition,1.0,20,0,0,0,
+category,scenario_1,20,judge.decision,1.0,20,0,0,0,
+category,scenario_1,20,judge.evidence,1.0,20,0,0,0,
+category,scenario_1,20,judge.fact,1.0,20,0,0,0,
+category,scenario_1,20,retrieval.hit_at_k,1.0,20,0,0,0,
+category,scenario_1,20,retrieval.recall_at_k,1.0,20,0,0,0,
+category,scenario_1,20,semantic_answer_fact_all,1.0,18,0,2,0,
+category,scenario_1,20,semantic_final_fact_all,1.0,18,0,2,0,
+category,scenario_1,20,table_rag_metrics.candidate_mrr,0.975,20,0,0,0,
+category,scenario_1,20,table_rag_metrics.candidate_ndcg,0.9815464876785729,20,0,0,0,
+category,scenario_1,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_1,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+category,scenario_1,20,table_rag_metrics.final_mrr,0.975,20,0,0,0,
+category,scenario_1,20,table_rag_metrics.final_ndcg,0.9815464876785729,20,0,0,0,
+category,scenario_1,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,
+category,scenario_1,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,
+category,scenario_1,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,scenario_2,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+category,scenario_2,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+category,scenario_2,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_2,20,evidence_diagnostics.context_lost_page_recall,0.05,20,0,0,0,
+category,scenario_2,20,evidence_diagnostics.final_page_recall,0.95,20,0,0,0,
+category,scenario_2,20,faithfulness,0.9678362573099415,19,0,1,0,
+category,scenario_2,20,judge.condition,0.95,20,0,0,0,
+category,scenario_2,20,judge.decision,0.95,20,0,0,0,
+category,scenario_2,20,judge.evidence,0.95,20,0,0,0,
+category,scenario_2,20,judge.fact,0.95,20,0,0,0,
+category,scenario_2,20,retrieval.hit_at_k,0.95,20,0,0,0,
+category,scenario_2,20,retrieval.recall_at_k,0.95,20,0,0,0,
+category,scenario_2,20,semantic_answer_fact_all,0.95,20,0,0,0,
+category,scenario_2,20,semantic_final_fact_all,0.95,20,0,0,0,
+category,scenario_2,20,table_rag_metrics.candidate_mrr,0.9550000000000001,20,0,0,0,
+category,scenario_2,20,table_rag_metrics.candidate_ndcg,0.9669141055936628,20,0,0,0,
+category,scenario_2,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_2,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+category,scenario_2,20,table_rag_metrics.final_mrr,0.95,20,0,0,0,
+category,scenario_2,20,table_rag_metrics.final_ndcg,0.95,20,0,0,0,
+category,scenario_2,20,table_rag_metrics.final_page_recall,0.95,20,0,0,0,
+category,scenario_2,20,table_rag_metrics.final_required_evidence_all,0.95,20,0,0,0,
+category,scenario_2,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,scenario_3,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+category,scenario_3,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+category,scenario_3,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_3,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+category,scenario_3,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,
+category,scenario_3,20,faithfulness,0.9492929292929293,15,0,5,0,
+category,scenario_3,20,judge.condition,1.0,20,0,0,0,
+category,scenario_3,20,judge.decision,1.0,20,0,0,0,
+category,scenario_3,20,judge.evidence,1.0,20,0,0,0,
+category,scenario_3,20,judge.fact,1.0,20,0,0,0,
+category,scenario_3,20,retrieval.hit_at_k,1.0,20,0,0,0,
+category,scenario_3,20,retrieval.recall_at_k,1.0,20,0,0,0,
+category,scenario_3,20,semantic_answer_fact_all,1.0,20,0,0,0,
+category,scenario_3,20,semantic_final_fact_all,1.0,20,0,0,0,
+category,scenario_3,20,table_rag_metrics.candidate_mrr,1.0,20,0,0,0,
+category,scenario_3,20,table_rag_metrics.candidate_ndcg,0.9906025435534682,20,0,0,0,
+category,scenario_3,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_3,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+category,scenario_3,20,table_rag_metrics.final_mrr,1.0,20,0,0,0,
+category,scenario_3,20,table_rag_metrics.final_ndcg,0.9906025435534682,20,0,0,0,
+category,scenario_3,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,
+category,scenario_3,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,
+category,scenario_3,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,scenario_4,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+category,scenario_4,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+category,scenario_4,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_4,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+category,scenario_4,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,
+category,scenario_4,20,faithfulness,0.9861111111111112,17,0,3,0,
+category,scenario_4,20,judge.condition,1.0,20,0,0,0,
+category,scenario_4,20,judge.decision,1.0,20,0,0,0,
+category,scenario_4,20,judge.evidence,1.0,20,0,0,0,
+category,scenario_4,20,judge.fact,1.0,20,0,0,0,
+category,scenario_4,20,retrieval.hit_at_k,1.0,20,0,0,0,
+category,scenario_4,20,retrieval.recall_at_k,1.0,20,0,0,0,
+category,scenario_4,20,semantic_answer_fact_all,1.0,20,0,0,0,
+category,scenario_4,20,semantic_final_fact_all,1.0,20,0,0,0,
+category,scenario_4,20,table_rag_metrics.candidate_mrr,0.9666666666666666,20,0,0,0,
+category,scenario_4,20,table_rag_metrics.candidate_ndcg,0.9715338391559701,20,0,0,0,
+category,scenario_4,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_4,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+category,scenario_4,20,table_rag_metrics.final_mrr,0.9666666666666666,20,0,0,0,
+category,scenario_4,20,table_rag_metrics.final_ndcg,0.9715338391559701,20,0,0,0,
+category,scenario_4,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,
+category,scenario_4,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,
+category,scenario_4,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,scenario_5,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+category,scenario_5,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+category,scenario_5,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_5,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+category,scenario_5,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,
+category,scenario_5,20,faithfulness,0.9424382716049382,18,0,2,0,
+category,scenario_5,20,judge.condition,1.0,20,0,0,0,
+category,scenario_5,20,judge.decision,1.0,20,0,0,0,
+category,scenario_5,20,judge.evidence,1.0,20,0,0,0,
+category,scenario_5,20,judge.fact,1.0,20,0,0,0,
+category,scenario_5,20,retrieval.hit_at_k,1.0,20,0,0,0,
+category,scenario_5,20,retrieval.recall_at_k,1.0,20,0,0,0,
+category,scenario_5,20,semantic_answer_fact_all,1.0,20,0,0,0,
+category,scenario_5,20,semantic_final_fact_all,1.0,19,0,1,0,
+category,scenario_5,20,table_rag_metrics.candidate_mrr,1.0,20,0,0,0,
+category,scenario_5,20,table_rag_metrics.candidate_ndcg,1.0,20,0,0,0,
+category,scenario_5,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_5,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+category,scenario_5,20,table_rag_metrics.final_mrr,1.0,20,0,0,0,
+category,scenario_5,20,table_rag_metrics.final_ndcg,1.0,20,0,0,0,
+category,scenario_5,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,
+category,scenario_5,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,
+category,scenario_5,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,scenario_6,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+category,scenario_6,20,evidence_diagnostics.candidate_doc_recall,0.925,20,0,0,0,
+category,scenario_6,20,evidence_diagnostics.candidate_page_recall,0.9,20,0,0,0,
+category,scenario_6,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+category,scenario_6,20,evidence_diagnostics.final_page_recall,0.9,20,0,0,0,
+category,scenario_6,20,faithfulness,0.843358395989975,19,0,1,0,
+category,scenario_6,20,judge.condition,0.7,20,0,0,0,
+category,scenario_6,20,judge.decision,0.7,20,0,0,0,
+category,scenario_6,20,judge.evidence,0.7,20,0,0,0,
+category,scenario_6,20,judge.fact,0.7,20,0,0,0,
+category,scenario_6,20,retrieval.hit_at_k,1.0,20,0,0,0,
+category,scenario_6,20,retrieval.recall_at_k,0.925,20,0,0,0,
+category,scenario_6,20,semantic_answer_fact_all,0.7,20,0,0,0,
+category,scenario_6,20,semantic_final_fact_all,0.85,20,0,0,0,
+category,scenario_6,20,table_rag_metrics.candidate_mrr,0.9099999999999999,20,0,0,0,
+category,scenario_6,20,table_rag_metrics.candidate_ndcg,0.8896737306509035,20,0,0,0,
+category,scenario_6,20,table_rag_metrics.candidate_page_recall,0.9,20,0,0,0,
+category,scenario_6,20,table_rag_metrics.candidate_required_evidence_all,0.85,20,0,0,0,
+category,scenario_6,20,table_rag_metrics.final_mrr,0.9099999999999999,20,0,0,0,
+category,scenario_6,20,table_rag_metrics.final_ndcg,0.8896737306509035,20,0,0,0,
+category,scenario_6,20,table_rag_metrics.final_page_recall,0.9,20,0,0,0,
+category,scenario_6,20,table_rag_metrics.final_required_evidence_all,0.85,20,0,0,0,
+category,scenario_6,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,scenario_7,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+category,scenario_7,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+category,scenario_7,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_7,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+category,scenario_7,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,
+category,scenario_7,20,faithfulness,0.9718236252566373,13,0,7,0,
+category,scenario_7,20,judge.condition,1.0,20,0,0,0,
+category,scenario_7,20,judge.decision,1.0,20,0,0,0,
+category,scenario_7,20,judge.evidence,1.0,20,0,0,0,
+category,scenario_7,20,judge.fact,1.0,20,0,0,0,
+category,scenario_7,20,retrieval.hit_at_k,1.0,20,0,0,0,
+category,scenario_7,20,retrieval.recall_at_k,1.0,20,0,0,0,
+category,scenario_7,20,semantic_answer_fact_all,1.0,17,0,3,0,
+category,scenario_7,20,semantic_final_fact_all,1.0,19,0,1,0,
+category,scenario_7,20,table_rag_metrics.candidate_mrr,0.9,20,0,0,0,
+category,scenario_7,20,table_rag_metrics.candidate_ndcg,0.8957106410917713,20,0,0,0,
+category,scenario_7,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+category,scenario_7,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+category,scenario_7,20,table_rag_metrics.final_mrr,0.9,20,0,0,0,
+category,scenario_7,20,table_rag_metrics.final_ndcg,0.8957106410917713,20,0,0,0,
+category,scenario_7,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,
+category,scenario_7,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,
+category,scenario_7,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+category,work_rules_applicability,10,evidence_diagnostics.budget_lost_page_recall,0.0,10,0,0,0,
+category,work_rules_applicability,10,evidence_diagnostics.candidate_doc_recall,1.0,10,0,0,0,
+category,work_rules_applicability,10,evidence_diagnostics.candidate_page_recall,0.9,10,0,0,0,
+category,work_rules_applicability,10,evidence_diagnostics.context_lost_page_recall,0.0,10,0,0,0,
+category,work_rules_applicability,10,evidence_diagnostics.final_page_recall,0.9,10,0,0,0,
+category,work_rules_applicability,10,faithfulness,0.9227736549165121,7,0,3,0,
+category,work_rules_applicability,10,judge.condition,1.0,10,0,0,0,
+category,work_rules_applicability,10,judge.decision,1.0,10,0,0,0,
+category,work_rules_applicability,10,judge.evidence,1.0,10,0,0,0,
+category,work_rules_applicability,10,judge.fact,0.8,10,0,0,0,
+category,work_rules_applicability,10,retrieval.hit_at_k,1.0,10,0,0,0,
+category,work_rules_applicability,10,retrieval.recall_at_k,0.95,10,0,0,0,
+category,work_rules_applicability,10,semantic_answer_fact_all,0.7777777777777778,9,0,1,0,
+category,work_rules_applicability,10,semantic_final_fact_all,0.9,10,0,0,0,
+category,work_rules_applicability,10,table_rag_metrics.candidate_mrr,0.8833333333333334,10,0,0,0,
+category,work_rules_applicability,10,table_rag_metrics.candidate_ndcg,0.8463492098300213,10,0,0,0,
+category,work_rules_applicability,10,table_rag_metrics.candidate_page_recall,0.9,10,0,0,0,
+category,work_rules_applicability,10,table_rag_metrics.candidate_required_evidence_all,0.8,10,0,0,0,
+category,work_rules_applicability,10,table_rag_metrics.final_mrr,0.8833333333333334,10,0,0,0,
+category,work_rules_applicability,10,table_rag_metrics.final_ndcg,0.8463492098300213,10,0,0,0,
+category,work_rules_applicability,10,table_rag_metrics.final_page_recall,0.9,10,0,0,0,
+category,work_rules_applicability,10,table_rag_metrics.final_required_evidence_all,0.8,10,0,0,0,
+category,work_rules_applicability,10,table_rag_metrics.final_sql_expected,,0,10,0,0,
+category,work_rules_procedure,10,evidence_diagnostics.budget_lost_page_recall,0.0,10,0,0,0,
+category,work_rules_procedure,10,evidence_diagnostics.candidate_doc_recall,1.0,10,0,0,0,
+category,work_rules_procedure,10,evidence_diagnostics.candidate_page_recall,1.0,10,0,0,0,
+category,work_rules_procedure,10,evidence_diagnostics.context_lost_page_recall,0.0,10,0,0,0,
+category,work_rules_procedure,10,evidence_diagnostics.final_page_recall,1.0,10,0,0,0,
+category,work_rules_procedure,10,faithfulness,0.7966035353535353,10,0,0,0,
+category,work_rules_procedure,10,judge.condition,1.0,10,0,0,0,
+category,work_rules_procedure,10,judge.decision,1.0,10,0,0,0,
+category,work_rules_procedure,10,judge.evidence,1.0,10,0,0,0,
+category,work_rules_procedure,10,judge.fact,1.0,10,0,0,0,
+category,work_rules_procedure,10,retrieval.hit_at_k,1.0,10,0,0,0,
+category,work_rules_procedure,10,retrieval.recall_at_k,1.0,10,0,0,0,
+category,work_rules_procedure,10,semantic_answer_fact_all,1.0,7,0,3,0,
+category,work_rules_procedure,10,semantic_final_fact_all,1.0,10,0,0,0,
+category,work_rules_procedure,10,table_rag_metrics.candidate_mrr,0.9,10,0,0,0,
+category,work_rules_procedure,10,table_rag_metrics.candidate_ndcg,0.9261859507142916,10,0,0,0,
+category,work_rules_procedure,10,table_rag_metrics.candidate_page_recall,1.0,10,0,0,0,
+category,work_rules_procedure,10,table_rag_metrics.candidate_required_evidence_all,1.0,10,0,0,0,
+category,work_rules_procedure,10,table_rag_metrics.final_mrr,0.9,10,0,0,0,
+category,work_rules_procedure,10,table_rag_metrics.final_ndcg,0.9261859507142916,10,0,0,0,
+category,work_rules_procedure,10,table_rag_metrics.final_page_recall,1.0,10,0,0,0,
+category,work_rules_procedure,10,table_rag_metrics.final_required_evidence_all,1.0,10,0,0,0,
+category,work_rules_procedure,10,table_rag_metrics.final_sql_expected,,0,10,0,0,
+question_type,2개 기록 연결,5,evidence_diagnostics.budget_lost_page_recall,0.0,5,0,0,0,
+question_type,2개 기록 연결,5,evidence_diagnostics.candidate_doc_recall,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,evidence_diagnostics.candidate_page_recall,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,evidence_diagnostics.context_lost_page_recall,0.0,5,0,0,0,
+question_type,2개 기록 연결,5,evidence_diagnostics.final_page_recall,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,faithfulness,0.89,5,0,0,0,
+question_type,2개 기록 연결,5,judge.condition,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,judge.decision,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,judge.evidence,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,judge.fact,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,retrieval.hit_at_k,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,retrieval.recall_at_k,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,semantic_answer_fact_all,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,semantic_final_fact_all,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,table_rag_metrics.candidate_mrr,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,table_rag_metrics.candidate_ndcg,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,table_rag_metrics.candidate_page_recall,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,table_rag_metrics.candidate_required_evidence_all,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,table_rag_metrics.final_mrr,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,table_rag_metrics.final_ndcg,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,table_rag_metrics.final_page_recall,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,table_rag_metrics.final_required_evidence_all,1.0,5,0,0,0,
+question_type,2개 기록 연결,5,table_rag_metrics.final_sql_expected,,0,5,0,0,
+question_type,3개 기록 연결,5,evidence_diagnostics.budget_lost_page_recall,0.0,5,0,0,0,
+question_type,3개 기록 연결,5,evidence_diagnostics.candidate_doc_recall,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,evidence_diagnostics.candidate_page_recall,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,evidence_diagnostics.context_lost_page_recall,0.0,5,0,0,0,
+question_type,3개 기록 연결,5,evidence_diagnostics.final_page_recall,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,faithfulness,1.0,2,0,3,0,
+question_type,3개 기록 연결,5,judge.condition,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,judge.decision,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,judge.evidence,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,judge.fact,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,retrieval.hit_at_k,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,retrieval.recall_at_k,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,semantic_answer_fact_all,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,semantic_final_fact_all,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,table_rag_metrics.candidate_mrr,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,table_rag_metrics.candidate_ndcg,0.9624101742138729,5,0,0,0,
+question_type,3개 기록 연결,5,table_rag_metrics.candidate_page_recall,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,table_rag_metrics.candidate_required_evidence_all,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,table_rag_metrics.final_mrr,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,table_rag_metrics.final_ndcg,0.9624101742138729,5,0,0,0,
+question_type,3개 기록 연결,5,table_rag_metrics.final_page_recall,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,table_rag_metrics.final_required_evidence_all,1.0,5,0,0,0,
+question_type,3개 기록 연결,5,table_rag_metrics.final_sql_expected,,0,5,0,0,
+question_type,4개 기록 연결,5,evidence_diagnostics.budget_lost_page_recall,0.0,5,0,0,0,
+question_type,4개 기록 연결,5,evidence_diagnostics.candidate_doc_recall,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,evidence_diagnostics.candidate_page_recall,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,evidence_diagnostics.context_lost_page_recall,0.0,5,0,0,0,
+question_type,4개 기록 연결,5,evidence_diagnostics.final_page_recall,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,faithfulness,0.9625,4,0,1,0,
+question_type,4개 기록 연결,5,judge.condition,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,judge.decision,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,judge.evidence,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,judge.fact,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,retrieval.hit_at_k,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,retrieval.recall_at_k,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,semantic_answer_fact_all,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,semantic_final_fact_all,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,table_rag_metrics.candidate_mrr,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,table_rag_metrics.candidate_ndcg,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,table_rag_metrics.candidate_page_recall,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,table_rag_metrics.candidate_required_evidence_all,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,table_rag_metrics.final_mrr,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,table_rag_metrics.final_ndcg,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,table_rag_metrics.final_page_recall,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,table_rag_metrics.final_required_evidence_all,1.0,5,0,0,0,
+question_type,4개 기록 연결,5,table_rag_metrics.final_sql_expected,,0,5,0,0,
+question_type,5개 기록 연결,5,evidence_diagnostics.budget_lost_page_recall,0.0,5,0,0,0,
+question_type,5개 기록 연결,5,evidence_diagnostics.candidate_doc_recall,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,evidence_diagnostics.candidate_page_recall,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,evidence_diagnostics.context_lost_page_recall,0.0,5,0,0,0,
+question_type,5개 기록 연결,5,evidence_diagnostics.final_page_recall,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,faithfulness,0.9848484848484849,4,0,1,0,
+question_type,5개 기록 연결,5,judge.condition,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,judge.decision,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,judge.evidence,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,judge.fact,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,retrieval.hit_at_k,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,retrieval.recall_at_k,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,semantic_answer_fact_all,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,semantic_final_fact_all,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,table_rag_metrics.candidate_mrr,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,table_rag_metrics.candidate_ndcg,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,table_rag_metrics.candidate_page_recall,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,table_rag_metrics.candidate_required_evidence_all,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,table_rag_metrics.final_mrr,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,table_rag_metrics.final_ndcg,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,table_rag_metrics.final_page_recall,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,table_rag_metrics.final_required_evidence_all,1.0,5,0,0,0,
+question_type,5개 기록 연결,5,table_rag_metrics.final_sql_expected,,0,5,0,0,
+question_type,기록번호 업무 확인,4,evidence_diagnostics.budget_lost_page_recall,0.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,evidence_diagnostics.candidate_doc_recall,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,evidence_diagnostics.candidate_page_recall,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,evidence_diagnostics.context_lost_page_recall,0.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,evidence_diagnostics.final_page_recall,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,faithfulness,0.84375,4,0,0,0,
+question_type,기록번호 업무 확인,4,judge.condition,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,judge.decision,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,judge.evidence,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,judge.fact,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,retrieval.hit_at_k,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,retrieval.recall_at_k,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,semantic_answer_fact_all,1.0,2,0,2,0,
+question_type,기록번호 업무 확인,4,semantic_final_fact_all,1.0,2,0,2,0,
+question_type,기록번호 업무 확인,4,table_rag_metrics.candidate_mrr,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,table_rag_metrics.candidate_ndcg,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,table_rag_metrics.candidate_page_recall,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,table_rag_metrics.candidate_required_evidence_all,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,table_rag_metrics.final_mrr,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,table_rag_metrics.final_ndcg,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,table_rag_metrics.final_page_recall,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,table_rag_metrics.final_required_evidence_all,1.0,4,0,0,0,
+question_type,기록번호 업무 확인,4,table_rag_metrics.final_sql_expected,,0,4,0,0,
+question_type,날짜와 단서로 찾기,10,evidence_diagnostics.budget_lost_page_recall,0.0,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,evidence_diagnostics.candidate_doc_recall,1.0,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,evidence_diagnostics.candidate_page_recall,1.0,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,evidence_diagnostics.context_lost_page_recall,0.1,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,evidence_diagnostics.final_page_recall,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,faithfulness,0.9388888888888889,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,judge.condition,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,judge.decision,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,judge.evidence,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,judge.fact,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,retrieval.hit_at_k,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,retrieval.recall_at_k,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,semantic_answer_fact_all,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,semantic_final_fact_all,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,table_rag_metrics.candidate_mrr,0.9099999999999999,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,table_rag_metrics.candidate_ndcg,0.9338282111873255,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,table_rag_metrics.candidate_page_recall,1.0,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,table_rag_metrics.candidate_required_evidence_all,1.0,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,table_rag_metrics.final_mrr,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,table_rag_metrics.final_ndcg,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,table_rag_metrics.final_page_recall,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,table_rag_metrics.final_required_evidence_all,0.9,10,0,0,0,
+question_type,날짜와 단서로 찾기,10,table_rag_metrics.final_sql_expected,,0,10,0,0,
+question_type,대조번호 업무 확인,1,evidence_diagnostics.budget_lost_page_recall,0.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,evidence_diagnostics.candidate_doc_recall,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,evidence_diagnostics.candidate_page_recall,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,evidence_diagnostics.context_lost_page_recall,0.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,evidence_diagnostics.final_page_recall,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,faithfulness,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,judge.condition,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,judge.decision,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,judge.evidence,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,judge.fact,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,retrieval.hit_at_k,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,retrieval.recall_at_k,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,semantic_answer_fact_all,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,semantic_final_fact_all,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,table_rag_metrics.candidate_mrr,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,table_rag_metrics.candidate_ndcg,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,table_rag_metrics.candidate_page_recall,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,table_rag_metrics.candidate_required_evidence_all,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,table_rag_metrics.final_mrr,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,table_rag_metrics.final_ndcg,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,table_rag_metrics.final_page_recall,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,table_rag_metrics.final_required_evidence_all,1.0,1,0,0,0,
+question_type,대조번호 업무 확인,1,table_rag_metrics.final_sql_expected,,0,1,0,0,
+question_type,반납 증빙 확인,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+question_type,반납 증빙 확인,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+question_type,반납 증빙 확인,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,faithfulness,0.9718236252566373,13,0,7,0,
+question_type,반납 증빙 확인,20,judge.condition,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,judge.decision,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,judge.evidence,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,judge.fact,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,retrieval.hit_at_k,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,retrieval.recall_at_k,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,semantic_answer_fact_all,1.0,17,0,3,0,
+question_type,반납 증빙 확인,20,semantic_final_fact_all,1.0,19,0,1,0,
+question_type,반납 증빙 확인,20,table_rag_metrics.candidate_mrr,0.9,20,0,0,0,
+question_type,반납 증빙 확인,20,table_rag_metrics.candidate_ndcg,0.8957106410917713,20,0,0,0,
+question_type,반납 증빙 확인,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,table_rag_metrics.final_mrr,0.9,20,0,0,0,
+question_type,반납 증빙 확인,20,table_rag_metrics.final_ndcg,0.8957106410917713,20,0,0,0,
+question_type,반납 증빙 확인,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,
+question_type,반납 증빙 확인,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+question_type,번호 없는 charged,5,evidence_diagnostics.budget_lost_page_recall,0.0,5,0,0,0,
+question_type,번호 없는 charged,5,evidence_diagnostics.candidate_doc_recall,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,evidence_diagnostics.candidate_page_recall,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,evidence_diagnostics.context_lost_page_recall,0.0,5,0,0,0,
+question_type,번호 없는 charged,5,evidence_diagnostics.final_page_recall,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,faithfulness,1.0,4,0,1,0,
+question_type,번호 없는 charged,5,judge.condition,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,judge.decision,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,judge.evidence,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,judge.fact,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,retrieval.hit_at_k,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,retrieval.recall_at_k,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,semantic_answer_fact_all,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,semantic_final_fact_all,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,table_rag_metrics.candidate_mrr,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,table_rag_metrics.candidate_ndcg,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,table_rag_metrics.candidate_page_recall,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,table_rag_metrics.candidate_required_evidence_all,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,table_rag_metrics.final_mrr,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,table_rag_metrics.final_ndcg,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,table_rag_metrics.final_page_recall,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,table_rag_metrics.final_required_evidence_all,1.0,5,0,0,0,
+question_type,번호 없는 charged,5,table_rag_metrics.final_sql_expected,,0,5,0,0,
+question_type,번호 없는 gate,5,evidence_diagnostics.budget_lost_page_recall,0.0,5,0,0,0,
+question_type,번호 없는 gate,5,evidence_diagnostics.candidate_doc_recall,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,evidence_diagnostics.candidate_page_recall,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,evidence_diagnostics.context_lost_page_recall,0.0,5,0,0,0,
+question_type,번호 없는 gate,5,evidence_diagnostics.final_page_recall,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,faithfulness,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,judge.condition,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,judge.decision,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,judge.evidence,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,judge.fact,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,retrieval.hit_at_k,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,retrieval.recall_at_k,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,semantic_answer_fact_all,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,semantic_final_fact_all,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,table_rag_metrics.candidate_mrr,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,table_rag_metrics.candidate_ndcg,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,table_rag_metrics.candidate_page_recall,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,table_rag_metrics.candidate_required_evidence_all,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,table_rag_metrics.final_mrr,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,table_rag_metrics.final_ndcg,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,table_rag_metrics.final_page_recall,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,table_rag_metrics.final_required_evidence_all,1.0,5,0,0,0,
+question_type,번호 없는 gate,5,table_rag_metrics.final_sql_expected,,0,5,0,0,
+question_type,서로 다른 사건 비교,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,evidence_diagnostics.candidate_doc_recall,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,evidence_diagnostics.candidate_page_recall,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,evidence_diagnostics.final_page_recall,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,faithfulness,0.9861111111111112,17,0,3,0,
+question_type,서로 다른 사건 비교,20,judge.condition,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,judge.decision,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,judge.evidence,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,judge.fact,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,retrieval.hit_at_k,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,retrieval.recall_at_k,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,semantic_answer_fact_all,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,semantic_final_fact_all,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,table_rag_metrics.candidate_mrr,0.9666666666666666,20,0,0,0,
+question_type,서로 다른 사건 비교,20,table_rag_metrics.candidate_ndcg,0.9715338391559701,20,0,0,0,
+question_type,서로 다른 사건 비교,20,table_rag_metrics.candidate_page_recall,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,table_rag_metrics.candidate_required_evidence_all,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,table_rag_metrics.final_mrr,0.9666666666666666,20,0,0,0,
+question_type,서로 다른 사건 비교,20,table_rag_metrics.final_ndcg,0.9715338391559701,20,0,0,0,
+question_type,서로 다른 사건 비교,20,table_rag_metrics.final_page_recall,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,table_rag_metrics.final_required_evidence_all,1.0,20,0,0,0,
+question_type,서로 다른 사건 비교,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+question_type,신청·승인 기록 업무 확인,1,evidence_diagnostics.budget_lost_page_recall,0.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,evidence_diagnostics.candidate_doc_recall,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,evidence_diagnostics.candidate_page_recall,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,evidence_diagnostics.context_lost_page_recall,0.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,evidence_diagnostics.final_page_recall,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,faithfulness,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,judge.condition,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,judge.decision,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,judge.evidence,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,judge.fact,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,retrieval.hit_at_k,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,retrieval.recall_at_k,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,semantic_answer_fact_all,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,semantic_final_fact_all,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,table_rag_metrics.candidate_mrr,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,table_rag_metrics.candidate_ndcg,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,table_rag_metrics.candidate_page_recall,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,table_rag_metrics.candidate_required_evidence_all,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,table_rag_metrics.final_mrr,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,table_rag_metrics.final_ndcg,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,table_rag_metrics.final_page_recall,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,table_rag_metrics.final_required_evidence_all,1.0,1,0,0,0,
+question_type,신청·승인 기록 업무 확인,1,table_rag_metrics.final_sql_expected,,0,1,0,0,
+question_type,예정과 실제,8,evidence_diagnostics.budget_lost_page_recall,0.0,8,0,0,0,
+question_type,예정과 실제,8,evidence_diagnostics.candidate_doc_recall,1.0,8,0,0,0,
+question_type,예정과 실제,8,evidence_diagnostics.candidate_page_recall,1.0,8,0,0,0,
+question_type,예정과 실제,8,evidence_diagnostics.context_lost_page_recall,0.0,8,0,0,0,
+question_type,예정과 실제,8,evidence_diagnostics.final_page_recall,1.0,8,0,0,0,
+question_type,예정과 실제,8,faithfulness,0.8698412698412697,7,0,1,0,
+question_type,예정과 실제,8,judge.condition,1.0,8,0,0,0,
+question_type,예정과 실제,8,judge.decision,1.0,8,0,0,0,
+question_type,예정과 실제,8,judge.evidence,1.0,8,0,0,0,
+question_type,예정과 실제,8,judge.fact,1.0,8,0,0,0,
+question_type,예정과 실제,8,retrieval.hit_at_k,1.0,8,0,0,0,
+question_type,예정과 실제,8,retrieval.recall_at_k,1.0,8,0,0,0,
+question_type,예정과 실제,8,semantic_answer_fact_all,1.0,8,0,0,0,
+question_type,예정과 실제,8,semantic_final_fact_all,1.0,8,0,0,0,
+question_type,예정과 실제,8,table_rag_metrics.candidate_mrr,1.0,8,0,0,0,
+question_type,예정과 실제,8,table_rag_metrics.candidate_ndcg,1.0,8,0,0,0,
+question_type,예정과 실제,8,table_rag_metrics.candidate_page_recall,1.0,8,0,0,0,
+question_type,예정과 실제,8,table_rag_metrics.candidate_required_evidence_all,1.0,8,0,0,0,
+question_type,예정과 실제,8,table_rag_metrics.final_mrr,1.0,8,0,0,0,
+question_type,예정과 실제,8,table_rag_metrics.final_ndcg,1.0,8,0,0,0,
+question_type,예정과 실제,8,table_rag_metrics.final_page_recall,1.0,8,0,0,0,
+question_type,예정과 실제,8,table_rag_metrics.final_required_evidence_all,1.0,8,0,0,0,
+question_type,예정과 실제,8,table_rag_metrics.final_sql_expected,,0,8,0,0,
+question_type,유사 사건 식별,20,evidence_diagnostics.budget_lost_page_recall,0.0,20,0,0,0,
+question_type,유사 사건 식별,20,evidence_diagnostics.candidate_doc_recall,0.925,20,0,0,0,
+question_type,유사 사건 식별,20,evidence_diagnostics.candidate_page_recall,0.9,20,0,0,0,
+question_type,유사 사건 식별,20,evidence_diagnostics.context_lost_page_recall,0.0,20,0,0,0,
+question_type,유사 사건 식별,20,evidence_diagnostics.final_page_recall,0.9,20,0,0,0,
+question_type,유사 사건 식별,20,faithfulness,0.843358395989975,19,0,1,0,
+question_type,유사 사건 식별,20,judge.condition,0.7,20,0,0,0,
+question_type,유사 사건 식별,20,judge.decision,0.7,20,0,0,0,
+question_type,유사 사건 식별,20,judge.evidence,0.7,20,0,0,0,
+question_type,유사 사건 식별,20,judge.fact,0.7,20,0,0,0,
+question_type,유사 사건 식별,20,retrieval.hit_at_k,1.0,20,0,0,0,
+question_type,유사 사건 식별,20,retrieval.recall_at_k,0.925,20,0,0,0,
+question_type,유사 사건 식별,20,semantic_answer_fact_all,0.7,20,0,0,0,
+question_type,유사 사건 식별,20,semantic_final_fact_all,0.85,20,0,0,0,
+question_type,유사 사건 식별,20,table_rag_metrics.candidate_mrr,0.9099999999999999,20,0,0,0,
+question_type,유사 사건 식별,20,table_rag_metrics.candidate_ndcg,0.8896737306509035,20,0,0,0,
+question_type,유사 사건 식별,20,table_rag_metrics.candidate_page_recall,0.9,20,0,0,0,
+question_type,유사 사건 식별,20,table_rag_metrics.candidate_required_evidence_all,0.85,20,0,0,0,
+question_type,유사 사건 식별,20,table_rag_metrics.final_mrr,0.9099999999999999,20,0,0,0,
+question_type,유사 사건 식별,20,table_rag_metrics.final_ndcg,0.8896737306509035,20,0,0,0,
+question_type,유사 사건 식별,20,table_rag_metrics.final_page_recall,0.9,20,0,0,0,
+question_type,유사 사건 식별,20,table_rag_metrics.final_required_evidence_all,0.85,20,0,0,0,
+question_type,유사 사건 식별,20,table_rag_metrics.final_sql_expected,,0,20,0,0,
+question_type,일정 확인,1,evidence_diagnostics.budget_lost_page_recall,0.0,1,0,0,0,
+question_type,일정 확인,1,evidence_diagnostics.candidate_doc_recall,1.0,1,0,0,0,
+question_type,일정 확인,1,evidence_diagnostics.candidate_page_recall,1.0,1,0,0,0,
+question_type,일정 확인,1,evidence_diagnostics.context_lost_page_recall,0.0,1,0,0,0,
+question_type,일정 확인,1,evidence_diagnostics.final_page_recall,1.0,1,0,0,0,
+question_type,일정 확인,1,faithfulness,1.0,1,0,0,0,
+question_type,일정 확인,1,judge.condition,1.0,1,0,0,0,
+question_type,일정 확인,1,judge.decision,1.0,1,0,0,0,
+question_type,일정 확인,1,judge.evidence,1.0,1,0,0,0,
+question_type,일정 확인,1,judge.fact,1.0,1,0,0,0,
+question_type,일정 확인,1,retrieval.hit_at_k,1.0,1,0,0,0,
+question_type,일정 확인,1,retrieval.recall_at_k,1.0,1,0,0,0,
+question_type,일정 확인,1,semantic_answer_fact_all,1.0,1,0,0,0,
+question_type,일정 확인,1,semantic_final_fact_all,1.0,1,0,0,0,
+question_type,일정 확인,1,table_rag_metrics.candidate_mrr,1.0,1,0,0,0,
+question_type,일정 확인,1,table_rag_metrics.candidate_ndcg,1.0,1,0,0,0,
+question_type,일정 확인,1,table_rag_metrics.candidate_page_recall,1.0,1,0,0,0,
+question_type,일정 확인,1,table_rag_metrics.candidate_required_evidence_all,1.0,1,0,0,0,
+question_type,일정 확인,1,table_rag_metrics.final_mrr,1.0,1,0,0,0,
+question_type,일정 확인,1,table_rag_metrics.final_ndcg,1.0,1,0,0,0,
+question_type,일정 확인,1,table_rag_metrics.final_page_recall,1.0,1,0,0,0,
+question_type,일정 확인,1,table_rag_metrics.final_required_evidence_all,1.0,1,0,0,0,
+question_type,일정 확인,1,table_rag_metrics.final_sql_expected,,0,1,0,0,
+question_type,정산 확인,2,evidence_diagnostics.budget_lost_page_recall,0.0,2,0,0,0,
+question_type,정산 확인,2,evidence_diagnostics.candidate_doc_recall,1.0,2,0,0,0,
+question_type,정산 확인,2,evidence_diagnostics.candidate_page_recall,1.0,2,0,0,0,
+question_type,정산 확인,2,evidence_diagnostics.context_lost_page_recall,0.0,2,0,0,0,
+question_type,정산 확인,2,evidence_diagnostics.final_page_recall,1.0,2,0,0,0,
+question_type,정산 확인,2,faithfulness,1.0,2,0,0,0,
+question_type,정산 확인,2,judge.condition,1.0,2,0,0,0,
+question_type,정산 확인,2,judge.decision,1.0,2,0,0,0,
+question_type,정산 확인,2,judge.evidence,1.0,2,0,0,0,
+question_type,정산 확인,2,judge.fact,1.0,2,0,0,0,
+question_type,정산 확인,2,retrieval.hit_at_k,1.0,2,0,0,0,
+question_type,정산 확인,2,retrieval.recall_at_k,1.0,2,0,0,0,
+question_type,정산 확인,2,semantic_answer_fact_all,1.0,2,0,0,0,
+question_type,정산 확인,2,semantic_final_fact_all,1.0,2,0,0,0,
+question_type,정산 확인,2,table_rag_metrics.candidate_mrr,0.75,2,0,0,0,
+question_type,정산 확인,2,table_rag_metrics.candidate_ndcg,0.8154648767857288,2,0,0,0,
+question_type,정산 확인,2,table_rag_metrics.candidate_page_recall,1.0,2,0,0,0,
+question_type,정산 확인,2,table_rag_metrics.candidate_required_evidence_all,1.0,2,0,0,0,
+question_type,정산 확인,2,table_rag_metrics.final_mrr,0.75,2,0,0,0,
+question_type,정산 확인,2,table_rag_metrics.final_ndcg,0.8154648767857288,2,0,0,0,
+question_type,정산 확인,2,table_rag_metrics.final_page_recall,1.0,2,0,0,0,
+question_type,정산 확인,2,table_rag_metrics.final_required_evidence_all,1.0,2,0,0,0,
+question_type,정산 확인,2,table_rag_metrics.final_sql_expected,,0,2,0,0,
+question_type,직접 charged,2,evidence_diagnostics.budget_lost_page_recall,0.0,2,0,0,0,
+question_type,직접 charged,2,evidence_diagnostics.candidate_doc_recall,1.0,2,0,0,0,
+question_type,직접 charged,2,evidence_diagnostics.candidate_page_recall,1.0,2,0,0,0,
+question_type,직접 charged,2,evidence_diagnostics.context_lost_page_recall,0.0,2,0,0,0,
+question_type,직접 charged,2,evidence_diagnostics.final_page_recall,1.0,2,0,0,0,
+question_type,직접 charged,2,faithfulness,1.0,2,0,0,0,
+question_type,직접 charged,2,judge.condition,1.0,2,0,0,0,
+question_type,직접 charged,2,judge.decision,1.0,2,0,0,0,
+question_type,직접 charged,2,judge.evidence,1.0,2,0,0,0,
+question_type,직접 charged,2,judge.fact,1.0,2,0,0,0,
+question_type,직접 charged,2,retrieval.hit_at_k,1.0,2,0,0,0,
+question_type,직접 charged,2,retrieval.recall_at_k,1.0,2,0,0,0,
+question_type,직접 charged,2,semantic_answer_fact_all,1.0,2,0,0,0,
+question_type,직접 charged,2,semantic_final_fact_all,1.0,2,0,0,0,
+question_type,직접 charged,2,table_rag_metrics.candidate_mrr,1.0,2,0,0,0,
+question_type,직접 charged,2,table_rag_metrics.candidate_ndcg,1.0,2,0,0,0,
+question_type,직접 charged,2,table_rag_metrics.candidate_page_recall,1.0,2,0,0,0,
+question_type,직접 charged,2,table_rag_metrics.candidate_required_evidence_all,1.0,2,0,0,0,
+question_type,직접 charged,2,table_rag_metrics.final_mrr,1.0,2,0,0,0,
+question_type,직접 charged,2,table_rag_metrics.final_ndcg,1.0,2,0,0,0,
+question_type,직접 charged,2,table_rag_metrics.final_page_recall,1.0,2,0,0,0,
+question_type,직접 charged,2,table_rag_metrics.final_required_evidence_all,1.0,2,0,0,0,
+question_type,직접 charged,2,table_rag_metrics.final_sql_expected,,0,2,0,0,
+question_type,직접 gate,2,evidence_diagnostics.budget_lost_page_recall,0.0,2,0,0,0,
+question_type,직접 gate,2,evidence_diagnostics.candidate_doc_recall,1.0,2,0,0,0,
+question_type,직접 gate,2,evidence_diagnostics.candidate_page_recall,1.0,2,0,0,0,
+question_type,직접 gate,2,evidence_diagnostics.context_lost_page_recall,0.0,2,0,0,0,
+question_type,직접 gate,2,evidence_diagnostics.final_page_recall,1.0,2,0,0,0,
+question_type,직접 gate,2,faithfulness,1.0,2,0,0,0,
+question_type,직접 gate,2,judge.condition,1.0,2,0,0,0,
+question_type,직접 gate,2,judge.decision,1.0,2,0,0,0,
+question_type,직접 gate,2,judge.evidence,1.0,2,0,0,0,
+question_type,직접 gate,2,judge.fact,1.0,2,0,0,0,
+question_type,직접 gate,2,retrieval.hit_at_k,1.0,2,0,0,0,
+question_type,직접 gate,2,retrieval.recall_at_k,1.0,2,0,0,0,
+question_type,직접 gate,2,semantic_answer_fact_all,1.0,2,0,0,0,
+question_type,직접 gate,2,semantic_final_fact_all,1.0,2,0,0,0,
+question_type,직접 gate,2,table_rag_metrics.candidate_mrr,1.0,2,0,0,0,
+question_type,직접 gate,2,table_rag_metrics.candidate_ndcg,1.0,2,0,0,0,
+question_type,직접 gate,2,table_rag_metrics.candidate_page_recall,1.0,2,0,0,0,
+question_type,직접 gate,2,table_rag_metrics.candidate_required_evidence_all,1.0,2,0,0,0,
+question_type,직접 gate,2,table_rag_metrics.final_mrr,1.0,2,0,0,0,
+question_type,직접 gate,2,table_rag_metrics.final_ndcg,1.0,2,0,0,0,
+question_type,직접 gate,2,table_rag_metrics.final_page_recall,1.0,2,0,0,0,
+question_type,직접 gate,2,table_rag_metrics.final_required_evidence_all,1.0,2,0,0,0,
+question_type,직접 gate,2,table_rag_metrics.final_sql_expected,,0,2,0,0,
+question_type,직접 received,2,evidence_diagnostics.budget_lost_page_recall,0.0,2,0,0,0,
+question_type,직접 received,2,evidence_diagnostics.candidate_doc_recall,1.0,2,0,0,0,
+question_type,직접 received,2,evidence_diagnostics.candidate_page_recall,1.0,2,0,0,0,
+question_type,직접 received,2,evidence_diagnostics.context_lost_page_recall,0.0,2,0,0,0,
+question_type,직접 received,2,evidence_diagnostics.final_page_recall,1.0,2,0,0,0,
+question_type,직접 received,2,faithfulness,1.0,2,0,0,0,
+question_type,직접 received,2,judge.condition,1.0,2,0,0,0,
+question_type,직접 received,2,judge.decision,1.0,2,0,0,0,
+question_type,직접 received,2,judge.evidence,1.0,2,0,0,0,
+question_type,직접 received,2,judge.fact,1.0,2,0,0,0,
+question_type,직접 received,2,retrieval.hit_at_k,1.0,2,0,0,0,
+question_type,직접 received,2,retrieval.recall_at_k,1.0,2,0,0,0,
+question_type,직접 received,2,semantic_answer_fact_all,1.0,2,0,0,0,
+question_type,직접 received,2,semantic_final_fact_all,1.0,2,0,0,0,
+question_type,직접 received,2,table_rag_metrics.candidate_mrr,1.0,2,0,0,0,
+question_type,직접 received,2,table_rag_metrics.candidate_ndcg,1.0,2,0,0,0,
+question_type,직접 received,2,table_rag_metrics.candidate_page_recall,1.0,2,0,0,0,
+question_type,직접 received,2,table_rag_metrics.candidate_required_evidence_all,1.0,2,0,0,0,
+question_type,직접 received,2,table_rag_metrics.final_mrr,1.0,2,0,0,0,
+question_type,직접 received,2,table_rag_metrics.final_ndcg,1.0,2,0,0,0,
+question_type,직접 received,2,table_rag_metrics.final_page_recall,1.0,2,0,0,0,
+question_type,직접 received,2,table_rag_metrics.final_required_evidence_all,1.0,2,0,0,0,
+question_type,직접 received,2,table_rag_metrics.final_sql_expected,,0,2,0,0,
+question_type,직접 returned,2,evidence_diagnostics.budget_lost_page_recall,0.0,2,0,0,0,
+question_type,직접 returned,2,evidence_diagnostics.candidate_doc_recall,1.0,2,0,0,0,
+question_type,직접 returned,2,evidence_diagnostics.candidate_page_recall,1.0,2,0,0,0,
+question_type,직접 returned,2,evidence_diagnostics.context_lost_page_recall,0.0,2,0,0,0,
+question_type,직접 returned,2,evidence_diagnostics.final_page_recall,1.0,2,0,0,0,
+question_type,직접 returned,2,faithfulness,1.0,1,0,1,0,
+question_type,직접 returned,2,judge.condition,1.0,2,0,0,0,
+question_type,직접 returned,2,judge.decision,1.0,2,0,0,0,
+question_type,직접 returned,2,judge.evidence,1.0,2,0,0,0,
+question_type,직접 returned,2,judge.fact,1.0,2,0,0,0,
+question_type,직접 returned,2,retrieval.hit_at_k,1.0,2,0,0,0,
+question_type,직접 returned,2,retrieval.recall_at_k,1.0,2,0,0,0,
+question_type,직접 returned,2,semantic_answer_fact_all,1.0,2,0,0,0,
+question_type,직접 returned,2,semantic_final_fact_all,1.0,2,0,0,0,
+question_type,직접 returned,2,table_rag_metrics.candidate_mrr,1.0,2,0,0,0,
+question_type,직접 returned,2,table_rag_metrics.candidate_ndcg,1.0,2,0,0,0,
+question_type,직접 returned,2,table_rag_metrics.candidate_page_recall,1.0,2,0,0,0,
+question_type,직접 returned,2,table_rag_metrics.candidate_required_evidence_all,1.0,2,0,0,0,
+question_type,직접 returned,2,table_rag_metrics.final_mrr,1.0,2,0,0,0,
+question_type,직접 returned,2,table_rag_metrics.final_ndcg,1.0,2,0,0,0,
+question_type,직접 returned,2,table_rag_metrics.final_page_recall,1.0,2,0,0,0,
+question_type,직접 returned,2,table_rag_metrics.final_required_evidence_all,1.0,2,0,0,0,
+question_type,직접 returned,2,table_rag_metrics.final_sql_expected,,0,2,0,0,
+question_type,청구와 수납,6,evidence_diagnostics.budget_lost_page_recall,0.0,6,0,0,0,
+question_type,청구와 수납,6,evidence_diagnostics.candidate_doc_recall,1.0,6,0,0,0,
+question_type,청구와 수납,6,evidence_diagnostics.candidate_page_recall,1.0,6,0,0,0,
+question_type,청구와 수납,6,evidence_diagnostics.context_lost_page_recall,0.0,6,0,0,0,
+question_type,청구와 수납,6,evidence_diagnostics.final_page_recall,1.0,6,0,0,0,
+question_type,청구와 수납,6,faithfulness,1.0,6,0,0,0,
+question_type,청구와 수납,6,judge.condition,1.0,6,0,0,0,
+question_type,청구와 수납,6,judge.decision,1.0,6,0,0,0,
+question_type,청구와 수납,6,judge.evidence,1.0,6,0,0,0,
+question_type,청구와 수납,6,judge.fact,1.0,6,0,0,0,
+question_type,청구와 수납,6,retrieval.hit_at_k,1.0,6,0,0,0,
+question_type,청구와 수납,6,retrieval.recall_at_k,1.0,6,0,0,0,
+question_type,청구와 수납,6,semantic_answer_fact_all,1.0,6,0,0,0,
+question_type,청구와 수납,6,semantic_final_fact_all,1.0,5,0,1,0,
+question_type,청구와 수납,6,table_rag_metrics.candidate_mrr,1.0,6,0,0,0,
+question_type,청구와 수납,6,table_rag_metrics.candidate_ndcg,1.0,6,0,0,0,
+question_type,청구와 수납,6,table_rag_metrics.candidate_page_recall,1.0,6,0,0,0,
+question_type,청구와 수납,6,table_rag_metrics.candidate_required_evidence_all,1.0,6,0,0,0,
+question_type,청구와 수납,6,table_rag_metrics.final_mrr,1.0,6,0,0,0,
+question_type,청구와 수납,6,table_rag_metrics.final_ndcg,1.0,6,0,0,0,
+question_type,청구와 수납,6,table_rag_metrics.final_page_recall,1.0,6,0,0,0,
+question_type,청구와 수납,6,table_rag_metrics.final_required_evidence_all,1.0,6,0,0,0,
+question_type,청구와 수납,6,table_rag_metrics.final_sql_expected,,0,6,0,0,
+question_type,최초 약정과 승인,6,evidence_diagnostics.budget_lost_page_recall,0.0,6,0,0,0,
+question_type,최초 약정과 승인,6,evidence_diagnostics.candidate_doc_recall,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,evidence_diagnostics.candidate_page_recall,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,evidence_diagnostics.context_lost_page_recall,0.0,6,0,0,0,
+question_type,최초 약정과 승인,6,evidence_diagnostics.final_page_recall,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,faithfulness,0.975,5,0,1,0,
+question_type,최초 약정과 승인,6,judge.condition,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,judge.decision,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,judge.evidence,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,judge.fact,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,retrieval.hit_at_k,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,retrieval.recall_at_k,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,semantic_answer_fact_all,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,semantic_final_fact_all,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,table_rag_metrics.candidate_mrr,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,table_rag_metrics.candidate_ndcg,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,table_rag_metrics.candidate_page_recall,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,table_rag_metrics.candidate_required_evidence_all,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,table_rag_metrics.final_mrr,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,table_rag_metrics.final_ndcg,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,table_rag_metrics.final_page_recall,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,table_rag_metrics.final_required_evidence_all,1.0,6,0,0,0,
+question_type,최초 약정과 승인,6,table_rag_metrics.final_sql_expected,,0,6,0,0,
+question_type,현장 확인,3,evidence_diagnostics.budget_lost_page_recall,0.0,3,0,0,0,
+question_type,현장 확인,3,evidence_diagnostics.candidate_doc_recall,1.0,3,0,0,0,
+question_type,현장 확인,3,evidence_diagnostics.candidate_page_recall,1.0,3,0,0,0,
+question_type,현장 확인,3,evidence_diagnostics.context_lost_page_recall,0.0,3,0,0,0,
+question_type,현장 확인,3,evidence_diagnostics.final_page_recall,1.0,3,0,0,0,
+question_type,현장 확인,3,faithfulness,1.0,1,0,2,0,
+question_type,현장 확인,3,judge.condition,1.0,3,0,0,0,
+question_type,현장 확인,3,judge.decision,1.0,3,0,0,0,
+question_type,현장 확인,3,judge.evidence,1.0,3,0,0,0,
+question_type,현장 확인,3,judge.fact,1.0,3,0,0,0,
+question_type,현장 확인,3,retrieval.hit_at_k,1.0,3,0,0,0,
+question_type,현장 확인,3,retrieval.recall_at_k,1.0,3,0,0,0,
+question_type,현장 확인,3,semantic_answer_fact_all,1.0,3,0,0,0,
+question_type,현장 확인,3,semantic_final_fact_all,1.0,3,0,0,0,
+question_type,현장 확인,3,table_rag_metrics.candidate_mrr,1.0,3,0,0,0,
+question_type,현장 확인,3,table_rag_metrics.candidate_ndcg,1.0,3,0,0,0,
+question_type,현장 확인,3,table_rag_metrics.candidate_page_recall,1.0,3,0,0,0,
+question_type,현장 확인,3,table_rag_metrics.candidate_required_evidence_all,1.0,3,0,0,0,
+question_type,현장 확인,3,table_rag_metrics.final_mrr,1.0,3,0,0,0,
+question_type,현장 확인,3,table_rag_metrics.final_ndcg,1.0,3,0,0,0,
+question_type,현장 확인,3,table_rag_metrics.final_page_recall,1.0,3,0,0,0,
+question_type,현장 확인,3,table_rag_metrics.final_required_evidence_all,1.0,3,0,0,0,
+question_type,현장 확인,3,table_rag_metrics.final_sql_expected,,0,3,0,0,
