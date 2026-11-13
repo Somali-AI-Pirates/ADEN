@@ -417,3 +417,97 @@ def test_advanced_verdict_rejects_boolean_and_float_coercion():
         with pytest.raises(ValidationError):
             ClaimVerdict(statement="fact", verdict=value, reason="reason",
                          supporting_evidence=[])
+
+
+@pytest.mark.parametrize(
+    ("source_id", "expected_status"),
+    [
+        ("[BOOK-HG-2026-P14]", "scored"),
+        ("[[BOOK-HG-2026-P14]]", "unavailable"),
+        ("[ BOOK-HG-2026-P14 ]", "unavailable"),
+        ("[FAKE-ID]", "unavailable"),
+    ],
+)
+def test_displayed_source_id_wrapper_requires_the_current_context_allowlist(
+    source_id, expected_status
+):
+    claim = "예약 DEMO-17의 실제 반환일은 2026-03-02이다."
+    session = FakeSession(
+        [claim],
+        [{
+            "statement": claim, "verdict": 1, "reason": "실제일이 적혀 있다.",
+            "supporting_evidence": [
+                {"source_id": source_id, "quote": "실제 반환일: 2026-03-02"}
+            ],
+        }],
+    )
+    result = make_faithfulness("test-model", session=session, profile="advanced")(
+        "실제 반환일은?", "실제 반환일은 2026-03-02입니다.", CONTEXTS
+    )
+
+    assert result["status"] == expected_status
+    details = result["details"]
+    raw = details["model_calls"][1]["parsed_output"]
+    assert raw["statements"][0]["supporting_evidence"][0]["source_id"] == source_id
+    if expected_status == "scored":
+        assert result["value"] == 1.0
+        assert details["claims"][0]["supporting_evidence"][0]["source_id"] == source_id
+        assert details["source_id_normalizations"] == [{
+            "claim_index": 0, "evidence_index": 0,
+            "code": "source_id_bracket_wrapper_removed",
+            "original_source_id": source_id,
+            "canonical_source_id": "BOOK-HG-2026-P14",
+        }]
+    else:
+        assert result["value"] is None
+        assert details["source_id_normalizations"] == []
+        assert details["failed_validation"][0]["code"] == "unknown_source_id"
+
+
+def test_failed_quote_keeps_visible_parsed_output_only_in_private_artifacts(tmp_path):
+    import json
+
+    from app.evaluation.report import write_artifacts
+
+    claim = "예약 DEMO-17의 실제 반환일은 2026-03-03이다."
+    visible_quote = "실제 반환일: 2026-03-03"
+    hidden = "INTERNAL_REASONING_MUST_NOT_BE_RETAINED"
+
+    class RawResponseSession(FakeSession):
+        async def parse_json(self, *args, **kwargs):
+            call = await super().parse_json(*args, **kwargs)
+            call.raw_response = {"reasoning": hidden, "authorization": "TEST_SECRET"}
+            return call
+
+    session = RawResponseSession(
+        [claim],
+        [{
+            "statement": claim, "verdict": 1, "reason": "잘못된 인용이다.",
+            "supporting_evidence": [
+                {"source_id": "[BOOK-HG-2026-P14]", "quote": visible_quote}
+            ],
+        }],
+    )
+    result = make_faithfulness("test-model", session=session, profile="advanced")(
+        "실제 반환일은?", "실제 반환일은 2026-03-03입니다.", CONTEXTS
+    )
+    assert result["status"] == "unavailable"
+    assert result["value"] is None
+    assert result["details"]["failed_validation"][0]["code"] == "quote_not_present_in_source"
+    assert result["details"]["model_calls"][1]["parsed_output"]["statements"][0][
+        "supporting_evidence"
+    ][0]["quote"] == visible_quote
+    score = {
+        "experiment_id": "test", "question_id": "Q1", "request_id": "request-1",
+        "faithfulness": {"status": result["status"], "value": result["value"]},
+        "evaluation_details": {"faithfulness": result["details"]},
+    }
+    write_artifacts(tmp_path, {"experiment_id": "test"}, scores=[score])
+    public = (tmp_path / "scores.jsonl").read_text()
+    private = (tmp_path / "evaluation-details.jsonl").read_text()
+    assert "parsed_output" not in public
+    assert visible_quote not in public
+    assert visible_quote in private
+    assert hidden not in private
+    assert "TEST_SECRET" not in private
+    assert json.loads(public)["faithfulness"]["status"] == "unavailable"
