@@ -1,0 +1,33 @@
+{
+  "version": "2026-11-13",
+  "note": "근거 평가기 판정 위에 겹쳐 적용하는 검수 판정이다. 원래 판정(judgments.jsonl)은 바꾸지 않고, 집계는 평가기 판정과 검수 반영 결과를 함께 보인다. 사실 ID는 필수 사실 v4 기준이다.",
+  "items": [
+    {
+      "question_id": "AS-ADD06",
+      "fact_id": "F3",
+      "contexts": ["candidate", "final"],
+      "status": "supported",
+      "source_ids": ["AS009:p0021", "AS009:p0022"],
+      "reason": "평가기가 인용한 두 번째 구절은 AS009 p22에 그대로 있고 p21로 잘못 귀속됐다. p21·p22 모두 후보·최종 문맥에 있으므로 출처를 교정해 충족으로 본다.",
+      "basis": "구절 원문 위치와 후보·최종 문맥 포함 여부 대조"
+    },
+    {
+      "question_id": "AS-ADD10",
+      "fact_id": "F1",
+      "contexts": ["candidate", "final"],
+      "status": "not_supported",
+      "source_ids": [],
+      "reason": "기존 접수 경로로 정정한다는 규칙은 AS010 p1에 있으나 이 쪽이 후보·최종 문맥에 없다(검색 누락). 검색된 문맥은 포털 중복 제출 금지만 뒷받침한다.",
+      "basis": "규칙의 원문 위치와 후보·최종 문맥 포함 여부 대조"
+    },
+    {
+      "question_id": "AS-ADD02",
+      "fact_id": "F2",
+      "contexts": ["candidate", "final"],
+      "status": "not_supported",
+      "source_ids": [],
+      "reason": "변경 요청에 예약번호와 변경 전후 내용을 적으라는 규정은 AS008 p8에 있으나 이 쪽이 후보·최종 문맥에 없다.",
+      "basis": "규정의 원문 위치와 후보·최종 문맥 포함 여부 대조"
+    }
+  ]
+}
