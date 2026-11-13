@@ -17,7 +17,7 @@ export type StreamEvent =
   | { type: "start"; request_id: string }
   | { type: "progress"; request_id: string; stage: string; message: string }
   | { type: "answer_delta"; request_id: string; delta: string }
-  | { type: "final"; request_id: string; response: QueryResponse }
+  | { type: "final"; request_id: string; response: QueryResponse; trace_url?: string }
   | { type: "error"; request_id: string; message: string };
 
 const record = (v: unknown): v is Record<string, unknown> =>
@@ -46,6 +46,20 @@ export function parseResponse(value: unknown): QueryResponse {
 
 function parseEvent(data: string): StreamEvent {
   let value: unknown;
+function traceUrl(value: unknown): string | undefined {
+  if (typeof value !== "string") return;
+  try {
+    const url = new URL(value);
+    if ((url.protocol === "http:" || url.protocol === "https:") &&
+        !url.username && !url.password && !url.search && !url.hash &&
+        /\/project\/[A-Za-z0-9_-]+\/traces\/[a-f0-9]{32}$/.test(url.pathname)) {
+      return url.href;
+    }
+  } catch {
+    // Optional trace metadata should not prevent a completed answer.
+  }
+}
+
   try { value = JSON.parse(data); }
   catch { throw new ChatError("스트림 데이터를 읽지 못했습니다."); }
   if (!record(value) || !requestId(value.request_id)) {
@@ -65,7 +79,8 @@ function parseEvent(data: string): StreamEvent {
     case "final": {
       const response = parseResponse(value.response);
       if (response.request_id !== id) throw new ChatError("응답의 요청 ID가 다릅니다.", id);
-      return { type: "final", request_id: id, response };
+      const trace_url = traceUrl(value.trace_url);
+      return { type: "final", request_id: id, response, ...(trace_url ? { trace_url } : {}) };
     }
     case "error":
       if (typeof value.message === "string")

@@ -99,6 +99,7 @@ function AssistantMessage() {
   const { source, openSource } = useContext(SourceContext);
   const custom = message.metadata.custom;
   const response = custom.response as QueryResponse | undefined;
+  const traceUrl = typeof custom.traceUrl === "string" ? custom.traceUrl : undefined;
   const running = message.status?.type === "running";
   const incomplete = message.status?.type === "incomplete";
   const error = typeof custom.error === "string" ? custom.error : undefined;
@@ -133,7 +134,17 @@ function AssistantMessage() {
     </div>}
     {!running && <div className="message-footer">
       <ActionBarPrimitive.Root className="message-actions"><ActionBarPrimitive.Copy className="quiet-button">복사</ActionBarPrimitive.Copy><ActionBarPrimitive.Reload className="quiet-button">다시 답변</ActionBarPrimitive.Reload></ActionBarPrimitive.Root>
-      {typeof custom.requestId === "string" && <details className="request-details"><summary>요청 정보</summary><code>{custom.requestId}</code></details>}
+      {typeof custom.requestId === "string" && (
+        <details className="request-details">
+          <summary>요청 정보</summary>
+          <code>{custom.requestId}</code>
+          {traceUrl && (
+            <a className="request-trace-link" href={traceUrl} target="_blank" rel="noopener noreferrer">
+              Langfuse에서 보기 <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </details>
+      )}
     </div>}
   </MessagePrimitive.Root>;
 }

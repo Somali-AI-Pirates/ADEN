@@ -24,6 +24,19 @@ test("UTF-8 and SSE boundaries preserve Korean, emoji, heartbeat and authoritati
   assert.equal(documentUrl(response.citations[0]), "/api/documents/AS001");
 });
 
+test("optional trace links preserve valid targets and discard unsafe ones", async () => {
+  const traceUrl = "https://traces.example.test/project/team/traces/" + "b".repeat(32);
+  for (const supplied of [traceUrl, "javascript:alert(1)", traceUrl + "?token=private"]) {
+    const data = sse(start) + sse({ type: "final", request_id: id, response, trace_url: supplied });
+    const events = [];
+    for await (const event of readEvents(body(data), id)) events.push(event);
+    assert.deepEqual(events.at(-1), {
+      type: "final", request_id: id, response,
+      ...(supplied === traceUrl ? { trace_url: traceUrl } : {}),
+    });
+  }
+});
+
 test("EOF, mismatched identity and invalid document sources do not become success", async () => {
   for (const data of [
     sse(start) + sse({ type: "answer_delta", request_id: id, delta: "임시" }),

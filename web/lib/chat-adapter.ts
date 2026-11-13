@@ -21,7 +21,11 @@ export const chatAdapter: ChatModelAdapter = {
         if (event.type === "error") throw new ChatError(event.message, event.request_id);
         if (event.type === "final") {
           text = event.response.answer;
-          custom = { requestId: event.request_id, response: event.response };
+          custom = {
+            requestId: event.request_id,
+            response: event.response,
+            traceUrl: event.trace_url,
+          };
           yield { ...snapshot(), status: { type: "complete", reason: "stop" } };
           return;
         }
