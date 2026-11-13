@@ -1,0 +1,543 @@
+[
+  {
+    "id": "SQL-DEV01",
+    "question": "청람터미널 HA28-C013 비용별 정산 확인에서 금액이 확정된 정산 항목과 미확정인 정산 항목은 각각 몇 개인가요? 확정된 보관료 정산액도 알려 주세요.",
+    "type": "상태 구분 집계(표 1개)",
+    "expected_action": "answer",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS003",
+          "page": 14
+        }
+      ]
+    ],
+    "expected_values": [
+      {
+        "label": "확정 항목 수",
+        "value": "3"
+      },
+      {
+        "label": "미확정 항목 수",
+        "value": "3"
+      },
+      {
+        "label": "보관료 정산액",
+        "value": "165",
+        "unit": "USD"
+      }
+    ],
+    "answer_must_not": [],
+    "reference_sql": [
+      {
+        "tables": [
+          "t_677a070c4167b4b7"
+        ],
+        "sql": "SELECT c0_state AS state, COUNT(*) AS n FROM t_677a070c4167b4b7 GROUP BY c0_state ORDER BY state"
+      },
+      {
+        "tables": [
+          "t_677a070c4167b4b7"
+        ],
+        "sql": "SELECT c0_value AS amount, c0_unit AS unit FROM t_677a070c4167b4b7 WHERE c2 = '보관료 정산액'"
+      }
+    ],
+    "expected_sql_results": [
+      {
+        "columns": [
+          "state",
+          "n"
+        ],
+        "rows": [
+          {
+            "state": "reported",
+            "n": 3
+          },
+          {
+            "state": "미확정",
+            "n": 3
+          }
+        ]
+      },
+      {
+        "columns": [
+          "amount",
+          "unit"
+        ],
+        "rows": [
+          {
+            "amount": "165",
+            "unit": "USD"
+          }
+        ]
+      }
+    ],
+    "notes": "",
+    "status": "draft: 원문 페이지와 사람 대조 전"
+  },
+  {
+    "id": "SQL-DEV02",
+    "question": "HG2029-00074 가람자재 HL-40GP-00074 건의 수납·미결 인계에서 금액이 확정된 항목과 그 금액을 알려 주세요. 금액이 아직 미확정인 항목은 몇 개인가요?",
+    "type": "미결·미확정 구분(표 1개)",
+    "expected_action": "answer",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS010",
+          "page": 69
+        }
+      ]
+    ],
+    "expected_values": [
+      {
+        "label": "보관료",
+        "value": "335",
+        "unit": "USD"
+      },
+      {
+        "label": "수납",
+        "value": "0",
+        "unit": "USD"
+      },
+      {
+        "label": "미확정 항목 수",
+        "value": "3"
+      }
+    ],
+    "answer_must_not": [],
+    "reference_sql": [
+      {
+        "tables": [
+          "t_73b5dc3ba9d5eb86"
+        ],
+        "sql": "SELECT c0 AS item, c1_value AS amount, c1_unit AS unit FROM t_73b5dc3ba9d5eb86 WHERE c1_state = 'reported' ORDER BY item"
+      },
+      {
+        "tables": [
+          "t_73b5dc3ba9d5eb86"
+        ],
+        "sql": "SELECT COUNT(*) AS n FROM t_73b5dc3ba9d5eb86 WHERE c1_state = '미확정'"
+      }
+    ],
+    "expected_sql_results": [
+      {
+        "columns": [
+          "item",
+          "amount",
+          "unit"
+        ],
+        "rows": [
+          {
+            "item": "보관료",
+            "amount": "335",
+            "unit": "USD"
+          },
+          {
+            "item": "수납",
+            "amount": "0",
+            "unit": "USD"
+          }
+        ]
+      },
+      {
+        "columns": [
+          "n"
+        ],
+        "rows": [
+          {
+            "n": 3
+          }
+        ]
+      }
+    ],
+    "notes": "",
+    "status": "draft: 원문 페이지와 사람 대조 전"
+  },
+  {
+    "id": "SQL-DEV03",
+    "question": "HG2030-01246 태산부품 HL-20GP-01246 건의 거래 합계는 지금 얼마로 확정할 수 있나요?",
+    "type": "미결을 0으로 보지 않기(표 1개, 함정)",
+    "expected_action": "answer",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS008",
+          "page": 113
+        }
+      ]
+    ],
+    "expected_values": [
+      {
+        "label": "보관료 확정액",
+        "value": "480",
+        "unit": "USD"
+      },
+      {
+        "label": "거래 합계 상태",
+        "value": "미확정"
+      }
+    ],
+    "answer_must_not": [
+      "거래 합계(는|가|를)? *(USD *)?480",
+      "합계(는|가)? *USD *480"
+    ],
+    "reference_sql": [
+      {
+        "tables": [
+          "t_b0576c96f32a9a73"
+        ],
+        "sql": "SELECT c0 AS item, c1_state AS state, c1_value AS amount FROM t_b0576c96f32a9a73 WHERE c0 IN ('보관료', '장비반납지연료', '거래 합계') ORDER BY item"
+      }
+    ],
+    "expected_sql_results": [
+      {
+        "columns": [
+          "item",
+          "state",
+          "amount"
+        ],
+        "rows": [
+          {
+            "item": "거래 합계",
+            "state": "미확정",
+            "amount": null
+          },
+          {
+            "item": "보관료",
+            "state": "reported",
+            "amount": "480"
+          },
+          {
+            "item": "장비반납지연료",
+            "state": "미확정",
+            "amount": null
+          }
+        ]
+      }
+    ],
+    "notes": "",
+    "status": "draft: 원문 페이지와 사람 대조 전"
+  },
+  {
+    "id": "SQL-DEV04",
+    "question": "가온루트해운 IS01 자료집에서 접수번호 IS01-002와 IS01-003 대상 중 안내 범위에 해당하는 건은 모두 몇 건이며, 접수번호는 무엇인가요?",
+    "type": "두 표 건수 합산(같은 자료집)",
+    "expected_action": "answer",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS007",
+          "page": 2
+        }
+      ],
+      [
+        {
+          "book_id": "AS007",
+          "page": 3
+        }
+      ]
+    ],
+    "expected_values": [
+      {
+        "label": "안내 범위 건수",
+        "value": "4"
+      },
+      {
+        "label": "접수번호",
+        "value": "IS01-002-07"
+      },
+      {
+        "label": "접수번호",
+        "value": "IS01-002-08"
+      },
+      {
+        "label": "접수번호",
+        "value": "IS01-003-06"
+      },
+      {
+        "label": "접수번호",
+        "value": "IS01-003-07"
+      }
+    ],
+    "answer_must_not": [],
+    "reference_sql": [
+      {
+        "tables": [
+          "t_44b044213394fb58",
+          "t_a241091593ab66e7"
+        ],
+        "sql": "SELECT c4 AS receipt FROM t_44b044213394fb58 WHERE c3 = '안내 범위' UNION ALL SELECT c4 FROM t_a241091593ab66e7 WHERE c3 = '안내 범위' ORDER BY receipt"
+      }
+    ],
+    "expected_sql_results": [
+      {
+        "columns": [
+          "receipt"
+        ],
+        "rows": [
+          {
+            "receipt": "IS01-002-07"
+          },
+          {
+            "receipt": "IS01-002-08"
+          },
+          {
+            "receipt": "IS01-003-06"
+          },
+          {
+            "receipt": "IS01-003-07"
+          }
+        ]
+      }
+    ],
+    "notes": "",
+    "status": "draft: 원문 페이지와 사람 대조 전"
+  },
+  {
+    "id": "SQL-DEV05",
+    "question": "IS01 자료집의 접수번호 IS01-002 대상 중 안내 범위에 해당하지 않는 건은 몇 건인가요? 그중 항로가 부산–LA인데도 안내 범위가 아닌 건은 몇 건인가요?",
+    "type": "조건별 건수(표 1개)",
+    "expected_action": "answer",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS007",
+          "page": 2
+        }
+      ]
+    ],
+    "expected_values": [
+      {
+        "label": "안내 범위 밖",
+        "value": "6"
+      },
+      {
+        "label": "부산–LA인데 안내 범위 밖",
+        "value": "2"
+      }
+    ],
+    "answer_must_not": [],
+    "reference_sql": [
+      {
+        "tables": [
+          "t_44b044213394fb58"
+        ],
+        "sql": "SELECT SUM(c3 <> '안내 범위') AS outside, SUM(c3 <> '안내 범위' AND c2 = '부산–LA') AS outside_busan_la FROM t_44b044213394fb58"
+      }
+    ],
+    "expected_sql_results": [
+      {
+        "columns": [
+          "outside",
+          "outside_busan_la"
+        ],
+        "rows": [
+          {
+            "outside": 6,
+            "outside_busan_la": 2
+          }
+        ]
+      }
+    ],
+    "notes": "",
+    "status": "draft: 원문 페이지와 사람 대조 전"
+  },
+  {
+    "id": "SQL-DEV06",
+    "question": "IS25 N1 1월 운영 기록의 계획번호 IS25-049 항목 중 40GP 대상은 몇 건인가요? 반출예정일이 2027-01-22 이후(당일 포함)인 항목은 몇 건인가요?",
+    "type": "문자열·날짜 조건 건수(표 1개)",
+    "expected_action": "answer",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS031",
+          "page": 49
+        }
+      ]
+    ],
+    "expected_values": [
+      {
+        "label": "40GP 건수",
+        "value": "3"
+      },
+      {
+        "label": "반출예정 2027-01-22 이후",
+        "value": "4"
+      }
+    ],
+    "answer_must_not": [],
+    "reference_sql": [
+      {
+        "tables": [
+          "t_1b8479a3374610db"
+        ],
+        "sql": "SELECT SUM(c1 LIKE '%N1-40-%') AS gp40, SUM(substr(c2, length(c2) - 9, 10) >= '2027-01-22') AS gate_out_from_0122 FROM t_1b8479a3374610db"
+      }
+    ],
+    "expected_sql_results": [
+      {
+        "columns": [
+          "gp40",
+          "gate_out_from_0122"
+        ],
+        "rows": [
+          {
+            "gp40": 3,
+            "gate_out_from_0122": 4
+          }
+        ]
+      }
+    ],
+    "notes": "모든 항목이 예정 기록이며 실제 확인은 별도라는 점을 답변이 구분하는지 함께 본다.",
+    "status": "draft: 원문 페이지와 사람 대조 전"
+  },
+  {
+    "id": "SQL-DEV07",
+    "question": "IS17 2027년 2월 요율 기록의 대조번호 IS17-001 항목 중 기존값과 확인값이 달라진 항목은 무엇이고 얼마나 바뀌었나요? 일요율 항목과 무료일수 항목은 각각 몇 개인가요?",
+    "type": "단위 구분·변경 비교(표 1개)",
+    "expected_action": "answer",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS023",
+          "page": 1
+        }
+      ]
+    ],
+    "expected_values": [
+      {
+        "label": "변경 전",
+        "value": "68",
+        "unit": "USD"
+      },
+      {
+        "label": "변경 후",
+        "value": "74",
+        "unit": "USD"
+      },
+      {
+        "label": "차이",
+        "value": "6",
+        "unit": "USD"
+      },
+      {
+        "label": "일요율 항목 수",
+        "value": "4"
+      },
+      {
+        "label": "무료일수 항목 수",
+        "value": "4"
+      }
+    ],
+    "answer_must_not": [],
+    "reference_sql": [
+      {
+        "tables": [
+          "t_ab8ed58e95a4bf0d"
+        ],
+        "sql": "SELECT c1 AS field, c0_value AS before, c4_value AS after, decimal_sub(c4_value, c0_value) AS diff, c4_unit AS unit FROM t_ab8ed58e95a4bf0d WHERE decimal_cmp(c0_value, c4_value) <> 0"
+      },
+      {
+        "tables": [
+          "t_ab8ed58e95a4bf0d"
+        ],
+        "sql": "SELECT SUM(c1 LIKE '%일요율') AS daily_rate, SUM(c1 LIKE '%무료일수') AS free_days FROM t_ab8ed58e95a4bf0d"
+      }
+    ],
+    "expected_sql_results": [
+      {
+        "columns": [
+          "field",
+          "before",
+          "after",
+          "diff",
+          "unit"
+        ],
+        "rows": [
+          {
+            "field": "N1 40GP 일요율",
+            "before": "68",
+            "after": "74",
+            "diff": "6",
+            "unit": "USD"
+          }
+        ]
+      },
+      {
+        "columns": [
+          "daily_rate",
+          "free_days"
+        ],
+        "rows": [
+          {
+            "daily_rate": 4,
+            "free_days": 4
+          }
+        ]
+      }
+    ],
+    "notes": "",
+    "status": "draft: 원문 페이지와 사람 대조 전"
+  },
+  {
+    "id": "SQL-DEV08",
+    "question": "청람터미널 HA28-C004와 HA28-C013의 확정된 보관료 정산액을 합하면 얼마인가요?",
+    "type": "두 사건 합계(표 2개)",
+    "expected_action": "answer",
+    "evidence_groups": [
+      [
+        {
+          "book_id": "AS003",
+          "page": 5
+        }
+      ],
+      [
+        {
+          "book_id": "AS003",
+          "page": 14
+        }
+      ]
+    ],
+    "expected_values": [
+      {
+        "label": "HA28-C004 보관료 정산액",
+        "value": "310",
+        "unit": "USD"
+      },
+      {
+        "label": "HA28-C013 보관료 정산액",
+        "value": "165",
+        "unit": "USD"
+      },
+      {
+        "label": "합계",
+        "value": "475",
+        "unit": "USD"
+      }
+    ],
+    "answer_must_not": [],
+    "reference_sql": [
+      {
+        "tables": [
+          "t_e38a5742a136596a",
+          "t_677a070c4167b4b7"
+        ],
+        "sql": "SELECT decimal_sum(amount) AS total FROM (SELECT c0_value AS amount FROM t_e38a5742a136596a WHERE c2 = '보관료 정산액' AND c0_state = 'reported' UNION ALL SELECT c0_value FROM t_677a070c4167b4b7 WHERE c2 = '보관료 정산액' AND c0_state = 'reported')"
+      }
+    ],
+    "expected_sql_results": [
+      {
+        "columns": [
+          "total"
+        ],
+        "rows": [
+          {
+            "total": "475"
+          }
+        ]
+      }
+    ],
+    "notes": "",
+    "status": "draft: 원문 페이지와 사람 대조 전"
+  }
+]
