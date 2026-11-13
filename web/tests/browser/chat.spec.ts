@@ -11,6 +11,30 @@ test("local DevTools discovery does not advertise a filesystem path", async ({ r
   expect(await settings.json()).toEqual({});
 });
 
+test("first navigation starts chat even if the development socket reconnects", async ({ page }) => {
+  let navigations = 0;
+  let connections = 0;
+  let interrupted = false;
+  page.on("request", request => {
+    if (request.isNavigationRequest() && request.frame() === page.mainFrame()) navigations++;
+  });
+  await page.routeWebSocket(/\/_next\/hmr\?/, socket => {
+    const server = socket.connectToServer();
+    if (++connections === 1) {
+      server.onMessage(() => {
+        if (interrupted) return;
+        interrupted = true;
+        void socket.close();
+      });
+    }
+  });
+
+  await page.goto("/");
+  await expect.poll(() => connections).toBeGreaterThan(1);
+  await expect(page.getByRole("textbox", { name: "질문", exact: true })).toBeEditable();
+  expect(navigations).toBe(1);
+});
+
 test("recovers when first-load scripts fail before chat can start", async ({ page }) => {
   let navigations = 0;
   page.on("request", request => {
