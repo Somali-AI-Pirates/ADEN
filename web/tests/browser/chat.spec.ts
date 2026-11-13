@@ -5,6 +5,47 @@ const id = "a".repeat(32);
 const response = { request_id: id, status: "answered", answer: "확인된 기록입니다.\n\n| 구분 | 상태 |\n| --- | --- |\n| 예약 | 확인 |", reason: "근거 확인", citations: [{ source_id: "S1", book_id: "AS001", file_name: "AS001.pdf", page: 2 }] };
 const event = (data: object) => `data: ${JSON.stringify(data)}\n\n`;
 
+test("local DevTools discovery does not advertise a filesystem path", async ({ request }) => {
+  const settings = await request.get("/.well-known/appspecific/com.chrome.devtools.json");
+  expect(settings.ok()).toBe(true);
+  expect(await settings.json()).toEqual({});
+});
+
+test("recovers when first-load scripts fail before chat can start", async ({ page }) => {
+  let navigations = 0;
+  page.on("request", request => {
+    if (request.isNavigationRequest() && request.frame() === page.mainFrame()) navigations++;
+  });
+  await page.route("**/_next/static/**/*.js", route => navigations === 1
+    ? route.fulfill({ status: 404, body: "Missing script" })
+    : route.continue());
+
+  await page.goto("/", { waitUntil: "commit" });
+  const input = page.getByRole("textbox", { name: "질문", exact: true });
+  await expect(input).toBeEditable();
+  await input.fill("첫 질문");
+  await expect(page.getByRole("button", { name: "질문 전송" })).toBeEnabled();
+  expect(navigations).toBe(2);
+});
+
+test("offers a manual retry if chat scripts keep failing", async ({ page }) => {
+  let navigations = 0;
+  page.on("request", request => {
+    if (request.isNavigationRequest() && request.frame() === page.mainFrame()) navigations++;
+  });
+  await page.route("**/_next/static/**/*.js", route => route.fulfill({ status: 404 }));
+  await page.goto("/", { waitUntil: "commit" });
+
+  const retry = page.getByRole("link", { name: "다시 불러오기" });
+  await expect(retry).toBeVisible();
+  expect(navigations).toBe(2);
+
+  await page.unroute("**/_next/static/**/*.js");
+  await retry.click();
+  await expect(page.getByRole("textbox", { name: "질문", exact: true })).toBeEditable();
+  await expect(retry).toBeHidden();
+});
+
 test("request information opens the corresponding Langfuse trace", async ({ page }) => {
   const traceUrl = "https://traces.example.test/project/team/traces/" + "b".repeat(32);
   await page.route("**/api/query/stream", route => route.fulfill({

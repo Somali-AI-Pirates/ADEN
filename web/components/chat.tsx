@@ -7,6 +7,7 @@ import {
   MessagePrimitive, ThreadPrimitive, useAui, useAuiState, useLocalRuntime,
 } from "@assistant-ui/react";
 import { chatAdapter } from "../lib/chat-adapter";
+import { chatReadyEvent } from "../lib/chat-startup";
 import type { Citation, QueryResponse } from "../lib/api";
 import { MarkdownContent } from "./markdown";
 import { ThemeSwitch } from "./theme-switch";
@@ -156,6 +157,9 @@ function Composer() {
   const [touch, setTouch] = useState(false);
   const composing = useRef(false);
   useEffect(() => {
+    if (!loading) window.dispatchEvent(new Event(chatReadyEvent));
+  }, [loading]);
+  useEffect(() => {
     const media = matchMedia("(pointer: coarse) and (not (any-pointer: fine))");
     const update = () => setTouch(media.matches);
     update(); media.addEventListener("change", update);
@@ -188,6 +192,9 @@ function Composer() {
           <ComposerPrimitive.Send className="send-button" aria-label="질문 전송" disabled={loading}>전송 ↑</ComposerPrimitive.Send>
         )}
       </ComposerPrimitive.Root>
+      <p className="chat-startup-retry" role="status">
+        채팅 준비가 지연되고 있습니다. <a href="/">다시 불러오기</a>
+      </p>
       <div className="composer-hint">
         <span className="composer-keyboard-hint">Enter 전송 · Shift+Enter 줄바꿈</span>
         <span>새로고침하면 대화가 지워집니다.</span>

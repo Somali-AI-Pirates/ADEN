@@ -488,6 +488,16 @@ a { color: var(--accent); }
 .send-button:hover:not(:disabled) { filter: brightness(1.15); }
 .stop-button { border-color: var(--control-line); background: var(--soft); color: var(--ink); }
 
+.chat-startup-retry {
+  display: none;
+  margin: 6px 2px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+html[data-chat-startup="failed"] .chat-startup-retry { display: block; }
+.chat-startup-retry a { text-decoration: underline; }
+
 .composer-hint {
   display: flex;
   justify-content: space-between;
