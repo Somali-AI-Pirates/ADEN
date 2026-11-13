@@ -88,6 +88,35 @@ test("formatted Korean answers keep working inline and card citations", async ({
   expect(errors).toEqual([]);
 });
 
+test("follow-up sends completed turns and a new conversation clears them", async ({ page }) => {
+  const requests: unknown[] = [];
+  await page.route("**/api/query/stream", route => {
+    requests.push(route.request().postDataJSON());
+    return route.fulfill({
+      contentType: "text/event-stream", headers: { "X-Request-ID": id },
+      body: event({ type: "start", request_id: id }) + event({ type: "final", request_id: id, response }),
+    });
+  });
+  await page.goto("/");
+  const input = page.getByRole("textbox", { name: "질문", exact: true });
+  const send = page.getByRole("button", { name: "질문 전송" });
+  await input.fill("HG2029-00001 건 처리일은?");
+  await send.click();
+  await expect(page.getByText("답변 완료", { exact: true })).toHaveCount(1);
+  await input.fill("그 건 청구액은?");
+  await send.click();
+  await expect(page.getByText("답변 완료", { exact: true })).toHaveCount(2);
+  await page.getByRole("button", { name: "새 대화" }).click();
+  await input.fill("새 질문");
+  await send.click();
+  await expect(page.getByText("답변 완료", { exact: true })).toHaveCount(1);
+  expect(requests).toEqual([
+    { question: "HG2029-00001 건 처리일은?" },
+    { question: "그 건 청구액은?", history: [{ question: "HG2029-00001 건 처리일은?", answer: response.answer }] },
+    { question: "새 질문" },
+  ]);
+});
+
 test("partial failure is not marked answered and retry is available", async ({ page }) => {
   await page.route("**/api/query/stream", route => route.fulfill({
     contentType: "text/event-stream", headers: { "X-Request-ID": id },
