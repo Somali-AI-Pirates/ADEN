@@ -227,6 +227,7 @@ def test_follow_up_through_sse_and_model(
     outputs.append(
         text_response(
             answer="1,200원입니다." if query else "어느 예약 건을 말씀하시나요?",
+            reason="청구 기록을 확인했습니다." if query else "대상 예약을 특정할 정보가 필요합니다.",
             status=expected_status,
             citations=[source_id] if query else [],
         )

@@ -323,6 +323,10 @@ class RagService:
                 "question": question,
                 "evidence": json.loads(evidence.model_input),
                 "retrieval_status": retrieval.status,
+                "retrieval_diagnostics": {
+                    "conflicts": list(retrieval.finish.conflicts),
+                    "termination_reason": retrieval.termination_reason,
+                },
             }
             if retrieval.search_question is not None:
                 payload["resolved_question"] = retrieval.search_question

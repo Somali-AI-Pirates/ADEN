@@ -17,7 +17,7 @@ from openai import (
     DefaultAsyncHttpxClient,
     DefaultHttpxClient,
 )
-from pydantic import BaseModel, ConfigDict, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from app.rag.conversation import ConversationDecision, ConversationTurn
 from app.rag.streaming import stream_answer
@@ -51,6 +51,7 @@ class GeneratedAnswer(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
     answer: str
+    reason: str = Field(min_length=1, description="상태를 고른 업무상 이유와 확인하지 못한 범위")
     citations: list[str]
     status: Literal["answered", "needs_clarification", "insufficient"]
 

@@ -39,7 +39,7 @@ class _Model:
                     "args": {
                         "status": "sufficient",
                         "selected_sources": [source],
-                        "interim_summary": "not sent to the answer model",
+                        "interim_summary": "planner diagnostic only",
                         "conflicts": [],
                     },
                 }
@@ -51,7 +51,9 @@ class _Model:
     ):
         assert not conversation_history
         value = json.loads(payload)
-        assert set(value) == {"question", "evidence", "retrieval_status"}
+        assert set(value) == {
+            "question", "evidence", "retrieval_status", "retrieval_diagnostics"
+        }
         assert set(value["evidence"]) == {"pages", "sql"}
         assert (
             sha256(
@@ -59,11 +61,14 @@ class _Model:
             ).hexdigest()
             == context_hash
         )
-        assert "not sent to the answer model" not in payload
+        assert "planner diagnostic only" not in payload
+        assert "summary" not in value["retrieval_diagnostics"]
+        assert "summary" not in value["evidence"]
         assert "off-topic-secret" not in payload
         source = value["evidence"]["pages"][0]["source_id"]
         return GeneratedAnswer(
             answer=value["question"],
+            reason="해당 대상의 기록이 최종 근거에 있습니다.",
             citations=["AS999:p9999" if self.invalid_source else source],
             status="answered",
         )
@@ -179,6 +184,63 @@ def test_answer_cannot_upgrade_an_insufficient_retrieval():
             await service.aclose()
 
     asyncio.run(run())
+
+
+def test_partial_answer_receives_diagnostics_separately_and_keeps_reason(tmp_path):
+    class PartialModel(_Model):
+        async def plan(self, history, *, finish_only, calls, config=None):
+            message = await super().plan(history, finish_only=finish_only, calls=calls)
+            message.tool_calls[0]["args"].update(
+                status="insufficient",
+                interim_summary="보관료는 확인됐지만 반납지연료는 확인되지 않았습니다.",
+                conflicts=["반납지연료 승인 기록이 없습니다."],
+            )
+            return message
+
+        async def answer(self, payload, *, context_hash, calls, config=None,
+                         conversation_history=()):
+            data = json.loads(payload)
+            assert data["retrieval_status"] == "insufficient"
+            assert data["retrieval_diagnostics"]["conflicts"] == [
+                "반납지연료 승인 기록이 없습니다."
+            ]
+            assert data["retrieval_diagnostics"]["termination_reason"] == "finished"
+            assert "summary" not in data["retrieval_diagnostics"]
+            assert data["evidence"]["pages"][0]["text"] == "자료 1"
+            assert "반납지연료" not in json.dumps(data["evidence"], ensure_ascii=False)
+            return GeneratedAnswer(
+                answer="보관료는 확인했습니다. 반납지연료와 총합은 보류합니다.",
+                reason="반납지연료 승인 기록이 없어 총합을 확정할 수 없습니다.",
+                status="insufficient", citations=["AS001:p0001"],
+            )
+
+    async def run():
+        service = _service(PartialModel(), run_directory=tmp_path)
+        try:
+            result = await service.ainvoke("첫 질문", request_id="3" * 32)
+            assert result.response.status == "abstained"
+            assert result.response.reason == "반납지연료 승인 기록이 없어 총합을 확정할 수 없습니다."
+            record = result.to_record()
+            assert record["diagnostics"]["planner_conflicts"] == [
+                "반납지연료 승인 기록이 없습니다."
+            ]
+            assert record["final_source_ids"] == ["AS001:p0001"]
+            assert result.response.citations[0].source_id == "AS001:p0001"
+        finally:
+            await service.aclose()
+
+    asyncio.run(run())
+
+
+def test_blank_answer_reason_is_rejected():
+    from app.rag.result import validate_answer
+
+    with pytest.raises(RagModelError, match="decision reason"):
+        validate_answer(
+            GeneratedAnswer(answer="확인할 수 없습니다.", reason="  ", citations=[],
+                            status="insufficient"),
+            (), "empty-reason", "insufficient",
+        )
 
 
 def test_service_closes_search_client_even_if_model_close_fails():

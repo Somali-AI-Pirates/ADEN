@@ -27,6 +27,14 @@ DB 우선 조회, KURE-v3와 KURE nano, Luna medium, 5:5 RRF·exact 검색, 후�
 
 참고답과 평가는 검색 입력에 넣지 않는다. Ragas와 Judge는 저장된 실제 답변·최종 근거를 읽으며, 점수는 원래 trace에 연결한다. 기록 생성과 원격 저장 확인을 구분한다.
 
+### 최종 답변과 판단 이유
+
+제품 TableRAG는 [answer.txt](../../app/rag/prompts/answer.txt)를 사용한다. 기존 B/C 평가의 `shipping_qa.txt`와 별도이며, 검색 계획 지침을 최종 답변 모델에 그대로 넘기지 않는다. 서비스는 질문·최종 원문·SQL·검색 상태와 함께 충돌 항목·종료 사유를 `retrieval_diagnostics`로 전달한다. 검색 단계의 자유 서술 요약은 진단 기록에만 보관하고 답변 모델에는 전달하지 않는다. 요약에 최종 문맥 밖의 사실이 섞일 수 있기 때문이다. 전달된 진단과 대화 이력도 사실 근거가 아니며, 사실은 이번 최종 원문·SQL로만 뒷받침한다.
+
+답변은 대상·기준 시각·정정 효력, 청구액과 검산, 확인된 항목과 보류 항목을 구분한다. 검색 상태의 보수적인 제한은 유지한다. `insufficient` 상태에서도 확인된 부분을 설명할 수 있지만 전체 API 상태는 `abstained`이며, 검색 판단을 임의로 `answered`로 올리지 않는다. 인사·업무 범위 안내에는 인용을 강제하지 않고 실제 예약·메일·송금 실행을 주장하지 않는다.
+
+모델이 반환한 `reason`은 업무상 판단 이유와 미확인 범위를 담고 기존 HTTP/SSE의 `reason`으로 전달된다. 빈 이유는 검증 오류다. `reason`은 숨겨진 추론이 아니며 상세 사고 과정을 요구하지 않는다. SSE의 텍스트 조각은 기존처럼 `answer`만 보내고 `reason`은 최종 응답과 저장 기록에 담긴다. 출처 ID 검증은 유지하지만 의미상 근거 충족을 보장하는 검사는 아니므로 저장된 답변의 별도 평가가 필요하다. [고정 근거 비교 기록](../../experimental/u_10o0o/records/advanced-answer-policy-20261113/protocol.md)
+
 ## 참고 자료
 
 - [LangGraph의 상태·노드·Runtime context](https://docs.langchain.com/oss/python/langgraph/graph-api)
