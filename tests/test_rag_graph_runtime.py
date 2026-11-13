@@ -50,6 +50,7 @@ class _FakeTableModel:
 class _NodeCallback(BaseCallbackHandler):
     def __init__(self):
         self.nodes = []
+        self.routing_names = []
 
     def on_chain_start(
         self,
@@ -70,6 +71,13 @@ class _NodeCallback(BaseCallbackHandler):
             and any(tag.startswith("graph:step:") for tag in tags)
         ):
             self.nodes.append(metadata["langgraph_node"])
+        if (
+            metadata
+            and metadata.get("langgraph_node") == "plan_next_step"
+            and tags
+            and any(tag.startswith("seq:step:") for tag in tags)
+        ):
+            self.routing_names.append(kwargs.get("name"))
 
 
 class _Store:
@@ -440,6 +448,7 @@ def test_runnable_config_observes_tool_nodes_and_review_progress():
         "plan_next_step",
         "assemble_evidence",
     ]
+    assert callback.routing_names == ["route_next_step", "route_next_step"]
     assert [event["stage"] for event in progress_events] == [
         "reviewing",
         "reviewing",

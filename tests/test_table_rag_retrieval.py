@@ -117,18 +117,15 @@ def test_search_runs_one_rerank_and_returns_page_deduplicated_search_result():
 
 
 @pytest.mark.parametrize(
-    ("device", "expected_embedding_device", "expected_embedding_dtype"),
+    ("device", "embedding_device", "embedding_dtype", "reranker_device", "reranker_dtype"),
     [
-        ("cpu", "cpu", "float32"),
-        ("cuda", "cuda", "bfloat16"),
-        ("cpu_gpu_rerank", "cpu", "float32"),
+        ("cpu", "cpu", "float32", "cpu", "float32"),
+        ("cuda", "cuda", "bfloat16", "cuda", "bfloat16"),
+        ("cpu_gpu_rerank", "cpu", "float32", "cuda", "bfloat16"),
     ],
 )
-def test_load_retriever_uses_device_specific_query_dtype_and_fp32_reranker(
-    device,
-    expected_embedding_device,
-    expected_embedding_dtype,
-    monkeypatch,
+def test_load_retriever_uses_device_specific_model_dtypes(
+    device, embedding_device, embedding_dtype, reranker_device, reranker_dtype, monkeypatch
 ):
     import sys
     from types import ModuleType
@@ -173,26 +170,22 @@ def test_load_retriever_uses_device_specific_query_dtype_and_fp32_reranker(
 
     retriever = load_retriever(corpus, device=device)
 
-    assert encoder_options["device"] == expected_embedding_device
+    assert encoder_options["device"] == embedding_device
     assert encoder_options["model_id"] == EMBEDDING_ID
     assert encoder_options["revision"] == EMBEDDING_REVISION
     assert encoder_options["model_kwargs"]["dtype"] is getattr(
-        torch, expected_embedding_dtype
+        torch, embedding_dtype
     )
-    assert retriever.manifest["retrieval"]["embedding_device"] == expected_embedding_device
-    assert (
-        retriever.manifest["retrieval"]["embedding"]["dtype"]
-        == expected_embedding_dtype
-    )
-    assert reranker_options["device"] == (
-        "cuda" if device == "cpu_gpu_rerank" else device
-    )
+    assert retriever.manifest["retrieval"]["embedding_device"] == embedding_device
+    assert retriever.manifest["retrieval"]["embedding"]["dtype"] == embedding_dtype
+    assert reranker_options["device"] == reranker_device
+    assert retriever.manifest["retrieval"]["reranker_device"] == reranker_device
     assert reranker_options["model_id"] == RERANKER_ID
     assert reranker_options["revision"] == RERANKER_REVISION
-    assert reranker_options["model_kwargs"]["dtype"] is torch.float32
+    assert reranker_options["model_kwargs"]["dtype"] is getattr(torch, reranker_dtype)
     assert reranker_options["model_kwargs"]["attn_implementation"] == "sdpa"
     assert reranker_options["max_length"] == 2048
-    assert retriever.manifest["retrieval"]["reranker"]["dtype"] == "float32"
+    assert retriever.manifest["retrieval"]["reranker"]["dtype"] == reranker_dtype
     assert retriever.manifest["retrieval"]["candidate_limit"] == CANDIDATE_LIMIT
 
 

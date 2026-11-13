@@ -266,6 +266,7 @@ def test_integrated_tools_preserve_db_sources_and_sql_evidence():
     assert result.diagnostics["initial_route"] == "records"
     assert result.diagnostics["record_calls"]
     assert result.diagnostics["observations"]
+    assert result.observations == tuple(result.diagnostics["observations"])
     assert set(result.evidence.source_ids) == {
         "AS001:p0001",
         "AS001:p0002",

@@ -9,23 +9,23 @@
 
 from __future__ import annotations
 
-import asyncio
 import json
 import math
-import os
+import re
 import time
 from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any
 
 from app.evaluation.metrics import SCORE_STATUSES, evidence_diagnostics, retrieval_metrics, score
+from app.evaluation.evidence import chunk_text as chunk_text, final_evidence, labeled_contexts, sql_evidence
 
 CRITERIA = ("fact", "condition", "evidence", "decision")  # 사실·조건·근거·판단
 # v1: 항목별로 맞는 것만 받고 has_factual_claims는 선택. v2: 필수 필드·타입을 검증하고 검산 진단을 따로 받는다
-JUDGE_SCHEMA_VERSION = "judge-output-v2"
+JUDGE_SCHEMA_VERSION = "judge-output-v3-fact-trace"
 CALCULATION_STATUSES = ("complete", "incomplete", "not_applicable", "unavailable")
 # ragas 기본 1024는 실제 답변(문맥 8청크)의 주장 추출·검증 출력이 잘려 IncompleteOutputException이 난다
-RAGAS_MAX_TOKENS = 8192
+RAGAS_MAX_TOKENS = 32768
 PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 
 JudgeFn = Callable[[str], Mapping[str, Any]]
@@ -46,43 +46,43 @@ def response_text(record: Mapping[str, Any]) -> str:
     return "\n\n".join(texts)
 
 
-def chunk_text(chunk: Mapping[str, Any]) -> str:
-    """생성 모델이 본 문맥처럼 청크 제목을 본문 앞에 붙인다. 고급 자료는 화주·예약번호가 제목에만 있다."""
-    heading = chunk.get("heading")
-    if heading:
-        return f"제목: {heading}\n{chunk['text']}"
-    else:
-        return chunk["text"]
-
-
 def included_sql_contexts(record: Mapping[str, Any]) -> list[str]:
-    """Return only SQL results that survived into the final answer context."""
-    return [
-        "SQL 조회 결과\n" + json.dumps(result, ensure_ascii=False, sort_keys=True)
-        for result in record.get("included_sql_results") or []
-    ]
+    """Only SQL evidence actually supplied to the final answer, with stable IDs."""
+    return [f"[{key}]\n{text}" for key, text in sql_evidence(record).items()]
 
 
 def _timed(fn: Callable[[], Mapping[str, Any]]) -> tuple[Mapping[str, Any] | None, dict[str, Any]]:
     start = time.perf_counter()
+    error_details = None
     try:
         out = fn()
-        err = None
+        err = out.get("error")
     except Exception as exc:
+        # Changing the evaluation conditions mid-run must stop, not silently
+        # turn the remaining questions into unavailable scores.
+        if getattr(exc, "abort_evaluation", False):
+            raise
         out, err = None, type(exc).__name__
-    usage = {"latency_ms": round((time.perf_counter() - start) * 1000),
-             "input_tokens": (out or {}).get("input_tokens"),
-             "output_tokens": (out or {}).get("output_tokens"), "error": err}
+        error_details = getattr(exc, "evaluation_details", None)
+    metadata = out or error_details or {}
+    usage = {
+        "latency_ms": round((time.perf_counter() - start) * 1000),
+        "input_tokens": metadata.get("input_tokens"),
+        "output_tokens": metadata.get("output_tokens"),
+        "error": err,
+    }
+    for key in ("reasoning_tokens", "cached_input_tokens", "logical_calls", "provider_attempts"):
+        if key in metadata:
+            usage[key] = metadata[key]
+    details = (out or {}).get("details") or error_details
+    if details is not None:
+        usage["_details"] = details
     return out, usage
 
 
 def build_judge_prompt(template: str, record: Mapping[str, Any],
                        reference: Mapping[str, Any]) -> str:
-    context_blocks = []
-    for chunk in record.get("final_context_chunks") or []:
-        context_blocks.append(f"[{chunk['source_id']}] {chunk['file_name']} p.{chunk['page']}\n{chunk_text(chunk)}")
-    context_blocks.extend(included_sql_contexts(record))
-    context = "\n\n".join(context_blocks)
+    context = "\n\n".join(labeled_contexts(record))
     ref = {}
     for field, field_value in reference.items():
         if field != "question":
@@ -93,10 +93,16 @@ def build_judge_prompt(template: str, record: Mapping[str, Any],
         "citations": json.dumps(record.get("citations") or [], ensure_ascii=False),
         "final_context": context or "(최종 문맥 없음)",
         "reference": json.dumps(ref, ensure_ascii=False, indent=2),
+        "retrieval_decision": json.dumps({
+            key: (record.get("diagnostics") or {}).get(key)
+            for key in ("finish_status", "termination_reason", "planner_conflicts")
+        }, ensure_ascii=False),
     }
-    for key, value in values.items():
-        template = template.replace("{{" + key + "}}", value)
-    return template
+    return re.sub(
+        r"\{\{(\w+)\}\}",
+        lambda match: values.get(match[1], match[0]),
+        template,
+    )
 
 
 def _criterion_errors(key: str, item: Any) -> list[str]:
@@ -241,11 +247,14 @@ def grade_judge(record: Mapping[str, Any], reference: Mapping[str, Any], judge_f
         if out is None:
             failure = f"Judge 호출 실패: {usage['error']}"
         else:
-            source_ids = set()
-            for chunk in record.get("final_context_chunks") or []:
-                source_ids.add(chunk.get("source_id"))
+            source_ids = set(final_evidence(record))
             try:
                 criteria, claims, calculation = parse_judge_output(out["text"], source_ids)
+                usage["_details"] = {
+                    **(usage.get("_details") or {}),
+                    "prompt": prompt,
+                    "output": json.loads(out["text"]),
+                }
                 return criteria, claims, usage, calculation
             except (ValueError, TypeError, KeyError, AttributeError) as exc:
                 failure = f"Judge 출력 파싱 실패: {type(exc).__name__}"
@@ -258,40 +267,57 @@ def grade_judge(record: Mapping[str, Any], reference: Mapping[str, Any], judge_f
 
 def grade_faithfulness(record: Mapping[str, Any], has_claims: bool | None,
                        faithfulness_fn: FaithfulnessFn | None) -> tuple[dict, dict | None]:
-    """질문·생성 답변·실제 최종 문맥만 사용한다. 참고 정답을 문맥에 덧붙이지 않는다."""
+    """Faithfulness extracts its own claims; another Judge cannot suppress it."""
     if record["status"] == "error":
         return score(None, "unavailable", "서비스 실패로 평가할 답변 없음"), None
     response = response_text(record)
-    if not response or has_claims is False:
-        return score(None, "not_applicable", "사실 주장 없음(조건 확인·보류만)"), None
-    contexts = []
-    for chunk in record.get("final_context_chunks") or []:
-        contexts.append(chunk_text(chunk))
-    contexts.extend(included_sql_contexts(record))
-    if not contexts:
-        if has_claims:
-            return score(0.0, "scored", "최종 문맥 없이 사실 주장을 함"), None
-        return score(None, "unavailable", "최종 문맥이 없고 사실 주장 여부를 확인하지 못함"), None
+    if not response:
+        return score(None, "not_applicable", "사용자에게 전달한 답변·설명이 없음"), None
     if faithfulness_fn is None:
         return score(None, "unavailable", "RAGAS 평가기 미설정"), None
+    contexts = labeled_contexts(record)
     out, usage = _timed(lambda: faithfulness_fn(record["question"], response, contexts))
     if out is None:
         return score(None, "unavailable", f"RAGAS 호출 실패: {usage['error']}"), usage
+    if out.get("status") == "not_applicable":
+        return score(None, "not_applicable", out.get("reason") or "정상 추출 결과 사실 주장 없음"), usage
+    if out.get("status") == "unavailable":
+        return score(None, "unavailable", out.get("reason") or "RAGAS 판정 검증 실패"), usage
     value = out.get("value")
-    if not isinstance(value, (int, float)) or math.isnan(value):
-        return score(None, "unavailable", "RAGAS가 주장을 추출하지 못함(NaN)"), usage
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 1:
+        return score(None, "unavailable", "RAGAS 점수가 유효한 0~1 값이 아님"), usage
     return score(float(value), "scored", "RAGAS Faithfulness"), usage
 
 
 def grade_record(record: Mapping[str, Any], reference: Mapping[str, Any], *, k: int,
                  judge_fn: JudgeFn | None, faithfulness_fn: FaithfulnessFn | None,
-                 judge_template: str | None = None) -> dict[str, Any]:
+                 judge_template: str | None = None,
+                 diagnose_fn: JudgeFn | None = None) -> dict[str, Any]:
     if judge_template is not None:
         template = judge_template
     else:
         template = load_prompt("judge.txt")
     judge, claims, judge_usage, calculation = grade_judge(record, reference, judge_fn, template)
     faith, faith_usage = grade_faithfulness(record, claims, faithfulness_fn)
+    judge_details = judge_usage.pop("_details", {}) if judge_usage else {}
+    faith_details = faith_usage.pop("_details", {}) if faith_usage else {}
+    from app.evaluation.attribution import attribute_evidence
+    attribution = attribute_evidence(
+        record, reference, judge_details.get("output"), judge_fn=diagnose_fn
+    )
+    candidate_usage = (attribution.get("candidate_diagnosis") or {}).get("usage")
+    if candidate_usage is not None:
+        candidate_usage = {key: value for key, value in candidate_usage.items()
+                           if key not in {"details", "_details"}}
+    fact_checks = attribution.get("fact_checks") or {}
+    items = fact_checks.get("items") or []
+    summary_items = [
+        {key: item.get(key) for key in (
+            "fact_id", "origin", "final_support", "answer_status", "attribution",
+            "first_loss_stage", "failure_tags"
+        )}
+        for item in items
+    ]
     return {
         "experiment_id": record["experiment_id"], "question_id": record["question_id"],
         "request_id": record["request_id"], "retrieval_mode": record["retrieval_mode"],
@@ -300,45 +326,33 @@ def grade_record(record: Mapping[str, Any], reference: Mapping[str, Any], *, k: 
         "evidence_diagnostics": evidence_diagnostics(reference, record, k),
         "faithfulness": faith, "judge": judge, "has_factual_claims": claims,
         "calculation_checks": calculation,
-        "grading_usage": {"judge": judge_usage, "faithfulness": faith_usage},
+        "grading_usage": {"judge": judge_usage, "faithfulness": faith_usage,
+                          "candidate_diagnosis": candidate_usage},
+        "evidence_attribution": {
+            "status": fact_checks.get("status", "unavailable"),
+            "items": summary_items,
+            "candidate_diagnosis_status": (attribution.get("candidate_diagnosis") or {}).get("status"),
+        },
+        "evaluation_details": {
+            "judge": judge_details, "faithfulness": faith_details,
+            "attribution": attribution,
+        },
     }
 
 
-def make_openai_judge(model: str) -> JudgeFn:
-    """OpenAI 호환 Chat Completions로 Judge 호출. OPENAI_API_KEY(필요 시 OPENAI_BASE_URL) 사용."""
-    from openai import OpenAI
-
-    client = OpenAI()
+def make_openai_judge(model: str, *, session=None, policy=None) -> JudgeFn:
+    """The evaluator has its own explicit policy, separate from RAG generation."""
+    from app.evaluation.model_runtime import EvaluationSession, load_evaluation_policy
 
     def judge(prompt: str) -> dict[str, Any]:
-        resp = client.chat.completions.create(
-            model=model, messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"})
-        usage = resp.usage
-        return {"text": resp.choices[0].message.content,
-                "input_tokens": getattr(usage, "prompt_tokens", None),
-                "output_tokens": getattr(usage, "completion_tokens", None)}
-
+        if session is not None:
+            return session.generate_json(prompt, model=model, stage="judge").as_mapping()
+        with EvaluationSession(policy or load_evaluation_policy()) as owned:
+            return owned.generate_json(prompt, model=model, stage="judge").as_mapping()
     return judge
 
 
-def make_ragas_faithfulness(model: str) -> FaithfulnessFn:
-    """ragas 0.4 collections Faithfulness. 토큰 사용량은 SDK가 반환하지 않아 null로 둔다."""
-    os.environ.setdefault("RAGAS_DO_NOT_TRACK", "true")
-    from openai import AsyncOpenAI
-    from ragas.llms import llm_factory
-    from ragas.metrics.collections import Faithfulness
-
-    async def run(question: str, response: str, contexts: list[str]) -> Any:
-        # 클라이언트를 같은 이벤트 루프 안에서 닫는다. 루프가 닫힌 뒤 정리되면 경고가 남는다.
-        async with AsyncOpenAI() as client:
-            metric = Faithfulness(llm=llm_factory(model, client=client,
-                                                  max_tokens=RAGAS_MAX_TOKENS))
-            return await metric.ascore(user_input=question, response=response,
-                                       retrieved_contexts=contexts)
-
-    def faithfulness(question: str, response: str, contexts: list[str]) -> dict[str, Any]:
-        result = asyncio.run(run(question, response, contexts))
-        return {"value": result.value, "input_tokens": None, "output_tokens": None}
-
-    return faithfulness
+def make_ragas_faithfulness(model: str, *, session=None, policy=None,
+                           profile: str = "advanced") -> FaithfulnessFn:
+    from app.evaluation.faithfulness import make_faithfulness
+    return make_faithfulness(model, session=session, policy=policy, profile=profile)

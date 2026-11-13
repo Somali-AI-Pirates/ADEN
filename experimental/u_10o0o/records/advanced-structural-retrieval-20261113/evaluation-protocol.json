@@ -1,0 +1,11 @@
+{
+  "prompt_sha256": "7bc486000abf2607b8c22320cc43dde53145b26e7307a622702eacb8306eb973",
+  "reference_page_recall": "diagnostic only; semantic requirements are primary",
+  "blind_arm_labels": true,
+  "alternative_sources": "same entity, role, scope and effective date only",
+  "all_retrieval_saved_before_scoring": true,
+  "human_review": false,
+  "pending": 0,
+  "reviews": 668,
+  "candidate_reviews": 90
+}

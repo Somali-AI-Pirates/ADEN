@@ -1,0 +1,62 @@
+{
+  "by_stage": {
+    "planner_P": {
+      "requests_with_record": 868,
+      "input_tokens": 9622134,
+      "output_tokens": 159124,
+      "usage_unknown": 0,
+      "failed_records": 0
+    },
+    "planner_R": {
+      "requests_with_record": 858,
+      "input_tokens": 9382337,
+      "output_tokens": 153408,
+      "usage_unknown": 1,
+      "failed_records": 1
+    },
+    "planner_A": {
+      "requests_with_record": 694,
+      "input_tokens": 7975486,
+      "output_tokens": 120291,
+      "usage_unknown": 0,
+      "failed_records": 0
+    },
+    "review": {
+      "requests_with_record": 761,
+      "input_tokens": 4729709,
+      "output_tokens": 514689,
+      "usage_unknown": 0,
+      "failed_records": 0
+    },
+    "selection": {
+      "requests_with_record": 786,
+      "input_tokens": 4936006,
+      "output_tokens": 709486,
+      "usage_unknown": 0,
+      "failed_records": 0
+    },
+    "audit": {
+      "requests_with_record": 259,
+      "input_tokens": 1668513,
+      "output_tokens": 243164,
+      "usage_unknown": 0,
+      "failed_records": 0
+    },
+    "dataset_preparation": {
+      "requests_with_record": 142,
+      "input_tokens": 1496925,
+      "output_tokens": 223220,
+      "usage_unknown": 1,
+      "failed_records": 1
+    }
+  },
+  "new_requests_with_record": 4368,
+  "known_input_tokens": 39811110,
+  "known_output_tokens": 2123382,
+  "interrupted_without_response_record": 5,
+  "usage_unknown_records": 2,
+  "reused_baseline_runs_not_new_charges": 90,
+  "invalidated_V1_requests_included": true,
+  "answer_generation_calls": 0,
+  "usd_cost": "Not estimated: provider pricing and interrupted-request billing are not verified. Token totals are known usage, not a complete invoice."
+}

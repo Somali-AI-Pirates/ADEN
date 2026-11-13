@@ -14,6 +14,7 @@ from shared.table_rag_policy import (
     TABLE_LIMIT as _TABLE_LIMIT,
     CPU_THREADS as _CPU_THREADS,
     RERANKER_ID as _RERANKER_ID,
+    RERANKER_DTYPE_BY_DEVICE as _RERANKER_DTYPE_BY_DEVICE,
     RERANKER_REVISION as _RERANKER_REVISION,
     EMBEDDING_ID as _EMBEDDING_ID,
     EMBEDDING_REVISION as _EMBEDDING_REVISION,
@@ -146,7 +147,7 @@ class TableRetriever:
                     "revision": _RERANKER_REVISION,
                     "max_length": _RERANK_MAX_LENGTH,
                     "batch_size": _RERANK_BATCH_SIZE,
-                    "dtype": "float32",
+                    "dtype": _RERANKER_DTYPE_BY_DEVICE[self.reranker_device],
                 },
                 "embedding": {
                     "model_id": embedding["model_id"],
@@ -374,13 +375,17 @@ def load_retriever(corpus, *, device: str = "cpu", dense_index=None) -> TableRet
     if embedder.prompts.get("query", "") != embedding["query_prefix"]:
         raise ValueError("Query encoder prompt differs from the corpus manifest.")
 
+    reranker_dtype = _RERANKER_DTYPE_BY_DEVICE[reranker_device]
     reranker = CrossEncoder(
         _RERANKER_ID,
         revision=_RERANKER_REVISION,
         device=reranker_device,
         max_length=_RERANK_MAX_LENGTH,
         local_files_only=True,
-        model_kwargs={"dtype": torch.float32, "attn_implementation": "sdpa"},
+        model_kwargs={
+            "dtype": getattr(torch, reranker_dtype),
+            "attn_implementation": "sdpa",
+        },
     )
     return TableRetriever(
         corpus,

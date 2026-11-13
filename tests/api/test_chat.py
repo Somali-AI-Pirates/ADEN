@@ -4,6 +4,7 @@ from threading import Event
 from types import SimpleNamespace
 from unittest.mock import patch
 
+import httpx
 from fastapi.testclient import TestClient
 from starlette.requests import Request
 from pypdf import PdfWriter
@@ -13,7 +14,7 @@ from app.api.chat import ChatRequest, query_stream
 from app.api.main import create_app
 from app.observability.run_store import RequestRunStoreError
 from shared.contracts import QueryResponse
-from app.rag.config import TableRagSettings
+from app.rag.config import RuntimeCredentials, TableRagSettings
 from app.rag.admission import (
     RequestBusyError,
     RequestDeadlineExceeded,
@@ -31,10 +32,12 @@ class Reservation:
 
 
 class Service:
-    def __init__(self, error=None, reserve_error=None):
+    def __init__(self, error=None, reserve_error=None, trace=None):
         self.error = error
         self.reserve_error = reserve_error
         self.reservations = []
+        self.langfuse = SimpleNamespace(enabled=trace is not None)
+        self.trace = trace or {}
 
     async def readiness(self):
         return SimpleNamespace(ready=True, checks={"resources": True})
@@ -58,6 +61,7 @@ class Service:
         if self.error:
             raise self.error
         return SimpleNamespace(
+            trace=self.trace,
             response=QueryResponse(
                 request_id=request_id,
                 status="answered",
@@ -102,6 +106,52 @@ def test_stream_has_request_identity_and_authoritative_final():
     assert {v["request_id"] for v in values} == {response.headers["X-Request-ID"]}
     assert values[-1]["response"]["answer"] == "예약 확인"
     assert values[-1]["response"]["citations"][0]["page"] == 1
+    assert "trace_url" not in values[-1]
+
+
+@pytest.mark.parametrize(
+    ("project_status", "trace_status", "has_link"),
+    [(200, "recorded_unverified", True), (200, "sdk_error", False),
+     (503, "recorded_unverified", False)],
+)
+def test_final_links_to_private_trace_when_available(
+    monkeypatch, project_status, trace_status, has_link
+):
+    settings = TableRagSettings(
+        credentials=RuntimeCredentials(
+            langfuse_base_url="https://trace.example.test",
+            langfuse_public_key="test-public",
+            langfuse_secret_key="test-secret",
+        )
+    )
+    monkeypatch.setattr("app.api.lifespan.load_table_rag_settings", lambda: settings)
+    calls = []
+
+    def projects(request):
+        calls.append(str(request.url))
+        assert request.headers["Authorization"].startswith("Basic ")
+        return httpx.Response(project_status, json={"data": [{"id": "project-123"}]})
+
+    real_client = httpx.AsyncClient
+    monkeypatch.setattr(
+        "app.api.trace_links.httpx.AsyncClient",
+        lambda **kwargs: real_client(transport=httpx.MockTransport(projects), **kwargs),
+    )
+    trace_id = "e" * 32
+    service = Service(trace={"langfuse_trace_id": trace_id, "langfuse_status": trace_status})
+    app = create_app(table_service_loader=lambda _: service)
+    with TestClient(app) as client:
+        for _ in range(2):
+            response = client.post("/query/stream", json={"question": "예약 확인"})
+            final = events(response)[-1]
+            assert final["type"] == "final"
+            assert final["response"]["answer"] == "예약 확인"
+            assert final["request_id"] == response.headers["X-Request-ID"]
+            if has_link:
+                assert final["trace_url"] == f"https://trace.example.test/project/project-123/traces/{trace_id}"
+            else:
+                assert "trace_url" not in final
+    assert calls == ["https://trace.example.test/api/public/projects"]
 
 
 @pytest.mark.parametrize(

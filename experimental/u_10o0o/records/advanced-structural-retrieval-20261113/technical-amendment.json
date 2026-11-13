@@ -1,0 +1,21 @@
+{
+  "reason": "UTF-8 token boundary fragments could contain replacement characters. Decode incomplete boundary bytes with ignore; exact original substring test added.",
+  "quality_results_inspected": false,
+  "changed_conditions": [
+    "V literal excerpt decoding only"
+  ],
+  "unchanged": [
+    "A",
+    "R",
+    "P",
+    "S",
+    "questions",
+    "rubric",
+    "models",
+    "retrieval runtime"
+  ],
+  "invalidated_V_runs": 26,
+  "archived_api_usage_included_in_total_cost": true,
+  "S_manual_replay_count": 1,
+  "old_protocol_sha256": "75345ebf1c9c1801deb71588bcc5b78a46b05644a8d65b337808e73363b11f74"
+}

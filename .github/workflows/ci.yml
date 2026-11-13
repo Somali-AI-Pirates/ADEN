@@ -31,7 +31,7 @@ jobs:
       - name: 잠금 의존성 확인
         run: uv lock --check
       - name: CPU 의존성 설치
-        run: uv sync --locked --extra cpu --extra test
+        run: uv sync --locked --extra cpu --extra test --extra eval
       - name: CPU PyTorch 선택 확인
         run: uv run --locked --no-sync python -c "import torch; assert torch.version.cuda is None; print(torch.__version__)"
       - name: Ruff 검사

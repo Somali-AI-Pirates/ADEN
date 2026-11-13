@@ -1,0 +1,35 @@
+{
+  "revision": "92e8c038a432c334400619ff38e603be5d863c2e",
+  "references_sha256": "c887faa5efb78f68d14c111d55c187c62512dd2a83882f1ab61a74287ea99f0e",
+  "questions_sha256": "76f52d110eb1a8756da2abd13a2f2156d91cd0b926f968a4e99d8be6ba299c97",
+  "rubric_sha256": "917b260294a94b46ff8f90f1ff8e0dddfc9141fe88884f664329b4c1dad34754",
+  "corpus_sha256": "d6b746e5e64ed5d0877593d060b0a6bd397ccb97d77dbcdffec1f945bc865828",
+  "authorization": "Existing .env key, no cost cap, confirmed 2026-11-13",
+  "experiment_files": {
+    "__init__.py": "274c6d4765846805dff40111082ac966a8e6a3397ea650d16528afecf9d247a4",
+    "common.py": "4ad412217ac4adc5689d41f2210afa56411fe3a894c0d88428b3a80563abf6b4",
+    "evaluate.py": "3c8307c6a3d481f9934552a2f5b35949cea998fbc0e3fd3588c43dcfa416bf75",
+    "policy.py": "555519d44646f2378cf41867849cc0795618062fd33d37eee73f5f90d8508c7e",
+    "run.py": "42c477d48472e51fa68b6bf9d29f4a25182baf11cbd0545bf2ea9315af611be7",
+    "test_experiment.py": "d2dd3c61d9e1e14d4b6bd2489e531992d56dcc1667caaa6008c946ebf82c9abe"
+  },
+  "repeats": 3,
+  "arms": [
+    "A",
+    "B"
+  ],
+  "workers": 2,
+  "device": "cpu_gpu_rerank",
+  "answer_generation": false,
+  "candidate_pages": 20,
+  "final_pages": 8,
+  "evidence_tokens": 8000,
+  "max_operations": 5,
+  "model": "gpt-6-luna",
+  "reasoning": "medium",
+  "max_planner_calls": 1080,
+  "max_review_calls": 180,
+  "automatic_retries": 0,
+  "search_cache": false,
+  "retrieval_does_not_read_rubric": true
+}

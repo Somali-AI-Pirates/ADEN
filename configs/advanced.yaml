@@ -20,6 +20,13 @@ retrieval:
   context_token_budget: 8000
   candidate_count: 20
 
+evaluation:
+  reasoning_effort: max
+  fallback_reasoning_effort: xhigh
+  max_output_tokens: 128000
+  timeout_seconds: 600
+  max_retries: 2
+
 
 table_rag:
   data_directory: artifacts/advanced-table-rag

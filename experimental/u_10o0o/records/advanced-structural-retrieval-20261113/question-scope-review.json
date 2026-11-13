@@ -1,0 +1,14 @@
+{
+  "corrections": [
+    {
+      "review_key": "1196e835d47c591f97ba880447f3e86f4a4f26078eb5e28ff9bf10ba61b6cffa",
+      "question_id": "STRUCT-HOLD-002",
+      "requirement_id": "R4",
+      "source_id": "AS120:p0003",
+      "reason": "Question asks outstanding balance; extra collection-procedure instruction in reference is not mandatory."
+    }
+  ],
+  "applies_to_all_arms": true,
+  "reference_file_changed": false,
+  "raw_strict_scores_retained": true
+}

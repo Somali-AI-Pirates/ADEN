@@ -49,13 +49,16 @@ def test_faithfulness_uses_only_question_answer_final_context():
 
     s = grade(record(), judge_returning(True), faith)
     assert s["faithfulness"] == {"value": 0.8, "status": "scored", "reason": "RAGAS Faithfulness"}
-    assert seen["ctx"] == ["문맥 문장"] and "정답 비밀문장" not in json.dumps(seen, ensure_ascii=False)
+    assert seen["ctx"] == ["[S1]\n문맥 문장"] and "정답 비밀문장" not in json.dumps(seen, ensure_ascii=False)
     assert s["grading_usage"]["judge"]["input_tokens"] == 7  # 평가 사용량은 따로
 
 
 def test_clarification_without_claims_is_not_applicable_with_claims_is_scored():
     clar = record(status="needs_clarification", answer="어느 항차인가요?", citations=[])
-    s = grade(clar, judge_returning(False), lambda *a: pytest.fail("호출하면 안 됨"))
+    seen = []
+    s = grade(clar, judge_returning(False), lambda *a: seen.append(a) or {
+        "status": "not_applicable", "value": None, "reason": "사실 주장 없음"})
+    assert len(seen) == 1  # Judge 판정과 무관하게 자체 주장 추출
     assert s["faithfulness"]["status"] == "not_applicable"
     s2 = grade(record(status="needs_clarification"), judge_returning(True), lambda *a: {"value": 1.0})
     assert s2["faithfulness"]["status"] == "scored"  # 상태 이름만으로 제외하지 않음
@@ -192,7 +195,7 @@ def test_chunk_heading_reaches_judge_and_faithfulness_context():
                  final_context_hash=compute_context_hash(final)),
           lambda p: prompts.append(p) or judge_returning(True)(p), faith)
     assert "제목: 화주 ACME 예약 BK-1\n문맥 문장" in prompts[0]
-    assert seen["ctx"] == ["제목: 화주 ACME 예약 BK-1\n문맥 문장"]
+    assert seen["ctx"] == ["[S1]\n제목: 화주 ACME 예약 BK-1\n문맥 문장"]
 
 
 def test_runner_passes_only_question_and_saves_failures(tmp_path):

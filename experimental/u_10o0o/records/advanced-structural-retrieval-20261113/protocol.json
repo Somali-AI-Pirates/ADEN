@@ -1,0 +1,69 @@
+{
+  "code": {
+    "__init__.py": "e2325817dd085ab7d8fd4454ac6f33df3619b7fe87933506231f9e5520143ec0",
+    "common.py": "3a4f853c8e69c02a4aa6c7b32b380e5094b7776e8d574e149b14927528dc7e8e",
+    "dataset.py": "3a804c5d826aaff0a41e4b4087d37a9b04d785041f1b614ca3722106da4a1136",
+    "evaluate.py": "d6409945707f2b2d9d621dd8d300b04a47306a6e08a130defac0ad4cbc51b96d",
+    "paid.py": "3d66a35cb047b5633027585eb2e4015e0c5e34f4aee2ebdf3204b13fd1a1ecc8",
+    "paragraphs.py": "4ec7ac3b4ed53268ead1a132ed9ce80650166eb1d80459b4b893c010fb5fd455",
+    "retrieval.py": "a75f28e03b80cbc1576a6652ca90c3106ba0b5dbeb01c1b1c7ca024da64f629e",
+    "run.py": "97e29e74868fceb7d6be568bbc94854c19b749fbc80410a06857dee5013c7d4f",
+    "select_runs.py": "561a18b1caeb9f2a3cc40342f84b64c382b843285b44cf31c70491fdd6f76f28",
+    "selection.py": "8763b10ae2bc6c610cf0fd81ead164db71052b6c70993fef44c5b602f8b30ce4",
+    "test_experiment.py": "1d7ff2a525d2e95fc64f47c8d2d6320929afd0db837e3ad9257aa12e82587648"
+  },
+  "inputs": {
+    "questions.json": "fba505be4875bca5fd065401cead3eaff15e506677dc1e81a45ceea18fd6e318",
+    "rubric.json": "5e3a181aff7029a66fa33d3fbbbe12c734e83dec3bc6b48fef5a2e299cfc9a85",
+    "holdout-reviewed.json": "e1ad99894b3a72477b8818e1a57ac877bd839891ee8a49cecad627f6cdc263c4",
+    "paragraph-index/units.json": "ae56a2df0f9282e012bb5204680ef9b0e1b1532f1021af6f024a5bfa7d0f4274",
+    "paragraph-index/vectors.npy": "b1e174136521cdce0a66672d412e85603de1a6cd696dfab4433b58cd04cdf4fd",
+    "paragraph-index/manifest.json": "c0934b0221be41f33413f0cf573dc0d7af28bda23900e8037e230812b4518074"
+  },
+  "bundle": {
+    "catalog.json": "13cc48abc57aa064e166879a0a66101b6ac8034bf541f84165b9ec386442d737",
+    "corpus.json": "d6b746e5e64ed5d0877593d060b0a6bd397ccb97d77dbcdffec1f945bc865828",
+    "hg-lookup-a-v5.json": "dc8216f3d278da7986ec5153fc2274af5484fd3e5f0f198061b0b206fbc8e298",
+    "pages.json": "86bae0c440725598593c4c73ec5b34d3af4dec3d16594e3cdedcd64d051582cb",
+    "records.json": "18f6fd5144bda064b89742729132231dadca237704f426a1e34526f4f0c16491",
+    "records.sqlite3": "21e4d51d0e845c4725b027ebc02cd1ec2fa266db3101effab5c96a95f88858da",
+    "store.json": "3127aae602901677ba6ceaedf812093578ffce6f9c3e1018d82aeff7d7563905",
+    "table-chunks.json": "1d22a133eb952948145db781da4ee0496378f72f943833c9a87ed4192df58c08",
+    "tables.sqlite3": "055fb6bc0f2722629bf0337d58dfa8b5dcb3827130cbf7033b93ce00f63bfaed",
+    "vectors.npy": "718b60f1bccd25b54c6ac9baf7997ee2ef35fc22c9b3296ab3aec298dba02973"
+  },
+  "dependencies": {
+    "experimental/u_10o0o/additional_evidence_ab/__init__.py": "274c6d4765846805dff40111082ac966a8e6a3397ea650d16528afecf9d247a4",
+    "experimental/u_10o0o/additional_evidence_ab/common.py": "4ad412217ac4adc5689d41f2210afa56411fe3a894c0d88428b3a80563abf6b4",
+    "experimental/u_10o0o/additional_evidence_ab/evaluate.py": "3c8307c6a3d481f9934552a2f5b35949cea998fbc0e3fd3588c43dcfa416bf75",
+    "experimental/u_10o0o/additional_evidence_ab/policy.py": "555519d44646f2378cf41867849cc0795618062fd33d37eee73f5f90d8508c7e",
+    "experimental/u_10o0o/additional_evidence_ab/run.py": "42c477d48472e51fa68b6bf9d29f4a25182baf11cbd0545bf2ea9315af611be7",
+    "experimental/u_10o0o/additional_evidence_ab/test_experiment.py": "d2dd3c61d9e1e14d4b6bd2489e531992d56dcc1667caaa6008c946ebf82c9abe"
+  },
+  "runtime_revision": "92e8c038a432c334400619ff38e603be5d863c2e",
+  "prior_protocol_sha256": "590ddc07d8799e4256287902225f7969e5cf56ecb18ddbd9a3a0ab801adc8820",
+  "arms": [
+    "A",
+    "S",
+    "V",
+    "R",
+    "P"
+  ],
+  "count_per_arm": 380,
+  "new_graph_runs": 1050,
+  "reused_graph_runs": 90,
+  "new_selector_calls": 760,
+  "model": "gpt-6-luna",
+  "reasoning": "medium",
+  "device": "cpu_gpu_rerank",
+  "final_pages": 8,
+  "final_tokens": 8000,
+  "final_candidates": 20,
+  "R_rerank_limit": 100,
+  "S_V_search_replay": true,
+  "answer_generation": false,
+  "workers": 2,
+  "auto_retry": false,
+  "human_review": false,
+  "quality_results_read_before_freeze": false
+}

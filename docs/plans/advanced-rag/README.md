@@ -6,11 +6,13 @@
 
 현재 승인된 로컬 구조 정리의 단계·검증 결과와 재개 지점은 [로컬 구조 정리 진행 기록](local-refactor-progress.md)을 따른다. 기존 Qdrant Cloud·Langfuse 연결과 검색·답변 계약은 유지한다.
 
+최종 Advanced 벤치마크의 데이터 분모·프롬프트 지문·실행 상태와 재개 지점은 별도 [평가 진행 기록](evaluation-benchmark-progress.md)에서 관리한다. 이는 성능 결과 보고서가 아니며, 실측 결과는 [평가 보고서](../../../reports/advanced-final-benchmark-2026-11-13/report.md)에 채점 완료 후 반영한다.
+
 코드 가독성·설정·로컬 인프라·운영에 대한 후속 제안은 [구조·운영 검토](architecture-operations-review.md)에 정리한다. 해당 문서는 개선 검토이며 이 문서의 채택 기준이나 현재 실행 방법을 변경하지 않는다.
 
 후속 작업의 파일별 변경·로컬 환경·CI/CD·aden 서브도메인 배포는 [구조 정리·배포 구현 계획](architecture-operations-implementation-plan.md)을 따른다. 클라우드 대상과 완료 여부는 해당 문서에서 별도로 관리한다. 실제 적용한 DNS·HTTPS·GitHub 환경은 [클라우드 준비 기록](cloud-setup-record.md)에서 확인한다.
 
-서버 코드를 읽는 순서와 작성 기준은 [서버 코드 설계](../../design/server-code-design.md)를 따른다.
+서버 코드를 읽는 순서와 작성 기준은 [서버 코드 설계](../../design/server-code-design.md)를 따른다. 채팅 이력 해석과 실제 Advanced에서 되묻기 후 조회를 이어간 결과는 [멀티턴 구현과 검증](../chat-client.md#멀티턴-구현과-검증--2026-11-13)에 있다.
 
 ## 1. 범위와 호환 경계
 
