@@ -11,6 +11,7 @@ ADEN은 Advanced 해운 PDF의 기록·규정·표를 조회해 답변과 원본
 | 발제문 요구사항, 평가 규칙, 선택 과제와 제출 | [프로젝트 발제문 요구사항](project-brief.md) |
 | 작업 브랜치, PR, 리뷰, 개인 실험 | [기여 가이드](CONTRIBUTING.md) |
 | 코드 배치, 의존 방향, 요청 흐름 | [시스템 설계](design/architecture.md) |
+| 요청 코드를 따라 읽기, 서버 가독성 검수 | [서버 코드 설계 기준](design/server-code-design.md) |
 | Advanced TableRAG의 설계·구현 단계·평가 | [Advanced RAG 구현 계획](plans/advanced-rag/README.md) |
 | 모듈 가독성·로컬 인프라·운영 개선 제안 | [TableRAG 구조·운영 검토](plans/advanced-rag/architecture-operations-review.md) |
 | 구조 정리·로컬 환경·CI/CD·클라우드 배포 계획 | [TableRAG 구현·배포 계획](plans/advanced-rag/architecture-operations-implementation-plan.md) |

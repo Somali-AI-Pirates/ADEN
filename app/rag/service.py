@@ -1,17 +1,14 @@
-"""Request entry point shared by the Advanced TableRAG API and evaluation."""
+"""One question's admission, retrieval, answer validation, and saved result."""
 
 from __future__ import annotations
 
 import asyncio
 import json
 import logging
-import sqlite3
 from collections.abc import Callable
 from contextlib import AsyncExitStack
-from dataclasses import dataclass
 from functools import partial
 from hashlib import sha256
-from importlib.metadata import version
 from pathlib import Path
 from time import perf_counter
 from typing import TYPE_CHECKING, Any
@@ -19,12 +16,10 @@ from typing import TYPE_CHECKING, Any
 import tiktoken
 from anyio import CapacityLimiter, to_thread
 from langchain_core.documents import Document
+from langchain_core.runnables import RunnableConfig
 
-from app.generation.citations import resolve_citations
-from app.observability.records import compute_context_hash
 from app.observability.run_store import save_request_failure, save_request_run
 from app.observability.tracing import Tracer
-from app.rag.config import RETRIEVAL_MODE, TableRagSettings, load_table_rag_settings
 from app.rag.admission import (
     RequestAdmission,
     RequestBusyError,
@@ -32,153 +27,30 @@ from app.rag.admission import (
     RequestReservation,
     RequestUnavailableError,
 )
-from app.rag.readiness import ReadinessProbe, ReadinessStatus, build_readiness_probe
-from app.rag.corpus import load_corpus
-from app.rag.lifecycle import await_to_completion
-from app.rag.streaming import EventSink
-from app.rag.model import (
-    ANSWER_OUTPUT_TOKENS,
-    MODEL,
-    PLAN_OUTPUT_TOKENS,
-    REASONING_EFFORT,
-    TIMEOUT_SECONDS,
-    GeneratedAnswer,
-    ModelCalls,
-    RagContextBudgetError,
-    RagModelError,
-    TableModel,
-    load_model,
+from app.rag.config import RETRIEVAL_MODE, TableRagSettings
+from app.rag.lifecycle import (
+    await_to_completion,
+    close_async_resource,
+    close_sync_resource,
 )
-from shared.contracts import AnswerStatus, Citation, QueryResponse
-from shared.table_rag_policy import (
-    CANDIDATE_LIMIT,
-    CONTEXT_WINDOW,
-    MAX_CONTEXT_PAGES,
-    MAX_CONTEXT_TOKENS,
+from app.rag.model import RagContextBudgetError, RagModelError, TableModel
+from app.rag.model_usage import ModelCalls
+from app.rag.readiness import ReadinessProbe, ReadinessStatus
+from app.rag.result import (
+    RagRun,
+    answer_trace_fields,
+    failure_metadata,
+    retrieval_trace_fields,
+    validate_answer,
 )
+from app.rag.streaming import EventSink, emit_progress
+from shared.table_rag_policy import CONTEXT_WINDOW, MAX_CONTEXT_PAGES
 
 if TYPE_CHECKING:
-    from app.rag.models import RetrievalRun, SearchResult
+    from app.rag.models import SearchResult
     from app.rag.table_store import TableStore
 
 logger = logging.getLogger(__name__)
-
-
-def _json(value: Any) -> str:
-    return json.dumps(value, ensure_ascii=False)
-
-
-def _hash(text: str) -> str:
-    return sha256(text.encode()).hexdigest()
-
-
-def _source(document: Document) -> dict[str, Any]:
-    return {
-        key: document.metadata[key]
-        for key in ("source_id", "book_id", "page", "file_name")
-    }
-
-
-def _page_record(document: Document) -> dict[str, Any]:
-    return {**_source(document), "chunk_id": document.metadata["unit_id"]}
-
-
-def _response(
-    answer: GeneratedAnswer, pages: tuple[Document, ...], request_id: str,
-    retrieval_status: str = "sufficient",
-) -> QueryResponse:
-    if retrieval_status != "sufficient" and answer.status != retrieval_status:
-        raise RagModelError("Answer status contradicts the retrieval decision")
-    sources = {page.metadata["source_id"]: Citation(**_source(page)) for page in pages}
-    try:
-        citations = resolve_citations(answer.citations, sources)
-    except ValueError as error:
-        raise RagModelError(
-            "Answer cites a source outside the final context"
-        ) from error
-    if answer.status == "answered" and not citations:
-        raise RagModelError("Answered status requires an evidence citation")
-    status: AnswerStatus = (
-        "abstained" if answer.status == "insufficient" else answer.status
-    )
-    reasons = {
-        "answered": "최종 문맥의 문서 또는 표 조회 근거를 사용했습니다.",
-        "needs_clarification": "질문에 답하려면 추가 정보가 필요합니다.",
-        "abstained": "답변에 필요한 근거를 확인하지 못했습니다.",
-    }
-    return QueryResponse(
-        request_id=request_id,
-        status=status,
-        answer=answer.answer,
-        reason=reasons[status],
-        citations=citations,
-    )
-
-
-def _retrieval_record(
-    retrieval: RetrievalRun, candidates: tuple[Document, ...], model_context_tokens: int
-) -> dict[str, Any]:
-    evidence = retrieval.evidence
-    chunks = [
-        {**_page_record(page), "text": page.page_content} for page in evidence.pages
-    ]
-    return {
-        "retrieved_candidates": [{**_page_record(page), "text": page.page_content} for page in candidates],
-        "final_context_chunks": chunks,
-        "candidate_source_ids": list(evidence.candidate_source_ids),
-        "final_source_ids": list(evidence.source_ids),
-        "context_text": evidence.model_input,
-        "context_hash": evidence.context_hash,
-        "final_context_hash": compute_context_hash(chunks),
-        "model_context_text": evidence.model_input,
-        "model_context_hash": evidence.context_hash,
-        "model_context_token_count": model_context_tokens,
-        "evidence_token_count": evidence.token_count,
-        "budget_excluded_chunk_ids": list(evidence.excluded_chunk_ids),
-        "sql_results": list(retrieval.sql_attempts),
-        "included_sql_results": list(evidence.sql_results),
-        "diagnostics": {
-            **retrieval.diagnostics,
-            "termination_reason": retrieval.termination_reason,
-            "finish_status": retrieval.status,
-            "planner_selected_sources": list(retrieval.finish.selected_sources),
-            "planner_sources_missing_from_final": sorted(
-                set(retrieval.finish.selected_sources) - set(evidence.source_ids)
-            ),
-            "searches": [search.diagnostics for search in retrieval.searches],
-            "selection_context_hash": evidence.page_context_hash,
-        },
-    }
-
-
-@dataclass(frozen=True)
-class RagRun:
-    response: QueryResponse
-    retrieval: RetrievalRun
-    candidates: tuple[Document, ...]
-    usage: dict[str, Any]
-    latency_ms: float
-    model_context_tokens: int
-    trace: dict[str, Any]
-    config_hash: str
-
-    def to_record(self) -> dict[str, Any]:
-        return {
-            **self.response.model_dump(mode="json"),
-            "dataset_id": "advanced",
-            "question": self.retrieval.question,
-            "retrieval_mode": RETRIEVAL_MODE,
-            "config_hash": self.config_hash,
-            **_retrieval_record(
-                self.retrieval, self.candidates, self.model_context_tokens
-            ),
-            "trace_id": self.trace.get("langfuse_trace_id"),
-            **self.trace,
-            "usage": self.usage,
-            "attempts": self.usage.get("attempts", []),
-            "latency_ms": round(self.latency_ms),
-            "latency_scope": "service",
-        }
 
 
 class RagService:
@@ -200,7 +72,7 @@ class RagService:
     ) -> None:
         self._page_lookup = page_lookup
         self._model = model
-        self.tracer = tracer
+        self.langfuse = tracer
         self.manifest = manifest
         self._record_index = record_index
         self._run_directory = run_directory
@@ -208,18 +80,18 @@ class RagService:
         self._resource_stack = resource_stack or AsyncExitStack()
         if resource_stack is None:
             self._resource_stack.push_async_callback(
-                _close_sync_resource, self.tracer.shutdown
+                close_sync_resource, self.langfuse.shutdown
             )
             if self._close_search is not None:
                 self._resource_stack.push_async_callback(
-                    _close_sync_resource, self._close_search
+                    close_sync_resource, self._close_search
                 )
             if self._record_index is not None:
                 self._resource_stack.push_async_callback(
-                    _close_sync_resource, self._record_index.close
+                    close_sync_resource, self._record_index.close
                 )
             self._resource_stack.push_async_callback(
-                _close_async_resource, self._model.aclose
+                close_async_resource, self._model.aclose
             )
         self._settings = settings or TableRagSettings()
         self._admission = RequestAdmission(
@@ -233,18 +105,19 @@ class RagService:
         self._readiness = readiness_probe or ReadinessProbe({"resources": lambda: True})
         if resource_stack is None:
             self._resource_stack.push_async_callback(
-                _close_async_resource, self._readiness.aclose
+                close_async_resource, self._readiness.aclose
             )
         self._close_task: asyncio.Task | None = None
-        self.config_hash = _hash(
-            json.dumps(manifest, ensure_ascii=False, sort_keys=True)
-        )
+        self.config_hash = sha256(
+            json.dumps(manifest, ensure_ascii=False, sort_keys=True).encode()
+        ).hexdigest()
         from app.rag.graph import TableRagGraph
 
         self._encoding = tiktoken.get_encoding("o200k_base")
         self._workers = CapacityLimiter(2)
         self._graph = TableRagGraph(
             search=search,
+            model=model,
             page_lookup=page_lookup,
             table_store=table_store,
             record_index=record_index,
@@ -290,32 +163,46 @@ class RagService:
                     "Request processing budget exceeded during readiness"
                 ) from error
             if not ready:
-                raise RequestUnavailableError("Required TableRAG resources are unavailable")
+                raise RequestUnavailableError(
+                    "Required TableRAG resources are unavailable"
+                )
             reservation = await self._admission.acquire(
                 request_id, arrived_at=arrived_at
             )
-        except (RequestBusyError, RequestUnavailableError, RequestDeadlineExceeded) as error:
+        except (
+            RequestBusyError,
+            RequestUnavailableError,
+            RequestDeadlineExceeded,
+        ) as error:
             logger.info(
                 "rag_admission request_id=%s outcome=%s elapsed_ms=%.3f",
-                request_id, type(error).__name__,
+                request_id,
+                type(error).__name__,
                 (asyncio.get_running_loop().time() - arrived_at) * 1000,
             )
             raise
         except asyncio.CancelledError:
             logger.info(
                 "rag_admission request_id=%s outcome=cancelled elapsed_ms=%.3f",
-                request_id, (asyncio.get_running_loop().time() - arrived_at) * 1000,
+                request_id,
+                (asyncio.get_running_loop().time() - arrived_at) * 1000,
             )
             raise
         logger.info(
             "rag_admission request_id=%s outcome=accepted queue_ms=%.3f active=%s waiting=%s",
-            request_id, reservation.queue_ms,
-            self._admission.active_count, self._admission.waiting_count,
+            request_id,
+            reservation.queue_ms,
+            self._admission.active_count,
+            self._admission.waiting_count,
         )
         return reservation
 
     async def ainvoke(
-        self, question: str, *, request_id: str, on_event: EventSink | None = None,
+        self,
+        question: str,
+        *,
+        request_id: str,
+        event_sink: EventSink | None = None,
         reservation: RequestReservation | None = None,
     ) -> RagRun:
         question = question.strip()
@@ -323,6 +210,7 @@ class RagService:
             if reservation is not None and reservation.request_id == request_id:
                 reservation.release()
             raise ValueError("질문을 입력해 주세요.")
+
         reservation = reservation or await self.reserve_request(request_id)
         # Claim before entering finally: an invalid/cross-request token must
         # never release a slot belonging to another execution.
@@ -335,10 +223,13 @@ class RagService:
                     raise RequestDeadlineExceeded("Request processing budget exceeded")
                 # Recheck cached readiness after waiting for admission.
                 if not (await self.readiness()).ready:
-                    raise RequestUnavailableError("Required TableRAG resources are unavailable")
-                result = await self._execute(
-                    question, request_id=request_id, on_event=on_event
+                    raise RequestUnavailableError(
+                        "Required TableRAG resources are unavailable"
+                    )
+                result = await self._answer_question(
+                    question, request_id=request_id, event_sink=event_sink
                 )
+
             outcome = "complete"
             return result
         except TimeoutError as error:
@@ -359,46 +250,47 @@ class RagService:
             logger.info(
                 "rag_request request_id=%s outcome=%s queue_ms=%.3f execution_ms=%.3f "
                 "elapsed_ms=%.3f deadline_overrun_ms=%.3f cleanup_complete=true",
-                request_id, outcome, reservation.queue_ms,
+                request_id,
+                outcome,
+                reservation.queue_ms,
                 (asyncio.get_running_loop().time() - reservation.admitted_at) * 1000,
                 (asyncio.get_running_loop().time() - reservation.arrived_at) * 1000,
                 max(0, asyncio.get_running_loop().time() - reservation.deadline) * 1000,
             )
 
-    async def _execute(
-        self, question: str, *, request_id: str, on_event: EventSink | None = None
+    async def _answer_question(
+        self, question: str, *, request_id: str, event_sink: EventSink | None = None
     ) -> RagRun:
         started = perf_counter()
-        trace = self.tracer.start_request(
+        trace = self.langfuse.start_request(
             request_id,
             question=question,
             retrieval_mode=RETRIEVAL_MODE,
             dataset_id="advanced",
             config_hash=self.config_hash,
-            metadata={"question_sha256": _hash(question)},
+            metadata={"question_sha256": sha256(question.encode()).hexdigest()},
         )
-        calls = ModelCalls(trace, on_event=on_event)
+        calls = ModelCalls(event_sink=event_sink)
+        langfuse_handler = trace.langchain_handler()
+        langchain_config: RunnableConfig = (
+            {"callbacks": [langfuse_handler]} if langfuse_handler else {}
+        )
         response = None
         retrieval = None
         candidates = ()
         model_context_tokens = 0
         failure = None
 
-        async def progress(stage: str, message: str):
-            if on_event is not None:
-                await on_event({"type": "progress", "stage": stage, "message": message})
-
-        async def plan(history, *, finish_only: bool):
-            await progress("reviewing", "찾은 기록과 문서 근거를 확인하고 있습니다.")
-            return await self._model.plan(history, finish_only=finish_only, calls=calls)
-
         try:
-            await progress("retrieving", "관련 기록과 문서를 찾고 있습니다.")
+            await emit_progress(
+                event_sink, "retrieving", "관련 기록과 문서를 찾고 있습니다."
+            )
             retrieval = await self._graph.run(
                 question,
-                planner=plan,
+                calls=calls,
+                event_sink=event_sink,
+                config=langchain_config,
                 request_id=request_id,
-                stage=trace.stage,
                 trace_id=trace.trace_id,
             )
             evidence = retrieval.evidence
@@ -408,61 +300,51 @@ class RagService:
                 if (page := self._page_lookup(source_id)) is not None
             )
             model_context_tokens = self._count_tokens(evidence.model_input)
-            recorded_evidence = _retrieval_record(retrieval, candidates, model_context_tokens)
             trace.record_retrieval(
-                retrieved_candidates=recorded_evidence["retrieved_candidates"],
-                final_context_chunks=recorded_evidence["final_context_chunks"],
-                final_context_hash=recorded_evidence["final_context_hash"],
-                model_context_text=evidence.model_input,
-                model_context_hash=evidence.context_hash,
-                model_context_token_count=model_context_tokens,
-                budget_excluded_chunk_ids=evidence.excluded_chunk_ids,
+                **retrieval_trace_fields(retrieval, candidates, model_context_tokens),
                 k=MAX_CONTEXT_PAGES,
             )
             _check_termination(retrieval.termination_reason)
-            await progress("answering", "근거를 바탕으로 답변을 작성하고 있습니다.")
+            await emit_progress(
+                event_sink, "answering", "근거를 바탕으로 답변을 작성하고 있습니다."
+            )
             answer = await self._model.answer(
-                _json(
-                    {"question": question, "evidence": json.loads(evidence.model_input),
-                     "retrieval_status": retrieval.status}
+                json.dumps(
+                    {
+                        "question": question,
+                        "evidence": json.loads(evidence.model_input),
+                        "retrieval_status": retrieval.status,
+                    },
+                    ensure_ascii=False,
                 ),
                 context_hash=evidence.context_hash,
                 calls=calls,
+                config=langchain_config,
             )
-            await progress("validating", "답변과 출처를 확인하고 있습니다.")
-            response = _response(answer, evidence.pages, request_id, retrieval.status)
+            await emit_progress(
+                event_sink, "validating", "답변과 출처를 확인하고 있습니다."
+            )
+            response = validate_answer(
+                answer, evidence.pages, request_id, retrieval.status
+            )
         except BaseException as error:
             failure = error
             raise
         finally:
             latency_ms = (perf_counter() - started) * 1000
             trace_status = trace.finish(
-                status=response.status if response else "error",
-                answer=response.answer if response else None,
-                reason=response.reason if response else None,
-                citations=[c.model_dump(mode="json") for c in response.citations] if response else [],
-                latency_ms=round(latency_ms),
-                error_type=type(failure).__name__ if failure else None,
+                **answer_trace_fields(response, latency_ms, failure)
             )
             if isinstance(failure, Exception):
-                metadata = {
-                    **trace_status,
-                    "usage": calls.summary(),
-                    "attempts": calls.summary().get("attempts", []),
-                    "latency_ms": latency_ms,
-                }
-                if retrieval is not None:
-                    metadata.update(
-                        _retrieval_record(retrieval, candidates, model_context_tokens)
-                    )
-                setattr(failure, "rag_metadata", metadata)
-                if self._run_directory is not None:
-                    await self._run_sync(
-                        save_request_failure, question, request_id, failure,
-                        service_manifest=self.manifest,
-                        config_hash=self.config_hash,
-                        output_root=self._run_directory,
-                    )
+                metadata = failure_metadata(
+                    trace_status,
+                    calls.summary(),
+                    latency_ms,
+                    retrieval,
+                    candidates,
+                    model_context_tokens,
+                )
+                await self._save_failed_request(question, request_id, failure, metadata)
         assert response is not None and retrieval is not None
         run = RagRun(
             response=response,
@@ -475,13 +357,33 @@ class RagService:
             config_hash=self.config_hash,
         )
         if self._run_directory is not None:
-            await progress("saving", "답변 기록을 저장하고 있습니다.")
+            await emit_progress(event_sink, "saving", "답변 기록을 저장하고 있습니다.")
             await self._run_sync(
-                save_request_run, run.to_record(),
+                save_request_run,
+                run.to_record(),
                 service_manifest=self.manifest,
                 output_root=self._run_directory,
             )
         return run
+
+    async def _save_failed_request(
+        self,
+        question: str,
+        request_id: str,
+        failure: Exception,
+        metadata: dict[str, Any],
+    ) -> None:
+        failure.rag_metadata = metadata
+        if self._run_directory is not None:
+            await self._run_sync(
+                save_request_failure,
+                question,
+                request_id,
+                failure,
+                service_manifest=self.manifest,
+                config_hash=self.config_hash,
+                output_root=self._run_directory,
+            )
 
     async def aclose(self) -> None:
         if self._close_task is not None and self._close_task.done():
@@ -500,7 +402,7 @@ class RagService:
         finally:
             resources, self._resource_stack = self._resource_stack, None
             if resources is not None:
-                await _close_async_resource(resources.aclose)
+                await close_async_resource(resources.aclose)
 
 
 def _check_termination(reason: str) -> None:
@@ -510,228 +412,3 @@ def _check_termination(reason: str) -> None:
         raise TimeoutError("TableRAG planner deadline exceeded")
     if reason != "finished":
         raise RagModelError(f"TableRAG planner stopped: {reason}")
-
-
-def _runtime_fingerprints() -> dict[str, str]:
-    root = Path(__file__).resolve().parents[2]
-    modules = sorted((root / "app/rag").glob("*.py"))
-    modules.extend(
-        root / name
-        for name in (
-            "app/generation/context.py",
-            "app/generation/citations.py",
-            "app/ingestion/layout.py",
-            "app/observability/records.py",
-            "app/observability/tracing.py",
-            "shared/bm25_tokens.py",
-            "shared/contracts.py",
-            "shared/table_rag_policy.py",
-            "shared/text_normalization.py",
-        )
-    )
-    return {
-        path.relative_to(root).as_posix(): sha256(path.read_bytes()).hexdigest()
-        for path in modules
-    }
-
-
-async def _close_async_resource(callback, *args) -> None:
-    _, cancelled = await await_to_completion(callback(*args))
-    if cancelled:
-        raise asyncio.CancelledError
-
-
-async def _close_sync_resource(callback, *args) -> None:
-    _, cancelled = await await_to_completion(
-        to_thread.run_sync(partial(callback, *args))
-    )
-    if cancelled:
-        raise asyncio.CancelledError
-
-
-async def _run_sync_acquiring(function, *args, on_acquired=None, **kwargs):
-    """Create a sync resource in a worker and register it before cancellation propagates."""
-
-    async def create_and_register():
-        resource = await to_thread.run_sync(partial(function, *args, **kwargs))
-        if on_acquired is not None:
-            on_acquired(resource)
-        return resource
-
-    resource, cancelled = await await_to_completion(create_and_register())
-    if cancelled:
-        raise asyncio.CancelledError
-    return resource
-
-
-class _CloseOnce:
-    """Disarm a provisional owner when a higher-level resource takes ownership."""
-
-    def __init__(self, resource) -> None:
-        self._resource = resource
-
-    def disarm(self) -> None:
-        self._resource = None
-
-    def close(self) -> None:
-        resource, self._resource = self._resource, None
-        if resource is not None:
-            resource.close()
-
-
-def _close_corpus(corpus) -> None:
-    close = getattr(corpus, "close", None)
-    if close is not None:
-        close()
-        return
-    vectors = getattr(corpus, "vectors", None)
-    memory_map = getattr(vectors, "_mmap", None)
-    if memory_map is not None and not getattr(memory_map, "closed", False):
-        memory_map.close()
-
-
-async def load_service(
-    directory: str | Path | None = None,
-    *,
-    settings: TableRagSettings | None = None,
-) -> RagService:
-    """Asynchronously load the verified DB-first TableRAG bundle and own its resources."""
-    from app.rag.retrieval import load_retriever
-    from app.rag.records import RecordIndex
-
-    if settings is not None and directory is not None:
-        raise ValueError("Pass either directory or settings, not both")
-    settings = settings or load_table_rag_settings(data_directory=directory)
-    credentials = settings.credentials
-    if not credentials.openai_api_key:
-        raise ValueError("OPENAI_API_KEY is required for TableRAG")
-    directory = settings.data_directory.resolve()
-    started = perf_counter()
-
-    async with AsyncExitStack() as resources:
-        def register_corpus(corpus):
-            resources.push_async_callback(_close_sync_resource, _close_corpus, corpus)
-
-        corpus = await _run_sync_acquiring(
-            load_corpus, directory, on_acquired=register_corpus
-        )
-        dense_index = None
-        dense_owner = None
-        if settings.vector_backend == "qdrant":
-            from app.rag.qdrant_index import open_qdrant_index
-
-            def register_dense(index):
-                nonlocal dense_owner
-                dense_owner = _CloseOnce(index)
-                resources.push_async_callback(
-                    _close_sync_resource, dense_owner.close
-                )
-
-            dense_index = await _run_sync_acquiring(
-                open_qdrant_index,
-                directory,
-                corpus,
-                collection=settings.collection,
-                credentials=credentials,
-                on_acquired=register_dense,
-            )
-        elif settings.vector_backend != "numpy":
-            raise ValueError("ADEN_TABLE_RAG_VECTOR_BACKEND must be numpy or qdrant")
-
-        def register_retriever(retriever):
-            if dense_owner is not None:
-                dense_owner.disarm()
-            resources.push_async_callback(
-                _close_sync_resource, retriever.close
-            )
-
-        retriever = await _run_sync_acquiring(
-            load_retriever,
-            corpus,
-            device=settings.device,
-            dense_index=dense_index,
-            on_acquired=register_retriever,
-        )
-
-        def register_record_index(record_index):
-            resources.push_async_callback(
-                _close_sync_resource, record_index.close
-            )
-
-        record_index = await _run_sync_acquiring(
-            RecordIndex, directory, on_acquired=register_record_index
-        )
-        model = await load_model(api_key=credentials.openai_api_key)
-        resources.push_async_callback(_close_async_resource, model.aclose)
-
-        tracer = Tracer()
-        if settings.trace_enabled:
-            try:
-                tracer = Tracer.from_credentials(
-                    public_key=credentials.langfuse_public_key,
-                    secret_key=credentials.langfuse_secret_key,
-                    base_url=credentials.langfuse_base_url,
-                )
-            except Exception as error:
-                logger.warning("TableRAG tracing unavailable (%s)", type(error).__name__)
-        resources.push_async_callback(
-            _close_sync_resource, tracer.shutdown
-        )
-
-        readiness_probe = build_readiness_probe(directory, corpus, settings)
-        resources.push_async_callback(_close_async_resource, readiness_probe.aclose)
-
-        corpus_manifest = (directory / "corpus.json").read_bytes()
-        manifest = {
-            "policy": RETRIEVAL_MODE,
-            "db_first": True,
-            "runtime_settings": settings.public_manifest(),
-            "module_sha256": _runtime_fingerprints(),
-            "runtime_versions": {
-                name: version(name)
-                for name in (
-                    "langchain-core",
-                    "langchain-openai",
-                    "langgraph",
-                    "sentence-transformers",
-                    "torch",
-                    "numpy",
-                    "qdrant-client",
-                    "tiktoken",
-                    "pydantic",
-                    "openai",
-                    "anyio",
-                )
-            },
-            "sqlite_version": sqlite3.sqlite_version,
-            "snapshot_sha256": sha256(corpus_manifest).hexdigest(),
-            "embedding": corpus.embedding,
-            "retrieval": retriever.manifest,
-            "model": MODEL,
-            "reasoning_effort": REASONING_EFFORT,
-            "context_window": CONTEXT_WINDOW,
-            "plan_output_tokens": PLAN_OUTPUT_TOKENS,
-            "answer_output_tokens": ANSWER_OUTPUT_TOKENS,
-            "timeout_seconds": TIMEOUT_SECONDS,
-            "max_retries": 0,
-            "prompt_sha256": model.prompt_hashes(),
-            "candidate_pages": CANDIDATE_LIMIT,
-            "final_pages": MAX_CONTEXT_PAGES,
-            "evidence_tokens": MAX_CONTEXT_TOKENS,
-        }
-        logger.info("DB-first TableRAG ready in %.2f seconds", perf_counter() - started)
-        service = RagService(
-            search=retriever.search,
-            page_lookup=corpus.pages_by_source.get,
-            table_store=corpus.table_store,
-            model=model,
-            tracer=tracer,
-            manifest=manifest,
-            record_index=record_index,
-            run_directory=settings.run_directory,
-            resource_stack=resources,
-            settings=settings,
-            readiness_probe=readiness_probe,
-        )
-        service._resource_stack = resources.pop_all()
-        return service

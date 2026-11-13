@@ -9,7 +9,7 @@ import pytest
 
 from app.api.main import create_app
 from app.observability.run_store import RequestRunStoreError
-from app.rag.service import RagContextBudgetError, RagModelError
+from app.rag.model import RagContextBudgetError, RagModelError
 from app.rag.admission import (
     RequestBusyError,
     RequestDeadlineExceeded,
@@ -92,7 +92,7 @@ class TestTableRagApi:
 
         monkeypatch.setenv("OPENAI_API_KEY", "settings-test-openai-key")
         monkeypatch.setenv("ADEN_TABLE_RAG_DIR", "custom-table-rag")
-        from app.rag import service as service_module
+        from app.rag import bootstrap as service_module
 
         monkeypatch.setattr(service_module, "load_service", load_service)
         app = create_app()

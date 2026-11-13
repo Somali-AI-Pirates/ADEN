@@ -16,6 +16,8 @@
 
 ### 가독성과 연결 작성 규칙
 
+서버의 구체적인 검수 기준과 요청 추적 안내는 [서버 코드 설계 기준](server-code-design.md)을 따른다.
+
 - API와 TableRAG 평가 CLI는 `app.rag.service.RagService` 진입점을 공유한다. B/C 평가는 `app.service.bootstrap`의 평가 어댑터를 사용한다.
 - `shared/`는 `app/`을 import하지 않는다. 기능 모듈은 API·서비스 조립부·평가기 쪽으로 역참조하지 않는다. 하위 기능 재사용은 순환 의존이 없을 때 허용한다.
 - 처리 순서는 함수로 드러내고, SDK 클라이언트나 캐시처럼 상태와 수명이 있는 자원은 객체로 소유한다. 새 파일은 독립된 책임이 생길 때 분리한다.
@@ -31,7 +33,7 @@
 
 FastAPI CLI는 [패키지 진입점](../../pyproject.toml)의 `app.api.main:app`을 불러온다. [서버 앱](../../app/api/main.py)은 프로세스당 하나이며 수명주기·라우터·오류 처리·요청 기록을 연결한다.
 
-[수명주기](../../app/api/lifespan.py)는 시작할 때 [단일 TableRAG 런타임 설정](../../app/rag/config.py) `load_table_rag_settings()`로 `ADEN_CONFIG`, 환경변수, 루트 `.env`, 선택 YAML, 기본값을 해석한다. YAML·설정 오류는 시작을 중단한다. 설정은 `app.state.settings`에 두고 비동기 [TableRAG 서비스](../../app/rag/service.py)를 한 번 준비한다. 번들·모델 초기화에 실패하면 `/health`와 문서는 열리며, API 질의는 준비 실패 이유와 함께 503을 반환한다. 종료 시 `RagService.aclose()`가 `AsyncExitStack`이 소유한 모델·검색·저장 자원을 정리한다. API는 B/C `Resources`를 준비하거나 선택하지 않는다.
+[수명주기](../../app/api/lifespan.py)는 시작할 때 [단일 TableRAG 런타임 설정](../../app/rag/config.py) `load_table_rag_settings()`로 `ADEN_CONFIG`, 환경변수, 루트 `.env`, 선택 YAML, 기본값을 해석한다. YAML·설정 오류는 시작을 중단한다. 설정은 `app.state.settings`에 두고 [초기화 모듈](../../app/rag/bootstrap.py)의 비동기 load_service로 TableRAG 서비스를 한 번 준비한다. 번들·모델 초기화에 실패하면 `/health`와 문서는 열리며, API 질의는 준비 실패 이유와 함께 503을 반환한다. 종료 시 `RagService.aclose()`가 `AsyncExitStack`이 소유한 모델·검색·저장 자원을 정리한다. API는 B/C `Resources`를 준비하거나 선택하지 않는다.
 
 `POST /query` 또는 `POST /query/stream` → `RagService.ainvoke()` → DB 우선 조회·근거 검색 → 계획·도구 호출 → 문맥 검증·답변 → JSON 또는 SSE
 

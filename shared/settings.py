@@ -127,7 +127,7 @@ class Settings(BaseModel):
 
 
 def configured_path(default: Path = DEFAULT_CONFIG) -> Path:
-    """API와 평가 CLI가 함께 쓰는 설정 선택. ADEN_CONFIG(저장소 루트 기준 경로)가 있으면 그 파일이다."""
+    """B/C 평가 CLI가 쓰는 설정 선택. ADEN_CONFIG(저장소 루트 기준 경로)가 있으면 그 파일이다."""
     chosen = os.environ.get(CONFIG_ENV, "").strip()
     if not chosen:
         return default

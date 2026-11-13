@@ -25,7 +25,7 @@ class _Model:
     def planner_overhead(self, count_tokens):
         return count_tokens("plan and tool schemas")
 
-    async def plan(self, history, *, finish_only, calls):
+    async def plan(self, history, *, finish_only, calls, config=None):
         assert not finish_only
         assert len(history) == 1
         observed = json.loads(history[0].content)
@@ -46,7 +46,7 @@ class _Model:
             ],
         )
 
-    async def answer(self, payload, *, context_hash, calls):
+    async def answer(self, payload, *, context_hash, calls, config=None):
         value = json.loads(payload)
         assert set(value) == {"question", "evidence", "retrieval_status"}
         assert set(value["evidence"]) == {"pages", "sql"}
@@ -81,6 +81,7 @@ def _service(model, close_search=None, before_search=None, **options):
     page_lookup = {
         document.metadata["source_id"]: document for document in sources.values()
     }
+
     def search(question):
         if before_search is not None:
             before_search(question)
@@ -98,7 +99,9 @@ def _service(model, close_search=None, before_search=None, **options):
     )
 
 
-def test_service_graph_records_exact_evidence_and_isolates_concurrent_requests(tmp_path):
+def test_service_graph_records_exact_evidence_and_isolates_concurrent_requests(
+    tmp_path,
+):
     async def run():
         model = _Model()
         service = _service(model)
@@ -113,7 +116,9 @@ def test_service_graph_records_exact_evidence_and_isolates_concurrent_requests(t
             assert first.response.citations[0].source_id == "AS001:p0001"
             assert second.response.citations[0].source_id == "AS001:p0002"
             saved = json.loads((tmp_path / ("1" * 32) / "runs.jsonl").read_text())
-            saved_second = json.loads((tmp_path / ("2" * 32) / "runs.jsonl").read_text())
+            saved_second = json.loads(
+                (tmp_path / ("2" * 32) / "runs.jsonl").read_text()
+            )
             assert saved["request_id"] == first.response.request_id
             assert saved_second["request_id"] == second.response.request_id
             assert saved["question"] == "첫 질문"
@@ -157,7 +162,7 @@ def test_answer_citations_must_be_from_final_context():
 
 def test_answer_cannot_upgrade_an_insufficient_retrieval():
     class OverconfidentModel(_Model):
-        async def plan(self, history, *, finish_only, calls):
+        async def plan(self, history, *, finish_only, calls, config=None):
             message = await super().plan(history, finish_only=finish_only, calls=calls)
             message.tool_calls[0]["args"]["status"] = "insufficient"
             return message
@@ -193,7 +198,7 @@ def test_service_closes_search_client_even_if_model_close_fails():
 def test_cloud_client_is_closed_when_model_loading_fails(monkeypatch, tmp_path):
     from types import SimpleNamespace
 
-    from app.rag import qdrant_index, retrieval, service
+    from app.rag import qdrant_index, retrieval, bootstrap as service
 
     closed = []
     corpus = SimpleNamespace()
@@ -225,8 +230,10 @@ def test_cloud_client_is_closed_when_model_loading_fails(monkeypatch, tmp_path):
     assert closed == [True]
 
 
-def test_invalid_vector_backend_does_not_select_a_different_backend(monkeypatch, tmp_path):
-    from app.rag import service
+def test_invalid_vector_backend_does_not_select_a_different_backend(
+    monkeypatch, tmp_path
+):
+    from app.rag import bootstrap as service
 
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     monkeypatch.setenv("ADEN_TABLE_RAG_VECTOR_BACKEND", "typo")
@@ -235,7 +242,9 @@ def test_invalid_vector_backend_does_not_select_a_different_backend(monkeypatch,
         asyncio.run(service.load_service(tmp_path))
 
 
-def test_explicit_missing_langfuse_keys_disable_tracing_even_when_env_is_set(monkeypatch):
+def test_explicit_missing_langfuse_keys_disable_tracing_even_when_env_is_set(
+    monkeypatch,
+):
     monkeypatch.setenv("LANGFUSE_PUBLIC_KEY", "ambient-public-key")
     monkeypatch.setenv("LANGFUSE_SECRET_KEY", "ambient-secret-key")
 
@@ -267,6 +276,7 @@ def test_tracer_uses_explicit_langfuse_credentials(monkeypatch):
 
     assert tracer.enabled is True
     assert tracer._client is client
+    assert callable(captured.pop("mask_otel_spans"))
     assert captured == {
         "public_key": "explicit-public-key",
         "secret_key": "explicit-secret-key",
@@ -274,10 +284,12 @@ def test_tracer_uses_explicit_langfuse_credentials(monkeypatch):
     }
 
 
-def _patch_async_service_startup(monkeypatch, tmp_path, *, failure=None, fail_close=False):
+def _patch_async_service_startup(
+    monkeypatch, tmp_path, *, failure=None, fail_close=False
+):
     from types import SimpleNamespace
 
-    from app.rag import qdrant_index, records, retrieval, service
+    from app.rag import qdrant_index, records, retrieval, bootstrap as service
     from app.rag.config import RuntimeCredentials, TableRagSettings
 
     (tmp_path / "corpus.json").write_text("{}", encoding="utf-8")
@@ -469,7 +481,7 @@ def test_async_service_repeated_cancellation_joins_acquisition_then_cleans_resou
     from threading import Event
     from contextlib import AsyncExitStack
 
-    from app.rag.service import _close_sync_resource, _run_sync_acquiring
+    from app.rag.lifecycle import close_sync_resource, run_sync_acquiring
 
     started = Event()
     release = Event()
@@ -486,10 +498,10 @@ def test_async_service_repeated_cancellation_joins_acquisition_then_cleans_resou
 
     async def initialize():
         async with AsyncExitStack() as resources:
-            await _run_sync_acquiring(
+            await run_sync_acquiring(
                 create_resource,
                 on_acquired=lambda resource: resources.push_async_callback(
-                    _close_sync_resource, resource.close
+                    close_sync_resource, resource.close
                 ),
             )
 
@@ -513,7 +525,8 @@ def test_explicit_tracer_defaults_do_not_read_later_environment(monkeypatch):
     captured = {}
     monkeypatch.setenv("LANGFUSE_BASE_URL", "https://unrelated.example.invalid")
     monkeypatch.setattr(
-        langfuse, "Langfuse",
+        langfuse,
+        "Langfuse",
         lambda **kwargs: captured.update(kwargs) or object(),
     )
     Tracer.from_credentials(public_key="snapshot-public", secret_key="snapshot-secret")
@@ -527,7 +540,8 @@ def test_cancelled_request_joins_sync_search_before_resources_close():
         started, release, finished = Event(), Event(), Event()
         closed = []
         page = make_document(
-            "자료", SourceRef(book_id="AS001", file_name="AS001.pdf", page=1),
+            "자료",
+            SourceRef(book_id="AS001", file_name="AS001.pdf", page=1),
             "AS001:p0001:page",
         )
 
@@ -542,9 +556,13 @@ def test_cancelled_request_joins_sync_search_before_resources_close():
             closed.append("search")
 
         service = RagService(
-            search=search, page_lookup=lambda source: page,
-            table_store=_Store(), model=_Model(), tracer=Tracer(),
-            manifest={"policy": "test"}, close_search=close_search,
+            search=search,
+            page_lookup=lambda source: page,
+            table_store=_Store(),
+            model=_Model(),
+            tracer=Tracer(),
+            manifest={"policy": "test"},
+            close_search=close_search,
         )
         task = asyncio.create_task(service.ainvoke("질문", request_id="cancel-test"))
         await asyncio.to_thread(started.wait)
@@ -580,11 +598,15 @@ def test_busy_and_wait_timeout_do_not_call_search_or_model():
         model = WaitingModel()
         service = _service(
             model,
-            settings=TableRagSettings(max_waiting_requests=1, queue_timeout_seconds=0.03),
+            settings=TableRagSettings(
+                max_waiting_requests=1, queue_timeout_seconds=0.03
+            ),
         )
         first = asyncio.create_task(service.ainvoke("첫 질문", request_id="active"))
         await asyncio.wait_for(started.wait(), timeout=2)
-        waiting = asyncio.create_task(service.ainvoke("둘째 질문", request_id="waiting"))
+        waiting = asyncio.create_task(
+            service.ainvoke("둘째 질문", request_id="waiting")
+        )
         await asyncio.sleep(0)
         with pytest.raises(RequestBusyError):
             await service.ainvoke("둘째 질문", request_id="overflow")
@@ -619,7 +641,9 @@ def test_deadline_cancels_model_and_records_operational_outcome(caplog):
                 return await super().answer(*args, **kwargs)
 
         model = WaitingModel()
-        service = _service(model, settings=TableRagSettings(request_timeout_seconds=0.1))
+        service = _service(
+            model, settings=TableRagSettings(request_timeout_seconds=0.1)
+        )
         with pytest.raises(RequestDeadlineExceeded):
             await service.ainvoke("첫 질문", request_id="deadline")
         assert stopped.is_set()
@@ -629,7 +653,10 @@ def test_deadline_cancels_model_and_records_operational_outcome(caplog):
 
     caplog.set_level("INFO", logger="app.rag.service")
     asyncio.run(run())
-    assert any("request_id=deadline outcome=deadline_exceeded" in r.message for r in caplog.records)
+    assert any(
+        "request_id=deadline outcome=deadline_exceeded" in r.message
+        for r in caplog.records
+    )
 
 
 def test_deadline_holds_slot_until_sync_worker_finishes_without_followup_model():
@@ -649,12 +676,15 @@ def test_deadline_holds_slot_until_sync_worker_finishes_without_followup_model()
             assert release.wait(3)
 
         service = _service(
-            _Model(), before_search=before_search,
+            _Model(),
+            before_search=before_search,
             settings=TableRagSettings(
                 request_timeout_seconds=0.2, queue_timeout_seconds=1
             ),
         )
-        first = asyncio.create_task(service.ainvoke("첫 질문", request_id="slow-worker"))
+        first = asyncio.create_task(
+            service.ainvoke("첫 질문", request_id="slow-worker")
+        )
         try:
             assert await asyncio.to_thread(started.wait, 2)
             await asyncio.sleep(0.25)
@@ -681,19 +711,23 @@ def test_shutdown_drains_worker_before_closing_resources_and_rejects_queue():
         started = Event()
         release = Event()
         order = []
+
         def before_search(question):
             started.set()
             assert release.wait(3)
             order.append("worker_finished")
 
         service = _service(
-            _Model(), before_search=before_search,
+            _Model(),
+            before_search=before_search,
             close_search=lambda: order.append("resources_closed"),
             settings=TableRagSettings(shutdown_grace_seconds=0),
         )
         first = asyncio.create_task(service.ainvoke("첫 질문", request_id="active"))
         assert await asyncio.to_thread(started.wait, 2)
-        waiting = asyncio.create_task(service.ainvoke("둘째 질문", request_id="waiting"))
+        waiting = asyncio.create_task(
+            service.ainvoke("둘째 질문", request_id="waiting")
+        )
         await asyncio.sleep(0)
         closing = asyncio.create_task(service.aclose())
         try:

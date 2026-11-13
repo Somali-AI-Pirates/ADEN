@@ -45,7 +45,7 @@ class Resources:
 
 
 def load_resources(settings: Settings, *, qdrant_client: QdrantClient | None = None) -> Resources:
-    """API와 평가 CLI가 함께 쓰는 자원 준비. 전달받거나 팩터리가 만든 Qdrant 클라이언트의 종료도 맡는다.
+    """B/C 평가 CLI가 쓰는 자원 준비. 전달받거나 팩터리가 만든 Qdrant 클라이언트의 종료도 맡는다.
 
     클라이언트를 직접 넘기지 않으면 환경변수로 지정한 연결을 쓴다.
     - ADEN_QDRANT_CLIENT: 그 메모리 Qdrant 색인으로 실제 검색과 생성을 실행한다.

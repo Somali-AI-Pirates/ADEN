@@ -1,9 +1,10 @@
-"""Qdrant Cloud adapter for the pinned Advanced TableRAG vector bundle."""
+"""Cloud or explicitly selected local Qdrant for the pinned vector bundle."""
 
 from __future__ import annotations
 
 import hashlib
 import json
+from contextlib import closing
 import re
 from pathlib import Path
 from typing import Any
@@ -313,70 +314,70 @@ def upload_qdrant_index(
 ) -> dict[str, Any]:
     """Upload the existing vectors.npy without embedding text or deleting collections."""
     _require_collection_name(collection)
-    corpus = _load_corpus(directory)
-    expected, point_count = _read_snapshot(directory, corpus)
-    _validate_local_vectors(corpus, point_count)
+    with closing(_load_corpus(directory)) as corpus:
+        expected, point_count = _read_snapshot(directory, corpus)
+        _validate_local_vectors(corpus, point_count)
 
-    qdrant, owned = _connect(client, credentials)
-    try:
-        exists = _safe_call("collection lookup", lambda: qdrant.collection_exists(collection))
-        if exists:
-            info = _collection_info(qdrant, collection)
-            _validate_vector_config(info)
-            metadata = getattr(info.config, "metadata", None)
-            if metadata == {**expected, "aden_status": "ready"}:
-                if _count(qdrant, collection) != point_count:
-                    raise QdrantIndexError("Ready Qdrant collection has an unexpected point count.")
-                _verify_points(qdrant, collection, corpus, point_count, with_vectors=False)
-                return {"collection": collection, "points": point_count, "status": "ready", "action": "verified"}
-            if metadata != {**expected, "aden_status": "building"}:
-                raise QdrantIndexError("Existing Qdrant collection has a different corpus or build state.")
-            if _count(qdrant, collection) > point_count:
-                raise QdrantIndexError("Building Qdrant collection contains unexpected extra points.")
-            action = "resumed"
-        else:
-            _safe_call(
-                "collection creation",
-                lambda: qdrant.create_collection(
-                    collection,
-                    vectors_config=models.VectorParams(
-                        size=_DIMENSIONS,
-                        distance=models.Distance.COSINE,
-                        datatype=models.Datatype.FLOAT32,
+        qdrant, owned = _connect(client, credentials)
+        try:
+            exists = _safe_call("collection lookup", lambda: qdrant.collection_exists(collection))
+            if exists:
+                info = _collection_info(qdrant, collection)
+                _validate_vector_config(info)
+                metadata = getattr(info.config, "metadata", None)
+                if metadata == {**expected, "aden_status": "ready"}:
+                    if _count(qdrant, collection) != point_count:
+                        raise QdrantIndexError("Ready Qdrant collection has an unexpected point count.")
+                    _verify_points(qdrant, collection, corpus, point_count, with_vectors=False)
+                    return {"collection": collection, "points": point_count, "status": "ready", "action": "verified"}
+                if metadata != {**expected, "aden_status": "building"}:
+                    raise QdrantIndexError("Existing Qdrant collection has a different corpus or build state.")
+                if _count(qdrant, collection) > point_count:
+                    raise QdrantIndexError("Building Qdrant collection contains unexpected extra points.")
+                action = "resumed"
+            else:
+                _safe_call(
+                    "collection creation",
+                    lambda: qdrant.create_collection(
+                        collection,
+                        vectors_config=models.VectorParams(
+                            size=_DIMENSIONS,
+                            distance=models.Distance.COSINE,
+                            datatype=models.Datatype.FLOAT32,
+                        ),
+                        metadata={**expected, "aden_status": "building"},
                     ),
-                    metadata={**expected, "aden_status": "building"},
+                )
+                action = "uploaded"
+
+            for start in range(0, point_count, _BATCH_SIZE):
+                end = min(start + _BATCH_SIZE, point_count)
+                points = [
+                    models.PointStruct(
+                        id=row_index,
+                        vector=np.asarray(corpus.vectors[row_index], dtype=np.float32).tolist(),
+                        payload=_point_payload(corpus.documents[row_index], row_index),
+                    )
+                    for row_index in range(start, end)
+                ]
+                _safe_call(
+                    "vector upload",
+                    lambda points=points: qdrant.upsert(collection, points=points, wait=True),
+                )
+
+            if _count(qdrant, collection) != point_count:
+                raise QdrantIndexError("Qdrant upload did not produce the expected point count.")
+            _verify_points(qdrant, collection, corpus, point_count, with_vectors=True)
+            _safe_call(
+                "collection finalization",
+                lambda: qdrant.update_collection(
+                    collection,
+                    metadata={**expected, "aden_status": "ready"},
                 ),
             )
-            action = "uploaded"
-
-        for start in range(0, point_count, _BATCH_SIZE):
-            end = min(start + _BATCH_SIZE, point_count)
-            points = [
-                models.PointStruct(
-                    id=row_index,
-                    vector=np.asarray(corpus.vectors[row_index], dtype=np.float32).tolist(),
-                    payload=_point_payload(corpus.documents[row_index], row_index),
-                )
-                for row_index in range(start, end)
-            ]
-            _safe_call(
-                "vector upload",
-                lambda points=points: qdrant.upsert(collection, points=points, wait=True),
-            )
-
-        if _count(qdrant, collection) != point_count:
-            raise QdrantIndexError("Qdrant upload did not produce the expected point count.")
-        _verify_points(qdrant, collection, corpus, point_count, with_vectors=True)
-        _safe_call(
-            "collection finalization",
-            lambda: qdrant.update_collection(
-                collection,
-                metadata={**expected, "aden_status": "ready"},
-            ),
-        )
-        return {"collection": collection, "points": point_count, "status": "ready", "action": action}
-    finally:
-        _close_owned(qdrant, owned)
+            return {"collection": collection, "points": point_count, "status": "ready", "action": action}
+        finally:
+            _close_owned(qdrant, owned)
 
 
 def check_qdrant_readiness(
@@ -428,28 +429,28 @@ def check_qdrant_index(
 ) -> dict[str, Any]:
     """Check a ready collection; full mode also checks every row and vector."""
     _require_collection_name(collection)
-    corpus = _load_corpus(directory)
-    expected, point_count = _read_snapshot(directory, corpus)
-    qdrant, owned = _connect(client, credentials)
-    try:
-        exists = _safe_call("collection lookup", lambda: qdrant.collection_exists(collection))
-        if not exists:
-            raise QdrantIndexError("Qdrant collection does not exist.")
-        info = _collection_info(qdrant, collection)
-        _validate_vector_config(info)
-        _validate_metadata(info, expected, "ready")
-        if _count(qdrant, collection) != point_count:
-            raise QdrantIndexError("Ready Qdrant collection has an unexpected point count.")
-        if full:
-            _verify_points(qdrant, collection, corpus, point_count, with_vectors=True)
-        return {
-            "collection": collection,
-            "points": point_count,
-            "status": "ready",
-            "validation": "vectors-and-payload" if full else "metadata-and-count",
-        }
-    finally:
-        _close_owned(qdrant, owned)
+    with closing(_load_corpus(directory)) as corpus:
+        expected, point_count = _read_snapshot(directory, corpus)
+        qdrant, owned = _connect(client, credentials)
+        try:
+            exists = _safe_call("collection lookup", lambda: qdrant.collection_exists(collection))
+            if not exists:
+                raise QdrantIndexError("Qdrant collection does not exist.")
+            info = _collection_info(qdrant, collection)
+            _validate_vector_config(info)
+            _validate_metadata(info, expected, "ready")
+            if _count(qdrant, collection) != point_count:
+                raise QdrantIndexError("Ready Qdrant collection has an unexpected point count.")
+            if full:
+                _verify_points(qdrant, collection, corpus, point_count, with_vectors=True)
+            return {
+                "collection": collection,
+                "points": point_count,
+                "status": "ready",
+                "validation": "vectors-and-payload" if full else "metadata-and-count",
+            }
+        finally:
+            _close_owned(qdrant, owned)
 
 
 class QdrantDenseIndex:

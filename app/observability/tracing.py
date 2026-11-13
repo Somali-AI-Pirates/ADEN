@@ -34,7 +34,7 @@ def _safe_error_details(exc: BaseException) -> dict[str, Any]:
 
 
 class RequestTrace:
-    """요청 한 건의 추적. 기록 실패는 서비스 흐름을 멈추지 않고 `status`/`errors`에 남는다."""
+    """One request trace, including legacy B/C manual span hooks."""
 
     def __init__(
         self,
@@ -46,13 +46,17 @@ class RequestTrace:
         dataset_id: str,
         config_hash: str,
         metadata: Mapping[str, Any] | None = None,
+        public_key: str | None = None,
     ):
         self.request_id = request_id
         self.errors: list[str] = []
         self.trace_id: str | None = None
         self._client = client
+        self._public_key = public_key
         self._root = None
         self._finished = False
+        self._langchain_handler_created = False
+        self._langchain_handler = None
         self._query = {"question": question, "retrieval_mode": retrieval_mode}
         self._active: dict[str, tuple[Any, dict]] = {}
         self._observed: set[str] = set()
@@ -84,6 +88,27 @@ class RequestTrace:
     def _fail(self, step: str, exc: BaseException) -> None:
         self.status = "sdk_error"
         self.errors.append(f"{step}:{_error_name(exc)}")
+
+    def langchain_handler(self) -> Any | None:
+        """Create one official Langfuse callback handler bound to this request."""
+        if self._langchain_handler_created:
+            return self._langchain_handler
+        self._langchain_handler_created = True
+        if self._client is None or self._root is None or not self.trace_id or not self._public_key:
+            return None
+        try:
+            from langfuse.langchain import CallbackHandler
+
+            self._langchain_handler = CallbackHandler(
+                public_key=self._public_key,
+                trace_context={
+                    "trace_id": self.trace_id,
+                    "parent_span_id": self._root.id,
+                },
+            )
+        except Exception as exc:
+            self._fail("langchain_handler", exc)
+        return self._langchain_handler
 
     @contextmanager
     def stage(self, name: str, *, as_type: str = "span", **kwargs: Any):
@@ -268,10 +293,11 @@ class RequestTrace:
 
 
 class Tracer:
-    """B가 앱 수명주기에서 하나 만들고 요청마다 `start_request()`를 호출한다."""
+    """Share one Langfuse client for the service lifetime; start one trace per request."""
 
-    def __init__(self, client: Any | None = None):
+    def __init__(self, client: Any | None = None, *, public_key: str | None = None):
         self._client = client
+        self._public_key = public_key
 
     @property
     def enabled(self) -> bool:
@@ -288,17 +314,18 @@ class Tracer:
         """Create a client from explicit credentials; missing keys disable tracing."""
         if not (public_key and secret_key):
             return cls(None)
+        from app.observability.langfuse_masking import mask_langfuse_spans
         from langfuse import Langfuse  # 지연 import: 모듈 import 시 SDK 초기화 방지
 
-        return cls(
-            Langfuse(
-                public_key=public_key,
-                secret_key=secret_key,
-                # Use the SDK's existing default explicitly; do not re-read an
-                # environment that may have changed after settings resolution.
-                base_url=base_url or "https://cloud.langfuse.com",
-            )
+        client = Langfuse(
+            public_key=public_key,
+            secret_key=secret_key,
+            # Use the SDK's existing default explicitly; do not re-read an
+            # environment that may have changed after settings resolution.
+            base_url=base_url or "https://cloud.langfuse.com",
+            mask_otel_spans=mask_langfuse_spans,
         )
+        return cls(client, public_key=public_key)
 
     @classmethod
     def from_env(cls) -> "Tracer":
@@ -331,6 +358,7 @@ class Tracer:
             dataset_id=dataset_id,
             config_hash=config_hash,
             metadata=metadata,
+            public_key=self._public_key,
         )
 
     def record_score(self, trace_id, name, value, *, comment=None, score_id=None, metadata=None, timestamp=None):

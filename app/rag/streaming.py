@@ -9,6 +9,12 @@ from langchain_core.utils.json import parse_partial_json
 EventSink = Callable[[dict[str, Any]], Awaitable[None]]
 
 
+async def emit_progress(event_sink: EventSink | None, stage: str, message: str) -> None:
+    """Send a user-visible progress event when a request has an event sink."""
+    if event_sink is not None:
+        await event_sink({"type": "progress", "stage": stage, "message": message})
+
+
 def _text(message: Any) -> str:
     content = getattr(message, "content", "")
     if isinstance(content, str):

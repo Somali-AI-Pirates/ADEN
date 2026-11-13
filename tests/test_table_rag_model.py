@@ -5,7 +5,6 @@ import httpx
 import pytest
 from langchain_core.messages import HumanMessage, ToolMessage
 
-from app.observability.tracing import Tracer
 from app.rag import model as model_module
 from app.rag.model import ModelCalls, load_model
 
@@ -51,33 +50,6 @@ def _transport(monkeypatch, handler):
             transport=httpx.MockTransport(handler), **kwargs
         ),
     )
-
-
-class _TraceClient:
-    def __init__(self):
-        self.observations = []
-
-    def create_trace_id(self, *, seed):
-        return seed
-
-    def start_observation(self, **values):
-        self.observations.append(values)
-        return _Observation(self, values)
-
-
-class _Observation:
-    def __init__(self, client, values):
-        self.client = client
-        self.values = values
-
-    def start_observation(self, **values):
-        return self.client.start_observation(**values)
-
-    def update(self, **values):
-        self.values.update(values)
-
-    def end(self):
-        pass
 
 
 def test_responses_tool_roundtrip_and_answer_scope(monkeypatch):
@@ -182,15 +154,7 @@ def test_responses_tool_roundtrip_and_answer_scope(monkeypatch):
 
     async def run():
         gateway = await load_model()
-        client = _TraceClient()
-        trace = Tracer(client).start_request(
-            "trace-test",
-            question="",
-            retrieval_mode="table_rag_a",
-            dataset_id="advanced",
-            config_hash="test-config",
-        )
-        calls = ModelCalls(trace)
+        calls = ModelCalls()
         first_input = HumanMessage(content="planner-only-marker")
         try:
             first = await gateway.plan([first_input], finish_only=False, calls=calls)
@@ -235,20 +199,16 @@ def test_responses_tool_roundtrip_and_answer_scope(monkeypatch):
             assert "opaque-reasoning" not in json.dumps(attempts[1]["model_input"])
             assert attempts[0]["tool_schema"][0]["function"]["name"] == "lookup_records"
             assert attempts[2]["model_input"]["context_hash"] == "evidence-hash"
-            spans = [
-                span for span in client.observations if span["as_type"] == "generation"
+            assert [call["status"] for call in calls.calls] == [
+                "complete",
+                "complete",
+                "complete",
             ]
-            assert len(spans) == 3
-            assert [span["name"] for span in spans] == [
-                "planner-1",
-                "planner-2",
-                "answer-3",
-            ]
-            assert spans[-1]["input"]["request"]["context_hash"] == "evidence-hash"
-            assert all(span["usage_details"]["total"] == 50 for span in spans)
-            serialized = json.dumps(client.observations)
-            assert "planner-only-marker" in serialized
-            assert "opaque-reasoning" not in serialized
+            assert calls.calls[0]["visible_output"]["tool_calls"][0]["name"] == (
+                "lookup_records"
+            )
+            assert calls.calls[2]["visible_output"]["answer"] == "확인했습니다."
+            assert "opaque-reasoning" not in json.dumps(calls.calls)
         finally:
             await gateway.aclose()
 
@@ -263,7 +223,7 @@ def test_timeout_counts_one_attempt_and_unknown_usage(monkeypatch):
 
     async def run():
         gateway = await load_model()
-        calls = ModelCalls(None)
+        calls = ModelCalls()
         try:
             with pytest.raises(TimeoutError):
                 await gateway.plan(
@@ -272,6 +232,7 @@ def test_timeout_counts_one_attempt_and_unknown_usage(monkeypatch):
             assert calls.summary()["provider_attempts"] == 1
             assert calls.calls[0]["usage"] is None
             assert calls.calls[0]["status"] == "timeout"
+            assert calls.summary()["missing_usage"] == 1
         finally:
             await gateway.aclose()
 

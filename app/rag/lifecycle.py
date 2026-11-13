@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import asyncio
+from functools import partial
+
+from anyio import to_thread
 from collections.abc import Awaitable
 from typing import TypeVar
 
@@ -24,3 +27,32 @@ async def await_to_completion(awaitable: Awaitable[T]) -> tuple[T, bool]:
         except asyncio.CancelledError:
             cancellation_requested = True
     return task.result(), cancellation_requested
+
+
+async def close_async_resource(callback, *args) -> None:
+    _, cancelled = await await_to_completion(callback(*args))
+    if cancelled:
+        raise asyncio.CancelledError
+
+
+async def close_sync_resource(callback, *args) -> None:
+    _, cancelled = await await_to_completion(
+        to_thread.run_sync(partial(callback, *args))
+    )
+    if cancelled:
+        raise asyncio.CancelledError
+
+
+async def run_sync_acquiring(function, *args, on_acquired=None, **kwargs):
+    """Create a sync resource in a worker and register it before cancellation propagates."""
+
+    async def create_and_register():
+        resource = await to_thread.run_sync(partial(function, *args, **kwargs))
+        if on_acquired is not None:
+            on_acquired(resource)
+        return resource
+
+    resource, cancelled = await await_to_completion(create_and_register())
+    if cancelled:
+        raise asyncio.CancelledError
+    return resource

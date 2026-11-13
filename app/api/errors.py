@@ -4,10 +4,60 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from app.observability.run_store import RequestRunStoreError
+from app.rag.admission import RequestBusyError, RequestUnavailableError
+from app.rag.model import RagContextBudgetError, RagModelError
 from shared.contracts import QueryResponse
 from shared.exceptions import ServiceError
 
 logger = logging.getLogger(__name__)
+
+
+QUERY_EXECUTION_ERRORS = (
+    RequestBusyError,
+    RequestUnavailableError,
+    RequestRunStoreError,
+    RagContextBudgetError,
+    TimeoutError,
+    RagModelError,
+)
+
+
+def query_error(error: Exception, *, stream: bool = False) -> ServiceError | None:
+    """Classify once while preserving the HTTP and streaming messages."""
+    headers = None
+    if isinstance(error, RequestBusyError):
+        status = 429
+        message = "요청이 몰려 처리 대기열이 가득 찼습니다. 잠시 후 다시 시도해 주세요."
+        stream_message = message
+        headers = {"Retry-After": str(error.retry_after)}
+    elif isinstance(error, RequestUnavailableError):
+        status = 503
+        message = "질의 서비스를 사용할 수 없습니다. 잠시 후 다시 시도해 주세요."
+        stream_message = message
+    elif isinstance(error, RequestRunStoreError):
+        status = 503
+        message = "실행 기록을 저장하지 못했습니다. 서버 저장 공간을 확인해 주세요."
+        stream_message = "실행 기록을 저장하지 못했습니다. 잠시 후 다시 시도해 주세요."
+    elif isinstance(error, RagContextBudgetError):
+        status = 502
+        message = "질문의 복잡도가 현재 처리 한도를 넘었습니다. 범위를 좁혀 다시 시도해 주세요."
+        stream_message = "질문의 복잡도가 처리 한도를 넘었습니다. 범위를 좁혀 주세요."
+    elif isinstance(error, TimeoutError):
+        status = 504
+        message = "답변 처리 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요."
+        stream_message = (
+            "답변 처리 시간이 초과되었습니다. 질문 범위를 좁혀 다시 시도해 주세요."
+        )
+    elif isinstance(error, RagModelError):
+        status = 502
+        message = "답변 생성 서비스에 오류가 발생했습니다. 잠시 후 다시 시도해 주세요."
+        stream_message = "답변을 검증하지 못했습니다. 잠시 후 다시 시도해 주세요."
+    else:
+        return None
+    return ServiceError(
+        stream_message if stream else message, status, response_headers=headers
+    )
 
 
 def _log_error(request: Request, error: Exception, status_code: int) -> None:

@@ -1,24 +1,21 @@
 """Request-local state and context for the TableRAG graph."""
 
-from collections.abc import Awaitable, Callable
 from typing import Any, Literal, TypedDict
 
 from langchain_core.documents import Document
-from langchain_core.messages import AIMessage, BaseMessage
+from langchain_core.messages import BaseMessage
 
 from app.rag.models import EvidenceContext, SearchResult
+from app.rag.model_usage import ModelCalls
+from app.rag.streaming import EventSink
 from app.rag.tools import FinishRequest
-
-
-Planner = Callable[..., Awaitable[AIMessage]]
-Stage = Callable[..., Any]
 
 
 class TableRagRuntimeContext(TypedDict):
     """Request-scoped dependencies supplied to LangGraph at invocation time."""
 
-    planner: Planner
-    stage: Stage | None
+    calls: ModelCalls
+    event_sink: EventSink | None
     trace_id: str | None
 
 
@@ -48,4 +45,12 @@ class TableRagState(TypedDict):
     diagnostics: dict[str, Any] | None
     timings: dict[str, float]
     input_tokens: int
-    next_step: Literal["plan", "execute", "assemble"]
+    next_step: Literal[
+        "plan_next_step",
+        "lookup_records",
+        "search_evidence",
+        "read_sources",
+        "query_tables",
+        "reject_tool",
+        "assemble_evidence",
+    ]

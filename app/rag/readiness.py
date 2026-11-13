@@ -1,4 +1,4 @@
-"""Cached, read-only checks for the resources required by TableRAG."""
+"""Cached resource reads and a temporary writeability check for saved runs."""
 
 from __future__ import annotations
 

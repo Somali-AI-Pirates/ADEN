@@ -99,9 +99,7 @@ def corpus_bundle(tmp_path, monkeypatch):
 def test_upload_is_resumable_verified_and_stores_no_text(corpus_bundle, qdrant_client):
     directory, _manifest_path, _manifest, _corpus = corpus_bundle
 
-    first = qdrant_index.upload_qdrant_index(
-        directory, client=qdrant_client
-    )
+    first = qdrant_index.upload_qdrant_index(directory, client=qdrant_client)
     assert first["status"] == "ready"
     assert first["points"] == 3
     assert qdrant_client.count(qdrant_index.DEFAULT_COLLECTION, exact=True).count == 3
@@ -127,28 +125,27 @@ def test_upload_is_resumable_verified_and_stores_no_text(corpus_bundle, qdrant_c
         points_selector=models.PointIdsList(points=[1, 2]),
         wait=True,
     )
-    resumed = qdrant_index.upload_qdrant_index(
-        directory, client=qdrant_client
-    )
+    resumed = qdrant_index.upload_qdrant_index(directory, client=qdrant_client)
     assert resumed["action"] == "resumed"
     assert qdrant_client.count(qdrant_index.DEFAULT_COLLECTION, exact=True).count == 3
 
-    verified = qdrant_index.upload_qdrant_index(
-        directory, client=qdrant_client
-    )
+    verified = qdrant_index.upload_qdrant_index(directory, client=qdrant_client)
     assert verified["action"] == "verified"
-    assert qdrant_index.check_qdrant_index(
-        directory, client=qdrant_client, full=True
-    )["validation"] == "vectors-and-payload"
+    assert (
+        qdrant_index.check_qdrant_index(directory, client=qdrant_client, full=True)[
+            "validation"
+        ]
+        == "vectors-and-payload"
+    )
 
 
-def test_exact_search_expands_ties_and_uses_corpus_row_order(corpus_bundle, qdrant_client):
+def test_exact_search_expands_ties_and_uses_corpus_row_order(
+    corpus_bundle, qdrant_client
+):
     directory, _manifest_path, _manifest, corpus = corpus_bundle
     qdrant_index.upload_qdrant_index(directory, client=qdrant_client)
 
-    index = qdrant_index.open_qdrant_index(
-        directory, corpus, client=qdrant_client
-    )
+    index = qdrant_index.open_qdrant_index(directory, corpus, client=qdrant_client)
     ranked = index.search(corpus.vectors[0], top_k=1)
     assert ranked[0][0].metadata["unit_id"] == "AS001:p0001:page"
     assert ranked[0][1] == pytest.approx(1.0)
@@ -193,15 +190,15 @@ def test_search_rejects_a_point_with_wrong_unit_mapping(corpus_bundle, qdrant_cl
         ],
         wait=True,
     )
-    index = qdrant_index.open_qdrant_index(
-        directory, corpus, client=qdrant_client
-    )
+    index = qdrant_index.open_qdrant_index(directory, corpus, client=qdrant_client)
 
     with pytest.raises(qdrant_index.QdrantIndexError, match="unit/source mapping"):
         index.search(corpus.vectors[0], top_k=1)
 
 
-def test_collection_name_guard_keeps_basic_collection_untouched(corpus_bundle, qdrant_client):
+def test_collection_name_guard_keeps_basic_collection_untouched(
+    corpus_bundle, qdrant_client
+):
     directory, _manifest_path, _manifest, _corpus = corpus_bundle
     qdrant_client.create_collection(
         "basic_multilingual-e5-small_p800",
@@ -209,7 +206,11 @@ def test_collection_name_guard_keeps_basic_collection_untouched(corpus_bundle, q
     )
     qdrant_client.upsert(
         "basic_multilingual-e5-small_p800",
-        points=[models.PointStruct(id=0, vector=[1.0] + [0.0] * 383, payload={"chunk_id": "keep"})],
+        points=[
+            models.PointStruct(
+                id=0, vector=[1.0] + [0.0] * 383, payload={"chunk_id": "keep"}
+            )
+        ],
         wait=True,
     )
 
@@ -220,13 +221,19 @@ def test_collection_name_guard_keeps_basic_collection_untouched(corpus_bundle, q
             client=qdrant_client,
         )
 
-    assert qdrant_client.count("basic_multilingual-e5-small_p800", exact=True).count == 1
+    assert (
+        qdrant_client.count("basic_multilingual-e5-small_p800", exact=True).count == 1
+    )
 
 
 @pytest.mark.parametrize(
     "url",
-    ["http://example.invalid:6333", "", "https://user:password@example.invalid",
-     "https://example.invalid?api_key=secret"],
+    [
+        "http://example.invalid:6333",
+        "",
+        "https://user:password@example.invalid",
+        "https://example.invalid?api_key=secret",
+    ],
 )
 def test_cloud_connection_requires_https_before_sending_credentials(monkeypatch, url):
     from app.rag.config import RuntimeCredentials
@@ -356,11 +363,13 @@ def test_qdrant_uses_explicit_credentials(monkeypatch):
     connected, owned = _connect(None, credentials)
     assert connected is client
     assert owned is True
-    assert calls == [{
-        "url": "https://explicit.example.invalid",
-        "api_key": "explicit-api-key",
-        "timeout": 60,
-    }]
+    assert calls == [
+        {
+            "url": "https://explicit.example.invalid",
+            "api_key": "explicit-api-key",
+            "timeout": 60,
+        }
+    ]
 
 
 @pytest.mark.parametrize("datatype", [models.Datatype.FLOAT16, models.Datatype.UINT8])
@@ -368,12 +377,18 @@ def test_collection_rejects_reduced_precision_vector_storage(datatype):
     from types import SimpleNamespace
     from app.rag.qdrant_index import QdrantIndexError, _validate_vector_config
 
-    info = SimpleNamespace(config=SimpleNamespace(
-        params=SimpleNamespace(vectors=models.VectorParams(
-            size=2048, distance=models.Distance.COSINE, datatype=datatype,
-        )),
-        quantization_config=None,
-    ))
+    info = SimpleNamespace(
+        config=SimpleNamespace(
+            params=SimpleNamespace(
+                vectors=models.VectorParams(
+                    size=2048,
+                    distance=models.Distance.COSINE,
+                    datatype=datatype,
+                )
+            ),
+            quantization_config=None,
+        )
+    )
     with pytest.raises(QdrantIndexError, match="float32 vector storage"):
         _validate_vector_config(info)
 
@@ -530,3 +545,39 @@ def test_qdrant_readiness_hides_connection_details_and_closes_on_failure(
     assert "private-host" not in rendered
     assert "secret-api-key" not in rendered
     assert closed == [True]
+
+
+@pytest.mark.parametrize("operation", ["upload", "check"])
+@pytest.mark.parametrize("failure_stage", ["snapshot", "connect", "none"])
+def test_index_commands_close_their_local_corpus(
+    operation, failure_stage, corpus_bundle, qdrant_client, monkeypatch
+):
+    directory, _, _, corpus = corpus_bundle
+    if operation == "check" and failure_stage == "none":
+        qdrant_index.upload_qdrant_index(directory, client=qdrant_client)
+    closed = []
+    monkeypatch.setattr(TableRagCorpus, "close", lambda self: closed.append(self))
+    command = (
+        qdrant_index.upload_qdrant_index
+        if operation == "upload"
+        else qdrant_index.check_qdrant_index
+    )
+
+    def fail(*args, **kwargs):
+        raise qdrant_index.QdrantIndexError("synthetic setup failure")
+
+    if failure_stage != "none":
+        monkeypatch.setattr(
+            qdrant_index,
+            "_read_snapshot" if failure_stage == "snapshot" else "_connect",
+            fail,
+        )
+        with pytest.raises(
+            qdrant_index.QdrantIndexError, match="synthetic setup failure"
+        ):
+            command(directory, client=qdrant_client)
+    else:
+        command(directory, client=qdrant_client)
+    assert closed == [corpus]
+    # A caller-owned client remains usable after success or failure.
+    assert qdrant_client.get_collections() is not None

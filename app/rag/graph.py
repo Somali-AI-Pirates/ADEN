@@ -2,13 +2,12 @@
 
 import asyncio
 import json
-from collections.abc import Mapping, MutableMapping, Sequence
-from contextlib import nullcontext
+from collections.abc import Mapping, Sequence
 from time import perf_counter
 from typing import Any
 
-from langchain_core.documents import Document
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
+from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, START, StateGraph
 from langgraph.runtime import Runtime
 from openai import APIError, APITimeoutError
@@ -21,16 +20,19 @@ from app.rag.evidence import (
     source_id,
     token_count,
 )
-from app.rag.model import RagContextBudgetError, RagModelError
+from app.rag.model import RagContextBudgetError, RagModelError, TableModel
+from app.rag.model_usage import ModelCalls
 from app.rag.models import RetrievalRun
 from app.rag.records import RecordIndex, codes, grounded
 from app.rag.table_store import TableStore
-from app.rag.state import Planner, Stage, TableRagRuntimeContext, TableRagState
+from app.rag.state import TableRagRuntimeContext, TableRagState
+from app.rag.streaming import EventSink, emit_progress
 from app.rag.tool_handlers import (
     AsyncRunner,
     PageLookup,
     Search,
     ToolDependencies,
+    ToolDelta,
     lookup_records,
     query_tables,
     read_sources,
@@ -50,7 +52,6 @@ from shared.table_rag_policy import (
     MAX_TOOL_OPERATIONS,
     PLAN_OUTPUT_TOKENS,
 )
-
 
 
 def _usage(message: AIMessage) -> dict[str, Any]:
@@ -96,17 +97,6 @@ def _serialized_message_tokens(messages: Sequence[BaseMessage]) -> int:
         default=str,
     )
     return token_count(serialized)
-
-
-def _span(stage: Stage | None, name: str, **kwargs: Any):
-    if stage is None:
-        return nullcontext({})
-    return stage(name, **kwargs)
-
-
-def _set_span_output(span: Any, output: dict[str, Any]) -> None:
-    if isinstance(span, MutableMapping):
-        span.update(output=output)
 
 
 def _planner_error_details(error: Exception) -> tuple[str, str, str]:
@@ -161,6 +151,7 @@ class TableRagGraph:
         table_store: TableStore,
         page_lookup: PageLookup,
         *,
+        model: TableModel,
         record_index: RecordIndex | None = None,
         context_window: int = CONTEXT_WINDOW,
         plan_overhead_tokens: int = 0,
@@ -173,6 +164,7 @@ class TableRagGraph:
             or planner_output_tokens <= 0
         ):
             raise ValueError("Planner token limits must be positive")
+        self.model = model
         self.context_window = context_window
         self.plan_overhead_tokens = plan_overhead_tokens
         self.planner_output_tokens = planner_output_tokens
@@ -188,24 +180,43 @@ class TableRagGraph:
     def _compile(self):
         workflow = StateGraph(TableRagState, context_schema=TableRagRuntimeContext)
         workflow.add_node("initial_search", self._initial_search)
-        workflow.add_node("plan", self._plan)
-        workflow.add_node("execute", self._execute)
-        workflow.add_node("assemble", self._assemble)
+        workflow.add_node("plan_next_step", self._plan_next_step)
+        workflow.add_node("lookup_records", self._lookup_records)
+        workflow.add_node("search_evidence", self._search_evidence)
+        workflow.add_node("read_sources", self._read_sources)
+        workflow.add_node("query_tables", self._query_tables)
+        workflow.add_node("reject_tool", self._reject_tool)
+        workflow.add_node("assemble_evidence", self._assemble_evidence)
         workflow.add_edge(START, "initial_search")
-        workflow.add_edge("initial_search", "plan")
+        workflow.add_edge("initial_search", "plan_next_step")
         workflow.add_conditional_edges(
-            "plan",
-            lambda state: "execute" if state["next_step"] == "execute" else "assemble",
-            {"execute": "execute", "assemble": "assemble"},
+            "plan_next_step",
+            lambda state: state["next_step"],
+            {
+                "lookup_records": "lookup_records",
+                "search_evidence": "search_evidence",
+                "read_sources": "read_sources",
+                "query_tables": "query_tables",
+                "reject_tool": "reject_tool",
+                "assemble_evidence": "assemble_evidence",
+            },
         )
-        workflow.add_edge("execute", "plan")
-        workflow.add_edge("assemble", END)
+        for tool_node in (
+            "lookup_records",
+            "search_evidence",
+            "read_sources",
+            "query_tables",
+            "reject_tool",
+        ):
+            workflow.add_edge(tool_node, "plan_next_step")
+        workflow.add_edge("assemble_evidence", END)
         return workflow.compile()
 
     async def _initial_search(
         self,
         state: TableRagState,
         runtime: Runtime[TableRagRuntimeContext],
+        config: RunnableConfig,
     ) -> dict[str, Any]:
         started = perf_counter()
         question = state["question"]
@@ -221,77 +232,55 @@ class TableRagGraph:
             and not _has_explicit_exclusion(question)
         )
 
-        with _span(
-            runtime.context["stage"],
-            "rag.initial_search",
-            input={"request_id": state["request_id"], "question": question},
-        ) as span:
-            if record_lookup_allowed:
-                if self.dependencies.record_index is None:
-                    raise RuntimeError("Integrated record index is not ready")
-                lookup_input = [
-                    {"identifiers": [identifier], "constraints": [], "roles": []}
-                    for identifier in explicit_codes
-                ]
-                resolution = await self.dependencies.run_sync(
-                    self.dependencies.record_index.lookup,
-                    lookup_input,
-                )
-                record_calls.append(resolution)
-                records_result, record_observation = await self.dependencies.run_sync(
-                    records_search_result,
-                    question,
-                    resolution,
-                    self.dependencies.table_store,
-                    self.dependencies.page_lookup,
-                )
-                searches.append(records_result)
-                groups.append(list(records_result.pages))
-                observations.append(record_observation)
-                initial_route = "records"
-                record_lookup_unique = bool(resolution["targets"]) and all(
-                    target["status"] == "matched"
-                    and not target["truncated"]
-                    and target["entities"]
-                    and all(entity["sources"] for entity in target["entities"])
-                    for target in resolution["targets"]
-                )
-            else:
-                record_lookup_unique = False
-
-            if not record_lookup_unique:
-                result = await self.dependencies.run_sync(
-                    self.dependencies.search, question
-                )
-                observation = await self.dependencies.run_sync(
-                    build_observation,
-                    result,
-                    self.dependencies.table_store,
-                    subquery=question,
-                )
-                searches.append(result)
-                groups.append(list(result.pages))
-                observations.append(observation)
-                initial_route = "hybrid"
-
-            elapsed = perf_counter() - started
-            _set_span_output(
-                span,
-                {
-                    "route": initial_route,
-                    "candidate_count": sum(len(result.pages) for result in searches),
-                    "candidate_source_ids": list(
-                        dict.fromkeys(
-                            source_id(page)
-                            for result in searches
-                            for page in result.pages
-                        )
-                    ),
-                    "record_lookup_count": len(record_calls),
-                    "observations": observations,
-                    "seconds": elapsed,
-                },
+        if record_lookup_allowed:
+            if self.dependencies.record_index is None:
+                raise RuntimeError("Integrated record index is not ready")
+            lookup_input = [
+                {"identifiers": [identifier], "constraints": [], "roles": []}
+                for identifier in explicit_codes
+            ]
+            resolution = await self.dependencies.run_sync(
+                self.dependencies.record_index.lookup,
+                lookup_input,
             )
+            record_calls.append(resolution)
+            records_result, record_observation = await self.dependencies.run_sync(
+                records_search_result,
+                question,
+                resolution,
+                self.dependencies.table_store,
+                self.dependencies.page_lookup,
+            )
+            searches.append(records_result)
+            groups.append(list(records_result.pages))
+            observations.append(record_observation)
+            initial_route = "records"
+            record_lookup_unique = bool(resolution["targets"]) and all(
+                target["status"] == "matched"
+                and not target["truncated"]
+                and target["entities"]
+                and all(entity["sources"] for entity in target["entities"])
+                for target in resolution["targets"]
+            )
+        else:
+            record_lookup_unique = False
+
+        if not record_lookup_unique:
+            result = await self.dependencies.run_sync(
+                self.dependencies.search, question
+            )
+            observation = await self.dependencies.run_sync(
+                build_observation,
+                result,
+                self.dependencies.table_store,
+                subquery=question,
+            )
+            searches.append(result)
+            groups.append(list(result.pages))
+            observations.append(observation)
+            initial_route = "hybrid"
+
+        elapsed = perf_counter() - started
         initial_payload = json_payload(
             {
                 "question": question,
@@ -340,7 +329,6 @@ class TableRagGraph:
         termination_reason: str,
         error_class: str | None = None,
         seconds: float = 0.0,
-        span: Any | None = None,
     ) -> dict[str, Any]:
         turn = _turn(
             planner_count,
@@ -350,11 +338,6 @@ class TableRagGraph:
         )
         if error_class:
             turn["error_class"] = error_class
-        if span is not None:
-            output = {"status": status, "seconds": seconds}
-            if error_class:
-                output["error_class"] = error_class
-            _set_span_output(span, output)
         return {
             "planner_count": planner_count,
             "input_tokens": input_tokens,
@@ -368,89 +351,73 @@ class TableRagGraph:
             },
             "turns": [*state["turns"], turn],
             "planner_usage": [*state["planner_usage"], turn["usage"]],
-            "next_step": "assemble",
+            "next_step": "assemble_evidence",
         }
 
-    async def _plan(
+    async def _plan_next_step(
         self,
         state: TableRagState,
         runtime: Runtime[TableRagRuntimeContext],
+        config: RunnableConfig,
     ) -> dict[str, Any]:
         planner_count = state["planner_count"] + 1
         messages = state["messages"]
         finish_only = state["solve_count"] >= MAX_TOOL_OPERATIONS
         input_tokens = _serialized_message_tokens(messages) + self.plan_overhead_tokens
         if input_tokens + self.planner_output_tokens > self.context_window:
-            with _span(
-                runtime.context["stage"],
-                "rag.plan",
-                input={"request_id": state["request_id"], "turn": planner_count},
-            ) as span:
-                return self._planner_failure(
-                    state,
-                    planner_count=planner_count,
-                    input_tokens=input_tokens,
-                    status="context_budget_exceeded",
-                    error_kind="context_budget_exceeded",
-                    termination_reason="context_budget_exceeded",
-                    span=span,
-                )
-
-        started = perf_counter()
-        with _span(
-            runtime.context["stage"],
-            "rag.plan",
-            input={"request_id": state["request_id"], "turn": planner_count},
-        ) as span:
-            try:
-                response = await runtime.context["planner"](
-                    messages,
-                    finish_only=finish_only,
-                )
-            except (
-                RagContextBudgetError,
-                TimeoutError,
-                APIError,
-                RagModelError,
-            ) as error:
-                status, error_kind, termination_reason = _planner_error_details(error)
-                return self._planner_failure(
-                    state,
-                    planner_count=planner_count,
-                    input_tokens=input_tokens,
-                    status=status,
-                    error_kind=error_kind,
-                    termination_reason=termination_reason,
-                    error_class=type(error).__name__,
-                    seconds=perf_counter() - started,
-                    span=span,
-                )
-
-            elapsed = perf_counter() - started
-            if not isinstance(response, AIMessage):
-                return self._planner_failure(
-                    state,
-                    planner_count=planner_count,
-                    input_tokens=input_tokens,
-                    status="invalid_response_type",
-                    error_kind="format_error",
-                    termination_reason="invalid_response_type",
-                    error_class=type(response).__name__,
-                    seconds=elapsed,
-                    span=span,
-                )
-            usage = _usage(response)
-            _set_span_output(
-                span,
-                {
-                    "status": "response_received",
-                    "seconds": elapsed,
-                    "usage": usage,
-                    "tool_count": len(response.tool_calls),
-                    "tools": [call.get("name") for call in response.tool_calls],
-                },
+            return self._planner_failure(
+                state,
+                planner_count=planner_count,
+                input_tokens=input_tokens,
+                status="context_budget_exceeded",
+                error_kind="context_budget_exceeded",
+                termination_reason="context_budget_exceeded",
             )
 
+        started = perf_counter()
+        await emit_progress(
+            runtime.context["event_sink"],
+            "reviewing",
+            "찾은 기록과 문서 근거를 확인하고 있습니다.",
+        )
+        try:
+            response = await self.model.plan(
+                messages,
+                finish_only=finish_only,
+                calls=runtime.context["calls"],
+                config=config,
+            )
+        except (
+            RagContextBudgetError,
+            TimeoutError,
+            APIError,
+            RagModelError,
+        ) as error:
+            status, error_kind, termination_reason = _planner_error_details(error)
+            return self._planner_failure(
+                state,
+                planner_count=planner_count,
+                input_tokens=input_tokens,
+                status=status,
+                error_kind=error_kind,
+                termination_reason=termination_reason,
+                error_class=type(error).__name__,
+                seconds=perf_counter() - started,
+            )
+
+        elapsed = perf_counter() - started
+        if not isinstance(response, AIMessage):
+            return self._planner_failure(
+                state,
+                planner_count=planner_count,
+                input_tokens=input_tokens,
+                status="invalid_response_type",
+                error_kind="format_error",
+                termination_reason="invalid_response_type",
+                error_class=type(response).__name__,
+                seconds=elapsed,
+            )
+        usage = _usage(response)
         turn = _turn(
             planner_count,
             "complete",
@@ -470,17 +437,17 @@ class TableRagGraph:
                 + elapsed,
             },
         }
-        calls = response.tool_calls
-        if len(calls) != 1:
-            turn.update(status="invalid_tool_count", tool_count=len(calls))
+        tool_calls = response.tool_calls
+        if len(tool_calls) != 1:
+            turn.update(status="invalid_tool_count", tool_count=len(tool_calls))
             return {
                 **update,
                 "error_kind": "format_error",
                 "termination_reason": "invalid_tool_count",
-                "next_step": "assemble",
+                "next_step": "assemble_evidence",
             }
 
-        call = calls[0]
+        call = tool_calls[0]
         call_id = call.get("id")
         name = call.get("name")
         turn["tool"] = name
@@ -490,7 +457,7 @@ class TableRagGraph:
                 **update,
                 "error_kind": "format_error",
                 "termination_reason": "invalid_tool_call_id",
-                "next_step": "assemble",
+                "next_step": "assemble_evidence",
             }
         if finish_only and name != "finish":
             turn["status"] = "finish_required"
@@ -498,7 +465,7 @@ class TableRagGraph:
                 **update,
                 "error_kind": "format_error",
                 "termination_reason": "finish_required",
-                "next_step": "assemble",
+                "next_step": "assemble_evidence",
             }
         if name == "finish":
             try:
@@ -513,7 +480,7 @@ class TableRagGraph:
                     "error_kind": "format_error",
                     "error_class": type(error).__name__,
                     "termination_reason": "invalid_finish_arguments",
-                    "next_step": "assemble",
+                    "next_step": "assemble_evidence",
                 }
             if not isinstance(finish, FinishRequest):
                 raise TypeError("Expected finish tool arguments")
@@ -550,7 +517,7 @@ class TableRagGraph:
                 **update,
                 "finish": finish,
                 "termination_reason": "finished",
-                "next_step": "assemble",
+                "next_step": "assemble_evidence",
             }
 
         if planner_count >= MAX_PLANNER_CALLS:
@@ -559,149 +526,159 @@ class TableRagGraph:
                 **update,
                 "error_kind": "step_limit",
                 "termination_reason": "max_planner_calls",
-                "next_step": "assemble",
+                "next_step": "assemble_evidence",
             }
-        return {**update, "tool_call": call, "next_step": "execute"}
+        tool_nodes = {
+            "lookup_records",
+            "search_evidence",
+            "read_sources",
+            "query_tables",
+        }
+        return {
+            **update,
+            "tool_call": call,
+            "next_step": name if name in tool_nodes else "reject_tool",
+        }
 
-    async def _execute(
-        self,
-        state: TableRagState,
-        runtime: Runtime[TableRagRuntimeContext],
-    ) -> dict[str, Any]:
+    async def _lookup_records(self, state: TableRagState) -> dict[str, Any]:
         call = state["tool_call"]
         if call is None:
-            raise RuntimeError("Execution step has no validated tool call")
+            raise RuntimeError("lookup_records step has no planner call")
         call_id = call["id"]
-        name = call["name"]
+        name = call.get("name")
         solve_count = state["solve_count"] + 1
-        request_models = {
-            "lookup_records": LookupRecordsRequest,
-            "search_evidence": SearchEvidenceRequest,
-            "read_sources": ReadSourcesRequest,
-            "query_tables": QueryTablesRequest,
-        }
+        tool_started = perf_counter()
         try:
-            request_model = request_models.get(name)
-            if request_model is None:
-                raise ValueError("Unsupported planner tool")
-            request = _tool_arguments(call.get("args"), request_model)
+            request = _tool_arguments(call.get("args"), LookupRecordsRequest)
         except (ValidationError, ValueError) as error:
             return self._invalid_tool_result(state, call_id, name, solve_count, error)
+        try:
+            grounded(request, state["question"], state["observations"])
+        except ValueError as error:
+            return self._invalid_tool_result(state, call_id, name, solve_count, error)
+        delta = await lookup_records(
+            request,
+            question=state["question"],
+            dependencies=self.dependencies,
+        )
+        return self._apply_tool_result(
+            state, call_id, name, request, delta, solve_count, tool_started
+        )
 
+    async def _search_evidence(self, state: TableRagState) -> dict[str, Any]:
+        call = state["tool_call"]
+        if call is None:
+            raise RuntimeError("search_evidence step has no planner call")
+        call_id = call["id"]
+        name = call.get("name")
+        solve_count = state["solve_count"] + 1
         tool_started = perf_counter()
-        documents: list[Document] = []
-        if isinstance(request, LookupRecordsRequest):
-            try:
-                grounded(request, state["question"], state["observations"])
-            except ValueError as error:
-                return self._invalid_tool_result(
-                    state,
-                    call_id,
-                    name,
-                    solve_count,
-                    error,
-                )
-        elif isinstance(request, QueryTablesRequest):
-            if not set(request.table_ids).issubset(state["visible_table_ids"]):
-                return self._invalid_tool_result(
-                    state,
-                    call_id,
-                    name,
-                    solve_count,
-                    ValueError("SQL references a table whose schema was not observed"),
-                )
-        elif isinstance(request, ReadSourcesRequest):
-            observed_source_ids = {
-                source_id(document)
-                for group in state["groups"]
-                for document in group
-            }
-            if not set(request.source_ids).issubset(observed_source_ids):
-                return self._invalid_tool_result(
-                    state,
-                    call_id,
-                    name,
-                    solve_count,
-                    ValueError("read_sources requires previously discovered sources"),
-                )
-            documents = []
-            for identifier in request.source_ids:
-                document = self.dependencies.page_lookup(identifier)
-                if document is None:
-                    return self._invalid_tool_result(
-                        state,
-                        call_id,
-                        name,
-                        solve_count,
-                        ValueError("Original page is unavailable"),
-                    )
-                documents.append(document)
+        try:
+            request = _tool_arguments(call.get("args"), SearchEvidenceRequest)
+        except (ValidationError, ValueError) as error:
+            return self._invalid_tool_result(state, call_id, name, solve_count, error)
+        delta = await search_evidence(
+            request,
+            dependencies=self.dependencies,
+        )
+        return self._apply_tool_result(
+            state, call_id, name, request, delta, solve_count, tool_started
+        )
 
-        if isinstance(request, SearchEvidenceRequest):
-            with _span(
-                runtime.context["stage"],
-                "rag.search_evidence",
-                input={
-                    "request_id": state["request_id"],
-                    "query": request.query,
-                    "kind": request.kind,
-                },
-            ) as span:
-                delta = await search_evidence(
-                    request,
-                    dependencies=self.dependencies,
+    async def _read_sources(self, state: TableRagState) -> dict[str, Any]:
+        call = state["tool_call"]
+        if call is None:
+            raise RuntimeError("read_sources step has no planner call")
+        call_id = call["id"]
+        name = call.get("name")
+        solve_count = state["solve_count"] + 1
+        tool_started = perf_counter()
+        try:
+            request = _tool_arguments(call.get("args"), ReadSourcesRequest)
+        except (ValidationError, ValueError) as error:
+            return self._invalid_tool_result(state, call_id, name, solve_count, error)
+        observed_source_ids = {
+            source_id(document) for group in state["groups"] for document in group
+        }
+        if not set(request.source_ids).issubset(observed_source_ids):
+            return self._invalid_tool_result(
+                state,
+                call_id,
+                name,
+                solve_count,
+                ValueError("read_sources requires previously discovered sources"),
+            )
+        documents = []
+        for identifier in request.source_ids:
+            document = self.dependencies.page_lookup(identifier)
+            if document is None:
+                return self._invalid_tool_result(
+                    state,
+                    call_id,
+                    name,
+                    solve_count,
+                    ValueError("Original page is unavailable"),
                 )
-                _set_span_output(span, delta.span_output)
-        elif isinstance(request, LookupRecordsRequest):
-            with _span(
-                runtime.context["stage"],
-                "rag.lookup_records",
-                input={
-                    "request_id": state["request_id"],
-                    "targets": request.model_dump()["targets"],
-                },
-            ) as span:
-                delta = await lookup_records(
-                    request,
-                    question=state["question"],
-                    dependencies=self.dependencies,
-                )
-                _set_span_output(span, delta.span_output)
-        elif isinstance(request, QueryTablesRequest):
-            with _span(
-                runtime.context["stage"],
-                "rag.sql",
-                input={
-                    "request_id": state["request_id"],
-                    "table_ids": request.table_ids,
-                    "sql": request.sql,
-                },
-            ) as span:
-                delta = await query_tables(
-                    request,
-                    dependencies=self.dependencies,
-                )
-                _set_span_output(span, delta.span_output)
-        else:
-            with _span(
-                runtime.context["stage"],
-                "rag.read_sources",
-                input={
-                    "request_id": state["request_id"],
-                    "source_ids": request.source_ids,
-                },
-            ) as span:
-                delta = await read_sources(
-                    request,
-                    documents=documents,
-                    dependencies=self.dependencies,
-                )
-                span_output = {
-                    **delta.span_output,
-                    "seconds": perf_counter() - tool_started,
-                }
-                _set_span_output(span, span_output)
+            documents.append(document)
+        delta = await read_sources(
+            request,
+            documents=documents,
+            dependencies=self.dependencies,
+        )
+        return self._apply_tool_result(
+            state, call_id, name, request, delta, solve_count, tool_started
+        )
 
+    async def _query_tables(self, state: TableRagState) -> dict[str, Any]:
+        call = state["tool_call"]
+        if call is None:
+            raise RuntimeError("query_tables step has no planner call")
+        call_id = call["id"]
+        name = call.get("name")
+        solve_count = state["solve_count"] + 1
+        tool_started = perf_counter()
+        try:
+            request = _tool_arguments(call.get("args"), QueryTablesRequest)
+        except (ValidationError, ValueError) as error:
+            return self._invalid_tool_result(state, call_id, name, solve_count, error)
+        if not set(request.table_ids).issubset(state["visible_table_ids"]):
+            return self._invalid_tool_result(
+                state,
+                call_id,
+                name,
+                solve_count,
+                ValueError("SQL references a table whose schema was not observed"),
+            )
+        delta = await query_tables(
+            request,
+            dependencies=self.dependencies,
+        )
+        return self._apply_tool_result(
+            state, call_id, name, request, delta, solve_count, tool_started
+        )
+
+    async def _reject_tool(self, state: TableRagState) -> dict[str, Any]:
+        call = state["tool_call"]
+        if call is None:
+            raise RuntimeError("Rejected tool step has no planner call")
+        return self._invalid_tool_result(
+            state,
+            call["id"],
+            call.get("name"),
+            state["solve_count"] + 1,
+            ValueError("Unsupported planner tool"),
+        )
+
+    def _apply_tool_result(
+        self,
+        state: TableRagState,
+        call_id: str,
+        name: str | None,
+        request: BaseModel,
+        delta: ToolDelta,
+        solve_count: int,
+        tool_started: float,
+    ) -> dict[str, Any]:
         timings = dict(state["timings"])
         if delta.timing_key is not None:
             timings[delta.timing_key] = (
@@ -738,14 +715,14 @@ class TableRagGraph:
             "solve_count": solve_count,
             "turns": [*state["turns"], turn],
             "timings": timings,
-            "next_step": "plan",
+            "next_step": "plan_next_step",
         }
 
     @staticmethod
     def _invalid_tool_result(
         state: TableRagState,
         call_id: str,
-        name: str,
+        name: str | None,
         solve_count: int,
         error: Exception,
     ) -> dict[str, Any]:
@@ -768,52 +745,25 @@ class TableRagGraph:
                 *state["turns"],
                 _turn(len(state["turns"]) + 1, "invalid_arguments", tool=name),
             ],
-            "next_step": "plan",
+            "next_step": "plan_next_step",
         }
 
-    async def _assemble(
+    async def _assemble_evidence(
         self,
         state: TableRagState,
         runtime: Runtime[TableRagRuntimeContext],
+        config: RunnableConfig,
     ) -> dict[str, Any]:
         started = perf_counter()
-        with _span(
-            runtime.context["stage"],
-            "rag.assemble",
-            input={"request_id": state["request_id"]},
-        ) as span:
-            evidence = await self.dependencies.run_sync(
-                assemble_evidence,
-                state["question"],
-                state["groups"],
-                state["finish"].selected_sources,
-                state["sql_attempts"],
-                self.dependencies.page_lookup,
-            )
-            elapsed = perf_counter() - started
-            _set_span_output(
-                span,
-                {
-                    "candidate_count": len(evidence.candidate_source_ids),
-                    "candidate_source_ids": list(evidence.candidate_source_ids),
-                    "selected_count": len(evidence.pages),
-                    "final_context_chunks": [
-                        {
-                            "source_id": source_id(page),
-                            "book_id": page.metadata["book_id"],
-                            "page": page.metadata["page"],
-                            "text": page.page_content,
-                        }
-                        for page in evidence.pages
-                    ],
-                    "included_sql_results": list(evidence.sql_results),
-                    "model_context_text": evidence.model_input,
-                    "sql_count": len(evidence.sql_results),
-                    "token_count": evidence.token_count,
-                    "context_hash": evidence.context_hash,
-                    "seconds": elapsed,
-                },
-            )
+        evidence = await self.dependencies.run_sync(
+            assemble_evidence,
+            state["question"],
+            state["groups"],
+            state["finish"].selected_sources,
+            state["sql_attempts"],
+            self.dependencies.page_lookup,
+        )
+        elapsed = perf_counter() - started
         timings = {
             **state["timings"],
             "assembly_seconds": elapsed,
@@ -866,10 +816,11 @@ class TableRagGraph:
         self,
         question: str,
         *,
-        planner: Planner,
         request_id: str,
-        stage: Stage | None = None,
+        calls: ModelCalls,
+        event_sink: EventSink | None = None,
         trace_id: str | None = None,
+        config: RunnableConfig | None = None,
     ) -> RetrievalRun:
         state = await self.graph.ainvoke(
             {
@@ -901,14 +852,14 @@ class TableRagGraph:
                 "diagnostics": None,
                 "timings": {"search_seconds": 0.0, "sql_seconds": 0.0},
                 "input_tokens": 0,
-                "next_step": "assemble",
+                "next_step": "assemble_evidence",
             },
             context={
-                "planner": planner,
-                "stage": stage,
+                "calls": calls,
+                "event_sink": event_sink,
                 "trace_id": trace_id,
             },
-            config={"recursion_limit": 32},
+            config={"recursion_limit": 32, **(config or {})},
         )
         finish = state["finish"]
         evidence = state["evidence"]

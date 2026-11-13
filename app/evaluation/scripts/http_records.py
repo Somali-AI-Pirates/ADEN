@@ -42,6 +42,137 @@ def _obj(value: Any) -> Any:
     return value
 
 
+def _visible_text(value: Any) -> Any:
+    """Normalize text blocks to the visible content preserved by the model path."""
+    if isinstance(value, str):
+        return value
+    if not isinstance(value, list):
+        return value
+    visible = []
+    for block in value:
+        if isinstance(block, str):
+            visible.append(block)
+        elif isinstance(block, Mapping) and block.get("type") in {"text", "output_text", "refusal"}:
+            text = block.get("text") or block.get("refusal")
+            if isinstance(text, str) and text:
+                visible.append(text)
+    return "\n".join(visible)
+
+
+def _langchain_message(message: Mapping[str, Any]) -> dict[str, Any]:
+    """Drop LangChain/provider envelope fields and keep the visible message shape."""
+    normalized = {}
+    for key in ("role", "name", "tool_call_id"):
+        value = message.get(key)
+        if isinstance(value, str) and value:
+            normalized[key] = value
+    if "content" in message:
+        normalized["content"] = _visible_text(message.get("content"))
+    tool_calls = message.get("tool_calls")
+    if isinstance(tool_calls, list):
+        visible_calls = []
+        for call in tool_calls:
+            if not isinstance(call, Mapping):
+                continue
+            visible_call = {key: call[key] for key in ("id", "name", "args") if key in call}
+            if visible_call:
+                visible_calls.append(visible_call)
+        if visible_calls:
+            normalized["tool_calls"] = visible_calls
+    return normalized
+
+
+def _is_tool_schema_message(message: Mapping[str, Any]) -> bool:
+    content = message.get("content")
+    return (
+        message.get("role") == "tool"
+        and isinstance(content, Mapping)
+        and content.get("type") == "function"
+        and isinstance(content.get("function"), Mapping)
+    )
+
+
+def _normalize_langchain_input(value: Any, metadata: Mapping[str, Any]) -> tuple[Any, Any, bool]:
+    """Normalize official Langfuse/LangChain role messages without changing legacy inputs."""
+    if not isinstance(value, list) or not all(isinstance(item, Mapping) for item in value):
+        return value, None, False
+    if not value or not all(isinstance(item.get("role"), str) for item in value):
+        return value, None, False
+
+    messages = []
+    schemas = []
+    for message in value:
+        if _is_tool_schema_message(message):
+            schemas.append(message["content"])
+        else:
+            messages.append(_langchain_message(message))
+    tool_schema = _obj(metadata.get("tool_schema"))
+    if tool_schema is None and schemas:
+        tool_schema = schemas
+    return {"messages": messages}, tool_schema, True
+
+
+def _normalize_langchain_output(value: Any) -> Any:
+    if isinstance(value, Mapping) and isinstance(value.get("role"), str):
+        return _langchain_message(value)
+    return value
+
+
+def _valid_token_count(value: Any) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value >= 0
+
+
+def _usage_known(metadata: Mapping[str, Any], side: str) -> bool | None:
+    declared = metadata.get("usage_known")
+    if isinstance(declared, bool):
+        return declared
+    if isinstance(declared, Mapping):
+        known = metadata.get(f"usage_known.{side}", declared.get(side))
+    else:
+        known = metadata.get(f"usage_known.{side}")
+    return known if isinstance(known, bool) else None
+
+
+def _usage_detail_total(usage: Mapping[str, Any], side: str) -> int | None:
+    """Sum the base side with Langfuse's disjoint side_* token categories."""
+    base = usage.get(side)
+    if not _valid_token_count(base):
+        return None
+    aggregate_keys = {
+        f"{side}_total",
+        f"{side}_tokens",
+        f"{side}_tokens_total",
+    }
+    return base + sum(
+        value
+        for key, value in usage.items()
+        if key.startswith(f"{side}_")
+        and key not in aggregate_keys
+        and _valid_token_count(value)
+    )
+
+
+def _usage_tokens(
+    observation: Mapping[str, Any],
+    metadata: Mapping[str, Any],
+    usage: Mapping[str, Any],
+    side: str,
+) -> int | None:
+    known = _usage_known(metadata, side)
+    if known is False:
+        return None
+
+    aggregate = observation.get(f"{side}Usage")
+    detail_total = _usage_detail_total(usage, side)
+    if _valid_token_count(aggregate):
+        if aggregate != 0 or known is True:
+            return aggregate
+        # Langfuse may return a default aggregate zero when the SDK had no usage.
+        # Treat it as unknown unless the explicit usageDetails side proves zero or more.
+        return detail_total
+    return detail_total
+
+
 def _attempts(by_name: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
     named_attempts = []
     pattern = re.compile(r"^(?:(planner|answer)|generation-attempt)-(\d+)$")
@@ -49,39 +180,43 @@ def _attempts(by_name: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
         match = pattern.fullmatch(name)
         if match:
             named_role, number = match.groups()
-            named_attempts.append((int(number), named_role, observation))
+            metadata = observation.get("metadata") or {}
+            declared_attempt = metadata.get("attempt")
+            if isinstance(declared_attempt, int) and not isinstance(declared_attempt, bool) and declared_attempt > 0:
+                order = declared_attempt
+            else:
+                order = int(number)
+            role_order = {"planner": 0, "answer": 1}.get(metadata.get("role") or named_role, 2)
+            named_attempts.append((order, int(number), role_order, named_role or "", name, observation))
 
     attempts = []
-    for attempt_number, (trace_attempt, named_role, observation) in enumerate(
-        sorted(named_attempts, key=lambda item: item[0]), start=1
+    for attempt_number, (_order, trace_attempt, _role_order, named_role, _name, observation) in enumerate(
+        sorted(named_attempts, key=lambda item: (item[0], item[1], item[2], item[3], item[4])), start=1
     ):
         metadata = observation.get("metadata") or {}
-        usage = observation.get("usageDetails") or {}
+        raw_usage = observation.get("usageDetails")
+        usage = raw_usage if isinstance(raw_usage, Mapping) else {}
         level = getattr(observation.get("level"), "value", observation.get("level"))
         role = metadata.get("role") or named_role
         raw_input = _obj(observation.get("input"))
         if isinstance(raw_input, dict) and "request" in raw_input:
             model_input = raw_input.get("request")
-            tool_schema = raw_input.get("tool_schema")
+            tool_schema = _obj(raw_input.get("tool_schema"))
         else:
-            model_input = raw_input
-            tool_schema = None
-        tokens = {}
-        usage_known = metadata.get("usage_known")
-        for side in ("input", "output"):  # 서버가 사용량을 모른다고 기록한 값은 null로 둔다
-            if isinstance(usage_known, bool):
-                known = usage_known
-            elif isinstance(usage_known, Mapping):
-                known = metadata.get(f"usage_known.{side}", usage_known.get(side))
-            else:
-                known = metadata.get(f"usage_known.{side}")
-            tokens[side] = usage.get(side) if known is not False else None
+            model_input, tool_schema, official_shape = _normalize_langchain_input(raw_input, metadata)
+            if not official_shape:
+                tool_schema = _obj(metadata.get("tool_schema"))
+        model_output = _normalize_langchain_output(_obj(observation.get("output")))
+        tokens = {
+            side: _usage_tokens(observation, metadata, usage, side)
+            for side in ("input", "output")
+        }
         error = None
         if level == "ERROR":
             error = observation.get("statusMessage") or "error"
         attempt = {
             "attempt": attempt_number, "model": observation.get("model"),
-            "model_input": model_input, "model_output": _obj(observation.get("output")),
+            "model_input": model_input, "model_output": model_output,
             "input_tokens": tokens["input"], "output_tokens": tokens["output"], "error": error,
             "role": role,
             "prompt_variant": metadata.get("prompt_variant"),

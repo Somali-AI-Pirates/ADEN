@@ -131,10 +131,11 @@ def records_search_result(
             )
         )
     )[:TABLE_LIMIT]
+    resolution = record_observation(result)
     search_result = SearchResult(
         pages=tuple(pages),
         table_ids=table_ids,
-        diagnostics={"kind": "records", "resolution": record_observation(result)},
+        diagnostics={"kind": "records", "resolution": resolution},
     )
     observation = build_observation(
         search_result,
@@ -142,7 +143,7 @@ def records_search_result(
         subquery=question,
     )
     observation["kind"] = "records"
-    observation["record_resolution"] = record_observation(result)
+    observation["record_resolution"] = resolution
     return search_result, observation
 
 

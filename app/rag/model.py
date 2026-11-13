@@ -1,24 +1,26 @@
 """LangChain Responses API bindings for the two TableRAG A model roles."""
 
 import asyncio
-from contextlib import nullcontext
-from contextvars import ContextVar
 from hashlib import sha256
 from importlib.resources import files
 import json
-from time import perf_counter
 from typing import Any, Literal
 
-from langchain_core.callbacks import BaseCallbackHandler
 from langchain_core.exceptions import OutputParserException
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables import RunnableConfig
 from langchain_openai import ChatOpenAI
-from openai import APIError, APITimeoutError, DefaultAsyncHttpxClient, DefaultHttpxClient
+from openai import (
+    APIError,
+    APITimeoutError,
+    DefaultAsyncHttpxClient,
+    DefaultHttpxClient,
+)
 from pydantic import BaseModel, ConfigDict, ValidationError
 
-from app.rag.streaming import EventSink, stream_answer
-from app.observability.records import summarize_usage
+from app.rag.streaming import stream_answer
+from app.rag.model_usage import ModelCalls, _record_http_attempt
 from app.rag.tools import (
     FinishRequest,
     LookupRecordsRequest,
@@ -33,10 +35,6 @@ from shared.table_rag_policy import (
     PLAN_OUTPUT_TOKENS,
     REASONING_EFFORT,
     TIMEOUT_SECONDS,
-)
-
-_active_call: ContextVar[dict[str, Any] | None] = ContextVar(
-    "table_rag_call", default=None
 )
 
 
@@ -168,182 +166,6 @@ def _safe_message(message: Any):
     raise TypeError(f"Unsupported planner message type: {type(message).__name__}")
 
 
-async def _record_http_attempt(_request) -> None:
-    call = _active_call.get()
-    if call is not None:
-        call["provider_attempts"] += 1
-
-
-class _UsageCallback(BaseCallbackHandler):
-    """Capture LangChain usage without retaining prompts, reasoning or responses."""
-
-    def __init__(self, call: dict[str, Any]) -> None:
-        self.call = call
-
-    def on_llm_end(self, response, **kwargs) -> None:
-        for group in response.generations:
-            for generation in group:
-                message = getattr(generation, "message", None)
-                if isinstance(message, AIMessage):
-                    self.call["usage"] = message.usage_metadata
-                    self.call["provider_response_id"] = message.response_metadata.get(
-                        "id"
-                    )
-                    return
-
-
-class ModelCalls:
-    """One request's model accounting and generation spans."""
-
-    def __init__(self, trace, on_event: EventSink | None = None) -> None:
-        self.trace = trace
-        self.on_event = on_event
-        self.calls: list[dict[str, Any]] = []
-
-    async def invoke(
-        self,
-        role,
-        runnable,
-        inputs,
-        *,
-        model_input,
-        tool_schema=None,
-        output_capture=None,
-        stream_runnable=None,
-    ):
-        call = {
-            "role": role,
-            "model": MODEL,
-            "attempt": len(self.calls) + 1,
-            "model_input": model_input,
-            "tool_schema": tool_schema,
-            "model_parameters": {"reasoning_effort": REASONING_EFFORT},
-            "provider_attempts": 0,
-            "usage": None,
-            "status": "error",
-        }
-        self.calls.append(call)
-        token = _active_call.set(call)
-        started = perf_counter()
-        stage = (
-            self.trace.stage if self.trace else lambda *args, **kwargs: nullcontext({})
-        )
-        try:
-            with stage(
-                f"{role}-{len(self.calls)}",
-                as_type="generation",
-                model=MODEL,
-                input=model_input,
-            ) as span:
-                try:
-                    config = {"callbacks": [_UsageCallback(call)]}
-                    if role == "answer" and self.on_event is not None:
-                        result = await stream_answer(
-                            stream_runnable, inputs, config=config, emit=self.on_event
-                        )
-                    else:
-                        result = await runnable.ainvoke(inputs, config=config)
-                    message = result.get("raw") if isinstance(result, dict) else result
-                    if (
-                        isinstance(message, AIMessage)
-                        and message.response_metadata.get("status", "completed")
-                        != "completed"
-                    ):
-                        call["status"] = "incomplete_response"
-                        raise RagModelError(f"{role} returned an incomplete response")
-                    visible_output = (
-                        output_capture(result)
-                        if output_capture is not None
-                        else _visible_output(message)
-                    )
-                    call["status"] = "complete"
-                    call["visible_output"] = visible_output
-                    span.update(output=visible_output)
-                    return result
-                except APITimeoutError as error:
-                    call["status"] = "timeout"
-                    raise TimeoutError("TableRAG model deadline exceeded") from error
-                except APIError as error:
-                    call["status"] = "provider_error"
-                    raise RagModelError(f"{role} provider failure") from error
-                except (OutputParserException, ValidationError) as error:
-                    call["status"] = "invalid_response"
-                    raise RagModelError(f"{role} response validation failed") from error
-                except RagModelError:
-                    if call["status"] == "error":
-                        call["status"] = "invalid_output"
-                    raise
-                finally:
-                    call["latency_ms"] = round((perf_counter() - started) * 1000)
-                    usage = call["usage"]
-                    if self.trace is not None:
-                        self.trace.record_attempt(
-                            role=role,
-                            attempt=call["attempt"],
-                            model=MODEL,
-                            model_input=model_input,
-                            model_output=call.get("visible_output"),
-                            tool_schema=tool_schema,
-                            input_tokens=(usage or {}).get("input_tokens"),
-                            output_tokens=(usage or {}).get("output_tokens"),
-                            latency_ms=call.get("latency_ms"),
-                            model_parameters=call["model_parameters"],
-                            error=(
-                                call["status"] if call["status"] != "complete" else None
-                            ),
-                        )
-                    if usage:
-                        usage_details = dict(span.get("usage_details", {}))
-                        usage_details.update(
-                            {
-                                key.removesuffix("_tokens"): usage[key]
-                                for key in (
-                                    "input_tokens",
-                                    "output_tokens",
-                                    "total_tokens",
-                                )
-                                if usage.get(key) is not None
-                            }
-                        )
-                        span["usage_details"] = usage_details
-                    metadata = dict(span.get("metadata", {}))
-                    metadata.update(
-                        {
-                            "provider_attempts": call["provider_attempts"],
-                            "usage_known": usage is not None,
-                        }
-                    )
-                    span["metadata"] = metadata
-        finally:
-            _active_call.reset(token)
-
-    def summary(self) -> dict[str, Any]:
-        attempts = [
-            {
-                "attempt": call["attempt"],
-                "role": call["role"],
-                "model": call["model"],
-                "model_input": call["model_input"],
-                "model_output": call.get("visible_output"),
-                "tool_schema": call["tool_schema"],
-                "model_parameters": call["model_parameters"],
-                "input_tokens": (call["usage"] or {}).get("input_tokens"),
-                "output_tokens": (call["usage"] or {}).get("output_tokens"),
-                "latency_ms": call.get("latency_ms"),
-                "error": call["status"] if call["status"] != "complete" else None,
-            }
-            for call in self.calls
-        ]
-        return {
-            **summarize_usage([call["usage"] or {} for call in self.calls]),
-            "calls": list(self.calls),
-            "attempts": attempts,
-            "logical_calls": len(self.calls),
-            "provider_attempts": sum(call["provider_attempts"] for call in self.calls),
-            "missing_usage": sum(call["usage"] is None for call in self.calls),
-        }
-
-
 class TableModel:
     def __init__(self, model: ChatOpenAI) -> None:
         self.model = model
@@ -378,12 +200,11 @@ class TableModel:
             ),
         ]
         finish_tool = self.tools[-1]
-        plan_prompt = ChatPromptTemplate.from_messages(
+        self._plan_prompt = ChatPromptTemplate.from_messages(
             [SystemMessage(content=self.plan_prompt), MessagesPlaceholder("history")]
         )
         self._plan = {
-            only_finish: plan_prompt
-            | model.bind_tools(
+            only_finish: model.bind_tools(
                 [finish_tool] if only_finish else self.tools,
                 tool_choice="finish" if only_finish else "required",
                 strict=True,
@@ -392,19 +213,12 @@ class TableModel:
             )
             for only_finish in (False, True)
         }
-        answer_prompt = ChatPromptTemplate.from_messages(
+        self._answer_prompt = ChatPromptTemplate.from_messages(
             [SystemMessage(content=self.answer_prompt), ("human", "{payload}")]
         )
-        self._answer = answer_prompt | model.with_structured_output(
-            GeneratedAnswer,
-            method="json_schema",
-            include_raw=True,
-            strict=True,
-            max_output_tokens=ANSWER_OUTPUT_TOKENS,
-        )
-        # include_raw structured parsers buffer model output in LangChain.
-        # Stream the same schema-bound model directly, then validate complete JSON.
-        self._answer_stream = answer_prompt | model.bind(
+        # Bind the response schema directly to the model. Streaming and non-streaming
+        # calls share this model so the complete response is validated below.
+        self._answer_model = model.bind(
             response_format={
                 "type": "json_schema",
                 "json_schema": {
@@ -427,7 +241,14 @@ class TableModel:
             json.dumps(self.tools, ensure_ascii=False)
         )
 
-    async def plan(self, history, *, finish_only: bool, calls: ModelCalls) -> AIMessage:
+    async def plan(
+        self,
+        history,
+        *,
+        finish_only: bool,
+        calls: ModelCalls,
+        config: RunnableConfig | None = None,
+    ) -> AIMessage:
         tools = [self.tools[-1]] if finish_only else self.tools
         model_input = {
             "system": self.plan_prompt,
@@ -436,57 +257,104 @@ class TableModel:
             "tool_choice": "finish" if finish_only else "required",
             "parallel_tool_calls": False,
         }
-        message = await calls.invoke(
-            "planner",
-            self._plan[finish_only],
-            {"history": [_safe_message(item) for item in history]},
-            model_input=model_input,
-            tool_schema=tools,
-            output_capture=lambda response: _visible_output(
-                response.get("raw") if isinstance(response, dict) else response
-            ),
-        )
-        if not isinstance(message, AIMessage):
-            raise RagModelError("Invalid planner response")
-        return _safe_message(message)
+        inputs = {"history": [_safe_message(item) for item in history]}
+        with calls.track_call("planner", model_input, tool_schema=tools) as call:
+            request_config = calls.callback_config(config, call)
+            model = self._plan[finish_only].with_config(calls.model_run_config(call))
+            runnable = self._plan_prompt | model
+            try:
+                message = await runnable.ainvoke(inputs, config=request_config)
+                if (
+                    isinstance(message, AIMessage)
+                    and message.response_metadata.get("status", "completed")
+                    != "completed"
+                ):
+                    call["status"] = "incomplete_response"
+                    raise RagModelError("planner returned an incomplete response")
+                if not isinstance(message, AIMessage):
+                    call["status"] = "invalid_output"
+                    raise RagModelError("Invalid planner response")
+                calls.record_output(call, _visible_output(message))
+                return _safe_message(message)
+            except APITimeoutError as error:
+                call["status"] = "timeout"
+                raise TimeoutError("TableRAG model deadline exceeded") from error
+            except APIError as error:
+                call["status"] = "provider_error"
+                raise RagModelError("planner provider failure") from error
+            except (OutputParserException, ValidationError) as error:
+                call["status"] = "invalid_response"
+                raise RagModelError("planner response validation failed") from error
+            except RagModelError:
+                if call["status"] == "error":
+                    call["status"] = "invalid_output"
+                raise
 
     async def answer(
-        self, payload: str, *, context_hash: str, calls: ModelCalls
+        self,
+        payload: str,
+        *,
+        context_hash: str,
+        calls: ModelCalls,
+        config: RunnableConfig | None = None,
     ) -> GeneratedAnswer:
-        def capture_answer(response):
-            raw = response.get("raw") if isinstance(response, dict) else None
-            # A schema dict also supports Responses API streaming. Validate the
-            # complete JSON ourselves; a partial JSON parser is only for display.
-            if not isinstance(raw, AIMessage):
-                raise RagModelError("Invalid structured answer")
-            parsed = GeneratedAnswer.model_validate_json(_visible_content(raw.content))
-            if not parsed.answer.strip():
-                raise RagModelError("Invalid structured answer")
-            response["parsed"] = parsed
-            return parsed.model_dump()
-
-        result = await calls.invoke(
-            "answer",
-            self._answer,
-            {"payload": payload},
-            model_input={
-                "system": self.answer_prompt,
-                "payload": payload,
-                "context_hash": context_hash,
-                "response_format": {
-                    "type": "json_schema",
-                    "schema": GeneratedAnswer.model_json_schema(),
-                    "strict": True,
-                },
+        model_input = {
+            "system": self.answer_prompt,
+            "payload": payload,
+            "context_hash": context_hash,
+            "response_format": {
+                "type": "json_schema",
+                "schema": GeneratedAnswer.model_json_schema(),
+                "strict": True,
             },
-            output_capture=capture_answer,
-            stream_runnable=self._answer_stream,
-        )
-        answer = result.get("parsed") if isinstance(result, dict) else None
-        if not isinstance(answer, GeneratedAnswer) or not answer.answer.strip():
-            calls.calls[-1]["status"] = "invalid_answer"
-            raise RagModelError("Invalid structured answer")
-        return answer
+        }
+        with calls.track_call("answer", model_input) as call:
+            request_config = calls.callback_config(config, call)
+            model = self._answer_model.with_config(calls.model_run_config(call))
+            runnable = self._answer_prompt | model
+            try:
+                if calls.event_sink is not None:
+                    result = await stream_answer(
+                        runnable,
+                        {"payload": payload},
+                        config=request_config,
+                        emit=calls.event_sink,
+                    )
+                    raw = result.get("raw") if isinstance(result, dict) else None
+                else:
+                    raw = await runnable.ainvoke(
+                        {"payload": payload}, config=request_config
+                    )
+                if (
+                    isinstance(raw, AIMessage)
+                    and raw.response_metadata.get("status", "completed") != "completed"
+                ):
+                    call["status"] = "incomplete_response"
+                    raise RagModelError("answer returned an incomplete response")
+                if not isinstance(raw, AIMessage):
+                    call["status"] = "invalid_output"
+                    raise RagModelError("Invalid structured answer")
+                answer = GeneratedAnswer.model_validate_json(
+                    _visible_content(raw.content)
+                )
+                if not answer.answer.strip():
+                    call["status"] = "invalid_answer"
+                    raise RagModelError("Invalid structured answer")
+                calls.record_output(call, answer.model_dump())
+                return answer
+            except APITimeoutError as error:
+                call["status"] = "timeout"
+                raise TimeoutError("TableRAG model deadline exceeded") from error
+            except APIError as error:
+                call["status"] = "provider_error"
+                raise RagModelError("answer provider failure") from error
+            except (OutputParserException, ValidationError) as error:
+                call["status"] = "invalid_response"
+                raise RagModelError("answer response validation failed") from error
+            except RagModelError:
+                if call["status"] == "error":
+                    call["status"] = "invalid_output"
+                raise
 
     async def aclose(self) -> None:
         if self._closed:

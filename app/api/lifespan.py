@@ -31,7 +31,7 @@ async def lifespan(app: FastAPI):
     try:
         loader = getattr(app.state, "table_service_loader", None)
         if loader is None:
-            from app.rag.service import load_service
+            from app.rag.bootstrap import load_service
 
             table_service = await load_service(settings=settings)
         else:

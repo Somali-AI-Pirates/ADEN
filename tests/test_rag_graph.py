@@ -1,12 +1,14 @@
 import asyncio
 import json
-from contextlib import contextmanager
 
+from langchain_core.callbacks import BaseCallbackHandler
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+from langchain_core.runnables import RunnableConfig
 from pydantic import ValidationError
 import pytest
 
 from app.rag.graph import MAX_TOOL_OPERATIONS, TableRagGraph
+from app.rag.model_usage import ModelCalls
 from app.rag.evidence import assemble_evidence, source_id, token_count
 from app.rag.models import SearchResult, SourceRef, make_document
 from app.rag.tools import (
@@ -108,6 +110,49 @@ def _call(name, call_id, args):
     )
 
 
+class _FakeTableModel:
+    def __init__(self, script):
+        self.script = script
+        self.requests = []
+
+    async def plan(
+        self, history, *, finish_only: bool, calls: ModelCalls, config: RunnableConfig
+    ):
+        self.requests.append(
+            {
+                "history": list(history),
+                "finish_only": finish_only,
+                "calls": calls,
+                "config": config,
+            }
+        )
+        return await self.script(history, finish_only=finish_only)
+
+
+class _NodeCallback(BaseCallbackHandler):
+    def __init__(self):
+        self.nodes = []
+
+    def on_chain_start(
+        self,
+        serialized,
+        inputs,
+        *,
+        run_id,
+        parent_run_id=None,
+        tags=None,
+        metadata=None,
+        **kwargs,
+    ):
+        if (
+            metadata
+            and metadata.get("langgraph_node")
+            and tags
+            and any(tag.startswith("graph:step:") for tag in tags)
+        ):
+            self.nodes.append(metadata["langgraph_node"])
+
+
 def _graph(planner, *, question="원 질문", context_window=1_050_000, index=None):
     first = _document(1, "운임표 원본")
     second = _document(2, "예약 사건 현장 기록 원본")
@@ -124,6 +169,7 @@ def _graph(planner, *, question="원 질문", context_window=1_050_000, index=No
         return SearchResult((third,), (), {"query": query})
 
     graph = TableRagGraph(
+        model=_FakeTableModel(planner),
         search=search,
         table_store=store,
         page_lookup=pages.get,
@@ -132,7 +178,12 @@ def _graph(planner, *, question="원 질문", context_window=1_050_000, index=No
         plan_overhead_tokens=0,
     )
     result = asyncio.run(
-        graph.run(question, planner=planner, request_id="req-1", trace_id="trace-1")
+        graph.run(
+            question,
+            calls=ModelCalls(),
+            request_id="req-1",
+            trace_id="trace-1",
+        )
     )
     return result, store, queries, index
 
@@ -458,13 +509,16 @@ def test_selected_source_lost_to_context_budget_downgrades_finish():
         )
 
     graph = TableRagGraph(
+        model=_FakeTableModel(planner),
         search=lambda _question: SearchResult((oversized,), (), {}),
         table_store=_Store(),
         page_lookup=lambda identifier: (
             oversized if identifier == "AS001:p0001" else None
         ),
     )
-    result = asyncio.run(graph.run("질문", planner=planner, request_id="budget-test"))
+    result = asyncio.run(
+        graph.run("질문", calls=ModelCalls(), request_id="budget-test")
+    )
 
     assert result.status == "insufficient"
     assert "선택한 출처 일부가 최종 문맥에 남지 않았습니다." in result.finish.conflicts
@@ -473,20 +527,23 @@ def test_selected_source_lost_to_context_budget_downgrades_finish():
     assert result.evidence.token_count <= 8000
 
 
-def test_stage_outputs_are_written_before_each_stage_exits():
-    stages = []
+def test_runnable_config_observes_graph_nodes_and_model_config():
+    events = []
+    callback = _NodeCallback()
+    first = _document(1)
 
-    @contextmanager
-    def stage(name, **_kwargs):
-        update = {"name": name}
-        yield update
-        stages.append(update)
-
-    async def planner(_history, *, finish_only):
+    async def script(_history, *, finish_only):
         assert not finish_only
+        assert events == [
+            {
+                "type": "progress",
+                "stage": "reviewing",
+                "message": "찾은 기록과 문서 근거를 확인하고 있습니다.",
+            }
+        ]
         return _call(
             "finish",
-            "finish-stage",
+            "finish-observed",
             {
                 "status": "insufficient",
                 "selected_sources": [],
@@ -495,17 +552,34 @@ def test_stage_outputs_are_written_before_each_stage_exits():
             },
         )
 
-    first = _document(1)
-    store = _Store()
+    model = _FakeTableModel(script)
     graph = TableRagGraph(
+        model=model,
         search=lambda _question: SearchResult((first,), (), {}),
-        table_store=store,
+        table_store=_Store(),
         page_lookup=lambda _source: first,
     )
-    asyncio.run(
-        graph.run("질문", planner=planner, request_id="stage-test", stage=stage)
+
+    async def event_sink(event):
+        events.append(event)
+
+    result = asyncio.run(
+        graph.run(
+            "질문",
+            calls=ModelCalls(),
+            request_id="callback-test",
+            event_sink=event_sink,
+            config={
+                "callbacks": [callback],
+                "metadata": {"task": "graph-callback-test"},
+            },
+        )
     )
-    outputs = {item["name"]: item.get("output") for item in stages}
-    assert outputs["rag.initial_search"]["route"] == "hybrid"
-    assert outputs["rag.plan"]["status"] == "response_received"
-    assert outputs["rag.assemble"]["selected_count"] == 1
+
+    assert result.status == "insufficient"
+    assert callback.nodes == [
+        "initial_search",
+        "plan_next_step",
+        "assemble_evidence",
+    ]
+    assert model.requests[0]["config"]["metadata"]["task"] == "graph-callback-test"
