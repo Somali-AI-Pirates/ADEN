@@ -86,7 +86,7 @@ function Welcome() {
         </ThreadPrimitive.Suggestion>
       ))}
     </div>
-    <p className="scope-note">질문은 독립적으로 처리됩니다. 후속 질문에도 대상과 조건을 적어 주세요.</p>
+    <p className="scope-note">같은 대화에서 앞서 확인한 기록을 이어서 물을 수 있습니다.</p>
   </section>;
 }
 

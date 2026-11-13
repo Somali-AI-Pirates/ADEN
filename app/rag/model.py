@@ -1,4 +1,4 @@
-"""LangChain Responses API bindings for the two TableRAG A model roles."""
+"""LangChain bindings for conversation interpretation, planning, and answers."""
 
 import asyncio
 from hashlib import sha256
@@ -17,8 +17,9 @@ from openai import (
     DefaultAsyncHttpxClient,
     DefaultHttpxClient,
 )
-from pydantic import BaseModel, ConfigDict, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
+from app.rag.conversation import ConversationDecision, ConversationTurn
 from app.rag.streaming import stream_answer
 from app.rag.model_usage import ModelCalls, _record_http_attempt
 from app.rag.tools import (
@@ -50,6 +51,7 @@ class GeneratedAnswer(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
     answer: str
+    reason: str = Field(min_length=1, description="상태를 고른 업무상 이유와 확인하지 못한 범위")
     citations: list[str]
     status: Literal["answered", "needs_clarification", "insufficient"]
 
@@ -172,6 +174,7 @@ class TableModel:
         self._closed = False
         self.plan_prompt = _prompt("plan")
         self.answer_prompt = _prompt("answer")
+        self.conversation_prompt = _prompt("conversation")
         self.tools = [
             _tool(
                 "lookup_records",
@@ -214,10 +217,24 @@ class TableModel:
             for only_finish in (False, True)
         }
         self._answer_prompt = ChatPromptTemplate.from_messages(
-            [SystemMessage(content=self.answer_prompt), ("human", "{payload}")]
+            [
+                SystemMessage(content=self.answer_prompt),
+                MessagesPlaceholder("conversation_history", optional=True),
+                ("human", "{payload}"),
+            ]
         )
-        # Bind the response schema directly to the model. Streaming and non-streaming
-        # calls share this model so the complete response is validated below.
+        self._conversation_model = model.bind(
+            response_format={
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "ConversationDecision",
+                    "schema": ConversationDecision.model_json_schema(),
+                    "strict": True,
+                },
+            },
+            max_output_tokens=1200,
+        )
+        # Streaming and non-streaming answers share the same response schema.
         self._answer_model = model.bind(
             response_format={
                 "type": "json_schema",
@@ -234,6 +251,7 @@ class TableModel:
         return {
             "plan": sha256(self.plan_prompt.encode()).hexdigest(),
             "answer": sha256(self.answer_prompt.encode()).hexdigest(),
+            "conversation": sha256(self.conversation_prompt.encode()).hexdigest(),
         }
 
     def planner_overhead(self, count_tokens) -> int:
@@ -290,6 +308,55 @@ class TableModel:
                     call["status"] = "invalid_output"
                 raise
 
+    async def interpret_conversation(
+        self,
+        question: str,
+        turns: dict[int, ConversationTurn],
+        older_available: bool,
+        *,
+        calls: ModelCalls,
+        config: RunnableConfig | None = None,
+    ) -> ConversationDecision:
+        payload = json.dumps(
+            {
+                "question": question,
+                "older_available": older_available,
+                "turns": [
+                    {"turn_id": turn_id, **turn.model_dump()}
+                    for turn_id, turn in turns.items()
+                ],
+            },
+            ensure_ascii=False,
+        )
+        messages = [
+            SystemMessage(content=self.conversation_prompt),
+            HumanMessage(content=payload),
+        ]
+        model_input = {"messages": [_visible_message(message) for message in messages]}
+        with calls.track_call("conversation", model_input) as call:
+            request_config = calls.callback_config(config, call)
+            model = self._conversation_model.with_config(calls.model_run_config(call))
+            try:
+                response = await model.ainvoke(messages, config=request_config)
+                if not isinstance(response, AIMessage) or (
+                    response.response_metadata.get("status", "completed") != "completed"
+                ):
+                    raise RagModelError("Invalid conversation interpretation")
+                decision = ConversationDecision.model_validate_json(
+                    _visible_content(response.content)
+                )
+            except APITimeoutError as error:
+                call["status"] = "timeout"
+                raise TimeoutError("Conversation model deadline exceeded") from error
+            except APIError as error:
+                call["status"] = "provider_error"
+                raise RagModelError("Conversation model provider failure") from error
+            except (ValidationError, RagModelError) as error:
+                call["status"] = "invalid_output"
+                raise RagModelError("Conversation interpretation validation failed") from error
+            calls.record_output(call, decision.model_dump())
+            return decision
+
     async def answer(
         self,
         payload: str,
@@ -297,7 +364,17 @@ class TableModel:
         context_hash: str,
         calls: ModelCalls,
         config: RunnableConfig | None = None,
+        conversation_history: tuple[ConversationTurn, ...] = (),
     ) -> GeneratedAnswer:
+        history = [
+            message
+            for turn in conversation_history
+            for message in (
+                HumanMessage(content=turn.question),
+                AIMessage(content=turn.answer),
+            )
+        ]
+        inputs = {"payload": payload, "conversation_history": history}
         model_input = {
             "system": self.answer_prompt,
             "payload": payload,
@@ -308,6 +385,10 @@ class TableModel:
                 "strict": True,
             },
         }
+        if history:
+            model_input["conversation_history"] = [
+                _visible_message(message) for message in history
+            ]
         with calls.track_call("answer", model_input) as call:
             request_config = calls.callback_config(config, call)
             model = self._answer_model.with_config(calls.model_run_config(call))
@@ -316,15 +397,13 @@ class TableModel:
                 if calls.event_sink is not None:
                     result = await stream_answer(
                         runnable,
-                        {"payload": payload},
+                        inputs,
                         config=request_config,
                         emit=calls.event_sink,
                     )
                     raw = result.get("raw") if isinstance(result, dict) else None
                 else:
-                    raw = await runnable.ainvoke(
-                        {"payload": payload}, config=request_config
-                    )
+                    raw = await runnable.ainvoke(inputs, config=request_config)
                 if (
                     isinstance(raw, AIMessage)
                     and raw.response_metadata.get("status", "completed") != "completed"

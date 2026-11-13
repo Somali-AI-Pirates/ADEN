@@ -175,7 +175,7 @@ def _usage_tokens(
 
 def _attempts(by_name: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
     named_attempts = []
-    pattern = re.compile(r"^(?:(planner|answer)|generation-attempt)-(\d+)$")
+    pattern = re.compile(r"^(?:(conversation|planner|answer)|generation-attempt)-(\d+)$")
     for name, observation in by_name.items():
         match = pattern.fullmatch(name)
         if match:
@@ -186,7 +186,9 @@ def _attempts(by_name: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
                 order = declared_attempt
             else:
                 order = int(number)
-            role_order = {"planner": 0, "answer": 1}.get(metadata.get("role") or named_role, 2)
+            role_order = {"conversation": 0, "planner": 1, "answer": 2}.get(
+                metadata.get("role") or named_role, 3
+            )
             named_attempts.append((order, int(number), role_order, named_role or "", name, observation))
 
     attempts = []

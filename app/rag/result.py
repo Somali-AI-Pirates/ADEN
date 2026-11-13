@@ -46,16 +46,13 @@ def validate_answer(
     status: AnswerStatus = (
         "abstained" if answer.status == "insufficient" else answer.status
     )
-    reasons = {
-        "answered": "최종 문맥의 문서 또는 표 조회 근거를 사용했습니다.",
-        "needs_clarification": "질문에 답하려면 추가 정보가 필요합니다.",
-        "abstained": "답변에 필요한 근거를 확인하지 못했습니다.",
-    }
+    if not answer.reason.strip():
+        raise RagModelError("Answer requires a user-facing decision reason")
     return QueryResponse(
         request_id=request_id,
         status=status,
         answer=answer.answer,
-        reason=reasons[status],
+        reason=answer.reason.strip(),
         citations=citations,
     )
 
@@ -88,6 +85,8 @@ def retrieval_record(
             **retrieval.diagnostics,
             "termination_reason": retrieval.termination_reason,
             "finish_status": retrieval.status,
+            "planner_summary": retrieval.finish.interim_summary,
+            "planner_conflicts": list(retrieval.finish.conflicts),
             "planner_selected_sources": list(retrieval.finish.selected_sources),
             "planner_sources_missing_from_final": sorted(
                 set(retrieval.finish.selected_sources) - set(evidence.source_ids)

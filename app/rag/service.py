@@ -28,6 +28,7 @@ from app.rag.admission import (
     RequestUnavailableError,
 )
 from app.rag.config import RETRIEVAL_MODE, TableRagSettings
+from app.rag.conversation import ConversationTurn
 from app.rag.lifecycle import (
     await_to_completion,
     close_async_resource,
@@ -204,6 +205,7 @@ class RagService:
         request_id: str,
         event_sink: EventSink | None = None,
         reservation: RequestReservation | None = None,
+        conversation_history: tuple[ConversationTurn, ...] = (),
     ) -> RagRun:
         question = question.strip()
         if not question:
@@ -227,7 +229,10 @@ class RagService:
                         "Required TableRAG resources are unavailable"
                     )
                 result = await self._answer_question(
-                    question, request_id=request_id, event_sink=event_sink
+                    question,
+                    request_id=request_id,
+                    event_sink=event_sink,
+                    conversation_history=conversation_history,
                 )
 
             outcome = "complete"
@@ -259,7 +264,12 @@ class RagService:
             )
 
     async def _answer_question(
-        self, question: str, *, request_id: str, event_sink: EventSink | None = None
+        self,
+        question: str,
+        *,
+        request_id: str,
+        event_sink: EventSink | None = None,
+        conversation_history: tuple[ConversationTurn, ...] = (),
     ) -> RagRun:
         started = perf_counter()
         trace = self.langfuse.start_request(
@@ -292,6 +302,7 @@ class RagService:
                 config=langchain_config,
                 request_id=request_id,
                 trace_id=trace.trace_id,
+                conversation_history=conversation_history,
             )
             evidence = retrieval.evidence
             candidates = tuple(
@@ -308,18 +319,23 @@ class RagService:
             await emit_progress(
                 event_sink, "answering", "근거를 바탕으로 답변을 작성하고 있습니다."
             )
+            payload = {
+                "question": question,
+                "evidence": json.loads(evidence.model_input),
+                "retrieval_status": retrieval.status,
+                "retrieval_diagnostics": {
+                    "conflicts": list(retrieval.finish.conflicts),
+                    "termination_reason": retrieval.termination_reason,
+                },
+            }
+            if retrieval.search_question is not None:
+                payload["resolved_question"] = retrieval.search_question
             answer = await self._model.answer(
-                json.dumps(
-                    {
-                        "question": question,
-                        "evidence": json.loads(evidence.model_input),
-                        "retrieval_status": retrieval.status,
-                    },
-                    ensure_ascii=False,
-                ),
+                json.dumps(payload, ensure_ascii=False),
                 context_hash=evidence.context_hash,
                 calls=calls,
                 config=langchain_config,
+                conversation_history=retrieval.answer_history,
             )
             await emit_progress(
                 event_sink, "validating", "답변과 출처를 확인하고 있습니다."

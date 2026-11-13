@@ -36,7 +36,7 @@ test("EOF, mismatched identity and invalid document sources do not become succes
   assert.throws(() => parseResponse({ ...response, citations: [{ ...response.citations[0], page: 0 }] }));
 });
 
-test("adapter submits only the current question and keeps final response", async () => {
+test("adapter skips unfinished turns and keeps the authoritative final response", async () => {
   const original = globalThis.fetch;
   const posted: unknown[] = [];
   globalThis.fetch = async (_url, init) => {
@@ -44,7 +44,19 @@ test("adapter submits only the current question and keeps final response", async
     return new Response(body(sse(start) + sse({ type: "answer_delta", request_id: id, delta: "임시" }) + sse({ type: "final", request_id: id, response })), { headers: { "content-type": "text/event-stream", "X-Request-ID": id } });
   };
   try {
-    const args = { messages: [{ role: "user", content: [{ type: "text", text: "과거 질문" }] }, { role: "user", content: [{ type: "text", text: "예약 확인" }] }], abortSignal: new AbortController().signal } as unknown as Parameters<typeof chatAdapter.run>[0];
+    const args = {
+      messages: [
+        { role: "user", content: [{ type: "text", text: "과거 질문" }] },
+        {
+          role: "assistant",
+          content: [{ type: "text", text: "저장 전 임시 답변" }],
+          metadata: { custom: {} },
+          status: { type: "incomplete", reason: "error" },
+        },
+        { role: "user", content: [{ type: "text", text: "예약 확인" }] },
+      ],
+      abortSignal: new AbortController().signal,
+    } as unknown as Parameters<typeof chatAdapter.run>[0];
     const result = chatAdapter.run(args);
     assert.ok(Symbol.asyncIterator in result);
     const snapshots = [];

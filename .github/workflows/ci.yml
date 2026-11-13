@@ -67,6 +67,7 @@ jobs:
                   "app/api/main.py",
                   "app/rag/prompts/plan.txt",
                   "app/rag/prompts/answer.txt",
+                  "app/rag/prompts/conversation.txt",
                   "app/ingestion/catalogs/basic.json",
                   "app/generation/prompts/shipping_qa.txt",
                   "app/generation/prompts/defense.txt",

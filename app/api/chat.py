@@ -18,6 +18,7 @@ from app.rag.admission import (
     RequestReservation,
     RequestUnavailableError,
 )
+from app.rag.conversation import MAX_HISTORY_TURNS, ConversationTurn
 from app.rag.lifecycle import await_to_completion
 from app.rag.model import RagModelError
 from app.rag.streaming import EventSink
@@ -34,6 +35,7 @@ _BOOK_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$")
 class ChatRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question: str = Field(min_length=1)
+    history: tuple[ConversationTurn, ...] = Field(default=(), max_length=MAX_HISTORY_TURNS)
 
     @field_validator("question")
     @classmethod
@@ -150,6 +152,7 @@ async def query_stream(payload: ChatRequest, request: Request) -> StreamingRespo
         _stream_query_events(
             service,
             question=payload.question,
+            conversation_history=payload.history,
             request_id=request_id,
             reservation=reservation,
         ),
@@ -169,6 +172,7 @@ async def _stream_query_events(
     question: str,
     request_id: str,
     reservation: RequestReservation,
+    conversation_history: tuple[ConversationTurn, ...] = (),
 ) -> AsyncIterator[str]:
     """Send queued SSE events and clean up the request task on exit."""
     queue: asyncio.Queue[dict] = asyncio.Queue(maxsize=64)
@@ -183,6 +187,7 @@ async def _stream_query_events(
             request_id=request_id,
             reservation=reservation,
             event_sink=event_sink,
+            conversation_history=conversation_history,
         )
     )
     try:
@@ -265,6 +270,7 @@ async def _produce_query_events(
     request_id: str,
     reservation: RequestReservation,
     event_sink: EventSink,
+    conversation_history: tuple[ConversationTurn, ...] = (),
 ) -> None:
     """Run one reserved request and emit its final response or error."""
     try:
@@ -274,6 +280,7 @@ async def _produce_query_events(
             request_id=request_id,
             event_sink=event_sink,
             reservation=reservation,
+            conversation_history=conversation_history,
         )
         if result.response.request_id != request_id:
             raise RagModelError("Mismatched request identity")

@@ -3,6 +3,7 @@ from typing import Any, Literal
 
 from langchain_core.documents import Document
 
+from app.rag.conversation import ConversationTurn
 from app.rag.tools import FinishRequest
 from shared.contracts import DocumentSource
 
@@ -63,3 +64,5 @@ class RetrievalRun:
     searches: tuple[SearchResult, ...]
     sql_attempts: tuple[dict[str, Any], ...]
     diagnostics: dict[str, Any]
+    search_question: str | None = None
+    answer_history: tuple[ConversationTurn, ...] = ()
